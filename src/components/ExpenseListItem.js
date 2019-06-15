@@ -26,13 +26,17 @@ numeral.register('locale', 'it', {
 // switch between locales
 numeral.locale('it');
 
-const ExpenseListItem = ({ description, amount, createdAt, id }) => (
-        <Link className="list-item" to={`/edit/${id}`}>
+moment.locale('it')
+
+const ExpenseListItem = ({ description, amount, createdAt, payed, id }) => (
+        <Link className={`list-item ${payed && 'list-item--paid'}`} to={`/view/${id}`}>
             <div>
                 <h3 className="list-item__title">{description}</h3>
-                <span className="list-item__sub-title">{moment(createdAt).format('MMMM Do, YYYY')}</span>
+                <span className="list-item__sub-title">{moment(createdAt).format('DD MMMM, YYYY')}</span>
             </div>
-            <h3 className="list-item__data">{numeral(amount / 100).format('$0,0.00')}</h3>
+            <div>
+            <h3 className="list-item__data">{numeral(amount / 100).format('0,0[.]00 $')}</h3>
+            </div>
         </Link>
 )
 

@@ -6,6 +6,10 @@
     padding: $s-size;
 }
 
+.text-input--modificato {
+    color: red;
+}
+
 .select {
     @extend .text-input;
 }

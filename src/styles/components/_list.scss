@@ -61,3 +61,10 @@
         padding-left: $s-size;
     }
 }
+
+.list-item--paid {
+    background: $light-green;
+    &:hover {
+        background: darken($light-green, 7);
+    }
+}

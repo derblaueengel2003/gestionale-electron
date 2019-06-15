@@ -28,7 +28,7 @@ export class ExpenseListFilters extends React.Component {
                         <input
                             type="text"
                             className="text-input"
-                            placeholder="Search expenses"
+                            placeholder="Cerca provvigione"
                             value={this.props.filters.text}
                             onChange={this.onTextChange} />
                     </div>
@@ -37,8 +37,8 @@ export class ExpenseListFilters extends React.Component {
                             className="select"
                             value={this.props.filters.sortBy}
                             onChange={this.onSortChange}>
-                            <option value="date">Date</option>
-                            <option value="amount">Amount</option>
+                            <option value="date">Data</option>
+                            <option value="amount">Importo</option>
 
                         </select>
                     </div>
@@ -52,6 +52,7 @@ export class ExpenseListFilters extends React.Component {
                             showClearDates={true}
                             numberOfMonths={1}
                             isOutsideRange={() => false}
+                            displayFormat={'DD/MM/YYYY'}
                         />
                     </div>
                 </div>

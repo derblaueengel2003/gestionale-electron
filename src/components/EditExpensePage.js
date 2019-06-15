@@ -1,23 +1,29 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import ExpenseForm from './ExpenseForm'
 import { startEditExpense, startRemoveExpense } from '../actions/expenses'
 
 export class EditExpensePage extends React.Component {
     onSubmit = (expense) => {
         this.props.startEditExpense(this.props.expense.id, expense)
-        this.props.history.push('/')
+        this.props.history.push(`/view/${this.props.expense.id}`)
     }
     onRemove = () => {
-        this.props.startRemoveExpense({ id: this.props.expense.id })
-        this.props.history.push('/')
+        if (window.confirm('Confermi la cancellazione? L\'operazione è irreversibile')) {
+            this.props.startRemoveExpense({ id: this.props.expense.id })
+            this.props.history.push('/')
+        } 
     }
     render() {
         return (
             <div>
                 <div className="page-header">
                     <div className="content-container">
-                        <h1 className="page-header__title">Edit Expense</h1>
+                        <h1 className="page-header__title">Modifica Provvigione</h1>
+                        <div className="page-header__actions">
+                        <Link className="button" to="/">Torna al Riepilogo</Link>
+                    </div>
                     </div>
                 </div>
                 <div className="content-container">
@@ -25,7 +31,7 @@ export class EditExpensePage extends React.Component {
                     expense={this.props.expense}
                     onSubmit={this.onSubmit}
                 />
-                <button className="button button--secondary" onClick={this.onRemove}>Remove Expense</button>
+                <button className="button button--secondary" onClick={this.onRemove}>Cancella provvigione</button>
                 </div>
             </div>
         )
