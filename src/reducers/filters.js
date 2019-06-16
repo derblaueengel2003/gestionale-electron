@@ -35,6 +35,7 @@ export default (state = filtersReducerDefaultState, action) => {
             return {
                 ...state,
                 endDate: action.endDate
+            
             }
         default:
             return state

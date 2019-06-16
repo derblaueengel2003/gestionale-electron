@@ -16,7 +16,7 @@ export class ViewUtentiPage extends React.Component {
                 </div>
                 <div className="content-container">
                     {this.props.utente.name.length > 0 && <div>Nome: {this.props.utente.name}</div>}
-                    {this.props.utente.role.length > 0 && <div>Ruolo: {this.props.utente.name}</div>}
+                    {this.props.utente.role.length > 0 && <div>Ruolo: {this.props.utente.role}</div>}
                     <Link className="button" to={`/useredit/${this.props.utente.id}`}>Modifica Utente</Link>
                 </div>
             </div>

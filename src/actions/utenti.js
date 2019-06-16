@@ -16,7 +16,7 @@ export const startAddUser = (userData = {}) => {
         } = userData
         const user = { name, role }
 
-        return database.ref(`users/${uid}/utenti`).push(user).then((ref) => {
+        return database.ref(`/utenti`).push(user).then((ref) => {
             dispatch(addUser({
                 id: ref.key,
                 ...user
@@ -34,7 +34,7 @@ export const removeUser = ({ id } = {}) => ({
 export const startRemoveUser = ({ id } = {}) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid
-        return database.ref(`users/${uid}/utenti/${id}`).remove().then(() => {
+        return database.ref(`/utenti/${id}`).remove().then(() => {
             dispatch(removeUser({ id }))
         })
     }
@@ -50,7 +50,7 @@ export const editUser = (id, updates) => ({
 export const startEditUser = (id, updates) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid
-        return database.ref(`users/${uid}/utenti/${id}`).update(updates).then( () => {
+        return database.ref(`/utenti/${id}`).update(updates).then( () => {
             dispatch(editUser(id, updates))
         })
     }
@@ -66,7 +66,7 @@ export const setUsers = (utenti) => ({
 export const startSetUsers = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid
-        return database.ref(`users/${uid}/utenti`).once('value').then((snapshot) => {
+        return database.ref(`utenti`).once('value').then((snapshot) => {
             const utenti = []
 
             snapshot.forEach((childSnapshot) => {

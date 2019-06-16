@@ -17,10 +17,12 @@ export const ExpenseList = (props) => (
                 <span>Nessuna provvigione in base ai filtri inseriti</span>
             </div>
         ) : (
+            
             props.expenses.map((expense) => {
-            return <ExpenseListItem key={expense.id} {...expense} />
+            return <ExpenseListItem key={expense.id} {...expense } uid={props.uid} />
             })
         )
+       
     }
        </div>
     </div>
@@ -28,7 +30,8 @@ export const ExpenseList = (props) => (
 
 const mapStateToProps = (state) => {
     return {
-        expenses: selectExpenses(state.expenses, state.filters)
+        expenses: selectExpenses(state.expenses, state.filters, state.auth),
+        uid: state.auth.uid
     }
 } 
 
