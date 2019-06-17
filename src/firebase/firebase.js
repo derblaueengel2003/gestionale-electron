@@ -18,52 +18,52 @@ const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
 export { firebase, googleAuthProvider, database as default }
 
 // //child_removed
-// database.ref('expenses').on('child_removed', (snapshot) => {
+// database.ref('deals').on('child_removed', (snapshot) => {
 //     console.log(snapshot.key, snapshot.val())
 // })
 
 // //child_changed
-// database.ref('expenses').on('child_changed', (snapshot) => {
+// database.ref('deals').on('child_changed', (snapshot) => {
 //     console.log(snapshot.key, snapshot.val())
 // })
 
 // //child_added
-// database.ref('expenses').on('child_added', (snapshot) => {
+// database.ref('deals').on('child_added', (snapshot) => {
 //     console.log(snapshot.key, snapshot.val())
 // })
 
 
-// database.ref('expenses')
+// database.ref('deals')
 // .once('value')
 // .then((snapshot) => {
-//     const expenses = []
+//     const deals = []
 
 //     snapshot.forEach((childSnapshot) => {
-//         expenses.push({
+//         deals.push({
 //             id: childSnapshot.key,
 //             ...childSnapshot.val()
 //         })
 //     })
 
-//     console.log(expenses)
+//     console.log(deals)
 // })
 
-// database.ref('expenses')
+// database.ref('deals')
 // .on('value', (snapshot) => {
-//     const expenses = []
+//     const deals = []
 
 //     snapshot.forEach((childSnapshot) => {
-//         expenses.push({
+//         deals.push({
 //             id: childSnapshot.key,
 //             ...childSnapshot.val()
 //         })
 //     })
 
-//     console.log(expenses)
+//     console.log(deals)
     
 // })
 
-// database.ref('expenses').push({
+// database.ref('deals').push({
 //     description: 'la nuova',
 //     note: '1',
 //     amount: 10,

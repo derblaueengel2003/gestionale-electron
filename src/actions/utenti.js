@@ -62,7 +62,7 @@ export const setUsers = (utenti) => ({
     utenti
 })
 
-// export const startSetExpenses
+// export const startSetDeals
 export const startSetUsers = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid

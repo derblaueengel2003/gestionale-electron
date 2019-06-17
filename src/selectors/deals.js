@@ -1,15 +1,15 @@
 import moment from 'moment'
 
-// Get visible expenses
+// Get visible deals
 
-export default (expenses, { text, sortBy, startDate, endDate }, auth) => {
+export default (deals, { text, sortBy, startDate, endDate }, auth) => {
     if (auth.uid === 'pCu3H2GQfPWQxMNGwIVTc0Ag0fg1') {
-        return expenses.filter((expense) => {
-            const createdAtMoment = moment(expense.createdAt)
+        return deals.filter((deal) => {
+            const createdAtMoment = moment(deal.createdAt)
             const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true
             const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true
-            const textMatch = expense.description.toLowerCase().includes(text.toLowerCase())
-            const sellerMatch = expense.provvStefano > 0
+            const textMatch = deal.description.toLowerCase().includes(text.toLowerCase())
+            const sellerMatch = deal.provvStefano > 0
     
             return startDateMatch && endDateMatch && textMatch && sellerMatch
         }).sort((a, b) => {
@@ -20,11 +20,11 @@ export default (expenses, { text, sortBy, startDate, endDate }, auth) => {
             }
         })
     } else {
-        return expenses.filter((expense) => {
-            const createdAtMoment = moment(expense.createdAt)
+        return deals.filter((deal) => {
+            const createdAtMoment = moment(deal.createdAt)
             const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true
             const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true
-            const textMatch = expense.description.toLowerCase().includes(text.toLowerCase())
+            const textMatch = deal.description.toLowerCase().includes(text.toLowerCase())
     
             return startDateMatch && endDateMatch && textMatch
         }).sort((a, b) => {

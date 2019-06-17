@@ -2,19 +2,19 @@ import React from 'react'
 import moment from 'moment'
 import { SingleDatePicker } from 'react-dates'
 
-export default class ExpenseForm extends React.Component {
+export default class DealForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            description: props.expense? props.expense.description : '',
-            amount: props.expense ? (props.expense.amount / 100).toString() : '',
-            provvM2square: props.expense ? (props.expense.provvM2square / 100).toString() : '0',
-            provvStefano: props.expense ? (props.expense.provvStefano / 100).toString() : '0',
-            provvAgenziaPartner: props.expense ? (props.expense.provvAgenziaPartner / 100).toString() : '0',
-            payed: props.expense ? props.expense.payed : false,
-            createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
-            payedAt: props.expense ? moment(props.expense.payedAt) : moment(),
-            note: props.expense ? props.expense.note : '',
+            description: props.deal? props.deal.description : '',
+            amount: props.deal ? (props.deal.amount / 100).toString() : '',
+            provvM2square: props.deal ? (props.deal.provvM2square / 100).toString() : '0',
+            provvStefano: props.deal ? (props.deal.provvStefano / 100).toString() : '0',
+            provvAgenziaPartner: props.deal ? (props.deal.provvAgenziaPartner / 100).toString() : '0',
+            payed: props.deal ? props.deal.payed : false,
+            createdAt: props.deal ? moment(props.deal.createdAt) : moment(),
+            payedAt: props.deal ? moment(props.deal.payedAt) : moment(),
+            note: props.deal ? props.deal.note : '',
             calendarFocused: false,
             calendarPayedAtFocused: false,
             error: '',

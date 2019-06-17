@@ -28,7 +28,7 @@ numeral.locale('it');
 
 moment.locale('it')
 
-const ExpenseListItem = ({ description, provvM2square, provvStefano, createdAt, payed, id, uid }) => {
+const DealListItem = ({ description, provvM2square, provvStefano, createdAt, payed, id, uid }) => {
     if (uid === 'pCu3H2GQfPWQxMNGwIVTc0Ag0fg1') {
         return (
             <Link className={`list-item ${payed && 'list-item--paid'}`} to={`/view/${id}`}>
@@ -58,4 +58,4 @@ const ExpenseListItem = ({ description, provvM2square, provvStefano, createdAt, 
 
 }
 
-export default ExpenseListItem
+export default DealListItem

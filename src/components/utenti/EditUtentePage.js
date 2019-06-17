@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import UserForm from './UserForm'
-import { startEditUser, startRemoveUser } from '../actions/utenti'
+import { startEditUser, startRemoveUser } from '../../actions/utenti'
 
 export class EditUtentePage extends React.Component {
     onSubmit = (utente) => {

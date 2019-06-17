@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ExpenseListItem from './ExpenseListItem';
-import selectExpenses from '../selectors/expenses'
+import DealListItem from './DealListItem';
+import selectDeals from '../../selectors/deals'
 
-export const ExpenseList = (props) => (
+export const DealList = (props) => (
     <div className="content-container">
      <div className="list-header">
         <div className="show-for-mobile">Provvigione</div>
@@ -12,14 +12,14 @@ export const ExpenseList = (props) => (
      </div>
        <div className="list-body">
        {
-        props.expenses.length === 0 ? (
+        props.deals.length === 0 ? (
             <div className="list-item list-item--message">
                 <span>Nessuna provvigione in base ai filtri inseriti</span>
             </div>
         ) : (
             
-            props.expenses.map((expense) => {
-            return <ExpenseListItem key={expense.id} {...expense } uid={props.uid} />
+            props.deals.map((deal) => {
+            return <DealListItem key={deal.id} {...deal } uid={props.uid} />
             })
         )
        
@@ -30,9 +30,9 @@ export const ExpenseList = (props) => (
 
 const mapStateToProps = (state) => {
     return {
-        expenses: selectExpenses(state.expenses, state.filters, state.auth),
+        deals: selectDeals(state.deals, state.filters, state.auth),
         uid: state.auth.uid
     }
 } 
 
-export default connect(mapStateToProps)(ExpenseList)
+export default connect(mapStateToProps)(DealList)

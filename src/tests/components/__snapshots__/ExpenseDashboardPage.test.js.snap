@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should rendere Expense Dashboard Page correctly 1`] = `
+exports[`should rendere Deal Dashboard Page correctly 1`] = `
 <div>
-  <Connect(ExpensesSummary) />
-  <Connect(ExpenseListFilters) />
-  <Connect(ExpenseList) />
+  <Connect(DealsSummary) />
+  <Connect(DealListFilters) />
+  <Connect(DealList) />
 </div>
 `;

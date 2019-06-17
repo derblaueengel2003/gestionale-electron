@@ -1,15 +1,15 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { ExpenseList } from '../../components/ExpenseList'
-import expenses from '../fixtures/expenses'
+import { DealList } from '../../components/DealList'
+import deals from '../fixtures/deals'
 
 
-test('should render ExpenseList with expenses', () => {
-    const wrapper = shallow(<ExpenseList expenses={expenses}/>)
+test('should render DealList with deals', () => {
+    const wrapper = shallow(<DealList deals={deals}/>)
     expect(wrapper).toMatchSnapshot()
 })
 
-test('should render ExpenseList with empty message', () => {
-    const wrapper = shallow(<ExpenseList expenses={[]} />)
+test('should render DealList with empty message', () => {
+    const wrapper = shallow(<DealList deals={[]} />)
     expect(wrapper).toMatchSnapshot()
 })

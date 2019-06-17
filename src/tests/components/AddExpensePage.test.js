@@ -1,23 +1,23 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { AddExpensePage } from '../../components/AddExpensePage'
-import expenses from '../fixtures/expenses'
+import { AddDealPage } from '../../components/AddDealPage'
+import deals from '../fixtures/deals'
 
-let startAddExpense, history, wrapper
+let startAddDeal, history, wrapper
 
 beforeEach(() => {
-  startAddExpense = jest.fn()
+  startAddDeal = jest.fn()
     history = { push: jest.fn() }
-    wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />) 
+    wrapper = shallow(<AddDealPage startAddDeal={startAddDeal} history={history} />) 
       
 })
 
-test('should render AddExpensePage correctly', () => {
+test('should render AddDealPage correctly', () => {
   expect(wrapper).toMatchSnapshot()  
 })
 
 test('shoul handle onSubmit', () => {
-    wrapper.find('ExpenseForm').prop('onSubmit')(expenses[1])
+    wrapper.find('DealForm').prop('onSubmit')(deals[1])
     expect(history.push).toHaveBeenLastCalledWith('/')
-    expect(startAddExpense).toHaveBeenLastCalledWith(expenses[1])
+    expect(startAddDeal).toHaveBeenLastCalledWith(deals[1])
 })

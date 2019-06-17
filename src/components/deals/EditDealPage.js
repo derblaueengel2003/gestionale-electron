@@ -1,17 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import ExpenseForm from './ExpenseForm'
-import { startEditExpense, startRemoveExpense } from '../actions/expenses'
+import DealForm from './DealForm'
+import { startEditDeal, startRemoveDeal } from '../../actions/deals'
 
-export class EditExpensePage extends React.Component {
-    onSubmit = (expense) => {
-        this.props.startEditExpense(this.props.expense.id, expense)
-        this.props.history.push(`/view/${this.props.expense.id}`)
+export class EditDealPage extends React.Component {
+    onSubmit = (deal) => {
+        this.props.startEditDeal(this.props.deal.id, deal)
+        this.props.history.push(`/view/${this.props.deal.id}`)
     }
     onRemove = () => {
         if (window.confirm('Confermi la cancellazione? L\'operazione è irreversibile')) {
-            this.props.startRemoveExpense({ id: this.props.expense.id })
+            this.props.startRemoveDeal({ id: this.props.deal.id })
             this.props.history.push('/')
         } 
     }
@@ -27,8 +27,8 @@ export class EditExpensePage extends React.Component {
                     </div>
                 </div>
                 <div className="content-container">
-                <ExpenseForm 
-                    expense={this.props.expense}
+                <DealForm 
+                    deal={this.props.deal}
                     onSubmit={this.onSubmit}
                 />
                 <button className="button button--secondary" onClick={this.onRemove}>Cancella provvigione</button>
@@ -39,12 +39,12 @@ export class EditExpensePage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-    expense: state.expenses.find((expense) => expense.id === props.match.params.id) 
+    deal: state.deals.find((deal) => deal.id === props.match.params.id) 
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    startEditExpense: (id, expense) => dispatch(startEditExpense(id, expense)),
-    startRemoveExpense: (data) => dispatch(startRemoveExpense(data))
+    startEditDeal: (id, deal) => dispatch(startEditDeal(id, deal)),
+    startRemoveDeal: (data) => dispatch(startRemoveDeal(data))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditExpensePage)
+export default connect(mapStateToProps, mapDispatchToProps)(EditDealPage)

@@ -1,35 +1,35 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { EditExpensePage } from '../../components/EditExpensePage'
-import expenses from '../fixtures/expenses'
+import { EditDealPage } from '../../components/EditDealPage'
+import deals from '../fixtures/deals'
 
-let startEditExpense, startRemoveExpense, history, wrapper
+let startEditDeal, startRemoveDeal, history, wrapper
 
 beforeEach(() => {
-    startEditExpense = jest.fn()
-    startRemoveExpense = jest.fn()
+    startEditDeal = jest.fn()
+    startRemoveDeal = jest.fn()
     history = { push: jest.fn() }
     wrapper = shallow(
-        <EditExpensePage 
-        startEditExpense={startEditExpense} 
+        <EditDealPage 
+        startEditDeal={startEditDeal} 
             history={history} 
-            startRemoveExpense={startRemoveExpense} 
-            expense={expenses[2]}
+            startRemoveDeal={startRemoveDeal} 
+            deal={deals[2]}
         />)
 })
 
-test('should render EditExpensePage correctly', () => {
+test('should render EditDealPage correctly', () => {
     expect(wrapper).toMatchSnapshot()  
 })
 
-test('should handle editExpense', () => {
-    wrapper.find('ExpenseForm').prop('onSubmit')(expenses[2])
+test('should handle editDeal', () => {
+    wrapper.find('DealForm').prop('onSubmit')(deals[2])
     expect(history.push).toHaveBeenLastCalledWith('/')
-    expect(startEditExpense).toHaveBeenLastCalledWith(expenses[2].id, expenses[2])
+    expect(startEditDeal).toHaveBeenLastCalledWith(deals[2].id, deals[2])
 })
 
-test('should handle startRemoveExpense', () => {
+test('should handle startRemoveDeal', () => {
     wrapper.find('button').simulate('click')
     expect(history.push).toHaveBeenLastCalledWith('/')
-    expect(startRemoveExpense).toHaveBeenLastCalledWith({ id: expenses[2].id})
+    expect(startRemoveDeal).toHaveBeenLastCalledWith({ id: deals[2].id})
 })

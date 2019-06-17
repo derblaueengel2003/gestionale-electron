@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import UtentiListItem from './UtentiListItem';
-import { startSetUsers } from '../actions/utenti';
+import { startSetUsers } from '../../actions/utenti';
 
 export const UtentiList = (props) => (
     <div className="content-container">

@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from 'redux'
 import uuid from 'uuid'
 
-// ADD_EXPENSE
-const addExpense = (
+// ADD_DEAL
+const addDeal = (
     {
         description = '',
         note = '',
@@ -10,8 +10,8 @@ const addExpense = (
         createdAt = 0
     } = {}
     ) => ({
-    type: 'ADD_EXPENSE',
-    expense: {
+    type: 'ADD_DEAL',
+    deal: {
         id: uuid(),
         description,
         note,
@@ -21,15 +21,15 @@ const addExpense = (
     }
 })
 
-// REMOVE_EXPENSE
-const removeExpense = ({ id } = {}) => ({
-    type: 'REMOVE_EXPENSE',
+// REMOVE_DEAL
+const removeDeal = ({ id } = {}) => ({
+    type: 'REMOVE_DEAL',
     id
 })
 
-//EDIT_EXPENSE
-const editExpense = (id, updates) => ({
-    type: 'EDIT_EXPENSE',
+//EDIT_DEAL
+const editDeal = (id, updates) => ({
+    type: 'EDIT_DEAL',
     id,
     updates
 })
@@ -63,28 +63,28 @@ const setEndDate = (endDate) => ({
 })
 
  
-// Expenses Reducer
+// Deals Reducer
 
-const expensesReducerDefaultState = []
+const dealsReducerDefaultState = []
 
-const expensesReducer = (state = expensesReducerDefaultState, action) => {
+const dealsReducer = (state = dealsReducerDefaultState, action) => {
     switch (action.type) {
-        case 'ADD_EXPENSE':
+        case 'ADD_DEAL':
             return [
                 ...state, 
-                action.expense
+                action.deal
             ]
-        case 'REMOVE_EXPENSE':
+        case 'REMOVE_DEAL':
             return state.filter(({ id }) => id !== action.id)  
-        case 'EDIT_EXPENSE':
-            return state.map((expense) => {
-                if (expense.id === action.id) {
+        case 'EDIT_DEAL':
+            return state.map((deal) => {
+                if (deal.id === action.id) {
                     return {
-                        ...expense, 
+                        ...deal, 
                         ...action.updates
                     }
                 } else {
-                    return expense
+                    return deal
                 }
             })  
         default:
@@ -133,12 +133,12 @@ const filtersReducer = (state = filtersReducerDefaultState, action) => {
     }
 }
 
-// Get visible expenses
-const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
-    return expenses.filter((expense) => {
-        const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate
-        const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate
-        const textMatch = expense.description.toLowerCase().includes(text.toLowerCase())
+// Get visible deals
+const getVisibleDeals = (deals, { text, sortBy, startDate, endDate }) => {
+    return deals.filter((deal) => {
+        const startDateMatch = typeof startDate !== 'number' || deal.createdAt >= startDate
+        const endDateMatch = typeof endDate !== 'number' || deal.createdAt <= endDate
+        const textMatch = deal.description.toLowerCase().includes(text.toLowerCase())
 
         return startDateMatch && endDateMatch && textMatch
     }).sort((a, b) => {
@@ -154,23 +154,23 @@ const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
 
 const store = createStore(
     combineReducers({
-        expenses: expensesReducer,
+        deals: dealsReducer,
         filters: filtersReducer
     })
 ) 
 
 store.subscribe(() => {
     const state = store.getState()
-    const visibleExpenses = getVisibleExpenses(state.expenses, state.filters)
+    const visibleDeals = getVisibleDeals(state.deals, state.filters)
 
-    console.log(visibleExpenses)
+    console.log(visibleDeals)
 })
 
-const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100, createdAt: -21000 }))
-const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300, createdAt: -1000 }))
+const dealOne = store.dispatch(addDeal({ description: 'Rent', amount: 100, createdAt: -21000 }))
+const dealTwo = store.dispatch(addDeal({ description: 'Coffee', amount: 300, createdAt: -1000 }))
 
-// store.dispatch(removeExpense({ id: expenseOne.expense.id }))
-// store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500 }))
+// store.dispatch(removeDeal({ id: dealOne.deal.id }))
+// store.dispatch(editDeal(dealTwo.deal.id, { amount: 500 }))
 
 // store.dispatch(setTextFilter('fe'))
 // store.dispatch(setTextFilter())
@@ -184,7 +184,7 @@ store.dispatch(sortByAmount())
 
 
 const demoState = {
-    expenses: [{
+    deals: [{
         id: 'psadifuirefor',
         description: 'January Rent',
         note: 'This was the final payment for that address',
