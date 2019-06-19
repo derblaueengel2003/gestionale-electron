@@ -21,7 +21,9 @@ export class ViewDealPage extends React.Component {
                     {this.props.deal.amount > 0 && <div>Importo: {numeral(this.props.deal.amount / 100).format('0,0[.]00 $')}</div>}
                     {this.props.deal.createdAt > 0 && <div>Data prenotazione: {moment(this.props.deal.createdAt).format('DD MMMM, YYYY')}</div>}
                     {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
-                    <Link className="button" to={`/edit/${this.props.deal.id}`}>Modifica Provvigione</Link>
+                </div>
+                <div className="content-container">
+                    {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button" to={`/edit/${this.props.deal.id}`}>Modifica Provvigione</Link>}
                 </div>
             </div>
         )
@@ -29,7 +31,8 @@ export class ViewDealPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-    deal: state.deals.find((deal) => deal.id === props.match.params.id) 
+    deal: state.deals.find((deal) => deal.id === props.match.params.id), 
+    uid: state.auth.uid
 })
 
 export default connect(mapStateToProps)(ViewDealPage)

@@ -8,10 +8,11 @@ export const addDeal = (deal) => ({
 })
 
 export const startAddDeal = (dealData = {}) => {
-    return (dispatch, getState) => {
-        // const uid = getState().auth.uid
+    return (dispatch) => {
         const {
             description = '',
+            rifId = '',
+            prezzoDiVendita = 0,
             amount = 0,
             provvM2square = 0,
             provvStefano = 0,
@@ -19,9 +20,37 @@ export const startAddDeal = (dealData = {}) => {
             createdAt = 0,
             payed = false,
             payedAt = 0,
-            note = ''
+            note = '',
+            venditoreNome = '',
+            venditoreNome2 = '',
+            acquirenteNome = '',
+            acquirenteNome2 = '',
+            consulenteVendita = '',
+            numeroFattura = '',
+            dataFattura = 0,
+            dataRogito = 0,
+            dataPrenotazione = 0
+
         } = dealData
-        const deal = { description, amount, provvM2square, provvStefano, provvAgenziaPartner, createdAt, payed, payedAt, note }
+        const deal = { 
+            description, 
+            rifId,
+            prezzoDiVendita,
+            amount, 
+            provvM2square, 
+            provvStefano, 
+            provvAgenziaPartner, 
+            createdAt, 
+            payed, 
+            payedAt, 
+            note, 
+            venditoreNome, 
+            venditoreNome2, 
+            acquirenteNome,
+            acquirenteNome2,
+            consulenteVendita,
+            numeroFattura
+         }
 
         return database.ref(`deals`).push(deal).then((ref) => {
             dispatch(addDeal({
@@ -39,8 +68,7 @@ export const removeDeal = ({ id } = {}) => ({
 })
 
 export const startRemoveDeal = ({ id } = {}) => {
-    return (dispatch, getState) => {
-        // const uid = getState().auth.uid
+    return (dispatch) => {
         return database.ref(`deals/${id}`).remove().then(() => {
             dispatch(removeDeal({ id }))
         })
@@ -55,9 +83,8 @@ export const editDeal = (id, updates) => ({
 })
 
 export const startEditDeal = (id, updates) => {
-    return (dispatch, getState) => {
-        const uid = getState().auth.uid
-        return database.ref(`deals/${id}`).update(updates).then( () => {
+    return (dispatch) => {
+        return database.ref(`deals/${id}`).update(updates).then(() => {
             dispatch(editDeal(id, updates))
         })
     }
@@ -71,8 +98,7 @@ export const setDeals = (deals) => ({
 
 // export const startSetDeals
 export const startSetDeals = () => {
-    return (dispatch, getState) => {
-        // const uid = getState().auth.uid
+    return (dispatch) => {
         return database.ref(`deals`).once('value').then((snapshot) => {
             const deals = []
 

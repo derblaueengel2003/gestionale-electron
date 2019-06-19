@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import dealsReducer from '../reducers/deals'
 import filtersReducer from '../reducers/filters'
 import utentiReducer from '../reducers/utenti'
+import clientiReducer from '../reducers/clienti'
 import authReducer from '../reducers/auth'
 
 // Store creation
@@ -14,7 +15,8 @@ export default () => {
             deals: dealsReducer,
             filters: filtersReducer,
             auth: authReducer,
-            utenti: utentiReducer
+            utenti: utentiReducer,
+            clienti: clientiReducer
         }),
         composeEnhancers(applyMiddleware(thunk))
     ) 

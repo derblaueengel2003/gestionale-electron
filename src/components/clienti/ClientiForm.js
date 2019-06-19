@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default class UserForm extends React.Component {
+export default class CustomerForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: props.user ? props.user.name : '',
-            role: props.user ? props.user.role : ''
+            name: props.customer ? props.customer.name : '',
+            role: props.customer ? props.customer.role : ''
         }
     }
     onNameChange = (e) => {

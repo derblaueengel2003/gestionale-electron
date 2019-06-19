@@ -25,6 +25,7 @@ export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed, uid }) => {
                 <h1 className="page-header__title">Incassate: <span>{formattedDealsPayed}</span> - Pendenti: <span>{dealsPending}</span></h1>
                 <div className="page-header__actions">
                  {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && adminNavbar}
+                    <Link className="button" to="/customer">Clienti</Link>
                 </div>
             </div>
         </div>
