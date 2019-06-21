@@ -11,15 +11,18 @@ export const startAddDeal = (dealData = {}) => {
     return (dispatch) => {
         const {
             description = '',
-            rifId = '',
             prezzoDiVendita = 0,
             amount = 0,
             provvM2square = 0,
             provvStefano = 0,
+            agenziaPartner = '',
             provvAgenziaPartner = 0,
-            createdAt = 0,
+            payedAgenziaPartner = false,
+            createdAt = null,
             payed = false,
-            payedAt = 0,
+            payedAt = null,
+            payedStefano = false,
+            payedAtStefano = null,
             note = '',
             venditoreNome = '',
             venditoreNome2 = '',
@@ -27,19 +30,20 @@ export const startAddDeal = (dealData = {}) => {
             acquirenteNome2 = '',
             consulenteVendita = '',
             numeroFattura = '',
-            dataFattura = 0,
-            dataRogito = 0,
-            dataPrenotazione = 0
-
+            dataFattura = null,
+            dataRogito = null
         } = dealData
         const deal = { 
-            description, 
-            rifId,
+            description,
             prezzoDiVendita,
             amount, 
             provvM2square, 
             provvStefano, 
+            payedAtStefano,
+            payedStefano,
+            agenziaPartner,
             provvAgenziaPartner, 
+            payedAgenziaPartner,
             createdAt, 
             payed, 
             payedAt, 
@@ -49,7 +53,9 @@ export const startAddDeal = (dealData = {}) => {
             acquirenteNome,
             acquirenteNome2,
             consulenteVendita,
-            numeroFattura
+            numeroFattura,
+            dataFattura,
+            dataRogito
          }
 
         return database.ref(`deals`).push(deal).then((ref) => {

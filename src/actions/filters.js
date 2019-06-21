@@ -3,7 +3,11 @@ export const setTextFilter = (text = '') => ({
     type: 'SET_TEXT_FILTER',
     text
 })
-
+//SET_CLIENTE_FILTER
+export const setClienteFilter = (cliente = '') => ({
+    type: 'SET_CLIENTE_FILTER',
+    cliente
+})
 // SORT_BY_DATE
 export const sortByDate = () => ({
     type: 'SORT_BY_DATE'

@@ -11,22 +11,12 @@ export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed, uid }) => {
     const formattedDealsTotal = numeral(dealsTotal / 100).format('0,0[.]00 $')
     const formattedDealsPayed = numeral(dealsPayed / 100).format('0,0[.]00 $')
     const dealsPending = numeral((dealsTotal - dealsPayed) / 100).format('0,0[.]00 $')
-    const adminNavbar = (
-        <div>
-        <Link className="button" to="/create">Aggiungi Provvigione</Link>
-        <Link className="button" to="/users">Utenti</Link>
-        </div>
-        )
-
+    
     return (
         <div className="page-header">
             <div className="content-container">
                 <h1 className="page-header__title">Riepilogo: <span>{dealCount}</span> {dealWord} per un totale di <span>{formattedDealsTotal}</span></h1>
                 <h1 className="page-header__title">Incassate: <span>{formattedDealsPayed}</span> - Pendenti: <span>{dealsPending}</span></h1>
-                <div className="page-header__actions">
-                 {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && adminNavbar}
-                    <Link className="button" to="/customer">Clienti</Link>
-                </div>
             </div>
         </div>
     )

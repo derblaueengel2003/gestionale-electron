@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import UtentiListItem from './UtentiListItem';
-import { startSetUsers } from '../../actions/utenti';
 
 export const UtentiList = (props) => (
+    
     <div className="content-container">
     <div className="page-header__actions">
     <Link className="button" to="/usercreate">Aggiungi Utente</Link>
@@ -36,8 +36,5 @@ const mapStateToProps = (state) => {
         utenti: state.utenti
     }
 } 
-const mapDispatchToProps = (dispatch) => ({
-    startSetUsers: () => dispatch(startSetUsers())
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(UtentiList)
+export default connect(mapStateToProps)(UtentiList)

@@ -22,19 +22,17 @@ numeral.register('locale', 'it', {
         symbol: '€'
     }
 });
-
 // switch between locales
 numeral.locale('it');
-
 moment.locale('it')
 
-const DealListItem = ({ description, provvM2square, provvStefano, createdAt, payed, id, uid }) => {
+const DealListItem = ({ description, provvM2square, provvStefano, createdAt, payed, payedStefano, id, uid }) => {
     if (uid === 'pCu3H2GQfPWQxMNGwIVTc0Ag0fg1') {
         return (
-            <Link className={`list-item ${payed && 'list-item--paid'}`} to={`/view/${id}`}>
+            <Link className={`list-item ${payedStefano && 'list-item--paid'}`} to={`/view/${id}`}>
                 <div>
                     <h3 className="list-item__title">{description}</h3>
-                    <span className="list-item__sub-title">{moment(createdAt).format('DD MMMM, YYYY')}</span>
+                    <span className="list-item__sub-title">{createdAt ? `Prenotazione del ${moment(createdAt).format('DD MMMM, YYYY')}` : null}</span>
                 </div>
                 <div>
                 <h3 className="list-item__data">{numeral(provvStefano / 100).format('0,0[.]00 $')}</h3>
@@ -46,7 +44,7 @@ const DealListItem = ({ description, provvM2square, provvStefano, createdAt, pay
             <Link className={`list-item ${payed && 'list-item--paid'}`} to={`/view/${id}`}>
                 <div>
                     <h3 className="list-item__title">{description}</h3>
-                    <span className="list-item__sub-title">{moment(createdAt).format('DD MMMM, YYYY')}</span>
+                    <span className="list-item__sub-title">{createdAt ? `Prenotazione del ${moment(createdAt).format('DD MMMM, YYYY')}` : null}</span>
                 </div>
                 <div>
                 <h3 className="list-item__data">{numeral(provvM2square / 100).format('0,0[.]00 $')}</h3>
@@ -54,8 +52,6 @@ const DealListItem = ({ description, provvM2square, provvStefano, createdAt, pay
             </Link>
         )
     }
-
-
 }
 
 export default DealListItem

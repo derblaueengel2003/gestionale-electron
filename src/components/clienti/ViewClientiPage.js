@@ -9,14 +9,11 @@ export class ViewClientiPage extends React.Component {
                 <div className="page-header">
                     <div className="content-container">
                         <h1 className="page-header__title">Clienti</h1>
-                        <div className="page-header__actions">
-                        <Link className="button" to="/customer">Torna al Riepilogo</Link>
-                    </div>
                     </div>
                 </div>
                 <div className="content-container">
                     {this.props.cliente.name.length > 0 && <div>Nome: {this.props.cliente.name}</div>}
-                    {this.props.cliente.role.length > 0 && <div>Ruolo: {this.props.cliente.role}</div>}
+                    {this.props.cliente.role.length > 0 && <div>Titolo: {this.props.cliente.role}</div>}
                     <Link className="button" to={`/customeredit/${this.props.cliente.id}`}>Modifica Cliente</Link>
                 </div>
             </div>

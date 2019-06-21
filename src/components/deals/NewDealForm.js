@@ -7,21 +7,22 @@ export class DealForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            description: props.deal ? props.deal.description : '',
+            description: props.deal? props.deal.description : '',
+            rifId: props.deal ? props.deal.rifId : '',
             prezzoDiVendita: props.deal ? (props.deal.prezzoDiVendita / 100).toString() : '0',
             amount: props.deal ? (props.deal.amount / 100).toString() : '',
             consulenteVendita: props.deal ? props.deal.consulenteVendita : '',
             provvM2square: props.deal ? (props.deal.provvM2square / 100).toString() : '',
             payed: props.deal ? props.deal.payed : false,
-            payedAt: props.deal ? props.deal.payedAt && moment(props.deal.payedAt) : null,
+            payedAt: props.deal ? moment(props.deal.payedAt) : moment(),
             provvStefano: props.deal ? (props.deal.provvStefano / 100).toString() : '',
             payedStefano: props.deal ? props.deal.payedStefano : false,
-            payedAtStefano: props.deal ? props.deal.payedAtStefano && moment(props.deal.payedAtStefano) : null,
+            payedAtStefano: props.deal ? moment(props.deal.payedAtStefano) : moment(),
             calendarPayedAtStefanoFocused: false,
             agenziaPartner: props.deal ? props.deal.agenziaPartner : '',
             provvAgenziaPartner: props.deal ? (props.deal.provvAgenziaPartner / 100).toString() : '0',
             payedAgenziaPartner: props.deal ? props.deal.payedAgenziaPartner : false,
-            createdAt: props.deal ? props.deal.createdAt && moment(props.deal.createdAt) : null,
+            createdAt: props.deal ? moment(props.deal.createdAt) : moment(),
             calendarFocused: false,
             calendarPayedAtFocused: false,
             venditoreNome: props.deal ? props.deal.venditoreNome : '',
@@ -29,9 +30,9 @@ export class DealForm extends React.Component {
             acquirenteNome: props.deal ? props.deal.acquirenteNome : '',
             acquirenteNome2: props.deal ? props.deal.acquirenteNome2 : '',
             numeroFattura: props.deal ? props.deal.numeroFattura : '',
-            dataFattura: props.deal ? props.deal.dataFattura && moment(props.deal.dataFattura) : null,
+            dataFattura: props.deal ? moment(props.deal.dataFattura) : moment(),
             calendarDataFatturaFocused: false,
-            dataRogito: props.deal ? props.deal.dataRogito && moment(props.deal.dataRogito) : null,
+            dataRogito: props.deal ? moment(props.deal.dataRogito) : moment(),
             calendarDataRogitoFocused: false,
             note: props.deal ? props.deal.note : '',
             error: '',
@@ -39,127 +40,68 @@ export class DealForm extends React.Component {
             provvSum: 0
         }
     }
-    onOggettoChange = (e) => {
-        const oggetto = e.target.value
-        this.setState(() => ({ description: oggetto }))
-    }
-    onPrezzoDiVenditaChange = (e) => {
-        const prezzoDiVendita = e.target.value
 
-        if (!prezzoDiVendita || prezzoDiVendita.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ prezzoDiVendita, modificato: { ...this.state.modificato, prezzoDiVendita: 'modificato' } }))
-        }
+    changeHandler = (event) => {
+        const name = event.target.name
+        const value = event.target.value
+        this.setState(() => ({ [name]: value, modificato: { ...this.state.modificato, [name]: 'modificato' }  }))
     }
-    onAmountChange = (e) => {
-        const amount = e.target.value
+    onAmountChange = (event) => {
+        const name = event.target.name
+        const value = event.target.value
 
-        if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ amount, modificato: { ...this.state.modificato, amount: 'modificato' } }))
+        if (!value || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
+            this.setState(() => ({ [name]: value, modificato: { ...this.state.modificato, [name]: 'modificato' } }))
         }
     }
-    onConsulenteVenditaChange = (e) => {
-        const consulenteVendita = e.target.value
-        this.setState(() => ({ consulenteVendita }))
-    }
-    onProvvM2squareChange = (e) => {
-        const provvM2square = e.target.value
-
-        if (!provvM2square || provvM2square.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ provvM2square, modificato: { ...this.state.modificato, provvM2square: 'modificato' }}))
-        }
-    }
-    onPayedChange = () => {
-        this.setState(() => ({ payed: !this.state.payed }))
-    }
-    onPayedAtDateChange = (payedAt) => {
-        console.log(payedAt)
-        if (payedAt) {
-            this.setState(() => ({ payedAt }))
-        }
-    }
-    onFocusPayedAtChange = ({ focused }) => {
-        this.setState(() => ({ calendarPayedAtFocused: focused }))
-    }
-    onProvvStefanoChange = (e) => {
-        const provvStefano = e.target.value
-
-        if (!provvStefano || provvStefano.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ provvStefano, modificato: { ...this.state.modificato, provvStefano: 'modificato' }}))
-        }
-    }
-    onPayedStefanoChange = () => {
-        this.setState(() => ({ payedStefano: !this.state.payedStefano }))
-    }
-    onPayedAtDateStefanoChange = (payedAtStefano) => {
-        if (payedAtStefano) {
-            this.setState(() => ({ payedAtStefano }))
-        }
-    }
-    onFocusPayedAtStefanoChange = ({ focused }) => {
-        this.setState(() => ({ calendarPayedAtStefanoFocused: focused }))
-    }
-    onAgenziaPartnerChange = (e) => {
-        const agenziaPartner = e.target.value
-        this.setState(() => ({ agenziaPartner }))
-    }
-    onProvvAgenziaPartnerChange = (e) => {
-        const provvAgenziaPartner = e.target.value
-
-        if (!provvAgenziaPartner || provvAgenziaPartner.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ provvAgenziaPartner, modificato: { ...this.state.modificato, provvAgenziaPartner: 'modificato' }}))
-        }
-    }
-    onPayedAgenziaPartnerChange = () => {
-        this.setState(() => ({ payedAgenziaPartner: !this.state.payedAgenziaPartner }))
+    onPayedChange = (event) => {
+        const name = event.target.name
+        const value = event.target.value
+        console.log(event)
+        this.setState(() => ({ [name]: !value }))
     }
     onDateChange = (createdAt) => {
         if (createdAt) {
             this.setState(() => ({ createdAt }))
         }
     }
-    onFocusChange = ({ focused }) => {
-        this.setState(() => ({ calendarFocused: focused }))
-    }
-    onVenditoreNomeChange = (e) => {
-        const venditoreNome = e.target.value
-        this.setState(() => ({ venditoreNome }))
-    }
-    onVenditoreNomeChange2 = (e) => {
-        const venditoreNome2 = e.target.value
-        this.setState(() => ({ venditoreNome2 }))
-    }
-    onAcquirenteNomeChange = (e) => {
-        const acquirenteNome = e.target.value
-        this.setState(() => ({ acquirenteNome }))
-    }
-    onAcquirenteNomeChange2 = (e) => {
-        const acquirenteNome2 = e.target.value
-        this.setState(() => ({ acquirenteNome2 }))
-    }
-    onNumeroFatturaChange = (e) => {
-        const numeroFattura = e.target.value
-        this.setState(() => ({ numeroFattura, modificato: { ...this.state.modificato, numeroFattura: 'modificato'} }) )
+    onPayedAtDateChange = (payedAt) => {
+        if (payedAt) {
+            this.setState(() => ({ payedAt }))
+        }
     }
     onDataFatturaChange = (dataFattura) => {
         if (dataFattura) {
             this.setState(() => ({ dataFattura }))
         }
     }
-    onFocusDataFatturaChange = ({ focused }) => {
-        this.setState(() => ({ calendarDataFatturaFocused: focused }))
-    }
     onDataRogitoChange = (dataRogito) => {
         if (dataRogito) {
             this.setState(() => ({ dataRogito }))
         }
     }
+    onPayedAtDateStefanoChange = (payedAtStefano) => {
+        if (payedAtStefano) {
+            this.setState(() => ({ payedAtStefano }))
+        }
+    }
+    
+    onFocusPayedAtChange = ({ focused }) => {
+        this.setState(() => ({ calendarPayedAtFocused: focused }))
+    }
+    onFocusPayedAtStefanoChange = ({ focused }) => {
+        this.setState(() => ({ calendarPayedAtStefanoFocused: focused }))
+    }
+    onFocusChange = ({ focused }) => {
+        this.setState(() => ({ calendarFocused: focused }))
+    }
+    onFocusDataFatturaChange = ({ focused }) => {
+        this.setState(() => ({ calendarDataFatturaFocused: focused }))
+    }
     onFocusDataRogitoChange = ({ focused }) => {
         this.setState(() => ({ calendarDataRogitoFocused: focused }))
     }
-    onNoteChange = (e) => {
-        const note = e.target.value
-        this.setState(() => ({ note, modificato: { ...this.state.modificato, note: 'modificato' } }))
-    }
+   
     onSubmit = (e) => {
         e.preventDefault()
         const prezzoDiVendita = parseFloat(this.state.prezzoDiVendita, 10) * 100
@@ -178,26 +120,27 @@ export class DealForm extends React.Component {
             this.setState(() => ({ error: '' }))
             this.props.onSubmit({
                 description: this.state.description,
+                rifId: this.state.rifId,
                 prezzoDiVendita,
                 amount,
                 consulenteVendita: this.state.consulenteVendita,
                 provvM2square,
                 payed: this.state.payed,
-                payedAt: this.state.payedAt ? this.state.payedAt.valueOf() : null,
+                payedAt: this.state.payedAt.valueOf(),
                 provvStefano,
                 payedStefano: this.state.payedStefano,
-                payedAtStefano: this.state.payedAtStefano ? this.state.payedAtStefano.valueOf() : null,
+                payedAtStefano: this.state.payedAtStefano.valueOf(),
                 agenziaPartner: this.state.agenziaPartner,
                 provvAgenziaPartner,
                 payedAgenziaPartner: this.state.payedAgenziaPartner,
-                createdAt: this.state.createdAt ? this.state.createdAt.valueOf() : null,
+                createdAt: this.state.createdAt.valueOf(),
                 venditoreNome: this.state.venditoreNome,
                 venditoreNome2: this.state.venditoreNome2,
                 acquirenteNome: this.state.acquirenteNome,
                 acquirenteNome2: this.state.acquirenteNome2,
                 numeroFattura: this.state.numeroFattura,
-                dataFattura: this.state.dataFattura ? this.state.dataFattura.valueOf() : null,
-                dataRogito: this.state.dataRogito ? this.state.dataRogito.valueOf(): null,
+                dataFattura: this.state.dataFattura.valueOf(),
+                dataRogito: this.state.dataRogito.valueOf(),
                 note: this.state.note,
             })
         }
@@ -206,29 +149,24 @@ export class DealForm extends React.Component {
         return (
             <form className="form" onSubmit={this.onSubmit}>
                 {this.state.error && <p className="form__error">{this.state.error}</p>}
-                <div>
-                    <button className="button">Salva modifiche</button>
-                </div>         
-                Oggetto:
-                <select
+                Indirizzo:
+                <input
+                    className={`text-input text-input--${this.state.modificato.description}`}
+                    type="text"
+                    placeholder="Indirizzo"
+                    autoFocus
                     value={this.state.description}
-                    onChange={this.onOggettoChange}
-                >
-                    <option value=""></option>
-                    {this.props.oggetti.map((oggetto) =>
-                        <option key={oggetto.id}
-                            value={`Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}>
-                            {`Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}
-                        </option>)}
-                </select>   
-                Data Prenotazione:
-                <SingleDatePicker
-                    date={this.state.createdAt}
-                    onDateChange={this.onDateChange}
-                    focused={this.state.calendarFocused}
-                    onFocusChange={this.onFocusChange}
-                    numberOfMonths={1}
-                    isOutsideRange={() => false}
+                    name="description"
+                    onChange={this.changeHandler}
+                />
+                Riferimento ID:
+                <input
+                    className={`text-input text-input--${this.state.modificato.rifId}`}
+                    type="text"
+                    placeholder="ID"
+                    value={this.state.rifId}
+                    name="rifId"
+                    onChange={this.changeHandler}
                 />
                 Prezzo di Vendita:
                 <input
@@ -236,7 +174,8 @@ export class DealForm extends React.Component {
                     type="text"
                     placeholder="Prezzo di vendita"
                     value={this.state.prezzoDiVendita}
-                    onChange={this.onPrezzoDiVenditaChange}
+                    name="prezzoDiVendita"
+                    onChange={this.onAmountChange}
                 />
                 Importo totale:
                 <input
@@ -244,12 +183,14 @@ export class DealForm extends React.Component {
                     type="text"
                     placeholder={`6%: ${parseFloat(this.state.prezzoDiVendita, 10) * 0.06}`}
                     value={this.state.amount}
+                    name="amount"
                     onChange={this.onAmountChange}
                 />
                 Cliente di:
                 <select 
                     value={this.state.consulenteVendita}
-                    onChange={this.onConsulenteVenditaChange}
+                    name="consulenteVendita"
+                    onChange={this.changeHandler}
                     >
                     {this.props.utenti.map((consulente) => 
                         <option key={consulente.id} 
@@ -261,9 +202,10 @@ export class DealForm extends React.Component {
                 <input
                     className={`text-input text-input--${this.state.modificato.provvM2square}`}
                     type="text"
-                    placeholder={`80%: ${parseFloat((this.state.amount - this.state.provvAgenziaPartner), 10) * 0.8}`}
+                    placeholder={`80%: ${parseFloat(this.state.amount, 10) * 0.8}`}
                     value={this.state.provvM2square}
-                    onChange={this.onProvvM2squareChange}
+                    name="provvM2square"
+                    onChange={this.onAmountChange}
                />
                 <label>Pagata&nbsp;
                 <input
@@ -288,16 +230,18 @@ export class DealForm extends React.Component {
                <input
                     className={`text-input text-input--${this.state.modificato.provvStefano}`}
                     type="text"
-                    placeholder={`20%: ${parseFloat((this.state.amount - this.state.provvAgenziaPartner), 10) * 0.2}`}
+                    placeholder={`20%: ${parseFloat(this.state.amount, 10) * 0.2}`}
                     value={this.state.provvStefano}
-                    onChange={this.onProvvStefanoChange}
+                    name="provvStefano"
+                    onChange={this.onAmountChange}
                  /> 
+
                 <label>Pagata&nbsp;
                 <input
                         type="checkbox"
                         name="payedStefano"
                         checked={this.state.payedStefano}
-                        onChange={this.onPayedStefanoChange}
+                        onChange={this.onPayedChange}
                     />
                 </label>
                 <div className={`visible-${this.state.payedStefano} form`}>
@@ -314,14 +258,15 @@ export class DealForm extends React.Component {
                 Agenzia Partner:
                 <select
                     value={this.state.agenziaPartner}
-                    onChange={this.onAgenziaPartnerChange}
+                    name="agenziaPartner"
+                    onChange={this.changeHandler}
                 >
                     <option value=""></option>
 
                     {this.props.clienti.map((cliente) =>
                         <option key={cliente.id}
                             value={cliente.name}>
-                            {`${cliente.name}`}{cliente.ditta && ` - Firma ${cliente.ditta}`}
+                            {cliente.name}
                         </option>)}
                 </select>
                 Provvigione Agenzia Partner 
@@ -330,65 +275,79 @@ export class DealForm extends React.Component {
                     type="text"
                     placeholder="Provvigione Agenzia Partner"
                     value={this.state.provvAgenziaPartner}
-                    onChange={this.onProvvAgenziaPartnerChange}
+                    name="provvAgenziaPartner"
+                    onChange={this.onAmountChange}
                 />
                 <label>Pagata&nbsp;
                 <input
                         type="checkbox"
                         name="payedAgenziaPartner"
                         checked={this.state.payedAgenziaPartner}
-                        onChange={this.onPayedAgenziaPartnerChange}
+                        onChange={this.onPayedChange}
                     />
                 </label>
+                Data Prenotazione: 
+                <SingleDatePicker 
+                    date={this.state.createdAt}
+                    onDateChange={this.onDateChange}                    
+                    focused={this.state.calendarFocused}
+                    onFocusChange={this.onFocusChange}
+                    numberOfMonths={1}
+                    isOutsideRange={() => false}
+                />
                 Venditore:
                 <select 
                     value={this.state.venditoreNome}
-                    onChange={this.onVenditoreNomeChange}
+                    name="venditoreNome"
+                    onChange={this.changeHandler}
                     >
                     <option value=""></option>
 
                     {this.props.clienti.map((cliente) => 
                         <option key={cliente.id} 
                         value={cliente.name}>
-                        {`${cliente.name}`}{cliente.ditta && ` - Firma ${cliente.ditta}`}
+                        {cliente.name}
                         </option>)}
                 </select>
                 Secondo Venditore:
                 <select 
                     value={this.state.venditoreNome2}
-                    onChange={this.onVenditoreNomeChange2}
+                    name="venditoreNome2"
+                    onChange={this.changeHandler}
                     >
                     <option value=""></option>
                     {this.props.clienti.map((cliente) => 
                         <option key={cliente.id} 
                         value={cliente.name}>
-                        {`${cliente.name}`}{cliente.ditta && ` - Firma ${cliente.ditta}`}
+                        {cliente.name}
                         </option>)}
                 </select>
                 Acquirente:
                 <select 
                     value={this.state.acquirenteNome}
-                    onChange={this.onAcquirenteNomeChange}
+                    name="acquirenteNome"
+                    onChange={this.changeHandler}
                     >
                     <option value=""></option>
 
                     {this.props.clienti.map((cliente) => 
                         <option key={cliente.id} 
                         value={cliente.name}>
-                        {`${cliente.name}`}{cliente.ditta && ` - Firma ${cliente.ditta}`}
+                        {cliente.name}
                         </option>)}
                 </select>
                 Secondo Acquirente:
                 <select 
                     value={this.state.acquirenteNome2}
-                    onChange={this.onAcquirenteNomeChange2}
+                    name="acquirenteNome2"
+                    onChange={this.changeHandler}
                     >
                     <option value=""></option>
 
                     {this.props.clienti.map((cliente) => 
                         <option key={cliente.id} 
                         value={cliente.name}>
-                        {`${cliente.name}`}{cliente.ditta && ` - Firma ${cliente.ditta}`}
+                        {cliente.name}
                         </option>)}
                 </select>        
                 Numero Fattura:
@@ -397,7 +356,8 @@ export class DealForm extends React.Component {
                     type="text"
                     placeholder="Numero Fattura"
                     value={this.state.numeroFattura}
-                    onChange={this.onNumeroFatturaChange}
+                    name="numeroFattura"
+                    onChange={this.changeHandler}
                 /> 
                 Data Fattura:
                 <SingleDatePicker
@@ -421,11 +381,12 @@ export class DealForm extends React.Component {
                     className={`textarea text-input--${this.state.modificato.note}`}
                     placeholder="Nota  (opzionale)"
                     value={this.state.note}
-                    onChange={this.onNoteChange}
+                    name="note"
+                    onChange={this.changeHandler}
                 ></textarea>
                 <div>
                     <button className="button">Salva modifiche</button>
-                </div>
+                </div>  
             </form>
         )
     }
@@ -433,8 +394,7 @@ export class DealForm extends React.Component {
 
 const mapStateToProps = (state) => ({
     utenti: state.utenti,
-    clienti: state.clienti,
-    oggetti: state.oggetti
+    clienti: state.clienti
 })
 
 export default connect(mapStateToProps)(DealForm)

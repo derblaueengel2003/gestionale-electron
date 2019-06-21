@@ -1,16 +1,16 @@
 import React from 'react'
 
-export default class CustomerForm extends React.Component {
+export default class OggettoForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: props.customer ? props.customer.name : '',
-            role: props.customer ? props.customer.role : '',
-            ditta: props.customer ? props.customer.ditta : '',
-            indirizzo: props.customer ? props.customer.indirizzo : '',
-            cap: props.customer ? props.customer.cap : '',
-            citta: props.customer ? props.customer.citta : '',
-            nazione: props.customer ? props.customer.nazione : '',
+            via: props.oggetto ? props.oggetto.via : '',
+            numeroCivico: props.oggetto ? props.oggetto.numeroCivico : '',
+            cap: props.oggetto ? props.oggetto.cap : '',
+            citta: props.oggetto ? props.oggetto.citta : '',
+            nazione: props.oggetto ? props.oggetto.nazione : '',
+            numeroAppartamento: props.oggetto ? props.oggetto.numeroAppartamento : '',
+            rifId: props.oggetto ? props.oggetto.rifId : ''
         }
     }
     changeHandler = (e) => { 
@@ -21,18 +21,18 @@ export default class CustomerForm extends React.Component {
     onSubmit = (e) => {
         e.preventDefault()
     
-        if (!this.state.name || !this.state.role) {
-            this.setState(() => ({ error: 'Inserisci nome e ruolo.'}))
+        if (!this.state.via || !this.state.rifId) {
+            this.setState(() => ({ error: 'Inserisci via e riferimento Id.'}))
         } else {
             this.setState(() => ({ error: '' }))
             this.props.onSubmit({
-                name: this.state.name,
-                role: this.state.role,
-                ditta: this.state.ditta,
-                indirizzo: this.state.indirizzo,
+                via: this.state.via,
+                numeroCivico: this.state.numeroCivico,
                 cap: this.state.cap,
                 citta: this.state.citta,
-                nazione: this.state.nazione
+                nazione: this.state.nazione,
+                numeroAppartamento: this.state.numeroAppartamento,
+                rifId: this.state.rifId
             })
         }
     }
@@ -40,49 +40,31 @@ export default class CustomerForm extends React.Component {
         return (
             <form className="form" onSubmit={this.onSubmit}>
                 {this.state.error && <p className="form__error">{this.state.error}</p>}
-                Titolo:
+                Via:
                 <input
-                    name="role"
+                    name="via"
                     className={`text-input`}
                     type="text"
-                    placeholder="Titolo"
-                    value={this.state.role}
-                    onChange={this.changeHandler}
-                />
-                Nome e Cognome:
-                <input
-                    name="name"
-                    className={`text-input`}
-                    type="text"
-                    placeholder="Nome e cognome"
+                    placeholder="Via"
                     autoFocus
-                    value={this.state.name}
+                    value={this.state.via}
                     onChange={this.changeHandler}
                 />
-                Ditta:
+                Numero Civico:
                 <input
-                    name="ditta"
+                    name="numeroCivico"
                     className={`text-input`}
                     type="text"
-                    placeholder="Ditta"
-                    value={this.state.ditta}
+                    placeholder="Numero Civico"
+                    value={this.state.numeroCivico}
                     onChange={this.changeHandler}
                 />
-                Indirizzo:
-                <input
-                    name="indirizzo"
-                    className={`text-input`}
-                    type="text"
-                    placeholder="Via e numero civico"
-                    value={this.state.indirizzo}
-                    onChange={this.changeHandler}
-                />
-                Cap:
+                CAP:
                 <input
                     name="cap"
                     className={`text-input`}
                     type="text"
-                    placeholder="cap"
+                    placeholder="CAP"
                     value={this.state.cap}
                     onChange={this.changeHandler}
                 />
@@ -102,6 +84,24 @@ export default class CustomerForm extends React.Component {
                     type="text"
                     placeholder="Nazione"
                     value={this.state.nazione}
+                    onChange={this.changeHandler}
+                />
+                Numero Appartamento:
+                <input
+                    name="numeroAppartamento"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="WE numero"
+                    value={this.state.numeroAppartamento}
+                    onChange={this.changeHandler}
+                />
+                Rif. Id:
+                <input
+                    name="rifId"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="Rif. Id"
+                    value={this.state.rifId}
                     onChange={this.changeHandler}
                 />
                 <div>

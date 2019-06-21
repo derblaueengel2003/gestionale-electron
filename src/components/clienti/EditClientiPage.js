@@ -21,9 +21,6 @@ export class EditClientePage extends React.Component {
                 <div className="page-header">
                     <div className="content-container">
                         <h1 className="page-header__title">Modifica Cliente</h1>
-                        <div className="page-header__actions">
-                        <Link className="button" to="/customer">Torna al Riepilogo Clienti</Link>
-                    </div>
                     </div>
                 </div>
                 <div className="content-container">

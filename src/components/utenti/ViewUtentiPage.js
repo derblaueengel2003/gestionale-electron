@@ -9,9 +9,6 @@ export class ViewUtentiPage extends React.Component {
                 <div className="page-header">
                     <div className="content-container">
                         <h1 className="page-header__title">Utenti</h1>
-                        <div className="page-header__actions">
-                        <Link className="button" to="/users">Torna al Riepilogo</Link>
-                    </div>
                     </div>
                 </div>
                 <div className="content-container">

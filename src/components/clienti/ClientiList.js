@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import ClientiListItem from './ClientiListItem';
 import { startSetCustomers } from '../../actions/clienti';
+import selectClienti from '../../selectors/clienti'
 
 export const ClientiList = (props) => (
     <div className="content-container">
@@ -13,7 +14,7 @@ export const ClientiList = (props) => (
     
         <div className="show-for-mobile">Cliente</div>
         <div className="show-for-desktop">Cliente</div>
-        <div className="show-for-desktop">Ruolo</div>
+        <div className="show-for-desktop">Ditta</div>
      </div>
        <div className="list-body">
        {
@@ -33,7 +34,7 @@ export const ClientiList = (props) => (
 
 const mapStateToProps = (state) => {
     return {
-        clienti: state.clienti
+        clienti: selectClienti(state.clienti, state.filters)
     }
 } 
 const mapDispatchToProps = (dispatch) => ({

@@ -5,6 +5,7 @@ import filtersReducer from '../reducers/filters'
 import utentiReducer from '../reducers/utenti'
 import clientiReducer from '../reducers/clienti'
 import authReducer from '../reducers/auth'
+import oggettiReducer from '../reducers/oggetti'
 
 // Store creation
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -16,7 +17,8 @@ export default () => {
             filters: filtersReducer,
             auth: authReducer,
             utenti: utentiReducer,
-            clienti: clientiReducer
+            clienti: clientiReducer,
+            oggetti: oggettiReducer
         }),
         composeEnhancers(applyMiddleware(thunk))
     ) 

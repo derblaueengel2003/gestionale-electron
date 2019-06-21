@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import DealForm from './DealForm'
+import NewDealForm from './NewDealForm'
 import { startEditDeal, startRemoveDeal } from '../../actions/deals'
 
 export class EditDealPage extends React.Component {
@@ -21,9 +22,6 @@ export class EditDealPage extends React.Component {
                 <div className="page-header">
                     <div className="content-container">
                         <h1 className="page-header__title">Modifica Provvigione</h1>
-                        <div className="page-header__actions">
-                        <Link className="button" to="/">Torna al Riepilogo</Link>
-                    </div>
                     </div>
                 </div>
                 <div className="content-container">

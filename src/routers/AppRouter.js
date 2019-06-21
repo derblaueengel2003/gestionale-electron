@@ -14,6 +14,10 @@ import AddClientiPage from '../components/clienti/AddClientiPage'
 import EditClientiPage from '../components/clienti/EditClientiPage'
 import ViewClientiPage from '../components/clienti/ViewClientiPage'
 import ClientiDashboardPage from '../components/clienti/ClientiDashboardPage'
+import OggettiDashboardPage from '../components/oggetti/OggettiDashboardPage'
+import AddOggettoPage from '../components/oggetti/AddOggettoPage'
+import ViewOggettiPage from '../components/oggetti/ViewOggettiPage'
+import EditOggettoPage from '../components/oggetti/EditOggettoPage'
 import NotFoundPage from '../components/NotFoundPage'
 import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute'
@@ -40,6 +44,10 @@ const AppRouter = ({ uid }) => {
                         <PrivateRoute path="/customerview/:id" component={ViewClientiPage} />
                         <PrivateRoute path="/users" component={UtentiDashboardPage} />
                         <PrivateRoute path="/customer" component={ClientiDashboardPage} />
+                        <PrivateRoute path="/oggetti" component={OggettiDashboardPage} />
+                        <PrivateRoute path="/oggettocreate" component={AddOggettoPage} />
+                        <PrivateRoute path="/oggettoview/:id" component={ViewOggettiPage} />
+                        <PrivateRoute path="/oggettoedit/:id" component={EditOggettoPage} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>
@@ -56,6 +64,10 @@ const AppRouter = ({ uid }) => {
                 <PrivateRoute path="/customercreate" component={AddClientiPage} />
                 <PrivateRoute path="/customeredit/:id" component={EditClientiPage} />
                 <PrivateRoute path="/customerview/:id" component={ViewClientiPage} />
+                <PrivateRoute path="/oggetti" component={OggettiDashboardPage} />
+                <PrivateRoute path="/oggettocreate" component={AddOggettoPage} />
+                <PrivateRoute path="/oggettoview/:id" component={ViewOggettiPage} />
+                <PrivateRoute path="/oggettoedit/:id" component={EditOggettoPage} />
                 <Route component={NotFoundPage} />
             </Switch>
         </div>

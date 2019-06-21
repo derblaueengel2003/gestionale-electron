@@ -12,9 +12,14 @@ export const startAddCustomer = (customerData = {}) => {
         const uid = getState().auth.uid
         const {
             name = '',
-            role = ''
+            role = '',
+            ditta = '',
+            indirizzo = '',
+            cap = '',
+            citta = '',
+            nazione = ''
         } = customerData
-        const customer = { name, role }
+        const customer = { name, role, ditta, indirizzo, cap, citta, nazione }
 
         return database.ref(`/clienti`).push(customer).then((ref) => {
             dispatch(addCustomer({
