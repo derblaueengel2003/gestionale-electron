@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import DealForm from './DealForm'
-import NewDealForm from './NewDealForm'
 import { startEditDeal, startRemoveDeal } from '../../actions/deals'
 
 export class EditDealPage extends React.Component {

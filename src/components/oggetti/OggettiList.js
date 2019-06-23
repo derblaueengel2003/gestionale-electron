@@ -7,7 +7,7 @@ export const OggettiList = (props) => (
     
     <div className="content-container">
     <div className="page-header__actions">
-    <Link className="button" to="/oggettocreate">Aggiungi Oggetto</Link>
+    <Link className="button" to="/oggettocreate">+</Link>
     </div>
      <div className="list-header">
     

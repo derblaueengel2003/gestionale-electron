@@ -12,8 +12,8 @@ export class ViewClientiPage extends React.Component {
                     </div>
                 </div>
                 <div className="content-container">
-                    {this.props.cliente.name.length > 0 && <div>Nome: {this.props.cliente.name}</div>}
-                    {this.props.cliente.role.length > 0 && <div>Titolo: {this.props.cliente.role}</div>}
+                    {this.props.cliente.nome.length > 0 && <div>Nome: {this.props.cliente.nome}</div>}
+                    {this.props.cliente.cognome.length > 0 && <div>Cognome: {this.props.cliente.cognome}</div>}
                     <Link className="button" to={`/customeredit/${this.props.cliente.id}`}>Modifica Cliente</Link>
                 </div>
             </div>

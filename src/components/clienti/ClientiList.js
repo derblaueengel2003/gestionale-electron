@@ -8,7 +8,7 @@ import selectClienti from '../../selectors/clienti'
 export const ClientiList = (props) => (
     <div className="content-container">
     <div className="page-header__actions">
-    <Link className="button" to="/customercreate">Aggiungi Cliente</Link>
+    <Link className="button" to="/customercreate">+</Link>
     </div>
      <div className="list-header">
     

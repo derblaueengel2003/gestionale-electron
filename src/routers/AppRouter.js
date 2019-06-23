@@ -3,6 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import DealDashboardPage from '../components/deals/DealDashboardPage'
+import ReportPage from '../components/ReportPage'
 import AddDealPage from '../components/deals/AddDealPage'
 import EditDealPage from '../components/deals/EditDealPage'
 import ViewDealPage from '../components/deals/ViewDealPage'
@@ -18,6 +19,10 @@ import OggettiDashboardPage from '../components/oggetti/OggettiDashboardPage'
 import AddOggettoPage from '../components/oggetti/AddOggettoPage'
 import ViewOggettiPage from '../components/oggetti/ViewOggettiPage'
 import EditOggettoPage from '../components/oggetti/EditOggettoPage'
+import FattureDashboardPage from '../components/fatture/FattureDashboardPage'
+import AddFatturaPage from '../components/fatture/AddFatturaPage'
+import ViewFatturaPage from '../components/fatture/ViewFatturaPage'
+import EditFatturaPage from '../components/fatture/EditFatturaPage'
 import NotFoundPage from '../components/NotFoundPage'
 import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute'
@@ -33,6 +38,7 @@ const AppRouter = ({ uid }) => {
                     <Switch>
                         <PublicRoute path="/" component={LoginPage} exact={true} />
                         <PrivateRoute path="/dashboard" component={DealDashboardPage} />
+                        <PrivateRoute path="/report" component={ReportPage} />
                         <PrivateRoute path="/create" component={AddDealPage} />
                         <PrivateRoute path="/usercreate" component={AddUserPage} />
                         <PrivateRoute path="/customercreate" component={AddClientiPage} />
@@ -48,6 +54,10 @@ const AppRouter = ({ uid }) => {
                         <PrivateRoute path="/oggettocreate" component={AddOggettoPage} />
                         <PrivateRoute path="/oggettoview/:id" component={ViewOggettiPage} />
                         <PrivateRoute path="/oggettoedit/:id" component={EditOggettoPage} />
+                        <PrivateRoute path="/fatture" component={FattureDashboardPage} />
+                        <PrivateRoute path="/fatturacreate" component={AddFatturaPage} />
+                        <PrivateRoute path="/fatturaview/:id" component={ViewFatturaPage} />
+                        <PrivateRoute path="/fatturaedit/:id" component={EditFatturaPage} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>

@@ -4,6 +4,7 @@ import NavBar from '../NavBar'
 import DealListFilters from './DealListFilters'
 import DealsSummary from './DealsSummary';
 
+
 const DealDashboardPage = () => (
     <div>
         <DealsSummary />

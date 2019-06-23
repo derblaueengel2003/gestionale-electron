@@ -8,18 +8,31 @@ export const addCustomer = (customer) => ({
 })
 
 export const startAddCustomer = (customerData = {}) => {
-    return (dispatch, getState) => {
-        const uid = getState().auth.uid
+    return (dispatch) => {
         const {
-            name = '',
-            role = '',
+            nome = '',
+            cognome = '', 
+            titolo = '',
             ditta = '',
             indirizzo = '',
             cap = '',
-            citta = '',
-            nazione = ''
+            comune = '',
+            nazione = '',
+            email = '',
+            telefono1 = ''
         } = customerData
-        const customer = { name, role, ditta, indirizzo, cap, citta, nazione }
+        const customer = { 
+            nome, 
+            cognome, 
+            titolo, 
+            ditta, 
+            indirizzo, 
+            cap, 
+            comune, 
+            nazione, 
+            email, 
+            telefono1 
+        }
 
         return database.ref(`/clienti`).push(customer).then((ref) => {
             dispatch(addCustomer({
@@ -69,8 +82,7 @@ export const setCustomers = (clienti) => ({
 
 // export const startSetCustomers
 export const startSetCustomers = () => {
-    return (dispatch, getState) => {
-        const uid = getState().auth.uid
+    return (dispatch) => {
         return database.ref(`clienti`).once('value').then((snapshot) => {
             const clienti = []
 

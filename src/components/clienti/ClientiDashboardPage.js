@@ -5,6 +5,7 @@ import ClientiListFilters from './ClientiListFilters'
 
 const ClientiDashboardPage = () => (
     <div>
+        <ClientiListFilters />
         <ClientiList />
     </div>
 )

@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import DealForm from './DealForm'
-import NewDealForm from './NewDealForm'
 import { startAddDeal } from '../../actions/deals';
 
 export class AddDealPage extends React.Component {

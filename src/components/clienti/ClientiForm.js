@@ -4,13 +4,16 @@ export default class CustomerForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: props.customer ? props.customer.name : '',
-            role: props.customer ? props.customer.role : '',
+            nome: props.customer ? props.customer.nome : '',
+            cognome: props.customer ? props.customer.cognome : '',
+            titolo: props.customer ? props.customer.titolo : '',
             ditta: props.customer ? props.customer.ditta : '',
             indirizzo: props.customer ? props.customer.indirizzo : '',
             cap: props.customer ? props.customer.cap : '',
-            citta: props.customer ? props.customer.citta : '',
+            comune: props.customer ? props.customer.comune : '',
             nazione: props.customer ? props.customer.nazione : '',
+            email: props.customer ? props.customer.email : '',
+            telefono1: props.customer ? props.customer.telefono1 : ''
         }
     }
     changeHandler = (e) => { 
@@ -21,18 +24,21 @@ export default class CustomerForm extends React.Component {
     onSubmit = (e) => {
         e.preventDefault()
     
-        if (!this.state.name || !this.state.role) {
-            this.setState(() => ({ error: 'Inserisci nome e ruolo.'}))
+        if (!this.state.nome || !this.state.cognome) {
+            this.setState(() => ({ error: 'Inserisci nome e cognome.'}))
         } else {
             this.setState(() => ({ error: '' }))
             this.props.onSubmit({
-                name: this.state.name,
-                role: this.state.role,
+                nome: this.state.nome,
+                cognome: this.state.cognome,
+                titolo: this.state.titolo,
                 ditta: this.state.ditta,
                 indirizzo: this.state.indirizzo,
                 cap: this.state.cap,
-                citta: this.state.citta,
-                nazione: this.state.nazione
+                comune: this.state.comune,
+                nazione: this.state.nazione,
+                email: this.state.email,
+                telefono1: this.state.telefono1
             })
         }
     }
@@ -42,21 +48,31 @@ export default class CustomerForm extends React.Component {
                 {this.state.error && <p className="form__error">{this.state.error}</p>}
                 Titolo:
                 <input
-                    name="role"
+                    name="titolo"
                     className={`text-input`}
                     type="text"
                     placeholder="Titolo"
-                    value={this.state.role}
+                    value={this.state.titolo}
                     onChange={this.changeHandler}
                 />
-                Nome e Cognome:
+                Nome:
                 <input
-                    name="name"
+                    name="nome"
                     className={`text-input`}
                     type="text"
-                    placeholder="Nome e cognome"
+                    placeholder="Nome"
                     autoFocus
-                    value={this.state.name}
+                    value={this.state.nome}
+                    onChange={this.changeHandler}
+                />
+                Cognome:
+                <input
+                    name="cognome"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="Cognome"
+                    autoFocus
+                    value={this.state.cognome}
                     onChange={this.changeHandler}
                 />
                 Ditta:
@@ -88,11 +104,11 @@ export default class CustomerForm extends React.Component {
                 />
                 Città:
                 <input
-                    name="citta"
+                    name="comune"
                     className={`text-input`}
                     type="text"
                     placeholder="Città"
-                    value={this.state.citta}
+                    value={this.state.comune}
                     onChange={this.changeHandler}
                 />
                 Nazione:
@@ -102,6 +118,24 @@ export default class CustomerForm extends React.Component {
                     type="text"
                     placeholder="Nazione"
                     value={this.state.nazione}
+                    onChange={this.changeHandler}
+                />
+                Email:
+                <input
+                    name="email"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="indirizzo email"
+                    value={this.state.email}
+                    onChange={this.changeHandler}
+                />
+                Telefono:
+                <input
+                    name="telefono1"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="Numero di telefono"
+                    value={this.state.telefono1}
                     onChange={this.changeHandler}
                 />
                 <div>

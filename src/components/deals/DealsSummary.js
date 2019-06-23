@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 import selectDeals from '../../selectors/deals'
 import selectDealsTotal from '../../selectors/deals-total'

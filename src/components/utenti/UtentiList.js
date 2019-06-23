@@ -7,7 +7,7 @@ export const UtentiList = (props) => (
     
     <div className="content-container">
     <div className="page-header__actions">
-    <Link className="button" to="/usercreate">Aggiungi Utente</Link>
+    <Link className="button" to="/usercreate">+</Link>
     </div>
      <div className="list-header">
     

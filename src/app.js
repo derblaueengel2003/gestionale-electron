@@ -6,6 +6,7 @@ import configureStore from './store/configureStore';
 import { startSetDeals } from './actions/deals';
 import { startSetUsers } from './actions/utenti';
 import { startSetCustomers } from './actions/clienti';
+import { startSetFatture } from './actions/fatture';
 import { login, logout } from './actions/auth';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
@@ -37,6 +38,7 @@ firebase.auth().onAuthStateChanged((user) => {
         store.dispatch(startSetUsers())
         store.dispatch(startSetCustomers())
         store.dispatch(startSetOggetti())
+        store.dispatch(startSetFatture())
         store.dispatch(startSetDeals()).then(() => {
             renderApp()
             if (history.location.pathname === '/') {
