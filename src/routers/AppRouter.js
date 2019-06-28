@@ -23,11 +23,6 @@ import LeadsDashboardPage from '../components/leads/LeadsDashboardPage'
 import AddLeadPage from '../components/leads/AddLeadPage'
 import EditLeadPage from '../components/leads/EditLeadPage'
 import ViewLeadPage from '../components/leads/ViewLeadPage'
-
-// import FattureDashboardPage from '../components/fatture/FattureDashboardPage'
-// import AddFatturaPage from '../components/fatture/AddFatturaPage'
-// import ViewFatturaPage from '../components/fatture/ViewFatturaPage'
-// import EditFatturaPage from '../components/fatture/EditFatturaPage'
 import NotFoundPage from '../components/NotFoundPage'
 import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute'
@@ -36,7 +31,6 @@ import PublicRoute from './PublicRoute'
 export const history = createHistory()
 
 const AppRouter = ({ uid }) => {
-    // if (uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2') {
         return (
             <Router history={history}>
                 <div>
@@ -70,26 +64,6 @@ const AppRouter = ({ uid }) => {
                 </div>
             </Router>
         )
-//     } else {
-//         return <Router history={history}>
-//         <div>
-//             <Switch>
-//                 <PublicRoute path="/" component={LoginPage} exact={true} />
-//                 <PrivateRoute path="/dashboard" component={DealDashboardPage} />
-//                 <PrivateRoute path="/view/:id" component={ViewDealPage} />
-//                 <PrivateRoute path="/customer" component={ClientiDashboardPage} />
-//                 <PrivateRoute path="/customercreate" component={AddClientiPage} />
-//                 <PrivateRoute path="/customeredit/:id" component={EditClientiPage} />
-//                 <PrivateRoute path="/customerview/:id" component={ViewClientiPage} />
-//                 <PrivateRoute path="/oggetti" component={OggettiDashboardPage} />
-//                 <PrivateRoute path="/oggettocreate" component={AddOggettoPage} />
-//                 <PrivateRoute path="/oggettoview/:id" component={ViewOggettiPage} />
-//                 <PrivateRoute path="/oggettoedit/:id" component={EditOggettoPage} />
-//                 <Route component={NotFoundPage} />
-//             </Switch>
-//         </div>
-//     </Router>
-//     }
 }
 
 const mapStateToProps = (state) => {

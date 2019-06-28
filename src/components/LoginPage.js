@@ -5,7 +5,8 @@ import { startLogin } from '../actions/auth'
 export const LoginPage = ({ startLogin }) => (
     <div className="box-layout">
         <div className="box-layout__box">
-            <h1 className="box-layout__title">Gestionale m2Square</h1>
+            <img src="/images/logo.png"></img>
+            <h2 className="box-layout__title">Gestionale</h2>
             <p>Per accedere inserire email e password</p>
             <input id="email" type="email" name="email" placeholder="email"/>
             <input id="password" type="password" name="password" placeholder="password"/>
