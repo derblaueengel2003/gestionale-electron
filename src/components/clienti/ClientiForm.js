@@ -51,6 +51,7 @@ export default class CustomerForm extends React.Component {
                     name="titolo"
                     className={`text-input`}
                     type="text"
+                    autoFocus
                     placeholder="Titolo"
                     value={this.state.titolo}
                     onChange={this.changeHandler}
@@ -61,7 +62,6 @@ export default class CustomerForm extends React.Component {
                     className={`text-input`}
                     type="text"
                     placeholder="Nome"
-                    autoFocus
                     value={this.state.nome}
                     onChange={this.changeHandler}
                 />
@@ -71,7 +71,6 @@ export default class CustomerForm extends React.Component {
                     className={`text-input`}
                     type="text"
                     placeholder="Cognome"
-                    autoFocus
                     value={this.state.cognome}
                     onChange={this.changeHandler}
                 />

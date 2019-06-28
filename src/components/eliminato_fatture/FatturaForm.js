@@ -9,9 +9,6 @@ export class FatturaForm extends React.Component {
         this.state = {
             numeroFattura: props.fattura ? props.fattura.numeroFattura : '',
             dataFattura: props.fattura ? props.fattura.dataFattura && moment(props.fattura.dataFattura) : null,
-            payed: props.fattura ? props.fattura.payed : false,
-            payedAt: props.fattura ? props.fattura.payedAt && moment(props.fattura.payedAt) : null,
-            calendarPayedAtFocused: false,
             calendarDataFatturaFocused: false,
             dealId: props.fattura ? props.fattura.dealId : '',
             error: '',
@@ -30,18 +27,18 @@ export class FatturaForm extends React.Component {
     onFocusDataFatturaChange = ({ focused }) => {
         this.setState(() => ({ calendarDataFatturaFocused: focused }))
     }
-    onPayedChange = () => {
-        this.setState(() => ({ payed: !this.state.payed }))
-        this.state.payed === false && this.setState({ payedAt: null })
-    }
-    onPayedAtDateChange = (payedAt) => {
-        if (payedAt) {
-            this.setState(() => ({ payedAt }))
-        }
-    }
-    onFocusPayedAtChange = ({ focused }) => {
-        this.setState(() => ({ calendarPayedAtFocused: focused }))
-    }
+    // onPayedChange = () => {
+    //     this.setState(() => ({ payed: !this.state.payed }))
+    //     this.state.payed === false && this.setState({ payedAt: null })
+    // }
+    // onPayedAtDateChange = (payedAt) => {
+    //     if (payedAt) {
+    //         this.setState(() => ({ payedAt }))
+    //     }
+    // }
+    // onFocusPayedAtChange = ({ focused }) => {
+    //     this.setState(() => ({ calendarPayedAtFocused: focused }))
+    // }
     onDealIdChange = (e) => {
         const dealId = e.target.value
         this.setState(() => ({ dealId }))
@@ -56,8 +53,8 @@ export class FatturaForm extends React.Component {
             this.props.onSubmit({
                 numeroFattura: this.state.numeroFattura,
                 dataFattura: this.state.dataFattura ? this.state.dataFattura.valueOf() : null,
-                payed: this.state.payed,
-                payedAt: this.state.payedAt ? this.state.payedAt.valueOf() : null,
+                // payed: this.state.payed,
+                // payedAt: this.state.payedAt ? this.state.payedAt.valueOf() : null,
                 dealId: this.state.dealId
             })
         }
@@ -99,25 +96,7 @@ export class FatturaForm extends React.Component {
                     numberOfMonths={1}
                     isOutsideRange={() => false}
                 />
-                <label>Pagata&nbsp;
-                <input
-                        type="checkbox"
-                        name="payed"
-                        checked={this.state.payed}
-                        onChange={this.onPayedChange}
-                    />
-                </label>
-                <div className={`visible-${this.state.payed} form`}>
-                    Data Pagamento:
-                    <SingleDatePicker
-                        date={this.state.payedAt}
-                        onDateChange={this.onPayedAtDateChange}
-                        focused={this.state.calendarPayedAtFocused}
-                        onFocusChange={this.onFocusPayedAtChange}
-                        numberOfMonths={1}
-                        isOutsideRange={() => false}
-                    />
-                </div>
+                
                 <div>
                     <button className="button">Salva modifiche</button>
                 </div>

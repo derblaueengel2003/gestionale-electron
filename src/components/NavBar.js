@@ -10,12 +10,12 @@ export const NavBar = ({ uid }) => {
             <Link className="button" to="/oggetti">Oggetti</Link>
             <Link className="button" to="/customer">Contatti</Link>
             <Link className="button" to="/users">Utenti</Link>
-            <Link className="button" to="/fatture">Fatture</Link>
         </div>
     )
     return (
         <div className="content-container page-header__actionss">
         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && adminNavbar}
+        <Link className="button" to="/leads">Richieste</Link>
     </div>
 )}
 

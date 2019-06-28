@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 export const DealList = (props) => (
     <div className="content-container">
-    <Link className="button" to="/create">+</Link>
+        {props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button" to="/create">+</Link>}
      <div className="list-header">
         <div className="show-for-mobile">Provvigione</div>
         <div className="show-for-desktop">Provvigione</div>
@@ -21,8 +21,11 @@ export const DealList = (props) => (
         ) : (
             props.deals.map((deal) => {
                 const oggetto = props.oggetti.find((ogg) => ogg.id === deal.description)
-                const fattura = props.fatture.find((fattura) => fattura.dealId === deal.id)
-                return <DealListItem key={deal.id} {...deal} oggetto={oggetto} fattura={fattura} uid={props.uid} />
+                const acquirente = props.clienti.find((cliente) => cliente.id === deal.acquirenteId)
+                const acquirente2 = props.clienti.find((cliente) => cliente.id === deal.acquirenteId2)
+                const venditore = props.clienti.find((cliente) => cliente.id === deal.venditoreId)
+                const venditore2 = props.clienti.find((cliente) => cliente.id === deal.venditoreId2)
+                return <DealListItem key={deal.id} {...deal} oggetto={oggetto} uid={props.uid} acquirente={acquirente} acquirente2={acquirente2} venditore={venditore} venditore2={venditore2}/>
             })
         )
        
@@ -32,10 +35,11 @@ export const DealList = (props) => (
 )
 
 const mapStateToProps = (state) => {
+    //lo chiami anche da dealsSummary
     return {
-        deals: selectDeals(state.deals, state.filters, state.auth),
+        deals: selectDeals(state.deals, state.filters, state.auth, state.oggetti, state.clienti),
         oggetti: state.oggetti,
-        fatture: state.fatture,
+        clienti: state.clienti,
         uid: state.auth.uid
     }
 } 

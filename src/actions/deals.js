@@ -27,6 +27,10 @@ export const startAddDeal = (dealData = {}) => {
             acquirenteId = '',
             acquirenteId2 = '',
             consulenteVendita = '',
+            numeroFattura = '',
+            dataFattura = null,
+            payed = false,
+            payedAt = '',           
             dataRogito = null
         } = dealData
         const deal = { 
@@ -47,6 +51,10 @@ export const startAddDeal = (dealData = {}) => {
             acquirenteId,
             acquirenteId2,
             consulenteVendita,
+            numeroFattura,
+            dataFattura,
+            payed,
+            payedAt,
             dataRogito
          }
 

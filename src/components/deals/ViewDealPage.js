@@ -14,7 +14,6 @@ export class ViewDealPage extends React.Component {
             const venditore2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId2)
             const agenziaPartner = this.props.clienti.find((cliente) => cliente.id === this.props.deal.agenziaPartnerId)
             const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.description)
-            const fattura = this.props.fatture.find((fattura) => fattura.dealId === this.props.deal.id)
 
             return (
                 <div>
@@ -39,12 +38,11 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.venditoreId2.length > 0 && <div>Secondo Venditore: {venditore2.nome} {venditore2.cognome} {venditore2.ditta && ` - Firma: ${venditore2.ditta}`}</div>}
                         {this.props.deal.acquirenteId.length > 0 && <div>Acquirente: {acquirente.nome} {acquirente.cognome} {acquirente.ditta && ` - Firma: ${acquirente.ditta}`}</div>}
                         {this.props.deal.acquirenteId2.length > 0 && <div>Secondo Acquirente: {acquirente2.nome} {acquirente2.cognome} {acquirente2.ditta && ` - Firma: ${acquirente2.ditta}`}</div>}
-                        {fattura && <div>Numero Fattura: {fattura.numeroFattura}</div>}
-                        {fattura && <div>Data fattura: {moment(fattura.dataFattura).format('DD MMMM, YYYY')}</div>}
+                        {this.props.deal.numeroFattura && <div>Numero Fattura: {this.props.deal.numeroFattura}</div>}
+                        {this.props.deal.dataFattura && <div>Data fattura: {moment(this.props.deal.dataFattura).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.dataRogito > 0 && <div>Data rogito: {moment(this.props.deal.dataRogito).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
                         <Link className="button" to={`/edit/${this.props.deal.id}`}>Modifica Provvigione</Link>
-                        {fattura ? <Link className="button" to={`/fatturaedit/${fattura.id}`}>Modifica Fattura</Link> : <Link className="button" to={`/fatturacreate`}>Crea Fattura</Link>}
                     </div>
                 </div>
             )
@@ -88,7 +86,6 @@ const mapStateToProps = (state, props) => ({
     deal: state.deals.find((deal) => deal.id === props.match.params.id), 
     clienti: state.clienti,
     oggetti: state.oggetti,
-    fatture: state.fatture,
     uid: state.auth.uid
 })
 

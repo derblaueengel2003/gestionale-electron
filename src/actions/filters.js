@@ -18,6 +18,11 @@ export const sortByAmount = () => ({
     type: 'SORT_BY_AMOUNT'
 })
 
+//SORT_BY_PAID
+export const sortByPaid = () => ({
+    type: 'SORT_BY_PAID'
+ })
+
 //SET_START_DATE
 export const setStartDate = (startDate) => ({
     type: 'SET_START_DATE',
@@ -28,4 +33,10 @@ export const setStartDate = (startDate) => ({
 export const setEndDate = (endDate) => ({
     type: 'SET_END_DATE',
     endDate
+})
+
+// SET_LEAD_FILTER
+export const setLeadsFilter = (lead = '') => ({
+    type: 'SET_LEAD_FILTER',
+    lead
 })

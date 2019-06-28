@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 
-const FattureListItem = ({ oggetto, numeroFattura, dataFattura, id }) => (
-        <Link className="list-item" to={`/fatturaview/${id}`}>
+const FattureListItem = ({ oggetto, numeroFattura, dataFattura, payed, id }) => (
+    <Link className={`list-item ${payed && 'list-item--paid'}`} to={`/fatturaview/${id}`}>
             <div>
                 <h3 className="list-item__title">{`${numeroFattura}`}</h3>
                 <span className="list-item__title">{`Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</span>

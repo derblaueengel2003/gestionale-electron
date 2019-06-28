@@ -14,19 +14,20 @@ export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed, uid }) => {
     return (
         <div className="page-header">
             <div className="content-container">
-                <h1 className="page-header__title">Riepilogo: <span>{dealCount}</span> {dealWord} per un totale di <span>{formattedDealsTotal}</span></h1>
-                <h1 className="page-header__title">Incassate: <span>{formattedDealsPayed}</span> - Pendenti: <span>{dealsPending}</span></h1>
+                <h2 className="page-header__title">Riepilogo: <span>{dealCount}</span> {dealWord} per un totale di <span>{formattedDealsTotal}</span></h2>
+                <h2 className="page-header__title">Incassate: <span>{formattedDealsPayed}</span> - Pendenti: <span>{dealsPending}</span></h2>
             </div>
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
-    const visibleDeals = selectDeals(state.deals, state.filters, state.auth)
+    //lo chiami anche da dealsList
+    const visibleDeals = selectDeals(state.deals, state.filters, state.auth, state.oggetti, state.clienti)
     return {
         dealCount: visibleDeals.length,
         dealsTotal: selectDealsTotal(visibleDeals, state.auth),
-        dealsPayed: selectDealsPayed(visibleDeals, state.auth),
+        dealsPayed: selectDealsPayed(visibleDeals, state.auth, state.fatture),
         uid: state.auth.uid
     }
 }

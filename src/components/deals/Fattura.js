@@ -45,7 +45,6 @@ export class Fattura extends React.Component {
 const mapStateToProps = (state, props) => ({
     deal: state.deals.find((deal) => deal.id === props.match.params.id),
     clienti: state.clienti,
-    fatture: state.fatture
 })
 
 export default connect(mapStateToProps)(Fattura)

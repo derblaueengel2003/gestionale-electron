@@ -7,7 +7,8 @@ const filtersReducerDefaultState = {
     cliente: '',
     sortBy: 'date',
     startDate: null,
-    endDate: null
+    endDate: null,
+    lead: ''
 }
 
 export default (state = filtersReducerDefaultState, action) => {
@@ -32,6 +33,11 @@ export default (state = filtersReducerDefaultState, action) => {
                 ...state,
                 sortBy: 'date'
             }
+        case 'SORT_BY_PAID':
+            return {
+                ...state,
+                sortBy: 'paid'
+            }
         case 'SET_START_DATE':
             return {
                 ...state,
@@ -42,6 +48,11 @@ export default (state = filtersReducerDefaultState, action) => {
                 ...state,
                 endDate: action.endDate
             
+            }
+        case 'SET_LEAD_FILTER':
+            return {
+                ...state,
+                lead: action.lead
             }
         default:
             return state

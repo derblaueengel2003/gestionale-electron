@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { DateRangePicker } from 'react-dates'
-import { setTextFilter, sortByDate, sortByAmount, sortByPaid, setStartDate, setEndDate } from '../../actions/filters'
+import { setLeadsFilter, sortByDate, sortByAmount, setStartDate, setEndDate } from '../../actions/filters'
 
-export class DealListFilters extends React.Component {
+export class LeadsListFilters extends React.Component {
     state = {
         calendarFocused: null
     }
@@ -14,17 +14,15 @@ export class DealListFilters extends React.Component {
     onFocusChange = (calendarFocused) => {
         this.setState(() => ({ calendarFocused }))
     }
-    onTextChange = (e) => {
-        this.props.setTextFilter(e.target.value)
+    onLeadChange = (e) => {
+        this.props.setLeadsFilter(e.target.value)
     }
     onSortChange = (e) => {
        if (e.target.value === "date") {
            this.props.sortByDate()
-       } else if (e.target.value === "amount") {
-           this.props.sortByAmount()
        } else {
-           this.props.sortByPaid()
-       }
+           this.props.sortByAmount()
+       } 
     }
     render() {
         return (
@@ -34,9 +32,9 @@ export class DealListFilters extends React.Component {
                         <input
                             type="text"
                             className="text-input"
-                            placeholder="Cerca provvigione"
-                            value={this.props.filters.text}
-                            onChange={this.onTextChange} />
+                            placeholder="Cerca Richiesta"
+                            value={this.props.filters.lead}
+                            onChange={this.onLeadChange} />
                     </div>
                     <div className="input-group__item">
                         <select
@@ -44,9 +42,7 @@ export class DealListFilters extends React.Component {
                             value={this.props.filters.sortBy}
                             onChange={this.onSortChange}>
                             <option value="date">Data</option>
-                            <option value="amount">Importo</option>
-                            <option value="paid">Pagate</option>
-
+                            <option value="amount">Budget</option>
                         </select>
                     </div>
                     <div className="input-group__item">
@@ -73,12 +69,11 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch)=> ({
-    setTextFilter: (text) => dispatch(setTextFilter(text)),
+    setLeadsFilter: (lead) => dispatch(setLeadsFilter(lead)),
     sortByDate: () => dispatch(sortByDate()),
     sortByAmount: () => dispatch(sortByAmount()),
-    sortByPaid: () => dispatch(sortByPaid()),
     setStartDate: (startDate) => dispatch(setStartDate(startDate)),
     setEndDate: (endDate) => dispatch(setEndDate(endDate))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DealListFilters)
+export default connect(mapStateToProps, mapDispatchToProps)(LeadsListFilters)

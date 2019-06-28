@@ -29,7 +29,7 @@ export const ReportPage = ({ dealCount, dealsTotal, dealsPayed, dealsPayedStefan
 
 
 const mapStateToProps = (state) => {
-    const visibleDeals = selectDeals(state.deals, state.filters, state.auth)
+    const visibleDeals = selectDeals(state.deals, state.filters, state.auth, state.oggetti, state.clienti)
     return {
         dealCount: visibleDeals.length,
         dealsTotal: selectDealsTotal(visibleDeals, state.auth),
