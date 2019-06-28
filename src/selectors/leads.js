@@ -1,11 +1,11 @@
 
 // Get visible leads
 
-export default (leads, { lead }) => {
+export default (leads, { lead, leadStato }) => {
     return leads.filter((illead) => {
-        const nameMatch = illead.leadNome.toLowerCase().includes(lead.toLowerCase())
-        const cognomeMatch = illead.leadCognome.toLowerCase().includes(lead.toLowerCase())
-    return nameMatch || cognomeMatch
+        const budgetMatch = illead.leadBudget >= (lead * 100)
+        const statoMatch = illead.leadOggettoStato === leadStato || leadStato === '' || illead.leadOggettoStato === ''
+    return budgetMatch && statoMatch
     })
 
 }

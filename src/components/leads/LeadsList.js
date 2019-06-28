@@ -10,7 +10,6 @@ export const LeadsList = (props) => (
      <div className="list-header">
         <div className="show-for-mobile">Richiesta</div>
         <div className="show-for-desktop">Richiesta</div>
-        <div className="show-for-desktop">Importo</div>
      </div>
        <div className="list-body">
        {

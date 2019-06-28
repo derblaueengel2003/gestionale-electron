@@ -13,7 +13,7 @@ export class ViewLeadPage extends React.Component {
                 </div>
                 <div className="content-container">
                     {this.props.lead.leadNome.length > 0 && <div>Nome: {this.props.lead.leadNome}</div>}
-                    {this.props.lead.leadCognome.length > 0 && <div>Cognome: {this.props.lead.leadCognome}</div>}
+                    {this.props.lead.leadEmail.length > 0 && <div>Cognome: {this.props.lead.leadEmail}</div>}
                     <Link className="button" to={`/leadedit/${this.props.lead.id}`}>Modifica Richiesta</Link>
                 </div>
             </div>

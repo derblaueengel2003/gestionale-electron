@@ -11,9 +11,21 @@ export const startAddLead = (leadData = {}) => {
     return (dispatch) => {
         const {
             leadNome = '',
-            leadCognome = ''
+            leadEmail = '',
+            leadTelefono = '',
+            leadBudget = 0,
+            //libero o affittato o egal
+            leadOggettoStato = '',
+            leadNote = ''
         } = leadData
-        const lead = { leadNome, leadCognome }
+        const lead = { 
+            leadNome, 
+            leadEmail,
+            leadTelefono,
+            leadBudget,
+            leadOggettoStato,
+            leadNote
+        }
 
         return database.ref(`/leads`).push(lead).then((ref) => {
             dispatch(addLead({

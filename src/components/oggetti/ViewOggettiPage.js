@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { PDFExport } from '@progress/kendo-react-pdf';
 
 export class ViewOggettiPage extends React.Component {
     render() {

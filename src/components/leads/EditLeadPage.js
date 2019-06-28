@@ -6,7 +6,7 @@ import { startEditLead, startRemoveLead } from '../../actions/leads'
 export class EditLeadPage extends React.Component {
     onSubmit = (lead) => {
         this.props.startEditLead(this.props.lead.id, lead)
-        this.props.history.push(`/leadview/${this.props.lead.id}`)
+        this.props.history.push(`/leads`)
     }
     onRemove = () => {
         if (window.confirm('Confermi la cancellazione? L\'operazione è irreversibile')) {

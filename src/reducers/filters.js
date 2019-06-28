@@ -8,7 +8,8 @@ const filtersReducerDefaultState = {
     sortBy: 'date',
     startDate: null,
     endDate: null,
-    lead: ''
+    lead: '',
+    leadStato: ''
 }
 
 export default (state = filtersReducerDefaultState, action) => {
@@ -53,6 +54,11 @@ export default (state = filtersReducerDefaultState, action) => {
             return {
                 ...state,
                 lead: action.lead
+            }
+        case 'SET_LEADSTATO_FILTER':
+            return {
+                ...state,
+                leadStato: action.leadStato
             }
         default:
             return state

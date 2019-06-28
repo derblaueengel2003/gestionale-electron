@@ -36,7 +36,13 @@ export const setEndDate = (endDate) => ({
 })
 
 // SET_LEAD_FILTER
-export const setLeadsFilter = (lead = '') => ({
+export const setLeadsFilter = (lead = 0) => ({
     type: 'SET_LEAD_FILTER',
     lead
+})
+
+// SET_LEADSTATO_FILTER
+export const setLeadsStatoFilter = (leadStato) => ({
+    type: 'SET_LEADSTATO_FILTER',
+    leadStato
 })
