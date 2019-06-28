@@ -66,12 +66,16 @@
     }
 
     .col-1-of-6 {
-        width: calc((100% - 5 * #{$gutter-horizontal}) / 6);
-        text-align: right;
+        @media (min-width: $desktop-breakpoint) {
+            width: calc((100% - 5 * #{$gutter-horizontal}) / 6);
+            text-align: right; 
+        }
     }
 
     .col-4-of-6 {
-        width: calc(4 * ((100% - 5 * #{$gutter-horizontal}) / 6) + #{$gutter-horizontal});
+        @media (min-width: $desktop-breakpoint) {
+            width: calc(4 * ((100% - 5 * #{$gutter-horizontal}) / 6) + #{$gutter-horizontal});
+        }
     }
 
     .link-style {
