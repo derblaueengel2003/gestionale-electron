@@ -1,9 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-export default class CustomerForm extends React.Component {
+
+export class LeadForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            consulenteVendita: props.lead ? props.lead.consulenteVendita : '',
             leadNome: props.lead ? props.lead.leadNome : '',
             leadEmail: props.lead ? props.lead.leadEmail : '',
             leadTelefono: props.lead ? props.lead.leadTelefono : '',
@@ -32,6 +35,7 @@ export default class CustomerForm extends React.Component {
         } else {
             this.setState(() => ({ error: '' }))
             this.props.onSubmit({
+                consulenteVendita: this.state.consulenteVendita,
                 leadNome: this.state.leadNome,
                 leadEmail: this.state.leadEmail,
                 leadTelefono: this.state.leadTelefono,
@@ -45,7 +49,19 @@ export default class CustomerForm extends React.Component {
         return (
             <form className="form" onSubmit={this.onSubmit}>
                 {this.state.error && <p className="form__error">{this.state.error}</p>}
-
+                Cliente di:
+                <select 
+                    name="consulenteVendita"
+                    value={this.state.consulenteVendita}
+                    onChange={this.changeHandler}
+                    >
+                    <option></option>
+                    {this.props.utenti.map((consulente) => 
+                        <option key={consulente.id} 
+                        value={consulente.name}>
+                        {consulente.name}
+                        </option>)}
+                </select>
                 Nome:
                 <input
                     autoFocus
@@ -106,3 +122,9 @@ export default class CustomerForm extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    utenti: state.utenti,
+})
+
+export default connect(mapStateToProps)(LeadForm)

@@ -16,7 +16,8 @@ export class LeadsListItem extends React.Component {
             <div className="row">
                 <div className="col-4-of-6">
                     <Link className="link-style" to={`/leadedit/${this.props.id}`}>
-                        <h3 className="list-item__title">{this.props.leadNome}</h3>
+                        <h3 className="list-item__title">{this.props.leadNome}</h3> 
+                        <span className="list-item__sub-title">{this.props.consulenteVendita ? `(${this.props.consulenteVendita})` : null}</span>
                         <div className="list-item__sub-title">{this.props.leadEmail ? this.props.leadEmail : null}</div>
                         <div className="list-item__sub-title">{this.props.leadTelefono ? this.props.leadTelefono : null}</div>
                         <div className="list-item__sub-title">{this.props.leadOggettoStato ? `Appartamento ${this.props.leadOggettoStato}` : null}</div>

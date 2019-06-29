@@ -10,6 +10,7 @@ export const addLead = (lead) => ({
 export const startAddLead = (leadData = {}) => {
     return (dispatch) => {
         const {
+            consulenteVendita = '',
             leadNome = '',
             leadEmail = '',
             leadTelefono = '',
@@ -19,6 +20,7 @@ export const startAddLead = (leadData = {}) => {
             leadNote = ''
         } = leadData
         const lead = { 
+            consulenteVendita,
             leadNome, 
             leadEmail,
             leadTelefono,
