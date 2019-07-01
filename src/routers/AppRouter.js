@@ -22,7 +22,7 @@ import EditOggettoPage from '../components/oggetti/EditOggettoPage'
 import LeadsDashboardPage from '../components/leads/LeadsDashboardPage'
 import AddLeadPage from '../components/leads/AddLeadPage'
 import EditLeadPage from '../components/leads/EditLeadPage'
-import ViewLeadPage from '../components/leads/ViewLeadPage'
+import ViewLeadMatchPage from '../components/leads/ViewLeadMatchPage'
 import NotFoundPage from '../components/NotFoundPage'
 import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute'
@@ -56,7 +56,7 @@ const AppRouter = ({ uid }) => {
                         <PrivateRoute path="/leads" component={LeadsDashboardPage} />
                         <PrivateRoute path="/leadscreate" component={AddLeadPage} />
                         <PrivateRoute path="/leadedit/:id" component={EditLeadPage} />
-                        <PrivateRoute path="/leadview/:id" component={ViewLeadPage} />
+                        <PrivateRoute path="/leadmatchview/:id" component={ViewLeadMatchPage} />
 
 
                         <Route component={NotFoundPage} />

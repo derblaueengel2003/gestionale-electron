@@ -40,13 +40,15 @@ export class LeadsListItem extends React.Component {
                     <h3 className="list-item__data">{numeral(this.props.leadBudget / 100).format('0,0[.]00 $')}</h3>
                 </div>
                 <div className="col-1-of-6">
-                <button className="button" onClick={this.onRemove}>Nascondi</button>
+                    <Link className="button button--tertiary" to={`leadmatchview/${this.props.id}`}>Find a Match!</Link>
                 </div>
             </div>
             
         )
     }
 }
+// eliminato, eventualmente da aggiungere
+// <button className="button" onClick={this.onRemove}>Nascondi</button>
 
 const mapDispatchToProps = (dispatch) => ({
     removeLead: (data) => dispatch(removeLead(data))

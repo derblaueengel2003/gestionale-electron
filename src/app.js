@@ -14,6 +14,7 @@ import 'react-dates/lib/css/_datepicker.css'
 import { firebase } from './firebase/firebase'
 import LoadingPage from './components/LoadingPage'
 import { startSetOggetti } from './actions/oggetti';
+import { startSetAccentro } from './actions/accentro';
 
 const store = configureStore()
 
@@ -39,6 +40,7 @@ firebase.auth().onAuthStateChanged((user) => {
         store.dispatch(startSetCustomers())
         store.dispatch(startSetOggetti())
         store.dispatch(startSetLeads())
+        store.dispatch(startSetAccentro())
         store.dispatch(startSetDeals()).then(() => {
             renderApp()
             if (history.location.pathname === '/') {
