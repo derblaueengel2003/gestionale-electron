@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setLeadsFilter, setLeadsStatoFilter } from '../../actions/filters'
+import { setLeadsFilter, sortByDate, sortByAmount, setLeadsStatoFilter } from '../../actions/filters'
 
 export class LeadsListFilters extends React.Component {
     onLeadChange = (e) => {
@@ -9,6 +9,15 @@ export class LeadsListFilters extends React.Component {
     onLeadsStatoChange = (e) => {
         this.props.setLeadsStatoFilter(e.target.value)
     }
+    onSortChange = (e) => {
+        if (e.target.value === "date") {
+            this.props.sortByDate()
+        } else if (e.target.value === "amount") {
+            this.props.sortByAmount()
+        } else {
+            this.props.sortByPaid()
+        }
+    }    
     render() {
         return (
             <div className="content-container">
@@ -26,7 +35,7 @@ export class LeadsListFilters extends React.Component {
                             className="select"
                             value={this.props.filters.leadStato}
                             onChange={this.onLeadsStatoChange}>
-                            <option value="">Disponibilità</option>
+                            <option value="">Tipologia:</option>
                             <option value="libero">Libero</option>
                             <option value="affittato">Affittato</option>
                             <option value="libero o affittato">Libero o Affittato</option>
@@ -34,7 +43,16 @@ export class LeadsListFilters extends React.Component {
                             <option value="aph">Casa di cura</option>
                         </select>
                     </div>
-                   
+                    <div className="input-group__item">
+                        <label>Ordina per:  </label>   
+                    <select
+                            className="select"
+                            value={this.props.filters.sortBy}
+                            onChange={this.onSortChange}>
+                            <option value="date">Data</option>
+                            <option value="amount">Budget</option>
+                        </select>
+                    </div>                   
                 </div>
             </div>
         )
@@ -47,7 +65,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch)=> ({
     setLeadsFilter: (lead) => dispatch(setLeadsFilter(lead)),
-    setLeadsStatoFilter: (leadStato) => dispatch(setLeadsStatoFilter(leadStato))
+    setLeadsStatoFilter: (leadStato) => dispatch(setLeadsStatoFilter(leadStato)),
+    sortByDate: () => dispatch(sortByDate()),
+    sortByAmount: () => dispatch(sortByAmount())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeadsListFilters)

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
+import moment from 'moment'
 import { removeLead } from '../../actions/leads'
 
 
@@ -28,6 +29,7 @@ export class LeadsListItem extends React.Component {
                     <Link className="link-style" to={`/leadedit/${this.props.id}`}>
                         <h3 className="list-item__title">{this.props.leadNome}</h3> 
                         <span className="list-item__sub-title">{this.props.consulenteVendita ? `(${this.props.consulenteVendita})` : null}</span>
+                        <div className="list-item__sub-title">{this.props.leadCreatedAt ? moment(this.props.leadCreatedAt).format('DD MMMM, YYYY') : null}</div>
                         <div className="list-item__sub-title">{this.props.leadEmail ? this.props.leadEmail : null}</div>
                         <div className="list-item__sub-title">{this.props.leadTelefono ? this.props.leadTelefono : null}</div>
                         <div className="list-item__sub-title">{this.props.leadOggettoStato ? immobile : null}</div>

@@ -1,5 +1,5 @@
 import database from '../firebase/firebase'
-
+import moment from 'moment'
 
 // ADD_LEAD
 export const addLead = (lead) => ({
@@ -10,16 +10,17 @@ export const addLead = (lead) => ({
 export const startAddLead = (leadData = {}) => {
     return (dispatch) => {
         const {
+            leadCreatedAt = moment(),
             consulenteVendita = '',
             leadNome = '',
             leadEmail = '',
             leadTelefono = '',
             leadBudget = 0,
-            //libero o affittato o egal
             leadOggettoStato = '',
             leadNote = ''
         } = leadData
         const lead = { 
+            leadCreatedAt,
             consulenteVendita,
             leadNome, 
             leadEmail,

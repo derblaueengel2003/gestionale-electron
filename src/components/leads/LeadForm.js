@@ -1,11 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
+import { SingleDatePicker } from 'react-dates'
 
 
 export class LeadForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            leadCreatedAt: props.lead ? moment(props.lead.leadCreatedAt) : moment(),
+            calendarFocused: false,
+
             consulenteVendita: props.lead ? props.lead.consulenteVendita : '',
             leadNome: props.lead ? props.lead.leadNome : '',
             leadEmail: props.lead ? props.lead.leadEmail : '',
@@ -26,6 +31,14 @@ export class LeadForm extends React.Component {
             this.setState(() => ({ leadBudget }))
         }
     }
+    onDateChange = (leadCreatedAt) => {
+        if (leadCreatedAt) {
+            this.setState(() => ({ leadCreatedAt }))
+        }
+    }
+    onFocusChange = ({ focused }) => {
+        this.setState(() => ({ calendarFocused: focused }))
+    }
     onSubmit = (e) => {
         e.preventDefault()
         const leadBudget = parseFloat(this.state.leadBudget, 10) * 100
@@ -35,6 +48,7 @@ export class LeadForm extends React.Component {
         } else {
             this.setState(() => ({ error: '' }))
             this.props.onSubmit({
+                leadCreatedAt: this.state.leadCreatedAt ? this.state.leadCreatedAt.valueOf() : null,
                 consulenteVendita: this.state.consulenteVendita,
                 leadNome: this.state.leadNome,
                 leadEmail: this.state.leadEmail,
@@ -62,6 +76,15 @@ export class LeadForm extends React.Component {
                         {consulente.name}
                         </option>)}
                 </select>
+                Data Richiesta:
+                <SingleDatePicker
+                    date={this.state.leadCreatedAt}
+                    onDateChange={this.onDateChange}
+                    focused={this.state.calendarFocused}
+                    onFocusChange={this.onFocusChange}
+                    numberOfMonths={1}
+                    isOutsideRange={() => false}
+                />
                 Nome:
                 <input
                     autoFocus
