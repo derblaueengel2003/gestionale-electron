@@ -12,6 +12,16 @@ export class LeadsListItem extends React.Component {
     }
 
     render() {
+        let immobile = ''
+        if(this.props.leadOggettoStato === 'commerciale') {
+            immobile = `Locale ${this.props.leadOggettoStato }`
+        } else if (this.props.leadOggettoStato === 'aph') {
+            immobile = 'Casa di cura'
+        } else if (this.props.leadOggettoStato === 'libero' || this.props.leadOggettoStato === 'affittato' || this.props.leadOggettoStato === 'libero o affittato'){
+            immobile = `Appartamento ${this.props.leadOggettoStato }`
+        }
+
+
         return (
             <div className="row">
                 <div className="col-4-of-6">
@@ -20,7 +30,7 @@ export class LeadsListItem extends React.Component {
                         <span className="list-item__sub-title">{this.props.consulenteVendita ? `(${this.props.consulenteVendita})` : null}</span>
                         <div className="list-item__sub-title">{this.props.leadEmail ? this.props.leadEmail : null}</div>
                         <div className="list-item__sub-title">{this.props.leadTelefono ? this.props.leadTelefono : null}</div>
-                        <div className="list-item__sub-title">{this.props.leadOggettoStato ? `Appartamento ${this.props.leadOggettoStato}` : null}</div>
+                        <div className="list-item__sub-title">{this.props.leadOggettoStato ? immobile : null}</div>
                         <div className="list-item__sub-title">{this.props.leadNote ? this.props.leadNote : null}</div>
                     </Link> 
                 </div>

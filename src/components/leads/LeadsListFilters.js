@@ -29,6 +29,9 @@ export class LeadsListFilters extends React.Component {
                             <option value="">Disponibilità</option>
                             <option value="libero">Libero</option>
                             <option value="affittato">Affittato</option>
+                            <option value="libero o affittato">Libero o Affittato</option>
+                            <option value="commerciale">Locale commerciale</option>
+                            <option value="aph">Casa di cura</option>
                         </select>
                     </div>
                    
