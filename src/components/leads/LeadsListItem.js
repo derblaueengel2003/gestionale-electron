@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 import moment from 'moment'
-import { removeLead } from '../../actions/leads'
+// import { removeLead } from '../../actions/leads'
 
 
 
 export class LeadsListItem extends React.Component {
-    onRemove = () => {
-        this.props.removeLead({ id: this.props.id })         
-    }
+    // onRemove = () => {
+    //     this.props.removeLead({ id: this.props.id })         
+    // }
 
     render() {
         let immobile = ''
