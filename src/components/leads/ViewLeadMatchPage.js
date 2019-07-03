@@ -33,7 +33,7 @@ export class ViewLeadMatchPage extends React.Component {
             <div className="content-container">
                 <div className="page-header">
                     <div>
-                        <h1 className="page-header__title">Match con gli immobili Accentro</h1>
+                        <h1 className="page-header__title">Match con gli immobili Accentro: {this.secondoMatch().length}</h1>
                     </div>
                     La corrispondenza si basa sul budget (+-20%) e sulla tipologia dell'immobile
                 </div>
