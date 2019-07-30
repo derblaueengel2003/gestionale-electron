@@ -1,5 +1,5 @@
-import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import React from 'react'
+import { Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import DealDashboardPage from '../components/deals/DealDashboardPage'
@@ -23,8 +23,9 @@ import LeadsDashboardPage from '../components/leads/LeadsDashboardPage'
 import AddLeadPage from '../components/leads/AddLeadPage'
 import EditLeadPage from '../components/leads/EditLeadPage'
 import ViewLeadMatchPage from '../components/leads/ViewLeadMatchPage'
+import ModuliPage from '../components/moduli/ModuliList'
 import NotFoundPage from '../components/NotFoundPage'
-import LoginPage from '../components/LoginPage';
+import LoginPage from '../components/LoginPage'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
 
@@ -57,6 +58,7 @@ const AppRouter = ({ uid }) => {
                         <PrivateRoute path="/leadscreate" component={AddLeadPage} />
                         <PrivateRoute path="/leadedit/:id" component={EditLeadPage} />
                         <PrivateRoute path="/leadmatchview/:id" component={ViewLeadMatchPage} />
+                        <PrivateRoute path="/moduli" component={ModuliPage} />
 
 
                         <Route component={NotFoundPage} />

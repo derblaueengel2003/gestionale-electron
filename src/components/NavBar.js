@@ -15,6 +15,7 @@ export const NavBar = ({ uid }) => {
         <div className="content-container page-header__navbar">
             <Link className="button page-header__button" to="/dashboard">Provvigioni</Link>
             <Link className="button page-header__button" to="/leads">Richieste</Link>
+            <Link className="button page-header__button" to="/moduli">Modulistica</Link>
             {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && adminNavbar}
         </div>
 )}

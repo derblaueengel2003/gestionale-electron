@@ -28,12 +28,12 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.prezzoDiVendita > 0 && <div>Prezzo di Vendita: {numeral(this.props.deal.prezzoDiVendita / 100).format('0,0[.]00 $')}</div>}
                         {this.props.deal.amount > 0 && <div>Provvigione: {numeral(this.props.deal.amount / 100).format('0,0[.]00 $')}</div>}
                         {this.props.deal.consulenteVendita > 0 && <div>Cliente di: {this.props.deal.consulenteVendita}</div>}
-                        {this.props.deal.provvM2square > 0 && <div className={`list-item ${this.props.deal.payed && 'list-item--paid'}`}>m2Square: {numeral(this.props.deal.provvM2square / 100).format('0,0[.]00 $')}</div>}
+                        {this.props.deal.provvM2square > 0 && <div className={`${this.props.deal.payed && 'list-item--paid'}`}>m2Square: {numeral(this.props.deal.provvM2square / 100).format('0,0[.]00 $')}</div>}
                         {this.props.deal.payedAt > 0 && <div>Prenotazione pagata il: {moment(this.props.deal.payedAt).format('DD MMMM, YYYY')}</div>}
-                        {this.props.deal.provvStefano > 0 && <div className={`list-item ${this.props.deal.payedStefano && 'list-item--paid'}`}>Stefano: {numeral(this.props.deal.provvStefano / 100).format('0,0[.]00 $')}</div>}
+                        {this.props.deal.provvStefano > 0 && <div className={`${this.props.deal.payedStefano && 'list-item--paid'}`}>Stefano: {numeral(this.props.deal.provvStefano / 100).format('0,0[.]00 $')}</div>}
                         {this.props.deal.payedAtStefano > 0 && <div>Pagata a Stefano il: {moment(this.props.deal.payedAtStefano).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.agenziaPartnerId.length > 0 && <div>Agenzia Partner: {agenziaPartner.nome} {agenziaPartner.cognome} {agenziaPartner.ditta && ` - Firma: ${agenziaPartner.ditta}`}</div>}
-                        {this.props.deal.provvAgenziaPartner > 0 && <div className={`list-item ${this.props.deal.payedAgenziaPartner && 'list-item--paid'}`}>Provvigione Agenzia Partner: {numeral(this.props.deal.provvAgenziaPartner / 100).format('0,0[.]00 $')}</div>}
+                        {this.props.deal.provvAgenziaPartner > 0 && <div className={`${this.props.deal.payedAgenziaPartner && 'list-item--paid'}`}>Provvigione Agenzia Partner: {numeral(this.props.deal.provvAgenziaPartner / 100).format('0,0[.]00 $')}</div>}
                         {this.props.deal.venditoreId.length > 0 && <div>Venditore: {venditore.nome} {venditore.cognome} {venditore.ditta && ` - Firma: ${venditore.ditta}`}</div>}
                         {this.props.deal.venditoreId2.length > 0 && <div>Secondo Venditore: {venditore2.nome} {venditore2.cognome} {venditore2.ditta && ` - Firma: ${venditore2.ditta}`}</div>}
                         {this.props.deal.acquirenteId.length > 0 && <div>Acquirente: {acquirente.nome} {acquirente.cognome} {acquirente.ditta && ` - Firma: ${acquirente.ditta}`}</div>}
