@@ -10,7 +10,16 @@ export default class OggettoForm extends React.Component {
             citta: props.oggetto ? props.oggetto.citta : '',
             nazione: props.oggetto ? props.oggetto.nazione : '',
             numeroAppartamento: props.oggetto ? props.oggetto.numeroAppartamento : '',
-            rifId: props.oggetto ? props.oggetto.rifId : ''
+            rifId: props.oggetto ? props.oggetto.rifId : '',
+            grundbuch: props.oggetto ? props.oggetto.grundbuch : '',
+            grundbuchBlatt: props.oggetto ? props.oggetto.grundbuchBlatt : '',
+            m2: props.oggetto ? props.oggetto.m2 : '',
+            piano: props.oggetto ? props.oggetto.piano : '',
+            mobilio: props.oggetto ? props.oggetto.mobilio : '',
+            stato: props.oggetto ? props.oggetto.stato : '',
+            wohngeld: props.oggetto ? (props.oggetto.wohngeld / 100).toString() : '0',
+            affittoNetto: props.oggetto ? (props.oggetto.affittoNetto / 100).toString() : '0',
+            verwalter: props.oggetto ? props.oggetto.verwalter : ''
         }
     }
     changeHandler = (e) => { 
@@ -18,9 +27,18 @@ export default class OggettoForm extends React.Component {
         const value = e.target.value
         this.setState({ [name]: value })
     }
+    onMoneyChange = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        if (!value || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
+            this.setState({ [name]: value })
+        }
+    }
     onSubmit = (e) => {
         e.preventDefault()
-    
+        const wohngeld = parseFloat(this.state.wohngeld, 10) * 100
+        const affittoNetto = parseFloat(this.state.affittoNetto, 10) * 100
+
         if (!this.state.via || !this.state.rifId) {
             this.setState(() => ({ error: 'Inserisci via e riferimento Id.'}))
         } else {
@@ -32,7 +50,16 @@ export default class OggettoForm extends React.Component {
                 citta: this.state.citta,
                 nazione: this.state.nazione,
                 numeroAppartamento: this.state.numeroAppartamento,
-                rifId: this.state.rifId
+                rifId: this.state.rifId,
+                grundbuch: this.state.grundbuch,
+                grundbuchBlatt: this.state.grundbuchBlatt,
+                m2: this.state.m2,
+                piano: this.state.piano,
+                mobilio: this.state.mobilio,
+                stato: this.state.stato,
+                wohngeld,
+                affittoNetto,
+                verwalter: this.state.verwalter
             })
         }
     }
@@ -102,6 +129,86 @@ export default class OggettoForm extends React.Component {
                     type="text"
                     placeholder="Rif. Id"
                     value={this.state.rifId}
+                    onChange={this.changeHandler}
+                />
+                Grundbuch:
+                <input
+                    name="grundbuch"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="Grundbuch von"
+                    value={this.state.grundbuch}
+                    onChange={this.changeHandler}
+                />
+                GB Blatt Nr.:
+                <input
+                    name="grundbuchBlatt"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="Blatt Nr."
+                    value={this.state.grundbuchBlatt}
+                    onChange={this.changeHandler}
+                />
+                Metri quadri:
+                <input
+                    name="m2"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="m2"
+                    value={this.state.m2}
+                    onChange={this.changeHandler}
+                />
+                Piano:
+                <input
+                    name="piano"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="Piano"
+                    value={this.state.piano}
+                    onChange={this.changeHandler}
+                />
+                Mobilio:
+                <textarea
+                    name="mobilio"
+                    className={`textarea`}
+                    placeholder="Mobilio e valore"
+                    value={this.state.mobilio}
+                    onChange={this.changeHandler}
+                />
+                
+                Stato:
+                <input
+                    name="stato"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="Libero o affittato"
+                    value={this.state.stato}
+                    onChange={this.changeHandler}
+                />
+                Wohngeld:
+                <input
+                    name="wohngeld"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="Wohngeld"
+                    value={this.state.wohngeld}
+                    onChange={this.onMoneyChange}
+                />
+                Affitto Netto:
+                <input
+                    name="affittoNetto"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="Affitto netto"
+                    value={this.state.affittoNetto}
+                    onChange={this.onMoneyChange}
+                />
+                Dati Amministrazione:
+                <textarea
+                    name="verwalter"
+                    className={`textarea`}
+                    placeholder="Nome, Indirizzo, Email, Telefono"
+                    value={this.state.verwalter}
                     onChange={this.changeHandler}
                 />
                 <div>

@@ -30,6 +30,7 @@ export class DealForm extends React.Component {
             acquirenteId2: props.deal ? props.deal.acquirenteId2 : '',
             dataRogito: props.deal ? props.deal.dataRogito && moment(props.deal.dataRogito) : null,
             calendarDataRogitoFocused: false,
+            belastungsVollmacht: props.deal ? props.deal.belastungsVollmacht : false,
             numeroFattura: props.deal ? props.deal.numeroFattura : '',
             dataFattura: props.deal ? props.deal.dataFattura && moment(props.deal.dataFattura) : null,
             note: props.deal ? props.deal.note : '',
@@ -144,6 +145,9 @@ export class DealForm extends React.Component {
     onFocusDataRogitoChange = ({ focused }) => {
         this.setState(() => ({ calendarDataRogitoFocused: focused }))
     }
+    onBelastungsVollmachtChange = () => {
+        this.setState(() => ({ belastungsVollmacht: !this.state.belastungsVollmacht }))
+    }
     onNumeroFatturaChange = (e) => {
         const numeroFattura = e.target.value
         this.setState(() => ({ numeroFattura, modificato: { ...this.state.modificato, numeroFattura: 'modificato'} }) )
@@ -197,6 +201,7 @@ export class DealForm extends React.Component {
                 acquirenteId: this.state.acquirenteId,
                 acquirenteId2: this.state.acquirenteId2,
                 dataRogito: this.state.dataRogito ? this.state.dataRogito.valueOf(): null,
+                belastungsVollmacht: this.state.belastungsVollmacht,
                 calendarDataFatturaFocused: false,
                 numeroFattura: this.state.numeroFattura,
                 dataFattura: this.state.dataFattura ? this.state.dataFattura.valueOf() : null,
@@ -403,6 +408,14 @@ export class DealForm extends React.Component {
                     numberOfMonths={1}
                     isOutsideRange={() => false}
                 />
+                <label>Belastungsvollmacht&nbsp;
+                <input
+                        type="checkbox"
+                        name="belastungsVollmacht"
+                        checked={this.state.belastungsVollmacht}
+                        onChange={this.onBelastungsVollmachtChange}
+                    />
+                </label>
                 Numero Fattura:
                 <input
                     className={`text-input text-input--${this.state.modificato.numeroFattura}`}

@@ -30,7 +30,8 @@ export const startAddDeal = (dealData = {}) => {
             numeroFattura = '',
             dataFattura = null,
             payed = false,
-            payedAt = '',           
+            payedAt = '',
+            belastungsVollmacht = false,           
             dataRogito = null
         } = dealData
         const deal = { 
@@ -55,6 +56,7 @@ export const startAddDeal = (dealData = {}) => {
             dataFattura,
             payed,
             payedAt,
+            belastungsVollmacht,
             dataRogito
          }
 
