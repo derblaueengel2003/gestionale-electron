@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import numeral from 'numeral'
+import StampaDatenblatt from './StampaDatenblatt'
+
 
 export class ViewDealPage extends React.Component {
     
@@ -14,7 +16,7 @@ export class ViewDealPage extends React.Component {
             const venditore2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId2)
             const agenziaPartner = this.props.clienti.find((cliente) => cliente.id === this.props.deal.agenziaPartnerId)
             const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.description)
-
+           
             return (
                 <div>
                     <div className="page-header">
@@ -43,6 +45,9 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.dataRogito > 0 && <div>Data rogito: {moment(this.props.deal.dataRogito).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
                         {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button" to={`/edit/${this.props.deal.id}`}>Modifica Provvigione</Link>}
+                    </div>
+                    <div className="content-container">
+                        <StampaDatenblatt dealId={this.props.deal.id}/>
                     </div>
                 </div>
             )
@@ -74,6 +79,9 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.acquirenteId2.length > 0 && <div>Secondo Acquirente: {acquirente2.nome} {acquirente2.cognome}</div>}
                         {this.props.deal.dataRogito > 0 && <div>Data rogito: {moment(this.props.deal.dataRogito).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
+                    </div>
+                    <div className="content-container">
+                        <StampaDatenblatt dealId={this.props.deal.id} />
                     </div>
                 </div>
             )
