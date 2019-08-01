@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "Angelo Arboscello",
   "license": "MIT",
+  "engines": {
+    "node": "12.2.0",
+    "yarn": "1.16.0"
+  },
   "scripts": {
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
