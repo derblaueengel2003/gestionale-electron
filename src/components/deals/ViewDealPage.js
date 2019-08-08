@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import numeral from 'numeral'
-import StampaDatenblatt from './StampaDatenblatt'
+import StampaDatenblatt2 from './StampaDatenblatt2'
+
 
 
 export class ViewDealPage extends React.Component {
@@ -47,7 +48,7 @@ export class ViewDealPage extends React.Component {
                         {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button" to={`/edit/${this.props.deal.id}`}>Modifica Provvigione</Link>}
                     </div>
                     <div className="content-container">
-                        <StampaDatenblatt dealId={this.props.deal.id}/>
+                        <StampaDatenblatt2 dealId={this.props.deal.id}/>
                     </div>
                 </div>
             )
@@ -81,7 +82,7 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
                     </div>
                     <div className="content-container">
-                        <StampaDatenblatt dealId={this.props.deal.id} />
+                        <StampaDatenblatt2 dealId={this.props.deal.id} />
                     </div>
                 </div>
             )

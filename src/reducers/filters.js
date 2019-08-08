@@ -5,6 +5,7 @@ import moment from 'moment'
 const filtersReducerDefaultState = {
     text: '',
     cliente: '',
+    oggetto: '',
     sortBy: 'date',
     startDate: null,
     endDate: null,
@@ -23,6 +24,11 @@ export default (state = filtersReducerDefaultState, action) => {
             return {
                 ...state,
                 cliente: action.cliente
+            }
+        case 'SET_OGGETTO_FILTER':
+            return {
+                ...state,
+                oggetto: action.oggetto
             }
         case 'SORT_BY_AMOUNT':
             return {

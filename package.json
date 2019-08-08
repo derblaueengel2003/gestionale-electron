@@ -13,6 +13,8 @@
     "heroku-postbuild": "yarn run build:prod"
   },
   "dependencies": {
+    "@progress/kendo-drawing": "^1.5.12",
+    "@progress/kendo-react-pdf": "^3.2.2",
     "@react-pdf/renderer": "^1.6.3",
     "babel-cli": "6.24.1",
     "babel-core": "6.25.0",

@@ -8,6 +8,11 @@ export const setClienteFilter = (cliente = '') => ({
     type: 'SET_CLIENTE_FILTER',
     cliente
 })
+//SET_OGGETTO_FILTER
+export const setOggettoFilter = (oggetto = '') => ({
+    type: 'SET_OGGETTO_FILTER',
+    oggetto
+})
 // SORT_BY_DATE
 export const sortByDate = () => ({
     type: 'SORT_BY_DATE'

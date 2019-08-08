@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import OggettiListItem from './OggettiListItem';
+import OggettiListItem from './OggettiListItem'
+import selectOggetti from '../../selectors/oggetti'
 
 export const OggettiList = (props) => (
     
@@ -33,8 +34,11 @@ export const OggettiList = (props) => (
 
 const mapStateToProps = (state) => {
     return {
-        oggetti: state.oggetti
+        oggetti: selectOggetti(state.oggetti, state.filters)
     }
 } 
+const mapDispatchToProps = (dispatch) => ({
+    startSetOggetti: () => dispatch(startSetOggetti())
+})
 
-export default connect(mapStateToProps)(OggettiList)
+export default connect(mapStateToProps, mapDispatchToProps)(OggettiList)
