@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import numeral from 'numeral'
-import StampaDatenblatt2 from './StampaDatenblatt2'
 
 
 
@@ -47,9 +46,7 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
                         {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button" to={`/edit/${this.props.deal.id}`}>Modifica Provvigione</Link>}
                     </div>
-                    <div className="content-container">
-                        <StampaDatenblatt2 dealId={this.props.deal.id}/>
-                    </div>
+
                 </div>
             )
         } else {
