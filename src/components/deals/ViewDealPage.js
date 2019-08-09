@@ -4,10 +4,8 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import numeral from 'numeral'
 
-
-
 export class ViewDealPage extends React.Component {
-    
+
     render() {
         if (this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' || this.props.uid === 'BNhRvZCcvMPr54unKlYSSliPel42') {
             const acquirente = this.props.clienti.find((cliente) => cliente.id === this.props.deal.acquirenteId)
@@ -45,8 +43,11 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.dataRogito > 0 && <div>Data rogito: {moment(this.props.deal.dataRogito).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
                         {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button" to={`/edit/${this.props.deal.id}`}>Modifica Provvigione</Link>}
+                        <Link className="button" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
                     </div>
-
+                    <div>
+                    </div>
+                   
                 </div>
             )
         } else {
@@ -77,14 +78,14 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.acquirenteId2.length > 0 && <div>Secondo Acquirente: {acquirente2.nome} {acquirente2.cognome}</div>}
                         {this.props.deal.dataRogito > 0 && <div>Data rogito: {moment(this.props.deal.dataRogito).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
+                        <Link className="button" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
                     </div>
                     <div className="content-container">
-                        <StampaDatenblatt2 dealId={this.props.deal.id} />
                     </div>
                 </div>
             )
         }
-
+        
     }
 }
 

@@ -1,0 +1,21 @@
+@media print {
+    .button{
+        display: none;
+    }
+   
+    .page-divide {
+    page-break-after: always;
+    page-break-before: always;
+  }
+
+  .content-container {
+      line-height: 0.5rem;
+  }
+
+  h2 {
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+      
+  }
+
+}
