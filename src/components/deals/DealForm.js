@@ -2,6 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { SingleDatePicker } from 'react-dates'
+import Select from 'react-virtualized-select'
+import createFilterOptions from 'react-select-fast-filter-options'
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css'
+import 'react-virtualized-select/styles.css'
 
 export class DealForm extends React.Component {
     constructor(props) {
@@ -28,6 +33,7 @@ export class DealForm extends React.Component {
             venditoreId2: props.deal ? props.deal.venditoreId2 : '',
             acquirenteId: props.deal ? props.deal.acquirenteId : '',
             acquirenteId2: props.deal ? props.deal.acquirenteId2 : '',
+            notaioId: props.deal ? props.deal.notaioId: '',
             dataRogito: props.deal ? props.deal.dataRogito && moment(props.deal.dataRogito) : null,
             calendarDataRogitoFocused: false,
             belastungsVollmacht: props.deal ? props.deal.belastungsVollmacht : false,
@@ -40,7 +46,7 @@ export class DealForm extends React.Component {
         }
     }
     onOggettoChange = (e) => {
-        const oggetto = e.target.value
+        const oggetto = e ? e.value : ''
         this.setState(() => ({ description: oggetto }))
     }
     onPrezzoDiVenditaChange = (e) => {
@@ -58,7 +64,7 @@ export class DealForm extends React.Component {
         }
     }
     onConsulenteVenditaChange = (e) => {
-        const consulenteVendita = e.target.value
+        const consulenteVendita = e ? e.value : ''
         this.setState(() => ({ consulenteVendita }))
     }
     onProvvM2squareChange = (e) => {
@@ -100,7 +106,7 @@ export class DealForm extends React.Component {
         this.setState(() => ({ calendarPayedAtStefanoFocused: focused }))
     }
     onAgenziaPartnerChange = (e) => {
-        const agenziaPartnerId = e.target.value
+        const agenziaPartnerId = e ? e.value : ''
         this.setState(() => ({ agenziaPartnerId }))
     }
     onProvvAgenziaPartnerChange = (e) => {
@@ -122,20 +128,24 @@ export class DealForm extends React.Component {
         this.setState(() => ({ calendarFocused: focused }))
     }
     onVenditoreIdChange = (e) => {
-        const venditoreId = e.target.value
+        const venditoreId = e ? e.value : ''
         this.setState(() => ({ venditoreId }))
     }
     onVenditoreIdChange2 = (e) => {
-        const venditoreId2 = e.target.value
+        const venditoreId2 = e ? e.value : ''
         this.setState(() => ({ venditoreId2 }))
     }
     onAcquirenteIdChange = (e) => {
-        const acquirenteId = e.target.value
+        const acquirenteId = e ? e.value : ''
         this.setState(() => ({ acquirenteId }))
     }
     onAcquirenteIdChange2 = (e) => {
-        const acquirenteId2 = e.target.value
+        const acquirenteId2 = e ? e.value : ''
         this.setState(() => ({ acquirenteId2 }))
+    }
+    onNotaioIdChange = (e) => {
+        const notaioId = e ? e.value : ''
+        this.setState(() => ({ notaioId }))
     }
     onDataRogitoChange = (dataRogito) => {
         if (dataRogito) {
@@ -200,6 +210,7 @@ export class DealForm extends React.Component {
                 venditoreId2: this.state.venditoreId2,
                 acquirenteId: this.state.acquirenteId,
                 acquirenteId2: this.state.acquirenteId2,
+                notaioId: this.state.notaioId,
                 dataRogito: this.state.dataRogito ? this.state.dataRogito.valueOf(): null,
                 belastungsVollmacht: this.state.belastungsVollmacht,
                 calendarDataFatturaFocused: false,
@@ -209,7 +220,21 @@ export class DealForm extends React.Component {
             })
         }
     }
+    
     render() {
+        const options = this.props.clienti.map((cliente) => ({
+                value: cliente.id, label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&  `- Firma ${cliente.ditta}`}`
+            }))    
+        const filterOptions = createFilterOptions({ options })
+
+        const oggettiOptions = this.props.oggetti.map((oggetto) => ({
+            value: oggetto.id, label: `Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`
+        }))
+
+        const consulenteVenditaOptions = this.props.utenti.map((consulente) => ({
+            value: consulente.id, label: consulente.name
+        }))    
+
         return (
             <form className="form" onSubmit={this.onSubmit}>
                 {this.state.error && <p className="form__error">{this.state.error}</p>}
@@ -217,17 +242,13 @@ export class DealForm extends React.Component {
                     <button className="button">Salva modifiche</button>
                 </div>         
                 Oggetto:
-                <select
-                    value={this.state.description}
-                    onChange={this.onOggettoChange}
-                >
-                    <option value=""></option>
-                    {this.props.oggetti.map((oggetto) =>
-                        <option key={oggetto.id}
-                            value={oggetto.id}>
-                            {`Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}
-                        </option>)}
-                </select>  
+                <Select
+                        name="description"
+                        value={this.state.description}
+                        options={oggettiOptions}
+                        onChange={this.onOggettoChange}
+                />
+ 
                 Data Prenotazione:
                 <SingleDatePicker
                     date={this.state.createdAt}
@@ -254,16 +275,13 @@ export class DealForm extends React.Component {
                     onChange={this.onAmountChange}
                 />
                 Cliente di:
-                <select 
-                    value={this.state.consulenteVendita}
-                    onChange={this.onConsulenteVenditaChange}
-                    >
-                    {this.props.utenti.map((consulente) => 
-                        <option key={consulente.id} 
-                        value={consulente.name}>
-                        {consulente.name}
-                        </option>)}
-                </select>
+                <Select
+                name="consulentevendita"
+                value={this.state.consulenteVendita}
+                options={consulenteVenditaOptions}
+                onChange={this.onConsulenteVenditaChange}
+
+        />
                 Provvigione m2Square:
                 <input
                     className={`text-input text-input--${this.state.modificato.provvM2square}`}
@@ -319,18 +337,14 @@ export class DealForm extends React.Component {
                     />
                 </div>
                 Agenzia Partner:
-                <select
-                    value={this.state.agenziaPartnerId}
-                    onChange={this.onAgenziaPartnerChange}
-                >
-                    <option value=""></option>
+                <Select
+                name="agenziapartner"
+                value={this.state.agenziaPartnerId}
+                options={options}
+                filterOptions={filterOptions}
+                onChange={this.onAgenziaPartnerChange}
+                />
 
-                    {this.props.clienti.map((cliente) =>
-                        <option key={cliente.id}
-                        value={cliente.id}>
-                            {`${cliente.nome} ${cliente.cognome}`}{cliente.ditta && ` - Firma ${cliente.ditta}`}
-                        </option>)}
-                </select>
                 Provvigione Agenzia Partner 
                 <input
                     className={`text-input text-input--${this.state.modificato.provvAgenziaPartner}`}
@@ -348,56 +362,52 @@ export class DealForm extends React.Component {
                     />
                 </label>
                 Venditore:
-                <select 
-                    value={this.state.venditoreId}
-                    onChange={this.onVenditoreIdChange}
-                    >
-                    <option value=""></option>
+                <Select
+                        name="venditore"
+                        value={this.state.venditoreId}
+                        options={options}
+                        filterOptions={filterOptions}
+                        onChange={this.onVenditoreIdChange}
 
-                    {this.props.clienti.map((cliente) => 
-                        <option key={cliente.id} 
-                        value={cliente.id}>
-                        {`${cliente.nome} ${cliente.cognome}`}{cliente.ditta && ` - Firma ${cliente.ditta}`}
-                        </option>)}
-                </select>
+                />
+
                 Secondo Venditore:
-                <select 
-                    value={this.state.venditoreId2}
-                    onChange={this.onVenditoreIdChange2}
-                    >
-                    <option value=""></option>
-                    {this.props.clienti.map((cliente) => 
-                        <option key={cliente.id} 
-                        value={cliente.id}>
-                        {`${cliente.nome} ${cliente.cognome}`}{cliente.ditta && ` - Firma ${cliente.ditta}`}
-                        </option>)}
-                </select>
+                <Select
+                name="venditore2"
+                value={this.state.venditoreId2}
+                options={options}
+                filterOptions={filterOptions}
+                onChange={this.onVenditoreIdChange2}
+
+        />
                 Acquirente:
-                <select 
-                    value={this.state.acquirenteId}
-                    onChange={this.onAcquirenteIdChange}
-                    >
-                    <option value=""></option>
+                <Select
+                name="acquirente"
+                value={this.state.acquirenteId}
+                options={options}
+                filterOptions={filterOptions}
+                onChange={this.onAcquirenteIdChange}
 
-                    {this.props.clienti.map((cliente) => 
-                        <option key={cliente.id} 
-                        value={cliente.id}>
-                        {`${cliente.nome} ${cliente.cognome}`}{cliente.ditta && ` - Firma ${cliente.ditta}`}
-                        </option>)}
-                </select>
+        />
                 Secondo Acquirente:
-                <select 
-                    value={this.state.acquirenteId2}
-                    onChange={this.onAcquirenteIdChange2}
-                    >
-                    <option value=""></option>
+                <Select
+                name="acquirente2"
+                value={this.state.acquirenteId2}
+                options={options}
+                filterOptions={filterOptions}
+                onChange={this.onAcquirenteIdChange2}
 
-                    {this.props.clienti.map((cliente) => 
-                        <option key={cliente.id} 
-                        value={cliente.id}>
-                        {`${cliente.nome} ${cliente.cognome}`}{cliente.ditta && ` - Firma ${cliente.ditta}`}
-                        </option>)}
-                </select>        
+        />
+                Notaio:
+                <Select
+                        name="notaio"
+                        value={this.state.notaioId}
+                        options={options}
+                        filterOptions={filterOptions}
+                        onChange={this.onNotaioIdChange}
+
+                />
+                
                               
                 Data Rogito:
                 <SingleDatePicker

@@ -28,7 +28,7 @@ import NotFoundPage from '../components/NotFoundPage'
 import LoginPage from '../components/LoginPage'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
-import StampaDatenblatt2 from '../components/deals/StampaDatenblatt2';
+import StampaDatenblatt from '../components/deals/StampaDatenblatt';
 
 export const history = createHistory()
 
@@ -59,7 +59,7 @@ const AppRouter = ({ uid }) => {
                         <PrivateRoute path="/leadscreate" component={AddLeadPage} />
                         <PrivateRoute path="/leadedit/:id" component={EditLeadPage} />
                         <PrivateRoute path="/leadmatchview/:id" component={ViewLeadMatchPage} />
-                        <PrivateRoute path="/datenblatt/:id" component={StampaDatenblatt2} />
+                        <PrivateRoute path="/datenblatt/:id" component={StampaDatenblatt} />
                         <PrivateRoute path="/moduli" component={ModuliPage} />
 
 

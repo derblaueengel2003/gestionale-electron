@@ -9,6 +9,7 @@ const ModuliPage = () => (
             <div className="show-for-mobile"></div>
             <div className="show-for-desktop"></div>
         </div>      
+        <div className="list-item"><a href='./files/Provisionsbestaetigung.pdf' download>Provisionsbestätigung</a></div>
         <div className="list-item"><a href='./files/datenblatt.pdf' download>Datenblatt Pietzcker</a></div>
         <div className="list-item"><a href='./files/Allgemeine Vertragsbedingungen.pdf' download>Allgemeine Vertragsbedingungen</a></div>
         <div className="list-item"><a href='./files/Verbraucherwiderrufsbelehrung.pdf' download>Verbraucherwiderrufsbelehrung</a></div>
