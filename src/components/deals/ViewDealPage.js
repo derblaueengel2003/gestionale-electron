@@ -3,85 +3,12 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import numeral from 'numeral'
-import { doc, imgData } from '../moduli/Provisionsbestaetigung'
+import { creaPrenotazione } from '../moduli/Provisionsbestaetigung'
+import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung'
+import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag'
 
 export class ViewDealPage extends React.Component {
-    creaPrenotazione = () => {
-        const acquirente = this.props.clienti.find((cliente) => cliente.id === this.props.deal.acquirenteId)
-        const venditore = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId)
-        const venditore2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId2)
-        const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.description)
-        const acqDitta = `${acquirente.ditta && `${acquirente.ditta}`}`
-        const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`
-        const acqInd = `${acquirente.indirizzo}, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`
-        const vendDitta = `${venditore.ditta && `${venditore.ditta}`}`
-        const vendNome = `${venditore.titolo} ${venditore.nome} ${venditore.cognome}`
-        const vendInd = `${venditore.indirizzo}, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`
-        const vendDitta2 = venditore2 && `${venditore2.ditta && `${venditore2.ditta}`}`
-        const vendNome2 = venditore2 && `${venditore2.titolo} ${venditore2.nome} ${venditore2.cognome}`
-        const vendInd2 = venditore2 && `${venditore2.indirizzo}, ${venditore2.cap} ${venditore2.comune}, ${venditore2.nazione}`
-        const provvPercentuale = numeral((this.props.deal.amount / this.props.deal.prezzoDiVendita) * 119).format('0,0.00')
-       
-        doc.addImage(imgData, 'JPEG', 0,0,210,297)
-        if (acqDitta.length > 70 || acqInd.length > 70 || acqNome.length > 70) {
-            doc.setFontSize(10)
-        } else if (acqDitta.length > 100 || acqInd.length > 100 || acqNome.length > 100)
-            doc.setFontSize(8)
-        else {
-            doc.setFontSize(12)
-        }
-         if (acqDitta.length > 0) {
-            doc.text(acqDitta, 61, 30)
-            doc.text(acqNome, 61, 35)
-            doc.text(acqInd, 61, 40)
-        } else {
-            doc.text(acqNome, 61, 30)
-            doc.text(acqInd, 61, 35)
-        }
-        doc.text(provvPercentuale, 93, 87)
-        doc.text(oggetto.rifId, 25, 136)
-        doc.text(`Eigentumswohnung`, 41, 136)
-        doc.text(`${oggetto.stato}`, 41, 141)
-        doc.text(`Etage: ${oggetto.piano}`, 41, 146)
-        doc.text(`m2: ${oggetto.m2}`, 41, 151)
-        doc.text(`${oggetto.via} ${oggetto.numeroCivico}`, 95, 136)
-        doc.text(`WE ${oggetto.numeroAppartamento}`, 95, 141)
-        doc.text(`${oggetto.cap} ${oggetto.citta}`, 95, 146)
-
-        if (vendDitta.length > 25 || vendInd.length > 25 || vendNome.length > 25) {
-            doc.setFontSize(10)
-        } else if (vendDitta.length > 50 || vendInd.length > 50 || vendNome.length > 50)
-            doc.setFontSize(8)
-        else {
-            doc.setFontSize(12)
-        }
-        if (vendDitta.length > 0) {
-            doc.text(vendDitta, 148, 136)
-            doc.text(vendNome, 148, 141)
-            doc.text(venditore.indirizzo, 148, 146)
-            doc.text(`${venditore.cap} ${venditore.comune}`, 148, 151)
-            doc.text(`${venditore.nazione}`, 148, 156)
-
-        } else {
-            doc.text(vendNome, 148, 136)
-            doc.text(venditore.indirizzo, 148, 141)
-            doc.text(`${venditore.cap} ${venditore.comune}`, 148, 146)
-            doc.text(`${venditore.nazione}`, 148, 151)
-        }
-
-        if (venditore2) {
-            doc.text(vendDitta2, 148, 161)
-            doc.text(vendNome2, 148, 166)
-            doc.text(venditore2.indirizzo, 148, 171)
-            doc.text(`${venditore2.cap} ${venditore2.comune}`, 148, 176)
-            doc.text(`${venditore2.nazione}`, 148, 181)
-        }
-
-        doc.save(`${acquirente.cognome} Provisionsbestätigung.pdf`)
-    }
-
     render() {
-
         if (this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' || this.props.uid === 'BNhRvZCcvMPr54unKlYSSliPel42') {
             const acquirente = this.props.clienti.find((cliente) => cliente.id === this.props.deal.acquirenteId)
             const acquirente2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.acquirenteId2)
@@ -89,7 +16,10 @@ export class ViewDealPage extends React.Component {
             const venditore2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId2)
             const agenziaPartner = this.props.clienti.find((cliente) => cliente.id === this.props.deal.agenziaPartnerId)
             const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.description)
-           
+            const provvPercentuale = numeral((this.props.deal.amount / this.props.deal.prezzoDiVendita) * 119).format('0,0.00')
+            const dataPrenotazione = moment(this.props.deal.createdAt).format('DD.MM.YYYY')
+            const notaio = this.props.clienti.find((cliente) => cliente.id === this.props.deal.notaioId)
+
             return (
                 <div>
                     <div className="page-header">
@@ -120,8 +50,16 @@ export class ViewDealPage extends React.Component {
                         {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button button--secondary" to={`/edit/${this.props.deal.id}`}>Modifica Provvigione</Link>}
                         <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
                         <button className="print button button--secondary"
-                        onClick={this.creaPrenotazione}>
+                            onClick={() => { creaPrenotazione(acquirente, venditore, venditore2, oggetto, provvPercentuale) }}>
                         Crea Prenotazione
+                        </button>
+                        <button className="print button button--secondary"
+                            onClick={() => { widerrufsBelehrung(acquirente, dataPrenotazione, oggetto) }}>
+                            Widerrufsbelehrung
+                        </button>
+                        <button className="print button button--secondary"
+                            onClick={() => { vollmachtNotarauftrag(acquirente, acquirente2, venditore, venditore2, oggetto, notaio) }}>
+                            Vollmacht Notarauftrag
                         </button>
                     </div>
                   
@@ -157,8 +95,12 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
                         <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
                         <button className="print button button--secondary"
-                        onClick={this.creaPrenotazione}>
+                            onClick={() => { creaPrenotazione(acquirente, venditore, venditore2, oggetto, provvPercentuale) }}>
                         Crea Prenotazione
+                        </button>
+                        <button className="print button button--secondary"
+                            onClick={() => { widerrufsBelehrung(acquirente, dataPrenotazione, oggetto) }}>
+                            Widerrufsbelehrung
                         </button>
                     </div>
                 </div>
