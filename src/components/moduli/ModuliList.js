@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ModuliPage = () => (
     <div className="content-container">
@@ -6,14 +7,23 @@ const ModuliPage = () => (
            <h1 className="page-header__title">Modulistica</h1>
         </div>  
         <div className="list-header">
-            <div className="show-for-mobile"></div>
-            <div className="show-for-desktop"></div>
+            <div className="show-for-mobile">Compila online</div>
+            <div className="show-for-desktop">Compila online</div>
+        </div>
+        <div className="list-item">
+            <Link className="print button button--secondary" to="/makleralleinauftrag">Makler-Allein-Auftrag</Link>
+        </div>
+
+        <div className="list-header">
+            <div className="show-for-mobile">In bianco</div>
+            <div className="show-for-desktop">In bianco</div>
         </div>      
         <div className="list-item"><a href='./files/Provisionsbestaetigung.pdf' download>Provisionsbestätigung</a></div>
         <div className="list-item"><a href='./files/datenblatt.pdf' download>Datenblatt Pietzcker</a></div>
         <div className="list-item"><a href='./files/Allgemeine Vertragsbedingungen.pdf' download>Allgemeine Vertragsbedingungen</a></div>
         <div className="list-item"><a href='./files/Verbraucherwiderrufsbelehrung.pdf' download>Verbraucherwiderrufsbelehrung</a></div>
         <div className="list-item"><a href='./files/Vollmacht zur Vorbereitung einer notariellen Kaufvertragsurkunde.pdf' download>Vollmacht zur Vorbereitung einer notariellen Kaufvertragsurkunde</a></div>
+        <div className="list-item"><a href='./files/Makleralleinauftrag.pdf' download>Makler-Allein-Auftrag</a></div>
         <div className="list-item"><a href='./files/Makleralleinauftrag Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf' download>Makleralleinauftrag DSGVO</a></div>
         <div className="list-item"><a href='./files/Maklervertrag mit Provision Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf' download>Maklervertrag mit Provision DSGVO</a></div>
         <div className="list-item"><a href='./files/Maklervertrag ohne Provision Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf' download>Maklervertrag ohne Provision DSGVO</a></div>

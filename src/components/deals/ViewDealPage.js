@@ -6,6 +6,7 @@ import numeral from 'numeral'
 import { creaPrenotazione } from '../moduli/Provisionsbestaetigung'
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung'
 import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag'
+import { maklerAlleinauftrag } from '../moduli/MaklerAlleinauftrag'
 
 export class ViewDealPage extends React.Component {
     render() {
@@ -48,10 +49,9 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.dataRogito > 0 && <div>Data rogito: {moment(this.props.deal.dataRogito).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
                         {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button button--secondary" to={`/edit/${this.props.deal.id}`}>Modifica Provvigione</Link>}
-                        <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
                         <button className="print button button--secondary"
                             onClick={() => { creaPrenotazione(acquirente, venditore, venditore2, oggetto, provvPercentuale) }}>
-                        Crea Prenotazione
+                        Provisionsbestätigung
                         </button>
                         <button className="print button button--secondary"
                             onClick={() => { widerrufsBelehrung(acquirente, dataPrenotazione, oggetto) }}>
@@ -61,6 +61,8 @@ export class ViewDealPage extends React.Component {
                             onClick={() => { vollmachtNotarauftrag(acquirente, acquirente2, venditore, venditore2, oggetto, notaio) }}>
                             Vollmacht Notarauftrag
                         </button>
+                        <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
+
                     </div>
                   
                 </div>
@@ -72,6 +74,9 @@ export class ViewDealPage extends React.Component {
             const venditore2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId2)
             const agenziaPartner = this.props.clienti.find((cliente) => cliente.id === this.props.deal.agenziaPartnerId)
             const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.description)
+            const provvPercentuale = numeral((this.props.deal.amount / this.props.deal.prezzoDiVendita) * 119).format('0,0.00')
+            const dataPrenotazione = moment(this.props.deal.createdAt).format('DD.MM.YYYY')
+            const notaio = this.props.clienti.find((cliente) => cliente.id === this.props.deal.notaioId)
             return (
                 <div>
                     <div className="page-header">
@@ -93,15 +98,19 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.acquirenteId2.length > 0 && <div>Secondo Acquirente: {acquirente2.nome} {acquirente2.cognome}</div>}
                         {this.props.deal.dataRogito > 0 && <div>Data rogito: {moment(this.props.deal.dataRogito).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.note.length > 0 && <div>Note: {this.props.deal.note}</div>}
-                        <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
                         <button className="print button button--secondary"
                             onClick={() => { creaPrenotazione(acquirente, venditore, venditore2, oggetto, provvPercentuale) }}>
-                        Crea Prenotazione
+                        Provisionsbestätigung
                         </button>
                         <button className="print button button--secondary"
                             onClick={() => { widerrufsBelehrung(acquirente, dataPrenotazione, oggetto) }}>
                             Widerrufsbelehrung
                         </button>
+                        <button className="print button button--secondary"
+                            onClick={() => { vollmachtNotarauftrag(acquirente, acquirente2, venditore, venditore2, oggetto, notaio) }}>
+                            Vollmacht Notarauftrag
+                        </button>
+                        <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
                     </div>
                 </div>
             )

@@ -6,8 +6,6 @@ export const NavBar = ({ uid }) => {
     const adminNavbar = (
         <div>
             <Link className="button page-header__button" to="/report">Report</Link>
-            <Link className="button page-header__button" to="/oggetti">Oggetti</Link>
-            <Link className="button page-header__button" to="/customer">Contatti</Link>
             <Link className="button page-header__button" to="/users">Utenti</Link>
         </div>
     )
@@ -16,6 +14,8 @@ export const NavBar = ({ uid }) => {
             <Link className="button page-header__button" to="/dashboard">Provvigioni</Link>
             <Link className="button page-header__button" to="/leads">Richieste</Link>
             <Link className="button page-header__button" to="/moduli">Modulistica</Link>
+            <Link className="button page-header__button" to="/oggetti">Oggetti</Link>
+            <Link className="button page-header__button" to="/customer">Contatti</Link>
             {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && adminNavbar}
         </div>
 )}

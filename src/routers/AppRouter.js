@@ -29,6 +29,7 @@ import LoginPage from '../components/LoginPage'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
 import StampaDatenblatt from '../components/deals/StampaDatenblatt';
+import MAAForm from '../components/moduli/MAAForm';
 
 export const history = createHistory()
 
@@ -61,6 +62,7 @@ const AppRouter = ({ uid }) => {
                         <PrivateRoute path="/leadmatchview/:id" component={ViewLeadMatchPage} />
                         <PrivateRoute path="/datenblatt/:id" component={StampaDatenblatt} />
                         <PrivateRoute path="/moduli" component={ModuliPage} />
+                        <PrivateRoute path="/makleralleinauftrag" component={MAAForm} />
 
 
                         <Route component={NotFoundPage} />
