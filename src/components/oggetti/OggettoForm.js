@@ -1,6 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import Select from 'react-virtualized-select'
+import createFilterOptions from 'react-select-fast-filter-options'
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css'
+import 'react-virtualized-select/styles.css'
 
-export default class OggettoForm extends React.Component {
+export class OggettoForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -34,6 +40,10 @@ export default class OggettoForm extends React.Component {
             this.setState({ [name]: value })
         }
     }
+    onVerwalterChange = (e) => {
+        const verwalter = e ? e.value : ''
+        this.setState(() => ({ verwalter }))
+    }
     onSubmit = (e) => {
         e.preventDefault()
         const wohngeld = parseFloat(this.state.wohngeld, 10) * 100
@@ -64,6 +74,11 @@ export default class OggettoForm extends React.Component {
         }
     }
     render() {
+        const options = this.props.clienti.map((cliente) => ({
+            value: cliente.id, label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta && `- Firma ${cliente.ditta}`}`
+        }))
+        const filterOptions = createFilterOptions({ options })
+
         return (
             <form className="form" onSubmit={this.onSubmit}>
                 {this.state.error && <p className="form__error">{this.state.error}</p>}
@@ -203,13 +218,14 @@ export default class OggettoForm extends React.Component {
                     value={this.state.affittoNetto}
                     onChange={this.onMoneyChange}
                 />
-                Dati Amministrazione:
-                <textarea
+                Amministrazione:
+            <Select
                     name="verwalter"
-                    className={`textarea`}
-                    placeholder="Nome, Indirizzo, Email, Telefono"
                     value={this.state.verwalter}
-                    onChange={this.changeHandler}
+                    options={options}
+                    filterOptions={filterOptions}
+                    onChange={this.onVerwalterChange}
+
                 />
                 <div>
                     <button className="button">Salva modifiche</button>
@@ -218,3 +234,9 @@ export default class OggettoForm extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    clienti: state.clienti
+})
+
+export default connect(mapStateToProps)(OggettoForm)

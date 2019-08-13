@@ -88,7 +88,7 @@ export class ViewDealPage extends React.Component {
                         {this.props.deal.description.length > 0 && <div>{`Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</div>}
                         {this.props.deal.rifId > 0 && <div>Rif. Id: {this.props.deal.rifId}</div>}
                         {this.props.deal.prezzoDiVendita > 0 && <div>Prezzo di Vendita: {numeral(this.props.deal.prezzoDiVendita / 100).format('0,0[.]00 $')}</div>}
-                        {this.props.deal.provvStefano > 0 && <div className={`list-item ${this.props.deal.payedStefano && 'list-item--paid'}`}>Stefano: {numeral(this.props.deal.provvStefano / 100).format('0,0[.]00 $')}</div>}
+                        {this.props.deal.provvStefano > 0 && <div className={`${this.props.deal.payedStefano && 'list-item--paid'}`}>Provvigione Stefano: {numeral(this.props.deal.provvStefano / 100).format('0,0[.]00 $')}</div>}
                         {this.props.deal.payedAtStefano > 0 && <div>Pagata il: {moment(this.props.deal.payedAtStefano).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.createdAt > 0 && <div>Data prenotazione: {moment(this.props.deal.createdAt).format('DD MMMM, YYYY')}</div>}
                         {this.props.deal.agenziaPartnerId.length > 0 && <div>Agenzia Partner: {agenziaPartner.nome} {agenziaPartner.cognome} {agenziaPartner.ditta}</div>}

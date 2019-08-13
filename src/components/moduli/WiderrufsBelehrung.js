@@ -5,7 +5,7 @@ export const doc = new jsPDF()
 
 export const widerrufsBelehrung = (acquirente, dataPrenotazione, oggetto) => {
     const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`
-    const acqInd = `${acquirente.indirizzo}, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`
+    const acqInd = `${acquirente.indirizzo} ${acquirente.indirizzo2 && acquirente.indirizzo2}, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`
 
     doc.addImage(imgData, 'JPEG', 0, 0, 210, 297)
     doc.addImage(imgLogo, 'JPEG', 20, 10, 35, 8)

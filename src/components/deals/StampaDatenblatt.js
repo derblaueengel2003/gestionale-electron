@@ -12,6 +12,8 @@ export class StampaDatenblatt extends React.Component {
         const venditore = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId)
         const venditore2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId2)
         const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.description)
+        const verwalter = this.props.clienti.find((cliente) => cliente.id === oggetto.verwalter)
+
         
         return (               
             <div className="content-container">
@@ -67,10 +69,15 @@ export class StampaDatenblatt extends React.Component {
                     <p>{`Tel.: ${acquirente2.telefono1} - E-Mail: ${acquirente2.email}`}</p>
                 </div>
                 }   
-                <div>
+               
+                {verwalter && <div>
                     <h2>Verwalter</h2>
-                    <p className="show-textarea">{`${oggetto.verwalter}`}</p>
-                </div>
+                    <p>{verwalter.ditta}</p>
+                    <p>{verwalter.titolo} {verwalter.nome} {verwalter.cognome}</p>
+                    <p>Tel. {verwalter.telefono1}</p>
+                    <p>E-Mail: {verwalter.email}</p>
+                </div>}
+                
                 {oggetto.mobilio !== '' && <div className="page-divide">
                         <h2>Einrichtung</h2>
                     <p className="show-textarea">{`${oggetto.mobilio}`}</p>

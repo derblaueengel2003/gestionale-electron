@@ -12,8 +12,11 @@ export class ViewClientiPage extends React.Component {
                     </div>
                 </div>
                 <div className="content-container">
-                    {this.props.cliente.nome.length > 0 && <div>Nome: {this.props.cliente.nome}</div>}
-                    {this.props.cliente.cognome.length > 0 && <div>Cognome: {this.props.cliente.cognome}</div>}
+                    {this.props.cliente.ditta.length > 0 && <div>{this.props.cliente.ditta}</div>}
+                    {this.props.cliente.nome.length > 0 && <div>{this.props.cliente.titolo} {this.props.cliente.nome} {this.props.cliente.cognome}</div>}
+                    {this.props.cliente.indirizzo.length > 0 && <div>{`${this.props.cliente.indirizzo} ${this.props.cliente.indirizzo2 && this.props.cliente.indirizzo2}, ${this.props.cliente.cap} ${this.props.cliente.comune}, ${this.props.cliente.nazione}`}</div>}
+                    {this.props.cliente.telefono1.length > 0 && <div>Tel: {this.props.cliente.telefono1}</div>}
+                    {this.props.cliente.email.length > 0 && <div>E-Mail: {this.props.cliente.email}</div>}
                     <Link className="button" to={`/customeredit/${this.props.cliente.id}`}>Modifica Cliente</Link>
                 </div>
             </div>

@@ -8,8 +8,8 @@ export const doc = new jsPDF()
 export const maklerAlleinauftrag = (venditore, venditore2, oggetto, startDate, endDate, prezzoDiVendita, prezzoDiVendita2, maklerProvision, sonstige) => { 
     const vendDitta = `${venditore.ditta && `${venditore.ditta}`}`
     const vendNome = `${venditore.titolo} ${venditore.nome} ${venditore.cognome}`
-    const vendInd = `${venditore.indirizzo}, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`
-    const vendInd2 = venditore2 && `${venditore2.indirizzo}, ${venditore2.cap} ${venditore2.comune}, ${venditore2.nazione}`
+    const vendInd = `${venditore.indirizzo} ${venditore.indirizzo2 && venditore.indirizzo2}, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`
+    const vendInd2 = venditore2 && `${venditore2.indirizzo} ${venditore.indirizzo2}, ${venditore2.cap} ${venditore2.comune}, ${venditore2.nazione}`
     const vendNome2 = venditore2 && `${venditore2.titolo} ${venditore2.nome} ${venditore2.cognome}`
     
     doc.addImage(imgData, 'JPEG', 0, 0, 210, 297)

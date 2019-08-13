@@ -54,22 +54,25 @@ export const creaPrenotazione = (acquirente, venditore, venditore2, oggetto, pro
         doc.text(vendDitta, 148, 136)
         doc.text(vendNome, 148, 141)
         doc.text(venditore.indirizzo, 148, 146)
-        doc.text(`${venditore.cap} ${venditore.comune}`, 148, 151)
-        doc.text(`${venditore.nazione}`, 148, 156)
+        venditore.indirizzo2 && doc.text(venditore.indirizzo2, 148, 151)
+        doc.text(`${venditore.cap} ${venditore.comune}`, 148, 156)
+        doc.text(`${venditore.nazione}`, 148, 161)
 
     } else {
         doc.text(vendNome, 148, 136)
         doc.text(venditore.indirizzo, 148, 141)
-        doc.text(`${venditore.cap} ${venditore.comune}`, 148, 146)
-        doc.text(`${venditore.nazione}`, 148, 151)
+        venditore.indirizzo2 && doc.text(venditore.indirizzo2, 148, 146)
+        doc.text(`${venditore.cap} ${venditore.comune}`, 148, 151)
+        doc.text(`${venditore.nazione}`, 148, 156)
     }
 
     if (venditore2) {
         doc.text(vendDitta2, 148, 161)
         doc.text(vendNome2, 148, 166)
         doc.text(venditore2.indirizzo, 148, 171)
-        doc.text(`${venditore2.cap} ${venditore2.comune}`, 148, 176)
-        doc.text(`${venditore2.nazione}`, 148, 181)
+        venditore2.indirizzo2 && doc.text(venditore2.indirizzo2, 148, 176)
+        doc.text(`${venditore2.cap} ${venditore2.comune}`, 148, 181)
+        doc.text(`${venditore2.nazione}`, 148, 186)
     }
 
     doc.save(`${acquirente.cognome} Provisionsbestätigung.pdf`)

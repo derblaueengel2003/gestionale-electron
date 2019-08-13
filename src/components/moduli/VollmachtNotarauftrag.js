@@ -6,17 +6,17 @@ export const doc = new jsPDF()
 export const vollmachtNotarauftrag = (acquirente, acquirente2, venditore, venditore2, oggetto, notaio) => {
     const acqDitta = `${acquirente.ditta && `${acquirente.ditta}`}`
     const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`
-    const acqInd = `${acquirente.indirizzo}, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`
+    const acqInd = `${acquirente.indirizzo} ${acquirente.indirizzo2 && acquirente.indirizzo2}, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`
     const acqNome2 = acquirente2 && `${acquirente2.titolo} ${acquirente2.nome} ${acquirente2.cognome}`
-    const acqInd2 = acquirente2 && `${acquirente2.indirizzo}, ${acquirente2.cap} ${acquirente2.comune}, ${acquirente2.nazione}`
+    const acqInd2 = acquirente2 && `${acquirente2.indirizzo} ${acquirente2.indirizzo2 && acquirente2.indirizzo2}, ${acquirente2.cap} ${acquirente2.comune}, ${acquirente2.nazione}`
     const vendDitta = `${venditore.ditta && `${venditore.ditta}`}`
     const vendNome = `${venditore.titolo} ${venditore.nome} ${venditore.cognome}`
-    const vendInd = `${venditore.indirizzo}, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`
-    const vendInd2 = venditore2 && `${venditore2.indirizzo}, ${venditore2.cap} ${venditore2.comune}, ${venditore2.nazione}`
+    const vendInd = `${venditore.indirizzo} ${venditore.indirizzo2 && venditore.indirizzo2}, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`
+    const vendInd2 = venditore2 && `${venditore2.indirizzo} ${venditore2.indirizzo2 && venditore2.indirizzo2}, ${venditore2.cap} ${venditore2.comune}, ${venditore2.nazione}`
     const vendNome2 = venditore2 && `${venditore2.titolo} ${venditore2.nome} ${venditore2.cognome}`
     const notaioDitta = notaio && `${notaio.ditta && `${notaio.ditta}`}`
     const notaioNome = notaio && `${notaio.titolo} ${notaio.nome} ${notaio.cognome}`
-    const notaioInd = notaio && `${notaio.indirizzo}, ${notaio.cap} ${notaio.comune}, ${notaio.nazione}`
+    const notaioInd = notaio && `${notaio.indirizzo} ${notaio.indirizzo2 && notaio.indirizzo2}, ${notaio.cap} ${notaio.comune}, ${notaio.nazione}`
 
 
     doc.addImage(imgData, 'JPEG', 0, 0, 210, 297)

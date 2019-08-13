@@ -9,6 +9,7 @@ export default class CustomerForm extends React.Component {
             titolo: props.customer ? props.customer.titolo : '',
             ditta: props.customer ? props.customer.ditta : '',
             indirizzo: props.customer ? props.customer.indirizzo : '',
+            indirizzo2: props.customer ? props.customer.indirizzo2 : '',
             cap: props.customer ? props.customer.cap : '',
             comune: props.customer ? props.customer.comune : '',
             nazione: props.customer ? props.customer.nazione : '',
@@ -34,6 +35,7 @@ export default class CustomerForm extends React.Component {
                 titolo: this.state.titolo,
                 ditta: this.state.ditta,
                 indirizzo: this.state.indirizzo,
+                indirizzo2: this.state.indirizzo2,
                 cap: this.state.cap,
                 comune: this.state.comune,
                 nazione: this.state.nazione,
@@ -90,6 +92,15 @@ export default class CustomerForm extends React.Component {
                     type="text"
                     placeholder="Via e numero civico"
                     value={this.state.indirizzo}
+                    onChange={this.changeHandler}
+                />
+                Indirizzo ulteriore:
+                <input
+                    name="indirizzo2"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="c/o"
+                    value={this.state.indirizzo2}
                     onChange={this.changeHandler}
                 />
                 Cap:
