@@ -9,6 +9,7 @@ import oggettiReducer from '../reducers/oggetti'
 import leadsReducer from '../reducers/leads'
 import accentroReducer from '../reducers/accentro'
 
+
 // Store creation
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 

@@ -34,6 +34,8 @@ const ModuliPage = () => (
         <div className="list-item"><a href='./files/ACCENTRO_Datenschutz_EN.pdf' download>ACCENTRO_Datenschutz_EN</a></div>
         <div className="list-item"><a href='./files/Accentro_Reservierungsvereinbarung_DE.pdf' download>Accentro_Reservierungsvereinbarung_DE</a></div>
         <div className="list-item"><a href='./files/Accentro_Reservierungsvereinbarung_EN.pdf' download>Accentro_Reservierungsvereinbarung_EN</a></div>
+        <div className="list-item"><a href='./files/Dokumentationsbogen.docx' download>GWG Dokumentationsbogen Nat.Pers.</a></div>
+        <div className="list-item"><a href='./files/DokumentationsbogenJP.docx' download>GWG Dokumentationsbogen Jur.Pers.</a></div>
     </div>
 )
 

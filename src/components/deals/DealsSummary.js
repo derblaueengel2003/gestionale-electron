@@ -5,7 +5,7 @@ import selectDeals from '../../selectors/deals'
 import selectDealsTotal from '../../selectors/deals-total'
 import selectDealsPayed from '../../selectors/deals-payed'
 
-export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed, uid }) => {
+export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed}) => {
     const dealWord = dealCount === 1 ? 'provvigione' : 'provvigioni'
     const formattedDealsTotal = numeral(dealsTotal / 100).format('0,0[.]00 $')
     const formattedDealsPayed = numeral(dealsPayed / 100).format('0,0[.]00 $')
@@ -27,8 +27,7 @@ const mapStateToProps = (state) => {
     return {
         dealCount: visibleDeals.length,
         dealsTotal: selectDealsTotal(visibleDeals, state.auth),
-        dealsPayed: selectDealsPayed(visibleDeals, state.auth, state.fatture),
-        uid: state.auth.uid
+        dealsPayed: selectDealsPayed(visibleDeals, state.auth, state.fatture)
     }
 }
 

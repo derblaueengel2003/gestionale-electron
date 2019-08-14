@@ -6,9 +6,10 @@ import numeral from 'numeral'
 import { creaPrenotazione } from '../moduli/Provisionsbestaetigung'
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung'
 import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag'
-import { maklerAlleinauftrag } from '../moduli/MaklerAlleinauftrag'
+import TodoForm from './TodoForm'
 
 export class ViewDealPage extends React.Component {
+    
     render() {
         if (this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' || this.props.uid === 'BNhRvZCcvMPr54unKlYSSliPel42') {
             const acquirente = this.props.clienti.find((cliente) => cliente.id === this.props.deal.acquirenteId)
@@ -62,9 +63,9 @@ export class ViewDealPage extends React.Component {
                             Vollmacht Notarauftrag
                         </button>
                         <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
-
                     </div>
-                  
+                    <TodoForm dealId={this.props.deal.id} />
+                    
                 </div>
             )
         } else {
@@ -112,10 +113,10 @@ export class ViewDealPage extends React.Component {
                         </button>
                         <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
                     </div>
+                    <TodoForm dealId={this.props.deal.id} />
                 </div>
             )
-        }
-        
+        }    
     }
 }
 

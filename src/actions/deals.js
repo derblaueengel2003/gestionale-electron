@@ -33,7 +33,18 @@ export const startAddDeal = (dealData = {}) => {
             payed = false,
             payedAt = '',
             belastungsVollmacht = false,           
-            dataRogito = null
+            dataRogito = null,
+            todo1 = false,
+            todo2 = false,
+            todo3 = false,
+            todo4 = false,
+            todo5 = false,
+            todo6 = false,
+            todo7 = false,
+            todo8 = false,
+            todo9 = false,
+            todo10 = false,
+            todo11 = false
         } = dealData
         const deal = { 
             description,
@@ -59,7 +70,18 @@ export const startAddDeal = (dealData = {}) => {
             payed,
             payedAt,
             belastungsVollmacht,
-            dataRogito
+            dataRogito,
+            todo1,
+            todo2,
+            todo3,
+            todo4,
+            todo5,
+            todo6,
+            todo7,
+            todo8,
+            todo9,
+            todo10,
+            todo11
          }
 
         return database.ref(`deals`).push(deal).then((ref) => {
