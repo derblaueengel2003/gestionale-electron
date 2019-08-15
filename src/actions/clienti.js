@@ -20,7 +20,8 @@ export const startAddCustomer = (customerData = {}) => {
             comune = '',
             nazione = '',
             email = '',
-            telefono1 = ''
+            telefono1 = '',
+            consulenteVenditaId = ''
         } = customerData
         const customer = { 
             nome, 
@@ -33,7 +34,8 @@ export const startAddCustomer = (customerData = {}) => {
             comune, 
             nazione, 
             email, 
-            telefono1 
+            telefono1,
+            consulenteVenditaId
         }
 
         return database.ref(`/clienti`).push(customer).then((ref) => {

@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import CustomerForm from './ClientiForm'
 import { startEditCustomer, startRemoveCustomer } from '../../actions/clienti'
 

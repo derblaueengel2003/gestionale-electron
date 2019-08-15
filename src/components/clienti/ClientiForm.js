@@ -1,6 +1,7 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-export default class CustomerForm extends React.Component {
+export class CustomerForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -14,7 +15,9 @@ export default class CustomerForm extends React.Component {
             comune: props.customer ? props.customer.comune : '',
             nazione: props.customer ? props.customer.nazione : '',
             email: props.customer ? props.customer.email : '',
-            telefono1: props.customer ? props.customer.telefono1 : ''
+            consulenteVenditaId: props.customer ? props.customer.consulenteVenditaId : '',
+            telefono1: props.customer ? props.customer.telefono1 : '',
+            error: ''
         }
     }
     changeHandler = (e) => { 
@@ -22,6 +25,28 @@ export default class CustomerForm extends React.Component {
         const value = e.target.value
         this.setState({ [name]: value })
     }
+    changeHandlerValidate = (e) => { 
+        const name = e.target.name
+        const value = e.target.value
+        this.setState({ [name]: value })
+
+        let match = this.props.clienti.filter((ilcliente) => {
+            const emailMatch = ilcliente.email.toLowerCase().includes(value.toLowerCase())
+            const cognomeMatch = ilcliente.cognome.toLowerCase().includes(value.toLowerCase())
+            const dittaMatch = ilcliente.ditta.toLowerCase().includes(value.toLowerCase())
+            return emailMatch || cognomeMatch || dittaMatch
+        })
+        if (match.length === 1) {
+            console.log(match)
+            this.setState(() => ({ error: `Cliente forse già presente nel gestionale` }))
+        } else {
+            this.setState(() => ({ error: '' }))
+        }
+    
+      
+
+    }
+
     onSubmit = (e) => {
         e.preventDefault()
     
@@ -40,6 +65,7 @@ export default class CustomerForm extends React.Component {
                 comune: this.state.comune,
                 nazione: this.state.nazione,
                 email: this.state.email,
+                consulenteVenditaId: this.state.consulenteVenditaId,
                 telefono1: this.state.telefono1
             })
         }
@@ -48,6 +74,19 @@ export default class CustomerForm extends React.Component {
         return (
             <form className="form" onSubmit={this.onSubmit}>
                 {this.state.error && <p className="form__error">{this.state.error}</p>}
+                Cliente di:
+                <select
+                    name="consulenteVenditaId"
+                    value={this.state.consulenteVenditaId}
+                    onChange={this.changeHandler}
+                >
+                    <option></option>
+                    {this.props.utenti.map((consulente) =>
+                        <option key={consulente.id}
+                            value={consulente.id}>
+                            {consulente.name}
+                        </option>)}
+                </select>
                 Titolo:
                 <input
                     name="titolo"
@@ -74,7 +113,7 @@ export default class CustomerForm extends React.Component {
                     type="text"
                     placeholder="Cognome"
                     value={this.state.cognome}
-                    onChange={this.changeHandler}
+                    onChange={this.changeHandlerValidate}
                 />
                 Ditta:
                 <input
@@ -83,7 +122,7 @@ export default class CustomerForm extends React.Component {
                     type="text"
                     placeholder="Ditta"
                     value={this.state.ditta}
-                    onChange={this.changeHandler}
+                    onChange={this.changeHandlerValidate}
                 />
                 Indirizzo:
                 <input
@@ -137,7 +176,7 @@ export default class CustomerForm extends React.Component {
                     type="text"
                     placeholder="indirizzo email"
                     value={this.state.email}
-                    onChange={this.changeHandler}
+                    onChange={this.changeHandlerValidate}
                 />
                 Telefono:
                 <input
@@ -148,10 +187,18 @@ export default class CustomerForm extends React.Component {
                     value={this.state.telefono1}
                     onChange={this.changeHandler}
                 />
+                {this.state.error && <p className="form__error">{this.state.error}</p>}
                 <div>
-                    <button className="button">Salva modifiche</button>
+                    <button className="button">Salva</button>
                 </div>
             </form>
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    utenti: state.utenti,
+    clienti: state.clienti
+})
+
+export default connect(mapStateToProps)(CustomerForm)

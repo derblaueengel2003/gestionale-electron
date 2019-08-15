@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import numeral from 'numeral'
 import { AccentroListItem } from './AccentroListItem'
 
 
@@ -29,6 +28,8 @@ export class ViewLeadMatchPage extends React.Component {
     } 
 
     render() {
+        const cliente = this.props.clienti.find((cliente) => cliente.id === this.props.lead.leadId)
+
         return (
             <div className="content-container">
                 <div className="page-header">
@@ -38,8 +39,8 @@ export class ViewLeadMatchPage extends React.Component {
                     La corrispondenza si basa sul budget (+-20%) e sulla tipologia dell'immobile
                 </div>
                 <div className="list-header">
-                    {this.props.lead.leadNome.length > 0 && <div>{this.props.lead.leadNome}</div>}
-                    {this.props.lead.leadEmail.length > 0 && <div>{this.props.lead.leadEmail}</div>}
+                    <div>{cliente ? cliente.nome : this.props.lead.leadNome} {cliente && cliente.cognome}</div>
+                    <div>{cliente ? cliente.email : this.props.lead.leadEmail}</div>
                 </div>
                 <div>
                     {this.secondoMatch().map((ogg) => {
@@ -55,6 +56,7 @@ export class ViewLeadMatchPage extends React.Component {
 
 const mapStateToProps = (state, props) => ({
     lead: state.leads.find((lead) => lead.id === props.match.params.id),
+    clienti: state.clienti,
     accentro: state.accentro
 })
 

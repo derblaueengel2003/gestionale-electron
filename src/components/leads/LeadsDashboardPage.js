@@ -9,7 +9,7 @@ const LeadsDashboardPage = () => (
         <div className="content-container">
             <h1 className="page-header__title">Richieste Attive</h1>
         </div>
-    </div>
+        </div>
         <LeadsListFilters />
         <LeadsList />
     </div>

@@ -4,29 +4,52 @@ import LeadsListItem from './LeadsListItem';
 import selectLeads from '../../selectors/leads'
 import { Link } from 'react-router-dom'
 
-export const LeadsList = (props) => (
-    <div className="content-container">
-        <Link className="button" to="/leadscreate">+</Link>
-     <div className="list-header">
-        <div className="show-for-mobile">Richiesta</div>
-        <div className="show-for-desktop">Richiesta</div>
-     </div>
-       <div className="list-body">
-       {
-        props.leads.length === 0 ? (
-            <div className="list-item list-item--message">
-                <span>Nessuna richiesta in base ai filtri inseriti</span>
+
+export const LeadsList = (props) => {
+    if (props.userLeads) {
+      return (
+          props.userLeads.length > 0 &&
+            <div className="content-container">
+                <div className="list-header">
+                    <div className="show-for-mobile">Richiesta</div>
+                    <div className="show-for-desktop">Richiesta</div>
+                </div>
+                <div className="list-body">
+                    {props.userLeads.map((lead) => {
+                        return <LeadsListItem key={lead.id} {...lead} />
+                        })
+                    }
+                </div>
             </div>
-        ) : (
-            props.leads.map((lead) => {
-                return <LeadsListItem key={lead.id} {...lead}/>
-            })
         )
-       
+    } else {
+       return  (
+            <div className="content-container">
+                <Link className="button" to="/leadscreate">+</Link>
+                <div className="list-header">
+                    <div className="show-for-mobile">Richieste</div>
+                    <div className="show-for-desktop">Richieste</div>
+                </div>
+                <div className="list-body">
+                    {
+                        props.leads.length === 0 ? (
+                            <div className="list-item list-item--message">
+                                <span>Nessuna richiesta in base ai filtri inseriti</span>
+                            </div>
+                        ) : (
+                                props.leads.map((lead) => {
+                                    return <LeadsListItem key={lead.id} {...lead} />
+                                })
+                            )
+
+                    }
+                </div>
+            </div>
+        )
     }
-       </div>
-    </div>
-)
+
+
+}
 
 const mapStateToProps = (state) => {
     return {

@@ -11,20 +11,14 @@ export const startAddLead = (leadData = {}) => {
     return (dispatch) => {
         const {
             leadCreatedAt = moment(),
-            consulenteVendita = '',
-            leadNome = '',
-            leadEmail = '',
-            leadTelefono = '',
+            leadId = '',
             leadBudget = 0,
             leadOggettoStato = '',
             leadNote = ''
         } = leadData
         const lead = { 
             leadCreatedAt,
-            consulenteVendita,
-            leadNome, 
-            leadEmail,
-            leadTelefono,
+            leadId,
             leadBudget,
             leadOggettoStato,
             leadNote
