@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 
 
 export const LeadsList = (props) => {
+    //controllo se la i dati vengono dalla scheda clienti e sono passati via props
     if (props.userLeads) {
       return (
           props.userLeads.length > 0 &&
@@ -23,6 +24,7 @@ export const LeadsList = (props) => {
             </div>
         )
     } else {
+        //in questo caso i dati provengono dallo state. Siamo sulla lead dashboard page
        return  (
             <div className="content-container">
                 <Link className="button" to="/leadscreate">+</Link>
