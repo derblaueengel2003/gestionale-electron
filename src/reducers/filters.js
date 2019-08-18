@@ -7,8 +7,8 @@ const filtersReducerDefaultState = {
     cliente: '',
     oggetto: '',
     sortBy: 'date',
-    startDate: null,
-    endDate: null,
+    startDate: moment().startOf('year'),
+    endDate: moment().endOf("year"),
     lead: '',
     leadStato: ''
 }
