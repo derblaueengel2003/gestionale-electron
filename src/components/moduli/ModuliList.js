@@ -36,6 +36,16 @@ const ModuliPage = () => (
         <div className="list-item"><a href='./files/Accentro_Reservierungsvereinbarung_EN.pdf' download>Accentro_Reservierungsvereinbarung_EN</a></div>
         <div className="list-item"><a href='./files/Dokumentationsbogen.docx' download>GWG Dokumentationsbogen Nat.Pers.</a></div>
         <div className="list-item"><a href='./files/DokumentationsbogenJP.docx' download>GWG Dokumentationsbogen Jur.Pers.</a></div>
+        <div className="list-item"><a href='./files/meldebestaetigung.pdf' download>Mieter Meldebestätigung</a></div>
+        <div className="list-item"><a href='./files/Mietschuldenfreiheitsbescheinigung.docx' download>Mietschuldenfreiheitsbescheinigung</a></div>
+        <div className="list-item"><a href='./files/Übergabeprotokoll.doc' download>Übergabe-Protokoll Verkauf</a></div>
+        <div className="list-item"><a href='./files/Wohnungsuebergabeprotokoll Mietwohnung.pdf' download>Übergabe-Protokoll Miete</a></div>
+        <div className="list-item"><a href='./files/wohnungs_mietvertrag_1520411845.pdf' download>Mietvertrag Muster</a></div>
+        <div className="list-item"><a href='./files/Aufnahme-ETW-Teileigentum.pdf' download>Akquise Aufnahmebogen</a></div>
+        <div className="list-header">
+        <div className="show-for-mobile"> </div>
+        <div className="show-for-desktop"> </div>
+        </div>  
     </div>
 )
 
