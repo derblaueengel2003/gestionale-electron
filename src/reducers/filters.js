@@ -10,7 +10,8 @@ const filtersReducerDefaultState = {
     startDate: moment().startOf('year'),
     endDate: moment().endOf("year"),
     lead: '',
-    leadStato: ''
+    leadStato: '',
+    fattura: ''
 }
 
 export default (state = filtersReducerDefaultState, action) => {
@@ -24,6 +25,11 @@ export default (state = filtersReducerDefaultState, action) => {
             return {
                 ...state,
                 cliente: action.cliente
+            }
+        case 'SET_FATTURA_FILTER':
+            return {
+                ...state,
+                fattura: action.fattura
             }
         case 'SET_OGGETTO_FILTER':
             return {

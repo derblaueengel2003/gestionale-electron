@@ -15,6 +15,7 @@ import { firebase } from './firebase/firebase'
 import LoadingPage from './components/LoadingPage'
 import { startSetOggetti } from './actions/oggetti';
 import { startSetAccentro } from './actions/accentro';
+import { startSetFatture } from './actions/fatture';
 
 const store = configureStore()
 
@@ -41,6 +42,7 @@ firebase.auth().onAuthStateChanged((user) => {
         store.dispatch(startSetOggetti())
         store.dispatch(startSetLeads())
         store.dispatch(startSetAccentro())
+        store.dispatch(startSetFatture())
         store.dispatch(startSetDeals()).then(() => {
             renderApp()
             if (history.location.pathname === '/') {

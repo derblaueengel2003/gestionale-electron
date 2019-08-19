@@ -8,6 +8,11 @@ export const setClienteFilter = (cliente = '') => ({
     type: 'SET_CLIENTE_FILTER',
     cliente
 })
+//SET_FATTURA_FILTER
+export const setFatturaFilter = (fattura = '') => ({
+    type: 'SET_FATTURA_FILTER',
+    fattura
+})
 //SET_OGGETTO_FILTER
 export const setOggettoFilter = (oggetto = '') => ({
     type: 'SET_OGGETTO_FILTER',

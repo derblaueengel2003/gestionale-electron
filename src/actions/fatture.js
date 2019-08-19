@@ -11,6 +11,8 @@ export const startAddFattura = (fatturaData = {}) => {
     return (dispatch) => {
         const {
             dealId = '',
+            clienteId = '',
+            clienteId2 = '',
             numeroFattura = '',
             dataFattura = null,
             payed = false,
@@ -18,6 +20,8 @@ export const startAddFattura = (fatturaData = {}) => {
         } = fatturaData
         const fattura = { 
             dealId,
+            clienteId,
+            clienteId2,
             numeroFattura,
             dataFattura,
             payed,

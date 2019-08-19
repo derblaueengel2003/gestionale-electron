@@ -6,8 +6,8 @@ import numeral from 'numeral'
 import { creaPrenotazione } from '../moduli/Provisionsbestaetigung'
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung'
 import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag'
-import { fattura } from '../moduli/Fattura'
 import TodoForm from './TodoForm'
+import FattureList from '../fatture/FattureList'
 
 export class ViewDealPage extends React.Component {
     
@@ -22,7 +22,6 @@ export class ViewDealPage extends React.Component {
             const provvPercentuale = numeral((this.props.deal.amount / this.props.deal.prezzoDiVendita) * 119).format('0,0.00')
             const dataPrenotazione = moment(this.props.deal.createdAt).format('DD.MM.YYYY')
             const notaio = this.props.clienti.find((cliente) => cliente.id === this.props.deal.notaioId)
-            const numeroFattura = this.props.deal.numeroFattura
 
             return (
                 <div>
@@ -64,13 +63,11 @@ export class ViewDealPage extends React.Component {
                             onClick={() => { vollmachtNotarauftrag(acquirente, acquirente2, venditore, venditore2, oggetto, notaio) }}>
                             Vollmacht Notarauftrag
                         </button>
-                        <button className="print button button--secondary"
-                            onClick={() => { fattura(acquirente, acquirente2, this.props.deal.numeroFattura, this.props.deal.dataFattura, oggetto, this.props.deal.prezzoDiVendita, this.props.deal.dataRogito, this.props.deal.amount, this.props.deal.createdAt) }}>
-                            Fattura
-                        </button>
+
                         <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
                     </div>
                     <TodoForm dealId={this.props.deal.id} />
+                    <FattureList dealFatture={this.props.fatture}/>
                     
                 </div>
             )
@@ -130,6 +127,7 @@ const mapStateToProps = (state, props) => ({
     deal: state.deals.find((deal) => deal.id === props.match.params.id), 
     clienti: state.clienti,
     oggetti: state.oggetti,
+    fatture: state.fatture.filter((fattura) => fattura.dealId === props.match.params.id),
     uid: state.auth.uid
 })
 

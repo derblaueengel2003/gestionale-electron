@@ -3,10 +3,11 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 import LeadsList from '../leads/LeadsList'
+import FattureList from '../fatture/FattureList'
 
 export class ViewClientiPage extends React.Component {
     render() {
-        
+        const dealFatture = this.props.fatture.filter((fattura) => fattura.clienteId === this.props.cliente.id || fattura.clienteId2 === this.props.cliente.id)
         return (
             <div>
                 <div className="page-header">
@@ -23,6 +24,9 @@ export class ViewClientiPage extends React.Component {
                     <Link className="print button button--secondary" to={`/customeredit/${this.props.cliente.id}`}>Modifica Cliente</Link>
                 </div>
                 <LeadsList userLeads={this.props.leads}/>
+                {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <FattureList dealFatture={dealFatture} />}
+                {this.props.uid === 'BNhRvZCcvMPr54unKlYSSliPel42' && <FattureList dealFatture={dealFatture} />}
+                
 
             </div>
         )
@@ -31,7 +35,9 @@ export class ViewClientiPage extends React.Component {
 
 const mapStateToProps = (state, props) => ({
     cliente: state.clienti.find((cliente) => cliente.id === props.match.params.id),
-    leads: state.leads.filter((lead) => lead.leadId === props.match.params.id)
+    leads: state.leads.filter((lead) => lead.leadId === props.match.params.id),
+    fatture: state.fatture,
+    uid: state.auth.uid
 })
 
 export default connect(mapStateToProps)(ViewClientiPage)

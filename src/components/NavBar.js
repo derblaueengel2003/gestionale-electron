@@ -20,6 +20,7 @@ export const NavBar = ({ uid }) => {
                         <Link to="/customer"><li>Contatti</li></Link>
                         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link to="/report"><li>Report</li></Link>}
                         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link to="/users"><li>Utenti</li></Link>}
+                        {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link to="/fatture"><li>Fatture</li></Link>}
                     </ul>
                 </div>
             </div>
@@ -31,6 +32,7 @@ export const NavBar = ({ uid }) => {
                 <Link className="button page-header__button" to="/customer">Contatti</Link>
                 {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button page-header__button" to="/report">Report</Link>}
                 {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button page-header__button" to="/users">Utenti</Link>}
+                {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button page-header__button" to="/fatture">Fatture</Link>}
             </div>
         </div>
 )}

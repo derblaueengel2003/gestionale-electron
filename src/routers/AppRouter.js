@@ -15,6 +15,10 @@ import AddClientiPage from '../components/clienti/AddClientiPage'
 import EditClientiPage from '../components/clienti/EditClientiPage'
 import ViewClientiPage from '../components/clienti/ViewClientiPage'
 import ClientiDashboardPage from '../components/clienti/ClientiDashboardPage'
+import AddFatturaPage from '../components/fatture/AddFatturaPage'
+import EditFatturaPage from '../components/fatture/EditFatturaPage'
+import ViewFatturaPage from '../components/fatture/ViewFatturaPage'
+import FattureDashboardPage from '../components/Fatture/FattureDashboardPage'
 import OggettiDashboardPage from '../components/oggetti/OggettiDashboardPage'
 import AddOggettoPage from '../components/oggetti/AddOggettoPage'
 import ViewOggettiPage from '../components/oggetti/ViewOggettiPage'
@@ -28,8 +32,9 @@ import NotFoundPage from '../components/NotFoundPage'
 import LoginPage from '../components/LoginPage'
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
-import StampaDatenblatt from '../components/moduli/StampaDatenblatt';
+import StampaDatenblatt from '../components/moduli/StampaDatenblatt'
 import MAAForm from '../components/moduli/MAAForm'
+
 
 
 export const history = createHistory()
@@ -57,6 +62,10 @@ const AppRouter = ({ uid }) => {
                         <PrivateRoute path="/oggettocreate" component={AddOggettoPage} />
                         <PrivateRoute path="/oggettoview/:id" component={ViewOggettiPage} />
                         <PrivateRoute path="/oggettoedit/:id" component={EditOggettoPage} />
+                        <PrivateRoute path="/fatture" component={FattureDashboardPage} />
+                        <PrivateRoute path="/fatturacreate" component={AddFatturaPage} />
+                        <PrivateRoute path="/fatturaview/:id" component={ViewFatturaPage} />
+                        <PrivateRoute path="/fatturaedit/:id" component={EditFatturaPage} />
                         <PrivateRoute path="/leads" component={LeadsDashboardPage} />
                         <PrivateRoute path="/leadscreate" component={AddLeadPage} />
                         <PrivateRoute path="/leadedit/:id" component={EditLeadPage} />

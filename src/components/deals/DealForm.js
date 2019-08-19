@@ -17,9 +17,9 @@ export class DealForm extends React.Component {
             amount: props.deal ? (props.deal.amount / 100).toString() : '',
             consulenteVendita: props.deal ? props.deal.consulenteVendita : '',
             provvM2square: props.deal ? (props.deal.provvM2square / 100).toString() : '',
-            payed: props.deal ? props.deal.payed : false,
-            payedAt: props.deal ? props.deal.payedAt && moment(props.deal.payedAt) : null,
-            calendarPayedAtFocused: false,
+            // payed: props.deal ? props.deal.payed : false,
+            // payedAt: props.deal ? props.deal.payedAt && moment(props.deal.payedAt) : null,
+            // calendarPayedAtFocused: false,
             provvStefano: props.deal ? (props.deal.provvStefano / 100).toString() : '',
             payedStefano: props.deal ? props.deal.payedStefano : false,
             payedAtStefano: props.deal ? props.deal.payedAtStefano && moment(props.deal.payedAtStefano) : null,
@@ -37,8 +37,8 @@ export class DealForm extends React.Component {
             dataRogito: props.deal ? props.deal.dataRogito && moment(props.deal.dataRogito) : null,
             calendarDataRogitoFocused: false,
             belastungsVollmacht: props.deal ? props.deal.belastungsVollmacht : false,
-            numeroFattura: props.deal ? props.deal.numeroFattura : '',
-            dataFattura: props.deal ? props.deal.dataFattura && moment(props.deal.dataFattura) : null,
+            // numeroFattura: props.deal ? props.deal.numeroFattura : '',
+            // dataFattura: props.deal ? props.deal.dataFattura && moment(props.deal.dataFattura) : null,
             note: props.deal ? props.deal.note : '',
             error: '',
             modificato: '',
@@ -74,18 +74,18 @@ export class DealForm extends React.Component {
             this.setState(() => ({ provvM2square, modificato: { ...this.state.modificato, provvM2square: 'modificato' }}))
         }
     }
-    onPayedChange = () => {
-        this.setState(() => ({ payed: !this.state.payed }))
-        this.state.payed === false && this.setState({ payedAt: null })
-    }
-    onPayedAtDateChange = (payedAt) => {
-        if (payedAt) {
-            this.setState(() => ({ payedAt }))
-        }
-    }
-    onFocusPayedAtChange = ({ focused }) => {
-        this.setState(() => ({ calendarPayedAtFocused: focused }))
-    }
+    // onPayedChange = () => {
+    //     this.setState(() => ({ payed: !this.state.payed }))
+    //     this.state.payed === false && this.setState({ payedAt: null })
+    // }
+    // onPayedAtDateChange = (payedAt) => {
+    //     if (payedAt) {
+    //         this.setState(() => ({ payedAt }))
+    //     }
+    // }
+    // onFocusPayedAtChange = ({ focused }) => {
+    //     this.setState(() => ({ calendarPayedAtFocused: focused }))
+    // }
     onProvvStefanoChange = (e) => {
         const provvStefano = e.target.value
 
@@ -158,18 +158,20 @@ export class DealForm extends React.Component {
     onBelastungsVollmachtChange = () => {
         this.setState(() => ({ belastungsVollmacht: !this.state.belastungsVollmacht }))
     }
-    onNumeroFatturaChange = (e) => {
-        const numeroFattura = e.target.value
-        this.setState(() => ({ numeroFattura, modificato: { ...this.state.modificato, numeroFattura: 'modificato'} }) )
-    }
-    onDataFatturaChange = (dataFattura) => {
-        if (dataFattura) {
-            this.setState(() => ({ dataFattura }))
-        }
-    }
-    onFocusDataFatturaChange = ({ focused }) => {
-        this.setState(() => ({ calendarDataFatturaFocused: focused }))
-    }
+    // onNumeroFatturaChange = (e) => {
+    //     const numeroFattura = e.target.value
+    //     this.setState(() => ({ numeroFattura, modificato: { ...this.state.modificato, numeroFattura: 'modificato'} }) )
+    // }
+    // onDataFatturaChange = (dataFattura) => {
+    //     if (dataFattura) {
+    //         this.setState(() => ({ dataFattura }))
+    //     } else {
+    //         this.setState(() => ({ dataFattura: null}))
+    //     }
+    // }
+    // onFocusDataFatturaChange = ({ focused }) => {
+    //     this.setState(() => ({ calendarDataFatturaFocused: focused }))
+    // }
     onNoteChange = (e) => {
         const note = e.target.value
         this.setState(() => ({ note, modificato: { ...this.state.modificato, note: 'modificato' } }))
@@ -197,8 +199,8 @@ export class DealForm extends React.Component {
                 amount,
                 consulenteVendita: this.state.consulenteVendita,
                 provvM2square,
-                payed: this.state.payed,
-                payedAt: this.state.payedAt ? this.state.payedAt.valueOf() : null,
+                // payed: this.state.payed,
+                // payedAt: this.state.payedAt ? this.state.payedAt.valueOf() : null,
                 provvStefano,
                 payedStefano: this.state.payedStefano,
                 payedAtStefano: this.state.payedAtStefano ? this.state.payedAtStefano.valueOf() : null,
@@ -214,8 +216,8 @@ export class DealForm extends React.Component {
                 dataRogito: this.state.dataRogito ? this.state.dataRogito.valueOf(): null,
                 belastungsVollmacht: this.state.belastungsVollmacht,
                 calendarDataFatturaFocused: false,
-                numeroFattura: this.state.numeroFattura,
-                dataFattura: this.state.dataFattura ? this.state.dataFattura.valueOf() : null,
+                // numeroFattura: this.state.numeroFattura,
+                // dataFattura: this.state.dataFattura ? this.state.dataFattura.valueOf() : null,
                 note: this.state.note,
             })
         }
@@ -281,7 +283,7 @@ export class DealForm extends React.Component {
                 options={consulenteVenditaOptions}
                 onChange={this.onConsulenteVenditaChange}
 
-        />
+               />
                 Provvigione m2Square:
                 <input
                     className={`text-input text-input--${this.state.modificato.provvM2square}`}
@@ -290,7 +292,8 @@ export class DealForm extends React.Component {
                     value={this.state.provvM2square}
                     onChange={this.onProvvM2squareChange}
                />
-                <label>Pagata&nbsp;
+                {/*
+                    <label>Pagata&nbsp;
                 <input
                         type="checkbox"
                         name="payed"
@@ -309,6 +312,7 @@ export class DealForm extends React.Component {
                         isOutsideRange={() => false}
                     />
                 </div>
+                */}  
                Provvigione Stefano:
                <input
                     className={`text-input text-input--${this.state.modificato.provvStefano}`}
@@ -379,7 +383,7 @@ export class DealForm extends React.Component {
                 filterOptions={filterOptions}
                 onChange={this.onVenditoreIdChange2}
 
-        />
+                />
                 Acquirente:
                 <Select
                 name="acquirente"
@@ -388,7 +392,7 @@ export class DealForm extends React.Component {
                 filterOptions={filterOptions}
                 onChange={this.onAcquirenteIdChange}
 
-        />
+                />
                 Secondo Acquirente:
                 <Select
                 name="acquirente2"
@@ -397,14 +401,14 @@ export class DealForm extends React.Component {
                 filterOptions={filterOptions}
                 onChange={this.onAcquirenteIdChange2}
 
-        />
+                />
                 Notaio:
                 <Select
-                        name="notaio"
-                        value={this.state.notaioId}
-                        options={options}
-                        filterOptions={filterOptions}
-                        onChange={this.onNotaioIdChange}
+                    name="notaio"
+                    value={this.state.notaioId}
+                    options={options}
+                    filterOptions={filterOptions}
+                    onChange={this.onNotaioIdChange}
 
                 />
                 
@@ -420,12 +424,13 @@ export class DealForm extends React.Component {
                 />
                 <label>Belastungsvollmacht&nbsp;
                 <input
-                        type="checkbox"
-                        name="belastungsVollmacht"
-                        checked={this.state.belastungsVollmacht}
-                        onChange={this.onBelastungsVollmachtChange}
+                    type="checkbox"
+                    name="belastungsVollmacht"
+                    checked={this.state.belastungsVollmacht}
+                    onChange={this.onBelastungsVollmachtChange}
                     />
                 </label>
+                {/*
                 Numero Fattura:
                 <input
                     className={`text-input text-input--${this.state.modificato.numeroFattura}`}
@@ -440,9 +445,12 @@ export class DealForm extends React.Component {
                     onDateChange={this.onDataFatturaChange}
                     focused={this.state.calendarDataFatturaFocused}
                     onFocusChange={this.onFocusDataFatturaChange}
+                    showClearDate={true}
                     numberOfMonths={1}
                     isOutsideRange={() => false}
+
                 />
+                */}  
                 <textarea
                     className={`textarea text-input--${this.state.modificato.note}`}
                     placeholder="Nota  (opzionale)"
