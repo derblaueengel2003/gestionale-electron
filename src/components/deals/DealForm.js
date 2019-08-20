@@ -17,6 +17,7 @@ export class DealForm extends React.Component {
             amount: props.deal ? (props.deal.amount / 100).toString() : '',
             consulenteVendita: props.deal ? props.deal.consulenteVendita : '',
             provvM2square: props.deal ? (props.deal.provvM2square / 100).toString() : '',
+            dealType: props.deal ? props.deal.dealType : '',
             // payed: props.deal ? props.deal.payed : false,
             // payedAt: props.deal ? props.deal.payedAt && moment(props.deal.payedAt) : null,
             // calendarPayedAtFocused: false,
@@ -176,6 +177,10 @@ export class DealForm extends React.Component {
         const note = e.target.value
         this.setState(() => ({ note, modificato: { ...this.state.modificato, note: 'modificato' } }))
     }
+    onDealTypeChange = (e) => { 
+        const dealType = e.value
+        this.setState(() => ({ dealType }))
+    }
 
     onSubmit = (e) => {
         e.preventDefault()
@@ -186,8 +191,8 @@ export class DealForm extends React.Component {
         const provvAgenziaPartner = parseFloat(this.state.provvAgenziaPartner, 10) * 100
         const provvSum = provvM2square + provvStefano + provvAgenziaPartner
         
-        if (!this.state.description || !this.state.amount) {
-            this.setState(() => ({ error: 'Inserisci descrizione e importo totale.'}))
+        if (!this.state.description || !this.state.amount || !this.state.acquirenteId) {
+            this.setState(() => ({ error: 'Inserisci oggetto, importo totale e acquirente.'}))
         } else if (amount !== provvSum) {
             const differenza = (provvSum - amount) / 100
             this.setState(() => ({ error: `La somma delle provvigioni non corrisponde al totale. Differenza di ${differenza} €.`}))
@@ -199,6 +204,7 @@ export class DealForm extends React.Component {
                 amount,
                 consulenteVendita: this.state.consulenteVendita,
                 provvM2square,
+                dealType: this.state.dealType,
                 // payed: this.state.payed,
                 // payedAt: this.state.payedAt ? this.state.payedAt.valueOf() : null,
                 provvStefano,
@@ -218,12 +224,13 @@ export class DealForm extends React.Component {
                 calendarDataFatturaFocused: false,
                 // numeroFattura: this.state.numeroFattura,
                 // dataFattura: this.state.dataFattura ? this.state.dataFattura.valueOf() : null,
-                note: this.state.note,
+                note: this.state.note
             })
         }
     }
     
     render() {
+
         const options = this.props.clienti.map((cliente) => ({
                 value: cliente.id, label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&  `- Firma ${cliente.ditta}`}`
             }))    
@@ -231,6 +238,9 @@ export class DealForm extends React.Component {
 
         const oggettiOptions = this.props.oggetti.map((oggetto) => ({
             value: oggetto.id, label: `Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`
+        }))
+        const dealTypeOptions = ['Kauf Eigentumswohnung', 'Miete Eigentumswohnung', 'Kauf Gewerbe', 'Miete Gewerbe', 'APH', 'Sonstiges'].map((dealType) => ({
+            value: dealType, label: dealType
         }))
 
         const consulenteVenditaOptions = this.props.utenti.map((consulente) => ({
@@ -242,7 +252,15 @@ export class DealForm extends React.Component {
                 {this.state.error && <p className="form__error">{this.state.error}</p>}
                 <div>
                     <button className="button">Salva modifiche</button>
-                </div>         
+                </div>     
+                Tipologia di provvigione:
+                <Select
+                    name="dealType"
+                    value={this.state.dealType}
+                    options={dealTypeOptions}
+                    onChange={this.onDealTypeChange}
+                />
+
                 Oggetto:
                 <Select
                         name="description"

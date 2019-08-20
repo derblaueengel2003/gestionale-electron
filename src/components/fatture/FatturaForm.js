@@ -21,7 +21,8 @@ export class FatturaForm extends React.Component {
             payed: props.fattura ? props.fattura.payed : false,
             payedAt: props.fattura ? props.fattura.payedAt && moment(props.fattura.payedAt) : null,
             error: '',
-            modificato: ''
+            modificato: '',
+            note: props.fattura ? props.fattura.note : ''
         }
     }
     onNumeroFatturaChange = (e) => {
@@ -64,6 +65,10 @@ export class FatturaForm extends React.Component {
         const clienteId2 = e ? e.value : ''
         this.setState(() => ({ clienteId2 }))
     }
+    onNoteChange = (e) => {
+        const note = e.target.value
+        this.setState(() => ({ note }))
+    }
     onSubmit = (e) => {
         e.preventDefault()
     
@@ -79,7 +84,7 @@ export class FatturaForm extends React.Component {
                 dataFattura: this.state.dataFattura ? this.state.dataFattura.valueOf() : null,
                 payed: this.state.payed,
                 payedAt: this.state.payedAt ? this.state.payedAt.valueOf() : null,
-                
+                note: this.state.note
             })
         }
     }
@@ -162,6 +167,17 @@ export class FatturaForm extends React.Component {
                         isOutsideRange={() => false}
                     />
                 </div>
+                <textarea
+                    className={`textarea text-input--${this.state.modificato.note}`}
+                    placeholder={`Spazio per causale fattura e importo per fattura vuota. Es. 
+Ritiro chiavi a pagamento: 10 €
++19% MWSt.:                1,9 €
+_________________________________
+Totale:                    11,9 €`}
+
+                    value={this.state.note}
+                    onChange={this.onNoteChange}
+                ></textarea>
                 <div>
                     <button className="button">Salva modifiche</button>
                 </div>

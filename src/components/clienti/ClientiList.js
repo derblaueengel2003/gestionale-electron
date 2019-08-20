@@ -5,32 +5,49 @@ import ClientiListItem from './ClientiListItem';
 import { startSetCustomers } from '../../actions/clienti';
 import selectClienti from '../../selectors/clienti'
 
-export const ClientiList = (props) => (
-    <div className="content-container">
-    <div className="page-header__actions">
-    <Link className="button" to="/customercreate">+</Link>
-    </div>
-     <div className="list-header">
-    
-        <div className="show-for-mobile">Cliente</div>
-        <div className="show-for-desktop">Cliente</div>
-        <div className="show-for-desktop">Ditta</div>
-     </div>
-       <div className="list-body">
-       {
-        props.clienti.length === 0 ? (
-            <div className="list-item list-item--message">
-                <span>Nessun cliente in base ai filtri inseriti</span>
+export const ClientiList = (props) => {
+    //controllo se i dati vengono dal deal page o se sono passati via props
+    if (props.cliente) {
+        return (
+            <div className="content-container">
+            <div className="list-header">
+                {props.ruolo}
             </div>
-        ) : (
-            props.clienti.map((cliente) => {
-            return <ClientiListItem key={cliente.id} {...cliente} />
-            })
+            <div className="list-body">
+            <ClientiListItem key={props.cliente.id} {...props.cliente}/>
+            </div>
+             </div>
         )
+    } else {
+        return (
+            <div className="content-container">
+                <div className="page-header__actions">
+                    <Link className="button" to="/customercreate">+</Link>
+                </div>
+                <div className="list-header">
+
+                    <div className="show-for-mobile">Cliente</div>
+                    <div className="show-for-desktop">Cliente</div>
+                    <div className="show-for-desktop">Ditta</div>
+                </div>
+                <div className="list-body">
+                    {
+                        props.clienti.length === 0 ? (
+                            <div className="list-item list-item--message">
+                                <span>Nessun cliente in base ai filtri inseriti</span>
+                            </div>
+                        ) : (
+                                props.clienti.map((cliente) => {
+                                    return <ClientiListItem key={cliente.id} {...cliente} />
+                                })
+                            )
+                    }
+                </div>
+            </div>
+        )
+       
     }
-       </div>
-    </div>
-)
+}
 
 const mapStateToProps = (state) => {
     return {

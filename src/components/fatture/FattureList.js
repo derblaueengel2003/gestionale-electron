@@ -51,7 +51,7 @@ export const FattureList = (props) => {
                     ) : (
                             props.fatture.map((fattura) => {
                                 const deal = props.deals.find((deal) => deal.id === fattura.dealId)
-                                const oggetto = props.oggetti.find((ogg) => ogg.id === deal.description)
+                                const oggetto = deal ? props.oggetti.find((ogg) => ogg.id === deal.description) : ''
                                 const cliente = props.clienti.find((ilcliente) => ilcliente.id === fattura.clienteId)
                                 const cliente2 = props.clienti.find((ilcliente) => ilcliente.id === fattura.clienteId2)
                                 return <FattureListItem key={fattura.id} {...fattura} oggetto={oggetto} cliente={cliente} cliente2={cliente2} />

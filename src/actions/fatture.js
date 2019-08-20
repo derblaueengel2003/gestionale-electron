@@ -16,7 +16,8 @@ export const startAddFattura = (fatturaData = {}) => {
             numeroFattura = '',
             dataFattura = null,
             payed = false,
-            payedAt = ''           
+            payedAt = '',
+            note = ''           
         } = fatturaData
         const fattura = { 
             dealId,
@@ -25,7 +26,8 @@ export const startAddFattura = (fatturaData = {}) => {
             numeroFattura,
             dataFattura,
             payed,
-            payedAt
+            payedAt,
+            note
          }
 
         return database.ref(`fatture`).push(fattura).then((ref) => {

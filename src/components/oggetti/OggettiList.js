@@ -4,33 +4,55 @@ import { connect } from 'react-redux'
 import OggettiListItem from './OggettiListItem'
 import selectOggetti from '../../selectors/oggetti'
 
-export const OggettiList = (props) => (
-    
-    <div className="content-container">
-    <div className="page-header__actions">
-    <Link className="button" to="/oggettocreate">+</Link>
-    </div>
-     <div className="list-header">
-    
-        <div className="show-for-mobile">Oggetto</div>
-        <div className="show-for-desktop">Oggetto</div>
-        <div className="show-for-desktop">Rif. Id</div>
-     </div>
-       <div className="list-body">
-       {
-        props.oggetti.length === 0 ? (
-            <div className="list-item list-item--message">
-                <span>Nessun oggetto in base ai filtri inseriti</span>
+export const OggettiList = (props) => {
+    //controllo se arrivo da view deal o dalla dashboard oggetti
+    if (props.oggetto) {
+        return (
+            <div className="content-container">
+                <div className="list-header">
+                    <div className="show-for-mobile">Oggetto</div>
+                    <div className="show-for-desktop">Oggetto</div>
+                    <div className="show-for-desktop">Rif. Id</div>
+                </div>
+                <div className="list-body">
+                    <OggettiListItem key={props.oggetto.id} {...props.oggetto} />
+
+                </div>
             </div>
-        ) : (
-            props.oggetti.map((oggetto) => {
-            return <OggettiListItem key={oggetto.id} {...oggetto} />
-            })
+        )
+    } else {
+        return (
+
+            <div className="content-container">
+                <div className="page-header__actions">
+                    <Link className="button" to="/oggettocreate">+</Link>
+                </div>
+                <div className="list-header">
+
+                    <div className="show-for-mobile">Oggetto</div>
+                    <div className="show-for-desktop">Oggetto</div>
+                    <div className="show-for-desktop">Rif. Id</div>
+                </div>
+                <div className="list-body">
+                    {
+                        props.oggetti.length === 0 ? (
+                            <div className="list-item list-item--message">
+                                <span>Nessun oggetto in base ai filtri inseriti</span>
+                            </div>
+                        ) : (
+                                props.oggetti.map((oggetto) => {
+                                    return <OggettiListItem key={oggetto.id} {...oggetto} />
+                                })
+                            )
+                    }
+                </div>
+            </div>
         )
     }
-       </div>
-    </div>
-)
+}
+
+
+
 
 const mapStateToProps = (state) => {
     return {
