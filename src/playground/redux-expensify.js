@@ -4,7 +4,7 @@ import uuid from 'uuid'
 // ADD_DEAL
 const addDeal = (
     {
-        description = '',
+        oggettoId = '',
         note = '',
         amount = 0,
         createdAt = 0
@@ -13,7 +13,7 @@ const addDeal = (
     type: 'ADD_DEAL',
     deal: {
         id: uuid(),
-        description,
+        oggettoId,
         note,
         amount,
         createdAt
@@ -138,7 +138,7 @@ const getVisibleDeals = (deals, { text, sortBy, startDate, endDate }) => {
     return deals.filter((deal) => {
         const startDateMatch = typeof startDate !== 'number' || deal.createdAt >= startDate
         const endDateMatch = typeof endDate !== 'number' || deal.createdAt <= endDate
-        const textMatch = deal.description.toLowerCase().includes(text.toLowerCase())
+        const textMatch = deal.oggettoId.toLowerCase().includes(text.toLowerCase())
 
         return startDateMatch && endDateMatch && textMatch
     }).sort((a, b) => {
@@ -166,8 +166,8 @@ store.subscribe(() => {
     console.log(visibleDeals)
 })
 
-const dealOne = store.dispatch(addDeal({ description: 'Rent', amount: 100, createdAt: -21000 }))
-const dealTwo = store.dispatch(addDeal({ description: 'Coffee', amount: 300, createdAt: -1000 }))
+const dealOne = store.dispatch(addDeal({ oggettoId: 'Rent', amount: 100, createdAt: -21000 }))
+const dealTwo = store.dispatch(addDeal({ oggettoId: 'Coffee', amount: 300, createdAt: -1000 }))
 
 // store.dispatch(removeDeal({ id: dealOne.deal.id }))
 // store.dispatch(editDeal(dealTwo.deal.id, { amount: 500 }))
@@ -186,7 +186,7 @@ store.dispatch(sortByAmount())
 const demoState = {
     deals: [{
         id: 'psadifuirefor',
-        description: 'January Rent',
+        oggettoId: 'January Rent',
         note: 'This was the final payment for that address',
         amount: 54500,
         createdAt: 0

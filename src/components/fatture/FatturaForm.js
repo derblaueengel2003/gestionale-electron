@@ -95,10 +95,10 @@ export class FatturaForm extends React.Component {
         const filterOptions = createFilterOptions({ options })
 
         const dealIdOptions = this.props.deals.map((deal) => ({
-            value: deal.id, label: `${this.props.oggetti.find((ogg) => ogg.id === deal.description).rifId} - 
-                        ${this.props.oggetti.find((ogg) => ogg.id === deal.description).via} 
-                        ${this.props.oggetti.find((ogg) => ogg.id === deal.description).numeroCivico},
-                        WE ${this.props.oggetti.find((ogg) => ogg.id === deal.description).numeroAppartamento}`
+            value: deal.id, label: `${this.props.oggetti.find((ogg) => ogg.id === deal.oggettoId).rifId} - 
+                        ${this.props.oggetti.find((ogg) => ogg.id === deal.oggettoId).via} 
+                        ${this.props.oggetti.find((ogg) => ogg.id === deal.oggettoId).numeroCivico},
+                        WE ${this.props.oggetti.find((ogg) => ogg.id === deal.oggettoId).numeroAppartamento}`
         }))
         
 

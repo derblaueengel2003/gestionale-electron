@@ -3,7 +3,7 @@
 export default (fatture, { fattura }, oggetti, clienti, deals) => {
     return fatture.filter((lafattura) => {
         const deal = deals.find((deal) => deal.id === lafattura.dealId)
-        const oggetto = deal ? oggetti.find((ogg) => ogg.id === deal.description) : ''
+        const oggetto = deal ? oggetti.find((ogg) => ogg.id === deal.oggettoId) : ''
         const cliente = clienti.find((cliente) => cliente.id === lafattura.clienteId)
         const cliente2 = clienti.find((cliente) => cliente.id === lafattura.clienteId2)
         let indirizzo = cliente ? `${cliente.nome} ${cliente.cognome} ${cliente.ditta}` : ''

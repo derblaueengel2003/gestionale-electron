@@ -19,8 +19,8 @@ const createMockStore = configureMockStore([thunk])
 
 beforeEach((done) => {
     const dealsData = {}
-    deals.forEach(({ id, description, note, amount, createdAt }) => {
-        dealsData[id] = { description, note, amount, createdAt }
+    deals.forEach(({ id, oggettoId, note, amount, createdAt }) => {
+        dealsData[id] = { oggettoId, note, amount, createdAt }
     })
     database.ref(`users/${uid}/deals`).set(dealsData).then(() => done())
 })
@@ -90,7 +90,7 @@ test('should setup add deal action object with provided value', () => {
 test('should add deal to database and store', (done) => {
     const store = createMockStore(defaultAuthState)
     const dealData = {
-        description: 'mouse',
+        oggettoId: 'mouse',
         amount: 30000,
         note: 'This one is better',
         createdAt: 1000
@@ -117,7 +117,7 @@ test('should add deal to database and store', (done) => {
 test('should add deal with default to database and store', (done) => {
     const store = createMockStore(defaultAuthState)
     const dealDefault = {
-        description: '',
+        oggettoId: '',
         amount: 0,
         note: '',
         createdAt: 0

@@ -6,6 +6,7 @@ import numeral from 'numeral'
 import { creaPrenotazione } from '../moduli/Provisionsbestaetigung'
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung'
 import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag'
+import { notarDatenblatt } from '../moduli/NotarDatenblatt'
 import TodoForm from './TodoForm'
 import FattureList from '../fatture/FattureList'
 import ClientiList from '../clienti/ClientiList'
@@ -20,7 +21,8 @@ export class ViewDealPage extends React.Component {
             const venditore = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId)
             const venditore2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId2)
             const agenziaPartner = this.props.clienti.find((cliente) => cliente.id === this.props.deal.agenziaPartnerId)
-            const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.description)
+            const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.oggettoId)
+            const verwalter = this.props.clienti.find((cliente) => cliente.id === oggetto.verwalter)
             const provvPercentuale = numeral((this.props.deal.amount / this.props.deal.prezzoDiVendita) * 119).format('0,0.00')
             const dataPrenotazione = moment(this.props.deal.createdAt).format('DD.MM.YYYY')
             const notaio = this.props.clienti.find((cliente) => cliente.id === this.props.deal.notaioId)
@@ -32,7 +34,6 @@ export class ViewDealPage extends React.Component {
                             <h1 className="page-header__title">Dettagli Provvigione</h1>
                         </div>
                     </div>
-                    <OggettiList oggetto={oggetto} />
                     <div className="content-container">
                         <div className="list-header">
                             <div className="show-for-mobile">Dettagli</div>
@@ -51,19 +52,21 @@ export class ViewDealPage extends React.Component {
                                     {this.props.deal.amount > 0 && <h3 className="list-item__title">Provvigione: {numeral(this.props.deal.amount / 100).format('0,0[.]00 $')}</h3>}
                                     {this.props.deal.consulenteVendita > 0 && <h4 className="list-item__sub-title">Cliente di: {this.props.deal.consulenteVendita}</h4>}
                                     {this.props.deal.provvM2square > 0 && <h4 className={`list-item__sub-title ${this.props.fatture.payed && 'list-item--paid'}`}>m2Square: {numeral(this.props.deal.provvM2square / 100).format('0,0[.]00 $')}</h4>}
-                                    {this.props.deal.payedAt > 0 && <span className="list-item__sub-title">Prenotazione pagata il: {moment(this.props.deal.payedAt).format('DD MMMM, YYYY')}</span>}
+                                    {this.props.fatture.payedAt > 0 && <span className="list-item__sub-title">Prenotazione pagata il: {moment(this.props.fatture.payedAt).format('DD MMMM, YYYY')}</span>}
                                     {this.props.deal.provvStefano > 0 && <h4 className={`list-item__sub-title ${this.props.deal.payedStefano && 'list-item--paid'}`}>Stefano: {numeral(this.props.deal.provvStefano / 100).format('0,0[.]00 $')}</h4>}
                                     {this.props.deal.payedAtStefano > 0 && <span className="list-item__sub-title">Pagata a Stefano il: {moment(this.props.deal.payedAtStefano).format('DD MMMM, YYYY')}</span>}
-                                    {this.props.deal.agenziaPartnerId.length > 0 && <h4 className="list-item__sub-title">Agenzia Partner: {agenziaPartner.nome} {agenziaPartner.cognome} {agenziaPartner.ditta && ` - Firma: ${agenziaPartner.ditta}`}</h4>}
                                     {this.props.deal.provvAgenziaPartner > 0 && <h4 className={`list-item__sub-title ${this.props.deal.payedAgenziaPartner && 'list-item--paid'}`}>Provvigione Agenzia Partner: {numeral(this.props.deal.provvAgenziaPartner / 100).format('0,0[.]00 $')}</h4>}
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <OggettiList oggetto={oggetto} />
+
                         {this.props.deal.venditoreId.length > 0 && <div><ClientiList cliente={venditore} ruolo={'Verkäufer'} /></div>}
                         {this.props.deal.venditoreId2.length > 0 && <div><ClientiList cliente={venditore2} ruolo={'2. Verkäufer'} /></div>}
                         {this.props.deal.acquirenteId.length > 0 && <div><ClientiList cliente={acquirente} ruolo={'Käufer'} /></div>}
                         {this.props.deal.acquirenteId2.length > 0 && <div><ClientiList cliente={acquirente2} ruolo={'2. Käufer'} /></div>}
+                        {this.props.deal.agenziaPartnerId.length > 0 && <div><ClientiList cliente={agenziaPartner} ruolo={'Agenzia Partner'} /></div>}
                        
                     <div className="content-container">
                         {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <Link className="button button--secondary" to={`/edit/${this.props.deal.id}`}>Modifica Provvigione</Link>}
@@ -80,8 +83,13 @@ export class ViewDealPage extends React.Component {
                             onClick={() => { vollmachtNotarauftrag(acquirente, acquirente2, venditore, venditore2, oggetto, notaio) }}>
                             Vollmacht Notarauftrag
                         </button>
-
-                        <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
+                        <button className="print button button--secondary"
+                            onClick={() => { notarDatenblatt(acquirente, acquirente2, venditore, venditore2, oggetto, notaio, verwalter, this.props.deal.belastungsVollmacht, this.props.deal.prezzoDiVendita) }}>
+                            Notar Datenblatt
+                        </button>
+                        {/* 
+                            <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
+                        */}
                     </div>
                     <TodoForm dealId={this.props.deal.id} />
                     <FattureList dealFatture={this.props.fatture}/>
@@ -94,7 +102,8 @@ export class ViewDealPage extends React.Component {
             const venditore = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId)
             const venditore2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId2)
             const agenziaPartner = this.props.clienti.find((cliente) => cliente.id === this.props.deal.agenziaPartnerId)
-            const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.description)
+            const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.oggettoId)
+            const verwalter = this.props.clienti.find((cliente) => cliente.id === oggetto.verwalter)
             const provvPercentuale = numeral((this.props.deal.amount / this.props.deal.prezzoDiVendita) * 119).format('0,0.00')
             const dataPrenotazione = moment(this.props.deal.createdAt).format('DD.MM.YYYY')
             const notaio = this.props.clienti.find((cliente) => cliente.id === this.props.deal.notaioId)
@@ -105,7 +114,6 @@ export class ViewDealPage extends React.Component {
                             <h1 className="page-header__title">Dettagli Provvigione</h1>
                         </div>
                     </div>
-                    <OggettiList oggetto={oggetto} />
                     <div className="content-container"><div className="list-header">
                         <div className="show-for-mobile">Dettagli</div>
                         <div className="show-for-desktop">Dettagli</div>
@@ -122,15 +130,17 @@ export class ViewDealPage extends React.Component {
                                 <div>
                                     {this.props.deal.provvStefano > 0 && <h3 className={`list-item__title ${this.props.deal.payedStefano && 'list-item--paid'}`}>Provvigione Stefano: {numeral(this.props.deal.provvStefano / 100).format('0,0[.]00 $')}</h3>}
                                     {this.props.deal.payedAtStefano > 0 && <span className="list-item__sub-title">Pagata il: {moment(this.props.deal.payedAtStefano).format('DD MMMM, YYYY')}</span>}
-                                    {this.props.deal.agenziaPartnerId.length > 0 && <h4 className="list-item__sub-title">Agenzia Partner: {agenziaPartner.nome} {agenziaPartner.cognome} {agenziaPartner.ditta && ` - Firma: ${agenziaPartner.ditta}`}</h4>}
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <OggettiList oggetto={oggetto} />
+
                     {this.props.deal.venditoreId.length > 0 && <div><ClientiList cliente={venditore} ruolo={'Verkäufer'} /></div>}
                     {this.props.deal.venditoreId2.length > 0 && <div><ClientiList cliente={venditore2} ruolo={'2. Verkäufer'} /></div>}
                     {this.props.deal.acquirenteId.length > 0 && <div><ClientiList cliente={acquirente} ruolo={'Käufer'} /></div>}
                     {this.props.deal.acquirenteId2.length > 0 && <div><ClientiList cliente={acquirente2} ruolo={'2. Käufer'} /></div>}
+                    {this.props.deal.agenziaPartnerId.length > 0 && <div><ClientiList cliente={agenziaPartner} ruolo={'Agenzia Partner'} /></div>}
 
                     <div className="content-container">
                         <button className="print button button--secondary"
@@ -145,7 +155,13 @@ export class ViewDealPage extends React.Component {
                             onClick={() => { vollmachtNotarauftrag(acquirente, acquirente2, venditore, venditore2, oggetto, notaio) }}>
                             Vollmacht Notarauftrag
                         </button>
-                        <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
+                        <button className="print button button--secondary"
+                            onClick={() => { notarDatenblatt(acquirente, acquirente2, venditore, venditore2, oggetto, notaio, verwalter, this.props.deal.belastungsVollmacht, this.props.deal.prezzoDiVendita) }}>
+                            Notar Datenblatt
+                        </button>
+                        {/* 
+                            <Link className="button button--secondary" to={`/datenblatt/${this.props.deal.id}`}>Notar Datenblatt</Link>
+                        */}
                     </div>
                     <TodoForm dealId={this.props.deal.id} />
                 </div>

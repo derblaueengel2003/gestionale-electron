@@ -15,7 +15,7 @@ export class MAAForm extends React.Component {
         this.state = {
             venditoreId: '',
             venditoreId2: '',
-            description: '',
+            oggettoId: '',
             prezzoDiVendita: '',
             prezzoDiVendita2: '',
             startDate: null,
@@ -36,7 +36,7 @@ export class MAAForm extends React.Component {
     }
     onOggettoChange = (e) => {
         const oggetto = e ? e.value : ''
-        this.setState(() => ({ description: oggetto }))
+        this.setState(() => ({ oggettoId: oggetto }))
     }
     onPrezzoDiVenditaChange = (e) => {
         const prezzoDiVendita = e.target.value
@@ -68,7 +68,7 @@ export class MAAForm extends React.Component {
         e.preventDefault()
         const venditore = this.props.clienti.find((cliente) => cliente.id === this.state.venditoreId)
         const venditore2 = this.props.clienti.find((cliente) => cliente.id === this.state.venditoreId2)
-        const oggetto = this.props.oggetti.find((oggetto) => oggetto.id === this.state.description)
+        const oggetto = this.props.oggetti.find((oggetto) => oggetto.id === this.state.oggettoId)
         const startDate = this.state.startDate
         const endDate = this.state.endDate
         const prezzoDiVendita = this.state.prezzoDiVendita
@@ -76,7 +76,7 @@ export class MAAForm extends React.Component {
         const maklerProvision = this.state.maklerProvision
         const sonstige = this.state.sonstige
 
-        if (!this.state.description || !this.state.venditoreId) {
+        if (!this.state.oggettoId || !this.state.venditoreId) {
             this.setState(() => ({ error: 'Inserisci Venditore e Oggetto' }))
         } else {
             this.setState(() => ({ error: '' }))
@@ -124,8 +124,8 @@ export class MAAForm extends React.Component {
                     />
                     Oggetto:
                 <Select
-                        name="description"
-                        value={this.state.description}
+                        name="oggettoId"
+                        value={this.state.oggettoId}
                         options={oggettiOptions}
                         onChange={this.onOggettoChange}
                     />

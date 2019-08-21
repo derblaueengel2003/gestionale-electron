@@ -28,7 +28,7 @@ test('should not remove deal if id not found', () => {
 test('should add an deal', () => {
     const deal = {
         id: '4',
-        description: 'Gym',
+        oggettoId: 'Gym',
         note: '',
         amount: 20500,
         createdAt: 20000

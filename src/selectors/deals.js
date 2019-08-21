@@ -7,7 +7,7 @@ import moment from 'moment'
 export default (deals, { text, sortBy, startDate, endDate }, auth, oggetti, clienti) => {
     if (auth.uid === 'pCu3H2GQfPWQxMNGwIVTc0Ag0fg1') {
         return deals.filter((deal) => {
-            const oggetto = oggetti.find((ogg) => ogg.id === deal.description)
+            const oggetto = oggetti.find((ogg) => ogg.id === deal.oggettoId)
             const acquirente = clienti.find((cliente) => cliente.id === deal.acquirenteId)
             const acquirente2 = clienti.find((cliente) => cliente.id === deal.acquirenteId2)
             const venditore = clienti.find((cliente) => cliente.id === deal.venditoreId)
@@ -34,7 +34,7 @@ export default (deals, { text, sortBy, startDate, endDate }, auth, oggetti, clie
         })
     } else {
         return deals.filter((deal) => {
-            const oggetto = oggetti.find((ogg) => ogg.id === deal.description)
+            const oggetto = oggetti.find((ogg) => ogg.id === deal.oggettoId)
             const acquirente = clienti.find((cliente) => cliente.id === deal.acquirenteId)
             const acquirente2 = clienti.find((cliente) => cliente.id === deal.acquirenteId2)
             const venditore = clienti.find((cliente) => cliente.id === deal.venditoreId)

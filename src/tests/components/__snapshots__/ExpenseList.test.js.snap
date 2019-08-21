@@ -66,7 +66,7 @@ exports[`should render DealList with deals 1`] = `
     <DealListItem
       amount={195}
       createdAt={0}
-      description="Gum"
+      oggettoId="Gum"
       id="1"
       key="1"
       note=""
@@ -74,7 +74,7 @@ exports[`should render DealList with deals 1`] = `
     <DealListItem
       amount={109500}
       createdAt={-345600000}
-      description="Rent"
+      oggettoId="Rent"
       id="2"
       key="2"
       note=""
@@ -82,7 +82,7 @@ exports[`should render DealList with deals 1`] = `
     <DealListItem
       amount={4500}
       createdAt={345600000}
-      description="Credit Card"
+      oggettoId="Credit Card"
       id="3"
       key="3"
       note=""

@@ -64,7 +64,7 @@ export { firebase, googleAuthProvider, database as default }
 // })
 
 // database.ref('deals').push({
-//     description: 'la nuova',
+//     oggettoId: 'la nuova',
 //     note: '1',
 //     amount: 10,
 //     createdAt: 0

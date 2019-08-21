@@ -10,7 +10,7 @@ export const addDeal = (deal) => ({
 export const startAddDeal = (dealData = {}) => {
     return (dispatch) => {
         const {
-            description = '',
+            oggettoId = '',
             prezzoDiVendita = 0,
             amount = 0,
             provvM2square = 0,
@@ -48,7 +48,7 @@ export const startAddDeal = (dealData = {}) => {
             todo11 = false
         } = dealData
         const deal = { 
-            description,
+            oggettoId,
             prezzoDiVendita,
             amount, 
             provvM2square, 

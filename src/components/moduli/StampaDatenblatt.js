@@ -11,7 +11,7 @@ export class StampaDatenblatt extends React.Component {
         const acquirente2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.acquirenteId2)
         const venditore = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId)
         const venditore2 = this.props.clienti.find((cliente) => cliente.id === this.props.deal.venditoreId2)
-        const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.description)
+        const oggetto = this.props.oggetti.find((ogg) => ogg.id === this.props.deal.oggettoId)
         const verwalter = this.props.clienti.find((cliente) => cliente.id === oggetto.verwalter)
 
         

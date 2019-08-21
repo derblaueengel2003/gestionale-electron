@@ -8,7 +8,7 @@ export class ViewFatturePage extends React.Component {
     render() {
         let deal = this.props.deals.find((deal) => deal.id === this.props.fattura.dealId)
         !deal ? deal = ({ prezzoDiVendita: 0, dataFattura: null, dataRogito: null, amount: 0, createdAt: null, dealType: '' }) : deal
-        const oggetto = deal ? this.props.oggetti.find((ogg) => ogg.id === deal.description) : ''
+        const oggetto = deal ? this.props.oggetti.find((ogg) => ogg.id === deal.oggettoId) : ''
         const acquirente = deal ? this.props.clienti.find((ilcliente) => ilcliente.id === deal.acquirenteId) : ''
         const acquirente2 = deal ? this.props.clienti.find((ilcliente) => ilcliente.id === deal.acquirenteId2) : ''
         const cliente = this.props.clienti.find((cliente) => cliente.id === this.props.fattura.clienteId)
@@ -21,16 +21,29 @@ export class ViewFatturePage extends React.Component {
                     </div>
                 </div>
                 <div className="content-container">
-                    {this.props.fattura.numeroFattura.length > 0 && <div className={`${this.props.fattura.payed && 'list-item--paid'}`} >Fattura Numero: {this.props.fattura.numeroFattura}</div>}
-                    {this.props.fattura.dataFattura > 0 && <div>Data Fattura: {moment(this.props.dataFattura).format('DD MMMM, YYYY')}</div>}
-                    {deal && deal.dealType}
-                    {this.props.fattura.note}
-                    <div className="list-item__title">{oggetto && `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</div>
-                   
-                    {cliente && <div>Cliente: {cliente.nome} {cliente.cognome} {cliente.ditta && ` - Firma: ${cliente.ditta}`}</div>}
-                    {cliente2 && <div>Secondo Cliente: {cliente2.nome} {cliente2.cognome} {cliente2.ditta && ` - Firma: ${cliente2.ditta}`}</div>}
+                    <div className="list-header">
+                        <div className="show-for-mobile">{deal && deal.dealType}</div>
+                        <div className="show-for-desktop">{deal && deal.dealType}</div>
+                        <div className="show-for-desktop"></div>
+                    </div>
+                    <div className="list-body">
+                        <div className="list-item">
+                            <div>
+                                {this.props.fattura.numeroFattura.length > 0 && <div className={`${this.props.fattura.payed && 'list-item--paid'}`} >Fattura Numero: {this.props.fattura.numeroFattura}</div>}
+                                {this.props.fattura.note}
+                                <div className="list-item__title">{oggetto && `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</div>
 
-                    {deal && deal.dataRogito > 0 && <div>Data Rogito: {moment(deal.dataRogito).format('DD MMMM, YYYY')}</div>}
+                                {cliente && <div>Cliente: {cliente.nome} {cliente.cognome} {cliente.ditta && ` - Firma: ${cliente.ditta}`}</div>}
+                                {cliente2 && <div>Secondo Cliente: {cliente2.nome} {cliente2.cognome} {cliente2.ditta && ` - Firma: ${cliente2.ditta}`}</div>}
+
+
+                            </div>
+                            <div>
+                                {this.props.fattura.dataFattura > 0 && <div>Data Fattura: {moment(this.props.dataFattura).format('DD MMMM, YYYY')}</div>}
+                                {deal && deal.dataRogito > 0 && <div>Data Rogito: {moment(deal.dataRogito).format('DD MMMM, YYYY')}</div>}
+                            </div>
+                        </div>
+                    </div>
                     
                     <Link className="print button button--secondary" to={`/fatturaedit/${this.props.fattura.id}`}>Modifica Fattura</Link>
                     <button className="print button button--secondary"
