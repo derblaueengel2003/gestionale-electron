@@ -25,7 +25,8 @@ export class OggettoForm extends React.Component {
             stato: props.oggetto ? props.oggetto.stato : '',
             wohngeld: props.oggetto ? (props.oggetto.wohngeld / 100).toString() : '0',
             affittoNetto: props.oggetto ? (props.oggetto.affittoNetto / 100).toString() : '0',
-            verwalter: props.oggetto ? props.oggetto.verwalter : ''
+            verwalter: props.oggetto ? props.oggetto.verwalter : '',
+            ruecklage: props.oggetto ? props.oggetto.ruecklage : ''
         }
     }
     changeHandler = (e) => { 
@@ -48,7 +49,7 @@ export class OggettoForm extends React.Component {
         e.preventDefault()
         const wohngeld = parseFloat(this.state.wohngeld, 10) * 100
         const affittoNetto = parseFloat(this.state.affittoNetto, 10) * 100
-
+        
         if (!this.state.via || !this.state.rifId) {
             this.setState(() => ({ error: 'Inserisci via e riferimento Id.'}))
         } else {
@@ -69,7 +70,8 @@ export class OggettoForm extends React.Component {
                 stato: this.state.stato,
                 wohngeld,
                 affittoNetto,
-                verwalter: this.state.verwalter
+                verwalter: this.state.verwalter,
+                ruecklage: this.state.ruecklage
             })
         }
     }
@@ -208,6 +210,15 @@ export class OggettoForm extends React.Component {
                     placeholder="Wohngeld"
                     value={this.state.wohngeld}
                     onChange={this.onMoneyChange}
+                />
+                Instandhaltungs-Rücklage:
+                <input
+                    name="ruecklage"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="Indicare se gesamt o anteilig"
+                    value={this.state.ruecklage}
+                    onChange={this.changeHandler}
                 />
                 Affitto Netto:
                 <input

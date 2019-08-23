@@ -25,9 +25,28 @@ export const startAddOggetto = (oggettoData = {}) => {
             stato = '',
             wohngeld = 0,
             affittoNetto = 0,
-            verwalter = ''
+            verwalter = '',
+            ruecklage = ''
         } = oggettoData
-        const oggetto = { via, numeroCivico, numeroAppartamento, cap, citta, nazione, rifId, grundbuch, grundbuchBlatt, m2, piano, mobilio, stato, wohngeld, affittoNetto, verwalter }
+        const oggetto = { 
+            via,
+            numeroCivico, 
+            numeroAppartamento, 
+            cap, 
+            citta, 
+            nazione, 
+            rifId, 
+            grundbuch, 
+            grundbuchBlatt, 
+            m2, 
+            piano, 
+            mobilio, 
+            stato, 
+            wohngeld, 
+            affittoNetto, 
+            verwalter,
+            ruecklage 
+        }
 
         return database.ref(`/oggetti`).push(oggetto).then((ref) => {
             dispatch(addOggetto({

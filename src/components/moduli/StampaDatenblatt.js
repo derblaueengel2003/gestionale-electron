@@ -37,6 +37,7 @@ export class StampaDatenblatt extends React.Component {
                     {oggetto.stato === 'vermietet' && <p>{`Kaltmiete: ${numeral(oggetto.affittoNetto / 100).format('0,0[.]00 $')}`}</p>}
 
                     <p>{`Wohngeld: ${numeral(oggetto.wohngeld / 100).format('0,0[.]00 $')}`}</p>
+                    <p>{oggetto.ruecklage && `Instandhaltungsrücklage: ${oggetto.ruecklage}`}</p>
                     <p>{`Kaufpreis: ${numeral(this.props.deal.prezzoDiVendita / 100).format('0,0[.]00 $')}`}</p>
                     <p>Belastungsvollmacht: {this.props.deal.belastungsVollmacht ? `Ja` : `Nein`}</p>
                     <p>{oggetto.mobilio && `Einrichtung: siehe Liste`}</p>
@@ -45,28 +46,40 @@ export class StampaDatenblatt extends React.Component {
                 </div>
                 <div>
                     <h2>Verkäufer</h2>
-                    <p>{`${venditore.titolo} ${venditore.nome} ${venditore.cognome} ${venditore.ditta && ` - Firma: ${venditore.ditta}`}`}</p>
+                    <p>{venditore.ditta && `Firma ${venditore.ditta}`}</p>
+                    <p>{`${venditore.titolo} ${venditore.nome} ${venditore.cognome}`}</p>
                     <p>{`${venditore.indirizzo} ${venditore.cap}, ${venditore.nazione}`}</p>
-                    <p>{`Tel.: ${venditore.telefono1} - E-Mail: ${venditore.email}`}</p>
+                    <p>{venditore.codiceFiscale && `SteuerId-Nr. ${venditore.codiceFiscale}`}</p>
+                    <p>{venditore.handelsRegisterNummer && `Handelsregister-Nr. ${venditore.handelsRegisterNummer}`}</p>
+                    <p>{venditore.telefono1 && `Tel.: ${venditore.telefono1} - `}{venditore.email && `Email: ${venditore.email}`}</p>
                 </div>
                 {this.props.deal.venditoreId2.length > 0 && <div>
                     <h2>Verkäufer Nr. 2</h2>
-                    <p>{`${venditore2.titolo} ${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta && ` - Firma: ${venditore2.ditta}`}`}</p>
+                    <p>{venditore2.ditta && `Firma ${venditore2.ditta}`}</p>
+                    <p>{`${venditore2.titolo} ${venditore2.nome} ${venditore2.cognome}`}</p>
                     <p>{`${venditore2.indirizzo} ${venditore2.cap}, ${venditore2.nazione}`}</p>
-                    <p>{`Tel.: ${venditore2.telefono1} - E-Mail: ${venditore2.email}`}</p>
+                    <p>{venditore2.codiceFiscale && `SteuerId-Nr. ${venditore2.codiceFiscale}`}</p>
+                    <p>{venditore2.handelsRegisterNummer && `Handelsregister-Nr. ${venditore2.handelsRegisterNummer}`}</p>
+                    <p>{venditore2.telefono1 && `Tel.: ${venditore2.telefono1} - `}{venditore2.email && `Email: ${venditore2.email}`}</p>
                 </div>
                 }   
                 <div>
                     <h2>Käufer</h2>
-                    <p>{`${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome} ${acquirente.ditta && ` - Firma: ${acquirente.ditta}`}`}</p>
+                    <p>{acquirente.ditta && `Firma ${acquirente.ditta}`}</p>
+                    <p>{`${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`}</p>
                     <p>{`${acquirente.indirizzo} ${acquirente.cap}, ${acquirente.nazione}`}</p>
-                    <p>{`Tel.: ${acquirente.telefono1} - E-Mail: ${acquirente.email}`}</p>
+                    <p>{acquirente.codiceFiscale && `SteuerId-Nr. ${acquirente.codiceFiscale}`}</p>
+                    <p>{acquirente.handelsRegisterNummer && `Handelsregister-Nr. ${acquirente.handelsRegisterNummer}`}</p>
+                    <p>{acquirente.telefono1 && `Tel.: ${acquirente.telefono1} - `}{acquirente.email && `Email: ${acquirente.email}`}</p>
                 </div>
                 {this.props.deal.acquirenteId2.length > 0 && <div>
                     <h2>Käufer Nr. 2</h2>
-                    <p>{`${acquirente2.titolo} ${acquirente2.nome} ${acquirente2.cognome} ${acquirente2.ditta && ` - Firma: ${acquirente2.ditta}`}`}</p>
+                    <p>{acquirente2.ditta && `Firma ${acquirente2.ditta}`}</p>
+                    <p>{`${acquirente2.titolo} ${acquirente2.nome} ${acquirente2.cognome}`}</p>
                     <p>{`${acquirente2.indirizzo} ${acquirente2.cap}, ${acquirente2.nazione}`}</p>
-                    <p>{`Tel.: ${acquirente2.telefono1} - E-Mail: ${acquirente2.email}`}</p>
+                    <p>{acquirente2.codiceFiscale && `SteuerId-Nr. ${acquirente2.codiceFiscale}`}</p>
+                    <p>{acquirente2.handelsRegisterNummer && `Handelsregister-Nr. ${acquirente2.handelsRegisterNummer}`}</p>
+                    <p>{acquirente2.telefono1 && `Tel.: ${acquirente2.telefono1} - `}{acquirente2.email && `Email: ${acquirente2.email}`}</p>
                 </div>
                 }   
                

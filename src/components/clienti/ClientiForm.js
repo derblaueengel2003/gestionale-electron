@@ -17,6 +17,8 @@ export class CustomerForm extends React.Component {
             email: props.customer ? props.customer.email : '',
             consulenteVenditaId: props.customer ? props.customer.consulenteVenditaId : '',
             telefono1: props.customer ? props.customer.telefono1 : '',
+            codiceFiscale: props.customer ? props.customer.codiceFiscale : '',
+            handelsRegisterNummer: props.customer ? props.customer.handelsRegisterNummer : '',
             error: ''
         }
     }
@@ -62,7 +64,9 @@ export class CustomerForm extends React.Component {
                 nazione: this.state.nazione,
                 email: this.state.email,
                 consulenteVenditaId: this.state.consulenteVenditaId,
-                telefono1: this.state.telefono1
+                telefono1: this.state.telefono1,
+                codiceFiscale: this.state.codiceFiscale,
+                handelsRegisterNummer: this.state.handelsRegisterNummer
             })
         }
     }
@@ -111,6 +115,15 @@ export class CustomerForm extends React.Component {
                     value={this.state.cognome}
                     onChange={this.changeHandlerValidate}
                 />
+                Codice Fiscale:
+                <input
+                    name="codiceFiscale"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="per cittadini tedeschi"
+                    value={this.state.codiceFiscale}
+                    onChange={this.changeHandler}
+                />
                 Ditta:
                 <input
                     name="ditta"
@@ -119,6 +132,15 @@ export class CustomerForm extends React.Component {
                     placeholder="Ditta"
                     value={this.state.ditta}
                     onChange={this.changeHandlerValidate}
+                />
+                Handelsregister-Nummer:
+                <input
+                    name="handelsRegisterNummer"
+                    className={`text-input`}
+                    type="text"
+                    placeholder="HRA HRB "
+                    value={this.state.handelsRegisterNummer}
+                    onChange={this.changeHandler}
                 />
                 Indirizzo:
                 <input
