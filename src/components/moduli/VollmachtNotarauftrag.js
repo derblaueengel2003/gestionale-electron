@@ -1,9 +1,10 @@
 import jsPDF from 'jspdf'
 import { imgLogo } from './ImageLogo'
+import numeral from 'numeral'
 
 export const doc = new jsPDF()
 
-export const vollmachtNotarauftrag = (acquirente, acquirente2, venditore, venditore2, oggetto, notaio) => {
+export const vollmachtNotarauftrag = (acquirente, acquirente2, venditore, venditore2, oggetto, notaio, prezzoDiVendita) => {
     const acqDitta = `${acquirente.ditta && `${acquirente.ditta}`}`
     const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`
     const acqInd = `${acquirente.indirizzo} ${acquirente.indirizzo2 && acquirente.indirizzo2}, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`
@@ -65,6 +66,7 @@ export const vollmachtNotarauftrag = (acquirente, acquirente2, venditore, vendit
     }
 
     doc.text(`Rif. ID: ${oggetto.rifId} - Eigentumswohnung`, 30, 111)
+    doc.text(`Kaufpreis: ${numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}`, 30, 116)
     doc.text(`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`, 30, 135)
     oggetto.grundbuch && doc.text(`Grundbuch von ${oggetto.grundbuch} - Blatt: ${oggetto.grundbuchBlatt}`, 30, 157)
     

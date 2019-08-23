@@ -96,7 +96,7 @@ export class ViewDealPage extends React.Component {
                         Widerrufsbelehrung
                     </button>
                     <button className="print button button--secondary"
-                        onClick={() => { vollmachtNotarauftrag(acquirente, acquirente2, venditore, venditore2, oggetto, notaio) }}>
+                        onClick={() => { vollmachtNotarauftrag(acquirente, acquirente2, venditore, venditore2, oggetto, notaio, prezzoDiVendita) }}>
                         Vollmacht Notarauftrag
                     </button>
                     {/* 
