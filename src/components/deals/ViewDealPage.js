@@ -99,10 +99,13 @@ export class ViewDealPage extends React.Component {
                         onClick={() => { vollmachtNotarauftrag(acquirente, acquirente2, venditore, venditore2, oggetto, notaio) }}>
                         Vollmacht Notarauftrag
                     </button>
+                    {/* 
                     <button className="print button button--secondary"
                         onClick={() => { notarDatenblatt(acquirente, acquirente2, venditore, venditore2, oggetto, notaio, verwalter, belastungsVollmacht, prezzoDiVendita) }}>
                         Notar Datenblatt
                     </button>
+                    */}
+                    <Link className="print button button--secondary" to={`/datenblatt/${id}`}>Notar Datenblatt</Link>
                 </div>
                 <TodoForm dealId={id} />
                 {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' || uid === 'BNhRvZCcvMPr54unKlYSSliPel42' ? <FattureList dealFatture={this.props.fatture}/> : ''}         

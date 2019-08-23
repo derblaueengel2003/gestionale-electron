@@ -176,10 +176,10 @@ export const notarDatenblatt = (acquirente, acquirente2, venditore, venditore2, 
 
         //Objekt
         doc.setTextColor(0, 0, 0)
-        doc.setFontSize(14)
+        doc.setFontSize(12)
         doc.setFontType("bold")
         doc.text(`Einrichtung`, 11, 38)
-        doc.setFontSize(12)
+        doc.setFontSize(10)
         doc.setFontType("normal")
         doc.text(oggetto.mobilio, 11, 43)
 
