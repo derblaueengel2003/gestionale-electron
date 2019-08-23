@@ -5,16 +5,16 @@ import ClientiListItem from './ClientiListItem';
 import { startSetCustomers } from '../../actions/clienti';
 import selectClienti from '../../selectors/clienti'
 
-export const ClientiList = (props) => {
+export const ClientiList = ({ cliente, clienti, ruolo }) => {
     //controllo se i dati vengono dal deal page o se sono passati via props
-    if (props.cliente) {
+    if (cliente) {
         return (
             <div className="content-container">
             <div className="list-header">
-                {props.ruolo}
+                {ruolo}
             </div>
             <div className="list-body">
-            <ClientiListItem key={props.cliente.id} {...props.cliente}/>
+            <ClientiListItem key={cliente.id} {...cliente}/>
             </div>
              </div>
         )
@@ -25,19 +25,18 @@ export const ClientiList = (props) => {
                     <Link className="button" to="/customercreate">+</Link>
                 </div>
                 <div className="list-header">
-
                     <div className="show-for-mobile">Cliente</div>
                     <div className="show-for-desktop">Cliente</div>
                     <div className="show-for-desktop">Ditta</div>
                 </div>
                 <div className="list-body">
                     {
-                        props.clienti.length === 0 ? (
+                        clienti.length === 0 ? (
                             <div className="list-item list-item--message">
                                 <span>Nessun cliente in base ai filtri inseriti</span>
                             </div>
                         ) : (
-                                props.clienti.map((cliente) => {
+                                clienti.map((cliente) => {
                                     return <ClientiListItem key={cliente.id} {...cliente} />
                                 })
                             )

@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { fattura } from '../moduli/Fattura'
+import OggettiList from '../oggetti/OggettiList'
+import DealList from '../deals/DealList'
+import ClientiList from '../clienti/ClientiList'
 
 export class ViewFatturePage extends React.Component {
     render() {
@@ -13,6 +16,7 @@ export class ViewFatturePage extends React.Component {
         const acquirente2 = deal ? this.props.clienti.find((ilcliente) => ilcliente.id === deal.acquirenteId2) : ''
         const cliente = this.props.clienti.find((cliente) => cliente.id === this.props.fattura.clienteId)
         const cliente2 = this.props.clienti.find((cliente) => cliente.id === this.props.fattura.clienteId2)
+    
         return (
             <div>
                 <div className="page-header">
@@ -51,6 +55,11 @@ export class ViewFatturePage extends React.Component {
                         Stampa Fattura
                         </button>
                 </div>
+                {/* passo deal come array perché è quello che si aspetta il componente */}
+                <DealList clienteDeals={[deal]} />
+                <OggettiList oggetto={oggetto} />
+                {cliente && <div><ClientiList cliente={cliente} ruolo={'Intestatario fattura'} /></div>}
+                {cliente2 && <div><ClientiList cliente={cliente2} ruolo={'2. Intestatario fattura'} /></div>}
             </div>
         )
     }

@@ -1,0 +1,18 @@
+.progress-bar {
+    position: relative;
+    height: 10px;
+    // width: 50px;
+    border-radius: 50px;
+    border: 1px solid #333;
+    
+    @media (min-width: $desktop-breakpoint) {
+     width: $desktop-breakpoint;
+    }
+}
+
+.filler {
+    background: rgb(29, 99, 165);
+    height: 100%;
+    border-radius: inherit;
+    transition: width .2s ease-in;
+}

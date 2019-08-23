@@ -19,9 +19,11 @@ export class TodoForm extends React.Component {
             todo11: props.deal ? props.deal.todo11 : false
         }
     }
+    
     onTodo1Change = () => {
         this.setState(() => ({ todo1: !this.state.todo1 }))
         this.props.startEditDeal(this.props.deal.id, { todo1: !this.state.todo1 })
+        
     }
     onTodo2Change = () => {
         this.setState(() => ({ todo2: !this.state.todo2 }))
@@ -64,12 +66,8 @@ export class TodoForm extends React.Component {
         this.props.startEditDeal(this.props.deal.id, { todo11: !this.state.todo11 })
     }
 
-    onSubmit = (e) => {
-        e.preventDefault()
-        this.props.startEditDeal(this.props.deal.id, deal)
-    }
-
     render() {
+
         return (
             <div className="margine-basso">
                 <div className="page-header">
@@ -94,11 +92,11 @@ export class TodoForm extends React.Component {
                     /> Widerrufsbelehrung
                         </label></div>
 
-                    <div className={this.state.todo10 === true ? 'list-item--paid' : ''}><label> <input
+                    <div className={this.state.todo3 === true ? 'list-item--paid' : ''}><label> <input
                         type="checkbox"
-                        name="todo10"
-                        checked={this.state.todo10}
-                        onChange={this.onTodo10Change}
+                        name="todo3"
+                        checked={this.state.todo3}
+                        onChange={this.onTodo3Change}
                     /> Kapitalnachweis
                         </label></div>
 
@@ -110,28 +108,12 @@ export class TodoForm extends React.Component {
                     /> Documentazione inviata all'acquirente
                         </label></div>
 
-                    <div className={this.state.todo3 === true ? 'list-item--paid' : ''}><label> <input
-                        type="checkbox"
-                        name="todo3"
-                        checked={this.state.todo3}
-                        onChange={this.onTodo3Change}
-                    /> Notarauftrag firmato da ambo le parti
-                        </label></div>
-
                     <div className={this.state.todo5 === true ? 'list-item--paid' : ''}><label> <input
                         type="checkbox"
                         name="todo5"
                         checked={this.state.todo5}
                         onChange={this.onTodo5Change}
-                    /> Notardatenblatt inviato
-                        </label></div>
-
-                    <div className={this.state.todo8 === true ? 'list-item--paid' : ''}><label> <input
-                        type="checkbox"
-                        name="todo8"
-                        checked={this.state.todo8}
-                        onChange={this.onTodo8Change}
-                    /> Info Rücklage di pertinenza
+                    /> Notarauftrag firmato da ambo le parti
                         </label></div>
 
                     <div className={this.state.todo6 === true ? 'list-item--paid' : ''}><label> <input
@@ -139,7 +121,7 @@ export class TodoForm extends React.Component {
                         name="todo6"
                         checked={this.state.todo6}
                         onChange={this.onTodo6Change}
-                    /> Bozza di contratto ricevuta
+                    /> Notardatenblatt inviato
                         </label></div>
 
                     <div className={this.state.todo7 === true ? 'list-item--paid' : ''}><label> <input
@@ -147,7 +129,15 @@ export class TodoForm extends React.Component {
                         name="todo7"
                         checked={this.state.todo7}
                         onChange={this.onTodo7Change}
-                    /> Appuntamento rogito fissato
+                    /> Info Rücklage di pertinenza
+                        </label></div>
+
+                    <div className={this.state.todo8 === true ? 'list-item--paid' : ''}><label> <input
+                        type="checkbox"
+                        name="todo8"
+                        checked={this.state.todo8}
+                        onChange={this.onTodo8Change}
+                    /> Bozza di contratto ricevuta
                         </label></div>
 
                     <div className={this.state.todo9 === true ? 'list-item--paid' : ''}><label> <input
@@ -155,6 +145,14 @@ export class TodoForm extends React.Component {
                         name="todo9"
                         checked={this.state.todo9}
                         onChange={this.onTodo9Change}
+                    /> Appuntamento rogito fissato
+                        </label></div>
+
+                    <div className={this.state.todo10 === true ? 'list-item--paid' : ''}><label> <input
+                        type="checkbox"
+                        name="todo10"
+                        checked={this.state.todo10}
+                        onChange={this.onTodo10Change}
                     />  GWG Dokumentationsbogen (Angelo)
                         </label></div>
 
@@ -165,13 +163,11 @@ export class TodoForm extends React.Component {
                         onChange={this.onTodo11Change}
                     /> Übergabe effettuata
                         </label></div>
-
                 </div>
             </div>
         )
     }
 }
-
 
 const mapStateToProps = (state, props) => ({
     deal: state.deals.find((deal) => deal.id === props.dealId)
@@ -179,6 +175,6 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     startEditDeal: (id, deal) => dispatch(startEditDeal(id, deal))
-        })
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoForm)

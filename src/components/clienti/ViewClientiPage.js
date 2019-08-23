@@ -8,8 +8,24 @@ import DealList from '../deals/DealList';
 
 export class ViewClientiPage extends React.Component {
     render() {
-        const dealFatture = this.props.fatture.filter((fattura) => fattura.clienteId === this.props.cliente.id || fattura.clienteId2 === this.props.cliente.id)
-        const clienteDeals = this.props.deals.filter((deal) => deal.acquirenteId === this.props.cliente.id || deal.acquirenteId2 === this.props.cliente.id || deal.venditoreId === this.props.cliente.id || deal.venditoreId2 === this.props.cliente.id || deal.agenziaPartnerId === this.props.cliente.id)
+        const { 
+            ditta,
+            nome,
+            cognome,
+            titolo,
+            indirizzo,
+            indirizzo2,
+            telefono1,
+            email,
+            cap,
+            comune,
+            nazione,
+            id
+        } = this.props.cliente
+        const { uid } = this.props
+
+        const dealFatture = this.props.fatture.filter((fattura) => fattura.clienteId === id || fattura.clienteId2 === id)
+        const clienteDeals = this.props.deals.filter((deal) => deal.acquirenteId === id || deal.acquirenteId2 === id || deal.venditoreId === id || deal.venditoreId2 === id || deal.agenziaPartnerId === id)
         return (
             <div>
                 <div className="page-header">
@@ -26,22 +42,22 @@ export class ViewClientiPage extends React.Component {
                     <div className="list-body">
                         <div className="list-item">
                         <div>
-                            {this.props.cliente.ditta.length > 0 && <h3>{this.props.cliente.ditta}</h3>}
-                            {this.props.cliente.nome.length > 0 && <h3>{this.props.cliente.titolo} {this.props.cliente.nome} {this.props.cliente.cognome}</h3>}
-                            {this.props.cliente.indirizzo.length > 0 && <div>{`${this.props.cliente.indirizzo} ${this.props.cliente.indirizzo2 && this.props.cliente.indirizzo2}, ${this.props.cliente.cap} ${this.props.cliente.comune}, ${this.props.cliente.nazione}`}</div>}
+                            {ditta.length > 0 && <h3>{ditta}</h3>}
+                            {nome.length > 0 && <h3>{titolo} {nome} {cognome}</h3>}
+                            {indirizzo.length > 0 && <div>{`${indirizzo} ${indirizzo2 && indirizzo2}, ${cap} ${comune}, ${nazione}`}</div>}
                         </div>
                         <div>
-                            {this.props.cliente.telefono1.length > 0 && <div>Tel: {this.props.cliente.telefono1}</div>}
-                            {this.props.cliente.email.length > 0 && <div>E-Mail: {this.props.cliente.email}</div>}
+                            {telefono1.length > 0 && <div>Tel: {telefono1}</div>}
+                            {email.length > 0 && <div>E-Mail: {email}</div>}
                         </div>
                     </div>
                     </div>   
-                    <Link className="print button button--secondary" to={`/customeredit/${this.props.cliente.id}`}>Modifica Cliente</Link>          
+                    <Link className="print button button--secondary" to={`/customeredit/${id}`}>Modifica Cliente</Link>          
                 </div>
                 <LeadsList userLeads={this.props.leads}/>
                 <DealList clienteDeals={clienteDeals} />
-                {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <FattureList dealFatture={dealFatture} />}
-                {this.props.uid === 'BNhRvZCcvMPr54unKlYSSliPel42' && <FattureList dealFatture={dealFatture} />}
+                {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && <FattureList dealFatture={dealFatture} />}
+                {uid === 'BNhRvZCcvMPr54unKlYSSliPel42' && <FattureList dealFatture={dealFatture} />}
                 
             </div>
         )

@@ -25,11 +25,11 @@ export class CustomerForm extends React.Component {
         const value = e.target.value
         this.setState({ [name]: value })
     }
+
     changeHandlerValidate = (e) => { 
         const name = e.target.name
         const value = e.target.value
         this.setState({ [name]: value })
-
         let match = this.props.clienti.filter((ilcliente) => {
             const emailMatch = ilcliente.email.toLowerCase().includes(value.toLowerCase())
             const cognomeMatch = ilcliente.cognome.toLowerCase().includes(value.toLowerCase())
@@ -37,14 +37,10 @@ export class CustomerForm extends React.Component {
             return emailMatch || cognomeMatch || dittaMatch
         })
         if (match.length === 1) {
-            console.log(match)
             this.setState(() => ({ error: `Cliente forse già presente nel gestionale` }))
         } else {
             this.setState(() => ({ error: '' }))
         }
-    
-      
-
     }
 
     onSubmit = (e) => {
@@ -80,12 +76,12 @@ export class CustomerForm extends React.Component {
                     value={this.state.consulenteVenditaId}
                     onChange={this.changeHandler}
                 >
-                    <option></option>
-                    {this.props.utenti.map((consulente) =>
-                        <option key={consulente.id}
-                            value={consulente.id}>
-                            {consulente.name}
-                        </option>)}
+                <option></option>
+                {this.props.utenti.map((consulente) =>
+                    <option key={consulente.id}
+                        value={consulente.id}>
+                        {consulente.name}
+                    </option>)}
                 </select>
                 Titolo:
                 <input

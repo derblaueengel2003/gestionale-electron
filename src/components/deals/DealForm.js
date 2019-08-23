@@ -206,7 +206,6 @@ export class DealForm extends React.Component {
         const dealTypeOptions = ['Kauf Eigentumswohnung', 'Miete Eigentumswohnung', 'Kauf Gewerbe', 'Miete Gewerbe', 'APH', 'Sonstiges'].map((dealType) => ({
             value: dealType, label: dealType
         }))
-
         const consulenteVenditaOptions = this.props.utenti.map((consulente) => ({
             value: consulente.id, label: consulente.name
         }))    
@@ -224,7 +223,6 @@ export class DealForm extends React.Component {
                     options={dealTypeOptions}
                     onChange={this.onDealTypeChange}
                 />
-
                 Oggetto:
                 <Select
                         name="oggettoId"
@@ -232,7 +230,6 @@ export class DealForm extends React.Component {
                         options={oggettiOptions}
                         onChange={this.onOggettoChange}
                 />
- 
                 Data Prenotazione:
                 <SingleDatePicker
                     date={this.state.createdAt}
@@ -284,10 +281,10 @@ export class DealForm extends React.Component {
                  /> 
                 <label>Pagata&nbsp;
                 <input
-                        type="checkbox"
-                        name="payedStefano"
-                        checked={this.state.payedStefano}
-                        onChange={this.onPayedStefanoChange}
+                    type="checkbox"
+                    name="payedStefano"
+                    checked={this.state.payedStefano}
+                    onChange={this.onPayedStefanoChange}
                     />
                 </label>
                 <div className={`visible-${this.state.payedStefano} form`}>
@@ -303,11 +300,11 @@ export class DealForm extends React.Component {
                 </div>
                 Agenzia Partner:
                 <Select
-                name="agenziapartner"
-                value={this.state.agenziaPartnerId}
-                options={options}
-                filterOptions={filterOptions}
-                onChange={this.onAgenziaPartnerChange}
+                    name="agenziapartner"
+                    value={this.state.agenziaPartnerId}
+                    options={options}
+                    filterOptions={filterOptions}
+                    onChange={this.onAgenziaPartnerChange}
                 />
 
                 Provvigione Agenzia Partner 
@@ -320,48 +317,43 @@ export class DealForm extends React.Component {
                 />
                 <label>Pagata&nbsp;
                 <input
-                        type="checkbox"
-                        name="payedAgenziaPartner"
-                        checked={this.state.payedAgenziaPartner}
-                        onChange={this.onPayedAgenziaPartnerChange}
-                    />
+                    type="checkbox"
+                    name="payedAgenziaPartner"
+                    checked={this.state.payedAgenziaPartner}
+                    onChange={this.onPayedAgenziaPartnerChange}
+                />
                 </label>
                 Venditore:
                 <Select
-                        name="venditore"
-                        value={this.state.venditoreId}
-                        options={options}
-                        filterOptions={filterOptions}
-                        onChange={this.onVenditoreIdChange}
-
+                    name="venditore"
+                    value={this.state.venditoreId}
+                    options={options}
+                    filterOptions={filterOptions}
+                    onChange={this.onVenditoreIdChange}
                 />
-
                 Secondo Venditore:
                 <Select
-                name="venditore2"
-                value={this.state.venditoreId2}
-                options={options}
-                filterOptions={filterOptions}
-                onChange={this.onVenditoreIdChange2}
-
+                    name="venditore2"
+                    value={this.state.venditoreId2}
+                    options={options}
+                    filterOptions={filterOptions}
+                    onChange={this.onVenditoreIdChange2}
                 />
                 Acquirente:
                 <Select
-                name="acquirente"
-                value={this.state.acquirenteId}
-                options={options}
-                filterOptions={filterOptions}
-                onChange={this.onAcquirenteIdChange}
-
+                    name="acquirente"
+                    value={this.state.acquirenteId}
+                    options={options}
+                    filterOptions={filterOptions}
+                    onChange={this.onAcquirenteIdChange}
                 />
                 Secondo Acquirente:
                 <Select
-                name="acquirente2"
-                value={this.state.acquirenteId2}
-                options={options}
-                filterOptions={filterOptions}
-                onChange={this.onAcquirenteIdChange2}
-
+                    name="acquirente2"
+                    value={this.state.acquirenteId2}
+                    options={options}
+                    filterOptions={filterOptions}
+                    onChange={this.onAcquirenteIdChange2}
                 />
                 Notaio:
                 <Select
@@ -370,10 +362,7 @@ export class DealForm extends React.Component {
                     options={options}
                     filterOptions={filterOptions}
                     onChange={this.onNotaioIdChange}
-
-                />
-                
-                              
+                />           
                 Data Rogito:
                 <SingleDatePicker
                     date={this.state.dataRogito}

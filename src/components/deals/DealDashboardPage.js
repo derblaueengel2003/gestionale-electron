@@ -3,7 +3,6 @@ import DealList from './DealList'
 import DealListFilters from './DealListFilters'
 import DealsSummary from './DealsSummary';
 
-
 const DealDashboardPage = () => (
     <div>
         <DealsSummary />
