@@ -41,49 +41,86 @@ export class DealForm extends React.Component {
             provvSum: 0
         }
     }
+        // onBelastungsVollmachtChange = () => {
+    //     this.setState(() => ({ belastungsVollmacht: !this.state.belastungsVollmacht }))
+    // }
+    // onNoteChange = (e) => {
+    //     const note = e.target.value
+    //     this.setState(() => ({ note, modificato: { ...this.state.modificato, note: 'modificato' } }))
+    // }
+
+    // onPrezzoDiVenditaChange = (e) => {
+    //     const prezzoDiVendita = e.target.value
+
+    //     if (!prezzoDiVendita || prezzoDiVendita.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    //         this.setState(() => ({ prezzoDiVendita, modificato: { ...this.state.modificato, prezzoDiVendita: 'modificato' } }))
+    //     }
+    // }
+
+    // onAmountChange = (e) => {
+    //     const amount = e.target.value
+
+    //     if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    //         this.setState(() => ({ amount, modificato: { ...this.state.modificato, amount: 'modificato' } }))
+    //     }
+    // }
+
+    // onProvvM2squareChange = (e) => {
+    //     const provvM2square = e.target.value
+
+    //     if (!provvM2square || provvM2square.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    //         this.setState(() => ({ provvM2square, modificato: { ...this.state.modificato, provvM2square: 'modificato' }}))
+    //     }
+    // }
+
+    // onProvvStefanoChange = (e) => {
+    //     const provvStefano = e.target.value
+
+    //     if (!provvStefano || provvStefano.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    //         this.setState(() => ({ provvStefano, modificato: { ...this.state.modificato, provvStefano: 'modificato' }}))
+    //     }
+    // }
+    // onPayedStefanoChange = () => {
+    //     this.setState(() => ({ payedStefano: !this.state.payedStefano, payedAtStefano: null }))
+    // }
+
+        // onProvvAgenziaPartnerChange = (e) => {
+    //     const provvAgenziaPartner = e.target.value
+
+    //     if (!provvAgenziaPartner || provvAgenziaPartner.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    //         this.setState(() => ({ provvAgenziaPartner, modificato: { ...this.state.modificato, provvAgenziaPartner: 'modificato' }}))
+    //     }
+    // }
+    // onPayedAgenziaPartnerChange = () => {
+    //     this.setState(() => ({ payedAgenziaPartner: !this.state.payedAgenziaPartner }))
+    // }
+    onDealTypeChange = (e) => { 
+        const dealType = e ? e.value : ''
+        this.setState(() => ({ dealType }))
+    }
     onOggettoChange = (e) => {
         const oggetto = e ? e.value : ''
         this.setState(() => ({ oggettoId: oggetto }))
     }
-    onPrezzoDiVenditaChange = (e) => {
-        const prezzoDiVendita = e.target.value
-
-        if (!prezzoDiVendita || prezzoDiVendita.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ prezzoDiVendita, modificato: { ...this.state.modificato, prezzoDiVendita: 'modificato' } }))
+    onDateChange = (createdAt) => {
+        if (createdAt) {
+            this.setState(() => ({ createdAt }))
+        } else {
+            this.setState(() => ({ createdAt: null }))
         }
     }
-    onAmountChange = (e) => {
-        const amount = e.target.value
-
-        if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ amount, modificato: { ...this.state.modificato, amount: 'modificato' } }))
-        }
+    onFocusChange = ({ focused }) => {
+        this.setState(() => ({ calendarFocused: focused }))
     }
     onConsulenteVenditaChange = (e) => {
         const consulenteVendita = e ? e.value : ''
         this.setState(() => ({ consulenteVendita }))
     }
-    onProvvM2squareChange = (e) => {
-        const provvM2square = e.target.value
-
-        if (!provvM2square || provvM2square.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ provvM2square, modificato: { ...this.state.modificato, provvM2square: 'modificato' }}))
-        }
-    }
-
-    onProvvStefanoChange = (e) => {
-        const provvStefano = e.target.value
-
-        if (!provvStefano || provvStefano.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ provvStefano, modificato: { ...this.state.modificato, provvStefano: 'modificato' }}))
-        }
-    }
-    onPayedStefanoChange = () => {
-        this.setState(() => ({ payedStefano: !this.state.payedStefano, payedAtStefano: null }))
-    }
     onPayedAtDateStefanoChange = (payedAtStefano) => {
         if (payedAtStefano) {
             this.setState(() => ({ payedAtStefano }))
+        } else {
+            this.setState(() => ({ payedAtStefano: null }))
         }
     }
     onFocusPayedAtStefanoChange = ({ focused }) => {
@@ -92,24 +129,6 @@ export class DealForm extends React.Component {
     onAgenziaPartnerChange = (e) => {
         const agenziaPartnerId = e ? e.value : ''
         this.setState(() => ({ agenziaPartnerId }))
-    }
-    onProvvAgenziaPartnerChange = (e) => {
-        const provvAgenziaPartner = e.target.value
-
-        if (!provvAgenziaPartner || provvAgenziaPartner.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ provvAgenziaPartner, modificato: { ...this.state.modificato, provvAgenziaPartner: 'modificato' }}))
-        }
-    }
-    onPayedAgenziaPartnerChange = () => {
-        this.setState(() => ({ payedAgenziaPartner: !this.state.payedAgenziaPartner }))
-    }
-    onDateChange = (createdAt) => {
-        if (createdAt) {
-            this.setState(() => ({ createdAt }))
-        }
-    }
-    onFocusChange = ({ focused }) => {
-        this.setState(() => ({ calendarFocused: focused }))
     }
     onVenditoreIdChange = (e) => {
         const venditoreId = e ? e.value : ''
@@ -133,22 +152,27 @@ export class DealForm extends React.Component {
     }
     onDataRogitoChange = (dataRogito) => {
         if (dataRogito) {
+            console.log(dataRogito)
             this.setState(() => ({ dataRogito }))
-        }
+        } else {
+            this.setState(() => ({ dataRogito: null }))        }
     }
     onFocusDataRogitoChange = ({ focused }) => {
         this.setState(() => ({ calendarDataRogitoFocused: focused }))
     }
-    onBelastungsVollmachtChange = () => {
-        this.setState(() => ({ belastungsVollmacht: !this.state.belastungsVollmacht }))
+
+    //Nuovi change Handler
+    changeHandler = (e) => { 
+        const name = e.target.name
+        const value = e.target.value
+        this.setState({ [name]: value })
     }
-    onNoteChange = (e) => {
-        const note = e.target.value
-        this.setState(() => ({ note, modificato: { ...this.state.modificato, note: 'modificato' } }))
-    }
-    onDealTypeChange = (e) => { 
-        const dealType = e.value
-        this.setState(() => ({ dealType }))
+    changeHandlerValuta = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        if (!value || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
+            this.setState(() => ({ [name]: value, modificato: { ...this.state.modificato, [name]: 'modificato' } }))
+        }
     }
     onSubmit = (e) => {
         e.preventDefault()
@@ -218,17 +242,17 @@ export class DealForm extends React.Component {
                 </div>     
                 Tipologia di provvigione:
                 <Select
-                    name="dealType"
+                    name={'dealType'}
                     value={this.state.dealType}
                     options={dealTypeOptions}
                     onChange={this.onDealTypeChange}
                 />
                 Oggetto:
                 <Select
-                        name="oggettoId"
-                        value={this.state.oggettoId}
-                        options={oggettiOptions}
-                        onChange={this.onOggettoChange}
+                    name="oggettoId"
+                    value={this.state.oggettoId}
+                    options={oggettiOptions}
+                    onChange={this.onOggettoChange}
                 />
                 Data Prenotazione:
                 <SingleDatePicker
@@ -238,22 +262,25 @@ export class DealForm extends React.Component {
                     onFocusChange={this.onFocusChange}
                     numberOfMonths={1}
                     isOutsideRange={() => false}
+                    showClearDate={true}
                 />
                 Prezzo di Vendita:
                 <input
+                    name="prezzoDiVendita"
                     className={`text-input text-input--${this.state.modificato.prezzoDiVendita}`}
                     type="text"
                     placeholder="Prezzo di vendita"
                     value={this.state.prezzoDiVendita}
-                    onChange={this.onPrezzoDiVenditaChange}
+                    onChange={this.changeHandlerValuta}
                 />
                 Importo totale:
                 <input
+                    name="amount"
                     className={`text-input text-input--${this.state.modificato.amount}`}
                     type="text"
                     placeholder={`6%: ${parseFloat(this.state.prezzoDiVendita, 10) * 0.06}`}
                     value={this.state.amount}
-                    onChange={this.onAmountChange}
+                    onChange={this.changeHandlerValuta}
                 />
                 Cliente di:
                 <Select
@@ -265,26 +292,30 @@ export class DealForm extends React.Component {
                />
                 Provvigione m2Square:
                 <input
+                    name="provvM2square"
                     className={`text-input text-input--${this.state.modificato.provvM2square}`}
                     type="text"
                     placeholder={`80%: ${parseFloat((this.state.amount - this.state.provvAgenziaPartner), 10) * 0.8}`}
                     value={this.state.provvM2square}
-                    onChange={this.onProvvM2squareChange}
+                    onChange={this.changeHandlerValuta}
                /> 
                Provvigione Stefano:
                <input
+                    name="provvStefano"
                     className={`text-input text-input--${this.state.modificato.provvStefano}`}
                     type="text"
                     placeholder={`20%: ${parseFloat((this.state.amount - this.state.provvAgenziaPartner), 10) * 0.2}`}
                     value={this.state.provvStefano}
-                    onChange={this.onProvvStefanoChange}
+                    onChange={this.changeHandlerValuta}
                  /> 
                 <label>Pagata&nbsp;
                 <input
                     type="checkbox"
                     name="payedStefano"
                     checked={this.state.payedStefano}
-                    onChange={this.onPayedStefanoChange}
+                    onChange={() => {
+                        this.setState(() => ({ payedStefano: !this.state.payedStefano, payedAtStefano: null }))
+                    }}
                     />
                 </label>
                 <div className={`visible-${this.state.payedStefano} form`}>
@@ -296,6 +327,7 @@ export class DealForm extends React.Component {
                         onFocusChange={this.onFocusPayedAtStefanoChange}
                         numberOfMonths={1}
                         isOutsideRange={() => false}
+                        showClearDate={true}
                     />
                 </div>
                 Agenzia Partner:
@@ -309,18 +341,21 @@ export class DealForm extends React.Component {
 
                 Provvigione Agenzia Partner 
                 <input
+                    name="provvAgenziaPartner"
                     className={`text-input text-input--${this.state.modificato.provvAgenziaPartner}`}
                     type="text"
                     placeholder="Provvigione Agenzia Partner"
                     value={this.state.provvAgenziaPartner}
-                    onChange={this.onProvvAgenziaPartnerChange}
+                    onChange={this.changeHandlerValuta}
                 />
                 <label>Pagata&nbsp;
                 <input
                     type="checkbox"
                     name="payedAgenziaPartner"
                     checked={this.state.payedAgenziaPartner}
-                    onChange={this.onPayedAgenziaPartnerChange}
+                    onChange={() => {
+                        this.setState(() => ({ payedAgenziaPartner: !this.state.payedAgenziaPartner }))
+                    }}
                 />
                 </label>
                 Venditore:
@@ -371,20 +406,24 @@ export class DealForm extends React.Component {
                     onFocusChange={this.onFocusDataRogitoChange}
                     numberOfMonths={1}
                     isOutsideRange={() => false}
+                    showClearDate={true}
                 />
                 <label>Belastungsvollmacht&nbsp;
                 <input
                     type="checkbox"
                     name="belastungsVollmacht"
                     checked={this.state.belastungsVollmacht}
-                    onChange={this.onBelastungsVollmachtChange}
+                    onChange={() => {
+                        this.setState(() => ({ belastungsVollmacht: !this.state.belastungsVollmacht }))
+                    }}
                     />
                 </label>
                 <textarea
+                    name="note"
                     className={`textarea text-input--${this.state.modificato.note}`}
                     placeholder="Nota  (opzionale)"
                     value={this.state.note}
-                    onChange={this.onNoteChange}
+                    onChange={this.changeHandler}
                 ></textarea>
                 <div>
                     <button className="button">Salva modifiche</button>
