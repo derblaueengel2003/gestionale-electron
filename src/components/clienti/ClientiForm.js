@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import { SingleDatePicker } from 'react-dates';
 
 export class CustomerForm extends React.Component {
   constructor(props) {
@@ -8,6 +10,10 @@ export class CustomerForm extends React.Component {
       nome: props.customer ? props.customer.nome : '',
       cognome: props.customer ? props.customer.cognome : '',
       titolo: props.customer ? props.customer.titolo : '',
+      dataDiNascita: props.customer
+        ? props.customer.dataDiNascita && moment(props.customer.dataDiNascita)
+        : null,
+      calendarFocused: false,
       ditta: props.customer ? props.customer.ditta : '',
       indirizzo: props.customer ? props.customer.indirizzo : '',
       indirizzo2: props.customer ? props.customer.indirizzo2 : '',
@@ -57,7 +63,16 @@ export class CustomerForm extends React.Component {
       this.setState(() => ({ error: '' }));
     }
   };
-
+  onDateChange = dataDiNascita => {
+    if (dataDiNascita) {
+      this.setState(() => ({ dataDiNascita }));
+    } else {
+      this.setState(() => ({ dataDiNascita: null }));
+    }
+  };
+  onFocusChange = ({ focused }) => {
+    this.setState(() => ({ calendarFocused: focused }));
+  };
   onSubmit = e => {
     e.preventDefault();
 
@@ -69,6 +84,9 @@ export class CustomerForm extends React.Component {
         nome: this.state.nome,
         cognome: this.state.cognome,
         titolo: this.state.titolo,
+        dataDiNascita: this.state.dataDiNascita
+          ? this.state.dataDiNascita.valueOf()
+          : null,
         ditta: this.state.ditta,
         indirizzo: this.state.indirizzo,
         indirizzo2: this.state.indirizzo2,
@@ -130,6 +148,16 @@ export class CustomerForm extends React.Component {
           placeholder='Cognome'
           value={this.state.cognome}
           onChange={this.changeHandlerValidate}
+        />
+        Data di Nascita:
+        <SingleDatePicker
+          date={this.state.dataDiNascita}
+          onDateChange={this.onDateChange}
+          focused={this.state.calendarFocused}
+          onFocusChange={this.onFocusChange}
+          numberOfMonths={1}
+          isOutsideRange={() => false}
+          showClearDate={true}
         />
         Codice Fiscale:
         <input
