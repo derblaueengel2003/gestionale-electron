@@ -32,6 +32,8 @@ export class CustomerForm extends React.Component {
       bank: props.customer ? props.customer.bank : '',
       iban: props.customer ? props.customer.iban : '',
       bic: props.customer ? props.customer.bic : '',
+      note: props.customer ? props.customer.note : '',
+
       error: ''
     };
   }
@@ -100,7 +102,8 @@ export class CustomerForm extends React.Component {
         handelsRegisterNummer: this.state.handelsRegisterNummer,
         bank: this.state.bank,
         iban: this.state.iban,
-        bic: this.state.bic
+        bic: this.state.bic,
+        note: this.state.note
       });
     }
   };
@@ -276,6 +279,13 @@ export class CustomerForm extends React.Component {
           value={this.state.bic}
           onChange={this.changeHandler}
         />
+        <textarea
+          name='note'
+          className={`textarea text-input`}
+          placeholder='Nota  (opzionale)'
+          value={this.state.note}
+          onChange={this.changeHandler}
+        ></textarea>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
         <div>
           <button className='button'>Salva</button>

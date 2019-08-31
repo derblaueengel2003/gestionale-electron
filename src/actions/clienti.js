@@ -26,7 +26,8 @@ export const startAddCustomer = (customerData = {}) => {
       bank = '',
       iban = '',
       bic = '',
-      dataDiNascita = null
+      dataDiNascita = null,
+      note = ''
     } = customerData;
     const customer = {
       nome,
@@ -46,7 +47,8 @@ export const startAddCustomer = (customerData = {}) => {
       bank,
       iban,
       bic,
-      dataDiNascita
+      dataDiNascita,
+      note
     };
 
     return database
