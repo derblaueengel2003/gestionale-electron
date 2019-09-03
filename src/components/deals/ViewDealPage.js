@@ -108,7 +108,8 @@ export class ViewDealPage extends React.Component {
                   <h3 className='list-item__title'>
                     Provvigione:{' '}
                     {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-                    uid === 'BNhRvZCcvMPr54unKlYSSliPel42'
+                    uid === 'BNhRvZCcvMPr54unKlYSSliPel42' ||
+                    uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
                       ? numeral(amount / 100).format('0,0[.]00 $')
                       : ''}
                   </h3>
@@ -119,7 +120,8 @@ export class ViewDealPage extends React.Component {
                   </h4>
                 )}
                 {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-                uid === 'BNhRvZCcvMPr54unKlYSSliPel42'
+                uid === 'BNhRvZCcvMPr54unKlYSSliPel42' ||
+                uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
                   ? provvM2square > 0 && (
                       <h4
                         className={`list-item__sub-title ${this.props.fatture
@@ -145,7 +147,8 @@ export class ViewDealPage extends React.Component {
                   </span>
                 )}
                 {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-                uid === 'BNhRvZCcvMPr54unKlYSSliPel42'
+                uid === 'BNhRvZCcvMPr54unKlYSSliPel42' ||
+                uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
                   ? provvAgenziaPartner > 0 && (
                       <h4
                         className={`list-item__sub-title ${payedAgenziaPartner &&
@@ -191,6 +194,11 @@ export class ViewDealPage extends React.Component {
         )}
         <div className='content-container'>
           {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
+            <Link className='button button--secondary' to={`/edit/${id}`}>
+              Modifica Provvigione
+            </Link>
+          )}
+          {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
             <Link className='button button--secondary' to={`/edit/${id}`}>
               Modifica Provvigione
             </Link>
@@ -248,7 +256,8 @@ export class ViewDealPage extends React.Component {
         </div>
         <TodoForm dealId={id} />
         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-        uid === 'BNhRvZCcvMPr54unKlYSSliPel42' ? (
+        uid === 'BNhRvZCcvMPr54unKlYSSliPel42' ||
+        uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' ? (
           <FattureList dealFatture={this.props.fatture} />
         ) : (
           ''

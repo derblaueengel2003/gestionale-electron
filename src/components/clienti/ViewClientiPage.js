@@ -82,6 +82,9 @@ export class ViewClientiPage extends React.Component {
         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
           <FattureList dealFatture={dealFatture} />
         )}
+        {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
+          <FattureList dealFatture={dealFatture} />
+        )}
         {uid === 'BNhRvZCcvMPr54unKlYSSliPel42' && (
           <FattureList dealFatture={dealFatture} />
         )}
