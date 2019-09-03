@@ -200,6 +200,7 @@ export class ViewDealPage extends React.Component {
             onClick={() => {
               creaPrenotazione(
                 acquirente,
+                acquirente2,
                 venditore,
                 venditore2,
                 oggetto,
@@ -212,7 +213,12 @@ export class ViewDealPage extends React.Component {
           <button
             className='print button button--secondary'
             onClick={() => {
-              widerrufsBelehrung(acquirente, dataPrenotazione, oggetto);
+              widerrufsBelehrung(
+                acquirente,
+                acquirente2,
+                dataPrenotazione,
+                oggetto
+              );
             }}
           >
             Widerrufsbelehrung

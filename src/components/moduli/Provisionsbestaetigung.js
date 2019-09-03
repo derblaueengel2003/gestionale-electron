@@ -5,6 +5,7 @@ const doc = new jsPDF();
 
 export const creaPrenotazione = (
   acquirente,
+  acquirente2,
   venditore,
   venditore2,
   oggetto,
@@ -13,6 +14,15 @@ export const creaPrenotazione = (
   const acqDitta = `${acquirente.ditta && `${acquirente.ditta}`}`;
   const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`;
   const acqInd = `${acquirente.indirizzo}, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`;
+  const acqNome2 =
+    acquirente2 &&
+    `${acquirente2.titolo} ${acquirente2.nome} ${acquirente2.cognome}`;
+  const acqInd2 =
+    acquirente2 &&
+    `${acquirente2.indirizzo} ${acquirente2.indirizzo2 &&
+      acquirente2.indirizzo2}, ${acquirente2.cap} ${acquirente2.comune}, ${
+      acquirente2.nazione
+    }`;
   const vendDitta = `${venditore.ditta && `${venditore.ditta}`}`;
   const vendNome = `${venditore.titolo} ${venditore.nome} ${venditore.cognome}`;
   const vendInd = `${venditore.indirizzo}, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`;
@@ -24,25 +34,49 @@ export const creaPrenotazione = (
 
   doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
   doc.addImage(imgLogo, 'JPEG', 165, 10, 35, 8);
-  if (acqDitta.length > 70 || acqInd.length > 70 || acqNome.length > 70) {
-    doc.setFontSize(10);
-  } else if (
-    acqDitta.length > 100 ||
-    acqInd.length > 100 ||
-    acqNome.length > 100
-  )
-    doc.setFontSize(8);
-  else {
-    doc.setFontSize(12);
-  }
-  if (acqDitta.length > 0) {
-    doc.text(acqDitta, 61, 30);
-    doc.text(acqNome, 61, 35);
-    doc.text(acqInd, 61, 40);
+  doc.setFontSize(10);
+  // nuovo
+  if (!acquirente2) {
+    if (acqDitta.length > 0) {
+      doc.text(acqDitta, 61, 30);
+      doc.text(acqNome, 61, 35);
+      doc.text(acqInd, 61, 40);
+    } else {
+      doc.text(acqNome, 61, 30);
+      doc.text(acqInd, 61, 35);
+    }
   } else {
-    doc.text(acqNome, 61, 30);
-    doc.text(acqInd, 61, 35);
+    if (acqDitta.length > 0) {
+      doc.text(acqDitta, 61, 30);
+      doc.text(`1. ${acqNome}, ${acqInd}`, 61, 35);
+      doc.text(`2. ${acqNome2}, ${acqInd2}`, 61, 40);
+    } else {
+      doc.text(`1. ${acqNome}, ${acqInd}`, 61, 30);
+      doc.text(`2. ${acqNome2}, ${acqInd2}`, 61, 35);
+    }
   }
+
+  //fine nuovo
+
+  // if (acqDitta.length > 70 || acqInd.length > 70 || acqNome.length > 70) {
+  //   doc.setFontSize(10);
+  // } else if (
+  //   acqDitta.length > 100 ||
+  //   acqInd.length > 100 ||
+  //   acqNome.length > 100
+  // )
+  //   doc.setFontSize(8);
+  // else {
+  //   doc.setFontSize(12);
+  // }
+  // if (acqDitta.length > 0) {
+  //   doc.text(acqDitta, 61, 30);
+  //   doc.text(acqNome, 61, 35);
+  //   doc.text(acqInd, 61, 40);
+  // } else {
+  //   doc.text(acqNome, 61, 30);
+  //   doc.text(acqInd, 61, 35);
+  // }
   doc.text('m2Square - Arboscello & Fornari GbR', 61, 52);
   doc.text('Kastanienallee 2, 10435 Berlin', 61, 57);
   doc.text(provvPercentuale, 93, 86);
