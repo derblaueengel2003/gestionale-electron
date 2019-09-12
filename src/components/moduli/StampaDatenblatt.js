@@ -68,6 +68,11 @@ export class StampaDatenblatt extends React.Component {
             Belastungsvollmacht:{' '}
             {this.props.deal.belastungsVollmacht ? `Ja` : `Nein`}
           </p>
+          <p>
+            {this.props.deal.linguaRogito
+              ? `Zusätzliche Beurkundungssprache: ${this.props.deal.linguaRogito}`
+              : ``}
+          </p>
           <p>{oggetto.mobilio && `Einrichtung: siehe Liste`}</p>
           <p></p>
           <p></p>
@@ -93,6 +98,7 @@ export class StampaDatenblatt extends React.Component {
             {venditore.telefono1 && `Tel.: ${venditore.telefono1} - `}
             {venditore.email && `Email: ${venditore.email}`}
           </p>
+          <p>{venditore.lingua && `Sprache: ${venditore.lingua}`}</p>
         </div>
         {this.props.deal.venditoreId2.length > 0 && (
           <div>
@@ -118,6 +124,7 @@ export class StampaDatenblatt extends React.Component {
               {venditore2.telefono1 && `Tel.: ${venditore2.telefono1} - `}
               {venditore2.email && `Email: ${venditore2.email}`}
             </p>
+            <p>{venditore2.lingua && `Sprache: ${venditore2.lingua}`}</p>
           </div>
         )}
         <div>
@@ -143,6 +150,7 @@ export class StampaDatenblatt extends React.Component {
             {acquirente.telefono1 && `Tel.: ${acquirente.telefono1} - `}
             {acquirente.email && `Email: ${acquirente.email}`}
           </p>
+          <p>{acquirente.lingua && `Sprache: ${acquirente.lingua}`}</p>
         </div>
         {this.props.deal.acquirenteId2.length > 0 && (
           <div>
@@ -168,6 +176,7 @@ export class StampaDatenblatt extends React.Component {
               {acquirente2.telefono1 && `Tel.: ${acquirente2.telefono1} - `}
               {acquirente2.email && `Email: ${acquirente2.email}`}
             </p>
+            <p>{acquirente2.lingua && `Sprache: ${acquirente2.lingua}`}</p>
           </div>
         )}
 

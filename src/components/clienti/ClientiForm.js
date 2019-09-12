@@ -20,6 +20,7 @@ export class CustomerForm extends React.Component {
       cap: props.customer ? props.customer.cap : '',
       comune: props.customer ? props.customer.comune : '',
       nazione: props.customer ? props.customer.nazione : '',
+      lingua: props.customer.lingua ? props.customer.lingua : '',
       email: props.customer ? props.customer.email : '',
       consulenteVenditaId: props.customer
         ? props.customer.consulenteVenditaId
@@ -95,6 +96,7 @@ export class CustomerForm extends React.Component {
         cap: this.state.cap,
         comune: this.state.comune,
         nazione: this.state.nazione,
+        lingua: this.state.lingua,
         email: this.state.email,
         consulenteVenditaId: this.state.consulenteVenditaId,
         telefono1: this.state.telefono1,
@@ -232,6 +234,15 @@ export class CustomerForm extends React.Component {
           type='text'
           placeholder='Nazione'
           value={this.state.nazione}
+          onChange={this.changeHandler}
+        />
+        Lingua:
+        <input
+          name='lingua'
+          className={`text-input`}
+          type='text'
+          placeholder='Lingua'
+          value={this.state.lingua}
           onChange={this.changeHandler}
         />
         Email:
