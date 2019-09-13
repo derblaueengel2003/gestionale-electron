@@ -48,7 +48,7 @@ export class DealForm extends React.Component {
         ? props.deal.dataRogito && moment(props.deal.dataRogito)
         : null,
       calendarDataRogitoFocused: false,
-      linguaRogito: props.deal.linguaRogito ? props.deal.linguaRogito : '',
+      linguaRogito: props.deal ? props.deal.linguaRogito : '',
       belastungsVollmacht: props.deal ? props.deal.belastungsVollmacht : false,
       note: props.deal ? props.deal.note : '',
       error: '',
