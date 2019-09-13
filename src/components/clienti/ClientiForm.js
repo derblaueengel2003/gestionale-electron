@@ -20,7 +20,7 @@ export class CustomerForm extends React.Component {
       cap: props.customer ? props.customer.cap : '',
       comune: props.customer ? props.customer.comune : '',
       nazione: props.customer ? props.customer.nazione : '',
-      lingua: props.customer.lingua ? props.customer.lingua : '',
+      lingua: props.customer ? props.customer.lingua : '',
       email: props.customer ? props.customer.email : '',
       consulenteVenditaId: props.customer
         ? props.customer.consulenteVenditaId
