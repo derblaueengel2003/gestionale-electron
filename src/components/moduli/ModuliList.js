@@ -17,6 +17,9 @@ const ModuliPage = () => (
       >
         Makler-Allein-Auftrag
       </Link>
+      <Link className='print button button--secondary' to='/widerrufsbelehrung'>
+        Widerrufsbelehrung
+      </Link>
     </div>
 
     <div className='list-header'>
