@@ -8,6 +8,7 @@ export const DealList = ({
   clienteDeals,
   oggetti,
   clienti,
+  fatture,
   deal,
   uid,
   deals
@@ -37,6 +38,9 @@ export const DealList = ({
               const venditore2 = clienti.find(
                 cliente => cliente.id === deal.venditoreId2
               );
+              const dealFatture = fatture.filter(
+                fattura => fattura.dealId === deal.id
+              );
               return (
                 <DealListItem
                   key={deal.id}
@@ -47,6 +51,7 @@ export const DealList = ({
                   acquirente2={acquirente2}
                   venditore={venditore}
                   venditore2={venditore2}
+                  dealFatture={dealFatture}
                 />
               );
             })}
@@ -92,6 +97,10 @@ export const DealList = ({
               const venditore2 = clienti.find(
                 cliente => cliente.id === deal.venditoreId2
               );
+              const dealFatture = fatture.filter(
+                fattura => fattura.dealId === deal.id
+              );
+              // console.log(dealFatture);
               return (
                 <DealListItem
                   key={deal.id}
@@ -102,6 +111,7 @@ export const DealList = ({
                   acquirente2={acquirente2}
                   venditore={venditore}
                   venditore2={venditore2}
+                  dealFatture={dealFatture}
                 />
               );
             })
@@ -124,6 +134,7 @@ const mapStateToProps = state => {
     ),
     oggetti: state.oggetti,
     clienti: state.clienti,
+    fatture: state.fatture,
     uid: state.auth.uid
   };
 };

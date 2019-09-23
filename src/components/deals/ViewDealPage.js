@@ -30,7 +30,6 @@ export class ViewDealPage extends React.Component {
       acquirenteId,
       acquirenteId2,
       agenziaPartnerId,
-      belastungsVollmacht,
       payedStefano,
       id
     } = this.props.deal;
@@ -53,9 +52,7 @@ export class ViewDealPage extends React.Component {
     const oggetto = this.props.oggetti.find(
       ogg => ogg.id === this.props.deal.oggettoId
     );
-    const verwalter = this.props.clienti.find(
-      cliente => cliente.id === oggetto.verwalter
-    );
+
     const provvPercentuale = numeral(
       (this.props.deal.amount / this.props.deal.prezzoDiVendita) * 119
     ).format('0,0.00');
@@ -65,7 +62,16 @@ export class ViewDealPage extends React.Component {
     const notaio = this.props.clienti.find(
       cliente => cliente.id === this.props.deal.notaioId
     );
-
+    // Determino quante fatture sono state pagate per mostrare i colori adatti. Da dealFature mi arriva un array
+    let payed = 0;
+    this.props.fatture.map(fattura => fattura.payed && payed++);
+    if (payed > 0) {
+      if (payed === this.props.fatture.length) {
+        payed = 2;
+      } else {
+        payed = 1;
+      }
+    }
     return (
       <div>
         <div className='page-header'>
@@ -124,8 +130,7 @@ export class ViewDealPage extends React.Component {
                 uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
                   ? provvM2square > 0 && (
                       <h4
-                        className={`list-item__sub-title ${this.props.fatture
-                          .payed && 'list-item--paid'}`}
+                        className={`list-item__sub-title list-item list-item--paid${payed}`}
                       >
                         m2Square:{' '}
                         {numeral(provvM2square / 100).format('0,0[.]00 $')}
