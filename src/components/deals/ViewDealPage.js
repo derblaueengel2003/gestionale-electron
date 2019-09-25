@@ -74,7 +74,7 @@ export class ViewDealPage extends React.Component {
     }
     return (
       <div>
-        <div className='page-header'>
+        <div className='page-header page-header-deals'>
           <div className='content-container'>
             <h1 className='page-header__title'>Dettagli Provvigione</h1>
           </div>

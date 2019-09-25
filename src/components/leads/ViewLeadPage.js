@@ -11,7 +11,7 @@ export class ViewLeadPage extends React.Component {
     );
     return (
       <div>
-        <div className='page-header'>
+        <div className='page-header page-header-leads'>
           <div className='content-container'>
             <h1 className='page-header__title'>Richiesta</h1>
           </div>

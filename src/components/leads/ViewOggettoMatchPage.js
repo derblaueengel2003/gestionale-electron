@@ -21,38 +21,42 @@ export class ViewOggettoMatchPage extends React.Component {
 
   render() {
     return (
-      <div className='content-container'>
-        <div className='page-header'>
-          <div>
+      <div>
+        <div className='page-header page-header-leads'>
+          <div className='content-container'>
             <h1 className='page-header__title'>
               Match con le richieste: {this.primoMatch().length}
             </h1>
+            <span>
+              La corrispondenza si basa sul budget (+-20%) e sulla tipologia
+              dell'immobile
+            </span>
           </div>
-          La corrispondenza si basa sul budget (+-20%) e sulla tipologia
-          dell'immobile
         </div>
 
-        <div className='page-header__actions'></div>
-        <div className='list-header-oggetti'>
-          <div className='show-for-mobile'>Oggetto</div>
-          <div className='show-for-desktop'>Oggetto</div>
-          <div className='show-for-desktop'>Rif. Id</div>
-        </div>
-        <div className='list-body'>
-          <OggettiListItem
-            key={this.props.oggetto.id}
-            {...this.props.oggetto}
-          />
-        </div>
+        <div className='content-container'>
+          <div className='page-header__actions'></div>
+          <div className='list-header-oggetti'>
+            <div className='show-for-mobile'>Oggetto</div>
+            <div className='show-for-desktop'>Oggetto</div>
+            <div className='show-for-desktop'>Rif. Id</div>
+          </div>
+          <div className='list-body'>
+            <OggettiListItem
+              key={this.props.oggetto.id}
+              {...this.props.oggetto}
+            />
+          </div>
 
-        <div className='list-header-leads'>
-          <div>Richieste</div>
-          <div>Budget</div>
-        </div>
-        <div>
-          {this.primoMatch().map(lead => {
-            return <LeadsListItem key={lead.id} {...lead} />;
-          })}
+          <div className='list-header-leads'>
+            <div>Richieste</div>
+            <div>Budget</div>
+          </div>
+          <div>
+            {this.primoMatch().map(lead => {
+              return <LeadsListItem key={lead.id} {...lead} />;
+            })}
+          </div>
         </div>
       </div>
     );

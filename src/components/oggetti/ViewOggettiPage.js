@@ -19,7 +19,7 @@ export class ViewOggettiPage extends React.Component {
     return (
       <div>
         <div>
-          <div className='page-header'>
+          <div className='page-header page-header-oggetti'>
             <div className='content-container'>
               <h1 className='page-header__title'>Oggetto</h1>
             </div>
