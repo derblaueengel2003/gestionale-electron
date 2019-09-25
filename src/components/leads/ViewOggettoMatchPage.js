@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LeadsListItem from '../leads/LeadsListItem';
+import OggettiListItem from '../oggetti/OggettiListItem';
 
 export class ViewOggettoMatchPage extends React.Component {
   primoMatch = () => {
@@ -30,6 +31,20 @@ export class ViewOggettoMatchPage extends React.Component {
           La corrispondenza si basa sul budget (+-20%) e sulla tipologia
           dell'immobile
         </div>
+
+        <div className='page-header__actions'></div>
+        <div className='list-header-oggetti'>
+          <div className='show-for-mobile'>Oggetto</div>
+          <div className='show-for-desktop'>Oggetto</div>
+          <div className='show-for-desktop'>Rif. Id</div>
+        </div>
+        <div className='list-body'>
+          <OggettiListItem
+            key={this.props.oggetto.id}
+            {...this.props.oggetto}
+          />
+        </div>
+
         <div className='list-header-leads'>
           <div>Richieste</div>
           <div>Budget</div>

@@ -79,10 +79,19 @@ export class ViewLeadMatchPage extends React.Component {
             {cliente ? cliente.nome : this.props.lead.leadNome}{' '}
             {cliente && cliente.cognome}
           </div>
-          <div>{cliente ? cliente.email : this.props.lead.leadEmail}</div>
+          <div>
+            <a
+              href={`mailto:${
+                cliente ? cliente.email : this.props.lead.leadEmail
+              }`}
+            >
+              {cliente ? cliente.email : this.props.lead.leadEmail}
+            </a>
+          </div>
         </div>
-        <div className='list-header'>Immobili nostri</div>
-
+        {this.primoMatch().length > 0 && (
+          <div className='list-header'>Immobili nostri</div>
+        )}
         <div>
           {this.primoMatch().map(ogg => {
             return <OggettiListItem key={ogg.id} {...ogg} />;

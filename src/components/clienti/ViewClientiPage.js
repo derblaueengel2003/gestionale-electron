@@ -64,7 +64,11 @@ export class ViewClientiPage extends React.Component {
               </div>
               <div>
                 {telefono1.length > 0 && <div>Tel: {telefono1}</div>}
-                {email.length > 0 && <div>E-Mail: {email}</div>}
+                {email.length > 0 && (
+                  <div>
+                    E-Mail: <a href={`mailto:${email}`}>{email}</a>
+                  </div>
+                )}
               </div>
             </div>
           </div>

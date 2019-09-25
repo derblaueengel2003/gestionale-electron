@@ -80,6 +80,12 @@ export class LeadsListItem extends React.Component {
           >
             Find a Match!
           </Link>
+          <a
+            className='button button--secondary-email'
+            href={`mailto:${cliente ? cliente.email : this.props.leadEmail}`}
+          >
+            Email
+          </a>
         </div>
       </div>
     );
