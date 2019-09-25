@@ -107,6 +107,8 @@
   display: flex;
   justify-content: space-between;
   padding: $s-size $m-size;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .list-header-deals {
   background: $light-green;
@@ -115,6 +117,8 @@
   display: flex;
   justify-content: space-between;
   padding: $s-size $m-size;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .list-header-oggetti {
   background: $light-purple;
@@ -123,6 +127,8 @@
   display: flex;
   justify-content: space-between;
   padding: $s-size $m-size;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .list-header-modulistica {
   background: $light-acqua;
@@ -131,6 +137,8 @@
   display: flex;
   justify-content: space-between;
   padding: $s-size $m-size;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .list-header-clienti {
   background: $light-blue;
@@ -139,4 +147,6 @@
   display: flex;
   justify-content: space-between;
   padding: $s-size $m-size;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
