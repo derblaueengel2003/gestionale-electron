@@ -2,6 +2,42 @@
   background: $off-white;
   margin-bottom: $l-size;
   padding: $l-size 0;
+
+  &-clienti {
+    background: linear-gradient(
+      to bottom,
+      rgba($light-blue, 0.85),
+      rgba($off-white, 0.85)
+    );
+  }
+  &-deals {
+    background: linear-gradient(
+      to bottom,
+      rgba($light-green, 0.85),
+      rgba($off-white, 0.85)
+    );
+  }
+  &-leads {
+    background: linear-gradient(
+      to bottom,
+      rgba($light-orange, 0.85),
+      rgba($off-white, 0.85)
+    );
+  }
+  &-modulistica {
+    background: linear-gradient(
+      to bottom,
+      rgba($light-acqua, 0.85),
+      rgba($off-white, 0.85)
+    );
+  }
+  &-oggetti {
+    background: linear-gradient(
+      to bottom,
+      rgba($light-purple, 0.85),
+      rgba($off-white, 0.85)
+    );
+  }
 }
 
 .page-header__actions {
@@ -20,18 +56,34 @@
   margin-right: 1rem;
 }
 .page-header__button-deals {
-  background: $dark-green;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-green, 0.85),
+    rgba($light-green, 0.85)
+  );
   margin-right: 1rem;
 }
 .page-header__button-oggetti {
-  background: $dark-purple;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-purple, 0.85),
+    rgba($light-purple, 0.85)
+  );
   margin-right: 1rem;
 }
 .page-header__button-leads {
-  background: $dark-orange;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-orange, 0.85),
+    rgba($light-orange, 0.85)
+  );
   margin-right: 1rem;
 }
 .page-header__button-modulistica {
-  background: $dark-acqua;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-acqua, 0.85),
+    rgba($light-acqua, 0.85)
+  );
   margin-right: 1rem;
 }

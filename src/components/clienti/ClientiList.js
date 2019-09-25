@@ -10,7 +10,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
   if (cliente) {
     return (
       <div className='content-container'>
-        <div className='list-header'>{ruolo}</div>
+        <div className='list-header-clienti'>{ruolo}</div>
         <div className='list-body'>
           <ClientiListItem key={cliente.id} {...cliente} />
         </div>

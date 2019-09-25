@@ -1,5 +1,9 @@
 .button {
-  background: $blue;
+  background: linear-gradient(
+    to right bottom,
+    rgba($blue, 0.85),
+    rgba($light-blue, 0.85)
+  );
   border: none;
   color: white;
   display: inline-block;
@@ -15,7 +19,11 @@
 }
 
 .button--secondary {
-  background: $dark-green;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-green, 0.85),
+    rgba($light-green, 0.85)
+  );
   margin-bottom: 3rem;
   margin-right: 1rem;
 }
@@ -23,47 +31,87 @@
   background: $dark-green;
 }
 .button--secondary-oggetti {
-  background: $dark-purple;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-purple, 0.85),
+    rgba($light-purple, 0.85)
+  );
   margin-bottom: 3rem;
   margin-right: 1rem;
 }
 .button--secondary-oggetti-add {
-  background: $dark-purple;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-purple, 0.85),
+    rgba($light-purple, 0.85)
+  );
 }
 .button--secondary-clienti {
-  background: $blue;
+  background: linear-gradient(
+    to right bottom,
+    rgba($blue, 0.85),
+    rgba($light-blue, 0.85)
+  );
   margin-bottom: 3rem;
   margin-right: 1rem;
 }
 .button--secondary-clienti-add {
-  background: $blue;
+  background: linear-gradient(
+    to right bottom,
+    rgba($blue, 0.85),
+    rgba($light-blue, 0.85)
+  );
 }
 .button--secondary-leads {
-  background: $dark-orange;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-orange, 0.85),
+    rgba($light-orange, 0.85)
+  );
   margin-bottom: 3rem;
   margin-right: 1rem;
 }
 .button--secondary-leads-add {
-  background: $dark-orange;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-orange, 0.85),
+    rgba($light-orange, 0.85)
+  );
 }
 .button--secondary-modulistica {
-  background: $dark-acqua;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-acqua, 0.85),
+    rgba($light-acqua, 0.85)
+  );
   margin-bottom: 3rem;
   margin-right: 1rem;
 }
 .button--secondary-delete {
-  background: $dark-red;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-red, 0.85),
+    rgba($light-red, 0.85)
+  );
   margin-bottom: 3rem;
   margin-right: 1rem;
 }
 
 .button--secondary-leads-match {
   font-size: $font-size-small;
-  background: $dark-orange;
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-orange, 0.85),
+    rgba($light-orange, 0.85)
+  );
 }
 
 .button--secondary-email {
   font-size: $font-size-small;
-  background: $blue;
+  background: linear-gradient(
+    to right bottom,
+    rgba($blue, 0.85),
+    rgba($light-blue, 0.85)
+  );
   margin-top: 1rem;
 }

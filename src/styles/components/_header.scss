@@ -1,18 +1,22 @@
 .header {
-    background: $dark-blue;
+  background: linear-gradient(
+    to left,
+    rgba(#910000, 0.85),
+    rgba($off-white, 0.85)
+  );
 }
 
 .header__content {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    padding: $s-size 0;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: $s-size 0;
 }
 
 .header__title {
-    color: white;
-    text-decoration: none;
-    h1 {
-        margin: 0;
-    }
+  color: white;
+  text-decoration: none;
+  h1 {
+    margin: 0;
+  }
 }

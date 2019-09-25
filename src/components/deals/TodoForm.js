@@ -72,13 +72,13 @@ export class TodoForm extends React.Component {
   render() {
     return (
       <div className='margine-basso'>
-        <div className='page-header'>
+        <div className='page-header page-header-deals'>
           <div className='content-container'>
             <h1 className='page-header__title'>To-dos</h1>
           </div>
         </div>
         <div className='content-container'>
-          <div className={this.state.todo1 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo1 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
@@ -91,7 +91,7 @@ export class TodoForm extends React.Component {
             </label>
           </div>
 
-          <div className={this.state.todo2 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo2 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
@@ -104,7 +104,7 @@ export class TodoForm extends React.Component {
             </label>
           </div>
 
-          <div className={this.state.todo3 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo3 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
@@ -117,7 +117,7 @@ export class TodoForm extends React.Component {
             </label>
           </div>
 
-          <div className={this.state.todo4 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo4 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
@@ -130,7 +130,7 @@ export class TodoForm extends React.Component {
             </label>
           </div>
 
-          <div className={this.state.todo5 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo5 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
@@ -143,7 +143,7 @@ export class TodoForm extends React.Component {
             </label>
           </div>
 
-          <div className={this.state.todo6 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo6 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
@@ -156,7 +156,7 @@ export class TodoForm extends React.Component {
             </label>
           </div>
 
-          <div className={this.state.todo7 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo7 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
@@ -169,7 +169,7 @@ export class TodoForm extends React.Component {
             </label>
           </div>
 
-          <div className={this.state.todo8 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo8 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
@@ -182,7 +182,7 @@ export class TodoForm extends React.Component {
             </label>
           </div>
 
-          <div className={this.state.todo9 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo9 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
@@ -195,7 +195,7 @@ export class TodoForm extends React.Component {
             </label>
           </div>
 
-          <div className={this.state.todo10 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo10 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
@@ -208,7 +208,7 @@ export class TodoForm extends React.Component {
             </label>
           </div>
 
-          <div className={this.state.todo11 === true ? 'list-item--paid' : ''}>
+          <div className={this.state.todo11 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}
               <input
