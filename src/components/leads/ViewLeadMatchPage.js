@@ -1,8 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AccentroListItem } from './AccentroListItem';
+import OggettiListItem from '../oggetti/OggettiListItem';
 
 export class ViewLeadMatchPage extends React.Component {
+  primoMatch = () => {
+    if (this.props.lead.leadBudget > 500) {
+      const match = this.props.oggetti.filter(
+        ogg =>
+          ogg.kaufpreis <= this.props.lead.leadBudget * 1.2 &&
+          ogg.kaufpreis > this.props.lead.leadBudget / 1.2
+      );
+      if (this.props.lead.leadOggettoStato === 'libero') {
+        return match.filter(ogg => ogg.affittoNetto === 0);
+      } else if (this.props.lead.leadOggettoStato === 'affittato') {
+        return match.filter(ogg => ogg.affittoNetto > 0);
+      } else {
+        return match;
+      }
+    } else {
+      const match = this.props.accentro.filter(ogg => ogg.kaufpreis);
+      if (this.props.lead.leadOggettoStato === 'libero') {
+        return match.filter(ogg => ogg.affittoNetto);
+      } else if (this.props.lead.leadOggettoStato === 'affittato') {
+        return match.filter(ogg => ogg.affittoNetto > 0);
+      } else {
+        return match;
+      }
+    }
+  };
   secondoMatch = () => {
     if (this.props.lead.leadBudget > 500) {
       const match = this.props.accentro.filter(
@@ -39,6 +65,9 @@ export class ViewLeadMatchPage extends React.Component {
         <div className='page-header'>
           <div>
             <h1 className='page-header__title'>
+              Match con i nostri immobili: {this.primoMatch().length}
+            </h1>
+            <h1 className='page-header__title'>
               Match con gli immobili Accentro: {this.secondoMatch().length}
             </h1>
           </div>
@@ -52,6 +81,14 @@ export class ViewLeadMatchPage extends React.Component {
           </div>
           <div>{cliente ? cliente.email : this.props.lead.leadEmail}</div>
         </div>
+        <div className='list-header'>Immobili nostri</div>
+
+        <div>
+          {this.primoMatch().map(ogg => {
+            return <OggettiListItem key={ogg.id} {...ogg} />;
+          })}
+        </div>
+        <div className='list-header'>Immobili di Accentro</div>
         <div>
           {this.secondoMatch().map(ogg => {
             return <AccentroListItem key={ogg.id} {...ogg} />;

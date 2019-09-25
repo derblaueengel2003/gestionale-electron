@@ -27,7 +27,8 @@ export const startAddOggetto = (oggettoData = {}) => {
       verwalter = '',
       ruecklage = '',
       proprietarioId = '',
-      proprietarioId2 = ''
+      proprietarioId2 = '',
+      kaufpreis = 0
     } = oggettoData;
     const oggetto = {
       via,
@@ -48,7 +49,8 @@ export const startAddOggetto = (oggettoData = {}) => {
       verwalter,
       ruecklage,
       proprietarioId,
-      proprietarioId2
+      proprietarioId2,
+      kaufpreis
     };
 
     return database

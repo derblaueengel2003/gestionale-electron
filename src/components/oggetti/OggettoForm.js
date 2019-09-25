@@ -24,6 +24,9 @@ export class OggettoForm extends React.Component {
       mobilio: props.oggetto ? props.oggetto.mobilio : '',
       stato: props.oggetto ? props.oggetto.stato : '',
       wohngeld: props.oggetto ? (props.oggetto.wohngeld / 100).toString() : '0',
+      kaufpreis: props.oggetto
+        ? (props.oggetto.kaufpreis / 100).toString()
+        : '0',
       affittoNetto: props.oggetto
         ? (props.oggetto.affittoNetto / 100).toString()
         : '0',
@@ -61,6 +64,7 @@ export class OggettoForm extends React.Component {
     e.preventDefault();
     const wohngeld = parseFloat(this.state.wohngeld, 10) * 100;
     const affittoNetto = parseFloat(this.state.affittoNetto, 10) * 100;
+    const kaufpreis = parseFloat(this.state.kaufpreis, 10) * 100;
 
     if (!this.state.via || !this.state.rifId) {
       this.setState(() => ({ error: 'Inserisci via e riferimento Id.' }));
@@ -81,6 +85,7 @@ export class OggettoForm extends React.Component {
         mobilio: this.state.mobilio,
         stato: this.state.stato,
         wohngeld,
+        kaufpreis,
         affittoNetto,
         verwalter: this.state.verwalter,
         ruecklage: this.state.ruecklage,
@@ -242,6 +247,15 @@ export class OggettoForm extends React.Component {
           type='text'
           placeholder='Affitto netto'
           value={this.state.affittoNetto}
+          onChange={this.onMoneyChange}
+        />
+        Kaufpreis:
+        <input
+          name='kaufpreis'
+          className={`text-input`}
+          type='text'
+          placeholder='Prezzo di Vendita'
+          value={this.state.kaufpreis}
           onChange={this.onMoneyChange}
         />
         Amministrazione:
