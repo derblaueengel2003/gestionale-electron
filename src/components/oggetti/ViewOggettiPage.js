@@ -25,7 +25,7 @@ export class ViewOggettiPage extends React.Component {
             </div>
           </div>
           <div className='content-container'>
-            <div className='list-header'>
+            <div className='list-header-oggetti'>
               <div className='show-for-mobile'>Dettagli</div>
               <div className='show-for-desktop'>Dettagli</div>
               <div className='show-for-desktop'></div>
@@ -68,7 +68,7 @@ export class ViewOggettiPage extends React.Component {
               </div>
             </div>
             <Link
-              className='button button--secondary'
+              className='button button--secondary-oggetti'
               to={`/oggettoedit/${this.props.oggetto.id}`}
             >
               Modifica Oggetto

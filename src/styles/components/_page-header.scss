@@ -1,21 +1,37 @@
 .page-header {
-    background: $off-white;
-    margin-bottom: $l-size;
-    padding: $l-size 0;
+  background: $off-white;
+  margin-bottom: $l-size;
+  padding: $l-size 0;
 }
 
 .page-header__actions {
-    margin-top: $m-size;
+  margin-top: $m-size;
 }
 
 .page-header__title {
-    font-weight: 300;
-    margin: 0;
-    span {
-        font-weight: bold;
-    }
+  font-weight: 300;
+  margin: 0;
+  span {
+    font-weight: bold;
+  }
 }
 
 .page-header__button {
-    margin-right: 1rem;
+  margin-right: 1rem;
+}
+.page-header__button-deals {
+  background: $dark-green;
+  margin-right: 1rem;
+}
+.page-header__button-oggetti {
+  background: $dark-purple;
+  margin-right: 1rem;
+}
+.page-header__button-leads {
+  background: $dark-orange;
+  margin-right: 1rem;
+}
+.page-header__button-modulistica {
+  background: $dark-acqua;
+  margin-right: 1rem;
 }

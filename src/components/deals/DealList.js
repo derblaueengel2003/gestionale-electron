@@ -18,7 +18,7 @@ export const DealList = ({
     return (
       clienteDeals.length > 0 && (
         <div className='content-container'>
-          <div className='list-header'>
+          <div className='list-header-deals'>
             <div className='show-for-mobile'>Provvigione</div>
             <div className='show-for-desktop'>Provvigione</div>
             <div className='show-for-desktop'>Importo</div>{' '}
@@ -63,16 +63,16 @@ export const DealList = ({
     return (
       <div className='content-container'>
         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
-          <Link className='button' to='/create'>
+          <Link className='button button--secondary-add' to='/create'>
             +
           </Link>
         )}
         {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-          <Link className='button' to='/create'>
+          <Link className='button button--secondary-add' to='/create'>
             +
           </Link>
         )}
-        <div className='list-header'>
+        <div className='list-header-deals'>
           <div className='show-for-mobile'>Provvigione</div>
           <div className='show-for-desktop'>Provvigione</div>
           <div className='show-for-desktop'>Importo</div>

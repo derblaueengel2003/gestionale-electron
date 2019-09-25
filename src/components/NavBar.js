@@ -61,16 +61,16 @@ export const NavBar = ({ uid }) => {
         </div>
       </div>
       <div className='content-container show-for-desktop'>
-        <Link className='button page-header__button' to='/dashboard'>
+        <Link className='button page-header__button-deals' to='/dashboard'>
           Provvigioni
         </Link>
-        <Link className='button page-header__button' to='/leads'>
+        <Link className='button page-header__button-leads' to='/leads'>
           Richieste
         </Link>
-        <Link className='button page-header__button' to='/moduli'>
+        <Link className='button page-header__button-modulistica' to='/moduli'>
           Modulistica
         </Link>
-        <Link className='button page-header__button' to='/oggetti'>
+        <Link className='button page-header__button-oggetti' to='/oggetti'>
           Oggetti
         </Link>
         <Link className='button page-header__button' to='/customer'>

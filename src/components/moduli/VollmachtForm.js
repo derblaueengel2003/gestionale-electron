@@ -99,7 +99,9 @@ export class VollmachtForm extends React.Component {
             onChange={this.onOggettoChange}
           />
           <div>
-            <button className='button button--secondary'>Crea PDF</button>
+            <button className='button button--secondary-modulistica'>
+              Crea PDF
+            </button>
           </div>
         </form>
       </div>

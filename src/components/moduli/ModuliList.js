@@ -6,29 +6,32 @@ const ModuliPage = () => (
     <div className='page-header'>
       <h1 className='page-header__title'>Modulistica</h1>
     </div>
-    <div className='list-header'>
+    <div className='list-header-modulistica'>
       <div className='show-for-mobile'>Compila online</div>
       <div className='show-for-desktop'>Compila online</div>
     </div>
     <div className='list-item'>
       <Link
-        className='print button button--secondary'
+        className='print button button--secondary-modulistica'
         to='/makleralleinauftrag'
       >
         Makler-Allein-Auftrag
       </Link>
-      <Link className='print button button--secondary' to='/widerrufsbelehrung'>
+      <Link
+        className='print button button--secondary-modulistica'
+        to='/widerrufsbelehrung'
+      >
         Widerrufsbelehrung
       </Link>
       <Link
-        className='print button button--secondary'
+        className='print button button--secondary-modulistica'
         to='/vollmachtunterlagen'
       >
         Vollmacht Empfang Unterlagen
       </Link>
     </div>
 
-    <div className='list-header'>
+    <div className='list-header-modulistica'>
       <div className='show-for-mobile'>In bianco</div>
       <div className='show-for-desktop'>In bianco</div>
     </div>

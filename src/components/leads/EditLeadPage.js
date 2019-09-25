@@ -26,7 +26,10 @@ export class EditLeadPage extends React.Component {
         </div>
         <div className='content-container'>
           <LeadForm lead={this.props.lead} onSubmit={this.onSubmit} />
-          <button className='button button--secondary' onClick={this.onRemove}>
+          <button
+            className='button button--secondary-delete'
+            onClick={this.onRemove}
+          >
             Cancella Richiesta
           </button>
         </div>

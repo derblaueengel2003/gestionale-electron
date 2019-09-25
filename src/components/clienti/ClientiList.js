@@ -24,7 +24,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
             +
           </Link>
         </div>
-        <div className='list-header'>
+        <div className='list-header-clienti'>
           <div className='show-for-mobile'>Cliente</div>
           <div className='show-for-desktop'>Cliente</div>
           <div className='show-for-desktop'>Ditta</div>

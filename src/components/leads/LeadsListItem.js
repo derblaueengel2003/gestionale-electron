@@ -75,7 +75,7 @@ export class LeadsListItem extends React.Component {
         </div>
         <div className='col-1-of-6'>
           <Link
-            className='button button--tertiary'
+            className='button button--secondary-leads-match'
             to={`/leadmatchview/${this.props.id}`}
           >
             Find a Match!

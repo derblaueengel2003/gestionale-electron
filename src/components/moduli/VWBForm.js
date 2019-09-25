@@ -127,7 +127,9 @@ export class VWBForm extends React.Component {
             />
           </div>
           <div>
-            <button className='button button--secondary'>Crea PDF</button>
+            <button className='button button--secondary-modulistica'>
+              Crea PDF
+            </button>
           </div>
         </form>
       </div>

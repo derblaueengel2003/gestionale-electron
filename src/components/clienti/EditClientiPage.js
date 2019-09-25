@@ -1,46 +1,56 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import CustomerForm from './ClientiForm'
-import { startEditCustomer, startRemoveCustomer } from '../../actions/clienti'
+import React from 'react';
+import { connect } from 'react-redux';
+import CustomerForm from './ClientiForm';
+import { startEditCustomer, startRemoveCustomer } from '../../actions/clienti';
 
 export class EditClientePage extends React.Component {
-    onSubmit = (cliente) => {
-        this.props.startEditCustomer(this.props.cliente.id, cliente)
-        this.props.history.push(`/customerview/${this.props.cliente.id}`)
+  onSubmit = cliente => {
+    this.props.startEditCustomer(this.props.cliente.id, cliente);
+    this.props.history.push(`/customerview/${this.props.cliente.id}`);
+  };
+  onRemove = () => {
+    if (
+      window.confirm("Confermi la cancellazione? L'operazione è irreversibile")
+    ) {
+      this.props.startRemoveCustomer({ id: this.props.cliente.id });
+      this.props.history.push('/customer');
     }
-    onRemove = () => {
-        if (window.confirm('Confermi la cancellazione? L\'operazione è irreversibile')) {
-            this.props.startRemoveCustomer({ id: this.props.cliente.id })
-            this.props.history.push('/customer')
-        } 
-    }
-    render() {
-        return (
-            <div>
-                <div className="page-header">
-                    <div className="content-container">
-                        <h1 className="page-header__title">Modifica Cliente</h1>
-                    </div>
-                </div>
-                <div className="content-container">
-                <CustomerForm 
-                    customer={this.props.cliente}
-                    onSubmit={this.onSubmit}
-                />
-                <button className="button button--secondary" onClick={this.onRemove}>Cancella cliente</button>
-                </div>
-            </div>
-        )
-    }
+  };
+  render() {
+    return (
+      <div>
+        <div className='page-header'>
+          <div className='content-container'>
+            <h1 className='page-header__title'>Modifica Cliente</h1>
+          </div>
+        </div>
+        <div className='content-container'>
+          <CustomerForm
+            customer={this.props.cliente}
+            onSubmit={this.onSubmit}
+          />
+          <button
+            className='button button--secondary-delete'
+            onClick={this.onRemove}
+          >
+            Cancella cliente
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state, props) => ({
-    cliente: state.clienti.find((cliente) => cliente.id === props.match.params.id) 
-})
+  cliente: state.clienti.find(cliente => cliente.id === props.match.params.id)
+});
 
-const mapDispatchToProps = (dispatch) => ({
-    startEditCustomer: (id, cliente) => dispatch(startEditCustomer(id, cliente)),
-    startRemoveCustomer: (data) => dispatch(startRemoveCustomer(data))
-})
+const mapDispatchToProps = dispatch => ({
+  startEditCustomer: (id, cliente) => dispatch(startEditCustomer(id, cliente)),
+  startRemoveCustomer: data => dispatch(startRemoveCustomer(data))
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditClientePage)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EditClientePage);

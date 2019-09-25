@@ -17,7 +17,7 @@ export class ViewLeadPage extends React.Component {
           </div>
         </div>
         <div className='content-container'>
-          <div className='list-header'>
+          <div className='list-header-leads'>
             <div className='show-for-mobile'>Dettaglio Richiesta</div>
             <div className='show-for-desktop'>Dettaglio Richiesta</div>
             <div className='show-for-desktop'></div>
@@ -28,7 +28,7 @@ export class ViewLeadPage extends React.Component {
             </div>
           </div>
           <Link
-            className='print button button--secondary'
+            className='print button button--secondary-leads'
             to={`/leadedit/${this.props.lead.id}`}
           >
             Modifica Richiesta

@@ -10,7 +10,7 @@ export const OggettiList = props => {
     return (
       props.oggetto.length > 0 && (
         <div className='content-container'>
-          <div className='list-header'>
+          <div className='list-header-oggetti'>
             <div className='show-for-mobile'>Oggetto</div>
             <div className='show-for-desktop'>Oggetto</div>
             <div className='show-for-desktop'>Rif. Id</div>
@@ -27,11 +27,14 @@ export const OggettiList = props => {
     return (
       <div className='content-container'>
         <div className='page-header__actions'>
-          <Link className='button' to='/oggettocreate'>
+          <Link
+            className='button button--secondary-oggetti-add'
+            to='/oggettocreate'
+          >
             +
           </Link>
         </div>
-        <div className='list-header'>
+        <div className='list-header-oggetti'>
           <div className='show-for-mobile'>Oggetto</div>
           <div className='show-for-desktop'>Oggetto</div>
           <div className='show-for-desktop'>Rif. Id</div>

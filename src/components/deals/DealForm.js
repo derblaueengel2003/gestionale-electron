@@ -246,7 +246,7 @@ export class DealForm extends React.Component {
       <form className='form' onSubmit={this.onSubmit}>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
         <div>
-          <button className='button'>Salva modifiche</button>
+          <button className='button button--secondary'>Salva modifiche</button>
         </div>
         Tipologia di provvigione:
         <Select
@@ -456,7 +456,7 @@ export class DealForm extends React.Component {
           onChange={this.changeHandler}
         ></textarea>
         <div>
-          <button className='button'>Salva modifiche</button>
+          <button className='button button--secondary'>Salva modifiche</button>
         </div>
       </form>
     );

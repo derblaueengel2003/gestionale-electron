@@ -1,62 +1,58 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from 'react';
+import { connect } from 'react-redux';
 import LeadsListItem from './LeadsListItem';
-import selectLeads from '../../selectors/leads'
-import { Link } from 'react-router-dom'
+import selectLeads from '../../selectors/leads';
+import { Link } from 'react-router-dom';
 
-
-export const LeadsList = (props) => {
-    //controllo se la i dati vengono dalla scheda clienti e sono passati via props
-    if (props.userLeads) {
-      return (
-          props.userLeads.length > 0 &&
-            <div className="content-container">
-                <div className="list-header">
-                    <div className="show-for-mobile">Richiesta</div>
-                    <div className="show-for-desktop">Richiesta</div>
-                </div>
-                <div className="list-body">
-                    {props.userLeads.map((lead) => {
-                        return <LeadsListItem key={lead.id} {...lead} />
-                        })
-                    }
-                </div>
+export const LeadsList = props => {
+  //controllo se la i dati vengono dalla scheda clienti e sono passati via props
+  if (props.userLeads) {
+    return (
+      props.userLeads.length > 0 && (
+        <div className='content-container'>
+          <div className='list-header-leads'>
+            <div className='show-for-mobile'>Richiesta</div>
+            <div className='show-for-desktop'>Richiesta</div>
+          </div>
+          <div className='list-body'>
+            {props.userLeads.map(lead => {
+              return <LeadsListItem key={lead.id} {...lead} />;
+            })}
+          </div>
+        </div>
+      )
+    );
+  } else {
+    //in questo caso i dati provengono dallo state. Siamo sulla lead dashboard page
+    return (
+      <div className='content-container'>
+        <Link className='button button--secondary-leads-add' to='/leadscreate'>
+          +
+        </Link>
+        <div className='list-header-leads'>
+          <div className='show-for-mobile'>Richieste</div>
+          <div className='show-for-desktop'>Richieste</div>
+        </div>
+        <div className='list-body'>
+          {props.leads.length === 0 ? (
+            <div className='list-item list-item--message'>
+              <span>Nessuna richiesta in base ai filtri inseriti</span>
             </div>
-        )
-    } else {
-        //in questo caso i dati provengono dallo state. Siamo sulla lead dashboard page
-       return  (
-            <div className="content-container">
-                <Link className="button" to="/leadscreate">+</Link>
-                <div className="list-header">
-                    <div className="show-for-mobile">Richieste</div>
-                    <div className="show-for-desktop">Richieste</div>
-                </div>
-                <div className="list-body">
-                    {
-                        props.leads.length === 0 ? (
-                            <div className="list-item list-item--message">
-                                <span>Nessuna richiesta in base ai filtri inseriti</span>
-                            </div>
-                        ) : (
-                                props.leads.map((lead) => {
-                                    return <LeadsListItem key={lead.id} {...lead} />
-                                })
-                            )
+          ) : (
+            props.leads.map(lead => {
+              return <LeadsListItem key={lead.id} {...lead} />;
+            })
+          )}
+        </div>
+      </div>
+    );
+  }
+};
 
-                    }
-                </div>
-            </div>
-        )
-    }
+const mapStateToProps = state => {
+  return {
+    leads: selectLeads(state.leads, state.filters)
+  };
+};
 
-
-}
-
-const mapStateToProps = (state) => {
-    return {
-        leads: selectLeads(state.leads, state.filters)
-    }
-} 
-
-export default connect(mapStateToProps)(LeadsList)
+export default connect(mapStateToProps)(LeadsList);

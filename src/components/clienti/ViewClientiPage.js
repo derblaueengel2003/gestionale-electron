@@ -43,7 +43,7 @@ export class ViewClientiPage extends React.Component {
           </div>
         </div>
         <div className='content-container'>
-          <div className='list-header'>
+          <div className='list-header-clienti'>
             <div className='show-for-mobile'>Scheda cliente</div>
             <div className='show-for-desktop'>Scheda cliente</div>
             <div className='show-for-desktop'></div>
@@ -69,7 +69,7 @@ export class ViewClientiPage extends React.Component {
             </div>
           </div>
           <Link
-            className='print button button--secondary'
+            className='print button button--secondary-clienti'
             to={`/customeredit/${id}`}
           >
             Modifica Cliente

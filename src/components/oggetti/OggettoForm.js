@@ -269,7 +269,9 @@ export class OggettoForm extends React.Component {
           onChange={this.onProprietarioChange2}
         />
         <div>
-          <button className='button'>Salva modifiche</button>
+          <button className='button button--secondary-oggetti'>
+            Salva modifiche
+          </button>
         </div>
       </form>
     );
