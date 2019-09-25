@@ -23,6 +23,7 @@ import OggettiDashboardPage from '../components/oggetti/OggettiDashboardPage';
 import AddOggettoPage from '../components/oggetti/AddOggettoPage';
 import ViewOggettiPage from '../components/oggetti/ViewOggettiPage';
 import EditOggettoPage from '../components/oggetti/EditOggettoPage';
+import ViewOggettoMatchPage from '../components/leads/ViewOggettoMatchPage';
 import LeadsDashboardPage from '../components/leads/LeadsDashboardPage';
 import AddLeadPage from '../components/leads/AddLeadPage';
 import EditLeadPage from '../components/leads/EditLeadPage';
@@ -63,6 +64,10 @@ const AppRouter = ({ uid }) => {
           <PrivateRoute path='/oggettocreate' component={AddOggettoPage} />
           <PrivateRoute path='/oggettoview/:id' component={ViewOggettiPage} />
           <PrivateRoute path='/oggettoedit/:id' component={EditOggettoPage} />
+          <PrivateRoute
+            path='/oggettomatchview/:id'
+            component={ViewOggettoMatchPage}
+          />
           <PrivateRoute path='/fatture' component={FattureDashboardPage} />
           <PrivateRoute path='/fatturacreate' component={AddFatturaPage} />
           <PrivateRoute path='/fatturaview/:id' component={ViewFatturaPage} />

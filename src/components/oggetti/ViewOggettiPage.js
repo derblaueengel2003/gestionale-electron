@@ -73,6 +73,12 @@ export class ViewOggettiPage extends React.Component {
             >
               Modifica Oggetto
             </Link>
+            <Link
+              className='button button--secondary-leads'
+              to={`/oggettomatchview/${this.props.oggetto.id}`}
+            >
+              Find a Match!
+            </Link>
           </div>
         </div>
         {this.props.oggetto.verwalter.length > 0 && (
