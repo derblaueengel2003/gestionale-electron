@@ -36,6 +36,7 @@ import PublicRoute from './PublicRoute';
 import StampaDatenblatt from '../components/moduli/StampaDatenblatt';
 import MAAForm from '../components/moduli/MAAForm';
 import VWBForm from '../components/moduli/VWBForm';
+import VollmachtForm from '../components/moduli/VollmachtForm';
 
 export const history = createHistory();
 
@@ -78,6 +79,7 @@ const AppRouter = ({ uid }) => {
           <PrivateRoute path='/moduli' component={ModuliPage} />
           <PrivateRoute path='/makleralleinauftrag' component={MAAForm} />
           <PrivateRoute path='/widerrufsbelehrung' component={VWBForm} />
+          <PrivateRoute path='/vollmachtunterlagen' component={VollmachtForm} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

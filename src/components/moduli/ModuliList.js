@@ -20,6 +20,12 @@ const ModuliPage = () => (
       <Link className='print button button--secondary' to='/widerrufsbelehrung'>
         Widerrufsbelehrung
       </Link>
+      <Link
+        className='print button button--secondary'
+        to='/vollmachtunterlagen'
+      >
+        Vollmacht Empfang Unterlagen
+      </Link>
     </div>
 
     <div className='list-header'>
