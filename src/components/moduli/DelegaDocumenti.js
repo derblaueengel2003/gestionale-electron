@@ -4,9 +4,11 @@ export const doc = new jsPDF('p', 'mm', 'a4');
 
 export const delegaDocumenti = (cliente, cliente2, oggetto) => {
   const nome = `${cliente.nome} ${cliente.cognome}`;
-  const residenza = `${cliente.indirizzo}`;
+  const residenza = `${cliente.cap} ${cliente.comune}, ${cliente.indirizzo}, ${cliente.nazione}`;
   const nome2 = cliente2 && `${cliente2.nome} ${cliente2.cognome}`;
-  const residenza2 = cliente2 && `${cliente2.indirizzo}`;
+  const residenza2 =
+    cliente2 &&
+    `${cliente2.cap} ${cliente2.comune}, ${cliente2.indirizzo}, ${cliente2.nazione}`;
 
   const indirizzo = `${oggetto.cap} ${oggetto.citta},${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`;
 
