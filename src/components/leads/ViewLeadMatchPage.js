@@ -74,7 +74,7 @@ export class ViewLeadMatchPage extends React.Component {
           La corrispondenza si basa sul budget (+-20%) e sulla tipologia
           dell'immobile
         </div>
-        <div className='list-header-leads'>
+        <div className='list-header list-header-leads'>
           <div>
             {cliente ? cliente.nome : this.props.lead.leadNome}{' '}
             {cliente && cliente.cognome}
@@ -90,7 +90,11 @@ export class ViewLeadMatchPage extends React.Component {
           </div>
         </div>
         {this.primoMatch().length > 0 && (
-          <div className='list-header'>Immobili nostri</div>
+          <div className='list-header'>
+            <div className='show-for-mobile'>Immobili m2Square</div>
+            <div className='show-for-desktop'>Immobili m2Square</div>
+            <div className='show-for-desktop'>Rif.ID</div>{' '}
+          </div>
         )}
         <div>
           {this.primoMatch().map(ogg => {

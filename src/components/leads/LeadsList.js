@@ -10,7 +10,7 @@ export const LeadsList = props => {
     return (
       props.userLeads.length > 0 && (
         <div className='content-container'>
-          <div className='list-header-leads'>
+          <div className='list-header list-header-leads'>
             <div className='show-for-mobile'>Richiesta</div>
             <div className='show-for-desktop'>Richiesta</div>
           </div>
@@ -26,10 +26,13 @@ export const LeadsList = props => {
     //in questo caso i dati provengono dallo state. Siamo sulla lead dashboard page
     return (
       <div className='content-container'>
-        <Link className='button button--secondary-leads-add' to='/leadscreate'>
+        <Link
+          className='button button--secondary-leads button--secondary-leads-add'
+          to='/leadscreate'
+        >
           +
         </Link>
-        <div className='list-header-leads'>
+        <div className='list-header list-header-leads'>
           <div className='show-for-mobile'>Richieste</div>
           <div className='show-for-desktop'>Richieste</div>
         </div>

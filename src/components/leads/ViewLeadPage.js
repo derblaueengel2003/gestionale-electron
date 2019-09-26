@@ -17,7 +17,7 @@ export class ViewLeadPage extends React.Component {
           </div>
         </div>
         <div className='content-container'>
-          <div className='list-header-leads'>
+          <div className='list-header list-header-leads'>
             <div className='show-for-mobile'>Dettaglio Richiesta</div>
             <div className='show-for-desktop'>Dettaglio Richiesta</div>
             <div className='show-for-desktop'></div>

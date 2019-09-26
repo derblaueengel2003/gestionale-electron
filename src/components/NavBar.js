@@ -61,48 +61,81 @@ export const NavBar = ({ uid }) => {
         </div>
       </div>
       <div className='content-container show-for-desktop'>
-        <Link className='button page-header__button-deals' to='/dashboard'>
+        <Link
+          className='button page-header__button page-header__button-deals'
+          to='/dashboard'
+        >
           Provvigioni
         </Link>
-        <Link className='button page-header__button-leads' to='/leads'>
+        <Link
+          className='button page-header__button page-header__button-leads'
+          to='/leads'
+        >
           Richieste
         </Link>
-        <Link className='button page-header__button-modulistica' to='/moduli'>
+        <Link
+          className='button page-header__button page-header__button-modulistica'
+          to='/moduli'
+        >
           Modulistica
         </Link>
-        <Link className='button page-header__button-oggetti' to='/oggetti'>
+        <Link
+          className='button page-header__button page-header__button-oggetti'
+          to='/oggetti'
+        >
           Oggetti
         </Link>
-        <Link className='button page-header__button' to='/customer'>
+        <Link
+          className='button page-header__button page-header__button-clienti'
+          to='/customer'
+        >
           Contatti
         </Link>
         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
-          <Link className='button page-header__button' to='/report'>
+          <Link
+            className='button page-header__button page-header__button-clienti'
+            to='/report'
+          >
             Report
           </Link>
         )}
         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
-          <Link className='button page-header__button' to='/users'>
+          <Link
+            className='button page-header__button page-header__button-clienti'
+            to='/users'
+          >
             Utenti
           </Link>
         )}
         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
-          <Link className='button page-header__button' to='/fatture'>
+          <Link
+            className='button page-header__button page-header__button-fatture'
+            to='/fatture'
+          >
             Fatture
           </Link>
         )}
         {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-          <Link className='button page-header__button' to='/report'>
+          <Link
+            className='button page-header__button page-header__button-clienti'
+            to='/report'
+          >
             Report
           </Link>
         )}
         {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-          <Link className='button page-header__button' to='/users'>
+          <Link
+            className='button page-header__button page-header__button-clienti'
+            to='/users'
+          >
             Utenti
           </Link>
         )}
         {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-          <Link className='button page-header__button' to='/fatture'>
+          <Link
+            className='button page-header__button page-header__button-fatture'
+            to='/fatture'
+          >
             Fatture
           </Link>
         )}

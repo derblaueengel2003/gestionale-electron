@@ -54,36 +54,42 @@
 
 .page-header__button {
   margin-right: 1rem;
-}
-.page-header__button-deals {
-  background: linear-gradient(
-    to right bottom,
-    rgba($dark-green, 0.85),
-    rgba($light-green, 0.85)
-  );
-  margin-right: 1rem;
-}
-.page-header__button-oggetti {
-  background: linear-gradient(
-    to right bottom,
-    rgba($dark-purple, 0.85),
-    rgba($light-purple, 0.85)
-  );
-  margin-right: 1rem;
-}
-.page-header__button-leads {
-  background: linear-gradient(
-    to right bottom,
-    rgba($dark-orange, 0.85),
-    rgba($light-orange, 0.85)
-  );
-  margin-right: 1rem;
-}
-.page-header__button-modulistica {
-  background: linear-gradient(
-    to right bottom,
-    rgba($dark-acqua, 0.85),
-    rgba($light-acqua, 0.85)
-  );
-  margin-right: 1rem;
+
+  &-deals,
+  &-fatture {
+    background: linear-gradient(
+      to right bottom,
+      rgba($dark-green, 0.85),
+      rgba($light-green, 0.85)
+    );
+  }
+
+  &-leads {
+    background: linear-gradient(
+      to right bottom,
+      rgba($dark-orange, 0.85),
+      rgba($light-orange, 0.85)
+    );
+  }
+  &-modulistica {
+    background: linear-gradient(
+      to right bottom,
+      rgba($dark-acqua, 0.85),
+      rgba($light-acqua, 0.85)
+    );
+  }
+  &-oggetti {
+    background: linear-gradient(
+      to right bottom,
+      rgba($dark-purple, 0.85),
+      rgba($light-purple, 0.85)
+    );
+  }
+  &-clienti {
+    background: linear-gradient(
+      to right bottom,
+      rgba($blue, 0.85),
+      rgba($light-blue, 0.85)
+    );
+  }
 }

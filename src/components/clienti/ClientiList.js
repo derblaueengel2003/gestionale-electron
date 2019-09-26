@@ -10,7 +10,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
   if (cliente) {
     return (
       <div className='content-container'>
-        <div className='list-header-clienti'>{ruolo}</div>
+        <div className='list-header list-header-clienti'>{ruolo}</div>
         <div className='list-body'>
           <ClientiListItem key={cliente.id} {...cliente} />
         </div>
@@ -20,11 +20,14 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
     return (
       <div className='content-container'>
         <div className='page-header__actions'>
-          <Link className='button' to='/customercreate'>
+          <Link
+            className='button button--secondary-clienti button--secondary-clienti-add'
+            to='/customercreate'
+          >
             +
           </Link>
         </div>
-        <div className='list-header-clienti'>
+        <div className='list-header list-header-clienti'>
           <div className='show-for-mobile'>Cliente</div>
           <div className='show-for-desktop'>Cliente</div>
           <div className='show-for-desktop'>Ditta</div>

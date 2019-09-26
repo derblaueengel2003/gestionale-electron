@@ -25,7 +25,7 @@ export class ViewOggettiPage extends React.Component {
             </div>
           </div>
           <div className='content-container'>
-            <div className='list-header-oggetti'>
+            <div className='list-header list-header-oggetti'>
               <div className='show-for-mobile'>Dettagli</div>
               <div className='show-for-desktop'>Dettagli</div>
               <div className='show-for-desktop'></div>

@@ -10,7 +10,7 @@ const ModuliPage = () => (
     </div>
 
     <div className='content-container'>
-      <div className='list-header-modulistica'>
+      <div className='list-header list-header-modulistica'>
         <div className='show-for-mobile'>Compila online</div>
         <div className='show-for-desktop'>Compila online</div>
       </div>
@@ -35,7 +35,7 @@ const ModuliPage = () => (
         </Link>
       </div>
 
-      <div className='list-header-modulistica'>
+      <div className='list-header list-header-modulistica'>
         <div className='show-for-mobile'>In bianco</div>
         <div className='show-for-desktop'>In bianco</div>
       </div>

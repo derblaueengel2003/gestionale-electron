@@ -1,9 +1,4 @@
 .button {
-  background: linear-gradient(
-    to right bottom,
-    rgba($blue, 0.85),
-    rgba($light-blue, 0.85)
-  );
   border: none;
   color: white;
   display: inline-block;
@@ -12,8 +7,9 @@
   line-height: 1;
   padding: $s-size;
   text-decoration: none;
-
   border-radius: 5px;
+  margin-bottom: 3rem;
+  margin-right: 1rem;
 }
 
 .button--link {
@@ -26,77 +22,74 @@
     rgba($dark-green, 0.85),
     rgba($light-green, 0.85)
   );
-  margin-bottom: 3rem;
-  margin-right: 1rem;
+
+  &-add {
+    margin-bottom: 0;
+  }
 }
-.button--secondary-add {
-  background: $dark-green;
-}
-.button--secondary-oggetti {
-  background: linear-gradient(
-    to right bottom,
-    rgba($dark-purple, 0.85),
-    rgba($light-purple, 0.85)
-  );
-  margin-bottom: 3rem;
-  margin-right: 1rem;
-}
-.button--secondary-oggetti-add {
-  background: linear-gradient(
-    to right bottom,
-    rgba($dark-purple, 0.85),
-    rgba($light-purple, 0.85)
-  );
-}
-.button--secondary-clienti {
-  background: linear-gradient(
-    to right bottom,
-    rgba($blue, 0.85),
-    rgba($light-blue, 0.85)
-  );
-  margin-bottom: 3rem;
-  margin-right: 1rem;
-}
-.button--secondary-clienti-add {
-  background: linear-gradient(
-    to right bottom,
-    rgba($blue, 0.85),
-    rgba($light-blue, 0.85)
-  );
-}
+
 .button--secondary-leads {
   background: linear-gradient(
     to right bottom,
     rgba($dark-orange, 0.85),
     rgba($light-orange, 0.85)
   );
-  margin-bottom: 3rem;
-  margin-right: 1rem;
+
+  &-add {
+    margin-bottom: 0;
+  }
 }
-.button--secondary-leads-add {
-  background: linear-gradient(
-    to right bottom,
-    rgba($dark-orange, 0.85),
-    rgba($light-orange, 0.85)
-  );
-}
+
 .button--secondary-modulistica {
   background: linear-gradient(
     to right bottom,
     rgba($dark-acqua, 0.85),
     rgba($light-acqua, 0.85)
   );
-  margin-bottom: 3rem;
-  margin-right: 1rem;
 }
+
+.button--secondary-oggetti {
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-purple, 0.85),
+    rgba($light-purple, 0.85)
+  );
+
+  &-add {
+    margin-bottom: 0;
+  }
+}
+
+.button--secondary-clienti {
+  background: linear-gradient(
+    to right bottom,
+    rgba($blue, 0.85),
+    rgba($light-blue, 0.85)
+  );
+
+  &-add {
+    margin-bottom: 0;
+  }
+}
+
+.button--secondary-fatture {
+  background: linear-gradient(
+    to right bottom,
+    rgba($dark-green, 0.85),
+    rgba($light-green, 0.85)
+  );
+
+  &-add {
+    margin-bottom: 0;
+  }
+}
+
 .button--secondary-delete {
   background: linear-gradient(
     to right bottom,
     rgba($dark-red, 0.85),
     rgba($light-red, 0.85)
   );
-  margin-bottom: 3rem;
-  margin-right: 1rem;
 }
 
 .button--secondary-leads-match {

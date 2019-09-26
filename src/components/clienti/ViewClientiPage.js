@@ -43,7 +43,7 @@ export class ViewClientiPage extends React.Component {
           </div>
         </div>
         <div className='content-container'>
-          <div className='list-header-clienti'>
+          <div className='list-header list-header-clienti'>
             <div className='show-for-mobile'>Scheda cliente</div>
             <div className='show-for-desktop'>Scheda cliente</div>
             <div className='show-for-desktop'></div>

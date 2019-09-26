@@ -299,7 +299,7 @@ export class CustomerForm extends React.Component {
         ></textarea>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
         <div>
-          <button className='button'>Salva</button>
+          <button className='button button--secondary-clienti'>Salva</button>
         </div>
       </form>
     );
