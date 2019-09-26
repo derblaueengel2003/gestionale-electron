@@ -36,7 +36,7 @@ export class ViewOggettoMatchPage extends React.Component {
 
         <div className='content-container'>
           <div className='page-header__actions'></div>
-          <div className='list-header-oggetti'>
+          <div className='list-header list-header-oggetti'>
             <div className='show-for-mobile'>Oggetto</div>
             <div className='show-for-desktop'>Oggetto</div>
             <div className='show-for-desktop'>Rif. Id</div>
@@ -48,7 +48,7 @@ export class ViewOggettoMatchPage extends React.Component {
             />
           </div>
 
-          <div className='list-header-leads'>
+          <div className='list-header list-header-leads'>
             <div>Richieste</div>
             <div>Budget</div>
           </div>
