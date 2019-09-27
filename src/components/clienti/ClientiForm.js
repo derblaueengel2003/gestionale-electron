@@ -59,8 +59,9 @@ export class CustomerForm extends React.Component {
       return emailMatch || cognomeMatch || dittaMatch;
     });
     if (match.length === 1) {
+      console.log(match);
       this.setState(() => ({
-        error: `Cliente forse già presente nel gestionale`
+        error: `Cliente forse già presente nel gestionale: ${match[0].nome} ${match[0].cognome} - ${match[0].email}`
       }));
     } else {
       this.setState(() => ({ error: '' }));
@@ -148,7 +149,7 @@ export class CustomerForm extends React.Component {
         Cognome:
         <input
           name='cognome'
-          className={`text-input`}
+          className={`text-input ${this.state.error && 'form__error'}`}
           type='text'
           placeholder='Cognome'
           value={this.state.cognome}
@@ -176,7 +177,7 @@ export class CustomerForm extends React.Component {
         Ditta:
         <input
           name='ditta'
-          className={`text-input`}
+          className={`text-input ${this.state.error && 'form__error'}`}
           type='text'
           placeholder='Ditta'
           value={this.state.ditta}
@@ -248,7 +249,7 @@ export class CustomerForm extends React.Component {
         Email:
         <input
           name='email'
-          className={`text-input`}
+          className={`text-input ${this.state.error && 'form__error'}`}
           type='text'
           placeholder='indirizzo email'
           value={this.state.email}
