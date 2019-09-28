@@ -114,6 +114,9 @@ export class CustomerForm extends React.Component {
   render() {
     return (
       <form className='form' onSubmit={this.onSubmit}>
+        <div>
+          <button className='button button--secondary-clienti'>Salva</button>
+        </div>
         {this.state.error && (
           <div>
             <p className='form__error'>{this.state.error}</p>

@@ -104,6 +104,9 @@ export class OggettoForm extends React.Component {
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
+        <div>
+          <button className='button button--secondary-oggetti'>Salva</button>
+        </div>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
         Via:
         <input
@@ -283,9 +286,7 @@ export class OggettoForm extends React.Component {
           onChange={this.onProprietarioChange2}
         />
         <div>
-          <button className='button button--secondary-oggetti'>
-            Salva modifiche
-          </button>
+          <button className='button button--secondary-oggetti'>Salva</button>
         </div>
       </form>
     );
