@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 
@@ -58,10 +59,10 @@ export class CustomerForm extends React.Component {
         .includes(value.toLowerCase());
       return emailMatch || cognomeMatch || dittaMatch;
     });
-    if (match.length === 1) {
+    if (match.length > 0) {
       console.log(match);
       this.setState(() => ({
-        error: `Cliente forse già presente nel gestionale: ${match[0].nome} ${match[0].cognome} - ${match[0].email}`
+        error: `Cliente forse già presente nel gestionale`
       }));
     } else {
       this.setState(() => ({ error: '' }));
@@ -80,7 +81,7 @@ export class CustomerForm extends React.Component {
   onSubmit = e => {
     e.preventDefault();
 
-    if (!this.state.nome || !this.state.cognome) {
+    if (!this.state.cognome) {
       this.setState(() => ({ error: 'Inserisci nome e cognome.' }));
     } else {
       this.setState(() => ({ error: '' }));
@@ -113,7 +114,18 @@ export class CustomerForm extends React.Component {
   render() {
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.state.error && <p className='form__error'>{this.state.error}</p>}
+        {this.state.error && (
+          <div>
+            <p className='form__error'>{this.state.error}</p>
+            <Link
+              to={`customer/`}
+              target='_blank'
+              className='button button--secondary-clienti'
+            >
+              Verifica
+            </Link>
+          </div>
+        )}
         Cliente di:
         <select
           name='consulenteVenditaId'
@@ -133,7 +145,7 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           autoFocus
-          placeholder='Titolo'
+          placeholder='Herr, Frau'
           value={this.state.titolo}
           onChange={this.changeHandler}
         />
@@ -154,6 +166,24 @@ export class CustomerForm extends React.Component {
           placeholder='Cognome'
           value={this.state.cognome}
           onChange={this.changeHandlerValidate}
+        />
+        Email:
+        <input
+          name='email'
+          className={`text-input ${this.state.error && 'form__error'}`}
+          type='text'
+          placeholder='indirizzo email'
+          value={this.state.email}
+          onChange={this.changeHandlerValidate}
+        />
+        Telefono:
+        <input
+          name='telefono1'
+          className={`text-input`}
+          type='text'
+          placeholder='Numero di telefono'
+          value={this.state.telefono1}
+          onChange={this.changeHandler}
         />
         Data di Nascita:
         <SingleDatePicker
@@ -244,24 +274,6 @@ export class CustomerForm extends React.Component {
           type='text'
           placeholder='Lingua'
           value={this.state.lingua}
-          onChange={this.changeHandler}
-        />
-        Email:
-        <input
-          name='email'
-          className={`text-input ${this.state.error && 'form__error'}`}
-          type='text'
-          placeholder='indirizzo email'
-          value={this.state.email}
-          onChange={this.changeHandlerValidate}
-        />
-        Telefono:
-        <input
-          name='telefono1'
-          className={`text-input`}
-          type='text'
-          placeholder='Numero di telefono'
-          value={this.state.telefono1}
           onChange={this.changeHandler}
         />
         Banca:

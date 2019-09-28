@@ -1,37 +1,40 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { setClienteFilter } from '../../actions/filters'
+import React from 'react';
+import { connect } from 'react-redux';
+import { setClienteFilter } from '../../actions/filters';
 
 export class ClientiListFilters extends React.Component {
+  onClienteChange = e => {
+    this.props.setClienteFilter(e.target.value);
+  };
 
-    onClienteChange = (e) => {
-        this.props.setClienteFilter(e.target.value)
-    }
-
-    render() {
-        return (
-            <div className="content-container">
-                <div className="input-group">
-                    <div className="input-group__item">
-                        <input
-                            type="text"
-                            className="text-input"
-                            placeholder="Cerca Cliente"
-                            value={this.props.filters.cliente}
-                            onChange={this.onClienteChange} />
-                    </div>
-                </div>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className='content-container'>
+        <div className='input-group'>
+          <div className='input-group__item'>
+            <input
+              type='text'
+              className='text-input'
+              placeholder='Cerca Cliente'
+              value={this.props.filters.cliente}
+              onChange={this.onClienteChange}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = (state) => ({
-    filters: state.filters
-})
+const mapStateToProps = state => ({
+  filters: state.filters
+});
 
-const mapDispatchToProps = (dispatch) => ({
-    setClienteFilter: (cliente) => dispatch(setClienteFilter(cliente))
-})
+const mapDispatchToProps = dispatch => ({
+  setClienteFilter: cliente => dispatch(setClienteFilter(cliente))
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClientiListFilters)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ClientiListFilters);

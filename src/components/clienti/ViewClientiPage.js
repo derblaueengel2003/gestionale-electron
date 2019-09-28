@@ -52,7 +52,7 @@ export class ViewClientiPage extends React.Component {
             <div className='list-item'>
               <div>
                 {ditta.length > 0 && <h3>{ditta}</h3>}
-                {nome.length > 0 && (
+                {cognome.length > 0 && (
                   <h3>
                     {titolo} {nome} {cognome}
                   </h3>

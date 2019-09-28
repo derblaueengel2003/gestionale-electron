@@ -60,6 +60,7 @@ const AppRouter = ({ uid }) => {
           <PrivateRoute path='/customerview/:id' component={ViewClientiPage} />
           <PrivateRoute path='/users' component={UtentiDashboardPage} />
           <PrivateRoute path='/customer' component={ClientiDashboardPage} />
+
           <PrivateRoute path='/oggetti' component={OggettiDashboardPage} />
           <PrivateRoute path='/oggettocreate' component={AddOggettoPage} />
           <PrivateRoute path='/oggettoview/:id' component={ViewOggettiPage} />
