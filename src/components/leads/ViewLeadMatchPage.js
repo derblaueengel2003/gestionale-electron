@@ -61,51 +61,56 @@ export class ViewLeadMatchPage extends React.Component {
     );
 
     return (
-      <div className='content-container'>
+      <div>
         <div className='page-header'>
-          <div>
+          <div className='content-container'>
             <h1 className='page-header__title'>
               Match con i nostri immobili: {this.primoMatch().length}
             </h1>
             <h1 className='page-header__title'>
               Match con gli immobili Accentro: {this.secondoMatch().length}
             </h1>
+            <span>
+              La corrispondenza si basa sul budget (+-20%) e sulla tipologia
+              dell'immobile
+            </span>
           </div>
-          La corrispondenza si basa sul budget (+-20%) e sulla tipologia
-          dell'immobile
         </div>
-        <div className='list-header list-header-leads'>
+
+        <div className='content-container'>
+          <div className='list-header list-header-leads'>
+            <div>
+              {cliente ? cliente.nome : this.props.lead.leadNome}{' '}
+              {cliente && cliente.cognome}
+            </div>
+            <div>
+              <a
+                href={`mailto:${
+                  cliente ? cliente.email : this.props.lead.leadEmail
+                }`}
+              >
+                {cliente ? cliente.email : this.props.lead.leadEmail}
+              </a>
+            </div>
+          </div>
+          {this.primoMatch().length > 0 && (
+            <div className='list-header'>
+              <div className='show-for-mobile'>Immobili m2Square</div>
+              <div className='show-for-desktop'>Immobili m2Square</div>
+              <div className='show-for-desktop'>Rif.ID</div>{' '}
+            </div>
+          )}
           <div>
-            {cliente ? cliente.nome : this.props.lead.leadNome}{' '}
-            {cliente && cliente.cognome}
+            {this.primoMatch().map(ogg => {
+              return <OggettiListItem key={ogg.id} {...ogg} />;
+            })}
           </div>
+          <div className='list-header'>Immobili di Accentro</div>
           <div>
-            <a
-              href={`mailto:${
-                cliente ? cliente.email : this.props.lead.leadEmail
-              }`}
-            >
-              {cliente ? cliente.email : this.props.lead.leadEmail}
-            </a>
+            {this.secondoMatch().map(ogg => {
+              return <AccentroListItem key={ogg.id} {...ogg} />;
+            })}
           </div>
-        </div>
-        {this.primoMatch().length > 0 && (
-          <div className='list-header'>
-            <div className='show-for-mobile'>Immobili m2Square</div>
-            <div className='show-for-desktop'>Immobili m2Square</div>
-            <div className='show-for-desktop'>Rif.ID</div>{' '}
-          </div>
-        )}
-        <div>
-          {this.primoMatch().map(ogg => {
-            return <OggettiListItem key={ogg.id} {...ogg} />;
-          })}
-        </div>
-        <div className='list-header'>Immobili di Accentro</div>
-        <div>
-          {this.secondoMatch().map(ogg => {
-            return <AccentroListItem key={ogg.id} {...ogg} />;
-          })}
         </div>
       </div>
     );
