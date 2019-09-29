@@ -14,16 +14,18 @@ export class DealForm extends React.Component {
     this.state = {
       oggettoId: props.deal ? props.deal.oggettoId : '',
       prezzoDiVendita: props.deal
-        ? (props.deal.prezzoDiVendita / 100).toString()
+        ? (props.deal.prezzoDiVendita / 100).toString().replace(/\./, ',')
         : '0',
-      amount: props.deal ? (props.deal.amount / 100).toString() : '',
+      amount: props.deal
+        ? (props.deal.amount / 100).toString().replace(/\./, ',')
+        : '',
       consulenteVendita: props.deal ? props.deal.consulenteVendita : '',
       provvM2square: props.deal
-        ? (props.deal.provvM2square / 100).toString()
+        ? (props.deal.provvM2square / 100).toString().replace(/\./, ',')
         : '',
       dealType: props.deal ? props.deal.dealType : '',
       provvStefano: props.deal
-        ? (props.deal.provvStefano / 100).toString()
+        ? (props.deal.provvStefano / 100).toString().replace(/\./, ',')
         : '',
       payedStefano: props.deal ? props.deal.payedStefano : false,
       payedAtStefano: props.deal
@@ -32,7 +34,7 @@ export class DealForm extends React.Component {
       calendarPayedAtStefanoFocused: false,
       agenziaPartnerId: props.deal ? props.deal.agenziaPartnerId : '',
       provvAgenziaPartner: props.deal
-        ? (props.deal.provvAgenziaPartner / 100).toString()
+        ? (props.deal.provvAgenziaPartner / 100).toString().replace(/\./, ',')
         : '0',
       payedAgenziaPartner: props.deal ? props.deal.payedAgenziaPartner : false,
       createdAt: props.deal
@@ -138,7 +140,7 @@ export class DealForm extends React.Component {
   changeHandlerValuta = e => {
     const name = e.target.name;
     const value = e.target.value;
-    if (!value || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    if (!value || value.match(/^\d{1,}(,\d{0,2})?$/)) {
       this.setState(() => ({
         [name]: value,
         modificato: { ...this.state.modificato, [name]: 'modificato' }
@@ -147,12 +149,15 @@ export class DealForm extends React.Component {
   };
   onSubmit = e => {
     e.preventDefault();
-    const prezzoDiVendita = parseFloat(this.state.prezzoDiVendita, 10) * 100;
-    const amount = parseFloat(this.state.amount, 10) * 100;
-    const provvM2square = parseFloat(this.state.provvM2square, 10) * 100;
-    const provvStefano = parseFloat(this.state.provvStefano, 10) * 100;
+    const prezzoDiVendita =
+      parseFloat(this.state.prezzoDiVendita.replace(/,/, '.'), 10) * 100;
+    const amount = parseFloat(this.state.amount.replace(/,/, '.'), 10) * 100;
+    const provvM2square =
+      parseFloat(this.state.provvM2square.replace(/,/, '.'), 10) * 100;
+    const provvStefano =
+      parseFloat(this.state.provvStefano.replace(/,/, '.'), 10) * 100;
     const provvAgenziaPartner =
-      parseFloat(this.state.provvAgenziaPartner, 10) * 100;
+      parseFloat(this.state.provvAgenziaPartner.replace(/,/, '.'), 10) * 100;
     const provvSum = provvM2square + provvStefano + provvAgenziaPartner;
 
     if (
@@ -286,8 +291,10 @@ export class DealForm extends React.Component {
           name='amount'
           className={`text-input text-input--${this.state.modificato.amount}`}
           type='text'
-          placeholder={`6%: ${parseFloat(this.state.prezzoDiVendita, 10) *
-            0.06}`}
+          placeholder={`6%: ${parseFloat(
+            this.state.prezzoDiVendita.replace(/,/, '.'),
+            10
+          ) * 0.06}`}
           value={this.state.amount}
           onChange={this.changeHandlerValuta}
         />
@@ -304,7 +311,8 @@ export class DealForm extends React.Component {
           className={`text-input text-input--${this.state.modificato.provvM2square}`}
           type='text'
           placeholder={`80%: ${parseFloat(
-            this.state.amount - this.state.provvAgenziaPartner,
+            this.state.amount.replace(/,/, '.') -
+              this.state.provvAgenziaPartner.replace(/,/, '.'),
             10
           ) * 0.8}`}
           value={this.state.provvM2square}
@@ -316,7 +324,8 @@ export class DealForm extends React.Component {
           className={`text-input text-input--${this.state.modificato.provvStefano}`}
           type='text'
           placeholder={`20%: ${parseFloat(
-            this.state.amount - this.state.provvAgenziaPartner,
+            this.state.amount.replace(/,/, '.') -
+              this.state.provvAgenziaPartner.replace(/,/, '.'),
             10
           ) * 0.2}`}
           value={this.state.provvStefano}

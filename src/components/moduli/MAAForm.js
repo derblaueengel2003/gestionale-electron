@@ -41,14 +41,14 @@ export class MAAForm extends React.Component {
   onPrezzoDiVenditaChange = e => {
     const prezzoDiVendita = e.target.value;
 
-    if (!prezzoDiVendita || prezzoDiVendita.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    if (!prezzoDiVendita || prezzoDiVendita.match(/^\d{1,}(,\d{0,2})?$/)) {
       this.setState(() => ({ prezzoDiVendita }));
     }
   };
   onPrezzoDiVenditaChange2 = e => {
     const prezzoDiVendita2 = e.target.value;
 
-    if (!prezzoDiVendita2 || prezzoDiVendita2.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    if (!prezzoDiVendita2 || prezzoDiVendita2.match(/^\d{1,}(,\d{0,2})?$/)) {
       this.setState(() => ({ prezzoDiVendita2 }));
     }
   };

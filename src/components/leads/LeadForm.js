@@ -28,7 +28,7 @@ export class LeadForm extends React.Component {
   };
   onBudgetChange = e => {
     const leadBudget = e.target.value;
-    if (!leadBudget || leadBudget.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    if (!leadBudget || leadBudget.match(/^\d{1,}(,\d{0,2})?$/)) {
       this.setState(() => ({ leadBudget }));
     }
   };

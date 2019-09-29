@@ -23,12 +23,14 @@ export class OggettoForm extends React.Component {
       piano: props.oggetto ? props.oggetto.piano : '',
       mobilio: props.oggetto ? props.oggetto.mobilio : '',
       stato: props.oggetto ? props.oggetto.stato : '',
-      wohngeld: props.oggetto ? (props.oggetto.wohngeld / 100).toString() : '0',
+      wohngeld: props.oggetto
+        ? (props.oggetto.wohngeld / 100).toString().replace(/\./, ',')
+        : '0',
       kaufpreis: props.oggetto
-        ? (props.oggetto.kaufpreis / 100).toString()
+        ? (props.oggetto.kaufpreis / 100).toString().replace(/\./, ',')
         : '0',
       affittoNetto: props.oggetto
-        ? (props.oggetto.affittoNetto / 100).toString()
+        ? (props.oggetto.affittoNetto / 100).toString().replace(/\./, ',')
         : '0',
       verwalter: props.oggetto ? props.oggetto.verwalter : '',
       ruecklage: props.oggetto ? props.oggetto.ruecklage : '',
@@ -43,8 +45,9 @@ export class OggettoForm extends React.Component {
   };
   onMoneyChange = e => {
     const name = e.target.name;
-    const value = e.target.value;
-    if (!value || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    let value = e.target.value;
+    value ? value : (value = '0');
+    if (!value || value.match(/^\d{1,}(,\d{0,2})?$/)) {
       this.setState({ [name]: value });
     }
   };
@@ -62,9 +65,12 @@ export class OggettoForm extends React.Component {
   };
   onSubmit = e => {
     e.preventDefault();
-    const wohngeld = parseFloat(this.state.wohngeld, 10) * 100;
-    const affittoNetto = parseFloat(this.state.affittoNetto, 10) * 100;
-    const kaufpreis = parseFloat(this.state.kaufpreis, 10) * 100;
+    const wohngeld =
+      parseFloat(this.state.wohngeld.replace(/,/, '.'), 10) * 100;
+    const affittoNetto =
+      parseFloat(this.state.affittoNetto.replace(/,/, '.'), 10) * 100;
+    const kaufpreis =
+      parseFloat(this.state.kaufpreis.replace(/,/, '.'), 10) * 100;
 
     if (!this.state.via || !this.state.rifId) {
       this.setState(() => ({ error: 'Inserisci via e riferimento Id.' }));

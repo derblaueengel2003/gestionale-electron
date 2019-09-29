@@ -56,7 +56,7 @@ export class ViewOggettiPage extends React.Component {
                   {this.props.oggetto.stato.length > 0 && (
                     <div>{`Status: ${this.props.oggetto.stato}`}</div>
                   )}
-                  {this.props.oggetto.stato === 'vermietet' && (
+                  {this.props.oggetto.affittoNetto > 0 && (
                     <div>{`Kaltmiete: ${numeral(
                       this.props.oggetto.affittoNetto / 100
                     ).format('0,0[.]00 $')}`}</div>
