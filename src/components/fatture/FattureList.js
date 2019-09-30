@@ -47,7 +47,7 @@ export const FattureList = props => {
       <div className='content-container'>
         <div className='page-header__actions'>
           <Link
-            className='button button--secondary-fatture button--secondary-fatture-add'
+            className='button button--secondary-fatture button-add'
             to='/fatturacreate'
           >
             +

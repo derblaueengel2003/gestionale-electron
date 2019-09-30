@@ -10,6 +10,12 @@
   border-radius: 5px;
   margin-bottom: 3rem;
   margin-right: 1rem;
+
+  &-add {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: $font-size-xlarge;
+  }
 }
 
 .button--link {
@@ -25,9 +31,11 @@
     rgba($light-green, 0.85)
   );
 
-  &-add {
-    margin-bottom: 0;
-  }
+  // &-add {
+  //   margin-bottom: 1rem;
+  //   font-weight: 600;
+  //   font-size: $font-size-xlarge;
+  // }
 }
 
 .button--secondary-leads {
@@ -37,9 +45,9 @@
     rgba($light-orange, 0.85)
   );
 
-  &-add {
-    margin-bottom: 0;
-  }
+  // &-add {
+  //   margin-bottom: 0;
+  // }
 }
 
 .button--secondary-modulistica {
@@ -57,9 +65,9 @@
     rgba($light-purple, 0.85)
   );
 
-  &-add {
-    margin-bottom: 0;
-  }
+  // &-add {
+  //   margin-bottom: 0;
+  // }
 }
 
 .button--secondary-clienti,
@@ -70,9 +78,9 @@
     rgba($light-blue, 0.85)
   );
 
-  &-add {
-    margin-bottom: 0;
-  }
+  // &-add {
+  //   margin-bottom: 0;
+  // }
 }
 
 .button--secondary-fatture {
@@ -82,9 +90,9 @@
     rgba($light-green, 0.85)
   );
 
-  &-add {
-    margin-bottom: 0;
-  }
+  // &-add {
+  //   margin-bottom: 0;
+  // }
 }
 
 .button--secondary-delete {

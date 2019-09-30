@@ -21,7 +21,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
       <div className='content-container'>
         <div className='page-header__actions'>
           <Link
-            className='button button--secondary-clienti button--secondary-clienti-add'
+            className='button button--secondary-clienti button-add'
             to='/customercreate'
           >
             +

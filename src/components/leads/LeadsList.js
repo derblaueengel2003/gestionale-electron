@@ -27,7 +27,7 @@ export const LeadsList = props => {
     return (
       <div className='content-container'>
         <Link
-          className='button button--secondary-leads button--secondary-leads-add'
+          className='button button--secondary-leads button-add'
           to='/leadscreate'
         >
           +

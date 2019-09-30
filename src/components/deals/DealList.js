@@ -62,18 +62,12 @@ export const DealList = ({
     return (
       <div className='content-container'>
         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
-          <Link
-            className='button button--secondary button--secondary-add'
-            to='/create'
-          >
+          <Link className='button button--secondary button-add' to='/create'>
             +
           </Link>
         )}
         {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-          <Link
-            className='button button--secondary button--secondary-add'
-            to='/create'
-          >
+          <Link className='button button--secondary button-add' to='/create'>
             +
           </Link>
         )}
