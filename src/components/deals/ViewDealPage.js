@@ -6,6 +6,7 @@ import numeral from 'numeral';
 import { creaPrenotazione } from '../moduli/Provisionsbestaetigung';
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung';
 import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag';
+import { protocollo } from '../moduli/UebergabeProtokoll';
 import TodoForm from './TodoForm';
 import FattureList from '../fatture/FattureList';
 import ClientiList from '../clienti/ClientiList';
@@ -17,6 +18,7 @@ export class ViewDealPage extends React.Component {
       prezzoDiVendita,
       createdAt,
       dataRogito,
+      dataConsegna,
       note,
       amount,
       consulenteVendita,
@@ -258,6 +260,20 @@ export class ViewDealPage extends React.Component {
           >
             Notar Datenblatt
           </Link>
+          <button
+            className='print button button--secondary'
+            onClick={() => {
+              protocollo(
+                acquirente,
+                acquirente2,
+                venditore,
+                venditore2,
+                oggetto
+              );
+            }}
+          >
+            Übergabeprotokoll
+          </button>
         </div>
         <TodoForm dealId={id} />
         {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||

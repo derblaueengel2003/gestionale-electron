@@ -50,6 +50,10 @@ export class DealForm extends React.Component {
         ? props.deal.dataRogito && moment(props.deal.dataRogito)
         : null,
       calendarDataRogitoFocused: false,
+      dataConsegna: props.deal
+        ? props.deal.dataConsegna && moment(props.deal.dataConsegna)
+        : null,
+      calendarDataConsegnaFocused: false,
       linguaRogito: props.deal ? props.deal.linguaRogito : '',
       belastungsVollmacht: props.deal ? props.deal.belastungsVollmacht : false,
       note: props.deal ? props.deal.note : '',
@@ -121,7 +125,6 @@ export class DealForm extends React.Component {
   };
   onDataRogitoChange = dataRogito => {
     if (dataRogito) {
-      console.log(dataRogito);
       this.setState(() => ({ dataRogito }));
     } else {
       this.setState(() => ({ dataRogito: null }));
@@ -129,6 +132,16 @@ export class DealForm extends React.Component {
   };
   onFocusDataRogitoChange = ({ focused }) => {
     this.setState(() => ({ calendarDataRogitoFocused: focused }));
+  };
+  onDataConsegnaChange = dataConsegna => {
+    if (dataConsegna) {
+      this.setState(() => ({ dataConsegna }));
+    } else {
+      this.setState(() => ({ dataConsegna: null }));
+    }
+  };
+  onFocusDataConsegnaChange = ({ focused }) => {
+    this.setState(() => ({ calendarDataConsegnaFocused: focused }));
   };
 
   //Nuovi change Handler
@@ -198,6 +211,9 @@ export class DealForm extends React.Component {
         notaioId: this.state.notaioId,
         dataRogito: this.state.dataRogito
           ? this.state.dataRogito.valueOf()
+          : null,
+        dataConsegna: this.state.dataConsegna
+          ? this.state.dataConsegna.valueOf()
           : null,
         linguaRogito: this.state.linguaRogito,
         belastungsVollmacht: this.state.belastungsVollmacht,
@@ -457,6 +473,16 @@ export class DealForm extends React.Component {
             }}
           />
         </label>
+        Data Übergabe:
+        <SingleDatePicker
+          date={this.state.dataConsegna}
+          onDateChange={this.onDataConsegnaChange}
+          focused={this.state.calendarDataConsegnaFocused}
+          onFocusChange={this.onFocusDataConsegnaChange}
+          numberOfMonths={1}
+          isOutsideRange={() => false}
+          showClearDate={true}
+        />
         <textarea
           name='note'
           className={`textarea text-input--${this.state.modificato.note}`}
