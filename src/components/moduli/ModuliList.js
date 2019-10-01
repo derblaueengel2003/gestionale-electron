@@ -160,7 +160,7 @@ const ModuliPage = () => (
         </a>
       </div>
       <div className='list-item'>
-        <a href='./files/Übergabeprotokoll.pdf' download>
+        <a href='./files/Uebergabeprotokoll.doc' download>
           Übergabe-Protokoll Verkauf
         </a>
       </div>
