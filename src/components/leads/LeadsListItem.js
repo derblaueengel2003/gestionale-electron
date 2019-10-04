@@ -80,6 +80,22 @@ export class LeadsListItem extends React.Component {
           >
             Find a Match!
           </Link>
+          {!cliente && (
+            <Link
+              className='button button--secondary-clienti'
+              to={{
+                pathname: `/customercreate`,
+                state: {
+                  nome: this.props.leadNome.split(' ')[0],
+                  cognome: this.props.leadNome.split(' ')[1],
+                  email: this.props.leadEmail,
+                  telefono1: this.props.telefono1
+                }
+              }}
+            >
+              add cliente
+            </Link>
+          )}
           <a
             className='button button--secondary-email'
             href={`mailto:${cliente ? cliente.email : this.props.leadEmail}`}
