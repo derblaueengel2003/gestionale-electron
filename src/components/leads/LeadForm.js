@@ -93,7 +93,10 @@ export class LeadForm extends React.Component {
         />
         {!this.state.leadId && (
           <div className='page-header__actions'>
-            <Link className='button' to='/customercreate'>
+            <Link
+              className='button button--secondary-clienti'
+              to='/customercreate'
+            >
               Aggiungi nuovo cliente
             </Link>
           </div>
