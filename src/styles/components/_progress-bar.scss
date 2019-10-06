@@ -11,11 +11,12 @@
 }
 
 .filler {
-  background: linear-gradient(
-    to right,
-    rgba($light-green, 0.85),
-    rgba($dark-green, 0.85)
-  );
+  // background: linear-gradient(
+  //   to right,
+  //   rgba($light-green, 0.85),
+  //   rgba($dark-green, 0.85)
+  // );
+  background: $light-grey;
   height: 100%;
   border-radius: inherit;
   transition: width 0.2s ease-in;

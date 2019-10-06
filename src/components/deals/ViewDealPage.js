@@ -132,7 +132,7 @@ export class ViewDealPage extends React.Component {
                 uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
                   ? provvM2square > 0 && (
                       <h4
-                        className={`list-item__sub-title list-item list-item--paid${payed}`}
+                        className={`list-item__sub-title list-item--paid${payed}`}
                       >
                         m2Square:{' '}
                         {numeral(provvM2square / 100).format('0,0[.]00 $')}

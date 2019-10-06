@@ -52,11 +52,12 @@
   transition: background 0.3s ease;
 
   &--todo {
-    background: linear-gradient(
-      to right,
-      rgba($light-green, 0.85),
-      rgba(white, 1)
-    );
+    // background: linear-gradient(
+    //   to right,
+    //   rgba($light-green, 0.85),
+    //   rgba(white, 1)
+    // );
+    color: $dark-green;
   }
 
   &:hover {
@@ -99,14 +100,15 @@
 }
 
 .list-item--paid {
-  background: linear-gradient(
-    to bottom,
-    rgba($light-green, 0.85),
-    rgba($off-white, 0.85)
-  );
-  &:hover {
-    background: darken($light-green, 7);
-  }
+  // background: linear-gradient(
+  //   to bottom,
+  //   rgba($light-green, 0.85),
+  //   rgba($off-white, 0.85)
+  // );
+  // &:hover {
+  //   background: darken($light-green, 7);
+  // }
+  color: $dark-green;
 }
 .list-item--paid0 {
 }
@@ -115,14 +117,16 @@
   &:hover {
     background: darken($light-yellow, 7);
   }
+  color: $dark-green;
 }
 .list-item--paid2 {
-  background: linear-gradient(
-    to bottom,
-    rgba($light-green, 0.85),
-    rgba($off-white, 0.85)
-  );
-  &:hover {
-    background: darken($light-green, 7);
-  }
+  // background: linear-gradient(
+  //   to bottom,
+  //   rgba($light-green, 0.85),
+  //   rgba($off-white, 0.85)
+  // );
+  // &:hover {
+  //   background: darken($light-green, 7);
+  // }
+  color: $dark-green;
 }

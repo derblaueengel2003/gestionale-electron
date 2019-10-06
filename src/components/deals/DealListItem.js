@@ -93,14 +93,7 @@ const DealListItem = ({
   }
   return (
     <div>
-      <Link
-        className={
-          uid === 'pCu3H2GQfPWQxMNGwIVTc0Ag0fg1'
-            ? `list-item ${payedStefano && 'list-item--paid'}`
-            : `list-item list-item--paid${payed}`
-        }
-        to={`/view/${id}`}
-      >
+      <Link className='list-item' to={`/view/${id}`}>
         <div>
           <h3 className='list-item__title'>{`Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</h3>
           <span className='list-item__sub-title'>
@@ -129,11 +122,13 @@ const DealListItem = ({
         </div>
         <div>
           {uid === 'pCu3H2GQfPWQxMNGwIVTc0Ag0fg1' ? (
-            <h3 className='list-item__data'>
+            <h3
+              className={`list-item__data ${payedStefano && 'list-item--paid'}`}
+            >
               {numeral(provvStefano / 100).format('0,0[.]00 $')}
             </h3>
           ) : (
-            <h3 className='list-item__data'>
+            <h3 className={`list-item__data  list-item--paid${payed}`}>
               {numeral(provvM2square / 100).format('0,0[.]00 $')}
             </h3>
           )}
