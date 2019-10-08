@@ -17,6 +17,15 @@ export class EditOggettoPage extends React.Component {
       this.props.history.push('/oggetti');
     }
   };
+  onDisable = () => {
+    if (window.confirm('Confermi la cancellazione?')) {
+      this.props.startEditOggetto(this.props.oggetto.id, {
+        ...this.props.oggetto,
+        visible: false
+      });
+      this.props.history.push('/oggetti');
+    }
+  };
   render() {
     return (
       <div>
@@ -29,7 +38,12 @@ export class EditOggettoPage extends React.Component {
           <OggettoForm oggetto={this.props.oggetto} onSubmit={this.onSubmit} />
           <button
             className='button button--secondary-delete'
-            onClick={this.onRemove}
+            onClick={
+              this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
+              this.props.uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
+                ? this.onRemove
+                : this.onDisable
+            }
           >
             Cancella oggetto
           </button>

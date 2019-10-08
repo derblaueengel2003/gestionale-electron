@@ -35,7 +35,7 @@ export class CustomerForm extends React.Component {
       iban: props.customer ? props.customer.iban : '',
       bic: props.customer ? props.customer.bic : '',
       note: props.customer ? props.customer.note : '',
-
+      visible: props.customer ? props.customer.visible : true,
       error: ''
     };
   }
@@ -107,6 +107,8 @@ export class CustomerForm extends React.Component {
         bank: this.state.bank,
         iban: this.state.iban,
         bic: this.state.bic,
+        visible: this.state.visible,
+
         note: this.state.note
       });
     }
@@ -313,6 +315,24 @@ export class CustomerForm extends React.Component {
           value={this.state.note}
           onChange={this.changeHandler}
         ></textarea>
+        {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
+        this.props.uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' ? (
+          <label>
+            Visible&nbsp;
+            <input
+              type='checkbox'
+              name='visible'
+              checked={this.state.visible}
+              onChange={() => {
+                this.setState(() => ({
+                  visible: !this.state.visible
+                }));
+              }}
+            />
+          </label>
+        ) : (
+          ''
+        )}
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
         <div>
           <button className='button button--secondary-clienti'>Salva</button>
@@ -324,7 +344,8 @@ export class CustomerForm extends React.Component {
 
 const mapStateToProps = state => ({
   utenti: state.utenti,
-  clienti: state.clienti
+  clienti: state.clienti,
+  uid: state.auth.uid
 });
 
 export default connect(mapStateToProps)(CustomerForm);
