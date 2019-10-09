@@ -28,6 +28,7 @@ export const startAddCustomer = (customerData = {}) => {
       bic = '',
       dataDiNascita = null,
       lingua = '',
+      visible = true,
       note = ''
     } = customerData;
     const customer = {
@@ -50,6 +51,7 @@ export const startAddCustomer = (customerData = {}) => {
       bic,
       dataDiNascita,
       lingua,
+      visible,
       note
     };
 
