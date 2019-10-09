@@ -54,7 +54,8 @@ export class EditOggettoPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  oggetto: state.oggetti.find(oggetto => oggetto.id === props.match.params.id)
+  oggetto: state.oggetti.find(oggetto => oggetto.id === props.match.params.id),
+  uid: state.auth.uid
 });
 
 const mapDispatchToProps = dispatch => ({
