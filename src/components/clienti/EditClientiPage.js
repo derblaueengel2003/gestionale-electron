@@ -16,14 +16,6 @@ export class EditClientePage extends React.Component {
       this.props.history.push('/customer');
     }
   };
-<<<<<<< HEAD
-  //Funzione per non mostrare i clienti se a cancellare sono i non admin
-  //in pratica edito il clinete impostando la proprietà visible su false
-  onDisable = () => {
-    this.props.startEditCustomer(this.props.cliente.id, cliente, 0);
-    this.props.history.push('/customer');
-  };
-=======
   onDisable = () => {
     if (window.confirm('Confermi la cancellazione?')) {
       this.props.startEditCustomer(this.props.cliente.id, {
@@ -34,7 +26,6 @@ export class EditClientePage extends React.Component {
     }
   };
 
->>>>>>> 4297522a215e839b636e06440fe0239b41d60ca6
   render() {
     return (
       <div>
