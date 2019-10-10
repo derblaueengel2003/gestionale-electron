@@ -16,12 +16,16 @@ export class EditClientePage extends React.Component {
       this.props.history.push('/customer');
     }
   };
-  //Funzione per non mostrare i clienti se a cancellare sono i non admin
-  //in pratica edito il clinete impostando la proprietà visible su false
   onDisable = () => {
-    this.props.startEditCustomer(this.props.cliente.id, cliente, 0);
-    this.props.history.push('/customer');
+    if (window.confirm('Confermi la cancellazione?')) {
+      this.props.startEditCustomer(this.props.cliente.id, {
+        ...this.props.cliente,
+        visible: false
+      });
+      this.props.history.push('/customer');
+    }
   };
+
   render() {
     return (
       <div>
@@ -37,7 +41,12 @@ export class EditClientePage extends React.Component {
           />
           <button
             className='button button--secondary-delete'
-            onClick={this.onRemove}
+            onClick={
+              this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
+              this.props.uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
+                ? this.onRemove
+                : this.onDisable
+            }
           >
             Cancella cliente
           </button>
@@ -48,11 +57,13 @@ export class EditClientePage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  cliente: state.clienti.find(cliente => cliente.id === props.match.params.id)
+  cliente: state.clienti.find(cliente => cliente.id === props.match.params.id),
+  uid: state.auth.uid
 });
 
 const mapDispatchToProps = dispatch => ({
-  startEditCustomer: (id, cliente) => dispatch(startEditCustomer(id, cliente)),
+  startEditCustomer: (id, cliente, visible) =>
+    dispatch(startEditCustomer(id, cliente, visible)),
   startRemoveCustomer: data => dispatch(startRemoveCustomer(data))
 });
 

@@ -1,0 +1,26 @@
+.show-for-mobile {
+  @media (min-width: $desktop-breakpoint) {
+    display: none;
+  }
+}
+
+.show-for-desktop {
+  @media (max-width: $desktop-breakpoint - 0.01rem) {
+    display: none;
+  }
+}
+
+.visible-false {
+  display: none;
+}
+
+.show-textarea {
+  white-space: pre-wrap;
+  border: none;
+  font-family: Arial, sans-serif;
+  line-height: normal;
+}
+
+.disabled {
+  background: $light-red;
+}
