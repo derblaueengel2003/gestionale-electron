@@ -35,7 +35,8 @@ export class OggettoForm extends React.Component {
       verwalter: props.oggetto ? props.oggetto.verwalter : '',
       ruecklage: props.oggetto ? props.oggetto.ruecklage : '',
       proprietarioId: props.oggetto ? props.oggetto.proprietarioId : '',
-      proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : ''
+      proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : '',
+      visible: props.oggetto ? props.oggetto.visible : true
     };
   }
   changeHandler = e => {
@@ -96,7 +97,8 @@ export class OggettoForm extends React.Component {
         verwalter: this.state.verwalter,
         ruecklage: this.state.ruecklage,
         proprietarioId: this.state.proprietarioId,
-        proprietarioId2: this.state.proprietarioId2
+        proprietarioId2: this.state.proprietarioId2,
+        visible: this.state.visible
       });
     }
   };
@@ -291,6 +293,24 @@ export class OggettoForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onProprietarioChange2}
         />
+        {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
+        this.props.uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' ? (
+          <label>
+            Visible&nbsp;
+            <input
+              type='checkbox'
+              name='visible'
+              checked={this.state.visible}
+              onChange={() => {
+                this.setState(() => ({
+                  visible: !this.state.visible
+                }));
+              }}
+            />
+          </label>
+        ) : (
+          ''
+        )}
         <div>
           <button className='button button--secondary-oggetti'>Salva</button>
         </div>
@@ -300,7 +320,8 @@ export class OggettoForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  clienti: state.clienti
+  clienti: state.clienti,
+  uid: state.auth.uid
 });
 
 export default connect(mapStateToProps)(OggettoForm);

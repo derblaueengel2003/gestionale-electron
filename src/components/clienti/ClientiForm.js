@@ -107,8 +107,9 @@ export class CustomerForm extends React.Component {
         bank: this.state.bank,
         iban: this.state.iban,
         bic: this.state.bic,
-        note: this.state.note,
-        visible: this.state.visible
+        visible: this.state.visible,
+
+        note: this.state.note
       });
     }
   };
@@ -316,8 +317,8 @@ export class CustomerForm extends React.Component {
         ></textarea>
         {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
         this.props.uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' ? (
-          <div>
-            <label>Visible </label>
+          <label>
+            Visible&nbsp;
             <input
               type='checkbox'
               name='visible'
@@ -328,7 +329,7 @@ export class CustomerForm extends React.Component {
                 }));
               }}
             />
-          </div>
+          </label>
         ) : (
           ''
         )}

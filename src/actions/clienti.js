@@ -28,8 +28,8 @@ export const startAddCustomer = (customerData = {}) => {
       bic = '',
       dataDiNascita = null,
       lingua = '',
-      note = '',
-      visible = true
+      visible = true,
+      note = ''
     } = customerData;
     const customer = {
       nome,
@@ -51,8 +51,8 @@ export const startAddCustomer = (customerData = {}) => {
       bic,
       dataDiNascita,
       lingua,
-      note,
-      visible
+      visible,
+      note
     };
 
     return database
