@@ -10,7 +10,7 @@ export const delegaDocumenti = (cliente, cliente2, oggetto) => {
     cliente2 &&
     `${cliente2.cap} ${cliente2.comune}, ${cliente2.indirizzo}, ${cliente2.nazione}`;
 
-  const indirizzo = `${oggetto.cap} ${oggetto.citta},${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`;
+  const indirizzo = `${oggetto.cap} ${oggetto.citta}, ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`;
 
   let corpoFattura;
   if (cliente2) {
