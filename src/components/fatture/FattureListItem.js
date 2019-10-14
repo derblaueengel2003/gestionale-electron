@@ -11,11 +11,13 @@ const FattureListItem = ({
   payed,
   id
 }) => (
-  <Link className={`list-item `} to={`/fatturaview/${id}`}>
+  <div className={`list-item `}>
     <div>
-      <h3
-        className={`list-item__title ${payed && 'list-item--paid'}`}
-      >{`${numeroFattura}`}</h3>
+      <Link to={`/fatturaview/${id}`}>
+        <h3
+          className={`list-item__title ${payed && 'list-item--paid'}`}
+        >{`${numeroFattura}`}</h3>
+      </Link>
       <span className='list-item__title'>
         {oggetto
           ? `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`
@@ -35,7 +37,7 @@ const FattureListItem = ({
         {moment(dataFattura).format('DD MMMM, YYYY')}{' '}
       </h3>
     </div>
-  </Link>
+  </div>
 );
 
 export default FattureListItem;

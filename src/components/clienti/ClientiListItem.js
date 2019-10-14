@@ -19,21 +19,20 @@ export const ClientiListItem = ({
     uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
   ) {
     return (
-      <Link
-        className={visible ? 'list-item' : 'list-item disabled'}
-        to={`/customerview/${id}`}
-      >
+      <div className={visible ? 'list-item' : 'list-item disabled'}>
         <div>
-          <h3 className='list-item__title'>
-            {nome} {cognome}{' '}
-          </h3>
+          <Link to={`/customerview/${id}`}>
+            <h3 className='list-item__title'>
+              {nome} {cognome}{' '}
+            </h3>{' '}
+          </Link>
           <h4 className='list-item__sub-title'>{email}</h4>
           <h4 className='list-item__sub-title'>{telefono1}</h4>
         </div>
         <div>
           <h3 className='list-item__title'>{ditta} </h3>
         </div>
-      </Link>
+      </div>
     );
   } else {
     return <div></div>;

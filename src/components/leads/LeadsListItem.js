@@ -31,41 +31,43 @@ export class LeadsListItem extends React.Component {
     return (
       <div className='row'>
         <div className='col-4-of-6'>
-          <Link className='link-style' to={`/leadview/${this.props.id}`}>
+          <Link to={`/leadview/${this.props.id}`}>
             <h3 className='list-item__title'>
               {cliente ? cliente.nome : `-${this.props.leadNome}`}{' '}
               {cliente && cliente.cognome}
             </h3>
-            <span className='list-item__sub-title'>
-              {consulenteVendita ? `(${consulenteVendita.name})` : null}
-            </span>
+          </Link>
+          <span className='list-item__sub-title'>
+            {consulenteVendita ? `(${consulenteVendita.name})` : null}
+          </span>
+          <div className='list-item__sub-title'>
+            {this.props.leadCreatedAt
+              ? moment(this.props.leadCreatedAt).format('DD MMMM, YYYY')
+              : null}
+          </div>
+          <div className='list-item__sub-title'>
+            {cliente ? cliente.email : this.props.leadEmail}
+          </div>
+          <div className='list-item__sub-title'>
+            {cliente ? cliente.telefono1 : this.props.leadTelefono}
+          </div>
+          <div className='list-item__sub-title'>
+            {this.props.leadOggettoStato ? immobile : null}
+          </div>
+          {/* il prop showAll lo passo per stabilire se mostrare tutto o meno a seconda da dove arriva la richiesta al componente (dashboard o pagina dettaglio)*/}
+          {this.props.showAll ? (
             <div className='list-item__sub-title'>
-              {this.props.leadCreatedAt
-                ? moment(this.props.leadCreatedAt).format('DD MMMM, YYYY')
-                : null}
+              {this.props.leadNote ? this.props.leadNote : null}
             </div>
+          ) : (
             <div className='list-item__sub-title'>
-              {cliente ? cliente.email : this.props.leadEmail}
-            </div>
-            <div className='list-item__sub-title'>
-              {cliente ? cliente.telefono1 : this.props.leadTelefono}
-            </div>
-            <div className='list-item__sub-title'>
-              {this.props.leadOggettoStato ? immobile : null}
-            </div>
-            {/* il prop showAll lo passo per stabilire se mostrare tutto o meno a seconda da dove arriva la richiesta al componente (dashboard o pagina dettaglio)*/}
-            {this.props.showAll ? (
-              <div className='list-item__sub-title'>
-                {this.props.leadNote ? this.props.leadNote : null}
-              </div>
-            ) : (
-              <div className='list-item__sub-title'>
+              <Link to={`/leadview/${this.props.id}`}>
                 {this.props.leadNote ? (
                   <strong>Ulteriori dettagli -></strong>
                 ) : null}
-              </div>
-            )}
-          </Link>
+              </Link>
+            </div>
+          )}
         </div>
 
         <div className='col-1-of-6'>

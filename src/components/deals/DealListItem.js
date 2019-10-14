@@ -92,48 +92,49 @@ const DealListItem = ({
     }
   }
   return (
-    <div>
-      <Link className='list-item' to={`/view/${id}`}>
-        <div>
+    <div className='list-item'>
+      <div>
+        <Link to={`/view/${id}`}>
+          {' '}
           <h3 className='list-item__title'>{`Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</h3>
-          <span className='list-item__sub-title'>
-            {createdAt
-              ? `Prenotazione del ${moment(createdAt).format('DD MMMM, YYYY')}`
-              : null}
-          </span>
-          <h4 className='list-item__sub-title'>
-            {acquirente
-              ? `Acquirente: ${acquirente.nome} ${acquirente.cognome} ${acquirente.ditta}`
-              : ''}{' '}
-            {acquirente2
-              ? `- ${acquirente2.nome} ${acquirente2.cognome} ${acquirente2.ditta}`
-              : ''}
-          </h4>
-          <h4 className='list-item__sub-title'>
-            {venditore
-              ? `Venditore: ${venditore.nome} ${venditore.cognome} ${venditore.ditta}`
-              : ''}{' '}
-            {venditore2
-              ? `- ${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta}`
-              : ''}
-          </h4>
-          {`To-dos completati: ${todoCount} di 11`}
-          <ProgressBar percentage={(todoCount * 100) / 11} />
-        </div>
-        <div>
-          {uid === 'pCu3H2GQfPWQxMNGwIVTc0Ag0fg1' ? (
-            <h3
-              className={`list-item__data ${payedStefano && 'list-item--paid'}`}
-            >
-              {numeral(provvStefano / 100).format('0,0[.]00 $')}
-            </h3>
-          ) : (
-            <h3 className={`list-item__data  list-item--paid${payed}`}>
-              {numeral(provvM2square / 100).format('0,0[.]00 $')}
-            </h3>
-          )}
-        </div>
-      </Link>
+        </Link>
+        <span className='list-item__sub-title'>
+          {createdAt
+            ? `Prenotazione del ${moment(createdAt).format('DD MMMM, YYYY')}`
+            : null}
+        </span>
+        <h4 className='list-item__sub-title'>
+          {acquirente
+            ? `Acquirente: ${acquirente.nome} ${acquirente.cognome} ${acquirente.ditta}`
+            : ''}{' '}
+          {acquirente2
+            ? `- ${acquirente2.nome} ${acquirente2.cognome} ${acquirente2.ditta}`
+            : ''}
+        </h4>
+        <h4 className='list-item__sub-title'>
+          {venditore
+            ? `Venditore: ${venditore.nome} ${venditore.cognome} ${venditore.ditta}`
+            : ''}{' '}
+          {venditore2
+            ? `- ${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta}`
+            : ''}
+        </h4>
+        {`To-dos completati: ${todoCount} di 11`}
+        <ProgressBar percentage={(todoCount * 100) / 11} />
+      </div>
+      <div>
+        {uid === 'pCu3H2GQfPWQxMNGwIVTc0Ag0fg1' ? (
+          <h3
+            className={`list-item__data ${payedStefano && 'list-item--paid'}`}
+          >
+            {numeral(provvStefano / 100).format('0,0[.]00 $')}
+          </h3>
+        ) : (
+          <h3 className={`list-item__data  list-item--paid${payed}`}>
+            {numeral(provvM2square / 100).format('0,0[.]00 $')}
+          </h3>
+        )}
+      </div>
     </div>
   );
 };
