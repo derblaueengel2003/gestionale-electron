@@ -18,7 +18,7 @@ export class AddCustomerPage extends React.Component {
       <div>
         <div className='page-header'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Aggiungi Cliente</h1>
+            <h1 className='page-header__title'>Kontakt hinzufügen</h1>
           </div>
         </div>
         <div className='content-container'>

@@ -74,7 +74,7 @@ export class OggettoForm extends React.Component {
       parseFloat(this.state.kaufpreis.replace(/,/, '.'), 10) * 100;
 
     if (!this.state.via || !this.state.rifId) {
-      this.setState(() => ({ error: 'Inserisci via e riferimento Id.' }));
+      this.setState(() => ({ error: 'Bitte Adresse und Ref.Id eingeben' }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
@@ -113,70 +113,72 @@ export class OggettoForm extends React.Component {
     return (
       <form className='form' onSubmit={this.onSubmit}>
         <div>
-          <button className='button button--secondary-oggetti'>Salva</button>
+          <button className='button button--secondary-oggetti'>
+            Speichern
+          </button>
         </div>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
-        Via:
+        Adresse:
         <input
           name='via'
           className={`text-input`}
           type='text'
-          placeholder='Via'
+          placeholder='Adresse'
           autoFocus
           value={this.state.via}
           onChange={this.changeHandler}
         />
-        Numero Civico:
+        Nr.:
         <input
           name='numeroCivico'
           className={`text-input`}
           type='text'
-          placeholder='Numero Civico'
+          placeholder='Straßennummer'
           value={this.state.numeroCivico}
           onChange={this.changeHandler}
         />
-        CAP:
+        PLZ:
         <input
           name='cap'
           className={`text-input`}
           type='text'
-          placeholder='CAP'
+          placeholder='Postleitzahl'
           value={this.state.cap}
           onChange={this.changeHandler}
         />
-        Città:
+        Stadt:
         <input
           name='citta'
           className={`text-input`}
           type='text'
-          placeholder='Città'
+          placeholder='Stadt'
           value={this.state.citta}
           onChange={this.changeHandler}
         />
-        Nazione:
+        Staat:
         <input
           name='nazione'
           className={`text-input`}
           type='text'
-          placeholder='Nazione'
+          placeholder='Staat'
           value={this.state.nazione}
           onChange={this.changeHandler}
         />
-        Numero Appartamento:
+        Wohnungsnummer:
         <input
           name='numeroAppartamento'
           className={`text-input`}
           type='text'
-          placeholder='WE numero'
+          placeholder='WE Nummer'
           value={this.state.numeroAppartamento}
           onChange={this.changeHandler}
         />
-        Rif. Id:
+        Ref. Id:
         <input
           name='rifId'
           className={`text-input`}
           type='text'
-          placeholder='Rif. Id'
+          placeholder='Ref. Id'
           value={this.state.rifId}
           onChange={this.changeHandler}
         />
@@ -198,7 +200,7 @@ export class OggettoForm extends React.Component {
           value={this.state.grundbuchBlatt}
           onChange={this.changeHandler}
         />
-        Metri quadri:
+        M2:
         <input
           name='m2'
           className={`text-input`}
@@ -207,29 +209,29 @@ export class OggettoForm extends React.Component {
           value={this.state.m2}
           onChange={this.changeHandler}
         />
-        Piano:
+        Etage:
         <input
           name='piano'
           className={`text-input`}
           type='text'
-          placeholder='Piano'
+          placeholder='Etage'
           value={this.state.piano}
           onChange={this.changeHandler}
         />
-        Mobilio:
+        Möbel:
         <textarea
           name='mobilio'
           className={`textarea`}
-          placeholder='Mobilio e valore'
+          placeholder='Möbel und Wert'
           value={this.state.mobilio}
           onChange={this.changeHandler}
         />
-        Stato:
+        Bezug:
         <input
           name='stato'
           className={`text-input`}
           type='text'
-          placeholder='Libero o affittato'
+          placeholder='leerstehend oder vermietet'
           value={this.state.stato}
           onChange={this.changeHandler}
         />
@@ -247,16 +249,16 @@ export class OggettoForm extends React.Component {
           name='ruecklage'
           className={`text-input`}
           type='text'
-          placeholder='Indicare se gesamt o anteilig'
+          placeholder='Gesamt oder anteilig?'
           value={this.state.ruecklage}
           onChange={this.changeHandler}
         />
-        Affitto Netto:
+        Kaltmiete:
         <input
           name='affittoNetto'
           className={`text-input`}
           type='text'
-          placeholder='Affitto netto'
+          placeholder='Kaltmiete'
           value={this.state.affittoNetto}
           onChange={this.onMoneyChange}
         />
@@ -265,11 +267,11 @@ export class OggettoForm extends React.Component {
           name='kaufpreis'
           className={`text-input`}
           type='text'
-          placeholder='Prezzo di Vendita'
+          placeholder='Kaufpreis'
           value={this.state.kaufpreis}
           onChange={this.onMoneyChange}
         />
-        Amministrazione:
+        Hausverwaltung:
         <Select
           name='verwalter'
           value={this.state.verwalter}
@@ -277,7 +279,7 @@ export class OggettoForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onVerwalterChange}
         />
-        Proprietario:
+        Eigentümer:
         <Select
           name='proprietarioId'
           value={this.state.proprietarioId}
@@ -285,7 +287,7 @@ export class OggettoForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onProprietarioChange}
         />
-        2. Proprietario:
+        2. Eigentümer:
         <Select
           name='proprietarioId2'
           value={this.state.proprietarioId2}
@@ -293,8 +295,7 @@ export class OggettoForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onProprietarioChange2}
         />
-        {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-        this.props.uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' ? (
+        {this.props.uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' ? (
           <label>
             Visible&nbsp;
             <input
@@ -312,7 +313,9 @@ export class OggettoForm extends React.Component {
           ''
         )}
         <div>
-          <button className='button button--secondary-oggetti'>Salva</button>
+          <button className='button button--secondary-oggetti'>
+            Speichern
+          </button>
         </div>
       </form>
     );

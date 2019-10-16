@@ -25,8 +25,8 @@ const FattureListItem = ({
       </span>
       <h4 className='list-item__sub-title'>
         {cliente
-          ? `Cliente: ${cliente.nome} ${cliente.cognome} ${cliente.ditta}`
-          : 'niente'}{' '}
+          ? `Kunde: ${cliente.nome} ${cliente.cognome} ${cliente.ditta}`
+          : 'nichts'}{' '}
         {cliente2
           ? `- ${cliente2.nome} ${cliente2.cognome} ${cliente2.ditta}`
           : ''}

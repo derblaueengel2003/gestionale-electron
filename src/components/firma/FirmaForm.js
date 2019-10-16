@@ -1,0 +1,133 @@
+import React from 'react';
+
+export default class FirmaForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: props.firma ? props.firma.name : '',
+      adresse: props.firma ? props.firma.adresse : '',
+      plz: props.firma ? props.firma.plz : '',
+      stadt: props.firma ? props.firma.stadt : '',
+      staat: props.firma ? props.firma.staat : '',
+      telefon: props.firma ? props.firma.telefon : '',
+      fax: props.firma ? props.firma.fax : '',
+      email: props.firma ? props.firma.email : '',
+      website: props.firma ? props.firma.website : '',
+      motto: props.firma ? props.firma.motto : ''
+    };
+  }
+  changeHandler = e => {
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({ [name]: value });
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+
+    this.props.onSubmit({
+      name: this.state.name,
+      adresse: this.state.adresse,
+      plz: this.state.plz,
+      stadt: this.state.stadt,
+      staat: this.state.staat,
+      telefon: this.state.telefon,
+      fax: this.state.fax,
+      email: this.state.email,
+      website: this.state.website,
+      motto: this.state.motto
+    });
+  };
+  render() {
+    return (
+      <form className='form' onSubmit={this.onSubmit}>
+        Name:
+        <input
+          name='name'
+          className={`text-input`}
+          type='text'
+          autoFocus
+          value={this.state.name}
+          onChange={this.changeHandler}
+        />
+        Adresse:
+        <input
+          name='adresse'
+          className={`text-input`}
+          type='text'
+          value={this.state.adresse}
+          onChange={this.changeHandler}
+        />
+        PLZ:
+        <input
+          name='plz'
+          className={`text-input`}
+          type='text'
+          value={this.state.plz}
+          onChange={this.changeHandler}
+        />
+        Stadt:
+        <input
+          name='stadt'
+          className={`text-input`}
+          type='text'
+          value={this.state.stadt}
+          onChange={this.changeHandler}
+        />
+        Staat:
+        <input
+          name='staat'
+          className={`text-input`}
+          type='text'
+          value={this.state.staat}
+          onChange={this.changeHandler}
+        />
+        Telefon:
+        <input
+          name='telefon'
+          className={`text-input`}
+          type='text'
+          value={this.state.telefon}
+          onChange={this.changeHandler}
+        />
+        Fax:
+        <input
+          name='fax'
+          className={`text-input`}
+          type='text'
+          value={this.state.fax}
+          onChange={this.changeHandler}
+        />
+        E-Mail:
+        <input
+          name='email'
+          className={`text-input`}
+          type='text'
+          value={this.state.email}
+          onChange={this.changeHandler}
+        />
+        Website:
+        <input
+          name='website'
+          className={`text-input`}
+          type='text'
+          value={this.state.website}
+          onChange={this.changeHandler}
+        />
+        Motto:
+        <input
+          name='motto'
+          className={`text-input`}
+          type='text'
+          value={this.state.motto}
+          onChange={this.changeHandler}
+        />
+        <div>
+          <button className='button button--secondary-clienti'>
+            Speichern
+          </button>
+        </div>
+      </form>
+    );
+  }
+}

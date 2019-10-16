@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
@@ -83,7 +82,7 @@ export class MAAForm extends React.Component {
     const sonstige = this.state.sonstige;
 
     if (!this.state.oggettoId || !this.state.venditoreId) {
-      this.setState(() => ({ error: 'Inserisci Venditore e Oggetto' }));
+      this.setState(() => ({ error: 'Verkäufer und Objekt bitte eingeben.' }));
     } else {
       this.setState(() => ({ error: '' }));
       maklerAlleinauftrag(
@@ -124,7 +123,7 @@ export class MAAForm extends React.Component {
           {this.state.error && (
             <p className='form__error'>{this.state.error}</p>
           )}
-          Venditore:
+          Verkäufer:
           <Select
             name='venditore'
             value={this.state.venditoreId}
@@ -132,7 +131,7 @@ export class MAAForm extends React.Component {
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange}
           />
-          Secondo Venditore:
+          2. Verkäufer:
           <Select
             name='venditore2'
             value={this.state.venditoreId2}
@@ -140,14 +139,14 @@ export class MAAForm extends React.Component {
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange2}
           />
-          Oggetto:
+          Objekt:
           <Select
             name='oggettoId'
             value={this.state.oggettoId}
             options={oggettiOptions}
             onChange={this.onOggettoChange}
           />
-          Data Esclusiva:
+          Exklusivperiode:
           <div className='input-group__item'>
             <DateRangePicker
               startDate={this.state.startDate}
@@ -161,7 +160,7 @@ export class MAAForm extends React.Component {
               displayFormat={'DD/MM/YYYY'}
             />
           </div>
-          Prezzo di Vendita Minimo:
+          Verkaufspreis min.:
           <input
             className={`text-input`}
             type='text'
@@ -169,7 +168,7 @@ export class MAAForm extends React.Component {
             value={this.state.prezzoDiVendita}
             onChange={this.onPrezzoDiVenditaChange}
           />
-          Prezzo Iniziale di Vendita:
+          Verkaufspreis max.:
           <input
             className={`text-input`}
             type='text'
@@ -197,7 +196,7 @@ export class MAAForm extends React.Component {
           />
           <div>
             <button className='button button--secondary-modulistica'>
-              Crea PDF
+              PDF erstellen
             </button>
           </div>
         </form>

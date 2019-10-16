@@ -11,9 +11,9 @@ export const FattureList = props => {
       props.dealFatture.length > 0 && (
         <div className='content-container'>
           <div className='list-header'>
-            <div className='show-for-mobile'>Fattura Numero</div>
-            <div className='show-for-desktop'>Fattura Numero</div>
-            <div className='show-for-desktop'>Data Fattura</div>
+            <div className='show-for-mobile'>Rechnungsnummer</div>
+            <div className='show-for-desktop'>Rechnungsnummer</div>
+            <div className='show-for-desktop'>Datum</div>
           </div>
           <div className='list-body'>
             {props.dealFatture.map(fattura => {
@@ -54,14 +54,14 @@ export const FattureList = props => {
           </Link>
         </div>
         <div className='list-header'>
-          <div className='show-for-mobile'>Fattura</div>
-          <div className='show-for-desktop'>Fattura</div>
-          <div className='show-for-desktop'>Data Fattura</div>
+          <div className='show-for-mobile'>Rechnung</div>
+          <div className='show-for-desktop'>Rechnung</div>
+          <div className='show-for-desktop'>Datum</div>
         </div>
         <div className='list-body'>
           {props.fatture.length === 0 ? (
             <div className='list-item list-item--message'>
-              <span>Nessun fattura in base ai filtri inseriti</span>
+              <span>Kein Ergebnis anhand der angegebenen Filtern</span>
             </div>
           ) : (
             props.fatture.map(fattura => {

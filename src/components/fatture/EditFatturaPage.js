@@ -11,7 +11,7 @@ export class EditFatturaPage extends React.Component {
   };
   onRemove = () => {
     if (
-      window.confirm("Confermi la cancellazione? L'operazione è irreversibile")
+      window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
     ) {
       this.props.startRemoveFattura({ id: this.props.fattura.id });
       this.props.history.push('/fatture');
@@ -22,7 +22,7 @@ export class EditFatturaPage extends React.Component {
       <div>
         <div className='page-header'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Modifica Fattura</h1>
+            <h1 className='page-header__title'>Rechnung ändern</h1>
           </div>
         </div>
         <div className='content-container'>
@@ -31,7 +31,7 @@ export class EditFatturaPage extends React.Component {
             className='button button--secondary-delete'
             onClick={this.onRemove}
           >
-            Cancella fattura
+            Rechnung löschen
           </button>
         </div>
       </div>

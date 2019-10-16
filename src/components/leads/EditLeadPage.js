@@ -10,7 +10,7 @@ export class EditLeadPage extends React.Component {
   };
   onRemove = () => {
     if (
-      window.confirm("Confermi la cancellazione? L'operazione è irreversibile")
+      window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
     ) {
       this.props.startRemoveLead({ id: this.props.lead.id });
       this.props.history.push('/leads');
@@ -21,7 +21,7 @@ export class EditLeadPage extends React.Component {
       <div>
         <div className='page-header'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Modifica Richiesta</h1>
+            <h1 className='page-header__title'>Anfrage ändern</h1>
           </div>
         </div>
         <div className='content-container'>
@@ -30,7 +30,7 @@ export class EditLeadPage extends React.Component {
             className='button button--secondary-delete'
             onClick={this.onRemove}
           >
-            Cancella Richiesta
+            Anfrage löschen
           </button>
         </div>
       </div>

@@ -39,13 +39,13 @@ export class ViewClientiPage extends React.Component {
       <div>
         <div className='page-header page-header-clienti'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Cliente</h1>
+            <h1 className='page-header__title'>Kunde</h1>
           </div>
         </div>
         <div className='content-container'>
           <div className='list-header list-header-clienti'>
-            <div className='show-for-mobile'>Scheda cliente</div>
-            <div className='show-for-desktop'>Scheda cliente</div>
+            <div className='show-for-mobile'>Kundendetails</div>
+            <div className='show-for-desktop'>Kundendetails</div>
             <div className='show-for-desktop'></div>
           </div>
           <div className='list-body'>
@@ -76,20 +76,14 @@ export class ViewClientiPage extends React.Component {
             className='print button button--secondary-clienti'
             to={`/customeredit/${id}`}
           >
-            Modifica Cliente
+            Kundendaten ändern
           </Link>
         </div>
         <LeadsList userLeads={this.props.leads} />
         <OggettiList oggetto={this.props.oggetti} />
 
         <DealList clienteDeals={clienteDeals} />
-        {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
-          <FattureList dealFatture={dealFatture} />
-        )}
-        {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-          <FattureList dealFatture={dealFatture} />
-        )}
-        {uid === 'BNhRvZCcvMPr54unKlYSSliPel42' && (
+        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
           <FattureList dealFatture={dealFatture} />
         )}
       </div>

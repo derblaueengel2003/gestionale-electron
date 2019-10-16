@@ -78,13 +78,13 @@ export class ViewDealPage extends React.Component {
       <div>
         <div className='page-header page-header-deals'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Dettagli Provvigione</h1>
+            <h1 className='page-header__title'>Provisionsdetails</h1>
           </div>
         </div>
         <div className='content-container'>
           <div className='list-header list-header-deals'>
-            <div className='show-for-mobile'>Dettagli</div>
-            <div className='show-for-desktop'>Dettagli</div>
+            <div className='show-for-mobile'>Details</div>
+            <div className='show-for-desktop'>Details</div>
             <div className='show-for-desktop'></div>
           </div>
           <div className='list-body'>
@@ -92,19 +92,20 @@ export class ViewDealPage extends React.Component {
               <div>
                 {prezzoDiVendita > 0 && (
                   <h3 className='list-item__title'>
-                    Prezzo di Vendita:{' '}
+                    Verkaufspreis:{' '}
                     {numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}
                   </h3>
                 )}
                 {createdAt > 0 && (
                   <span className='list-item__sub-title'>
-                    Data prenotazione:{' '}
+                    Reservierungsdatum:{' '}
                     {moment(createdAt).format('DD MMMM, YYYY')}
                   </span>
                 )}
                 {dataRogito > 0 && (
                   <h4 className='list-item__sub-title'>
-                    Data rogito: {moment(dataRogito).format('DD MMMM, YYYY')}
+                    Beurkundungsdatum:{' '}
+                    {moment(dataRogito).format('DD MMMM, YYYY')}
                   </h4>
                 )}
                 {note.length > 0 && (
@@ -114,22 +115,18 @@ export class ViewDealPage extends React.Component {
               <div>
                 {amount > 0 && (
                   <h3 className='list-item__title'>
-                    Provvigione:{' '}
-                    {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-                    uid === 'BNhRvZCcvMPr54unKlYSSliPel42' ||
-                    uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
+                    Provision:{' '}
+                    {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03'
                       ? numeral(amount / 100).format('0,0[.]00 $')
                       : ''}
                   </h3>
                 )}
                 {consulenteVendita > 0 && (
                   <h4 className='list-item__sub-title'>
-                    Cliente di: {consulenteVendita}
+                    Kundenbetreuer: {consulenteVendita}
                   </h4>
                 )}
-                {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-                uid === 'BNhRvZCcvMPr54unKlYSSliPel42' ||
-                uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
+                {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03'
                   ? provvM2square > 0 && (
                       <h4
                         className={`list-item__sub-title list-item--paid${payed}`}
@@ -149,19 +146,17 @@ export class ViewDealPage extends React.Component {
                 )}
                 {payedAtStefano > 0 && (
                   <span className='list-item__sub-title'>
-                    Pagata a Stefano il:{' '}
+                    Bezahlt an Stefano am:{' '}
                     {moment(payedAtStefano).format('DD MMMM, YYYY')}
                   </span>
                 )}
-                {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-                uid === 'BNhRvZCcvMPr54unKlYSSliPel42' ||
-                uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
+                {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03'
                   ? provvAgenziaPartner > 0 && (
                       <h4
                         className={`list-item__sub-title ${payedAgenziaPartner &&
                           'list-item--paid'}`}
                       >
-                        Provvigione Agenzia Partner:{' '}
+                        Provision Kooperationspartner:{' '}
                         {numeral(provvAgenziaPartner / 100).format(
                           '0,0[.]00 $'
                         )}
@@ -196,20 +191,19 @@ export class ViewDealPage extends React.Component {
         )}
         {agenziaPartnerId.length > 0 && (
           <div>
-            <ClientiList cliente={agenziaPartner} ruolo={'Agenzia Partner'} />
+            <ClientiList
+              cliente={agenziaPartner}
+              ruolo={'Kooperationspartner'}
+            />
           </div>
         )}
         <div className='content-container'>
-          {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
+          {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
             <Link className='button button--secondary' to={`/edit/${id}`}>
-              Modifica Provvigione
+              Provision bearbeiten
             </Link>
           )}
-          {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-            <Link className='button button--secondary' to={`/edit/${id}`}>
-              Modifica Provvigione
-            </Link>
-          )}
+
           <button
             className='print button button--secondary'
             onClick={() => {
@@ -276,9 +270,7 @@ export class ViewDealPage extends React.Component {
           </button>
         </div>
         <TodoForm dealId={id} />
-        {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-        uid === 'BNhRvZCcvMPr54unKlYSSliPel42' ||
-        uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' ? (
+        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' ? (
           <FattureList dealFatture={this.props.fatture} />
         ) : (
           ''

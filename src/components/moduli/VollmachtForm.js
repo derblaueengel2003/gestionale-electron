@@ -44,7 +44,7 @@ export class VollmachtForm extends React.Component {
     );
 
     if (!this.state.oggettoId || !this.state.venditoreId) {
-      this.setState(() => ({ error: 'Inserisci Venditore e Oggetto' }));
+      this.setState(() => ({ error: 'Käufer und Objekt bitte eingeben.' }));
     } else {
       this.setState(() => ({ error: '' }));
       delegaDocumenti(cliente, cliente2, oggetto);
@@ -75,7 +75,7 @@ export class VollmachtForm extends React.Component {
           {this.state.error && (
             <p className='form__error'>{this.state.error}</p>
           )}
-          Cliente:
+          Kunde:
           <Select
             name='venditore'
             value={this.state.venditoreId}
@@ -83,7 +83,7 @@ export class VollmachtForm extends React.Component {
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange}
           />
-          Secondo Cliente:
+          2. Kunde:
           <Select
             name='venditore2'
             value={this.state.venditoreId2}
@@ -91,7 +91,7 @@ export class VollmachtForm extends React.Component {
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange2}
           />
-          Oggetto:
+          Objekt:
           <Select
             name='oggettoId'
             value={this.state.oggettoId}
@@ -100,7 +100,7 @@ export class VollmachtForm extends React.Component {
           />
           <div>
             <button className='button button--secondary-modulistica'>
-              Crea PDF
+              PDF erstellen
             </button>
           </div>
         </form>

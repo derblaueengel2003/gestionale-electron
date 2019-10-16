@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import UserForm from './UserForm';
-import { startAddUser } from '../../actions/utenti';
+import FirmaForm from './FirmaForm';
+import { startAddFirma } from '../../actions/firma';
 
-export class AddUserPage extends React.Component {
-  onSubmit = user => {
-    this.props.startAddUser(user);
+export class AddFirmaPage extends React.Component {
+  onSubmit = firma => {
+    this.props.startAddFirma(firma);
     this.props.history.push('/users');
   };
   render() {
@@ -13,11 +13,11 @@ export class AddUserPage extends React.Component {
       <div>
         <div className='page-header'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Benutzer hinzufügen</h1>
+            <h1 className='page-header__title'>Firma hinzufügen</h1>
           </div>
         </div>
         <div className='content-container'>
-          <UserForm onSubmit={this.onSubmit} />
+          <FirmaForm onSubmit={this.onSubmit} />
         </div>
       </div>
     );
@@ -25,10 +25,10 @@ export class AddUserPage extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  startAddUser: user => dispatch(startAddUser(user))
+  startAddFirma: firma => dispatch(startAddFirma(firma))
 });
 
 export default connect(
   undefined,
   mapDispatchToProps
-)(AddUserPage);
+)(AddFirmaPage);

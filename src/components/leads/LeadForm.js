@@ -49,7 +49,7 @@ export class LeadForm extends React.Component {
     const leadBudget = parseFloat(this.state.leadBudget, 10) * 100;
 
     if (!this.state.leadId || this.state.leadBudget < 1) {
-      this.setState(() => ({ error: 'Inserisci budget' }));
+      this.setState(() => ({ error: 'Budget bitte eingeben' }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
@@ -74,7 +74,7 @@ export class LeadForm extends React.Component {
     return (
       <form className='form' onSubmit={this.onSubmit}>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
-        Data Richiesta:
+        Anfragedatum:
         <SingleDatePicker
           date={this.state.leadCreatedAt}
           onDateChange={this.onDateChange}
@@ -83,7 +83,7 @@ export class LeadForm extends React.Component {
           numberOfMonths={1}
           isOutsideRange={() => false}
         />
-        Cliente:
+        Kunde:
         <Select
           name='leadId'
           value={this.state.leadId}
@@ -97,7 +97,7 @@ export class LeadForm extends React.Component {
               className='button button--secondary-clienti'
               to='/customercreate'
             >
-              Aggiungi nuovo cliente
+              Neuer Kunde hinzufügen
             </Link>
           </div>
         )}
@@ -109,30 +109,28 @@ export class LeadForm extends React.Component {
           value={this.state.leadBudget}
           onChange={this.onBudgetChange}
         />
-        Affittato/Libero:
+        vermietet/leerstehend:
         <select
           name='leadOggettoStato'
           value={this.state.leadOggettoStato}
           onChange={this.changeHandler}
         >
-          <option value='libero'>Libero</option>
-          <option value='affittato'>Affittato</option>
-          <option value='libero o affittato'>Libero o Affittato</option>
-          <option value='commerciale'>Locale commerciale</option>
-          <option value='aph'>Casa di cura</option>
-          <option value=''>Indifferente</option>
+          <option value='libero'>Leerstehend</option>
+          <option value='affittato'>Vermietet</option>
+          <option value='libero o affittato'>Leerstehend oder vermietet</option>
+          <option value='commerciale'>Gewerbe</option>
+          <option value='aph'>Pflegeheim</option>
+          <option value=''>Egal</option>
         </select>
         <textarea
           name='leadNote'
           className={`textarea`}
-          placeholder='Ulteriori caratteristiche'
+          placeholder='Weitere Merkmale'
           value={this.state.leadNote}
           onChange={this.changeHandler}
         ></textarea>
         <div>
-          <button className='button button--secondary-leads'>
-            Salva modifiche
-          </button>
+          <button className='button button--secondary-leads'>Speichern</button>
         </div>
       </form>
     );

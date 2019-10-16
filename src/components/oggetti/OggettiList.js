@@ -11,9 +11,9 @@ export const OggettiList = props => {
       props.oggetto.length > 0 && (
         <div className='content-container'>
           <div className='list-header list-header-oggetti'>
-            <div className='show-for-mobile'>Oggetto</div>
-            <div className='show-for-desktop'>Oggetto</div>
-            <div className='show-for-desktop'>Rif. Id</div>
+            <div className='show-for-mobile'>Objekt</div>
+            <div className='show-for-desktop'>Objekt</div>
+            <div className='show-for-desktop'>Ref. Id</div>
           </div>
           <div className='list-body'>
             {props.oggetto.map(oggetto => {
@@ -35,14 +35,14 @@ export const OggettiList = props => {
           </Link>
         </div>
         <div className='list-header list-header-oggetti'>
-          <div className='show-for-mobile'>Oggetto</div>
-          <div className='show-for-desktop'>Oggetto</div>
-          <div className='show-for-desktop'>Rif. Id</div>
+          <div className='show-for-mobile'>Objekt</div>
+          <div className='show-for-desktop'>Objekt</div>
+          <div className='show-for-desktop'>Ref. Id</div>
         </div>
         <div className='list-body'>
           {props.oggetti.length === 0 ? (
             <div className='list-item list-item--message'>
-              <span>Nessun oggetto in base ai filtri inseriti</span>
+              <span>Kein Ergebnis anhand der angegebenen Filtern</span>
             </div>
           ) : (
             props.oggetti.map(oggetto => {

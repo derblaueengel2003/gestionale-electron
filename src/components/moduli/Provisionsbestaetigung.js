@@ -56,27 +56,6 @@ export const creaPrenotazione = (
     }
   }
 
-  //fine nuovo
-
-  // if (acqDitta.length > 70 || acqInd.length > 70 || acqNome.length > 70) {
-  //   doc.setFontSize(10);
-  // } else if (
-  //   acqDitta.length > 100 ||
-  //   acqInd.length > 100 ||
-  //   acqNome.length > 100
-  // )
-  //   doc.setFontSize(8);
-  // else {
-  //   doc.setFontSize(12);
-  // }
-  // if (acqDitta.length > 0) {
-  //   doc.text(acqDitta, 61, 30);
-  //   doc.text(acqNome, 61, 35);
-  //   doc.text(acqInd, 61, 40);
-  // } else {
-  //   doc.text(acqNome, 61, 30);
-  //   doc.text(acqInd, 61, 35);
-  // }
   doc.text('m2Square - Arboscello & Fornari GbR', 61, 52);
   doc.text('Kastanienallee 2, 10435 Berlin', 61, 57);
   doc.text(provvPercentuale, 93, 86);

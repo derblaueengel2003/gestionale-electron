@@ -62,9 +62,7 @@ export class LeadsListItem extends React.Component {
           ) : (
             <div className='list-item__sub-title'>
               <Link to={`/leadview/${this.props.id}`}>
-                {this.props.leadNote ? (
-                  <strong>Ulteriori dettagli -></strong>
-                ) : null}
+                {this.props.leadNote ? <strong>Mehr details -></strong> : null}
               </Link>
             </div>
           )}
@@ -95,14 +93,14 @@ export class LeadsListItem extends React.Component {
                 }
               }}
             >
-              add cliente
+              Kunde hinzufügen
             </Link>
           )}
           <a
             className='button button--secondary-email'
             href={`mailto:${cliente ? cliente.email : this.props.leadEmail}`}
           >
-            Email
+            E-Mail
           </a>
         </div>
       </div>

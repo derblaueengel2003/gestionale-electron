@@ -6,7 +6,7 @@ import selectDealsTotal from '../../selectors/deals-total';
 import selectDealsPayed from '../../selectors/deals-payed';
 
 export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed }) => {
-  const dealWord = dealCount === 1 ? 'provvigione' : 'provvigioni';
+  const dealWord = dealCount === 1 ? 'Deal' : 'Deals';
   const formattedDealsTotal = numeral(dealsTotal / 100).format('0,0[.]00 $');
   const formattedDealsPayed = numeral(dealsPayed / 100).format('0,0[.]00 $');
   const dealsPending = numeral((dealsTotal - dealsPayed) / 100).format(
@@ -17,11 +17,11 @@ export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed }) => {
     <div className='page-header page-header-deals'>
       <div className='content-container'>
         <h2 className='page-header__title'>
-          Riepilogo: <span>{dealCount}</span> {dealWord} per un totale di{' '}
-          <span>{formattedDealsTotal}</span>
+          Zusammenfassung: <span>{dealCount}</span> {dealWord} und Gesamtbetrag
+          von <span>{formattedDealsTotal}</span>
         </h2>
         <h2 className='page-header__title'>
-          Incassate: <span>{formattedDealsPayed}</span> - Pendenti:{' '}
+          Erhalten: <span>{formattedDealsPayed}</span> - Offen:{' '}
           <span>{dealsPending}</span>
         </h2>
       </div>

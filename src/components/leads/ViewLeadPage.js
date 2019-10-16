@@ -13,13 +13,13 @@ export class ViewLeadPage extends React.Component {
       <div>
         <div className='page-header page-header-leads'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Richiesta</h1>
+            <h1 className='page-header__title'>Anfrage</h1>
           </div>
         </div>
         <div className='content-container'>
           <div className='list-header list-header-leads'>
-            <div className='show-for-mobile'>Dettaglio Richiesta</div>
-            <div className='show-for-desktop'>Dettaglio Richiesta</div>
+            <div className='show-for-mobile'>Details</div>
+            <div className='show-for-desktop'>Details</div>
             <div className='show-for-desktop'></div>
           </div>
           <div className='list-body'>
@@ -31,7 +31,7 @@ export class ViewLeadPage extends React.Component {
             className='print button button--secondary-leads'
             to={`/leadedit/${this.props.lead.id}`}
           >
-            Modifica Richiesta
+            Anfrage ändern
           </Link>
         </div>
 

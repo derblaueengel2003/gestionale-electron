@@ -13,48 +13,33 @@ export const NavBar = ({ uid }) => {
           <span></span>
           <ul id='menu'>
             <Link to='/dashboard'>
-              <li>Provvigioni</li>
+              <li>Deals</li>
             </Link>
             <Link to='/leads'>
-              <li>Richieste</li>
+              <li>Anfragen</li>
             </Link>
             <Link to='/moduli'>
-              <li>Modulistica</li>
+              <li>Formulare</li>
             </Link>
             <Link to='/oggetti'>
-              <li>Oggetti</li>
+              <li>Objekte</li>
             </Link>
             <Link to='/customer'>
-              <li>Contatti</li>
+              <li>Kontakte</li>
             </Link>
-            {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
+            {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
               <Link to='/report'>
                 <li>Report</li>
               </Link>
             )}
-            {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
+            {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
               <Link to='/users'>
-                <li>Utenti</li>
+                <li>Benutzer</li>
               </Link>
             )}
-            {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
+            {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
               <Link to='/fatture'>
-                <li>Fatture</li>
-              </Link>
-            )}
-            {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-              <Link to='/report'>
-                <li>Report</li>
-              </Link>
-            )}
-            {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-              <Link to='/users'>
-                <li>Utenti</li>
-              </Link>
-            )}
-            {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-              <Link to='/fatture'>
-                <li>Fatture</li>
+                <li>Rechnungen</li>
               </Link>
             )}
           </ul>
@@ -65,33 +50,33 @@ export const NavBar = ({ uid }) => {
           className='button page-header__button page-header__button-deals'
           to='/dashboard'
         >
-          Provvigioni
+          Deals
         </Link>
         <Link
           className='button page-header__button page-header__button-leads'
           to='/leads'
         >
-          Richieste
+          Anfragen
         </Link>
         <Link
           className='button page-header__button page-header__button-modulistica'
           to='/moduli'
         >
-          Modulistica
+          Formulare
         </Link>
         <Link
           className='button page-header__button page-header__button-oggetti'
           to='/oggetti'
         >
-          Oggetti
+          Objekte
         </Link>
         <Link
           className='button page-header__button page-header__button-clienti'
           to='/customer'
         >
-          Contatti
+          Kontakte
         </Link>
-        {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
+        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
           <Link
             className='button page-header__button page-header__button-clienti'
             to='/report'
@@ -99,44 +84,20 @@ export const NavBar = ({ uid }) => {
             Report
           </Link>
         )}
-        {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
+        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
           <Link
             className='button page-header__button page-header__button-clienti'
             to='/users'
           >
-            Utenti
+            Benutzer
           </Link>
         )}
-        {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
+        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
           <Link
             className='button page-header__button page-header__button-fatture'
             to='/fatture'
           >
-            Fatture
-          </Link>
-        )}
-        {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-          <Link
-            className='button page-header__button page-header__button-clienti'
-            to='/report'
-          >
-            Report
-          </Link>
-        )}
-        {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-          <Link
-            className='button page-header__button page-header__button-clienti'
-            to='/users'
-          >
-            Utenti
-          </Link>
-        )}
-        {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-          <Link
-            className='button page-header__button page-header__button-fatture'
-            to='/fatture'
-          >
-            Fatture
+            Rechnungen
           </Link>
         )}
       </div>

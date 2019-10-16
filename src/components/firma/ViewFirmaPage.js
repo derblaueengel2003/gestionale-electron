@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export class ViewUtentiPage extends React.Component {
+export class ViewFirmaPage extends React.Component {
   render() {
     return (
       <div>
         <div className='page-header'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Benutzer</h1>
+            <h1 className='page-header__title'>Firma</h1>
           </div>
         </div>
         <div className='content-container'>
@@ -22,7 +22,7 @@ export class ViewUtentiPage extends React.Component {
             className='button button--secondary-clienti'
             to={`/useredit/${this.props.utente.id}`}
           >
-            Benutzer ändern
+            Ändern
           </Link>
         </div>
       </div>
@@ -31,7 +31,7 @@ export class ViewUtentiPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  utente: state.utenti.find(utente => utente.id === props.match.params.id)
+  firma: state.firma.find(firma => firma.id === props.match.params.id)
 });
 
-export default connect(mapStateToProps)(ViewUtentiPage);
+export default connect(mapStateToProps)(ViewFirmaPage);

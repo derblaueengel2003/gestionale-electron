@@ -6,7 +6,7 @@ const OggettiDashboardPage = () => (
   <div>
     <div className='page-header page-header-oggetti'>
       <div className='content-container'>
-        <h1 className='page-header__title'>Oggetti</h1>
+        <h1 className='page-header__title'>Objekte</h1>
       </div>
     </div>
     <OggettiListFilters />

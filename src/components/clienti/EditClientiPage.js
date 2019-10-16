@@ -10,14 +10,14 @@ export class EditClientePage extends React.Component {
   };
   onRemove = () => {
     if (
-      window.confirm("Confermi la cancellazione? L'operazione è irreversibile")
+      window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
     ) {
       this.props.startRemoveCustomer({ id: this.props.cliente.id });
       this.props.history.push('/customer');
     }
   };
   onDisable = () => {
-    if (window.confirm('Confermi la cancellazione?')) {
+    if (window.confirm('Bestätigen Sie die Löschung?')) {
       this.props.startEditCustomer(this.props.cliente.id, {
         ...this.props.cliente,
         visible: false
@@ -31,7 +31,7 @@ export class EditClientePage extends React.Component {
       <div>
         <div className='page-header'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Modifica Cliente</h1>
+            <h1 className='page-header__title'>Kundendaten ändern</h1>
           </div>
         </div>
         <div className='content-container'>
@@ -42,13 +42,12 @@ export class EditClientePage extends React.Component {
           <button
             className='button button--secondary-delete'
             onClick={
-              this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-              this.props.uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
+              this.props.uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03'
                 ? this.onRemove
                 : this.onDisable
             }
           >
-            Cancella cliente
+            Kunde löschen
           </button>
         </div>
       </div>

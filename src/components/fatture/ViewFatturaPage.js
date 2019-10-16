@@ -44,7 +44,7 @@ export class ViewFatturePage extends React.Component {
       <div>
         <div className='page-header'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Fatture</h1>
+            <h1 className='page-header__title'>Rechnungen</h1>
           </div>
         </div>
         <div className='content-container'>
@@ -61,7 +61,7 @@ export class ViewFatturePage extends React.Component {
                     className={`${this.props.fattura.payed &&
                       'list-item--paid'}`}
                   >
-                    Fattura Numero: {this.props.fattura.numeroFattura}
+                    Rechnungsnummer: {this.props.fattura.numeroFattura}
                   </div>
                 )}
                 {this.props.fattura.note}
@@ -72,13 +72,13 @@ export class ViewFatturePage extends React.Component {
 
                 {cliente && (
                   <div>
-                    Cliente: {cliente.nome} {cliente.cognome}{' '}
+                    Kunde: {cliente.nome} {cliente.cognome}{' '}
                     {cliente.ditta && ` - Firma: ${cliente.ditta}`}
                   </div>
                 )}
                 {cliente2 && (
                   <div>
-                    Secondo Cliente: {cliente2.nome} {cliente2.cognome}{' '}
+                    2. Kunde: {cliente2.nome} {cliente2.cognome}{' '}
                     {cliente2.ditta && ` - Firma: ${cliente2.ditta}`}
                   </div>
                 )}
@@ -86,13 +86,13 @@ export class ViewFatturePage extends React.Component {
               <div>
                 {this.props.fattura.dataFattura > 0 && (
                   <div>
-                    Data Fattura:{' '}
+                    Rechnungsdatum:{' '}
                     {moment(this.props.dataFattura).format('DD MMMM, YYYY')}
                   </div>
                 )}
                 {deal && deal.dataRogito > 0 && (
                   <div>
-                    Data Rogito:{' '}
+                    Beurkundungsdatum:{' '}
                     {moment(deal.dataRogito).format('DD MMMM, YYYY')}
                   </div>
                 )}
@@ -104,7 +104,7 @@ export class ViewFatturePage extends React.Component {
             className='print button button--secondary'
             to={`/fatturaedit/${this.props.fattura.id}`}
           >
-            Modifica Fattura
+            Rechnung ändern
           </Link>
           <button
             className='print button button--secondary'
@@ -126,7 +126,7 @@ export class ViewFatturePage extends React.Component {
               );
             }}
           >
-            Stampa Fattura
+            Rechnung drucken
           </button>
         </div>
         {/* passo deal come array perché è quello che si aspetta il componente */}

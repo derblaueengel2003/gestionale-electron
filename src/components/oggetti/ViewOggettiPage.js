@@ -21,13 +21,13 @@ export class ViewOggettiPage extends React.Component {
         <div>
           <div className='page-header page-header-oggetti'>
             <div className='content-container'>
-              <h1 className='page-header__title'>Oggetto</h1>
+              <h1 className='page-header__title'>Objekt</h1>
             </div>
           </div>
           <div className='content-container'>
             <div className='list-header list-header-oggetti'>
-              <div className='show-for-mobile'>Dettagli</div>
-              <div className='show-for-desktop'>Dettagli</div>
+              <div className='show-for-mobile'>Details</div>
+              <div className='show-for-desktop'>Details</div>
               <div className='show-for-desktop'></div>
             </div>
             <div className='list-body'>
@@ -37,7 +37,7 @@ export class ViewOggettiPage extends React.Component {
                     <h3>{`${this.props.oggetto.via} ${this.props.oggetto.numeroCivico}, WE ${this.props.oggetto.numeroAppartamento}, ${this.props.oggetto.cap} ${this.props.oggetto.citta}`}</h3>
                   )}
                   {this.props.oggetto.rifId.length > 0 && (
-                    <div>Rif. id: {this.props.oggetto.rifId}</div>
+                    <div>Ref. id: {this.props.oggetto.rifId}</div>
                   )}
                   {this.props.oggetto.grundbuch.length > 0 && (
                     <div>
@@ -71,7 +71,7 @@ export class ViewOggettiPage extends React.Component {
               className='button button--secondary-oggetti'
               to={`/oggettoedit/${this.props.oggetto.id}`}
             >
-              Modifica Oggetto
+              Objekt ändern
             </Link>
             <Link
               className='button button--secondary-leads'

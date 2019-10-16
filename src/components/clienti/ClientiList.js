@@ -28,14 +28,14 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
           </Link>
         </div>
         <div className='list-header list-header-clienti'>
-          <div className='show-for-mobile'>Cliente</div>
-          <div className='show-for-desktop'>Cliente</div>
-          <div className='show-for-desktop'>Ditta</div>
+          <div className='show-for-mobile'>Kunde</div>
+          <div className='show-for-desktop'>Kunde</div>
+          <div className='show-for-desktop'>Firma</div>
         </div>
         <div className='list-body'>
           {clienti.length === 0 ? (
             <div className='list-item list-item--message'>
-              <span>Nessun cliente in base ai filtri inseriti</span>
+              <span>Kein Ergebnis anhand der angegebenen Filtern</span>
             </div>
           ) : (
             clienti.map(cliente => {

@@ -11,8 +11,8 @@ export const LeadsList = props => {
       props.userLeads.length > 0 && (
         <div className='content-container'>
           <div className='list-header list-header-leads'>
-            <div className='show-for-mobile'>Richiesta</div>
-            <div className='show-for-desktop'>Richiesta</div>
+            <div className='show-for-mobile'>Anfrage</div>
+            <div className='show-for-desktop'>Anfrage</div>
           </div>
           <div className='list-body'>
             {props.userLeads.map(lead => {
@@ -33,13 +33,13 @@ export const LeadsList = props => {
           +
         </Link>
         <div className='list-header list-header-leads'>
-          <div className='show-for-mobile'>Richieste</div>
-          <div className='show-for-desktop'>Richieste</div>
+          <div className='show-for-mobile'>Anfragen</div>
+          <div className='show-for-desktop'>Anfragen</div>
         </div>
         <div className='list-body'>
           {props.leads.length === 0 ? (
             <div className='list-item list-item--message'>
-              <span>Nessuna richiesta in base ai filtri inseriti</span>
+              <span>Kein Ergebnis anhand der angegebenen Filtern</span>
             </div>
           ) : (
             props.leads.map(lead => {

@@ -65,14 +65,14 @@ export class ViewLeadMatchPage extends React.Component {
         <div className='page-header'>
           <div className='content-container'>
             <h1 className='page-header__title'>
-              Match con i nostri immobili: {this.primoMatch().length}
+              Match mit unseren Objekten: {this.primoMatch().length}
             </h1>
             <h1 className='page-header__title'>
-              Match con gli immobili Accentro: {this.secondoMatch().length}
+              Match mit Accentro: {this.secondoMatch().length}
             </h1>
             <span>
-              La corrispondenza si basa sul budget (+-20%) e sulla tipologia
-              dell'immobile
+              Die Übereinstimmung basiert sich auf Kundenbudget (+-20%) und
+              Immobilientyp.
             </span>
           </div>
         </div>
@@ -95,9 +95,9 @@ export class ViewLeadMatchPage extends React.Component {
           </div>
           {this.primoMatch().length > 0 && (
             <div className='list-header'>
-              <div className='show-for-mobile'>Immobili m2Square</div>
-              <div className='show-for-desktop'>Immobili m2Square</div>
-              <div className='show-for-desktop'>Rif.ID</div>{' '}
+              <div className='show-for-mobile'>Objekte von m2Square</div>
+              <div className='show-for-desktop'>Objekte von m2Square</div>
+              <div className='show-for-desktop'>Ref.ID</div>{' '}
             </div>
           )}
           <div>
@@ -105,7 +105,7 @@ export class ViewLeadMatchPage extends React.Component {
               return <OggettiListItem key={ogg.id} {...ogg} />;
             })}
           </div>
-          <div className='list-header'>Immobili di Accentro</div>
+          <div className='list-header'>Objekte von Accentro</div>
           <div>
             {this.secondoMatch().map(ogg => {
               return <AccentroListItem key={ogg.id} {...ogg} />;

@@ -11,9 +11,19 @@ export class ViewOggettoMatchPage extends React.Component {
         lead.leadBudget > this.props.oggetto.kaufpreis / 1.2
     );
     if (this.props.oggetto.affittoNetto === 0) {
-      return leadsMatch.filter(lead => lead.leadOggettoStato === 'libero');
+      return leadsMatch.filter(
+        lead =>
+          lead.leadOggettoStato === 'libero' ||
+          lead.leadOggettoStato === '' ||
+          lead.leadOggettoStato === 'libero o affittato'
+      );
     } else if (this.props.oggetto.affittoNetto > 0) {
-      return leadsMatch.filter(lead => lead.leadOggettoStato === 'affittato');
+      return leadsMatch.filter(
+        lead =>
+          lead.leadOggettoStato === 'affittato' ||
+          lead.leadOggettoStato === '' ||
+          lead.leadOggettoStato === 'libero o affittato'
+      );
     } else {
       return leadsMatch;
     }
@@ -25,11 +35,11 @@ export class ViewOggettoMatchPage extends React.Component {
         <div className='page-header page-header-leads'>
           <div className='content-container'>
             <h1 className='page-header__title'>
-              Match con le richieste: {this.primoMatch().length}
+              Match mit den Anfragen: {this.primoMatch().length}
             </h1>
             <span>
-              La corrispondenza si basa sul budget (+-20%) e sulla tipologia
-              dell'immobile
+              Die Übereinstimmung basiert sich auf Kundenbudget (+-20%) und
+              Immobilientyp
             </span>
           </div>
         </div>
@@ -37,9 +47,9 @@ export class ViewOggettoMatchPage extends React.Component {
         <div className='content-container'>
           <div className='page-header__actions'></div>
           <div className='list-header list-header-oggetti'>
-            <div className='show-for-mobile'>Oggetto</div>
-            <div className='show-for-desktop'>Oggetto</div>
-            <div className='show-for-desktop'>Rif. Id</div>
+            <div className='show-for-mobile'>Objekt</div>
+            <div className='show-for-desktop'>Objekt</div>
+            <div className='show-for-desktop'>Ref. Id</div>
           </div>
           <div className='list-body'>
             <OggettiListItem
@@ -49,7 +59,7 @@ export class ViewOggettoMatchPage extends React.Component {
           </div>
 
           <div className='list-header list-header-leads'>
-            <div>Richieste</div>
+            <div>Anfragen</div>
             <div>Budget</div>
           </div>
           <div>

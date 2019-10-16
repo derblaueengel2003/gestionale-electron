@@ -11,14 +11,14 @@ export class EditOggettoPage extends React.Component {
   };
   onRemove = () => {
     if (
-      window.confirm("Confermi la cancellazione? L'operazione è irreversibile")
+      window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
     ) {
       this.props.startRemoveOggetto({ id: this.props.oggetto.id });
       this.props.history.push('/oggetti');
     }
   };
   onDisable = () => {
-    if (window.confirm('Confermi la cancellazione?')) {
+    if (window.confirm('Bestätigen Sie die Löschung?')) {
       this.props.startEditOggetto(this.props.oggetto.id, {
         ...this.props.oggetto,
         visible: false
@@ -31,7 +31,7 @@ export class EditOggettoPage extends React.Component {
       <div>
         <div className='page-header'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Modifica Oggetto</h1>
+            <h1 className='page-header__title'>Objekt ändern</h1>
           </div>
         </div>
         <div className='content-container'>
@@ -39,13 +39,12 @@ export class EditOggettoPage extends React.Component {
           <button
             className='button button--secondary-delete'
             onClick={
-              this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-              this.props.uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
+              this.props.uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03'
                 ? this.onRemove
                 : this.onDisable
             }
           >
-            Cancella oggetto
+            Objekt löschen
           </button>
         </div>
       </div>

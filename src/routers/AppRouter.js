@@ -11,6 +11,9 @@ import AddUserPage from '../components/utenti/AddUserPage';
 import EditUtentePage from '../components/utenti/EditUtentePage';
 import ViewUtentiPage from '../components/utenti/ViewUtentiPage';
 import UtentiDashboardPage from '../components/utenti/UtentiDashboardPage';
+import AddFirmaPage from '../components/firma/AddFirmaPage';
+import EditFirmaPage from '../components/firma/EditFirmaPage';
+import ViewFirmaPage from '../components/firma/ViewFirmaPage';
 import AddClientiPage from '../components/clienti/AddClientiPage';
 import EditClientiPage from '../components/clienti/EditClientiPage';
 import ViewClientiPage from '../components/clienti/ViewClientiPage';
@@ -48,18 +51,19 @@ const AppRouter = ({ uid }) => {
         <Switch>
           <PublicRoute path='/' component={LoginPage} exact={true} />
           <PrivateRoute path='/dashboard' component={DealDashboardPage} />
-          <PrivateRoute path='/report' component={ReportPage} />
           <PrivateRoute path='/create' component={AddDealPage} />
-          <PrivateRoute path='/usercreate' component={AddUserPage} />
-          <PrivateRoute path='/customercreate' component={AddClientiPage} />
           <PrivateRoute path='/edit/:id' component={EditDealPage} />
-          <PrivateRoute path='/useredit/:id' component={EditUtentePage} />
-          <PrivateRoute path='/customeredit/:id' component={EditClientiPage} />
           <PrivateRoute path='/view/:id' component={ViewDealPage} />
-          <PrivateRoute path='/userview/:id' component={ViewUtentiPage} />
-          <PrivateRoute path='/customerview/:id' component={ViewClientiPage} />
+
           <PrivateRoute path='/users' component={UtentiDashboardPage} />
+          <PrivateRoute path='/usercreate' component={AddUserPage} />
+          <PrivateRoute path='/useredit/:id' component={EditUtentePage} />
+          <PrivateRoute path='/userview/:id' component={ViewUtentiPage} />
+
           <PrivateRoute path='/customer' component={ClientiDashboardPage} />
+          <PrivateRoute path='/customercreate' component={AddClientiPage} />
+          <PrivateRoute path='/customeredit/:id' component={EditClientiPage} />
+          <PrivateRoute path='/customerview/:id' component={ViewClientiPage} />
 
           <PrivateRoute path='/oggetti' component={OggettiDashboardPage} />
           <PrivateRoute path='/oggettocreate' component={AddOggettoPage} />
@@ -69,10 +73,16 @@ const AppRouter = ({ uid }) => {
             path='/oggettomatchview/:id'
             component={ViewOggettoMatchPage}
           />
+
+          <PrivateRoute path='/firmacreate' component={AddFirmaPage} />
+          <PrivateRoute path='/firmaview/:id' component={ViewFirmaPage} />
+          <PrivateRoute path='/firmaedit/:id' component={EditFirmaPage} />
+
           <PrivateRoute path='/fatture' component={FattureDashboardPage} />
           <PrivateRoute path='/fatturacreate' component={AddFatturaPage} />
           <PrivateRoute path='/fatturaview/:id' component={ViewFatturaPage} />
           <PrivateRoute path='/fatturaedit/:id' component={EditFatturaPage} />
+
           <PrivateRoute path='/leads' component={LeadsDashboardPage} />
           <PrivateRoute path='/leadscreate' component={AddLeadPage} />
           <PrivateRoute path='/leadedit/:id' component={EditLeadPage} />
@@ -81,6 +91,9 @@ const AppRouter = ({ uid }) => {
             component={ViewLeadMatchPage}
           />
           <PrivateRoute path='/leadview/:id' component={ViewLeadPage} />
+
+          <PrivateRoute path='/report' component={ReportPage} />
+
           <PrivateRoute path='/datenblatt/:id' component={StampaDatenblatt} />
           <PrivateRoute path='/moduli' component={ModuliPage} />
           <PrivateRoute path='/makleralleinauftrag' component={MAAForm} />

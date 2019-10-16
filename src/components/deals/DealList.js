@@ -18,9 +18,9 @@ export const DealList = ({
       clienteDeals.length > 0 && (
         <div className='content-container'>
           <div className='list-header list-header-deals'>
-            <div className='show-for-mobile'>Provvigione</div>
-            <div className='show-for-desktop'>Provvigione</div>
-            <div className='show-for-desktop'>Importo</div>{' '}
+            <div className='show-for-mobile'>Provision</div>
+            <div className='show-for-desktop'>Provision</div>
+            <div className='show-for-desktop'>Betrag</div>{' '}
           </div>
           <div className='list-body'>
             {clienteDeals.map(deal => {
@@ -61,25 +61,21 @@ export const DealList = ({
   } else {
     return (
       <div className='content-container'>
-        {uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' && (
+        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
           <Link className='button button--secondary button-add' to='/create'>
             +
           </Link>
         )}
-        {uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' && (
-          <Link className='button button--secondary button-add' to='/create'>
-            +
-          </Link>
-        )}
+
         <div className='list-header list-header-deals'>
-          <div className='show-for-mobile'>Provvigione</div>
-          <div className='show-for-desktop'>Provvigione</div>
-          <div className='show-for-desktop'>Importo</div>
+          <div className='show-for-mobile'>Provision</div>
+          <div className='show-for-desktop'>Provision</div>
+          <div className='show-for-desktop'>Betrag</div>
         </div>
         <div className='list-body'>
           {deals.length === 0 ? (
             <div className='list-item list-item--message'>
-              <span>Nessuna provvigione in base ai filtri inseriti</span>
+              <span>Kein Ergebnis anhand der angegebenen Filtern</span>
             </div>
           ) : (
             deals.map(deal => {

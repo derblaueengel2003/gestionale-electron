@@ -15,7 +15,7 @@ export class ClientiListFilters extends React.Component {
             <input
               type='text'
               className='text-input'
-              placeholder='Cerca Cliente'
+              placeholder='Kundensuche'
               value={this.props.filters.cliente}
               onChange={this.onClienteChange}
             />

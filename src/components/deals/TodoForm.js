@@ -87,7 +87,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo1}
                 onChange={this.onTodo1Change}
               />{' '}
-              Prenotazione
+              Reservierung
             </label>
           </div>
 
@@ -126,7 +126,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo4}
                 onChange={this.onTodo4Change}
               />{' '}
-              Documentazione inviata all'acquirente
+              Unterlagen an den Käufer versendet
             </label>
           </div>
 
@@ -139,7 +139,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo5}
                 onChange={this.onTodo5Change}
               />{' '}
-              Notarauftrag firmato da ambo le parti
+              Unterschriebener Notarauftrag
             </label>
           </div>
 
@@ -152,7 +152,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo6}
                 onChange={this.onTodo6Change}
               />{' '}
-              Notardatenblatt inviato
+              Notardatenblatt versendet
             </label>
           </div>
 
@@ -165,7 +165,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo7}
                 onChange={this.onTodo7Change}
               />{' '}
-              Info Rücklage di pertinenza
+              Info über die Rücklage
             </label>
           </div>
 
@@ -178,7 +178,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo8}
                 onChange={this.onTodo8Change}
               />{' '}
-              Bozza di contratto ricevuta
+              Kaufvertrag-Entwurf
             </label>
           </div>
 
@@ -191,7 +191,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo9}
                 onChange={this.onTodo9Change}
               />{' '}
-              Appuntamento rogito fissato
+              Beurkundunstermin vereinbart
             </label>
           </div>
 
@@ -204,7 +204,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo10}
                 onChange={this.onTodo10Change}
               />{' '}
-              GWG Dokumentationsbogen (Angelo)
+              GWG Dokumentationsbogen
             </label>
           </div>
 
@@ -217,7 +217,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo11}
                 onChange={this.onTodo11Change}
               />{' '}
-              Übergabe effettuata
+              Übergabe erledigt
             </label>
           </div>
         </div>

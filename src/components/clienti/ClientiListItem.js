@@ -13,11 +13,7 @@ export const ClientiListItem = ({
   visible,
   uid
 }) => {
-  if (
-    visible ||
-    uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-    uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33'
-  ) {
+  if (visible || uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03') {
     return (
       <div className={visible ? 'list-item' : 'list-item disabled'}>
         <div>

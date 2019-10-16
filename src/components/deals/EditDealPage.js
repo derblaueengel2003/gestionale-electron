@@ -11,7 +11,9 @@ export class EditDealPage extends React.Component {
   };
   onRemove = () => {
     if (
-      window.confirm("Confermi la cancellazione? L'operazione è irreversibile")
+      window.confirm(
+        'Achtung! Möchten Sie wirklich das löschen? Die Daten werden unwiderruflich gelöscht!'
+      )
     ) {
       this.props.startRemoveDeal({ id: this.props.deal.id });
       this.props.history.push('/');
@@ -22,7 +24,7 @@ export class EditDealPage extends React.Component {
       <div>
         <div className='page-header'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Modifica Provvigione</h1>
+            <h1 className='page-header__title'>Provision bearbeiten</h1>
           </div>
         </div>
         <div className='content-container'>
@@ -31,7 +33,7 @@ export class EditDealPage extends React.Component {
             className='button button--secondary-delete'
             onClick={this.onRemove}
           >
-            Cancella provvigione
+            Provision löschen
           </button>
         </div>
       </div>

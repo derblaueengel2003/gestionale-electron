@@ -82,7 +82,7 @@ export class CustomerForm extends React.Component {
     e.preventDefault();
 
     if (!this.state.cognome) {
-      this.setState(() => ({ error: 'Inserisci nome e cognome.' }));
+      this.setState(() => ({ error: 'Vorname und Name bitte eingeben.' }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
@@ -117,7 +117,9 @@ export class CustomerForm extends React.Component {
     return (
       <form className='form' onSubmit={this.onSubmit}>
         <div>
-          <button className='button button--secondary-clienti'>Salva</button>
+          <button className='button button--secondary-clienti'>
+            Speichern
+          </button>
         </div>
         {this.state.error && (
           <div>
@@ -127,11 +129,11 @@ export class CustomerForm extends React.Component {
               target='_blank'
               className='button button--secondary-clienti'
             >
-              Verifica
+              Überprüfen
             </Link>
           </div>
         )}
-        Cliente di:
+        Kundenbetreuer:
         <select
           name='consulenteVenditaId'
           value={this.state.consulenteVenditaId}
@@ -144,7 +146,7 @@ export class CustomerForm extends React.Component {
             </option>
           ))}
         </select>
-        Titolo:
+        Anrede:
         <input
           name='titolo'
           className={`text-input`}
@@ -154,43 +156,43 @@ export class CustomerForm extends React.Component {
           value={this.state.titolo}
           onChange={this.changeHandler}
         />
-        Nome:
+        Vorname:
         <input
           name='nome'
           className={`text-input`}
           type='text'
-          placeholder='Nome'
+          placeholder='Vorname'
           value={this.state.nome}
           onChange={this.changeHandler}
         />
-        Cognome:
+        Name:
         <input
           name='cognome'
           className={`text-input ${this.state.error && 'form__error'}`}
           type='text'
-          placeholder='Cognome'
+          placeholder='Name'
           value={this.state.cognome}
           onChange={this.changeHandlerValidate}
         />
-        Email:
+        E-Mail:
         <input
           name='email'
           className={`text-input ${this.state.error && 'form__error'}`}
           type='text'
-          placeholder='indirizzo email'
+          placeholder='E-Mail Adresse'
           value={this.state.email}
           onChange={this.changeHandlerValidate}
         />
-        Telefono:
+        Telefon:
         <input
           name='telefono1'
           className={`text-input`}
           type='text'
-          placeholder='Numero di telefono'
+          placeholder='Telefonnummer'
           value={this.state.telefono1}
           onChange={this.changeHandler}
         />
-        Data di Nascita:
+        Geboren am:
         <SingleDatePicker
           date={this.state.dataDiNascita}
           onDateChange={this.onDateChange}
@@ -200,21 +202,21 @@ export class CustomerForm extends React.Component {
           isOutsideRange={() => false}
           showClearDate={true}
         />
-        Codice Fiscale:
+        Steuer ID-Nummer:
         <input
           name='codiceFiscale'
           className={`text-input`}
           type='text'
-          placeholder='per residenti in Germania'
+          placeholder='wenn Wohnsitz in Deutschland'
           value={this.state.codiceFiscale}
           onChange={this.changeHandler}
         />
-        Ditta:
+        Firma:
         <input
           name='ditta'
           className={`text-input ${this.state.error && 'form__error'}`}
           type='text'
-          placeholder='Ditta'
+          placeholder='Firma'
           value={this.state.ditta}
           onChange={this.changeHandlerValidate}
         />
@@ -227,16 +229,16 @@ export class CustomerForm extends React.Component {
           value={this.state.handelsRegisterNummer}
           onChange={this.changeHandler}
         />
-        Indirizzo:
+        Adresse:
         <input
           name='indirizzo'
           className={`text-input`}
           type='text'
-          placeholder='Via e numero civico'
+          placeholder='Straße und Nr.'
           value={this.state.indirizzo}
           onChange={this.changeHandler}
         />
-        Indirizzo ulteriore:
+        Zusatzadresse:
         <input
           name='indirizzo2'
           className={`text-input`}
@@ -245,48 +247,48 @@ export class CustomerForm extends React.Component {
           value={this.state.indirizzo2}
           onChange={this.changeHandler}
         />
-        Cap:
+        PLZ:
         <input
           name='cap'
           className={`text-input`}
           type='text'
-          placeholder='cap'
+          placeholder='Postleitzahl'
           value={this.state.cap}
           onChange={this.changeHandler}
         />
-        Città:
+        Stadt:
         <input
           name='comune'
           className={`text-input`}
           type='text'
-          placeholder='Città'
+          placeholder='Stadt'
           value={this.state.comune}
           onChange={this.changeHandler}
         />
-        Nazione:
+        Staat:
         <input
           name='nazione'
           className={`text-input`}
           type='text'
-          placeholder='Nazione'
+          placeholder='Staat'
           value={this.state.nazione}
           onChange={this.changeHandler}
         />
-        Lingua:
+        Sprache:
         <input
           name='lingua'
           className={`text-input`}
           type='text'
-          placeholder='Lingua'
+          placeholder='Sprache'
           value={this.state.lingua}
           onChange={this.changeHandler}
         />
-        Banca:
+        BanK:
         <input
           name='bank'
           className={`text-input`}
           type='text'
-          placeholder='Dati bancari del cliente'
+          placeholder='Bankdaten'
           value={this.state.bank}
           onChange={this.changeHandler}
         />
@@ -311,12 +313,11 @@ export class CustomerForm extends React.Component {
         <textarea
           name='note'
           className={`textarea text-input`}
-          placeholder='Nota  (opzionale)'
+          placeholder='Note'
           value={this.state.note}
           onChange={this.changeHandler}
         ></textarea>
-        {this.props.uid === 'JzFEsotsQwhMMAeJeWDM8Jv2qGb2' ||
-        this.props.uid === 'aGOwhidD7rVXfbYrWBmKL7mNrf33' ? (
+        {this.props.uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' ? (
           <label>
             Visible&nbsp;
             <input
@@ -335,7 +336,9 @@ export class CustomerForm extends React.Component {
         )}
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
         <div>
-          <button className='button button--secondary-clienti'>Salva</button>
+          <button className='button button--secondary-clienti'>
+            Speichern
+          </button>
         </div>
       </form>
     );

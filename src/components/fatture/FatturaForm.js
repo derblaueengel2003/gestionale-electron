@@ -80,7 +80,9 @@ export class FatturaForm extends React.Component {
     e.preventDefault();
 
     if (!this.state.numeroFattura || !this.state.dataFattura) {
-      this.setState(() => ({ error: 'Inserisci numero e data fattura' }));
+      this.setState(() => ({
+        error: 'Datum und Rechnungsnummer bitte eingeben'
+      }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
@@ -137,7 +139,7 @@ export class FatturaForm extends React.Component {
           options={dealIdOptions}
           onChange={this.onDealIdChange}
         />
-        Cliente:
+        Kunde:
         <Select
           name='clienteId'
           value={this.state.clienteId}
@@ -145,7 +147,7 @@ export class FatturaForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onClienteIdChange}
         />
-        Secondo Cliente:
+        2. Kunde:
         <Select
           name='clienteId2'
           value={this.state.clienteId2}
@@ -153,15 +155,15 @@ export class FatturaForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onClienteIdChange2}
         />
-        Numero Fattura:
+        Rechnungsnummer:
         <input
           className={`text-input text-input--${this.state.modificato.numeroFattura}`}
           type='text'
-          placeholder='Numero Fattura'
+          placeholder='Rechnungsnummer'
           value={this.state.numeroFattura}
           onChange={this.onNumeroFatturaChange}
         />
-        Data Fattura:
+        Rechnungsdatum:
         <SingleDatePicker
           date={this.state.dataFattura}
           onDateChange={this.onDataFatturaChange}
@@ -171,7 +173,7 @@ export class FatturaForm extends React.Component {
           isOutsideRange={() => false}
         />
         <label>
-          Pagata&nbsp;
+          Bezahlt&nbsp;
           <input
             type='checkbox'
             name='payed'
@@ -180,7 +182,7 @@ export class FatturaForm extends React.Component {
           />
         </label>
         <div className={`visible-${this.state.payed} form`}>
-          Data Pagamento:
+          Bezahlt am:
           <SingleDatePicker
             date={this.state.payedAt}
             onDateChange={this.onPayedAtDateChange}
@@ -193,17 +195,17 @@ export class FatturaForm extends React.Component {
         </div>
         <textarea
           className={`textarea text-input--${this.state.modificato.note}`}
-          placeholder={`Spazio per causale fattura e importo per fattura vuota. Es. 
-Ritiro chiavi a pagamento: 10 €
+          placeholder={`Hier kann mann die Rechnung anpassen, z.B.: 
+Schlüssel Übergabe:        10 €
 +19% MWSt.:                1,9 €
 _________________________________
-Totale:                    11,9 €`}
+Gesamtbetrag:             11,9 €`}
           value={this.state.note}
           onChange={this.onNoteChange}
         ></textarea>
         <div>
           <button className='button button--secondary-fatture'>
-            Salva modifiche
+            Speichern
           </button>
         </div>
       </form>

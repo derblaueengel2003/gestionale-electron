@@ -14,14 +14,14 @@ export const UtentiList = props => (
       </Link>
     </div>
     <div className='list-header'>
-      <div className='show-for-mobile'>Utente</div>
-      <div className='show-for-desktop'>Utente</div>
-      <div className='show-for-desktop'>Ruolo</div>
+      <div className='show-for-mobile'>Benutzer</div>
+      <div className='show-for-desktop'>Benutzer</div>
+      <div className='show-for-desktop'>Rolle</div>
     </div>
     <div className='list-body'>
       {props.utenti.length === 0 ? (
         <div className='list-item list-item--message'>
-          <span>Nessun utente in base ai filtri inseriti</span>
+          <span>Kein Ergebnis anhand der angegebenen Filtern</span>
         </div>
       ) : (
         props.utenti.map(utente => {
@@ -34,7 +34,8 @@ export const UtentiList = props => (
 
 const mapStateToProps = state => {
   return {
-    utenti: state.utenti
+    utenti: state.utenti,
+    firma: state.firma
   };
 };
 

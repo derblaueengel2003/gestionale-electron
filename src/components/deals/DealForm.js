@@ -179,12 +179,12 @@ export class DealForm extends React.Component {
       !this.state.acquirenteId
     ) {
       this.setState(() => ({
-        error: 'Inserisci oggetto, importo totale e acquirente.'
+        error: 'Objekt, Summe und Käufer bitte ausfüllen.'
       }));
     } else if (amount !== provvSum) {
       const differenza = (provvSum - amount) / 100;
       this.setState(() => ({
-        error: `La somma delle provvigioni non corrisponde al totale. Differenza di ${differenza} €.`
+        error: `Provisionssumme entrspricht nicht die Gesamtprovision. ${differenza} € Unterschied.`
       }));
     } else {
       this.setState(() => ({ error: '' }));
@@ -267,23 +267,23 @@ export class DealForm extends React.Component {
       <form className='form' onSubmit={this.onSubmit}>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
         <div>
-          <button className='button button--secondary'>Salva modifiche</button>
+          <button className='button button--secondary'>Speichern</button>
         </div>
-        Tipologia di provvigione:
+        Provisiontyp:
         <Select
           name={'dealType'}
           value={this.state.dealType}
           options={dealTypeOptions}
           onChange={this.onDealTypeChange}
         />
-        Oggetto:
+        Objekt:
         <Select
           name='oggettoId'
           value={this.state.oggettoId}
           options={oggettiOptions}
           onChange={this.onOggettoChange}
         />
-        Data Prenotazione:
+        Reservierungsdatum:
         <SingleDatePicker
           date={this.state.createdAt}
           onDateChange={this.onDateChange}
@@ -293,7 +293,7 @@ export class DealForm extends React.Component {
           isOutsideRange={() => false}
           showClearDate={true}
         />
-        Prezzo di Vendita:
+        Verkaufspreis:
         <input
           name='prezzoDiVendita'
           className={`text-input text-input--${this.state.modificato.prezzoDiVendita}`}
@@ -302,7 +302,7 @@ export class DealForm extends React.Component {
           value={this.state.prezzoDiVendita}
           onChange={this.changeHandlerValuta}
         />
-        Importo totale:
+        Gesamtprovision:
         <input
           name='amount'
           className={`text-input text-input--${this.state.modificato.amount}`}
@@ -314,14 +314,14 @@ export class DealForm extends React.Component {
           value={this.state.amount}
           onChange={this.changeHandlerValuta}
         />
-        Cliente di:
+        Kundenbetreuer:
         <Select
           name='consulentevendita'
           value={this.state.consulenteVendita}
           options={consulenteVenditaOptions}
           onChange={this.onConsulenteVenditaChange}
         />
-        Provvigione m2Square:
+        Provision m2Square:
         <input
           name='provvM2square'
           className={`text-input text-input--${this.state.modificato.provvM2square}`}
@@ -334,7 +334,7 @@ export class DealForm extends React.Component {
           value={this.state.provvM2square}
           onChange={this.changeHandlerValuta}
         />
-        Provvigione Stefano:
+        Provision Kundenbetreuer:
         <input
           name='provvStefano'
           className={`text-input text-input--${this.state.modificato.provvStefano}`}
@@ -348,7 +348,7 @@ export class DealForm extends React.Component {
           onChange={this.changeHandlerValuta}
         />
         <label>
-          Pagata&nbsp;
+          Bezahlt&nbsp;
           <input
             type='checkbox'
             name='payedStefano'
@@ -362,7 +362,7 @@ export class DealForm extends React.Component {
           />
         </label>
         <div className={`visible-${this.state.payedStefano} form`}>
-          Data Pagamento:
+          Bezahlt am:
           <SingleDatePicker
             date={this.state.payedAtStefano}
             onDateChange={this.onPayedAtDateStefanoChange}
@@ -373,7 +373,7 @@ export class DealForm extends React.Component {
             showClearDate={true}
           />
         </div>
-        Agenzia Partner:
+        Kooperationspartner:
         <Select
           name='agenziapartner'
           value={this.state.agenziaPartnerId}
@@ -381,7 +381,7 @@ export class DealForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onAgenziaPartnerChange}
         />
-        Provvigione Agenzia Partner
+        Provision Kooperationspartner
         <input
           name='provvAgenziaPartner'
           className={`text-input text-input--${this.state.modificato.provvAgenziaPartner}`}
@@ -391,7 +391,7 @@ export class DealForm extends React.Component {
           onChange={this.changeHandlerValuta}
         />
         <label>
-          Pagata&nbsp;
+          Bezahlt&nbsp;
           <input
             type='checkbox'
             name='payedAgenziaPartner'
@@ -403,7 +403,7 @@ export class DealForm extends React.Component {
             }}
           />
         </label>
-        Venditore:
+        Verkäufer:
         <Select
           name='venditore'
           value={this.state.venditoreId}
@@ -411,7 +411,7 @@ export class DealForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onVenditoreIdChange}
         />
-        Secondo Venditore:
+        2. Verkäufer:
         <Select
           name='venditore2'
           value={this.state.venditoreId2}
@@ -419,7 +419,7 @@ export class DealForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onVenditoreIdChange2}
         />
-        Acquirente:
+        Käufer:
         <Select
           name='acquirente'
           value={this.state.acquirenteId}
@@ -427,7 +427,7 @@ export class DealForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onAcquirenteIdChange}
         />
-        Secondo Acquirente:
+        2. Käufer:
         <Select
           name='acquirente2'
           value={this.state.acquirenteId2}
@@ -435,7 +435,7 @@ export class DealForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onAcquirenteIdChange2}
         />
-        Notaio:
+        Notar:
         <Select
           name='notaio'
           value={this.state.notaioId}
@@ -443,7 +443,7 @@ export class DealForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onNotaioIdChange}
         />
-        Data Rogito:
+        Beurkundungsdatum:
         <SingleDatePicker
           date={this.state.dataRogito}
           onDateChange={this.onDataRogitoChange}
@@ -453,7 +453,7 @@ export class DealForm extends React.Component {
           isOutsideRange={() => false}
           showClearDate={true}
         />
-        Lingua Rogito:
+        Beurkundungssprache:
         <Select
           name={'linguaRogito'}
           value={this.state.linguaRogito}
@@ -473,7 +473,7 @@ export class DealForm extends React.Component {
             }}
           />
         </label>
-        Data Übergabe:
+        Übergabedatum:
         <SingleDatePicker
           date={this.state.dataConsegna}
           onDateChange={this.onDataConsegnaChange}
@@ -491,7 +491,7 @@ export class DealForm extends React.Component {
           onChange={this.changeHandler}
         ></textarea>
         <div>
-          <button className='button button--secondary'>Salva modifiche</button>
+          <button className='button button--secondary'>Speichern</button>
         </div>
       </form>
     );
