@@ -39,7 +39,7 @@ export class EditOggettoPage extends React.Component {
           <button
             className='button button--secondary-delete'
             onClick={
-              this.props.uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03'
+              this.props.utente.role === 'Admin'
                 ? this.onRemove
                 : this.onDisable
             }
@@ -54,7 +54,7 @@ export class EditOggettoPage extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   oggetto: state.oggetti.find(oggetto => oggetto.id === props.match.params.id),
-  uid: state.auth.uid
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
 const mapDispatchToProps = dispatch => ({

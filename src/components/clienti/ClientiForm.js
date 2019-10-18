@@ -317,7 +317,7 @@ export class CustomerForm extends React.Component {
           value={this.state.note}
           onChange={this.changeHandler}
         ></textarea>
-        {this.props.uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' ? (
+        {this.props.utente.role === 'Admin' ? (
           <label>
             Visible&nbsp;
             <input
@@ -348,7 +348,7 @@ export class CustomerForm extends React.Component {
 const mapStateToProps = state => ({
   utenti: state.utenti,
   clienti: state.clienti,
-  uid: state.auth.uid
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
 export default connect(mapStateToProps)(CustomerForm);

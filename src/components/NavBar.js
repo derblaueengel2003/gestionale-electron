@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export const NavBar = ({ uid }) => {
+export const NavBar = ({ utente }) => {
   return (
     <div className='content-container page-header__navbar'>
       <div className='show-for-mobile'>
@@ -27,17 +27,17 @@ export const NavBar = ({ uid }) => {
             <Link to='/customer'>
               <li>Kontakte</li>
             </Link>
-            {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
+            {utente.role === 'Admin' && (
               <Link to='/report'>
                 <li>Report</li>
               </Link>
             )}
-            {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
+            {utente.role === 'Admin' && (
               <Link to='/users'>
                 <li>Benutzer</li>
               </Link>
             )}
-            {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
+            {utente.role === 'Admin' && (
               <Link to='/fatture'>
                 <li>Rechnungen</li>
               </Link>
@@ -76,7 +76,7 @@ export const NavBar = ({ uid }) => {
         >
           Kontakte
         </Link>
-        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
+        {utente.role === 'Admin' && (
           <Link
             className='button page-header__button page-header__button-clienti'
             to='/report'
@@ -84,7 +84,7 @@ export const NavBar = ({ uid }) => {
             Report
           </Link>
         )}
-        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
+        {utente.role === 'Admin' && (
           <Link
             className='button page-header__button page-header__button-clienti'
             to='/users'
@@ -92,7 +92,7 @@ export const NavBar = ({ uid }) => {
             Benutzer
           </Link>
         )}
-        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
+        {utente.role === 'Admin' && (
           <Link
             className='button page-header__button page-header__button-fatture'
             to='/fatture'
@@ -107,7 +107,9 @@ export const NavBar = ({ uid }) => {
 
 const mapStateToProps = state => {
   return {
-    uid: state.auth.uid
+    utente: state.utenti.find(
+      utente => utente.firebaseAuthId === state.auth.uid
+    )
   };
 };
 export default connect(mapStateToProps)(NavBar);

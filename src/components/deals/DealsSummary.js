@@ -34,14 +34,21 @@ const mapStateToProps = state => {
   const visibleDeals = selectDeals(
     state.deals,
     state.filters,
-    state.auth,
     state.oggetti,
-    state.clienti
+    state.clienti,
+    state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
   );
   return {
     dealCount: visibleDeals.length,
-    dealsTotal: selectDealsTotal(visibleDeals, state.auth),
-    dealsPayed: selectDealsPayed(visibleDeals, state.auth, state.fatture)
+    dealsTotal: selectDealsTotal(
+      visibleDeals,
+      state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+    ),
+    dealsPayed: selectDealsPayed(
+      visibleDeals,
+      state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+      state.fatture
+    )
   };
 };
 

@@ -18,7 +18,6 @@ export class ViewDealPage extends React.Component {
       prezzoDiVendita,
       createdAt,
       dataRogito,
-      dataConsegna,
       note,
       amount,
       consulenteVendita,
@@ -35,7 +34,7 @@ export class ViewDealPage extends React.Component {
       payedStefano,
       id
     } = this.props.deal;
-    const { uid } = this.props;
+    const { utente } = this.props;
     const acquirente = this.props.clienti.find(
       cliente => cliente.id === acquirenteId
     );
@@ -116,7 +115,7 @@ export class ViewDealPage extends React.Component {
                 {amount > 0 && (
                   <h3 className='list-item__title'>
                     Provision:{' '}
-                    {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03'
+                    {utente.role === 'Admin'
                       ? numeral(amount / 100).format('0,0[.]00 $')
                       : ''}
                   </h3>
@@ -126,7 +125,7 @@ export class ViewDealPage extends React.Component {
                     Kundenbetreuer: {consulenteVendita}
                   </h4>
                 )}
-                {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03'
+                {utente.role === 'Admin'
                   ? provvM2square > 0 && (
                       <h4
                         className={`list-item__sub-title list-item--paid${payed}`}
@@ -150,7 +149,7 @@ export class ViewDealPage extends React.Component {
                     {moment(payedAtStefano).format('DD MMMM, YYYY')}
                   </span>
                 )}
-                {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03'
+                {utente.role === 'Admin'
                   ? provvAgenziaPartner > 0 && (
                       <h4
                         className={`list-item__sub-title ${payedAgenziaPartner &&
@@ -198,7 +197,7 @@ export class ViewDealPage extends React.Component {
           </div>
         )}
         <div className='content-container'>
-          {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
+          {utente.role === 'Admin' && (
             <Link className='button button--secondary' to={`/edit/${id}`}>
               Provision bearbeiten
             </Link>
@@ -270,7 +269,7 @@ export class ViewDealPage extends React.Component {
           </button>
         </div>
         <TodoForm dealId={id} />
-        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' ? (
+        {utente.role === 'Admin' ? (
           <FattureList dealFatture={this.props.fatture} />
         ) : (
           ''
@@ -287,7 +286,7 @@ const mapStateToProps = (state, props) => ({
   fatture: state.fatture.filter(
     fattura => fattura.dealId === props.match.params.id
   ),
-  uid: state.auth.uid
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
 export default connect(mapStateToProps)(ViewDealPage);

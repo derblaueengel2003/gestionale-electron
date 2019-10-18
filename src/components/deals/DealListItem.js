@@ -60,7 +60,7 @@ const DealListItem = ({
   payedStefano,
   //   payed,
   id,
-  uid,
+  utente,
   acquirente,
   acquirente2,
   venditore,
@@ -123,7 +123,7 @@ const DealListItem = ({
         <ProgressBar percentage={(todoCount * 100) / 11} />
       </div>
       <div>
-        {uid === 'pCu3H2GQfPWQxMNGwIVTc0Ag0fg1' ? (
+        {utente.role === 'Mitarbeiter' ? (
           <h3
             className={`list-item__data ${payedStefano && 'list-item--paid'}`}
           >

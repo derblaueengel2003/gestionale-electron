@@ -9,7 +9,7 @@ export const DealList = ({
   oggetti,
   clienti,
   fatture,
-  uid,
+  utente,
   deals
 }) => {
   //controllo se i dati vengono dal clienti page o sono passati via props
@@ -44,8 +44,8 @@ export const DealList = ({
                 <DealListItem
                   key={deal.id}
                   {...deal}
+                  utente={utente}
                   oggetto={oggetto}
-                  uid={uid}
                   acquirente={acquirente}
                   acquirente2={acquirente2}
                   venditore={venditore}
@@ -61,7 +61,7 @@ export const DealList = ({
   } else {
     return (
       <div className='content-container'>
-        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
+        {utente.role === 'Admin' && (
           <Link className='button button--secondary button-add' to='/create'>
             +
           </Link>
@@ -100,8 +100,8 @@ export const DealList = ({
                 <DealListItem
                   key={deal.id}
                   {...deal}
+                  utente={utente}
                   oggetto={oggetto}
-                  uid={uid}
                   acquirente={acquirente}
                   acquirente2={acquirente2}
                   venditore={venditore}
@@ -123,14 +123,16 @@ const mapStateToProps = state => {
     deals: selectDeals(
       state.deals,
       state.filters,
-      state.auth,
       state.oggetti,
-      state.clienti
+      state.clienti,
+      state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
     ),
     oggetti: state.oggetti,
     clienti: state.clienti,
     fatture: state.fatture,
-    uid: state.auth.uid
+    utente: state.utenti.find(
+      utente => utente.firebaseAuthId === state.auth.uid
+    )
   };
 };
 

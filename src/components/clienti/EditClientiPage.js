@@ -42,7 +42,7 @@ export class EditClientePage extends React.Component {
           <button
             className='button button--secondary-delete'
             onClick={
-              this.props.uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03'
+              this.props.utente.role === 'Admin'
                 ? this.onRemove
                 : this.onDisable
             }
@@ -57,7 +57,7 @@ export class EditClientePage extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   cliente: state.clienti.find(cliente => cliente.id === props.match.params.id),
-  uid: state.auth.uid
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
 const mapDispatchToProps = dispatch => ({

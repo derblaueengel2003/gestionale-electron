@@ -11,9 +11,9 @@ export const ClientiListItem = ({
   telefono1,
   id,
   visible,
-  uid
+  utente
 }) => {
-  if (visible || uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03') {
+  if (visible || utente.role === 'Admin') {
     return (
       <div className={visible ? 'list-item' : 'list-item disabled'}>
         <div>
@@ -37,7 +37,9 @@ export const ClientiListItem = ({
 
 const mapStateToProps = state => {
   return {
-    uid: state.auth.uid
+    utente: state.utenti.find(
+      utente => utente.firebaseAuthId === state.auth.uid
+    )
   };
 };
 

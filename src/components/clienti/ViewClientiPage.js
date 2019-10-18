@@ -22,7 +22,7 @@ export class ViewClientiPage extends React.Component {
       nazione,
       id
     } = this.props.cliente;
-    const { uid } = this.props;
+    const { utente } = this.props;
 
     const dealFatture = this.props.fatture.filter(
       fattura => fattura.clienteId === id || fattura.clienteId2 === id
@@ -83,9 +83,7 @@ export class ViewClientiPage extends React.Component {
         <OggettiList oggetto={this.props.oggetti} />
 
         <DealList clienteDeals={clienteDeals} />
-        {uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' && (
-          <FattureList dealFatture={dealFatture} />
-        )}
+        {utente.role === 'Admin' && <FattureList dealFatture={dealFatture} />}
       </div>
     );
   }
@@ -102,7 +100,7 @@ const mapStateToProps = (state, props) => ({
   ),
   fatture: state.fatture,
   deals: state.deals,
-  uid: state.auth.uid
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
 export default connect(mapStateToProps)(ViewClientiPage);

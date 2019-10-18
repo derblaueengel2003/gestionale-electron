@@ -295,7 +295,7 @@ export class OggettoForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onProprietarioChange2}
         />
-        {this.props.uid === 'XVyqKNyFoDSa7yKV6KZmwRwLGK03' ? (
+        {this.props.utente.role === 'Admin' ? (
           <label>
             Visible&nbsp;
             <input
@@ -324,7 +324,7 @@ export class OggettoForm extends React.Component {
 
 const mapStateToProps = state => ({
   clienti: state.clienti,
-  uid: state.auth.uid
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
 export default connect(mapStateToProps)(OggettoForm);

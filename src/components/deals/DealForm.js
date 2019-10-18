@@ -184,7 +184,7 @@ export class DealForm extends React.Component {
     } else if (amount !== provvSum) {
       const differenza = (provvSum - amount) / 100;
       this.setState(() => ({
-        error: `Provisionssumme entrspricht nicht die Gesamtprovision. ${differenza} € Unterschied.`
+        error: `Provisionen-Summe entrspricht nicht die Gesamtprovision. ${differenza} € Unterschied.`
       }));
     } else {
       this.setState(() => ({ error: '' }));

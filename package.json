@@ -1,10 +1,12 @@
 {
   "name": "gestionale-dummy",
-  "version": "1.0.0",
+  "version": "6.0.0",
   "main": "index.js",
   "author": "Angelo Arboscello",
   "license": "MIT",
   "scripts": {
+    "generate-build-version": "node generate-build-version",
+    "prebuild": "npm run generate-build-version",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server",
