@@ -78,7 +78,7 @@ export const NavBar = ({ utente }) => {
         </Link>
         {utente.role === 'Admin' && (
           <Link
-            className='button page-header__button page-header__button-clienti'
+            className='button page-header__button page-header__button-report'
             to='/report'
           >
             Report
@@ -86,7 +86,7 @@ export const NavBar = ({ utente }) => {
         )}
         {utente.role === 'Admin' && (
           <Link
-            className='button page-header__button page-header__button-clienti'
+            className='button page-header__button page-header__button-utenti'
             to='/users'
           >
             Benutzer

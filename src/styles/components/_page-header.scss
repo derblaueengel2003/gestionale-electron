@@ -2,42 +2,6 @@
   background: $off-white;
   margin-bottom: $s-size;
   padding: $l-size 0;
-
-  // &-clienti {
-  //   background: linear-gradient(
-  //     to bottom,
-  //     rgba($light-blue, 0.85),
-  //     rgba(white, 0.85)
-  //   );
-  // }
-  // &-deals {
-  //   background: linear-gradient(
-  //     to bottom,
-  //     rgba($light-green, 0.85),
-  //     rgba(white, 0.85)
-  //   );
-  // }
-  // &-leads {
-  //   background: linear-gradient(
-  //     to bottom,
-  //     rgba($light-orange, 0.85),
-  //     rgba(white, 0.85)
-  //   );
-  // }
-  // &-modulistica {
-  //   background: linear-gradient(
-  //     to bottom,
-  //     rgba($light-acqua, 0.85),
-  //     rgba(white, 0.85)
-  //   );
-  // }
-  // &-oggetti {
-  //   background: linear-gradient(
-  //     to bottom,
-  //     rgba($light-purple, 0.85),
-  //     rgba(white, 0.85)
-  //   );
-  // }
 }
 
 .page-header__actions {
@@ -90,6 +54,20 @@
       to right bottom,
       rgba($blue, 0.85),
       rgba($light-blue, 0.85)
+    );
+  }
+  &-report {
+    background: linear-gradient(
+      to right bottom,
+      rgba($dark-petrolio, 0.85),
+      rgba($light-petrolio, 0.85)
+    );
+  }
+  &-utenti {
+    background: linear-gradient(
+      to right bottom,
+      rgba($dark-argento, 0.85),
+      rgba($light-argento, 0.85)
     );
   }
 }
