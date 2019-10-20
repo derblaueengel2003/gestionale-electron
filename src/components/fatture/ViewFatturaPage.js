@@ -122,7 +122,9 @@ export class ViewFatturePage extends React.Component {
                 deal.createdAt,
                 deal.dealType,
                 acquirente,
-                acquirente2
+                acquirente2,
+                this.props.firma,
+                this.props.utente
               );
             }}
           >
@@ -151,7 +153,9 @@ const mapStateToProps = (state, props) => ({
   fattura: state.fatture.find(fattura => fattura.id === props.match.params.id),
   clienti: state.clienti,
   deals: state.deals,
-  oggetti: state.oggetti
+  oggetti: state.oggetti,
+  firma: state.firma[0],
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
 export default connect(mapStateToProps)(ViewFatturePage);

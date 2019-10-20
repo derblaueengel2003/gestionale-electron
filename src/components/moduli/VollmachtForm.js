@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import { SingleDatePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
@@ -47,7 +45,7 @@ export class VollmachtForm extends React.Component {
       this.setState(() => ({ error: 'Käufer und Objekt bitte eingeben.' }));
     } else {
       this.setState(() => ({ error: '' }));
-      delegaDocumenti(cliente, cliente2, oggetto);
+      delegaDocumenti(cliente, cliente2, oggetto, this.props.firma);
     }
   };
 
@@ -111,7 +109,8 @@ export class VollmachtForm extends React.Component {
 
 const mapStateToProps = state => ({
   clienti: state.clienti,
-  oggetti: state.oggetti
+  oggetti: state.oggetti,
+  firma: state.firma[0]
 });
 
 export default connect(mapStateToProps)(VollmachtForm);

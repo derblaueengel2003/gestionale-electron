@@ -10,6 +10,9 @@ export default class UserForm extends React.Component {
     this.state = {
       name: props.user ? props.user.name : '',
       role: props.user ? props.user.role : '',
+      email: props.user ? props.user.email : '',
+      telefon: props.user ? props.user.telefon : '',
+      qualifica: props.user ? props.user.qualifica : '',
       firebaseAuthId: props.user ? props.user.firebaseAuthId : null
     };
   }
@@ -32,6 +35,9 @@ export default class UserForm extends React.Component {
       this.props.onSubmit({
         name: this.state.name,
         role: this.state.role,
+        email: this.state.email,
+        telefon: this.state.telefon,
+        qualifica: this.state.qualifica,
         firebaseAuthId: this.state.firebaseAuthId
       });
     }
@@ -71,6 +77,33 @@ export default class UserForm extends React.Component {
           placeholder='firebase user id'
           autoFocus
           value={this.state.firebaseAuthId}
+          onChange={this.changeHandler}
+        />
+        E-Mail:
+        <input
+          className={`text-input`}
+          name='email'
+          type='text'
+          autoFocus
+          value={this.state.email}
+          onChange={this.changeHandler}
+        />
+        Telefon:
+        <input
+          className={`text-input`}
+          name='telefon'
+          type='text'
+          autoFocus
+          value={this.state.telefon}
+          onChange={this.changeHandler}
+        />
+        Berufbezeichnung:
+        <input
+          className={`text-input`}
+          name='qualifica'
+          type='text'
+          autoFocus
+          value={this.state.qualifica}
           onChange={this.changeHandler}
         />
         <div>

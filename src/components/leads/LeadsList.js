@@ -26,6 +26,8 @@ export const LeadsList = props => {
     //in questo caso i dati provengono dallo state. Siamo sulla lead dashboard page
     return (
       <div className='content-container'>
+        {window.scrollTo(0, 0)}
+
         <Link
           className='button button--secondary-leads button-add'
           to='/leadscreate'

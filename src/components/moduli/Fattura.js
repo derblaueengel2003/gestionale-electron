@@ -19,7 +19,9 @@ export const fattura = (
   dataPrenotazione,
   dealType,
   acquirente,
-  acquirente2
+  acquirente2,
+  firma,
+  utente
 ) => {
   const acqNome = `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
   const acqInd = `${cliente.indirizzo} ${cliente.indirizzo2 &&
@@ -79,7 +81,9 @@ ${note}`;
   doc.setFont('times');
   doc.setFontType('bold');
   doc.text(
-    'm2Square - Arboscello & Fornari GbR – Kastanienallee 2, 10435 Berlin',
+    `${firma.name} ${firma.name2 && ` - ${firma.name2}`} - ${firma.adresse}, ${
+      firma.plz
+    } ${firma.stadt}`,
     19,
     27
   );
@@ -93,22 +97,22 @@ ${note}`;
   doc.setFontType('normal');
   doc.text('Ihr Ansprechpartner', 149, 40);
   doc.setFontType('bold');
-  doc.text('Angelo Arboscello', 149, 44);
+  doc.text(`${utente.name}`, 149, 44);
   doc.setFontType('normal');
   doc.text('angelo.arboscello@m2square.eu', 149, 48);
-  doc.text('Tel. +49 (30) 54482958', 149, 52);
-  doc.text('www.m2square.eu', 149, 56);
+  doc.text(`Tel. ${firma.telefon}`, 149, 52);
+  doc.text(`${firma.website}`, 149, 56);
   doc.setFontType('bold');
   doc.text('Öffnungszeiten', 149, 68);
   doc.setFontType('normal');
-  doc.text('Mo.-Fr. 10:00 bis 17:00 Uhr', 149, 72);
+  doc.text(`${firma.open}`, 149, 72);
   doc.setFontType('bold');
-  doc.text('Arboscello & Fornari GbR', 149, 84);
+  doc.text(`${firma.name2 ? firma.name2 : firma.name}`, 149, 84);
   doc.setFontType('normal');
-  doc.text('Immobilienmakler', 149, 88);
-  doc.text('Kastanienallee 2', 149, 92);
-  doc.text('10435 Berlin', 149, 96);
-  doc.text('Deutschland', 149, 100);
+  doc.text(`${firma.motto}`, 149, 88);
+  doc.text(`${firma.adresse}`, 149, 92);
+  doc.text(`${firma.plz} ${firma.stadt}`, 149, 96);
+  doc.text(`${firma.staat}`, 149, 100);
 
   //Intestazione fattura
   doc.setFontSize(12);

@@ -62,6 +62,8 @@ export class ViewLeadMatchPage extends React.Component {
 
     return (
       <div>
+        {window.scrollTo(0, 0)}
+
         <div className='page-header'>
           <div className='content-container'>
             <h1 className='page-header__title'>

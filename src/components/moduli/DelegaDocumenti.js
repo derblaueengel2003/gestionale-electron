@@ -2,7 +2,7 @@ import jsPDF from 'jspdf';
 
 export const doc = new jsPDF('p', 'mm', 'a4');
 
-export const delegaDocumenti = (cliente, cliente2, oggetto) => {
+export const delegaDocumenti = (cliente, cliente2, oggetto, firma) => {
   const nome = `${cliente.nome} ${cliente.cognome}`;
   const residenza = `${cliente.cap} ${cliente.comune}, ${cliente.indirizzo}, ${cliente.nazione}`;
   const nome2 = cliente2 && `${cliente2.nome} ${cliente2.cognome}`;
@@ -16,24 +16,24 @@ export const delegaDocumenti = (cliente, cliente2, oggetto) => {
   if (cliente2) {
     corpoFattura = `hiermit bevollmächtigen wir ${nome} wohnhaft in ${residenza} und ${nome2} wonhaft in ${residenza2}
 
-die Firma m2Square – Arboscello & Fornari GbR, geschäftsansässig in 10435 Berlin, Kastanienallee 2,
+die Firma ${firma.name}, geschäftsansässig in ${firma.plz} ${firma.stadt}, ${firma.adresse},
 
 für uns alle Unterlagen zu unser Wohnung in ${indirizzo} 
 von der Hausverwaltung anzufordern und zu empfangen.
 
-Die Firma m2Square – Arboscello & Fornari GbR ist auch berechtigt, allgemeine Informationen über das Haus und die Eigentümergemeinschaft nachzufragen, insbesondere Informationen über Instandhaltungsrücklage und eventuelle Sonderumlagen.
+Die Firma ${firma.name} ist auch berechtigt, allgemeine Informationen über das Haus und die Eigentümergemeinschaft nachzufragen, insbesondere Informationen über Instandhaltungsrücklage und eventuelle Sonderumlagen.
 
 Die Kosten der Bereitstellung und Versand der Unterlagen werden wir tragen. Gültig ist die Vollmacht bis auf Widerruf.
 `;
   } else {
     corpoFattura = `hiermit bevollmächtige ich ${nome} wohnhaft in ${residenza}
 
-die Firma m2Square – Arboscello & Fornari GbR, geschäftsansässig in 10435 Berlin, Kastanienallee 2,
+die Firma ${firma.name}, geschäftsansässig in ${firma.plz} ${firma.stadt}, ${firma.adresse},
 
 für mich alle Unterlagen zu meiner Wohnung in ${indirizzo} 
 von der Hausverwaltung anzufordern und zu empfangen.
 
-Die Firma m2Square – Arboscello & Fornari GbR ist auch berechtigt, allgemeine Informationen über das Haus und die Eigentümergemeinschaft nachzufragen, insbesondere Informationen über Instandhaltungsrücklage und eventuelle Sonderumlagen.
+Die Firma ${firma.name} ist auch berechtigt, allgemeine Informationen über das Haus und die Eigentümergemeinschaft nachzufragen, insbesondere Informationen über Instandhaltungsrücklage und eventuelle Sonderumlagen.
 
 Die Kosten der Bereitstellung und Versand der Unterlagen werde ich tragen. Gültig ist die Vollmacht bis auf Widerruf.
 `;

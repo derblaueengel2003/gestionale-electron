@@ -5,6 +5,7 @@ export default class FirmaForm extends React.Component {
     super(props);
     this.state = {
       name: props.firma ? props.firma.name : '',
+      name2: props.firma ? props.firma.name2 : '',
       adresse: props.firma ? props.firma.adresse : '',
       plz: props.firma ? props.firma.plz : '',
       stadt: props.firma ? props.firma.stadt : '',
@@ -13,7 +14,10 @@ export default class FirmaForm extends React.Component {
       fax: props.firma ? props.firma.fax : '',
       email: props.firma ? props.firma.email : '',
       website: props.firma ? props.firma.website : '',
-      motto: props.firma ? props.firma.motto : ''
+      steuerNr: props.firma ? props.firma.steuerNr : '',
+      ustIdNr: props.firma ? props.firma.ustIdNr : '',
+      motto: props.firma ? props.firma.motto : '',
+      open: props.firma ? props.firma.open : ''
     };
   }
   changeHandler = e => {
@@ -27,6 +31,7 @@ export default class FirmaForm extends React.Component {
 
     this.props.onSubmit({
       name: this.state.name,
+      name2: this.state.name2,
       adresse: this.state.adresse,
       plz: this.state.plz,
       stadt: this.state.stadt,
@@ -35,7 +40,10 @@ export default class FirmaForm extends React.Component {
       fax: this.state.fax,
       email: this.state.email,
       website: this.state.website,
-      motto: this.state.motto
+      steuerNr: this.state.steuerNr,
+      ustIdNr: this.state.ustIdNr,
+      motto: this.state.motto,
+      open: this.state.open
     });
   };
   render() {
@@ -48,6 +56,15 @@ export default class FirmaForm extends React.Component {
           type='text'
           autoFocus
           value={this.state.name}
+          onChange={this.changeHandler}
+        />
+        Gesetzlicher Name:
+        <input
+          name='name2'
+          className={`text-input`}
+          type='text'
+          autoFocus
+          value={this.state.name2}
           onChange={this.changeHandler}
         />
         Adresse:
@@ -114,12 +131,36 @@ export default class FirmaForm extends React.Component {
           value={this.state.website}
           onChange={this.changeHandler}
         />
+        Steuernummer:
+        <input
+          name='steuerNr'
+          className={`text-input`}
+          type='text'
+          value={this.state.steuerNr}
+          onChange={this.changeHandler}
+        />
+        Ust.-IdNr.:
+        <input
+          name='ustIdNr'
+          className={`text-input`}
+          type='text'
+          value={this.state.ustIdNr}
+          onChange={this.changeHandler}
+        />
         Motto:
         <input
           name='motto'
           className={`text-input`}
           type='text'
           value={this.state.motto}
+          onChange={this.changeHandler}
+        />
+        Öffnungszeit:
+        <input
+          name='open'
+          className={`text-input`}
+          type='text'
+          value={this.state.open}
           onChange={this.changeHandler}
         />
         <div>

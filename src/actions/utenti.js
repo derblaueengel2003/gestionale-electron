@@ -9,8 +9,15 @@ export const addUser = user => ({
 export const startAddUser = (userData = {}) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
-    const { name = '', role = '', firebaseAuthId = null } = userData;
-    const user = { name, role, firebaseAuthId };
+    const {
+      name = '',
+      role = '',
+      firebaseAuthId = null,
+      email = '',
+      telefon = '',
+      qualifica = ''
+    } = userData;
+    const user = { name, role, firebaseAuthId, email, telefon, qualifica };
 
     return database
       .ref(`/utenti`)

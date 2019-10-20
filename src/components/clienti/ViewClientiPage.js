@@ -37,6 +37,8 @@ export class ViewClientiPage extends React.Component {
     );
     return (
       <div>
+        {window.scrollTo(0, 0)}
+
         <div className='page-header page-header-clienti'>
           <div className='content-container'>
             <h1 className='page-header__title'>Kunde</h1>

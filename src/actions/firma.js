@@ -11,6 +11,7 @@ export const startAddFirma = (firmaData = {}) => {
     const uid = getState().auth.uid;
     const {
       name = '',
+      name2 = '',
       adresse = '',
       plz = '',
       stadt = '',
@@ -19,10 +20,14 @@ export const startAddFirma = (firmaData = {}) => {
       fax = '',
       email = '',
       website = '',
-      motto = ''
+      steuerNr = '',
+      ustIdNr = '',
+      motto = '',
+      open = ''
     } = firmaData;
     const firma = {
       name,
+      name2,
       adresse,
       plz,
       stadt,
@@ -31,7 +36,10 @@ export const startAddFirma = (firmaData = {}) => {
       fax,
       email,
       website,
-      motto
+      steuerNr,
+      ustIdNr,
+      motto,
+      open
     };
 
     return database
