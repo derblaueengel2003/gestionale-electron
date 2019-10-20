@@ -107,9 +107,7 @@ export default class UserForm extends React.Component {
           onChange={this.changeHandler}
         />
         <div>
-          <button className='button button--secondary-clienti'>
-            Speichern
-          </button>
+          <button className='button button--secondary-utenti'>Speichern</button>
         </div>
       </form>
     );

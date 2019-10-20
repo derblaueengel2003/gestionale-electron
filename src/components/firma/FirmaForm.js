@@ -17,7 +17,11 @@ export default class FirmaForm extends React.Component {
       steuerNr: props.firma ? props.firma.steuerNr : '',
       ustIdNr: props.firma ? props.firma.ustIdNr : '',
       motto: props.firma ? props.firma.motto : '',
-      open: props.firma ? props.firma.open : ''
+      open: props.firma ? props.firma.open : '',
+      kontoInhaber: props.firma ? props.firma.kontoInhaber : '',
+      bank: props.firma ? props.firma.bank : '',
+      iban: props.firma ? props.firma.iban : '',
+      bic: props.firma ? props.firma.bic : ''
     };
   }
   changeHandler = e => {
@@ -43,7 +47,11 @@ export default class FirmaForm extends React.Component {
       steuerNr: this.state.steuerNr,
       ustIdNr: this.state.ustIdNr,
       motto: this.state.motto,
-      open: this.state.open
+      open: this.state.open,
+      kontoInhaber: this.state.kontoInhaber,
+      bank: this.state.bank,
+      iban: this.state.iban,
+      bic: this.state.bic
     });
   };
   render() {
@@ -163,11 +171,39 @@ export default class FirmaForm extends React.Component {
           value={this.state.open}
           onChange={this.changeHandler}
         />
-        <div>
-          <button className='button button--secondary-clienti'>
-            Speichern
-          </button>
-        </div>
+        Kontoinhaber:
+        <input
+          name='kontoInhaber'
+          className={`text-input`}
+          type='text'
+          value={this.state.kontoInhaber}
+          onChange={this.changeHandler}
+        />
+        Bank:
+        <input
+          name='bank'
+          className={`text-input`}
+          type='text'
+          value={this.state.bank}
+          onChange={this.changeHandler}
+        />
+        IBAN:
+        <input
+          name='iban'
+          className={`text-input`}
+          type='text'
+          value={this.state.iban}
+          onChange={this.changeHandler}
+        />
+        BIC/SWIFT:
+        <input
+          name='bic'
+          className={`text-input`}
+          type='text'
+          value={this.state.bic}
+          onChange={this.changeHandler}
+        />
+        <button className='button button--secondary-utenti'>Speichern</button>
       </form>
     );
   }

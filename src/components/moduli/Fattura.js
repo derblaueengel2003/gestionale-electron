@@ -21,7 +21,8 @@ export const fattura = (
   acquirente,
   acquirente2,
   firma,
-  utente
+  utente,
+  ceo
 ) => {
   const acqNome = `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
   const acqInd = `${cliente.indirizzo} ${cliente.indirizzo2 &&
@@ -99,8 +100,8 @@ ${note}`;
   doc.setFontType('bold');
   doc.text(`${utente.name}`, 149, 44);
   doc.setFontType('normal');
-  doc.text('angelo.arboscello@m2square.eu', 149, 48);
-  doc.text(`Tel. ${firma.telefon}`, 149, 52);
+  doc.text(`${utente.email}`, 149, 48);
+  doc.text(`Tel. ${utente.telefon}`, 149, 52);
   doc.text(`${firma.website}`, 149, 56);
   doc.setFontType('bold');
   doc.text('Öffnungszeiten', 149, 68);
@@ -184,10 +185,10 @@ ${note}`;
     185
   );
   doc.text('Überweisung auf unser Konto:', 15, 190);
-  doc.text('Kontoinhaber: Arboscello & Fornari GbR', 15, 200);
-  doc.text('Bankinstitut: Landesbank Berlin - Berliner Sparkasse', 15, 205);
-  doc.text('IBAN: DE14 1005 0000 0190 4232 18', 15, 210);
-  doc.text('BIC: BELADEBEXXX', 15, 215);
+  doc.text(`Kontoinhaber: ${firma.kontoInhaber}`, 15, 200);
+  doc.text(`Bankinstitut: ${firma.bank}`, 15, 205);
+  doc.text(`IBAN: ${firma.iban}`, 15, 210);
+  doc.text(`BIC: ${firma.bic}`, 15, 215);
   doc.text(`Verwendungszweck: Rechnung Nr. ${numeroFattura}`, 15, 220);
 
   //Saluti finali
@@ -197,7 +198,7 @@ ${note}`;
     230
   );
   doc.text('Mit freundlichen Grüßen', 15, 240);
-  doc.text('Angelo Arboscello', 15, 245);
+  doc.text(`${utente.name}`, 15, 245);
 
   //Footer
   doc.setDrawColor(0, 0, 0);
@@ -209,14 +210,18 @@ ${note}`;
   doc.setFontSize(10);
   doc.setTextColor(143, 143, 143);
   doc.text('Geschäftsführer:', 16, 270);
-  doc.text('Angelo Arboscello', 16, 274);
-  doc.text('Annalisa Fornari', 16, 278);
-  doc.text('Telefon: +49 (30) 54482958', 56, 270);
-  doc.text('Telefax: +49 (30) 54482959', 56, 274);
-  doc.text('E-Mail: info@m2square.eu', 56, 278);
-  doc.text('Web: www.m2square.eu', 56, 282);
-  doc.text('Steuernummer: 31/429/00375', 111, 270);
-  doc.text('Ust.-IdNr.: DE278130647', 111, 274);
+  let position = 274;
+
+  ceo.forEach(eachCeo => {
+    doc.text(`${eachCeo.name}`, 16, position);
+    position += 4;
+  });
+  doc.text(`Telefon: ${firma.telefon}`, 56, 270);
+  doc.text(`Telefax: ${firma.fax}`, 56, 274);
+  doc.text(`E-Mail: ${firma.email}`, 56, 278);
+  doc.text(`Web: ${firma.website}`, 56, 282);
+  doc.text(`Steuernummer: ${firma.steuerNr}`, 111, 270);
+  doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
 
   //Logo IVD
   doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);

@@ -9,7 +9,10 @@ export const protocollo = (
   acquirente2,
   venditore,
   venditore2,
-  oggetto
+  oggetto,
+  utente,
+  firma,
+  ceo
 ) => {
   doc.addImage(imgLogo, 'JPEG', 130, 10, 55, 12);
 
@@ -28,7 +31,9 @@ export const protocollo = (
   doc.setFont('times');
   doc.setFontType('bold');
   doc.text(
-    'm2Square - Arboscello & Fornari GbR – Kastanienallee 2, 10435 Berlin',
+    `${firma.name} ${firma.name2 && ` - ${firma.name2}`} - ${firma.adresse}, ${
+      firma.plz
+    } ${firma.stadt}`,
     19,
     27
   );
@@ -42,22 +47,22 @@ export const protocollo = (
   doc.setFontType('normal');
   doc.text('Ihr Ansprechpartner', 149, 40);
   doc.setFontType('bold');
-  doc.text('Angelo Arboscello', 149, 44);
+  doc.text(`${utente.name}`, 149, 44);
   doc.setFontType('normal');
-  doc.text('angelo.arboscello@m2square.eu', 149, 48);
-  doc.text('Tel. +49 (30) 54482958', 149, 52);
-  doc.text('www.m2square.eu', 149, 56);
+  doc.text(`${utente.email}`, 149, 48);
+  doc.text(`Tel. ${utente.telefon}`, 149, 52);
+  doc.text(`${firma.website}`, 149, 56);
   doc.setFontType('bold');
   doc.text('Öffnungszeiten', 149, 68);
   doc.setFontType('normal');
-  doc.text('Mo.-Fr. 10:00 bis 17:00 Uhr', 149, 72);
+  doc.text(`${firma.open}`, 149, 72);
   doc.setFontType('bold');
-  doc.text('Arboscello & Fornari GbR', 149, 84);
+  doc.text(`${firma.name2 ? firma.name2 : firma.name}`, 149, 84);
   doc.setFontType('normal');
-  doc.text('Immobilienmakler', 149, 88);
-  doc.text('Kastanienallee 2', 149, 92);
-  doc.text('10435 Berlin', 149, 96);
-  doc.text('Deutschland', 149, 100);
+  doc.text(`${firma.motto}`, 149, 88);
+  doc.text(`${firma.adresse}`, 149, 92);
+  doc.text(`${firma.plz} ${firma.stadt}`, 149, 96);
+  doc.text(`${firma.staat}`, 149, 100);
 
   //Dati oggetto e parti
   const dati = 40;
@@ -180,14 +185,18 @@ export const protocollo = (
   doc.setFontSize(10);
   doc.setTextColor(143, 143, 143);
   doc.text('Geschäftsführer:', 16, 270);
-  doc.text('Angelo Arboscello', 16, 274);
-  doc.text('Annalisa Fornari', 16, 278);
-  doc.text('Telefon: +49 (30) 54482958', 56, 270);
-  doc.text('Telefax: +49 (30) 54482959', 56, 274);
-  doc.text('E-Mail: info@m2square.eu', 56, 278);
-  doc.text('Web: www.m2square.eu', 56, 282);
-  doc.text('Steuernummer: 31/429/00375', 111, 270);
-  doc.text('Ust.-IdNr.: DE278130647', 111, 274);
+  let position = 274;
+
+  ceo.forEach(eachCeo => {
+    doc.text(`${eachCeo.name}`, 16, position);
+    position += 4;
+  });
+  doc.text(`Telefon: ${firma.telefon}`, 56, 270);
+  doc.text(`Telefax: ${firma.fax}`, 56, 274);
+  doc.text(`E-Mail: ${firma.email}`, 56, 278);
+  doc.text(`Web: ${firma.website}`, 56, 282);
+  doc.text(`Steuernummer: ${firma.steuerNr}`, 111, 270);
+  doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
 
   //Logo IVD
   doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);

@@ -23,7 +23,11 @@ export const startAddFirma = (firmaData = {}) => {
       steuerNr = '',
       ustIdNr = '',
       motto = '',
-      open = ''
+      open = '',
+      kontoInhaber = '',
+      bank = '',
+      iban = '',
+      bic = ''
     } = firmaData;
     const firma = {
       name,
@@ -39,7 +43,11 @@ export const startAddFirma = (firmaData = {}) => {
       steuerNr,
       ustIdNr,
       motto,
-      open
+      open,
+      kontoInhaber,
+      bank,
+      iban,
+      bic
     };
 
     return database

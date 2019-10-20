@@ -16,6 +16,10 @@ const FirmaListItem = ({
   ustIdNr,
   motto,
   open,
+  kontoInhaber,
+  bank,
+  iban,
+  bic,
   id
 }) => (
   <Link className='list-item' to={`/firmaedit/${id}`}>
@@ -35,6 +39,10 @@ const FirmaListItem = ({
       <div className='list-item__sub-title'>Ust.-IdNr. {ustIdNr}</div>
       <div className='list-item__sub-title'> {motto}</div>
       <div className='list-item__sub-title'>Öffnungszeiten {open}</div>
+      <div className='list-item__sub-title'>Kontoinhaber {kontoInhaber}</div>
+      <div className='list-item__sub-title'>Bank {bank}</div>
+      <div className='list-item__sub-title'>IBAN {iban}</div>
+      <div className='list-item__sub-title'>BIC/SWIFT {bic}</div>
     </div>
     <div>
       <h3 className='list-item__title'>{email} </h3>

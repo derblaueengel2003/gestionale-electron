@@ -124,7 +124,8 @@ export class ViewFatturePage extends React.Component {
                 acquirente,
                 acquirente2,
                 this.props.firma,
-                this.props.utente
+                this.props.utente,
+                this.props.ceo
               );
             }}
           >
@@ -155,6 +156,7 @@ const mapStateToProps = (state, props) => ({
   deals: state.deals,
   oggetti: state.oggetti,
   firma: state.firma[0],
+  ceo: state.utenti.filter(utente => utente.qualifica === 'Geschäftsführer'),
   utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 

@@ -94,7 +94,8 @@ export class MAAForm extends React.Component {
         prezzoDiVendita,
         prezzoDiVendita2,
         maklerProvision,
-        sonstige
+        sonstige,
+        this.props.firma
       );
     }
   };
@@ -207,7 +208,8 @@ export class MAAForm extends React.Component {
 
 const mapStateToProps = state => ({
   clienti: state.clienti,
-  oggetti: state.oggetti
+  oggetti: state.oggetti,
+  firma: state.firma[0]
 });
 
 export default connect(mapStateToProps)(MAAForm);

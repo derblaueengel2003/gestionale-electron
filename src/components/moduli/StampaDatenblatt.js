@@ -26,6 +26,7 @@ export class StampaDatenblatt extends React.Component {
     const verwalter = this.props.clienti.find(
       cliente => cliente.id === oggetto.verwalter
     );
+    const { firma } = this.props;
 
     return (
       <div className='content-container'>
@@ -34,9 +35,9 @@ export class StampaDatenblatt extends React.Component {
         </div>
         <div>
           <h2>Makler</h2>
-          <p>m2Square - Arboscello & Fornari GbR</p>
-          <p>Kastanienallee 2, 10435 Berlin</p>
-          <p>Tel: +49 30 54482958 - E-Mail: info@m2square.eu</p>
+          <p>{`${firma.name} ${firma.name2 && ` - ${firma.name2}`}`}</p>
+          <p>{`${firma.adresse}, ${firma.plz} ${firma.stadt}`}</p>
+          <p>{`Tel: ${firma.telefon} - E-Mail: ${firma.email}`}</p>
         </div>
         <div>
           <h2>Objekt</h2>
@@ -210,7 +211,8 @@ const mapStateToProps = (state, props) => ({
   deal: state.deals.find(deal => deal.id === props.match.params.id),
   clienti: state.clienti,
   oggetti: state.oggetti,
-  uid: state.auth.uid
+  uid: state.auth.uid,
+  firma: state.firma[0]
 });
 
 export default connect(mapStateToProps)(StampaDatenblatt);

@@ -61,7 +61,13 @@ export class VWBForm extends React.Component {
       this.setState(() => ({ error: 'Verkäufer und Objekt bitte eingeben.' }));
     } else {
       this.setState(() => ({ error: '' }));
-      widerrufsBelehrung(venditore, venditore2, createdAt, oggetto);
+      widerrufsBelehrung(
+        venditore,
+        venditore2,
+        createdAt,
+        oggetto,
+        this.props.firma
+      );
     }
   };
 
@@ -139,7 +145,8 @@ export class VWBForm extends React.Component {
 
 const mapStateToProps = state => ({
   clienti: state.clienti,
-  oggetti: state.oggetti
+  oggetti: state.oggetti,
+  firma: state.firma[0]
 });
 
 export default connect(mapStateToProps)(VWBForm);

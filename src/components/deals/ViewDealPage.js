@@ -212,7 +212,8 @@ export class ViewDealPage extends React.Component {
                 venditore,
                 venditore2,
                 oggetto,
-                provvPercentuale
+                provvPercentuale,
+                this.props.firma
               );
             }}
           >
@@ -225,7 +226,8 @@ export class ViewDealPage extends React.Component {
                 acquirente,
                 acquirente2,
                 dataPrenotazione,
-                oggetto
+                oggetto,
+                this.props.firma
               );
             }}
           >
@@ -241,7 +243,8 @@ export class ViewDealPage extends React.Component {
                 venditore2,
                 oggetto,
                 notaio,
-                prezzoDiVendita
+                prezzoDiVendita,
+                this.props.firma
               );
             }}
           >
@@ -261,7 +264,10 @@ export class ViewDealPage extends React.Component {
                 acquirente2,
                 venditore,
                 venditore2,
-                oggetto
+                oggetto,
+                this.props.utente,
+                this.props.firma,
+                this.props.ceo
               );
             }}
           >
@@ -286,7 +292,9 @@ const mapStateToProps = (state, props) => ({
   fatture: state.fatture.filter(
     fattura => fattura.dealId === props.match.params.id
   ),
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+  ceo: state.utenti.filter(utente => utente.qualifica === 'Geschäftsführer'),
+  firma: state.firma[0]
 });
 
 export default connect(mapStateToProps)(ViewDealPage);

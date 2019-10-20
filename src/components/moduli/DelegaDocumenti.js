@@ -11,29 +11,30 @@ export const delegaDocumenti = (cliente, cliente2, oggetto, firma) => {
     `${cliente2.cap} ${cliente2.comune}, ${cliente2.indirizzo}, ${cliente2.nazione}`;
 
   const indirizzo = `${oggetto.cap} ${oggetto.citta}, ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`;
+  const m2Square = `${firma.name} ${firma.name2 && ` - ${firma.name2}`}`;
 
   let corpoFattura;
   if (cliente2) {
     corpoFattura = `hiermit bevollmächtigen wir ${nome} wohnhaft in ${residenza} und ${nome2} wonhaft in ${residenza2}
 
-die Firma ${firma.name}, geschäftsansässig in ${firma.plz} ${firma.stadt}, ${firma.adresse},
+die Firma ${m2Square}, geschäftsansässig in ${firma.plz} ${firma.stadt}, ${firma.adresse},
 
 für uns alle Unterlagen zu unser Wohnung in ${indirizzo} 
 von der Hausverwaltung anzufordern und zu empfangen.
 
-Die Firma ${firma.name} ist auch berechtigt, allgemeine Informationen über das Haus und die Eigentümergemeinschaft nachzufragen, insbesondere Informationen über Instandhaltungsrücklage und eventuelle Sonderumlagen.
+Die Firma ${m2Square} ist auch berechtigt, allgemeine Informationen über das Haus und die Eigentümergemeinschaft nachzufragen, insbesondere Informationen über Instandhaltungsrücklage und eventuelle Sonderumlagen.
 
 Die Kosten der Bereitstellung und Versand der Unterlagen werden wir tragen. Gültig ist die Vollmacht bis auf Widerruf.
 `;
   } else {
     corpoFattura = `hiermit bevollmächtige ich ${nome} wohnhaft in ${residenza}
 
-die Firma ${firma.name}, geschäftsansässig in ${firma.plz} ${firma.stadt}, ${firma.adresse},
+die Firma ${m2Square}, geschäftsansässig in ${firma.plz} ${firma.stadt}, ${firma.adresse},
 
 für mich alle Unterlagen zu meiner Wohnung in ${indirizzo} 
 von der Hausverwaltung anzufordern und zu empfangen.
 
-Die Firma ${firma.name} ist auch berechtigt, allgemeine Informationen über das Haus und die Eigentümergemeinschaft nachzufragen, insbesondere Informationen über Instandhaltungsrücklage und eventuelle Sonderumlagen.
+Die Firma ${m2Square} ist auch berechtigt, allgemeine Informationen über das Haus und die Eigentümergemeinschaft nachzufragen, insbesondere Informationen über Instandhaltungsrücklage und eventuelle Sonderumlagen.
 
 Die Kosten der Bereitstellung und Versand der Unterlagen werde ich tragen. Gültig ist die Vollmacht bis auf Widerruf.
 `;
@@ -54,7 +55,7 @@ Die Kosten der Bereitstellung und Versand der Unterlagen werde ich tragen. Gült
   doc.text('_________________________', 120, 150);
   doc.text(nome, nome.length / 2 + 125, 155);
   cliente2 && doc.text('_________________________', 120, 170);
-  cliente2 && doc.text(nome, nome.length / 2 + 125, 175);
+  cliente2 && doc.text(nome2, nome2.length / 2 + 125, 175);
 
   doc.save(`Vollmacht ${cliente.cognome}.pdf`);
 };

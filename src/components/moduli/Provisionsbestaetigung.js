@@ -9,7 +9,8 @@ export const creaPrenotazione = (
   venditore,
   venditore2,
   oggetto,
-  provvPercentuale
+  provvPercentuale,
+  firma
 ) => {
   const acqDitta = `${acquirente.ditta && `${acquirente.ditta}`}`;
   const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`;
@@ -56,8 +57,8 @@ export const creaPrenotazione = (
     }
   }
 
-  doc.text('m2Square - Arboscello & Fornari GbR', 61, 52);
-  doc.text('Kastanienallee 2, 10435 Berlin', 61, 57);
+  doc.text(`${firma.name} ${firma.name2 && ` - ${firma.name2}`}`, 61, 52);
+  doc.text(`${firma.adresse}, ${firma.plz} ${firma.stadt}`, 61, 57);
   doc.text(provvPercentuale, 93, 86);
 
   //Oggetto

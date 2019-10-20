@@ -7,7 +7,8 @@ export const widerrufsBelehrung = (
   acquirente,
   acquirente2,
   dataPrenotazione,
-  oggetto
+  oggetto,
+  firma
 ) => {
   const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`;
   const acqInd = `${acquirente.indirizzo} ${acquirente.indirizzo2 &&
@@ -37,8 +38,8 @@ export const widerrufsBelehrung = (
   else {
     doc.setFontSize(12);
   }
-  doc.text('m2Square - Arboscello & Fornari GbR', 61, 38);
-  doc.text('Kastanienallee 2, 10435 Berlin', 61, 43);
+  doc.text(`${firma.name} ${firma.name2 && ` - ${firma.name2}`}`, 61, 38);
+  doc.text(`${firma.adresse}, ${firma.plz} ${firma.stadt}`, 61, 43);
   // doc.text(acqNome, 61, 63)
   // doc.text(acqInd, 61, 68)
   // nuovo
@@ -60,11 +61,11 @@ export const widerrufsBelehrung = (
     101
   );
   doc.setFontSize(10);
-  doc.text('m2Square - Arboscello & Fornari GbR', 64, 148);
-  doc.text('Kastanienallee 2, 10435 Berlin', 64, 154);
-  doc.text('per E-Mail: info@m2square.eu', 64, 160);
-  doc.text('per Fax: +49 (0)30 54482959', 64, 166);
-  doc.text('Bei Fragen errichen Sie uns unter: +49 (0)30 54482958', 64, 172);
+  doc.text(`${firma.name} ${firma.name2 && ` - ${firma.name2}`}`, 64, 148);
+  doc.text(`${firma.adresse}, ${firma.plz} ${firma.stadt}`, 64, 154);
+  doc.text(`per E-Mail: ${firma.email}`, 64, 160);
+  doc.text(`per Fax: ${firma.fax}`, 64, 166);
+  doc.text(`Bei Fragen errichen Sie uns unter: ${firma.telefon}`, 64, 172);
 
   doc.addPage();
   doc.addImage(imgData2, 'JPEG', 0, 0, 210, 297);

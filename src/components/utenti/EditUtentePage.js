@@ -7,7 +7,7 @@ import { startEditUser, startRemoveUser } from '../../actions/utenti';
 export class EditUtentePage extends React.Component {
   onSubmit = utente => {
     this.props.startEditUser(this.props.utente.id, utente);
-    this.props.history.push(`/userview/${this.props.utente.id}`);
+    this.props.history.push(`/users`);
   };
   onRemove = () => {
     if (
