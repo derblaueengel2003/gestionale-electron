@@ -38,6 +38,9 @@ const mapStateToProps = state => {
     state.clienti,
     state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
   );
+  // const payedDeals = visibleDeals.filter(deal =>
+  //   state.fatture.find(fattura => fattura.dealId === deal.id && fattura.payed)
+  // );
   return {
     dealCount: visibleDeals.length,
     dealsTotal: selectDealsTotal(
