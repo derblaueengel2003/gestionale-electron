@@ -3,7 +3,7 @@
 export default (deals, utente, fatture) => {
   if (utente.role === 'Mitarbeiter') {
     return deals
-      .filter(deal => deal.payedAtStefano)
+      .filter(deal => deal.payedStefano)
       .map(deal => deal.provvStefano)
       .reduce((sum, value) => sum + value, 0);
   } else {
