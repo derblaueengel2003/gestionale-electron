@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
+import firebase from 'firebase';
+import FileUploader from 'react-firebase-file-uploader';
 
 export class OggettoForm extends React.Component {
   constructor(props) {
@@ -36,7 +39,11 @@ export class OggettoForm extends React.Component {
       ruecklage: props.oggetto ? props.oggetto.ruecklage : '',
       proprietarioId: props.oggetto ? props.oggetto.proprietarioId : '',
       proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : '',
-      visible: props.oggetto ? props.oggetto.visible : true
+      visible: props.oggetto ? props.oggetto.visible : true,
+      filenames: props.oggetto ? props.oggetto.filenames : [],
+      downloadURLs: props.oggetto ? props.oggetto.downloadURLs : [],
+      isUploading: false,
+      uploadProgress: 0
     };
   }
   changeHandler = e => {
@@ -64,6 +71,47 @@ export class OggettoForm extends React.Component {
     const proprietarioId2 = e ? e.value : '';
     this.setState(() => ({ proprietarioId2 }));
   };
+  handleUploadStart = () =>
+    this.setState({
+      isUploading: true,
+      uploadProgress: 0
+    });
+
+  handleProgress = progress =>
+    this.setState({
+      uploadProgress: progress
+    });
+
+  handleUploadError = error => {
+    this.setState({
+      isUploading: false
+      // Todo: handle error
+    });
+    console.error(error);
+  };
+
+  handleUploadSuccess = async filename => {
+    const downloadURL = await firebase
+      .storage()
+      .ref('images')
+      .child(filename)
+      .getDownloadURL();
+
+    this.setState(oldState => ({
+      filenames: [...oldState.filenames, filename],
+      downloadURLs: [...oldState.downloadURLs, downloadURL],
+      uploadProgress: 100,
+      isUploading: false
+    }));
+  };
+
+  handleRemovePicture = picture => {
+    console.log(picture);
+    let downloadURLs = this.state.downloadURLs;
+    downloadURLs.splice(picture, 1);
+    this.setState(() => ({ downloadURLs }));
+  };
+
   onSubmit = e => {
     e.preventDefault();
     const wohngeld =
@@ -74,7 +122,9 @@ export class OggettoForm extends React.Component {
       parseFloat(this.state.kaufpreis.replace(/,/, '.'), 10) * 100;
 
     if (!this.state.via || !this.state.rifId) {
-      this.setState(() => ({ error: 'Bitte Adresse und Ref.Id eingeben' }));
+      this.setState(() => ({
+        error: 'Bitte Adresse und Ref.Id eingeben'
+      }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
@@ -98,7 +148,9 @@ export class OggettoForm extends React.Component {
         ruecklage: this.state.ruecklage,
         proprietarioId: this.state.proprietarioId,
         proprietarioId2: this.state.proprietarioId2,
-        visible: this.state.visible
+        visible: this.state.visible,
+        filenames: this.state.filenames,
+        downloadURLs: this.state.downloadURLs
       });
     }
   };
@@ -312,6 +364,49 @@ export class OggettoForm extends React.Component {
         ) : (
           ''
         )}
+        <div>
+          <button className='button button--secondary-oggetti'>
+            Speichern
+          </button>
+        </div>
+        <div>
+          <h1 className='page-header page-header__title'>Bilder</h1>
+          <label className='button button--secondary-oggetti'>
+            Bilder auswählen
+            <FileUploader
+              hidden
+              accept='image/*'
+              name='image-uploader-multiple'
+              // randomizeFilename
+              storageRef={firebase.storage().ref('images')}
+              onUploadStart={this.handleUploadStart}
+              onUploadError={this.handleUploadError}
+              onUploadSuccess={this.handleUploadSuccess}
+              onProgress={this.handleProgress}
+              multiple
+            />
+          </label>
+          <p>Progress: {this.state.uploadProgress}</p>
+          {/* 
+          <p>Filenames: {this.state.filenames.join(', ')}</p>
+          */}
+          <div>
+            {this.state.downloadURLs &&
+              this.state.downloadURLs.map((downloadURL, i) => {
+                return (
+                  <span>
+                    <img className='foto' key={i} src={downloadURL} />
+                    <button
+                      className='cancella'
+                      onClick={() => this.handleRemovePicture(i)}
+                    >
+                      X
+                    </button>
+                  </span>
+                );
+              })}
+          </div>
+        </div>
         <div>
           <button className='button button--secondary-oggetti'>
             Speichern

@@ -96,6 +96,12 @@ export class ViewOggettiPage extends React.Component {
             <ClientiList cliente={proprietario2} ruolo={'2. Proprietario'} />
           </div>
         )}
+        <div className='content-container'>
+          {this.props.oggetto.downloadURLs &&
+            this.props.oggetto.downloadURLs.map((downloadURL, i) => {
+              return <img className='foto' key={i} src={downloadURL} />;
+            })}
+        </div>
       </div>
     );
   }

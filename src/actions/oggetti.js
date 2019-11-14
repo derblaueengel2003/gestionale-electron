@@ -29,7 +29,9 @@ export const startAddOggetto = (oggettoData = {}) => {
       proprietarioId = '',
       proprietarioId2 = '',
       kaufpreis = 0,
-      visible = true
+      visible = true,
+      filenames = [],
+      downloadURLs = []
     } = oggettoData;
     const oggetto = {
       via,
@@ -52,7 +54,9 @@ export const startAddOggetto = (oggettoData = {}) => {
       proprietarioId,
       proprietarioId2,
       kaufpreis,
-      visible
+      visible,
+      filenames,
+      downloadURLs
     };
 
     return database
