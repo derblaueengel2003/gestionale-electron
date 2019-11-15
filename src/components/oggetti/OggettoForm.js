@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
@@ -40,8 +39,8 @@ export class OggettoForm extends React.Component {
       proprietarioId: props.oggetto ? props.oggetto.proprietarioId : '',
       proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : '',
       visible: props.oggetto ? props.oggetto.visible : true,
-      filenames: props.oggetto ? props.oggetto.filenames : [],
-      downloadURLs: props.oggetto ? props.oggetto.downloadURLs : [],
+      filenames: props.oggetto ? props.oggetto.filenames : '',
+      downloadURLs: props.oggetto ? props.oggetto.downloadURLs : '',
       isUploading: false,
       uploadProgress: 0
     };
@@ -108,8 +107,28 @@ export class OggettoForm extends React.Component {
   handleRemovePicture = picture => {
     console.log(picture);
     let downloadURLs = this.state.downloadURLs;
+    let filenames = this.state.filenames;
     downloadURLs.splice(picture, 1);
-    this.setState(() => ({ downloadURLs }));
+    const removedFilename = filenames.splice(picture, 1);
+    const [filename] = removedFilename;
+    if (downloadURLs === undefined || downloadURLs.length < 1) {
+      downloadURLs = '';
+    }
+    if (filenames === undefined || filenames.length < 1) {
+      filenames = '';
+    }
+    this.setState(() => ({ downloadURLs, filenames }));
+    firebase
+      .storage()
+      .ref('images')
+      .child(filename)
+      .delete()
+      .then(() => {
+        console.log('File deleted');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   onSubmit = e => {
@@ -378,6 +397,11 @@ export class OggettoForm extends React.Component {
               accept='image/*'
               name='image-uploader-multiple'
               // randomizeFilename
+              filename={() =>
+                `${this.state.rifId}-${Math.floor(
+                  Math.random() * 100000
+                ).toString()}`
+              }
               storageRef={firebase.storage().ref('images')}
               onUploadStart={this.handleUploadStart}
               onUploadError={this.handleUploadError}
@@ -394,14 +418,13 @@ export class OggettoForm extends React.Component {
             {this.state.downloadURLs &&
               this.state.downloadURLs.map((downloadURL, i) => {
                 return (
-                  <span>
-                    <img className='foto' key={i} src={downloadURL} />
-                    <button
+                  <span key={i}>
+                    <img className='foto' src={downloadURL} />
+                    <img
+                      src='/images/trash.jpg'
                       className='cancella'
                       onClick={() => this.handleRemovePicture(i)}
-                    >
-                      X
-                    </button>
+                    />
                   </span>
                 );
               })}

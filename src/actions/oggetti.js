@@ -30,8 +30,8 @@ export const startAddOggetto = (oggettoData = {}) => {
       proprietarioId2 = '',
       kaufpreis = 0,
       visible = true,
-      filenames = [],
-      downloadURLs = []
+      filenames = '',
+      downloadURLs = ''
     } = oggettoData;
     const oggetto = {
       via,
