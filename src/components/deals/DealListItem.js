@@ -53,7 +53,14 @@ const DealListItem = ({
   todo9,
   todo10,
   todo11,
-  oggetto,
+  oggetto = {
+    rifId: 'n/a',
+    via: 'n/a',
+    numeroCivico: 'n/a',
+    numeroAppartamento: 'n/a',
+    cap: 'n/a',
+    citta: 'n/a'
+  },
   provvM2square,
   provvStefano,
   createdAt,

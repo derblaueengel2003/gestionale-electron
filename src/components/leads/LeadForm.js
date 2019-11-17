@@ -109,15 +109,18 @@ export class LeadForm extends React.Component {
           value={this.state.leadBudget}
           onChange={this.onBudgetChange}
         />
-        vermietet/leerstehend:
+        Immobilientyp und -status:
         <select
+          className='select'
           name='leadOggettoStato'
           value={this.state.leadOggettoStato}
           onChange={this.changeHandler}
         >
-          <option value='libero'>Leerstehend</option>
-          <option value='affittato'>Vermietet</option>
-          <option value='libero o affittato'>Leerstehend oder vermietet</option>
+          <option value='libero'>WHG Leerstehend</option>
+          <option value='affittato'>WHG Vermietet</option>
+          <option value='libero o affittato'>
+            WHG Leerstehend oder vermietet
+          </option>
           <option value='commerciale'>Gewerbe</option>
           <option value='aph'>Pflegeheim</option>
           <option value=''>Egal</option>

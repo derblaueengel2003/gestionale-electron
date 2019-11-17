@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import File from '../containers/Files';
 
 const ModuliPage = () => (
   <div>
-    <File />
     <div className='page-header page-header-modulistica'>
       <div className='content-container'>
         <h1 className='page-header__title'>Formulare</h1>

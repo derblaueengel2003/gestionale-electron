@@ -166,36 +166,7 @@ export class ViewDealPage extends React.Component {
             </div>
           </div>
         </div>
-        {/* se invio un oggetto singolo lo devo far diventare un array per poter utilizzare .map nel componete */}
-        <OggettiList oggetto={[oggetto]} />
-        {venditoreId.length > 0 && (
-          <div>
-            <ClientiList cliente={venditore} ruolo={'Verkäufer'} />
-          </div>
-        )}
-        {venditoreId2.length > 0 && (
-          <div>
-            <ClientiList cliente={venditore2} ruolo={'2. Verkäufer'} />
-          </div>
-        )}
-        {acquirenteId.length > 0 && (
-          <div>
-            <ClientiList cliente={acquirente} ruolo={'Käufer'} />
-          </div>
-        )}
-        {acquirenteId2.length > 0 && (
-          <div>
-            <ClientiList cliente={acquirente2} ruolo={'2. Käufer'} />
-          </div>
-        )}
-        {agenziaPartnerId.length > 0 && (
-          <div>
-            <ClientiList
-              cliente={agenziaPartner}
-              ruolo={'Kooperationspartner'}
-            />
-          </div>
-        )}
+
         <div className='content-container'>
           {utente.role === 'Admin' && (
             <Link className='button button--secondary' to={`/edit/${id}`}>
@@ -274,6 +245,38 @@ export class ViewDealPage extends React.Component {
             Übergabeprotokoll
           </button>
         </div>
+
+        {/* se invio un oggetto singolo lo devo far diventare un array per poter utilizzare .map nel componete */}
+        <OggettiList oggetto={[oggetto]} />
+        {venditoreId.length > 0 && (
+          <div>
+            <ClientiList cliente={venditore} ruolo={'Verkäufer'} />
+          </div>
+        )}
+        {venditoreId2.length > 0 && (
+          <div>
+            <ClientiList cliente={venditore2} ruolo={'2. Verkäufer'} />
+          </div>
+        )}
+        {acquirenteId.length > 0 && (
+          <div>
+            <ClientiList cliente={acquirente} ruolo={'Käufer'} />
+          </div>
+        )}
+        {acquirenteId2.length > 0 && (
+          <div>
+            <ClientiList cliente={acquirente2} ruolo={'2. Käufer'} />
+          </div>
+        )}
+        {agenziaPartnerId.length > 0 && (
+          <div>
+            <ClientiList
+              cliente={agenziaPartner}
+              ruolo={'Kooperationspartner'}
+            />
+          </div>
+        )}
+
         <TodoForm dealId={id} />
         {utente.role === 'Admin' ? (
           <FattureList dealFatture={this.props.fatture} />

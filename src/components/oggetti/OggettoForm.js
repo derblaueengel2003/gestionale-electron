@@ -16,9 +16,11 @@ export class OggettoForm extends React.Component {
       numeroCivico: props.oggetto ? props.oggetto.numeroCivico : '',
       cap: props.oggetto ? props.oggetto.cap : '',
       citta: props.oggetto ? props.oggetto.citta : '',
+      quartiere: props.oggetto ? props.oggetto.quartiere : '',
       nazione: props.oggetto ? props.oggetto.nazione : '',
       numeroAppartamento: props.oggetto ? props.oggetto.numeroAppartamento : '',
       rifId: props.oggetto ? props.oggetto.rifId : '',
+      amtsgericht: props.oggetto ? props.oggetto.amtsgericht : '',
       grundbuch: props.oggetto ? props.oggetto.grundbuch : '',
       grundbuchBlatt: props.oggetto ? props.oggetto.grundbuchBlatt : '',
       m2: props.oggetto ? props.oggetto.m2 : '',
@@ -41,8 +43,34 @@ export class OggettoForm extends React.Component {
       visible: props.oggetto ? props.oggetto.visible : true,
       filenames: props.oggetto ? props.oggetto.filenames : '',
       downloadURLs: props.oggetto ? props.oggetto.downloadURLs : '',
+      filenamesCover: props.oggetto ? props.oggetto.filenamesCover : '',
+      downloadURLsCover: props.oggetto ? props.oggetto.downloadURLsCover : '',
+      filenamesGrundriss: props.oggetto ? props.oggetto.filenamesGrundriss : '',
+      downloadURLsGrundriss: props.oggetto
+        ? props.oggetto.downloadURLsGrundriss
+        : '',
       isUploading: false,
-      uploadProgress: 0
+      uploadProgress: 0,
+      titolo: props.oggetto ? props.oggetto.titolo : '',
+      descrizione: props.oggetto ? props.oggetto.descrizione : '',
+      titoloDe: props.oggetto ? props.oggetto.titoloDe : '',
+      descrizioneDe: props.oggetto ? props.oggetto.descrizioneDe : '',
+      titoloEn: props.oggetto ? props.oggetto.titoloEn : '',
+      descrizioneEn: props.oggetto ? props.oggetto.descrizioneEn : '',
+      vani: props.oggetto ? props.oggetto.vani : '',
+      bagni: props.oggetto ? props.oggetto.bagni : '',
+      balcone: props.oggetto ? props.oggetto.balcone : false,
+      ascensore: props.oggetto ? props.oggetto.ascensore : false,
+      giardino: props.oggetto ? props.oggetto.giardino : false,
+      condizioni: props.oggetto ? props.oggetto.condizioni : '',
+      cantina: props.oggetto ? props.oggetto.cantina : false,
+      baujahr: props.oggetto ? props.oggetto.baujahr : '',
+      energieAusweisTyp: props.oggetto ? props.oggetto.energieAusweisTyp : '',
+      energieAusweisBis: props.oggetto ? props.oggetto.energieAusweisBis : '',
+      heizungsart: props.oggetto ? props.oggetto.heizungsart : '',
+      energieTraeger: props.oggetto ? props.oggetto.energieTraeger : '',
+      energieBedarf: props.oggetto ? props.oggetto.energieBedarf : '',
+      provvigione: props.oggetto ? props.oggetto.provvigione : ''
     };
   }
   changeHandler = e => {
@@ -103,6 +131,34 @@ export class OggettoForm extends React.Component {
       isUploading: false
     }));
   };
+  handleUploadSuccessCover = async filename => {
+    const downloadURL = await firebase
+      .storage()
+      .ref('cover')
+      .child(filename)
+      .getDownloadURL();
+
+    this.setState(oldState => ({
+      filenamesCover: [...oldState.filenamesCover, filename],
+      downloadURLsCover: [...oldState.downloadURLsCover, downloadURL],
+      uploadProgress: 100,
+      isUploading: false
+    }));
+  };
+  handleUploadSuccessGrundriss = async filename => {
+    const downloadURL = await firebase
+      .storage()
+      .ref('grundriss')
+      .child(filename)
+      .getDownloadURL();
+
+    this.setState(oldState => ({
+      filenamesGrundriss: [...oldState.filenamesGrundriss, filename],
+      downloadURLsGrundriss: [...oldState.downloadURLsGrundriss, downloadURL],
+      uploadProgress: 100,
+      isUploading: false
+    }));
+  };
 
   handleRemovePicture = picture => {
     console.log(picture);
@@ -122,6 +178,61 @@ export class OggettoForm extends React.Component {
       .storage()
       .ref('images')
       .child(filename)
+      .delete()
+      .then(() => {
+        console.log('File deleted');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  handleRemovePictureCover = picture => {
+    console.log(picture);
+    let downloadURLsCover = this.state.downloadURLsCover;
+    let filenamesCover = this.state.filenamesCover;
+    downloadURLsCover.splice(picture, 1);
+    const removedFilename = filenamesCover.splice(picture, 1);
+    const [filenameCover] = removedFilename;
+    if (downloadURLsCover === undefined || downloadURLsCover.length < 1) {
+      downloadURLsCover = '';
+    }
+    if (filenamesCover === undefined || filenamesCover.length < 1) {
+      filenamesCover = '';
+    }
+    this.setState(() => ({ downloadURLsCover, filenamesCover }));
+    firebase
+      .storage()
+      .ref('cover')
+      .child(filenameCover)
+      .delete()
+      .then(() => {
+        console.log('File deleted');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  handleRemovePictureGrundriss = picture => {
+    console.log(picture);
+    let downloadURLsGrundriss = this.state.downloadURLsGrundriss;
+    let filenamesGrundriss = this.state.filenamesGrundriss;
+    downloadURLsGrundriss.splice(picture, 1);
+    const removedFilename = filenamesGrundriss.splice(picture, 1);
+    const [filenameGrundriss] = removedFilename;
+    if (
+      downloadURLsGrundriss === undefined ||
+      downloadURLsGrundriss.length < 1
+    ) {
+      downloadURLsGrundriss = '';
+    }
+    if (filenamesGrundriss === undefined || filenamesGrundriss.length < 1) {
+      filenamesGrundriss = '';
+    }
+    this.setState(() => ({ downloadURLsGrundriss, filenamesGrundriss }));
+    firebase
+      .storage()
+      .ref('grundriss')
+      .child(filenameGrundriss)
       .delete()
       .then(() => {
         console.log('File deleted');
@@ -151,9 +262,11 @@ export class OggettoForm extends React.Component {
         numeroCivico: this.state.numeroCivico,
         cap: this.state.cap,
         citta: this.state.citta,
+        quartiere: this.state.quartiere,
         nazione: this.state.nazione,
         numeroAppartamento: this.state.numeroAppartamento,
         rifId: this.state.rifId,
+        amtsgericht: this.state.amtsgericht,
         grundbuch: this.state.grundbuch,
         grundbuchBlatt: this.state.grundbuchBlatt,
         m2: this.state.m2,
@@ -169,7 +282,31 @@ export class OggettoForm extends React.Component {
         proprietarioId2: this.state.proprietarioId2,
         visible: this.state.visible,
         filenames: this.state.filenames,
-        downloadURLs: this.state.downloadURLs
+        downloadURLs: this.state.downloadURLs,
+        filenamesCover: this.state.filenamesCover,
+        downloadURLsCover: this.state.downloadURLsCover,
+        filenamesGrundriss: this.state.filenamesGrundriss,
+        downloadURLsGrundriss: this.state.downloadURLsGrundriss,
+        titolo: this.state.titolo,
+        descrizione: this.state.descrizione,
+        titoloDe: this.state.titoloDe,
+        descrizioneDe: this.state.descrizioneDe,
+        titoloEn: this.state.titoloEn,
+        descrizioneEn: this.state.descrizioneEn,
+        vani: this.state.vani,
+        bagni: this.state.bagni,
+        balcone: this.state.balcone,
+        ascensore: this.state.ascensore,
+        giardino: this.state.giardino,
+        condizioni: this.state.condizioni,
+        cantina: this.state.cantina,
+        baujahr: this.state.baujahr,
+        energieAusweisTyp: this.state.energieAusweisTyp,
+        energieAusweisBis: this.state.energieAusweisBis,
+        heizungsart: this.state.heizungsart,
+        energieTraeger: this.state.energieTraeger,
+        energieBedarf: this.state.energieBedarf,
+        provvigione: this.state.provvigione
       });
     }
   };
@@ -217,6 +354,15 @@ export class OggettoForm extends React.Component {
           value={this.state.cap}
           onChange={this.changeHandler}
         />
+        Bezirk:
+        <input
+          name='quartiere'
+          className={`text-input`}
+          type='text'
+          placeholder='Bezirk'
+          value={this.state.quartiere}
+          onChange={this.changeHandler}
+        />
         Stadt:
         <input
           name='citta'
@@ -251,6 +397,15 @@ export class OggettoForm extends React.Component {
           type='text'
           placeholder='Ref. Id'
           value={this.state.rifId}
+          onChange={this.changeHandler}
+        />
+        Amtsgericht:
+        <input
+          name='amtsgericht'
+          className={`text-input`}
+          type='text'
+          placeholder='amtsgericht'
+          value={this.state.amtsgericht}
           onChange={this.changeHandler}
         />
         Grundbuch:
@@ -298,14 +453,16 @@ export class OggettoForm extends React.Component {
           onChange={this.changeHandler}
         />
         Bezug:
-        <input
+        <select
           name='stato'
-          className={`text-input`}
-          type='text'
-          placeholder='leerstehend oder vermietet'
+          className='select select__form'
           value={this.state.stato}
           onChange={this.changeHandler}
-        />
+        >
+          <option value=''></option>
+          <option value='leerstehend'>Leerstehend</option>
+          <option value='vermietet'>Vermietet</option>
+        </select>
         Wohngeld:
         <input
           name='wohngeld'
@@ -388,6 +545,243 @@ export class OggettoForm extends React.Component {
             Speichern
           </button>
         </div>
+        {/* Exposé */}
+        <h1 className='page-header page-header__title'>Exposé</h1>
+        Überschrift italienisch:
+        <input
+          name='titolo'
+          className={`text-input`}
+          type='text'
+          placeholder='Titolo in italiano'
+          value={this.state.titolo}
+          onChange={this.changeHandler}
+        />
+        Beschreibung italienisch:
+        <textarea
+          name='descrizione'
+          className={`textarea`}
+          placeholder='Descrizione in italiano'
+          value={this.state.descrizione}
+          onChange={this.changeHandler}
+        />
+        Überschrift deutsch:
+        <input
+          name='titoloDe'
+          className={`text-input`}
+          type='text'
+          placeholder='Überschrift des Exposés'
+          value={this.state.titoloDe}
+          onChange={this.changeHandler}
+        />
+        Beschreibung deutsch:
+        <textarea
+          name='descrizioneDe'
+          className={`textarea`}
+          placeholder='Beschreibung'
+          value={this.state.descrizioneDe}
+          onChange={this.changeHandler}
+        />
+        Überschrift englisch:
+        <input
+          name='titoloEn'
+          className={`text-input`}
+          type='text'
+          placeholder='English title'
+          value={this.state.titoloEn}
+          onChange={this.changeHandler}
+        />
+        Beschreibung englisch:
+        <textarea
+          name='descrizioneEn'
+          className={`textarea`}
+          placeholder='English description'
+          value={this.state.descrizioneEn}
+          onChange={this.changeHandler}
+        />
+        Zimmer:
+        <input
+          name='vani'
+          className={`text-input`}
+          type='text'
+          value={this.state.vani}
+          onChange={this.changeHandler}
+        />
+        Badezimmer:
+        <input
+          name='bagni'
+          className={`text-input`}
+          type='text'
+          value={this.state.bagni}
+          onChange={this.changeHandler}
+        />
+        Zustand:
+        <select
+          name='condizioni'
+          className='select select__form'
+          value={this.state.condizioni}
+          onChange={this.changeHandler}
+        >
+          <option value=''></option>
+          <option value='neu'>Neuwertig</option>
+          <option value='gut'>Gut</option>
+          <option value='renovierungsbedürftig'>Renovierungsbedürftig</option>
+        </select>
+        Baujahr:
+        <input
+          name='baujahr'
+          className={`text-input`}
+          type='text'
+          value={this.state.baujahr}
+          onChange={this.changeHandler}
+        />
+        Energieausweis-Typ:
+        <select
+          name='energieAusweisTyp'
+          className='select select__form'
+          value={this.state.energieAusweisTyp}
+          onChange={this.changeHandler}
+        >
+          <option value=''></option>
+          <option value='Verbrauchsausweis'>Verbrauchsausweis</option>
+          <option value='Bedarfsausweis'>Bedarfsausweis</option>
+        </select>
+        Energieausweis gültig bis:
+        <input
+          name='energieAusweisBis'
+          className={`text-input`}
+          type='text'
+          value={this.state.energieAusweisBis}
+          onChange={this.changeHandler}
+        />
+        Heizungsart:
+        <select
+          name='heizungsart'
+          className='select select__form'
+          value={this.state.heizungsart}
+          onChange={this.changeHandler}
+        >
+          <option value=''></option>
+          <option value='Zentralheizung'>Zentralheizung</option>
+          <option value='Etagenheizung'>Etagenheizung</option>
+        </select>
+        Energieträger:
+        <select
+          name='energieTraeger'
+          className='select select__form'
+          value={this.state.energieTraeger}
+          onChange={this.changeHandler}
+        >
+          <option value=''></option>
+          <option value='Erdgas'>Erdgas</option>
+          <option value='Öl'>Öl</option>
+          <option value='Fernwärme'>Fernwärme</option>
+        </select>
+        Endenergiebedarf in kWh/(m2*a):
+        <input
+          name='energieBedarf'
+          className='text-input'
+          type='text'
+          value={this.state.energieBedarf}
+          onChange={this.changeHandler}
+        />
+        Käuferprovision:
+        <input
+          name='provvigione'
+          className='text-input'
+          type='text'
+          placeholder='inklusive MWSt.'
+          value={this.state.provvigione}
+          onChange={this.changeHandler}
+        />
+        <label>
+          Balkon&nbsp;
+          <input
+            type='checkbox'
+            name='balcone'
+            checked={this.state.balcone}
+            onChange={() => {
+              this.setState(() => ({
+                balcone: !this.state.balcone
+              }));
+            }}
+          />
+        </label>
+        <label>
+          Aufzug&nbsp;
+          <input
+            type='checkbox'
+            name='ascensore'
+            checked={this.state.ascensore}
+            onChange={() => {
+              this.setState(() => ({
+                ascensore: !this.state.ascensore
+              }));
+            }}
+          />
+        </label>
+        <label>
+          Garten&nbsp;
+          <input
+            type='checkbox'
+            name='giardino'
+            checked={this.state.giardino}
+            onChange={() => {
+              this.setState(() => ({
+                giardino: !this.state.giardino
+              }));
+            }}
+          />
+        </label>
+        <label>
+          Keller&nbsp;
+          <input
+            type='checkbox'
+            name='cantina'
+            checked={this.state.cantina}
+            onChange={() => {
+              this.setState(() => ({
+                cantina: !this.state.cantina
+              }));
+            }}
+          />
+        </label>
+        {/* Cover */}
+        <div>
+          <h1 className='page-header page-header__title'>Cover</h1>
+          <label className='button button--secondary-oggetti'>
+            Cover auswählen
+            <FileUploader
+              hidden
+              accept='image/*'
+              name='image-uploader-multiple'
+              // randomizeFilename
+              filename={() => `${this.state.rifId}-Cover}`}
+              storageRef={firebase.storage().ref('cover')}
+              onUploadStart={this.handleUploadStart}
+              onUploadError={this.handleUploadError}
+              onUploadSuccess={this.handleUploadSuccessCover}
+              onProgress={this.handleProgress}
+              // multiple
+            />
+          </label>
+
+          <div>
+            {this.state.downloadURLsCover &&
+              this.state.downloadURLsCover.map((downloadURLCover, i) => {
+                return (
+                  <span key={i}>
+                    <img className='foto' src={downloadURLCover} />
+                    <img
+                      src='/images/trash.jpg'
+                      className='cancella'
+                      onClick={() => this.handleRemovePictureCover(i)}
+                    />
+                  </span>
+                );
+              })}
+          </div>
+        </div>
+        {/* Bilder */}
         <div>
           <h1 className='page-header page-header__title'>Bilder</h1>
           <label className='button button--secondary-oggetti'>
@@ -428,6 +822,48 @@ export class OggettoForm extends React.Component {
                   </span>
                 );
               })}
+          </div>
+        </div>
+        {/* Grundriss */}
+        <div>
+          <h1 className='page-header page-header__title'>Grundriss</h1>
+          <label className='button button--secondary-oggetti'>
+            Grundriss auswählen
+            <FileUploader
+              hidden
+              accept='image/*'
+              name='image-uploader-multiple'
+              // randomizeFilename
+              filename={() =>
+                `${this.state.rifId}-Grundriss-${Math.floor(
+                  Math.random() * 100
+                ).toString()}`
+              }
+              storageRef={firebase.storage().ref('grundriss')}
+              onUploadStart={this.handleUploadStart}
+              onUploadError={this.handleUploadError}
+              onUploadSuccess={this.handleUploadSuccessGrundriss}
+              onProgress={this.handleProgress}
+              multiple
+            />
+          </label>
+
+          <div>
+            {this.state.downloadURLsGrundriss &&
+              this.state.downloadURLsGrundriss.map(
+                (downloadURLGrundriss, i) => {
+                  return (
+                    <span key={i}>
+                      <img className='foto' src={downloadURLGrundriss} />
+                      <img
+                        src='/images/trash.jpg'
+                        className='cancella'
+                        onClick={() => this.handleRemovePictureGrundriss(i)}
+                      />
+                    </span>
+                  );
+                }
+              )}
           </div>
         </div>
         <div>

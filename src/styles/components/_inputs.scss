@@ -1,20 +1,25 @@
 .text-input {
-    border: 1px solid #cacccd;
-    height: 50px;
-    font-size: $font-size-large;
-    font-weight: 300;
-    padding: $s-size;
+  border: 1px solid #cacccd;
+  background-color: white;
+
+  height: 50px;
+  font-size: $font-size-large;
+  font-weight: 300;
+  padding: $s-size;
 }
 
 .text-input--modificato {
-    color: red;
+  color: red;
 }
 
 .select {
-    @extend .text-input;
+  @extend .text-input;
+  &__form {
+    max-width: 300px;
+  }
 }
 
 .textarea {
-    @extend .text-input;
-    height: 10rem;
+  @extend .text-input;
+  height: 10rem;
 }

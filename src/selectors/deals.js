@@ -14,7 +14,14 @@ export default (
   if (utente.role === 'Mitarbeiter') {
     return deals
       .filter(deal => {
-        const oggetto = oggetti.find(ogg => ogg.id === deal.oggettoId);
+        const oggetto = oggetti.find(ogg => ogg.id === deal.oggettoId) || {
+          rifId: 'n/a',
+          via: 'n/a',
+          numeroCivico: 'n/a',
+          numeroAppartamento: 'n/a',
+          cap: 'n/a',
+          citta: 'n/a'
+        };
         const acquirente = clienti.find(
           cliente => cliente.id === deal.acquirenteId
         );
@@ -61,7 +68,14 @@ export default (
   } else {
     return deals
       .filter(deal => {
-        const oggetto = oggetti.find(ogg => ogg.id === deal.oggettoId);
+        const oggetto = oggetti.find(ogg => ogg.id === deal.oggettoId) || {
+          rifId: 'n/a',
+          via: 'n/a',
+          numeroCivico: 'n/a',
+          numeroAppartamento: 'n/a',
+          cap: 'n/a',
+          citta: 'n/a'
+        };
         const acquirente = clienti.find(
           cliente => cliente.id === deal.acquirenteId
         );

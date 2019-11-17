@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 import ClientiList from '../clienti/ClientiList';
+import { expose } from '../moduli/Expose';
 
 export class ViewOggettiPage extends React.Component {
   render() {
@@ -39,11 +40,22 @@ export class ViewOggettiPage extends React.Component {
                   {this.props.oggetto.rifId.length > 0 && (
                     <div>Ref. id: {this.props.oggetto.rifId}</div>
                   )}
+                  {this.props.oggetto.kaufpreis > 0 && (
+                    <div>{`Kaufpreis: ${numeral(
+                      this.props.oggetto.kaufpreis / 100
+                    ).format('0,0[.]00 $')}`}</div>
+                  )}
+                  {this.props.oggetto.amtsgericht.length > 0 && (
+                    <div>Amtsgericht: {this.props.oggetto.amtsgericht}</div>
+                  )}
                   {this.props.oggetto.grundbuch.length > 0 && (
-                    <div>
-                      Grundbuch von {this.props.oggetto.grundbuch} - Blatt Nr.{' '}
-                      {this.props.oggetto.grundbuchBlatt}
-                    </div>
+                    <div>Grundbuch von {this.props.oggetto.grundbuch}</div>
+                  )}
+                  {this.props.oggetto.grundbuchBlatt.length > 0 && (
+                    <div>Blatt Nr.: {this.props.oggetto.grundbuchBlatt}</div>
+                  )}
+                  {this.props.oggetto.ruecklage.length > 0 && (
+                    <div>Rücklage: {this.props.oggetto.ruecklage}</div>
                   )}
                 </div>
                 <div>
@@ -79,6 +91,48 @@ export class ViewOggettiPage extends React.Component {
             >
               Find a Match!
             </Link>
+            <button
+              className='print button button--secondary-oggetti'
+              onClick={() => {
+                expose(
+                  this.props.oggetto,
+                  this.props.firma,
+                  this.props.utente,
+                  this.props.ceo,
+                  'de'
+                );
+              }}
+            >
+              Exposé deutsch
+            </button>
+            <button
+              className='print button button--secondary-oggetti'
+              onClick={() => {
+                expose(
+                  this.props.oggetto,
+                  this.props.firma,
+                  this.props.utente,
+                  this.props.ceo,
+                  'it'
+                );
+              }}
+            >
+              Exposé italienisch
+            </button>
+            <button
+              className='print button button--secondary-oggetti'
+              onClick={() => {
+                expose(
+                  this.props.oggetto,
+                  this.props.firma,
+                  this.props.utente,
+                  this.props.ceo,
+                  'en'
+                );
+              }}
+            >
+              Exposé englisch
+            </button>
           </div>
         </div>
         {this.props.oggetto.verwalter.length > 0 && (
@@ -88,17 +142,39 @@ export class ViewOggettiPage extends React.Component {
         )}
         {this.props.oggetto.proprietarioId.length > 0 && (
           <div>
-            <ClientiList cliente={proprietario} ruolo={'Proprietario'} />
+            <ClientiList cliente={proprietario} ruolo={'Eigentümer'} />
           </div>
         )}
         {this.props.oggetto.proprietarioId2.length > 0 && (
           <div>
-            <ClientiList cliente={proprietario2} ruolo={'2. Proprietario'} />
+            <ClientiList cliente={proprietario2} ruolo={'2. Eigentümer'} />
           </div>
         )}
         <div className='content-container'>
+          {this.props.oggetto.downloadURLsCover && (
+            <div className='list-header list-header-oggetti'>Cover</div>
+          )}
+          {this.props.oggetto.downloadURLsCover &&
+            this.props.oggetto.downloadURLsCover.map((downloadURL, i) => {
+              return <img className='foto' key={i} src={downloadURL} />;
+            })}
+        </div>
+        <div className='content-container'>
+          {this.props.oggetto.downloadURLs && (
+            <div className='list-header list-header-oggetti'>Bilder</div>
+          )}
           {this.props.oggetto.downloadURLs &&
             this.props.oggetto.downloadURLs.map((downloadURL, i) => {
+              return <img className='foto' key={i} src={downloadURL} />;
+            })}
+        </div>
+
+        <div className='content-container'>
+          {this.props.oggetto.downloadURLsGrundriss && (
+            <div className='list-header list-header-oggetti'>Grundriss</div>
+          )}
+          {this.props.oggetto.downloadURLsGrundriss &&
+            this.props.oggetto.downloadURLsGrundriss.map((downloadURL, i) => {
               return <img className='foto' key={i} src={downloadURL} />;
             })}
         </div>
@@ -109,7 +185,10 @@ export class ViewOggettiPage extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   oggetto: state.oggetti.find(oggetto => oggetto.id === props.match.params.id),
-  clienti: state.clienti
+  clienti: state.clienti,
+  firma: state.firma[0],
+  ceo: state.utenti.filter(utente => utente.qualifica === 'Geschäftsführer'),
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
 export default connect(mapStateToProps)(ViewOggettiPage);
