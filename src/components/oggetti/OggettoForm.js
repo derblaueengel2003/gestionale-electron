@@ -45,6 +45,8 @@ export class OggettoForm extends React.Component {
       downloadURLs: props.oggetto ? props.oggetto.downloadURLs : '',
       filenamesCover: props.oggetto ? props.oggetto.filenamesCover : '',
       downloadURLsCover: props.oggetto ? props.oggetto.downloadURLsCover : '',
+      filenamesMap: props.oggetto ? props.oggetto.filenamesMap : '',
+      downloadURLsMap: props.oggetto ? props.oggetto.downloadURLsMap : '',
       filenamesGrundriss: props.oggetto ? props.oggetto.filenamesGrundriss : '',
       downloadURLsGrundriss: props.oggetto
         ? props.oggetto.downloadURLsGrundriss
@@ -145,6 +147,20 @@ export class OggettoForm extends React.Component {
       isUploading: false
     }));
   };
+  handleUploadSuccessMap = async filename => {
+    const downloadURL = await firebase
+      .storage()
+      .ref('map')
+      .child(filename)
+      .getDownloadURL();
+
+    this.setState(oldState => ({
+      filenamesMap: [...oldState.filenamesMap, filename],
+      downloadURLsMap: [...oldState.downloadURLsMap, downloadURL],
+      uploadProgress: 100,
+      isUploading: false
+    }));
+  };
   handleUploadSuccessGrundriss = async filename => {
     const downloadURL = await firebase
       .storage()
@@ -204,6 +220,32 @@ export class OggettoForm extends React.Component {
       .storage()
       .ref('cover')
       .child(filenameCover)
+      .delete()
+      .then(() => {
+        console.log('File deleted');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  handleRemovePictureMap = picture => {
+    console.log(picture);
+    let downloadURLsMap = this.state.downloadURLsMap;
+    let filenamesMap = this.state.filenamesMap;
+    downloadURLsMap.splice(picture, 1);
+    const removedFilename = filenamesMap.splice(picture, 1);
+    const [filenameMap] = removedFilename;
+    if (downloadURLsMap === undefined || downloadURLsMap.length < 1) {
+      downloadURLsMap = '';
+    }
+    if (filenamesMap === undefined || filenamesMap.length < 1) {
+      filenamesMap = '';
+    }
+    this.setState(() => ({ downloadURLsMap, filenamesMap }));
+    firebase
+      .storage()
+      .ref('map')
+      .child(filenameMap)
       .delete()
       .then(() => {
         console.log('File deleted');
@@ -287,6 +329,8 @@ export class OggettoForm extends React.Component {
         downloadURLsCover: this.state.downloadURLsCover,
         filenamesGrundriss: this.state.filenamesGrundriss,
         downloadURLsGrundriss: this.state.downloadURLsGrundriss,
+        filenamesMap: this.state.filenamesMap,
+        downloadURLsMap: this.state.downloadURLsMap,
         titolo: this.state.titolo,
         descrizione: this.state.descrizione,
         titoloDe: this.state.titoloDe,
@@ -754,7 +798,7 @@ export class OggettoForm extends React.Component {
               hidden
               accept='image/*'
               name='image-uploader-multiple'
-              // randomizeFilename
+              randomizeFilename
               filename={() => `${this.state.rifId}-Cover}`}
               storageRef={firebase.storage().ref('cover')}
               onUploadStart={this.handleUploadStart}
@@ -790,7 +834,7 @@ export class OggettoForm extends React.Component {
               hidden
               accept='image/*'
               name='image-uploader-multiple'
-              // randomizeFilename
+              randomizeFilename
               filename={() =>
                 `${this.state.rifId}-${Math.floor(
                   Math.random() * 100000
@@ -833,7 +877,7 @@ export class OggettoForm extends React.Component {
               hidden
               accept='image/*'
               name='image-uploader-multiple'
-              // randomizeFilename
+              randomizeFilename
               filename={() =>
                 `${this.state.rifId}-Grundriss-${Math.floor(
                   Math.random() * 100
@@ -864,6 +908,46 @@ export class OggettoForm extends React.Component {
                   );
                 }
               )}
+          </div>
+        </div>
+        {/* Map */}
+        <div>
+          <h1 className='page-header page-header__title'>Map</h1>
+          <label className='button button--secondary-oggetti'>
+            Map auswählen
+            <FileUploader
+              hidden
+              accept='image/*'
+              name='image-uploader-multiple'
+              randomizeFilename
+              filename={() =>
+                `${this.state.rifId}-Map-${Math.floor(
+                  Math.random() * 100
+                ).toString()}`
+              }
+              storageRef={firebase.storage().ref('map')}
+              onUploadStart={this.handleUploadStart}
+              onUploadError={this.handleUploadError}
+              onUploadSuccess={this.handleUploadSuccessMap}
+              onProgress={this.handleProgress}
+              // multiple
+            />
+          </label>
+
+          <div>
+            {this.state.downloadURLsMap &&
+              this.state.downloadURLsMap.map((downloadURLMap, i) => {
+                return (
+                  <span key={i}>
+                    <img className='foto' src={downloadURLMap} />
+                    <img
+                      src='/images/trash.jpg'
+                      className='cancella'
+                      onClick={() => this.handleRemovePictureMap(i)}
+                    />
+                  </span>
+                );
+              })}
           </div>
         </div>
         <div>

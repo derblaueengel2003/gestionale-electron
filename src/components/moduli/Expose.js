@@ -1,7 +1,6 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './ImageLogo';
 import { ivdLogo } from './IvdLogo';
-import moment from 'moment';
 import numeral from 'numeral';
 
 export const doc = new jsPDF('p', 'mm', 'a4');
@@ -146,6 +145,18 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
   const cover = new Image();
   cover.src = oggetto.downloadURLsCover;
   doc.addImage(cover, 'JPEG', 15, 35, 131, 70);
+
+  if (oggetto.downloadURLsGrundriss.length > 0) {
+    const grundriss = new Image();
+    grundriss.src = oggetto.downloadURLsGrundriss[0];
+    let xPos = 90;
+    let yPos = 65;
+    if (grundriss.width < grundriss.height) {
+      xPos = 65;
+      yPos = 90;
+    }
+    doc.addImage(grundriss, 'JPEG', 115, 130, xPos, yPos);
+  }
 
   //riquadro contatti
   doc.setDrawColor(215, 240, 245);
@@ -365,24 +376,66 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     doc.text(`${traduzione.provvigione}: ${oggetto.provvigione}`, 15, acapo);
   }
 
-  //Pagina Foto
+  //Pagina Descrizione
   doc.addPage();
   cartaIntestata();
-  let pictureYPosition = 35;
-  let pictureXPosition = 15;
-  let alternate = true;
-  oggetto.downloadURLs.map(url => {
-    const picture = new Image();
-    picture.src = url;
-    doc.addImage(picture, 'JPEG', pictureXPosition, pictureYPosition, 80, 50);
-    if (alternate) {
-      pictureXPosition += 90;
-    } else {
-      pictureXPosition = 15;
-      pictureYPosition += 55;
-    }
-    alternate = !alternate;
-  });
+  doc.setFontSize(fontStart + 4);
+  doc.setFontType('normal');
+  doc.setTextColor(0, 0, 0);
+  let descrizione = 'Beschreibung';
+  if (lingua === 'it') {
+    descrizione = 'Descrizione';
+  } else if (lingua === 'en') {
+    descrizione = 'Description';
+  }
+  doc.text(descrizione, 15, 36);
+  doc.setFontSize(fontStart + 2);
 
-  doc.save(`Exposé.pdf`);
+  const lines = doc
+    .setFontSize(12)
+    .splitTextToSize(traduzione.descrizione, 180);
+  doc.text(15, 45 + 12 / 110, lines);
+
+  //Pagina Foto
+  if (oggetto.downloadURLs.length > 0) {
+    doc.addPage();
+    cartaIntestata();
+    let pictureYPosition = 35;
+    let pictureXPosition = 15;
+    let alternate = true;
+    let count = 0;
+    oggetto.downloadURLs.map(url => {
+      if (count === 6) {
+        doc.addPage();
+        cartaIntestata();
+        pictureYPosition = 35;
+        pictureXPosition = 15;
+        alternate = true;
+        count = 0;
+      }
+      const picture = new Image();
+      picture.src = url;
+      doc.addImage(picture, 'JPEG', pictureXPosition, pictureYPosition, 90, 65);
+      if (alternate) {
+        pictureXPosition += 94;
+      } else {
+        pictureXPosition = 15;
+        pictureYPosition += 70;
+      }
+      alternate = !alternate;
+      count++;
+    });
+  }
+
+  //Pagina Mappa
+  if (oggetto.downloadURLsMap.length > 0) {
+    doc.addPage();
+    cartaIntestata();
+
+    const map = new Image();
+    map.src = oggetto.downloadURLsMap;
+    doc.addImage(map, 'JPEG', 25, 35, 150, 150);
+  }
+
+  doc.save(`${oggetto.rifId}-Exposé.pdf`);
 };
