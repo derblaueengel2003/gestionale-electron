@@ -178,6 +178,15 @@ export class ViewOggettiPage extends React.Component {
               return <img className='foto' key={i} src={downloadURL} />;
             })}
         </div>
+        <div className='content-container'>
+          {this.props.oggetto.downloadURLsMap && (
+            <div className='list-header list-header-oggetti'>Map</div>
+          )}
+          {this.props.oggetto.downloadURLsMap &&
+            this.props.oggetto.downloadURLsMap.map((downloadURL, i) => {
+              return <img className='foto' key={i} src={downloadURL} />;
+            })}
+        </div>
       </div>
     );
   }

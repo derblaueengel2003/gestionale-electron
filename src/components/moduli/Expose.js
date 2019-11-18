@@ -437,5 +437,235 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     doc.addImage(map, 'JPEG', 25, 35, 150, 150);
   }
 
+  // AGBs
+  doc.addPage();
+  cartaIntestata();
+  let spazio = 40;
+  doc.setFontSize(fontStart + 4);
+  doc.setFontType('bold');
+  doc.setTextColor(0, 0, 0);
+  doc.text('Allgemeine Vertragsbedingungen', 15, spazio);
+  spazio += 10;
+
+  doc.setFontType('bold');
+  doc.setFontSize(fontStart + 2);
+  doc.text('1. Weitergabeverbot', 15, spazio);
+  spazio += 10;
+  doc.setFontType('normal');
+  const linesAGB1 = doc
+    .setFontSize(12)
+    .splitTextToSize(
+      'Die Informationen über die Vertragsgelegenheit sind nur für Sie bestimmt. Eine Weitergabe der Informationen ist nicht gestattet. Für den Fall der Weitergabe und Vertragsschluss durch den Dritten sind Sie ebenfalls provisionsverpflichtet.',
+      180
+    );
+  doc.text(15, spazio + 12 / 110, linesAGB1);
+  spazio += 20;
+
+  doc.setFontType('bold');
+  doc.setFontSize(fontStart + 2);
+  doc.text('2. Gegenstand des Auftrags', 15, spazio);
+  spazio += 10;
+
+  doc.setFontType('normal');
+  const linesAGB2 = doc
+    .setFontSize(12)
+    .splitTextToSize(
+      'Gegenstand des Auftrags ist der Nachweis und/oder die Vermittlung zu der jeweiligen Vertragsgelegenheit.',
+      180
+    );
+  doc.text(15, spazio + 12 / 110, linesAGB2);
+  spazio += 15;
+
+  doc.setFontType('bold');
+  doc.setFontSize(fontStart + 2);
+  doc.text('3. Erlaubte Doppeltätigkeit', 15, spazio);
+  spazio += 10;
+
+  doc.setFontType('normal');
+  const linesAGB3 = doc
+    .setFontSize(12)
+    .splitTextToSize(
+      'Der Eigentümer der Immobilie hat uns mit dem Vertrieb beauftragt. Es ist uns daher erlaubt, sowohl für Sie, als auch für den Eigentümer vermittelnd provisionspflichtig tätig zu werden.',
+      180
+    );
+  doc.text(15, spazio + 12 / 110, linesAGB3);
+  spazio += 15;
+
+  doc.setFontType('bold');
+  doc.setFontSize(fontStart + 2);
+  doc.text('4. Inhalt der Angebote, Haftung', 15, spazio);
+  spazio += 10;
+
+  doc.setFontType('normal');
+  const linesAGB4 = doc
+    .setFontSize(12)
+    .splitTextToSize(
+      'Die Informationen zu unseren Immobilienangeboten erhalten wir vom Eigentümer oder anderen Auskunftsbefugten. Diese Angaben geben wir ohne Übernahme einer Haftung für deren Richtigkeit an Sie weiter. Sämtliche Angebote sind freibleibend, ein Zwischenverkauf bleibt vorbehalten. Verbindliche Zusagen des Maklers zur Vertragsgelegenheit bedürfen zu ihrer Wirksamkeit der Textform.',
+      180
+    );
+  doc.text(15, spazio + 12 / 110, linesAGB4);
+  spazio += 25;
+
+  doc.setFontType('bold');
+  doc.setFontSize(fontStart + 2);
+  doc.text('5. Vorkenntnis', 15, spazio);
+  spazio += 10;
+  doc.setFontType('normal');
+  const linesAGB5 = doc
+    .setFontSize(12)
+    .splitTextToSize(
+      'Ist Ihnen ein von uns angebotenes Objekt bereits anderweitig bekannt ist, ist uns diese Vorkenntnis innerhalb einer Woche Tagen mitzuteilen. Anderenfalls sind Sie verpflichtet, uns im Wege des Schadensersatzes die Aufwendungen zu ersetzen, die uns dadurch entstanden sind, dass Sie uns in Unkenntnis über die bestehende Vorkenntnis gelassen haben.',
+      180
+    );
+  doc.text(15, spazio + 12 / 110, linesAGB5);
+  spazio += 25;
+
+  doc.setFontType('bold');
+  doc.setFontSize(fontStart + 2);
+  doc.text('6. Gerichtsstand', 15, spazio);
+  spazio += 10;
+  doc.setFontType('normal');
+  const linesAGB6 = doc
+    .setFontSize(12)
+    .splitTextToSize(
+      'Ist unser Kunde Kaufmann oder unterhält er keinen Wohnsitz in Deutschland, gilt als Gerichtsstand und Erfüllungsort der Geschäftssitz des Maklers.',
+      180
+    );
+  doc.text(15, spazio + 12 / 110, linesAGB6);
+
+  //Wiedderrufsbelehrung
+  doc.addPage();
+  cartaIntestata();
+  //box
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.05);
+  doc.line(10, 260, 205, 260);
+  doc.line(10, 170, 205, 170);
+
+  //corpo
+  doc.setTextColor(0, 0, 0);
+  let spazioW = 35;
+  doc.setFontType('bold');
+  doc.setFontSize(fontStart);
+  doc.text('Widerrufsrecht für Verbraucher', 15, spazioW);
+  spazioW += 5;
+  doc.setFontType('normal');
+  const linesW1 = doc
+    .setFontSize(10)
+    .splitTextToSize(
+      'Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses. Um Ihr Widerrufsrecht auszuüben, müssen Sie uns:',
+      180
+    );
+  doc.text(15, spazioW + 10 / 110, linesW1);
+  spazioW += 10;
+
+  doc.text(`${firma.name} ${firma.name2 && ` - ${firma.name2}`}`, 15, spazioW);
+  spazioW += 5;
+  doc.text(`${firma.adresse}, ${firma.plz} ${firma.stadt}`, 15, spazioW);
+  spazioW += 5;
+  doc.text(`Tel: ${firma.telefon}`, 15, spazioW);
+  spazioW += 5;
+  doc.text(`Fax: ${firma.fax}`, 15, spazioW);
+  spazioW += 5;
+  doc.text(`E-Mail: ${firma.email}`, 15, spazioW);
+  spazioW += 5;
+
+  const linesW2 = doc
+    .setFontSize(10)
+    .splitTextToSize(
+      'mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandter Brief, Telefax oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster- Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist. Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.',
+      180
+    );
+  doc.text(15, spazioW + 10 / 110, linesW2);
+  spazioW += 20;
+
+  doc.setFontType('bold');
+  doc.setFontSize(fontStart);
+  doc.text('Folgen des Widerrufs', 15, spazioW);
+  spazioW += 5;
+  doc.setFontType('normal');
+  const linesW3 = doc
+    .setFontSize(10)
+    .splitTextToSize(
+      'Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.',
+      180
+    );
+  doc.text(15, spazioW + 10 / 110, linesW3);
+  spazioW += 30;
+  const linesW4 = doc
+    .setFontSize(10)
+    .splitTextToSize(
+      'Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginnen soll, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen Dienstleistung entspricht.',
+      180
+    );
+  doc.text(15, spazioW + 10 / 110, linesW4);
+  spazioW += 20;
+
+  doc.setFontType('bold');
+  doc.setFontSize(fontStart);
+  doc.text(
+    'Hinweis zum vorzeitigen Erlöschen des Widerrufsrechts',
+    15,
+    spazioW
+  );
+  spazioW += 5;
+  doc.setFontType('normal');
+  const linesW5 = doc
+    .setFontSize(10)
+    .splitTextToSize(
+      'Ihr Widerrufsrecht erlischt bei einem Vertrag zur Erbringung von Dienstleistungen vorzeitig, wenn wir die Dienstleistung vollständig erbracht haben und mit der Ausführung der Dienstleistung erst begonnen haben, nachdem Sie dazu Ihre ausdrückliche Zustimmung gegeben haben und gleichzeitig Ihre Kenntnis davon bestätigt haben, dass Sie Ihr Widerrufsrecht bei vollständiger Vertragserfüllung durch uns verlieren.',
+      180
+    );
+  doc.text(15, spazioW + 10 / 110, linesW5);
+  spazioW += 20;
+
+  doc.setFontType('bold');
+  doc.setFontSize(fontStart);
+  doc.text('Anlage - Muster-Widerrufsformular', 15, spazioW);
+  spazioW += 5;
+  doc.setFontType('normal');
+  const linesW6 = doc
+    .setFontSize(10)
+    .splitTextToSize(
+      '(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück)',
+      180
+    );
+  doc.text(15, spazioW + 10 / 110, linesW6);
+  spazioW += 5;
+  doc.text('An:', 15, spazioW);
+  spazioW += 5;
+  doc.text(`${firma.name} ${firma.name2 && ` - ${firma.name2}`}`, 15, spazioW);
+  spazioW += 5;
+  doc.text(`${firma.adresse}, ${firma.plz} ${firma.stadt}`, 15, spazioW);
+  spazioW += 5;
+  doc.text(`Tel: ${firma.telefon}`, 15, spazioW);
+  spazioW += 5;
+  doc.text(`Fax: ${firma.fax}`, 15, spazioW);
+  spazioW += 5;
+  doc.text(`E-Mail: ${firma.email}`, 15, spazioW);
+  spazioW += 10;
+
+  const linesW7 = doc
+    .setFontSize(10)
+    .splitTextToSize(
+      'Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über die Erbringung von Maklerdienstleistungen vom:                            über:',
+      180
+    );
+  doc.text(15, spazioW + 10 / 110, linesW7);
+  spazioW += 10;
+  doc.text('Name des/der Verbraucher(s):', 15, spazioW);
+  spazioW += 5;
+  doc.text('Anschrift des/der Verbraucher(s):', 15, spazioW);
+  spazioW += 5;
+  doc.text(
+    'Datum:                                               Unterschrift des/der Verbraucher(s)**: ______________________________________',
+    15,
+    spazioW
+  );
+  spazioW += 10;
+  doc.text('(*)Unzutreffendes streichen', 15, spazioW);
+  spazioW += 5;
+  doc.text('** nur bei Mitteilung auf Papier', 15, spazioW);
+
   doc.save(`${oggetto.rifId}-Exposé.pdf`);
 };
