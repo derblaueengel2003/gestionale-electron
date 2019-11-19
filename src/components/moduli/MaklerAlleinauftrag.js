@@ -3,7 +3,6 @@ import { imgLogo } from './ImageLogo';
 import moment from 'moment';
 import numeral from 'numeral';
 
-export const doc = new jsPDF();
 export const maklerAlleinauftrag = (
   venditore,
   venditore2,
@@ -16,6 +15,7 @@ export const maklerAlleinauftrag = (
   sonstige,
   firma
 ) => {
+  const doc = new jsPDF();
   const vendDitta = `${venditore.ditta && `${venditore.ditta}`}`;
   const vendNome = `${venditore.titolo} ${venditore.nome} ${venditore.cognome}`;
   const vendInd = `${venditore.indirizzo} ${venditore.indirizzo2 &&

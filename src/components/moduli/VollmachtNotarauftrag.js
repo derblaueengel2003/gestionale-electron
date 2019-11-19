@@ -2,8 +2,6 @@ import jsPDF from 'jspdf';
 import { imgLogo } from './ImageLogo';
 import numeral from 'numeral';
 
-export const doc = new jsPDF();
-
 export const vollmachtNotarauftrag = (
   acquirente,
   acquirente2,
@@ -14,6 +12,7 @@ export const vollmachtNotarauftrag = (
   prezzoDiVendita,
   firma
 ) => {
+  const doc = new jsPDF();
   const acqDitta = `${acquirente.ditta && `${acquirente.ditta}`}`;
   const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`;
   const acqInd = `${acquirente.indirizzo} ${acquirente.indirizzo2 &&

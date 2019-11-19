@@ -1,8 +1,8 @@
 import jsPDF from 'jspdf';
 
-export const doc = new jsPDF('p', 'mm', 'a4');
-
 export const delegaDocumenti = (cliente, cliente2, oggetto, firma) => {
+  const doc = new jsPDF('p', 'mm', 'a4');
+
   const nome = `${cliente.nome} ${cliente.cognome}`;
   const residenza = `${cliente.cap} ${cliente.comune}, ${cliente.indirizzo}, ${cliente.nazione}`;
   const nome2 = cliente2 && `${cliente2.nome} ${cliente2.cognome}`;

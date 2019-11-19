@@ -3,9 +3,8 @@ import { imgLogo } from './ImageLogo';
 import { ivdLogo } from './IvdLogo';
 import numeral from 'numeral';
 
-const doc = new jsPDF('p', 'mm', 'a4');
-
 export const expose = (oggetto, firma, utente, ceo, lingua) => {
+  const doc = new jsPDF('p', 'mm', 'a4');
   doc.setFont('times');
   const fontStart = 10;
   let traduzione = {};

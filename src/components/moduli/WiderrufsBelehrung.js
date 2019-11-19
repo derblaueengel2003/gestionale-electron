@@ -1,8 +1,6 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './ImageLogo';
 
-export const doc = new jsPDF();
-
 export const widerrufsBelehrung = (
   acquirente,
   acquirente2,
@@ -10,6 +8,7 @@ export const widerrufsBelehrung = (
   oggetto,
   firma
 ) => {
+  const doc = new jsPDF();
   const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`;
   const acqInd = `${acquirente.indirizzo} ${acquirente.indirizzo2 &&
     acquirente.indirizzo2}, ${acquirente.cap} ${acquirente.comune}, ${
