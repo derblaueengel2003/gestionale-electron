@@ -33,7 +33,7 @@ export class LeadsListItem extends React.Component {
         <div className='col-4-of-6'>
           <Link to={`/leadview/${this.props.id}`}>
             <h3 className='list-item__title'>
-              {cliente ? cliente.nome : `-${this.props.leadNome}`}{' '}
+              {cliente ? cliente.nome : 'Kunde nicht im Adressbuch'}{' '}
               {cliente && cliente.cognome}
             </h3>
           </Link>
@@ -80,28 +80,15 @@ export class LeadsListItem extends React.Component {
           >
             Find a Match!
           </Link>
-          {!cliente && (
-            <Link
-              className='button button--secondary-clienti'
-              to={{
-                pathname: `/customercreate`,
-                state: {
-                  nome: this.props.leadNome.split(' ')[0],
-                  cognome: this.props.leadNome.split(' ')[1],
-                  email: this.props.leadEmail,
-                  telefono1: this.props.telefono1
-                }
-              }}
+
+          {cliente && cliente.email && (
+            <a
+              className='button button--secondary-email'
+              href={`mailto:${cliente ? cliente.email : this.props.leadEmail}`}
             >
-              Kunde hinzufügen
-            </Link>
+              E-Mail
+            </a>
           )}
-          <a
-            className='button button--secondary-email'
-            href={`mailto:${cliente ? cliente.email : this.props.leadEmail}`}
-          >
-            E-Mail
-          </a>
         </div>
       </div>
     );
@@ -119,7 +106,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LeadsListItem);
+export default connect(mapStateToProps, mapDispatchToProps)(LeadsListItem);

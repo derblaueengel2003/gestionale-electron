@@ -269,7 +269,7 @@ export class DealForm extends React.Component {
         <div>
           <button className='button button--secondary'>Speichern</button>
         </div>
-        Provisiontyp:
+        Deal-Typ:
         <Select
           name={'dealType'}
           value={this.state.dealType}

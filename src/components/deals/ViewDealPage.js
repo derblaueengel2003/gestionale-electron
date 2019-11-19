@@ -77,7 +77,7 @@ export class ViewDealPage extends React.Component {
       <div>
         <div className='page-header page-header-deals'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Provisionsdetails</h1>
+            <h1 className='page-header__title'>Deal-Details</h1>
           </div>
         </div>
         <div className='content-container'>
@@ -170,7 +170,7 @@ export class ViewDealPage extends React.Component {
         <div className='content-container'>
           {utente.role === 'Admin' && (
             <Link className='button button--secondary' to={`/edit/${id}`}>
-              Provision bearbeiten
+              Deal bearbeiten
             </Link>
           )}
 
