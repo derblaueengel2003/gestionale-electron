@@ -91,7 +91,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     };
   }
   const cartaIntestata = () => {
-    doc.addImage(imgLogo, 'JPEG', 130, 10, 55, 12);
+    doc.addImage(imgLogo, 'JPEG', 130, 10, 55, 12, undefined, 'SLOW');
     //linea rossa
     doc.setDrawColor(145, 0, 0);
     doc.setLineWidth(7);
@@ -137,14 +137,14 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
 
     //Logo IVD
-    doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);
+    doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12, undefined, 'SLOW');
   };
   const frontpage = () => {
     //Frontpage
     cartaIntestata();
     const cover = new Image();
     cover.src = oggetto.downloadURLsCover;
-    doc.addImage(cover, 'JPEG', 15, 35, 131, 70);
+    doc.addImage(cover, 'JPEG', 15, 35, 131, 70, undefined, 'SLOW');
 
     if (oggetto.downloadURLsGrundriss.length > 0) {
       const grundriss = new Image();
@@ -155,7 +155,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
         xPos = 65;
         yPos = 90;
       }
-      doc.addImage(grundriss, 'JPEG', 115, 130, xPos, yPos);
+      doc.addImage(grundriss, 'JPEG', 115, 130, xPos, yPos, undefined, 'SLOW');
     }
 
     //riquadro contatti
@@ -431,7 +431,9 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
           pictureXPosition,
           pictureYPosition,
           90,
-          65
+          65,
+          undefined,
+          'SLOW'
         );
         if (alternate) {
           pictureXPosition += 94;
@@ -452,7 +454,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
 
       const map = new Image();
       map.src = oggetto.downloadURLsMap;
-      doc.addImage(map, 'JPEG', 25, 35, 150, 150);
+      doc.addImage(map, 'JPEG', 25, 35, 150, 150, undefined, 'SLOW');
     }
   };
   const agb = () => {
@@ -707,5 +709,5 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
   widerrufsBelehrung();
 
   //Save
-  doc.save(`${oggetto.rifId}-Exposé.pdf`);
+  doc.save(`${oggetto.rifId}-Exposé-${lingua}.pdf`);
 };
