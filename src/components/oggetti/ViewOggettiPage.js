@@ -187,6 +187,17 @@ export class ViewOggettiPage extends React.Component {
               return <img className='foto' key={i} src={downloadURL} />;
             })}
         </div>
+        {this.props.oggetto.titolo.length > 0 && (
+          <div className='content-container'>
+            <div className='list-header list-header-oggetti'>Texte</div>
+            <div>{`Titolo: ${this.props.oggetto.titolo}`}</div>
+            <div>{`Descrizione: ${this.props.oggetto.descrizione}`}</div>
+            <div>{`Titel: ${this.props.oggetto.titoloDe}`}</div>
+            <div>{`Beschreibung: ${this.props.oggetto.descrizioneDe}`}</div>
+            <div>{`Title: ${this.props.oggetto.titoloEn}`}</div>
+            <div>{`Description: ${this.props.oggetto.descrizioneEn}`}</div>
+          </div>
+        )}
       </div>
     );
   }

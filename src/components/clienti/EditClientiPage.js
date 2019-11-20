@@ -8,8 +8,7 @@ export class EditClientePage extends React.Component {
     this.props.startEditCustomer(this.props.cliente.id, cliente);
     this.props.history.push(`/customerview/${this.props.cliente.id}`);
   };
-
-  onRemove = () => {
+  onValidate = () => {
     const lead = this.props.leads.find(
       lead => lead.leadId === this.props.cliente.id
     );
@@ -33,10 +32,17 @@ export class EditClientePage extends React.Component {
         fattura.clienteId === this.props.cliente.id ||
         fattura.clienteId2 === this.props.cliente.id
     );
+    if (!lead && !deals && !oggetti && !fatture) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  onRemove = () => {
     if (
       window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
     ) {
-      if (!lead && !deals && !oggetti && !fatture) {
+      if (this.onValidate()) {
         this.props.startRemoveCustomer({ id: this.props.cliente.id });
         this.props.history.push('/customer');
       } else {
@@ -47,31 +53,8 @@ export class EditClientePage extends React.Component {
     }
   };
   onDisable = () => {
-    const lead = this.props.leads.find(
-      lead => lead.leadId === this.props.cliente.id
-    );
-    const deals = this.props.deals.find(
-      deal =>
-        deal.agenziaPartnerId === this.props.cliente.id ||
-        deal.venditoreId === this.props.cliente.id ||
-        deal.venditoreId2 === this.props.cliente.id ||
-        deal.acquirenteId === this.props.cliente.id ||
-        deal.acquirenteId2 === this.props.cliente.id ||
-        deal.notaioId === this.props.cliente.id
-    );
-    const oggetti = this.props.oggetti.find(
-      oggetto =>
-        oggetto.proprietarioId === this.props.cliente.id ||
-        oggetto.proprietarioId2 === this.props.cliente.id ||
-        oggetto.verwalter === this.props.cliente.id
-    );
-    const fatture = this.props.fatture.find(
-      fattura =>
-        fattura.clienteId === this.props.cliente.id ||
-        fattura.clienteId2 === this.props.cliente.id
-    );
     if (window.confirm('Bestätigen Sie die Löschung?')) {
-      if (!lead && !deals && !oggetti && !fatture) {
+      if (this.onValidate()) {
         this.props.startEditCustomer(this.props.cliente.id, {
           ...this.props.cliente,
           visible: false

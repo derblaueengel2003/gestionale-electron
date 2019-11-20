@@ -3,8 +3,17 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LeadsListItem from '../leads/LeadsListItem';
 import ClientiList from '../clienti/ClientiList';
+import { startRemoveLead } from '../../actions/leads';
 
 export class ViewLeadPage extends React.Component {
+  onRemove = () => {
+    if (
+      window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
+    ) {
+      this.props.startRemoveLead({ id: this.props.lead.id });
+      this.props.history.push('/leads');
+    }
+  };
   render() {
     const cliente = this.props.clienti.find(
       cliente => cliente.id === this.props.lead.leadId
@@ -33,6 +42,12 @@ export class ViewLeadPage extends React.Component {
           >
             Anfrage ändern
           </Link>
+          <button
+            className='button button--secondary-delete'
+            onClick={this.onRemove}
+          >
+            Anfrage löschen
+          </button>
         </div>
 
         <ClientiList cliente={cliente} ruolo={'Cliente'} />
@@ -45,5 +60,8 @@ const mapStateToProps = (state, props) => ({
   lead: state.leads.find(lead => lead.id === props.match.params.id),
   clienti: state.clienti
 });
+const mapDispatchToProps = dispatch => ({
+  startRemoveLead: data => dispatch(startRemoveLead(data))
+});
 
-export default connect(mapStateToProps)(ViewLeadPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ViewLeadPage);

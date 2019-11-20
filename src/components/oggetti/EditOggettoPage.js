@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import OggettoForm from './OggettoForm';
 import { startEditOggetto, startRemoveOggetto } from '../../actions/oggetti';
 
@@ -9,21 +8,50 @@ export class EditOggettoPage extends React.Component {
     this.props.startEditOggetto(this.props.oggetto.id, oggetto);
     this.props.history.push(`/oggettoview/${this.props.oggetto.id}`);
   };
+  onValidate = () => {
+    const clienti = this.props.clienti.find(
+      cliente =>
+        cliente.id === this.props.oggetto.proprietarioId ||
+        cliente.id === this.props.oggetto.proprietarioId2 ||
+        cliente.id === this.props.oggetto.verwalter
+    );
+    const deals = this.props.deals.find(
+      deal => deal.oggettoId === this.props.oggetto.id
+    );
+    if (!clienti && !deals) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   onRemove = () => {
     if (
       window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
     ) {
-      this.props.startRemoveOggetto({ id: this.props.oggetto.id });
-      this.props.history.push('/oggetti');
+      if (this.onValidate()) {
+        this.props.startRemoveOggetto({ id: this.props.oggetto.id });
+        this.props.history.push('/oggetti');
+      } else {
+        alert(
+          'Nicht löschbar: Das Objekt wird in Deals oder Kontakte verwendet.'
+        );
+      }
     }
   };
   onDisable = () => {
     if (window.confirm('Bestätigen Sie die Löschung?')) {
-      this.props.startEditOggetto(this.props.oggetto.id, {
-        ...this.props.oggetto,
-        visible: false
-      });
-      this.props.history.push('/oggetti');
+      if (this.onValidate()) {
+        this.props.startEditOggetto(this.props.oggetto.id, {
+          ...this.props.oggetto,
+          visible: false
+        });
+        this.props.history.push('/oggetti');
+      } else {
+        alert(
+          'Nicht löschbar: Das Objekt wird in Deals oder Kontakte verwendet.'
+        );
+      }
     }
   };
   render() {
@@ -54,7 +82,10 @@ export class EditOggettoPage extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   oggetto: state.oggetti.find(oggetto => oggetto.id === props.match.params.id),
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+  deals: state.deals,
+  fatture: state.fatture,
+  clienti: state.clienti
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -62,7 +93,4 @@ const mapDispatchToProps = dispatch => ({
   startRemoveOggetto: data => dispatch(startRemoveOggetto(data))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditOggettoPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditOggettoPage);
