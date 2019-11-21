@@ -10,10 +10,11 @@ export class AddCustomerPage extends React.Component {
   };
 
   render() {
-    let cliente = {};
-    if (this.props.location.state) {
-      cliente = this.props.location.state;
-    }
+    // non so cos'è e ho cancellato customer={cliente} dai props sotto di CustomerForm
+    // let cliente = {};
+    // if (this.props.location.state) {
+    //   cliente = this.props.location.state;
+    // }
     return (
       <div>
         <div className='page-header'>
@@ -22,7 +23,7 @@ export class AddCustomerPage extends React.Component {
           </div>
         </div>
         <div className='content-container'>
-          <CustomerForm customer={cliente} onSubmit={this.onSubmit} />
+          <CustomerForm onSubmit={this.onSubmit} />
         </div>
       </div>
     );
@@ -33,7 +34,4 @@ const mapDispatchToProps = dispatch => ({
   startAddCustomer: customer => dispatch(startAddCustomer(customer))
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(AddCustomerPage);
+export default connect(undefined, mapDispatchToProps)(AddCustomerPage);
