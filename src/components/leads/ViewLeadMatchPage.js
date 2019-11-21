@@ -12,9 +12,9 @@ export class ViewLeadMatchPage extends React.Component {
           ogg.kaufpreis > this.props.lead.leadBudget / 1.2
       );
       if (this.props.lead.leadOggettoStato === 'libero') {
-        return match.filter(ogg => ogg.affittoNetto === 0);
+        return match.filter(ogg => ogg.stato === 'leerstehend');
       } else if (this.props.lead.leadOggettoStato === 'affittato') {
-        return match.filter(ogg => ogg.affittoNetto > 0);
+        return match.filter(ogg => ogg.stato === 'vermietet');
       } else {
         return match;
       }

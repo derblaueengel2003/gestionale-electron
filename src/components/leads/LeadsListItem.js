@@ -73,13 +73,21 @@ export class LeadsListItem extends React.Component {
             {numeral(this.props.leadBudget / 100).format('0,0[.]00 $')}
           </h3>
         </div>
+
         <div className='col-1-of-6'>
-          <Link
-            className='button button--secondary-leads-match'
-            to={`/leadmatchview/${this.props.id}`}
-          >
-            Find a Match!
-          </Link>
+          {this.props.leadOggettoStato === 'libero' ||
+          this.props.leadOggettoStato === 'affittato' ||
+          this.props.leadOggettoStato === 'libero o affittato' ||
+          this.props.leadOggettoStato === '' ? (
+            <Link
+              className='button button--secondary-leads-match'
+              to={`/leadmatchview/${this.props.id}`}
+            >
+              Find a Match!
+            </Link>
+          ) : (
+            ''
+          )}
 
           {cliente && cliente.email && (
             <a
