@@ -10,14 +10,14 @@ export class ViewOggettoMatchPage extends React.Component {
         lead.leadBudget <= this.props.oggetto.kaufpreis * 1.2 &&
         lead.leadBudget > this.props.oggetto.kaufpreis / 1.2
     );
-    if (this.props.oggetto.affittoNetto === 0) {
+    if (this.props.oggetto.stato === 'leerstehend') {
       return leadsMatch.filter(
         lead =>
           lead.leadOggettoStato === 'libero' ||
           lead.leadOggettoStato === '' ||
           lead.leadOggettoStato === 'libero o affittato'
       );
-    } else if (this.props.oggetto.affittoNetto > 0) {
+    } else if (this.props.oggetto.stato === 'vermietet') {
       return leadsMatch.filter(
         lead =>
           lead.leadOggettoStato === 'affittato' ||

@@ -35,7 +35,7 @@ export class ViewOggettiPage extends React.Component {
               <div className='list-item'>
                 <div>
                   {this.props.oggetto.via.length > 0 && (
-                    <h3>{`${this.props.oggetto.via} ${this.props.oggetto.numeroCivico}, WE ${this.props.oggetto.numeroAppartamento}, ${this.props.oggetto.cap} ${this.props.oggetto.citta}`}</h3>
+                    <h3>{`${this.props.oggetto.via} ${this.props.oggetto.numeroCivico}, WE ${this.props.oggetto.numeroAppartamento}, ${this.props.oggetto.cap} ${this.props.oggetto.citta} ${this.props.oggetto.quartiere}`}</h3>
                   )}
                   {this.props.oggetto.rifId.length > 0 && (
                     <div>Ref. id: {this.props.oggetto.rifId}</div>
@@ -57,6 +57,24 @@ export class ViewOggettiPage extends React.Component {
                   {this.props.oggetto.ruecklage.length > 0 && (
                     <div>Rücklage: {this.props.oggetto.ruecklage}</div>
                   )}
+                  {this.props.oggetto.baujahr.length > 0 && (
+                    <div>{`Baujahr: ${this.props.oggetto.baujahr}`}</div>
+                  )}
+                  {this.props.oggetto.energieAusweisTyp.length > 0 && (
+                    <div>{`Energieausweis-Typ: ${this.props.oggetto.energieAusweisTyp}`}</div>
+                  )}
+                  {this.props.oggetto.energieAusweisBis.length > 0 && (
+                    <div>{`Gültig bis: ${this.props.oggetto.energieAusweisBis}`}</div>
+                  )}
+                  {this.props.oggetto.heizungsart.length > 0 && (
+                    <div>{`Heizungsart: ${this.props.oggetto.heizungsart}`}</div>
+                  )}
+                  {this.props.oggetto.energieTraeger.length > 0 && (
+                    <div>{`Enerigeträger: ${this.props.oggetto.energieTraeger}`}</div>
+                  )}
+                  {this.props.oggetto.energieBedarf.length > 0 && (
+                    <div>{`Energiebedarf: ${this.props.oggetto.energieBedarf}`}</div>
+                  )}
                 </div>
                 <div>
                   {this.props.oggetto.m2.length > 0 && (
@@ -76,6 +94,19 @@ export class ViewOggettiPage extends React.Component {
                   {`Wohngeld: ${numeral(
                     this.props.oggetto.wohngeld / 100
                   ).format('0,0[.]00 $')}`}
+                  {this.props.oggetto.vani.length > 0 && (
+                    <div>{`Zimmer: ${this.props.oggetto.vani}`}</div>
+                  )}
+                  {this.props.oggetto.bagni.length > 0 && (
+                    <div>{`Bad: ${this.props.oggetto.bagni}`}</div>
+                  )}
+                  {this.props.oggetto.balcone && <div>{`Balkon: ja`}</div>}
+                  {this.props.oggetto.ascensore && <div>{`Aufzug: ja`}</div>}
+                  {this.props.oggetto.giardino && <div>{`Garten: ja`}</div>}
+                  {this.props.oggetto.cantina && <div>{`Keller: ja`}</div>}
+                  {this.props.oggetto.condizioni.length > 0 && (
+                    <div>{`Zustand: ${this.props.oggetto.condizioni}`}</div>
+                  )}
                 </div>
               </div>
             </div>
@@ -91,48 +122,70 @@ export class ViewOggettiPage extends React.Component {
             >
               Find a Match!
             </Link>
-            <button
-              className='print button button--secondary-oggetti'
-              onClick={() => {
-                expose(
-                  this.props.oggetto,
-                  this.props.firma,
-                  this.props.utente,
-                  this.props.ceo,
-                  'de'
-                );
-              }}
-            >
-              Exposé deutsch
-            </button>
-            <button
-              className='print button button--secondary-oggetti'
-              onClick={() => {
-                expose(
-                  this.props.oggetto,
-                  this.props.firma,
-                  this.props.utente,
-                  this.props.ceo,
-                  'it'
-                );
-              }}
-            >
-              Exposé italienisch
-            </button>
-            <button
-              className='print button button--secondary-oggetti'
-              onClick={() => {
-                expose(
-                  this.props.oggetto,
-                  this.props.firma,
-                  this.props.utente,
-                  this.props.ceo,
-                  'en'
-                );
-              }}
-            >
-              Exposé englisch
-            </button>
+            {/* Se ho cover e titolo, mostro il pulsante exposé */}
+            {this.props.oggetto.downloadURLsCover &&
+              this.props.oggetto.titoloDe.length > 0 && (
+                <button
+                  className='print button button--secondary-oggetti'
+                  onClick={() => {
+                    expose(
+                      this.props.oggetto,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'de'
+                    );
+                  }}
+                >
+                  Exposé deutsch
+                </button>
+              )}
+            {this.props.oggetto.downloadURLsCover &&
+              this.props.oggetto.titolo.length > 0 && (
+                <button
+                  className='print button button--secondary-oggetti'
+                  onClick={() => {
+                    expose(
+                      this.props.oggetto,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'it'
+                    );
+                  }}
+                >
+                  Exposé italienisch
+                </button>
+              )}
+
+            {this.props.oggetto.downloadURLsCover &&
+              this.props.oggetto.titoloEn.length > 0 && (
+                <button
+                  className='print button button--secondary-oggetti'
+                  onClick={() => {
+                    expose(
+                      this.props.oggetto,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'en'
+                    );
+                  }}
+                >
+                  Exposé englisch
+                </button>
+              )}
+            {!this.props.oggetto.downloadURLsCover ||
+            this.props.oggetto.titolo.length < 1 ||
+            this.props.oggetto.titoloDe.length < 1 ||
+            this.props.oggetto.titoloEn.length < 1 ? (
+              <div className='list-item__sub-title'>
+                Um ein Exposé zu erstellen, fügen Sie wenigstens ein Cover-Bild
+                und eine Überschrift hinzu
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         </div>
         {this.props.oggetto.verwalter.length > 0 && (
@@ -178,6 +231,26 @@ export class ViewOggettiPage extends React.Component {
               return <img className='foto' key={i} src={downloadURL} />;
             })}
         </div>
+        <div className='content-container'>
+          {this.props.oggetto.downloadURLsMap && (
+            <div className='list-header list-header-oggetti'>Map</div>
+          )}
+          {this.props.oggetto.downloadURLsMap &&
+            this.props.oggetto.downloadURLsMap.map((downloadURL, i) => {
+              return <img className='foto' key={i} src={downloadURL} />;
+            })}
+        </div>
+        {this.props.oggetto.titolo.length > 0 && (
+          <div className='content-container'>
+            <div className='list-header list-header-oggetti'>Texte</div>
+            <div className='list-item__sub-title'>{`Titolo: ${this.props.oggetto.titolo}`}</div>
+            <div className='list-item__sub-title'>{`Descrizione: ${this.props.oggetto.descrizione}`}</div>
+            <div className='list-item__sub-title'>{`Titel: ${this.props.oggetto.titoloDe}`}</div>
+            <div className='list-item__sub-title'>{`Beschreibung: ${this.props.oggetto.descrizioneDe}`}</div>
+            <div className='list-item__sub-title'>{`Title: ${this.props.oggetto.titoloEn}`}</div>
+            <div className='list-item__sub-title'>{`Description: ${this.props.oggetto.descrizioneEn}`}</div>
+          </div>
+        )}
       </div>
     );
   }

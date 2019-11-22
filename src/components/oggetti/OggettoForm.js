@@ -798,7 +798,7 @@ export class OggettoForm extends React.Component {
               hidden
               accept='image/*'
               name='image-uploader-multiple'
-              randomizeFilename
+              // randomizeFilename
               filename={() => `${this.state.rifId}-Cover}`}
               storageRef={firebase.storage().ref('cover')}
               onUploadStart={this.handleUploadStart}
@@ -834,7 +834,7 @@ export class OggettoForm extends React.Component {
               hidden
               accept='image/*'
               name='image-uploader-multiple'
-              randomizeFilename
+              // randomizeFilename
               filename={() =>
                 `${this.state.rifId}-${Math.floor(
                   Math.random() * 100000
@@ -877,7 +877,7 @@ export class OggettoForm extends React.Component {
               hidden
               accept='image/*'
               name='image-uploader-multiple'
-              randomizeFilename
+              // randomizeFilename
               filename={() =>
                 `${this.state.rifId}-Grundriss-${Math.floor(
                   Math.random() * 100
@@ -919,7 +919,7 @@ export class OggettoForm extends React.Component {
               hidden
               accept='image/*'
               name='image-uploader-multiple'
-              randomizeFilename
+              // randomizeFilename
               filename={() =>
                 `${this.state.rifId}-Map-${Math.floor(
                   Math.random() * 100

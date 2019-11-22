@@ -7,6 +7,7 @@ import selectOggetti from '../../selectors/oggetti';
 export const OggettiList = props => {
   //controllo se arrivo da view deal o dalla dashboard oggetti
   if (props.oggetto) {
+    // dal deal page
     return (
       props.oggetto.length > 0 && (
         <div className='content-container'>
@@ -24,6 +25,7 @@ export const OggettiList = props => {
       )
     );
   } else {
+    // dalla dashboard oggetti page
     return (
       <div className='content-container'>
         <div className='page-header__actions'>
@@ -45,9 +47,13 @@ export const OggettiList = props => {
               <span>Kein Ergebnis anhand der angegebenen Filtern</span>
             </div>
           ) : (
-            props.oggetti.map(oggetto => {
-              return <OggettiListItem key={oggetto.id} {...oggetto} />;
-            })
+            props.oggetti
+              .sort((a, b) => {
+                return a.visible < b.visible ? -1 : 1;
+              })
+              .map(oggetto => {
+                return <OggettiListItem key={oggetto.id} {...oggetto} />;
+              })
           )}
         </div>
       </div>
@@ -64,7 +70,4 @@ const mapDispatchToProps = dispatch => ({
   startSetOggetti: () => dispatch(startSetOggetti())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OggettiList);
+export default connect(mapStateToProps, mapDispatchToProps)(OggettiList);

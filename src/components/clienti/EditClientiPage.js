@@ -8,21 +8,63 @@ export class EditClientePage extends React.Component {
     this.props.startEditCustomer(this.props.cliente.id, cliente);
     this.props.history.push(`/customerview/${this.props.cliente.id}`);
   };
+  onValidate = () => {
+    const lead = this.props.leads.find(
+      lead => lead.leadId === this.props.cliente.id
+    );
+    const deals = this.props.deals.find(
+      deal =>
+        deal.agenziaPartnerId === this.props.cliente.id ||
+        deal.venditoreId === this.props.cliente.id ||
+        deal.venditoreId2 === this.props.cliente.id ||
+        deal.acquirenteId === this.props.cliente.id ||
+        deal.acquirenteId2 === this.props.cliente.id ||
+        deal.notaioId === this.props.cliente.id
+    );
+    const oggetti = this.props.oggetti.find(
+      oggetto =>
+        oggetto.proprietarioId === this.props.cliente.id ||
+        oggetto.proprietarioId2 === this.props.cliente.id ||
+        oggetto.verwalter === this.props.cliente.id
+    );
+    const fatture = this.props.fatture.find(
+      fattura =>
+        fattura.clienteId === this.props.cliente.id ||
+        fattura.clienteId2 === this.props.cliente.id
+    );
+    if (!lead && !deals && !oggetti && !fatture) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   onRemove = () => {
     if (
       window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
     ) {
-      this.props.startRemoveCustomer({ id: this.props.cliente.id });
-      this.props.history.push('/customer');
+      if (this.onValidate()) {
+        this.props.startRemoveCustomer({ id: this.props.cliente.id });
+        this.props.history.push('/customer');
+      } else {
+        alert(
+          'Nicht löschbar: Der Kontakt wird in Anfragen, Deals, Objekte oder Rechnungen verwendet.'
+        );
+      }
     }
   };
   onDisable = () => {
     if (window.confirm('Bestätigen Sie die Löschung?')) {
-      this.props.startEditCustomer(this.props.cliente.id, {
-        ...this.props.cliente,
-        visible: false
-      });
-      this.props.history.push('/customer');
+      if (this.onValidate()) {
+        this.props.startEditCustomer(this.props.cliente.id, {
+          ...this.props.cliente,
+          visible: false
+        });
+        this.props.history.push('/customer');
+      } else {
+        alert(
+          'Nicht löschbar: Der Kontakt wird in Anfragen, Deals, Objekte oder Rechnungen verwendet.'
+        );
+      }
     }
   };
 
@@ -57,7 +99,11 @@ export class EditClientePage extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   cliente: state.clienti.find(cliente => cliente.id === props.match.params.id),
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+  leads: state.leads,
+  deals: state.deals,
+  oggetti: state.oggetti,
+  fatture: state.fatture
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -66,7 +112,4 @@ const mapDispatchToProps = dispatch => ({
   startRemoveCustomer: data => dispatch(startRemoveCustomer(data))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditClientePage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditClientePage);

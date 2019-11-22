@@ -1,8 +1,6 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './ImageLogo';
 
-const doc = new jsPDF();
-
 export const creaPrenotazione = (
   acquirente,
   acquirente2,
@@ -12,6 +10,7 @@ export const creaPrenotazione = (
   provvPercentuale,
   firma
 ) => {
+  const doc = new jsPDF();
   const acqDitta = `${acquirente.ditta && `${acquirente.ditta}`}`;
   const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`;
   const acqInd = `${acquirente.indirizzo}, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`;

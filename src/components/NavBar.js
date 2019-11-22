@@ -3,106 +3,110 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export const NavBar = ({ utente }) => {
-  return (
-    <div className='content-container page-header__navbar'>
-      <div className='show-for-mobile'>
-        <div id='menuToggle'>
-          <input type='checkbox' />
-          <span></span>
-          <span></span>
-          <span></span>
-          <ul id='menu'>
-            <Link to='/dashboard'>
-              <li>Deals</li>
-            </Link>
-            <Link to='/leads'>
-              <li>Anfragen</li>
-            </Link>
-            <Link to='/moduli'>
-              <li>Formulare</li>
-            </Link>
-            <Link to='/oggetti'>
-              <li>Objekte</li>
-            </Link>
-            <Link to='/customer'>
-              <li>Kontakte</li>
-            </Link>
-            {utente.role === 'Admin' && (
-              <Link to='/report'>
-                <li>Report</li>
+  if (utente) {
+    return (
+      <div className='content-container page-header__navbar'>
+        <div className='show-for-mobile'>
+          <div id='menuToggle'>
+            <input type='checkbox' />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id='menu'>
+              <Link to='/dashboard'>
+                <li>Deals</li>
               </Link>
-            )}
-            {utente.role === 'Admin' && (
-              <Link to='/users'>
-                <li>Benutzer</li>
+              <Link to='/leads'>
+                <li>Anfragen</li>
               </Link>
-            )}
-            {utente.role === 'Admin' && (
-              <Link to='/fatture'>
-                <li>Rechnungen</li>
+              <Link to='/moduli'>
+                <li>Formulare</li>
               </Link>
-            )}
-          </ul>
+              <Link to='/oggetti'>
+                <li>Objekte</li>
+              </Link>
+              <Link to='/customer'>
+                <li>Kontakte</li>
+              </Link>
+              {utente.role === 'Admin' && (
+                <Link to='/report'>
+                  <li>Report</li>
+                </Link>
+              )}
+              {utente.role === 'Admin' && (
+                <Link to='/users'>
+                  <li>Benutzer</li>
+                </Link>
+              )}
+              {utente.role === 'Admin' && (
+                <Link to='/fatture'>
+                  <li>Rechnungen</li>
+                </Link>
+              )}
+            </ul>
+          </div>
+        </div>
+        <div className='content-container show-for-desktop'>
+          <Link
+            className='button page-header__button page-header__button-deals'
+            to='/dashboard'
+          >
+            Deals
+          </Link>
+          <Link
+            className='button page-header__button page-header__button-leads'
+            to='/leads'
+          >
+            Anfragen
+          </Link>
+          <Link
+            className='button page-header__button page-header__button-modulistica'
+            to='/moduli'
+          >
+            Formulare
+          </Link>
+          <Link
+            className='button page-header__button page-header__button-oggetti'
+            to='/oggetti'
+          >
+            Objekte
+          </Link>
+          <Link
+            className='button page-header__button page-header__button-clienti'
+            to='/customer'
+          >
+            Kontakte
+          </Link>
+          {utente.role === 'Admin' && (
+            <Link
+              className='button page-header__button page-header__button-report'
+              to='/report'
+            >
+              Report
+            </Link>
+          )}
+          {utente.role === 'Admin' && (
+            <Link
+              className='button page-header__button page-header__button-utenti'
+              to='/users'
+            >
+              Benutzer
+            </Link>
+          )}
+          {utente.role === 'Admin' && (
+            <Link
+              className='button page-header__button page-header__button-fatture'
+              to='/fatture'
+            >
+              Rechnungen
+            </Link>
+          )}
         </div>
       </div>
-      <div className='content-container show-for-desktop'>
-        <Link
-          className='button page-header__button page-header__button-deals'
-          to='/dashboard'
-        >
-          Deals
-        </Link>
-        <Link
-          className='button page-header__button page-header__button-leads'
-          to='/leads'
-        >
-          Anfragen
-        </Link>
-        <Link
-          className='button page-header__button page-header__button-modulistica'
-          to='/moduli'
-        >
-          Formulare
-        </Link>
-        <Link
-          className='button page-header__button page-header__button-oggetti'
-          to='/oggetti'
-        >
-          Objekte
-        </Link>
-        <Link
-          className='button page-header__button page-header__button-clienti'
-          to='/customer'
-        >
-          Kontakte
-        </Link>
-        {utente.role === 'Admin' && (
-          <Link
-            className='button page-header__button page-header__button-report'
-            to='/report'
-          >
-            Report
-          </Link>
-        )}
-        {utente.role === 'Admin' && (
-          <Link
-            className='button page-header__button page-header__button-utenti'
-            to='/users'
-          >
-            Benutzer
-          </Link>
-        )}
-        {utente.role === 'Admin' && (
-          <Link
-            className='button page-header__button page-header__button-fatture'
-            to='/fatture'
-          >
-            Rechnungen
-          </Link>
-        )}
-      </div>
-    </div>
-  );
+    );
+  } else {
+    setTimeout(location.reload(), 500);
+  }
 };
 
 const mapStateToProps = state => {

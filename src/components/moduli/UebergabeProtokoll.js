@@ -2,8 +2,6 @@ import jsPDF from 'jspdf';
 import { imgLogo } from './ImageLogo';
 import { ivdLogo } from './IvdLogo';
 
-export const doc = new jsPDF('p', 'mm', 'a4');
-
 export const protocollo = (
   acquirente,
   acquirente2,
@@ -14,6 +12,7 @@ export const protocollo = (
   firma,
   ceo
 ) => {
+  const doc = new jsPDF('p', 'mm', 'a4');
   doc.addImage(imgLogo, 'JPEG', 130, 10, 55, 12);
 
   //linea rossa

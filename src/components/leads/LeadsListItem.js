@@ -33,7 +33,7 @@ export class LeadsListItem extends React.Component {
         <div className='col-4-of-6'>
           <Link to={`/leadview/${this.props.id}`}>
             <h3 className='list-item__title'>
-              {cliente ? cliente.nome : `-${this.props.leadNome}`}{' '}
+              {cliente ? cliente.nome : 'Kunde nicht im Adressbuch'}{' '}
               {cliente && cliente.cognome}
             </h3>
           </Link>
@@ -73,35 +73,30 @@ export class LeadsListItem extends React.Component {
             {numeral(this.props.leadBudget / 100).format('0,0[.]00 $')}
           </h3>
         </div>
+
         <div className='col-1-of-6'>
-          <Link
-            className='button button--secondary-leads-match'
-            to={`/leadmatchview/${this.props.id}`}
-          >
-            Find a Match!
-          </Link>
-          {!cliente && (
+          {this.props.leadOggettoStato === 'libero' ||
+          this.props.leadOggettoStato === 'affittato' ||
+          this.props.leadOggettoStato === 'libero o affittato' ||
+          this.props.leadOggettoStato === '' ? (
             <Link
-              className='button button--secondary-clienti'
-              to={{
-                pathname: `/customercreate`,
-                state: {
-                  nome: this.props.leadNome.split(' ')[0],
-                  cognome: this.props.leadNome.split(' ')[1],
-                  email: this.props.leadEmail,
-                  telefono1: this.props.telefono1
-                }
-              }}
+              className='button button--secondary-leads-match'
+              to={`/leadmatchview/${this.props.id}`}
             >
-              Kunde hinzufügen
+              Find a Match!
             </Link>
+          ) : (
+            ''
           )}
-          <a
-            className='button button--secondary-email'
-            href={`mailto:${cliente ? cliente.email : this.props.leadEmail}`}
-          >
-            E-Mail
-          </a>
+
+          {cliente && cliente.email && (
+            <a
+              className='button button--secondary-email'
+              href={`mailto:${cliente ? cliente.email : this.props.leadEmail}`}
+            >
+              E-Mail
+            </a>
+          )}
         </div>
       </div>
     );
@@ -119,7 +114,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LeadsListItem);
+export default connect(mapStateToProps, mapDispatchToProps)(LeadsListItem);

@@ -4,8 +4,6 @@ import { ivdLogo } from './IvdLogo';
 import moment from 'moment';
 import numeral from 'numeral';
 
-export const doc = new jsPDF('p', 'mm', 'a4');
-
 export const fattura = (
   cliente,
   cliente2,
@@ -24,6 +22,7 @@ export const fattura = (
   utente,
   ceo
 ) => {
+  const doc = new jsPDF('p', 'mm', 'a4');
   const acqNome = `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
   const acqInd = `${cliente.indirizzo} ${cliente.indirizzo2 &&
     cliente.indirizzo2}`;

@@ -24,7 +24,7 @@ export class EditDealPage extends React.Component {
       <div>
         <div className='page-header'>
           <div className='content-container'>
-            <h1 className='page-header__title'>Provision bearbeiten</h1>
+            <h1 className='page-header__title'>Deal bearbeiten</h1>
           </div>
         </div>
         <div className='content-container'>
@@ -33,7 +33,7 @@ export class EditDealPage extends React.Component {
             className='button button--secondary-delete'
             onClick={this.onRemove}
           >
-            Provision löschen
+            Deal löschen
           </button>
         </div>
       </div>
@@ -50,7 +50,4 @@ const mapDispatchToProps = dispatch => ({
   startRemoveDeal: data => dispatch(startRemoveDeal(data))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditDealPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditDealPage);

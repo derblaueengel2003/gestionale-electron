@@ -9,7 +9,9 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
   window.scrollTo(0, 0);
 
   //controllo se i dati vengono dal deal page o se sono passati via props
+
   if (cliente) {
+    //dal deal page - singolo cliente
     return (
       <div className='content-container'>
         <div className='list-header list-header-clienti'>{ruolo}</div>
@@ -19,6 +21,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
       </div>
     );
   } else {
+    //tutti i clienti - visualizzazione nella clienti dashboard
     return (
       <div className='content-container'>
         <div className='page-header__actions'>
@@ -40,9 +43,13 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
               <span>Kein Ergebnis anhand der angegebenen Filtern</span>
             </div>
           ) : (
-            clienti.map(cliente => {
-              return <ClientiListItem key={cliente.id} {...cliente} />;
-            })
+            clienti
+              .sort((a, b) => {
+                return a.visible < b.visible ? -1 : 1;
+              })
+              .map(cliente => {
+                return <ClientiListItem key={cliente.id} {...cliente} />;
+              })
           )}
         </div>
       </div>
@@ -59,7 +66,4 @@ const mapDispatchToProps = dispatch => ({
   startSetCustomers: () => dispatch(startSetCustomers())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ClientiList);
+export default connect(mapStateToProps, mapDispatchToProps)(ClientiList);

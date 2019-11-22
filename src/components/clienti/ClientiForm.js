@@ -60,7 +60,6 @@ export class CustomerForm extends React.Component {
       return emailMatch || cognomeMatch || dittaMatch;
     });
     if (match.length > 0) {
-      console.log(match);
       this.setState(() => ({
         error: `Cliente forse già presente nel gestionale`
       }));
