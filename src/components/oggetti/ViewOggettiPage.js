@@ -122,48 +122,70 @@ export class ViewOggettiPage extends React.Component {
             >
               Find a Match!
             </Link>
-            <button
-              className='print button button--secondary-oggetti'
-              onClick={() => {
-                expose(
-                  this.props.oggetto,
-                  this.props.firma,
-                  this.props.utente,
-                  this.props.ceo,
-                  'de'
-                );
-              }}
-            >
-              Exposé deutsch
-            </button>
-            <button
-              className='print button button--secondary-oggetti'
-              onClick={() => {
-                expose(
-                  this.props.oggetto,
-                  this.props.firma,
-                  this.props.utente,
-                  this.props.ceo,
-                  'it'
-                );
-              }}
-            >
-              Exposé italienisch
-            </button>
-            <button
-              className='print button button--secondary-oggetti'
-              onClick={() => {
-                expose(
-                  this.props.oggetto,
-                  this.props.firma,
-                  this.props.utente,
-                  this.props.ceo,
-                  'en'
-                );
-              }}
-            >
-              Exposé englisch
-            </button>
+            {/* Se ho cover e titolo, mostro il pulsante exposé */}
+            {this.props.oggetto.downloadURLsCover &&
+              this.props.oggetto.titoloDe.length > 0 && (
+                <button
+                  className='print button button--secondary-oggetti'
+                  onClick={() => {
+                    expose(
+                      this.props.oggetto,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'de'
+                    );
+                  }}
+                >
+                  Exposé deutsch
+                </button>
+              )}
+            {this.props.oggetto.downloadURLsCover &&
+              this.props.oggetto.titolo.length > 0 && (
+                <button
+                  className='print button button--secondary-oggetti'
+                  onClick={() => {
+                    expose(
+                      this.props.oggetto,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'it'
+                    );
+                  }}
+                >
+                  Exposé italienisch
+                </button>
+              )}
+
+            {this.props.oggetto.downloadURLsCover &&
+              this.props.oggetto.titoloEn.length > 0 && (
+                <button
+                  className='print button button--secondary-oggetti'
+                  onClick={() => {
+                    expose(
+                      this.props.oggetto,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'en'
+                    );
+                  }}
+                >
+                  Exposé englisch
+                </button>
+              )}
+            {!this.props.oggetto.downloadURLsCover ||
+            this.props.oggetto.titolo.length < 1 ||
+            this.props.oggetto.titoloDe.length < 1 ||
+            this.props.oggetto.titoloEn.length < 1 ? (
+              <div className='list-item__sub-title'>
+                Um ein Exposé zu erstellen, fügen Sie wenigstens ein Cover-Bild
+                und eine Überschrift hinzu
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         </div>
         {this.props.oggetto.verwalter.length > 0 && (
