@@ -7,6 +7,7 @@ import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
+import Tabs from '../Tabs';
 
 export class OggettoForm extends React.Component {
   constructor(props) {
@@ -364,592 +365,585 @@ export class OggettoForm extends React.Component {
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        <div>
-          <button className='button button--secondary-oggetti'>
-            Speichern
-          </button>
-        </div>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
-        Adresse:
-        <input
-          name='via'
-          className={`text-input`}
-          type='text'
-          placeholder='Adresse'
-          autoFocus
-          value={this.state.via}
-          onChange={this.changeHandler}
-        />
-        Nr.:
-        <input
-          name='numeroCivico'
-          className={`text-input`}
-          type='text'
-          placeholder='Straßennummer'
-          value={this.state.numeroCivico}
-          onChange={this.changeHandler}
-        />
-        PLZ:
-        <input
-          name='cap'
-          className={`text-input`}
-          type='text'
-          placeholder='Postleitzahl'
-          value={this.state.cap}
-          onChange={this.changeHandler}
-        />
-        Bezirk:
-        <input
-          name='quartiere'
-          className={`text-input`}
-          type='text'
-          placeholder='Bezirk'
-          value={this.state.quartiere}
-          onChange={this.changeHandler}
-        />
-        Stadt:
-        <input
-          name='citta'
-          className={`text-input`}
-          type='text'
-          placeholder='Stadt'
-          value={this.state.citta}
-          onChange={this.changeHandler}
-        />
-        Staat:
-        <input
-          name='nazione'
-          className={`text-input`}
-          type='text'
-          placeholder='Staat'
-          value={this.state.nazione}
-          onChange={this.changeHandler}
-        />
-        Wohnungsnummer:
-        <input
-          name='numeroAppartamento'
-          className={`text-input`}
-          type='text'
-          placeholder='WE Nummer'
-          value={this.state.numeroAppartamento}
-          onChange={this.changeHandler}
-        />
-        Ref. Id:
-        <input
-          name='rifId'
-          className={`text-input`}
-          type='text'
-          placeholder='Ref. Id'
-          value={this.state.rifId}
-          onChange={this.changeHandler}
-        />
-        Amtsgericht:
-        <input
-          name='amtsgericht'
-          className={`text-input`}
-          type='text'
-          placeholder='amtsgericht'
-          value={this.state.amtsgericht}
-          onChange={this.changeHandler}
-        />
-        Grundbuch:
-        <input
-          name='grundbuch'
-          className={`text-input`}
-          type='text'
-          placeholder='Grundbuch von'
-          value={this.state.grundbuch}
-          onChange={this.changeHandler}
-        />
-        GB Blatt Nr.:
-        <input
-          name='grundbuchBlatt'
-          className={`text-input`}
-          type='text'
-          placeholder='Blatt Nr.'
-          value={this.state.grundbuchBlatt}
-          onChange={this.changeHandler}
-        />
-        M2:
-        <input
-          name='m2'
-          className={`text-input`}
-          type='text'
-          placeholder='m2'
-          value={this.state.m2}
-          onChange={this.changeHandler}
-        />
-        Etage:
-        <input
-          name='piano'
-          className={`text-input`}
-          type='text'
-          placeholder='Etage'
-          value={this.state.piano}
-          onChange={this.changeHandler}
-        />
-        Möbel:
-        <textarea
-          name='mobilio'
-          className={`textarea`}
-          placeholder='Möbel und Wert'
-          value={this.state.mobilio}
-          onChange={this.changeHandler}
-        />
-        Bezug:
-        <select
-          name='stato'
-          className='select select__form'
-          value={this.state.stato}
-          onChange={this.changeHandler}
-        >
-          <option value=''></option>
-          <option value='leerstehend'>Leerstehend</option>
-          <option value='vermietet'>Vermietet</option>
-        </select>
-        Wohngeld:
-        <input
-          name='wohngeld'
-          className={`text-input`}
-          type='text'
-          placeholder='Wohngeld'
-          value={this.state.wohngeld}
-          onChange={this.onMoneyChange}
-        />
-        Instandhaltungs-Rücklage:
-        <input
-          name='ruecklage'
-          className={`text-input`}
-          type='text'
-          placeholder='Gesamt oder anteilig?'
-          value={this.state.ruecklage}
-          onChange={this.changeHandler}
-        />
-        Kaltmiete:
-        <input
-          name='affittoNetto'
-          className={`text-input`}
-          type='text'
-          placeholder='Kaltmiete'
-          value={this.state.affittoNetto}
-          onChange={this.onMoneyChange}
-        />
-        Kaufpreis:
-        <input
-          name='kaufpreis'
-          className={`text-input`}
-          type='text'
-          placeholder='Kaufpreis'
-          value={this.state.kaufpreis}
-          onChange={this.onMoneyChange}
-        />
-        Hausverwaltung:
-        <Select
-          name='verwalter'
-          value={this.state.verwalter}
-          options={options}
-          filterOptions={filterOptions}
-          onChange={this.onVerwalterChange}
-        />
-        Eigentümer:
-        <Select
-          name='proprietarioId'
-          value={this.state.proprietarioId}
-          options={options}
-          filterOptions={filterOptions}
-          onChange={this.onProprietarioChange}
-        />
-        2. Eigentümer:
-        <Select
-          name='proprietarioId2'
-          value={this.state.proprietarioId2}
-          options={options}
-          filterOptions={filterOptions}
-          onChange={this.onProprietarioChange2}
-        />
-        {this.props.utente.role === 'Admin' ? (
-          <label>
-            Visible&nbsp;
+        <Tabs>
+          <div label='Eckdaten'>
+            Adresse:
             <input
-              type='checkbox'
-              name='visible'
-              checked={this.state.visible}
-              onChange={() => {
-                this.setState(() => ({
-                  visible: !this.state.visible
-                }));
-              }}
+              name='via'
+              className={`text-input`}
+              type='text'
+              placeholder='Adresse'
+              autoFocus
+              value={this.state.via}
+              onChange={this.changeHandler}
             />
-          </label>
-        ) : (
-          ''
-        )}
-        <div>
-          <button className='button button--secondary-oggetti'>
-            Speichern
-          </button>
-        </div>
-        {/* Exposé */}
-        <h1 className='page-header page-header__title'>Exposé</h1>
-        Überschrift italienisch:
-        <input
-          name='titolo'
-          className={`text-input`}
-          type='text'
-          placeholder='Titolo in italiano'
-          value={this.state.titolo}
-          onChange={this.changeHandler}
-        />
-        Beschreibung italienisch:
-        <textarea
-          name='descrizione'
-          className={`textarea`}
-          placeholder='Descrizione in italiano'
-          value={this.state.descrizione}
-          onChange={this.changeHandler}
-        />
-        Überschrift deutsch:
-        <input
-          name='titoloDe'
-          className={`text-input`}
-          type='text'
-          placeholder='Überschrift des Exposés'
-          value={this.state.titoloDe}
-          onChange={this.changeHandler}
-        />
-        Beschreibung deutsch:
-        <textarea
-          name='descrizioneDe'
-          className={`textarea`}
-          placeholder='Beschreibung'
-          value={this.state.descrizioneDe}
-          onChange={this.changeHandler}
-        />
-        Überschrift englisch:
-        <input
-          name='titoloEn'
-          className={`text-input`}
-          type='text'
-          placeholder='English title'
-          value={this.state.titoloEn}
-          onChange={this.changeHandler}
-        />
-        Beschreibung englisch:
-        <textarea
-          name='descrizioneEn'
-          className={`textarea`}
-          placeholder='English description'
-          value={this.state.descrizioneEn}
-          onChange={this.changeHandler}
-        />
-        Zimmer:
-        <input
-          name='vani'
-          className={`text-input`}
-          type='text'
-          value={this.state.vani}
-          onChange={this.changeHandler}
-        />
-        Badezimmer:
-        <input
-          name='bagni'
-          className={`text-input`}
-          type='text'
-          value={this.state.bagni}
-          onChange={this.changeHandler}
-        />
-        Zustand:
-        <select
-          name='condizioni'
-          className='select select__form'
-          value={this.state.condizioni}
-          onChange={this.changeHandler}
-        >
-          <option value=''></option>
-          <option value='neu'>Neuwertig</option>
-          <option value='gut'>Gut</option>
-          <option value='renovierungsbedürftig'>Renovierungsbedürftig</option>
-        </select>
-        Baujahr:
-        <input
-          name='baujahr'
-          className={`text-input`}
-          type='text'
-          value={this.state.baujahr}
-          onChange={this.changeHandler}
-        />
-        Energieausweis-Typ:
-        <select
-          name='energieAusweisTyp'
-          className='select select__form'
-          value={this.state.energieAusweisTyp}
-          onChange={this.changeHandler}
-        >
-          <option value=''></option>
-          <option value='Verbrauchsausweis'>Verbrauchsausweis</option>
-          <option value='Bedarfsausweis'>Bedarfsausweis</option>
-        </select>
-        Energieausweis gültig bis:
-        <input
-          name='energieAusweisBis'
-          className={`text-input`}
-          type='text'
-          value={this.state.energieAusweisBis}
-          onChange={this.changeHandler}
-        />
-        Heizungsart:
-        <select
-          name='heizungsart'
-          className='select select__form'
-          value={this.state.heizungsart}
-          onChange={this.changeHandler}
-        >
-          <option value=''></option>
-          <option value='Zentralheizung'>Zentralheizung</option>
-          <option value='Etagenheizung'>Etagenheizung</option>
-        </select>
-        Energieträger:
-        <select
-          name='energieTraeger'
-          className='select select__form'
-          value={this.state.energieTraeger}
-          onChange={this.changeHandler}
-        >
-          <option value=''></option>
-          <option value='Erdgas'>Erdgas</option>
-          <option value='Öl'>Öl</option>
-          <option value='Fernwärme'>Fernwärme</option>
-        </select>
-        Endenergiebedarf in kWh/(m2*a):
-        <input
-          name='energieBedarf'
-          className='text-input'
-          type='text'
-          value={this.state.energieBedarf}
-          onChange={this.changeHandler}
-        />
-        Käuferprovision:
-        <input
-          name='provvigione'
-          className='text-input'
-          type='text'
-          placeholder='inklusive MWSt.'
-          value={this.state.provvigione}
-          onChange={this.changeHandler}
-        />
-        <label>
-          Balkon&nbsp;
-          <input
-            type='checkbox'
-            name='balcone'
-            checked={this.state.balcone}
-            onChange={() => {
-              this.setState(() => ({
-                balcone: !this.state.balcone
-              }));
-            }}
-          />
-        </label>
-        <label>
-          Aufzug&nbsp;
-          <input
-            type='checkbox'
-            name='ascensore'
-            checked={this.state.ascensore}
-            onChange={() => {
-              this.setState(() => ({
-                ascensore: !this.state.ascensore
-              }));
-            }}
-          />
-        </label>
-        <label>
-          Garten&nbsp;
-          <input
-            type='checkbox'
-            name='giardino'
-            checked={this.state.giardino}
-            onChange={() => {
-              this.setState(() => ({
-                giardino: !this.state.giardino
-              }));
-            }}
-          />
-        </label>
-        <label>
-          Keller&nbsp;
-          <input
-            type='checkbox'
-            name='cantina'
-            checked={this.state.cantina}
-            onChange={() => {
-              this.setState(() => ({
-                cantina: !this.state.cantina
-              }));
-            }}
-          />
-        </label>
-        {/* Cover */}
-        <div>
-          <h1 className='page-header page-header__title'>Cover</h1>
-          <label className='button button--secondary-oggetti'>
-            Cover auswählen
-            <FileUploader
-              hidden
-              accept='image/*'
-              name='image-uploader-multiple'
-              // randomizeFilename
-              filename={() => `${this.state.rifId}-Cover}`}
-              storageRef={firebase.storage().ref('cover')}
-              onUploadStart={this.handleUploadStart}
-              onUploadError={this.handleUploadError}
-              onUploadSuccess={this.handleUploadSuccessCover}
-              onProgress={this.handleProgress}
-              // multiple
+            Nr.:
+            <input
+              name='numeroCivico'
+              className={`text-input`}
+              type='text'
+              placeholder='Straßennummer'
+              value={this.state.numeroCivico}
+              onChange={this.changeHandler}
             />
-          </label>
+            PLZ:
+            <input
+              name='cap'
+              className={`text-input`}
+              type='text'
+              placeholder='Postleitzahl'
+              value={this.state.cap}
+              onChange={this.changeHandler}
+            />
+            Bezirk:
+            <input
+              name='quartiere'
+              className={`text-input`}
+              type='text'
+              placeholder='Bezirk'
+              value={this.state.quartiere}
+              onChange={this.changeHandler}
+            />
+            Stadt:
+            <input
+              name='citta'
+              className={`text-input`}
+              type='text'
+              placeholder='Stadt'
+              value={this.state.citta}
+              onChange={this.changeHandler}
+            />
+            Staat:
+            <input
+              name='nazione'
+              className={`text-input`}
+              type='text'
+              placeholder='Staat'
+              value={this.state.nazione}
+              onChange={this.changeHandler}
+            />
+            Wohnungsnummer:
+            <input
+              name='numeroAppartamento'
+              className={`text-input`}
+              type='text'
+              placeholder='WE Nummer'
+              value={this.state.numeroAppartamento}
+              onChange={this.changeHandler}
+            />
+            Ref. Id:
+            <input
+              name='rifId'
+              className={`text-input`}
+              type='text'
+              placeholder='Ref. Id'
+              value={this.state.rifId}
+              onChange={this.changeHandler}
+            />
+            Amtsgericht:
+            <input
+              name='amtsgericht'
+              className={`text-input`}
+              type='text'
+              placeholder='amtsgericht'
+              value={this.state.amtsgericht}
+              onChange={this.changeHandler}
+            />
+            Grundbuch:
+            <input
+              name='grundbuch'
+              className={`text-input`}
+              type='text'
+              placeholder='Grundbuch von'
+              value={this.state.grundbuch}
+              onChange={this.changeHandler}
+            />
+            GB Blatt Nr.:
+            <input
+              name='grundbuchBlatt'
+              className={`text-input`}
+              type='text'
+              placeholder='Blatt Nr.'
+              value={this.state.grundbuchBlatt}
+              onChange={this.changeHandler}
+            />
+            M2:
+            <input
+              name='m2'
+              className={`text-input`}
+              type='text'
+              placeholder='m2'
+              value={this.state.m2}
+              onChange={this.changeHandler}
+            />
+            Etage:
+            <input
+              name='piano'
+              className={`text-input`}
+              type='text'
+              placeholder='Etage'
+              value={this.state.piano}
+              onChange={this.changeHandler}
+            />
+            Möbel:
+            <textarea
+              name='mobilio'
+              className={`textarea`}
+              placeholder='Möbel und Wert'
+              value={this.state.mobilio}
+              onChange={this.changeHandler}
+            />
+            Bezug:
+            <select
+              name='stato'
+              className='select select__form'
+              value={this.state.stato}
+              onChange={this.changeHandler}
+            >
+              <option value=''></option>
+              <option value='leerstehend'>Leerstehend</option>
+              <option value='vermietet'>Vermietet</option>
+            </select>
+            Wohngeld:
+            <input
+              name='wohngeld'
+              className={`text-input`}
+              type='text'
+              placeholder='Wohngeld'
+              value={this.state.wohngeld}
+              onChange={this.onMoneyChange}
+            />
+            Instandhaltungs-Rücklage:
+            <input
+              name='ruecklage'
+              className={`text-input`}
+              type='text'
+              placeholder='Gesamt oder anteilig?'
+              value={this.state.ruecklage}
+              onChange={this.changeHandler}
+            />
+            Kaltmiete:
+            <input
+              name='affittoNetto'
+              className={`text-input`}
+              type='text'
+              placeholder='Kaltmiete'
+              value={this.state.affittoNetto}
+              onChange={this.onMoneyChange}
+            />
+            Kaufpreis:
+            <input
+              name='kaufpreis'
+              className={`text-input`}
+              type='text'
+              placeholder='Kaufpreis'
+              value={this.state.kaufpreis}
+              onChange={this.onMoneyChange}
+            />
+            Hausverwaltung:
+            <Select
+              name='verwalter'
+              value={this.state.verwalter}
+              options={options}
+              filterOptions={filterOptions}
+              onChange={this.onVerwalterChange}
+            />
+            Eigentümer:
+            <Select
+              name='proprietarioId'
+              value={this.state.proprietarioId}
+              options={options}
+              filterOptions={filterOptions}
+              onChange={this.onProprietarioChange}
+            />
+            2. Eigentümer:
+            <Select
+              name='proprietarioId2'
+              value={this.state.proprietarioId2}
+              options={options}
+              filterOptions={filterOptions}
+              onChange={this.onProprietarioChange2}
+            />
+            {this.props.utente.role === 'Admin' ? (
+              <label>
+                Visible&nbsp;
+                <input
+                  type='checkbox'
+                  name='visible'
+                  checked={this.state.visible}
+                  onChange={() => {
+                    this.setState(() => ({
+                      visible: !this.state.visible
+                    }));
+                  }}
+                />
+              </label>
+            ) : (
+              ''
+            )}
+          </div>
+          <div label='Exposé'>
+            {/* Exposé */}
+            Überschrift italienisch:
+            <input
+              name='titolo'
+              className={`text-input`}
+              type='text'
+              placeholder='Titolo in italiano'
+              value={this.state.titolo}
+              onChange={this.changeHandler}
+            />
+            Beschreibung italienisch:
+            <textarea
+              name='descrizione'
+              className={`textarea`}
+              placeholder='Descrizione in italiano'
+              value={this.state.descrizione}
+              onChange={this.changeHandler}
+            />
+            Überschrift deutsch:
+            <input
+              name='titoloDe'
+              className={`text-input`}
+              type='text'
+              placeholder='Überschrift des Exposés'
+              value={this.state.titoloDe}
+              onChange={this.changeHandler}
+            />
+            Beschreibung deutsch:
+            <textarea
+              name='descrizioneDe'
+              className={`textarea`}
+              placeholder='Beschreibung'
+              value={this.state.descrizioneDe}
+              onChange={this.changeHandler}
+            />
+            Überschrift englisch:
+            <input
+              name='titoloEn'
+              className={`text-input`}
+              type='text'
+              placeholder='English title'
+              value={this.state.titoloEn}
+              onChange={this.changeHandler}
+            />
+            Beschreibung englisch:
+            <textarea
+              name='descrizioneEn'
+              className={`textarea`}
+              placeholder='English description'
+              value={this.state.descrizioneEn}
+              onChange={this.changeHandler}
+            />
+            Zimmer:
+            <input
+              name='vani'
+              className={`text-input`}
+              type='text'
+              value={this.state.vani}
+              onChange={this.changeHandler}
+            />
+            Badezimmer:
+            <input
+              name='bagni'
+              className={`text-input`}
+              type='text'
+              value={this.state.bagni}
+              onChange={this.changeHandler}
+            />
+            Zustand:
+            <select
+              name='condizioni'
+              className='select select__form'
+              value={this.state.condizioni}
+              onChange={this.changeHandler}
+            >
+              <option value=''></option>
+              <option value='neu'>Neuwertig</option>
+              <option value='gut'>Gut</option>
+              <option value='renovierungsbedürftig'>
+                Renovierungsbedürftig
+              </option>
+            </select>
+            Baujahr:
+            <input
+              name='baujahr'
+              className={`text-input`}
+              type='text'
+              value={this.state.baujahr}
+              onChange={this.changeHandler}
+            />
+            Energieausweis-Typ:
+            <select
+              name='energieAusweisTyp'
+              className='select select__form'
+              value={this.state.energieAusweisTyp}
+              onChange={this.changeHandler}
+            >
+              <option value=''></option>
+              <option value='Verbrauchsausweis'>Verbrauchsausweis</option>
+              <option value='Bedarfsausweis'>Bedarfsausweis</option>
+            </select>
+            Energieausweis gültig bis:
+            <input
+              name='energieAusweisBis'
+              className={`text-input`}
+              type='text'
+              value={this.state.energieAusweisBis}
+              onChange={this.changeHandler}
+            />
+            Heizungsart:
+            <select
+              name='heizungsart'
+              className='select select__form'
+              value={this.state.heizungsart}
+              onChange={this.changeHandler}
+            >
+              <option value=''></option>
+              <option value='Zentralheizung'>Zentralheizung</option>
+              <option value='Etagenheizung'>Etagenheizung</option>
+            </select>
+            Energieträger:
+            <select
+              name='energieTraeger'
+              className='select select__form'
+              value={this.state.energieTraeger}
+              onChange={this.changeHandler}
+            >
+              <option value=''></option>
+              <option value='Erdgas'>Erdgas</option>
+              <option value='Öl'>Öl</option>
+              <option value='Fernwärme'>Fernwärme</option>
+            </select>
+            Endenergiebedarf in kWh/(m2*a):
+            <input
+              name='energieBedarf'
+              className='text-input'
+              type='text'
+              value={this.state.energieBedarf}
+              onChange={this.changeHandler}
+            />
+            Käuferprovision:
+            <input
+              name='provvigione'
+              className='text-input'
+              type='text'
+              placeholder='inklusive MWSt.'
+              value={this.state.provvigione}
+              onChange={this.changeHandler}
+            />
+            <label>
+              Balkon&nbsp;
+              <input
+                type='checkbox'
+                name='balcone'
+                checked={this.state.balcone}
+                onChange={() => {
+                  this.setState(() => ({
+                    balcone: !this.state.balcone
+                  }));
+                }}
+              />
+            </label>
+            <label>
+              Aufzug&nbsp;
+              <input
+                type='checkbox'
+                name='ascensore'
+                checked={this.state.ascensore}
+                onChange={() => {
+                  this.setState(() => ({
+                    ascensore: !this.state.ascensore
+                  }));
+                }}
+              />
+            </label>
+            <label>
+              Garten&nbsp;
+              <input
+                type='checkbox'
+                name='giardino'
+                checked={this.state.giardino}
+                onChange={() => {
+                  this.setState(() => ({
+                    giardino: !this.state.giardino
+                  }));
+                }}
+              />
+            </label>
+            <label>
+              Keller&nbsp;
+              <input
+                type='checkbox'
+                name='cantina'
+                checked={this.state.cantina}
+                onChange={() => {
+                  this.setState(() => ({
+                    cantina: !this.state.cantina
+                  }));
+                }}
+              />
+            </label>
+          </div>
+          <div label='Bilder'>
+            {/* Cover */}
+            <div>
+              <label className='button button--secondary-oggetti'>
+                Cover auswählen
+                <FileUploader
+                  hidden
+                  accept='image/*'
+                  name='image-uploader-multiple'
+                  // randomizeFilename
+                  filename={() => `${this.state.rifId}-Cover}`}
+                  storageRef={firebase.storage().ref('cover')}
+                  onUploadStart={this.handleUploadStart}
+                  onUploadError={this.handleUploadError}
+                  onUploadSuccess={this.handleUploadSuccessCover}
+                  onProgress={this.handleProgress}
+                  // multiple
+                />
+              </label>
 
-          <div>
-            {this.state.downloadURLsCover &&
-              this.state.downloadURLsCover.map((downloadURLCover, i) => {
-                return (
-                  <span key={i}>
-                    <img className='foto' src={downloadURLCover} />
-                    <img
-                      src='/images/trash.jpg'
-                      className='cancella'
-                      onClick={() => this.handleRemovePictureCover(i)}
-                    />
-                  </span>
-                );
-              })}
-          </div>
-        </div>
-        {/* Bilder */}
-        <div>
-          <h1 className='page-header page-header__title'>Bilder</h1>
-          <label className='button button--secondary-oggetti'>
-            Bilder auswählen
-            <FileUploader
-              hidden
-              accept='image/*'
-              name='image-uploader-multiple'
-              // randomizeFilename
-              filename={() =>
-                `${this.state.rifId}-${Math.floor(
-                  Math.random() * 100000
-                ).toString()}`
-              }
-              storageRef={firebase.storage().ref('images')}
-              onUploadStart={this.handleUploadStart}
-              onUploadError={this.handleUploadError}
-              onUploadSuccess={this.handleUploadSuccess}
-              onProgress={this.handleProgress}
-              multiple
-            />
-          </label>
-          <p>Progress: {this.state.uploadProgress}</p>
-          {/* 
-          <p>Filenames: {this.state.filenames.join(', ')}</p>
-          */}
-          <div>
-            {this.state.downloadURLs &&
-              this.state.downloadURLs.map((downloadURL, i) => {
-                return (
-                  <span key={i}>
-                    <img className='foto' src={downloadURL} />
-                    <img
-                      src='/images/trash.jpg'
-                      className='cancella'
-                      onClick={() => this.handleRemovePicture(i)}
-                    />
-                  </span>
-                );
-              })}
-          </div>
-        </div>
-        {/* Grundriss */}
-        <div>
-          <h1 className='page-header page-header__title'>Grundriss</h1>
-          <label className='button button--secondary-oggetti'>
-            Grundriss auswählen
-            <FileUploader
-              hidden
-              accept='image/*'
-              name='image-uploader-multiple'
-              // randomizeFilename
-              filename={() =>
-                `${this.state.rifId}-Grundriss-${Math.floor(
-                  Math.random() * 100
-                ).toString()}`
-              }
-              storageRef={firebase.storage().ref('grundriss')}
-              onUploadStart={this.handleUploadStart}
-              onUploadError={this.handleUploadError}
-              onUploadSuccess={this.handleUploadSuccessGrundriss}
-              onProgress={this.handleProgress}
-              multiple
-            />
-          </label>
+              <div>
+                {this.state.downloadURLsCover &&
+                  this.state.downloadURLsCover.map((downloadURLCover, i) => {
+                    return (
+                      <span key={i}>
+                        <img className='foto' src={downloadURLCover} />
+                        <img
+                          src='/images/trash.jpg'
+                          className='cancella'
+                          onClick={() => this.handleRemovePictureCover(i)}
+                        />
+                      </span>
+                    );
+                  })}
+              </div>
+            </div>
+            {/* Bilder */}
+            <div>
+              <label className='button button--secondary-oggetti'>
+                Bilder auswählen
+                <FileUploader
+                  hidden
+                  accept='image/*'
+                  name='image-uploader-multiple'
+                  // randomizeFilename
+                  filename={() =>
+                    `${this.state.rifId}-${Math.floor(
+                      Math.random() * 100000
+                    ).toString()}`
+                  }
+                  storageRef={firebase.storage().ref('images')}
+                  onUploadStart={this.handleUploadStart}
+                  onUploadError={this.handleUploadError}
+                  onUploadSuccess={this.handleUploadSuccess}
+                  onProgress={this.handleProgress}
+                  multiple
+                />
+              </label>
 
-          <div>
-            {this.state.downloadURLsGrundriss &&
-              this.state.downloadURLsGrundriss.map(
-                (downloadURLGrundriss, i) => {
-                  return (
-                    <span key={i}>
-                      <img className='foto' src={downloadURLGrundriss} />
-                      <img
-                        src='/images/trash.jpg'
-                        className='cancella'
-                        onClick={() => this.handleRemovePictureGrundriss(i)}
-                      />
-                    </span>
-                  );
-                }
-              )}
-          </div>
-        </div>
-        {/* Map */}
-        <div>
-          <h1 className='page-header page-header__title'>Map</h1>
-          <label className='button button--secondary-oggetti'>
-            Map auswählen
-            <FileUploader
-              hidden
-              accept='image/*'
-              name='image-uploader-multiple'
-              // randomizeFilename
-              filename={() =>
-                `${this.state.rifId}-Map-${Math.floor(
-                  Math.random() * 100
-                ).toString()}`
-              }
-              storageRef={firebase.storage().ref('map')}
-              onUploadStart={this.handleUploadStart}
-              onUploadError={this.handleUploadError}
-              onUploadSuccess={this.handleUploadSuccessMap}
-              onProgress={this.handleProgress}
-              // multiple
-            />
-          </label>
+              <div>
+                {this.state.downloadURLs &&
+                  this.state.downloadURLs.map((downloadURL, i) => {
+                    return (
+                      <span key={i}>
+                        <img className='foto' src={downloadURL} />
+                        <img
+                          src='/images/trash.jpg'
+                          className='cancella'
+                          onClick={() => this.handleRemovePicture(i)}
+                        />
+                      </span>
+                    );
+                  })}
+              </div>
+            </div>
+            {/* Grundriss */}
+            <div>
+              <label className='button button--secondary-oggetti'>
+                Grundriss auswählen
+                <FileUploader
+                  hidden
+                  accept='image/*'
+                  name='image-uploader-multiple'
+                  // randomizeFilename
+                  filename={() =>
+                    `${this.state.rifId}-Grundriss-${Math.floor(
+                      Math.random() * 100
+                    ).toString()}`
+                  }
+                  storageRef={firebase.storage().ref('grundriss')}
+                  onUploadStart={this.handleUploadStart}
+                  onUploadError={this.handleUploadError}
+                  onUploadSuccess={this.handleUploadSuccessGrundriss}
+                  onProgress={this.handleProgress}
+                  multiple
+                />
+              </label>
 
-          <div>
-            {this.state.downloadURLsMap &&
-              this.state.downloadURLsMap.map((downloadURLMap, i) => {
-                return (
-                  <span key={i}>
-                    <img className='foto' src={downloadURLMap} />
-                    <img
-                      src='/images/trash.jpg'
-                      className='cancella'
-                      onClick={() => this.handleRemovePictureMap(i)}
-                    />
-                  </span>
-                );
-              })}
+              <div>
+                {this.state.downloadURLsGrundriss &&
+                  this.state.downloadURLsGrundriss.map(
+                    (downloadURLGrundriss, i) => {
+                      return (
+                        <span key={i}>
+                          <img className='foto' src={downloadURLGrundriss} />
+                          <img
+                            src='/images/trash.jpg'
+                            className='cancella'
+                            onClick={() => this.handleRemovePictureGrundriss(i)}
+                          />
+                        </span>
+                      );
+                    }
+                  )}
+              </div>
+            </div>
+            {/* Map */}
+            <div>
+              <label className='button button--secondary-oggetti'>
+                Map auswählen
+                <FileUploader
+                  hidden
+                  accept='image/*'
+                  name='image-uploader-multiple'
+                  // randomizeFilename
+                  filename={() =>
+                    `${this.state.rifId}-Map-${Math.floor(
+                      Math.random() * 100
+                    ).toString()}`
+                  }
+                  storageRef={firebase.storage().ref('map')}
+                  onUploadStart={this.handleUploadStart}
+                  onUploadError={this.handleUploadError}
+                  onUploadSuccess={this.handleUploadSuccessMap}
+                  onProgress={this.handleProgress}
+                  // multiple
+                />
+              </label>
+
+              <div>
+                {this.state.downloadURLsMap &&
+                  this.state.downloadURLsMap.map((downloadURLMap, i) => {
+                    return (
+                      <span key={i}>
+                        <img className='foto' src={downloadURLMap} />
+                        <img
+                          src='/images/trash.jpg'
+                          className='cancella'
+                          onClick={() => this.handleRemovePictureMap(i)}
+                        />
+                      </span>
+                    );
+                  })}
+              </div>
+            </div>
           </div>
-        </div>
+        </Tabs>
+
         <div>
           <button className='button button--secondary-oggetti'>
             Speichern

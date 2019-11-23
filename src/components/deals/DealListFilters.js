@@ -67,7 +67,7 @@ export class DealListFilters extends React.Component {
               showClearDates={true}
               numberOfMonths={1}
               isOutsideRange={() => false}
-              displayFormat={'DD/MM/YYYY'}
+              displayFormat={'DD.MM.YYYY'}
             />
           </div>
         </div>
@@ -89,7 +89,4 @@ const mapDispatchToProps = dispatch => ({
   setEndDate: endDate => dispatch(setEndDate(endDate))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DealListFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(DealListFilters);

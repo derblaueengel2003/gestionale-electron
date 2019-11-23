@@ -105,7 +105,7 @@ export class LeadForm extends React.Component {
         <input
           className={`text-input`}
           type='text'
-          placeholder='Budget del cliente'
+          placeholder='Kudenbudget'
           value={this.state.leadBudget}
           onChange={this.onBudgetChange}
         />

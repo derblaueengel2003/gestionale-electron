@@ -4,7 +4,7 @@ import moment from 'moment';
 import numeral from 'numeral';
 
 // load a locale
-numeral.register('locale', 'it', {
+numeral.register('locale', 'de', {
   delimiters: {
     thousands: '.',
     decimal: ','
@@ -23,8 +23,8 @@ numeral.register('locale', 'it', {
   }
 });
 // switch between locales
-numeral.locale('it');
-moment.locale('it');
+numeral.locale('de');
+moment.locale('de');
 
 const ProgressBar = props => {
   return (

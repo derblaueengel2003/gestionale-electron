@@ -158,7 +158,7 @@ export class MAAForm extends React.Component {
               showClearDates={true}
               numberOfMonths={1}
               isOutsideRange={() => false}
-              displayFormat={'DD/MM/YYYY'}
+              displayFormat={'DD.MM.YYYY'}
             />
           </div>
           Verkaufspreis min.:
