@@ -27,8 +27,6 @@ const jsx = (
 );
 let hasRendered = false;
 const renderApp = () => {
-  window.scrollTo(0, 0);
-
   if (!hasRendered) {
     ReactDOM.render(jsx, document.getElementById('app'));
     hasRendered = true;

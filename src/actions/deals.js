@@ -32,6 +32,10 @@ export const startAddDeal = (dealData = {}) => {
       linguaRogito = '',
       dataRogito = null,
       dataConsegna = null,
+      todos = [
+        { id: 0, text: 'Prenotazione', erledigt: false },
+        { id: 1, text: 'Diritto di recesso', erledigt: false }
+      ],
       todo1 = false,
       todo2 = false,
       todo3 = false,
@@ -68,6 +72,7 @@ export const startAddDeal = (dealData = {}) => {
       linguaRogito,
       dataRogito,
       dataConsegna,
+      todos,
       todo1,
       todo2,
       todo3,

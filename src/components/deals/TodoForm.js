@@ -234,7 +234,4 @@ const mapDispatchToProps = dispatch => ({
   startEditDeal: (id, deal) => dispatch(startEditDeal(id, deal))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TodoForm);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoForm);

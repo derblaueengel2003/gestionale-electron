@@ -6,8 +6,6 @@ import { startSetCustomers } from '../../actions/clienti';
 import selectClienti from '../../selectors/clienti';
 
 export const ClientiList = ({ cliente, clienti, ruolo }) => {
-  window.scrollTo(0, 0);
-
   //controllo se i dati vengono dal deal page o se sono passati via props
 
   if (cliente) {
