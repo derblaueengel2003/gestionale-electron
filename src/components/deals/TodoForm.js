@@ -74,7 +74,7 @@ export class TodoForm extends React.Component {
       <div className='margine-basso'>
         <div className='page-header page-header-deals'>
           <div className='content-container'>
-            <h1 className='page-header__title'>To-dos</h1>
+            <h1 className='page-header__title'>To-dos Da Rifare</h1>
           </div>
         </div>
         <div className='content-container'>
