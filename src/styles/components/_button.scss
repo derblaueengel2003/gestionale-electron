@@ -30,12 +30,12 @@
     rgba($dark-green, 0.85),
     rgba($light-green, 0.85)
   );
+}
 
-  // &-add {
-  //   margin-bottom: 1rem;
-  //   font-weight: 600;
-  //   font-size: $font-size-xlarge;
-  // }
+.button--secondary-datepicker {
+  border: 1px solid black;
+  color: black;
+  text-decoration: none;
 }
 
 .button--secondary-leads {

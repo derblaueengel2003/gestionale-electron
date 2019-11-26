@@ -9,6 +9,7 @@ import {
   setStartDate,
   setEndDate
 } from '../../actions/filters';
+import moment from 'moment';
 
 export class DealListFilters extends React.Component {
   state = {
@@ -33,6 +34,33 @@ export class DealListFilters extends React.Component {
       this.props.sortByPaid();
     }
   };
+
+  //Questo metodo visualizza gli anni nel datepicker per una scelta veloce. Basta aggiungere altri oggetti all'array
+  renderDatePresets = () => {
+    const presets = [
+      { text: '2018', start: moment([2018]), end: moment('2018-12-31') },
+      { text: '2019', start: moment([2019]), end: moment('2019-12-31') }
+    ];
+    return (
+      <div className='button'>
+        {presets.map(({ text, start, end }) => {
+          return (
+            <button
+              className='button button--secondary-datepicker'
+              key={text}
+              type='button'
+              onClick={() =>
+                this.onDatesChange({ startDate: start, endDate: end })
+              }
+            >
+              {text}
+            </button>
+          );
+        })}
+      </div>
+    );
+  };
+
   render() {
     return (
       <div className='content-container'>
@@ -68,6 +96,7 @@ export class DealListFilters extends React.Component {
               numberOfMonths={1}
               isOutsideRange={() => false}
               displayFormat={'DD.MM.YYYY'}
+              renderCalendarInfo={this.renderDatePresets}
             />
           </div>
         </div>
