@@ -35,12 +35,19 @@ export class DealListFilters extends React.Component {
     }
   };
 
-  //Questo metodo visualizza gli anni nel datepicker per una scelta veloce. Basta aggiungere altri oggetti all'array
+  //Questo metodo visualizza gli anni nel datepicker
   renderDatePresets = () => {
-    const presets = [
-      { text: '2018', start: moment([2018]), end: moment('2018-12-31') },
-      { text: '2019', start: moment([2019]), end: moment('2019-12-31') }
-    ];
+    const startYear = 2018;
+    const diff = moment().year() - startYear;
+    const presets = [];
+    for (let i = 0; i <= diff; i++) {
+      let anno = startYear + i;
+      presets.push({
+        text: anno,
+        start: moment([anno]),
+        end: moment(`${anno}-12-31`)
+      });
+    }
     return (
       <div className='button'>
         {presets.map(({ text, start, end }) => {
