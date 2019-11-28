@@ -80,10 +80,10 @@ export class LeadsListItem extends React.Component {
           this.props.leadOggettoStato === 'libero o affittato' ||
           this.props.leadOggettoStato === '' ? (
             <Link
-              className='button button--secondary-leads-match'
+              className='btn-floating green accent-3'
               to={`/leadmatchview/${this.props.id}`}
             >
-              Find a Match!
+              Match!
             </Link>
           ) : (
             ''
@@ -91,10 +91,10 @@ export class LeadsListItem extends React.Component {
 
           {cliente && cliente.email && (
             <a
-              className='button button--secondary-email'
+              className='btn-floating blue'
               href={`mailto:${cliente ? cliente.email : this.props.leadEmail}`}
             >
-              E-Mail
+              <i className='material-icons'>email</i>
             </a>
           )}
         </div>

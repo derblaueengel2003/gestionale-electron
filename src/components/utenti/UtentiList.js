@@ -6,11 +6,8 @@ import UtentiListItem from './UtentiListItem';
 export const UtentiList = props => (
   <div className='content-container'>
     <div className='page-header__actions'>
-      <Link
-        className='button button-add button--secondary-utenti'
-        to='/usercreate'
-      >
-        +
+      <Link className='btn-floating green' to='/usercreate'>
+        <i className='material-icons'>add</i>
       </Link>
     </div>
     <div className='list-header'>

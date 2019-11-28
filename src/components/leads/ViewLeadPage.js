@@ -27,27 +27,24 @@ export class ViewLeadPage extends React.Component {
         </div>
         <div className='content-container'>
           <div className='list-header list-header-leads'>
-            <div className='show-for-mobile'>Details</div>
-            <div className='show-for-desktop'>Details</div>
-            <div className='show-for-desktop'></div>
+            <div>Details</div>
+            <div>
+              <Link
+                className='btn-floating orange'
+                to={`/leadedit/${this.props.lead.id}`}
+              >
+                <i className='material-icons'>edit</i>
+              </Link>
+              <button className='btn-floating red' onClick={this.onRemove}>
+                <i className='material-icons'>remove</i>
+              </button>
+            </div>
           </div>
           <div className='list-body'>
             <div>
               <LeadsListItem {...this.props.lead} showAll={true} />
             </div>
           </div>
-          <Link
-            className='print button button--secondary-leads'
-            to={`/leadedit/${this.props.lead.id}`}
-          >
-            Anfrage ändern
-          </Link>
-          <button
-            className='button button--secondary-delete'
-            onClick={this.onRemove}
-          >
-            Anfrage löschen
-          </button>
         </div>
 
         <ClientiList cliente={cliente} ruolo={'Cliente'} />

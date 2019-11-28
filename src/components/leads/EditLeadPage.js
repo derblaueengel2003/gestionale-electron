@@ -26,11 +26,8 @@ export class EditLeadPage extends React.Component {
         </div>
         <div className='content-container'>
           <LeadForm lead={this.props.lead} onSubmit={this.onSubmit} />
-          <button
-            className='button button--secondary-delete'
-            onClick={this.onRemove}
-          >
-            Anfrage löschen
+          <button className='btn-floating red' onClick={this.onRemove}>
+            <i className='material-icons'>remove</i>
           </button>
         </div>
       </div>
@@ -47,7 +44,4 @@ const mapDispatchToProps = dispatch => ({
   startRemoveLead: data => dispatch(startRemoveLead(data))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditLeadPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditLeadPage);

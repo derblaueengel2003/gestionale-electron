@@ -29,11 +29,8 @@ export const OggettiList = props => {
     return (
       <div className='content-container'>
         <div className='page-header__actions'>
-          <Link
-            className='button button--secondary-oggetti button-add'
-            to='/oggettocreate'
-          >
-            +
+          <Link className='btn-floating green' to='/oggettocreate'>
+            <i className='material-icons'>add</i>
           </Link>
         </div>
         <div className='list-header list-header-oggetti'>

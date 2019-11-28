@@ -133,7 +133,9 @@ export class LeadForm extends React.Component {
           onChange={this.changeHandler}
         ></textarea>
         <div>
-          <button className='button button--secondary-leads'>Speichern</button>
+          <button className='btn-floating blue'>
+            <i className='material-icons'>save</i>
+          </button>
         </div>
       </form>
     );

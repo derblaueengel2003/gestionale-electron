@@ -46,11 +46,8 @@ export const FattureList = props => {
     return (
       <div className='content-container'>
         <div className='page-header__actions'>
-          <Link
-            className='button button--secondary-fatture button-add'
-            to='/fatturacreate'
-          >
-            +
+          <Link className='btn-floating green' to='/fatturacreate'>
+            <i className='material-icons'>add</i>
           </Link>
         </div>
         <div className='list-header'>

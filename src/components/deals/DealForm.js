@@ -267,7 +267,9 @@ export class DealForm extends React.Component {
       <form className='form' onSubmit={this.onSubmit}>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
         <div>
-          <button className='button button--secondary'>Speichern</button>
+          <button className='btn-floating blue'>
+            <i className='material-icons'>save</i>
+          </button>
         </div>
         Deal-Typ:
         <Select
@@ -491,7 +493,9 @@ export class DealForm extends React.Component {
           onChange={this.changeHandler}
         ></textarea>
         <div>
-          <button className='button button--secondary'>Speichern</button>
+          <button className='btn-floating blue'>
+            <i className='material-icons'>save</i>
+          </button>{' '}
         </div>
       </form>
     );

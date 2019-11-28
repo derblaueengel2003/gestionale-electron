@@ -23,11 +23,8 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
     return (
       <div className='content-container'>
         <div className='page-header__actions'>
-          <Link
-            className='button button--secondary-clienti button-add'
-            to='/customercreate'
-          >
-            +
+          <Link className='btn-floating green' to='/customercreate'>
+            <i className='material-icons'>add</i>
           </Link>
         </div>
         <div className='list-header list-header-clienti'>

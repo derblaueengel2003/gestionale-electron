@@ -82,9 +82,16 @@ export class ViewDealPage extends React.Component {
         </div>
         <div className='content-container'>
           <div className='list-header list-header-deals'>
-            <div className='show-for-mobile'>Details</div>
-            <div className='show-for-desktop'>Details</div>
-            <div className='show-for-desktop'></div>
+            <div>Details</div>
+
+            <div>
+              {' '}
+              {utente.role === 'Admin' && (
+                <Link className='btn-floating orange' to={`/edit/${id}`}>
+                  <i className='material-icons'>edit</i>
+                </Link>
+              )}
+            </div>
           </div>
           <div className='list-body'>
             <div className='list-item'>
@@ -168,12 +175,6 @@ export class ViewDealPage extends React.Component {
         </div>
 
         <div className='content-container'>
-          {utente.role === 'Admin' && (
-            <Link className='button button--secondary' to={`/edit/${id}`}>
-              Deal bearbeiten
-            </Link>
-          )}
-
           <button
             className='print button button--secondary'
             onClick={() => {

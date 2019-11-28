@@ -6,7 +6,7 @@ export const NavBar = ({ utente }) => {
   if (utente) {
     return (
       <div className='content-container page-header__navbar'>
-        <div className='show-for-mobile'>
+        <div className='hide-on-med-and-up'>
           <div id='menuToggle'>
             <input type='checkbox' />
             <span></span>
@@ -47,57 +47,33 @@ export const NavBar = ({ utente }) => {
           </div>
         </div>
         <div className='content-container show-for-desktop'>
-          <Link
-            className='button page-header__button page-header__button-deals'
-            to='/dashboard'
-          >
+          <Link className='btn blue waves-effect waves-light ' to='/dashboard'>
             Deals
           </Link>
-          <Link
-            className='button page-header__button page-header__button-leads'
-            to='/leads'
-          >
+          <Link className='btn blue waves-effect waves-light ' to='/leads'>
             Anfragen
           </Link>
-          <Link
-            className='button page-header__button page-header__button-modulistica'
-            to='/moduli'
-          >
+          <Link className='btn blue waves-effect waves-light ' to='/moduli'>
             Formulare
           </Link>
-          <Link
-            className='button page-header__button page-header__button-oggetti'
-            to='/oggetti'
-          >
+          <Link className='btn blue waves-effect waves-light ' to='/oggetti'>
             Objekte
           </Link>
-          <Link
-            className='button page-header__button page-header__button-clienti'
-            to='/customer'
-          >
+          <Link className='btn blue waves-effect waves-light ' to='/customer'>
             Kontakte
           </Link>
           {utente.role === 'Admin' && (
-            <Link
-              className='button page-header__button page-header__button-report'
-              to='/report'
-            >
+            <Link className='btn blue waves-effect waves-light ' to='/report'>
               Report
             </Link>
           )}
           {utente.role === 'Admin' && (
-            <Link
-              className='button page-header__button page-header__button-utenti'
-              to='/users'
-            >
+            <Link className='btn blue waves-effect waves-light' to='/users'>
               Benutzer
             </Link>
           )}
           {utente.role === 'Admin' && (
-            <Link
-              className='button page-header__button page-header__button-fatture'
-              to='/fatture'
-            >
+            <Link className='btn blue waves-effect waves-light' to='/fatture'>
               Rechnungen
             </Link>
           )}

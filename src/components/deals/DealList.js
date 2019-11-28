@@ -62,8 +62,8 @@ export const DealList = ({
     return (
       <div className='content-container'>
         {utente.role === 'Admin' && (
-          <Link className='button button--secondary button-add' to='/create'>
-            +
+          <Link className='btn-floating green' to='/create'>
+            <i className='material-icons'>add</i>
           </Link>
         )}
 
