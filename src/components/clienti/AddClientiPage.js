@@ -17,12 +17,12 @@ export class AddCustomerPage extends React.Component {
     // }
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Kontakt hinzufügen</h1>
+        <div>
+          <div className='container'>
+            <h1>Kontakt hinzufügen</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <CustomerForm onSubmit={this.onSubmit} />
         </div>
       </div>

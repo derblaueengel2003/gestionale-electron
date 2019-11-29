@@ -9,7 +9,7 @@ export const LeadsList = props => {
   if (props.userLeads) {
     return (
       props.userLeads.length > 0 && (
-        <div className='content-container'>
+        <div className='container'>
           <div className='list-header list-header-leads'>
             <div className='show-for-mobile'>Anfrage</div>
             <div className='show-for-desktop'>Anfrage</div>
@@ -25,13 +25,14 @@ export const LeadsList = props => {
   } else {
     //in questo caso i dati provengono dallo state. Siamo sulla lead dashboard page
     return (
-      <div className='content-container'>
-        <Link className='btn-floating green' to='/leadscreate'>
-          <i className='material-icons'>add</i>
-        </Link>
+      <div className='container'>
         <div className='list-header list-header-leads'>
-          <div className='show-for-mobile'>Anfragen</div>
-          <div className='show-for-desktop'>Anfragen</div>
+          <div>Anfragen</div>
+          <div>
+            <Link className='btn-floating green' to='/leadscreate'>
+              <i className='material-icons'>add</i>
+            </Link>
+          </div>
         </div>
         <div className='list-body'>
           {props.leads.length === 0 ? (

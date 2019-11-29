@@ -5,7 +5,7 @@ exports[`should render Header correctly 1`] = `
   className="header"
 >
   <div
-    className="content-container"
+    className="container"
   >
     <div
       className="header__content"

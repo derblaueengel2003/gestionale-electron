@@ -29,7 +29,7 @@ export class StampaDatenblatt extends React.Component {
     const { firma } = this.props;
 
     return (
-      <div className='content-container'>
+      <div className='container'>
         <div>
           <h1>Datenblatt Wohnungskauf</h1>
         </div>

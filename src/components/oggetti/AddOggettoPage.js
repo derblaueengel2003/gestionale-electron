@@ -11,12 +11,12 @@ export class AddOggettoPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Objekt hinzufügen</h1>
+        <div>
+          <div className='container'>
+            <h1>Objekt hinzufügen</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <OggettoForm onSubmit={this.onSubmit} />
         </div>
       </div>
@@ -28,7 +28,4 @@ const mapDispatchToProps = dispatch => ({
   startAddOggetto: oggetto => dispatch(startAddOggetto(oggetto))
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(AddOggettoPage);
+export default connect(undefined, mapDispatchToProps)(AddOggettoPage);

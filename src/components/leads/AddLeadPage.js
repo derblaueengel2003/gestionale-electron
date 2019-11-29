@@ -11,12 +11,12 @@ export class AddLeadPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Neue Anfrage</h1>
+        <div>
+          <div className='container'>
+            <h1>Neue Anfrage</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <LeadForm onSubmit={this.onSubmit} />
         </div>
       </div>
@@ -28,7 +28,4 @@ const mapDispatchToProps = dispatch => ({
   startAddLead: lead => dispatch(startAddLead(lead))
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(AddLeadPage);
+export default connect(undefined, mapDispatchToProps)(AddLeadPage);

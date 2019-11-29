@@ -945,8 +945,8 @@ export class OggettoForm extends React.Component {
         </Tabs>
 
         <div>
-          <button className='button button--secondary-oggetti'>
-            Speichern
+          <button className='btn-floating blue'>
+            <i className='material-icons'>save</i>
           </button>
         </div>
       </form>

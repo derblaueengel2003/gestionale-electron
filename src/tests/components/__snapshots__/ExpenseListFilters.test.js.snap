@@ -2,7 +2,7 @@
 
 exports[`should render DealListFilters correctly 1`] = `
 <div
-  className="content-container"
+  className="container"
 >
   <div
     className="input-group"
@@ -131,7 +131,7 @@ exports[`should render DealListFilters correctly 1`] = `
 
 exports[`should render DealListFilters with altFilters correctly 1`] = `
 <div
-  className="content-container"
+  className="container"
 >
   <div
     className="input-group"

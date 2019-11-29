@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import UtentiListItem from './UtentiListItem';
 
 export const UtentiList = props => (
-  <div className='content-container'>
-    <div className='page-header__actions'>
-      <Link className='btn-floating green' to='/usercreate'>
-        <i className='material-icons'>add</i>
-      </Link>
-    </div>
+  <div className='container'>
+    <div className='page-header__actions'></div>
     <div className='list-header'>
-      <div className='show-for-mobile'>Benutzer</div>
-      <div className='show-for-desktop'>Benutzer</div>
-      <div className='show-for-desktop'>Rolle</div>
+      <div>Benutzer</div>
+      <div>
+        {' '}
+        <Link className='btn-floating green' to='/usercreate'>
+          <i className='material-icons'>add</i>
+        </Link>
+      </div>
     </div>
     <div className='list-body'>
       {props.utenti.length === 0 ? (

@@ -38,15 +38,18 @@ export class ViewClientiPage extends React.Component {
     return (
       <div>
         <div className='page-header page-header-clienti'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Kunde</h1>
+          <div className='container'>
+            <h1>Kunde</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <div className='list-header list-header-clienti'>
-            <div className='show-for-mobile'>Kundendetails</div>
-            <div className='show-for-desktop'>Kundendetails</div>
-            <div className='show-for-desktop'></div>
+            <div>Kundendetails</div>
+            <div>
+              <Link className='btn-floating orange' to={`/customeredit/${id}`}>
+                <i className='material-icons'>edit</i>
+              </Link>
+            </div>
           </div>
           <div className='list-body'>
             <div className='list-item'>
@@ -72,12 +75,6 @@ export class ViewClientiPage extends React.Component {
               </div>
             </div>
           </div>
-          <Link
-            className='print button button--secondary-clienti'
-            to={`/customeredit/${id}`}
-          >
-            Kundendaten ändern
-          </Link>
         </div>
         <LeadsList userLeads={this.props.leads} />
         <OggettiList oggetto={this.props.oggetti} />

@@ -64,12 +64,12 @@ export class VollmachtForm extends React.Component {
 
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Vollmacht Unterlagen</h1>
+        <div>
+          <div className='container'>
+            <h1>Vollmacht Unterlagen</h1>
           </div>
         </div>
-        <form className='form content-container' onSubmit={this.onSubmit}>
+        <form className='form container' onSubmit={this.onSubmit}>
           {this.state.error && (
             <p className='form__error'>{this.state.error}</p>
           )}

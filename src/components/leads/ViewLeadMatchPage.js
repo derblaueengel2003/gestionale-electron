@@ -62,14 +62,10 @@ export class ViewLeadMatchPage extends React.Component {
 
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>
-              Match mit unseren Objekten: {this.primoMatch().length}
-            </h1>
-            <h1 className='page-header__title'>
-              Match mit Accentro: {this.secondoMatch().length}
-            </h1>
+        <div>
+          <div className='container'>
+            <h1>Match mit unseren Objekten: {this.primoMatch().length}</h1>
+            <h1>Match mit Accentro: {this.secondoMatch().length}</h1>
             <span>
               Die Übereinstimmung basiert sich auf Kundenbudget (+-20%) und
               Immobilientyp.
@@ -77,7 +73,7 @@ export class ViewLeadMatchPage extends React.Component {
           </div>
         </div>
 
-        <div className='content-container'>
+        <div className='container'>
           <div className='list-header list-header-leads'>
             <div>
               {cliente ? cliente.nome : this.props.lead.leadNome}{' '}

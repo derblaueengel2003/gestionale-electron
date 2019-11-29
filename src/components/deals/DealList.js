@@ -16,7 +16,7 @@ export const DealList = ({
   if (clienteDeals) {
     return (
       clienteDeals.length > 0 && (
-        <div className='content-container'>
+        <div className='container'>
           <div className='list-header list-header-deals'>
             <div className='show-for-mobile'>Provision</div>
             <div className='show-for-desktop'>Provision</div>
@@ -60,17 +60,17 @@ export const DealList = ({
     );
   } else {
     return (
-      <div className='content-container'>
-        {utente.role === 'Admin' && (
-          <Link className='btn-floating green' to='/create'>
-            <i className='material-icons'>add</i>
-          </Link>
-        )}
-
+      <div className='container'>
         <div className='list-header list-header-deals'>
-          <div className='show-for-mobile'>Provision</div>
-          <div className='show-for-desktop'>Provision</div>
-          <div className='show-for-desktop'>Betrag</div>
+          <div>Provision</div>
+          <div>
+            {' '}
+            {utente.role === 'Admin' && (
+              <Link className='btn-floating green' to='/create'>
+                <i className='material-icons'>add</i>
+              </Link>
+            )}
+          </div>
         </div>
         <div className='list-body'>
           {deals.length === 0 ? (

@@ -19,12 +19,12 @@ export class EditLeadPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Anfrage ändern</h1>
+        <div>
+          <div className='container'>
+            <h1>Anfrage ändern</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <LeadForm lead={this.props.lead} onSubmit={this.onSubmit} />
           <button className='btn-floating red' onClick={this.onRemove}>
             <i className='material-icons'>remove</i>

@@ -20,12 +20,12 @@ export class ViewLeadPage extends React.Component {
     );
     return (
       <div>
-        <div className='page-header page-header-leads'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Anfrage</h1>
+        <div className='grey lighten-4'>
+          <div className='container'>
+            <h1>Anfrage</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <div className='list-header list-header-leads'>
             <div>Details</div>
             <div>

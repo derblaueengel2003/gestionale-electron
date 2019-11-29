@@ -99,33 +99,33 @@ const DealListItem = ({
     }
   }
   return (
-    <div className='list-item'>
-      <div>
+    <div className='row'>
+      <div className='col s12 l10'>
         <Link to={`/view/${id}`}>
           {' '}
-          <h3 className='list-item__title'>{`Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</h3>
+          <h4>{`Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</h4>
         </Link>
-        <span className='list-item__sub-title'>
+        <span>
           {createdAt
             ? `Reservierung vom ${moment(createdAt).format('DD MMMM, YYYY')}`
             : null}
         </span>
-        <h4 className='list-item__sub-title'>
+        <h5>
           {acquirente
             ? `Käufer: ${acquirente.nome} ${acquirente.cognome} ${acquirente.ditta}`
             : ''}{' '}
           {acquirente2
             ? `- ${acquirente2.nome} ${acquirente2.cognome} ${acquirente2.ditta}`
             : ''}
-        </h4>
-        <h4 className='list-item__sub-title'>
+        </h5>
+        <h5>
           {venditore
             ? `Verkäufer: ${venditore.nome} ${venditore.cognome} ${venditore.ditta}`
             : ''}{' '}
           {venditore2
             ? `- ${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta}`
             : ''}
-        </h4>
+        </h5>
         {`Erledigte To-dos: ${todoCount} di 11`}
         <ProgressBar percentage={(todoCount * 100) / 11} />
       </div>

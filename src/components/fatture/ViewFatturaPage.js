@@ -42,16 +42,47 @@ export class ViewFatturePage extends React.Component {
 
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Rechnungen</h1>
+        <div>
+          <div className='container'>
+            <h1>Rechnungen</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <div className='list-header'>
-            <div className='show-for-mobile'>{deal && deal.dealType}</div>
-            <div className='show-for-desktop'>{deal && deal.dealType}</div>
-            <div className='show-for-desktop'></div>
+            <div>{deal && deal.dealType}</div>
+            <div>
+              <Link
+                className='btn-floating orange'
+                to={`/fatturaedit/${this.props.fattura.id}`}
+              >
+                <i className='material-icons'>edit</i>
+              </Link>
+              <button
+                className='btn-floating blue-grey'
+                onClick={() => {
+                  fattura(
+                    cliente,
+                    cliente2,
+                    this.props.fattura.numeroFattura,
+                    this.props.fattura.dataFattura,
+                    this.props.fattura.note,
+                    oggetto,
+                    deal.prezzoDiVendita,
+                    deal.dataRogito,
+                    deal.amount,
+                    deal.createdAt,
+                    deal.dealType,
+                    acquirente,
+                    acquirente2,
+                    this.props.firma,
+                    this.props.utente,
+                    this.props.ceo
+                  );
+                }}
+              >
+                <i className='material-icons'>print</i>
+              </button>
+            </div>
           </div>
           <div className='list-body'>
             <div className='list-item'>
@@ -99,38 +130,6 @@ export class ViewFatturePage extends React.Component {
               </div>
             </div>
           </div>
-
-          <Link
-            className='print button button--secondary'
-            to={`/fatturaedit/${this.props.fattura.id}`}
-          >
-            Rechnung ändern
-          </Link>
-          <button
-            className='print button button--secondary'
-            onClick={() => {
-              fattura(
-                cliente,
-                cliente2,
-                this.props.fattura.numeroFattura,
-                this.props.fattura.dataFattura,
-                this.props.fattura.note,
-                oggetto,
-                deal.prezzoDiVendita,
-                deal.dataRogito,
-                deal.amount,
-                deal.createdAt,
-                deal.dealType,
-                acquirente,
-                acquirente2,
-                this.props.firma,
-                this.props.utente,
-                this.props.ceo
-              );
-            }}
-          >
-            Rechnung drucken
-          </button>
         </div>
         {/* passo deal come array perché è quello che si aspetta il componente */}
         <DealList clienteDeals={[deal]} />

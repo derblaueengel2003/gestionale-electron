@@ -73,11 +73,11 @@ export class TodoForm extends React.Component {
     return (
       <div className='margine-basso'>
         <div className='page-header page-header-deals'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>To-dos Da Rifare</h1>
+          <div className='container'>
+            <h1>To-dos</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <div className={this.state.todo1 === true ? 'list-item--todo' : ''}>
             <label>
               {' '}

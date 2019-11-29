@@ -204,8 +204,8 @@ Gesamtbetrag:             11,9 €`}
           onChange={this.onNoteChange}
         ></textarea>
         <div>
-          <button className='button button--secondary-fatture'>
-            Speichern
+          <button className='btn-floating blue'>
+            <i className='material-icons'>save</i>
           </button>
         </div>
       </form>

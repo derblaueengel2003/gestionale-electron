@@ -20,18 +20,15 @@ export class EditFirmaPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Firmendaten ändern</h1>
+        <div>
+          <div className='container'>
+            <h1>Firmendaten ändern</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <FirmaForm firma={this.props.firma} onSubmit={this.onSubmit} />
-          <button
-            className='button button--secondary-delete'
-            onClick={this.onRemove}
-          >
-            Firma löschen
+          <button className='btn-floating red' onClick={this.onRemove}>
+            <i className='material-icons'>remove</i>
           </button>
         </div>
       </div>
@@ -48,7 +45,4 @@ const mapDispatchToProps = dispatch => ({
   startRemoveFirma: data => dispatch(startRemoveFirma(data))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditFirmaPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditFirmaPage);

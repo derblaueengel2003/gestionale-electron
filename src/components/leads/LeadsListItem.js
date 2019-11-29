@@ -83,7 +83,7 @@ export class LeadsListItem extends React.Component {
               className='btn-floating green accent-3'
               to={`/leadmatchview/${this.props.id}`}
             >
-              Match!
+              Match
             </Link>
           ) : (
             ''

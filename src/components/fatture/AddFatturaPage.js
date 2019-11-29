@@ -11,12 +11,12 @@ export class AddFatturaPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Rechnung hinzufügen</h1>
+        <div>
+          <div className='container'>
+            <h1>Rechnung hinzufügen</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <FatturaForm onSubmit={this.onSubmit} />
         </div>
       </div>
@@ -28,7 +28,4 @@ const mapDispatchToProps = dispatch => ({
   startAddFattura: fattura => dispatch(startAddFattura(fattura))
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(AddFatturaPage);
+export default connect(undefined, mapDispatchToProps)(AddFatturaPage);

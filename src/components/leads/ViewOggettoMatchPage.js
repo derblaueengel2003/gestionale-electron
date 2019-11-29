@@ -33,10 +33,8 @@ export class ViewOggettoMatchPage extends React.Component {
     return (
       <div>
         <div className='page-header page-header-leads'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>
-              Match mit den Anfragen: {this.primoMatch().length}
-            </h1>
+          <div className='container'>
+            <h1>Match mit den Anfragen: {this.primoMatch().length}</h1>
             <span>
               Die Übereinstimmung basiert sich auf Kundenbudget (+-20%) und
               Immobilientyp
@@ -44,7 +42,7 @@ export class ViewOggettoMatchPage extends React.Component {
           </div>
         </div>
 
-        <div className='content-container'>
+        <div className='container'>
           <div className='page-header__actions'></div>
           <div className='list-header list-header-oggetti'>
             <div className='show-for-mobile'>Objekt</div>

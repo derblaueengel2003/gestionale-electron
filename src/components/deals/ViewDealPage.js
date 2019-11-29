@@ -75,17 +75,16 @@ export class ViewDealPage extends React.Component {
     }
     return (
       <div>
-        <div className='page-header page-header-deals'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Deal-Details</h1>
+        <div className='grey lighten-4'>
+          <div className='container'>
+            <h1>Deal-Details</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <div className='list-header list-header-deals'>
-            <div>Details</div>
+            <h5>Details</h5>
 
             <div>
-              {' '}
               {utente.role === 'Admin' && (
                 <Link className='btn-floating orange' to={`/edit/${id}`}>
                   <i className='material-icons'>edit</i>
@@ -97,40 +96,36 @@ export class ViewDealPage extends React.Component {
             <div className='list-item'>
               <div>
                 {prezzoDiVendita > 0 && (
-                  <h3 className='list-item__title'>
+                  <h3>
                     Verkaufspreis:{' '}
                     {numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}
                   </h3>
                 )}
                 {createdAt > 0 && (
-                  <span className='list-item__sub-title'>
+                  <span>
                     Reservierungsdatum:{' '}
                     {moment(createdAt).format('DD MMMM, YYYY')}
                   </span>
                 )}
                 {dataRogito > 0 && (
-                  <h4 className='list-item__sub-title'>
+                  <h4>
                     Beurkundungsdatum:{' '}
                     {moment(dataRogito).format('DD MMMM, YYYY')}
                   </h4>
                 )}
-                {note.length > 0 && (
-                  <span className='list-item__sub-title'>Note: {note}</span>
-                )}
+                {note.length > 0 && <span>Note: {note}</span>}
               </div>
               <div>
                 {amount > 0 && (
-                  <h3 className='list-item__title'>
+                  <h4>
                     Provision:{' '}
                     {utente.role === 'Admin'
                       ? numeral(amount / 100).format('0,0[.]00 $')
                       : ''}
-                  </h3>
+                  </h4>
                 )}
                 {consulenteVendita > 0 && (
-                  <h4 className='list-item__sub-title'>
-                    Kundenbetreuer: {consulenteVendita}
-                  </h4>
+                  <h4>Kundenbetreuer: {consulenteVendita}</h4>
                 )}
                 {utente.role === 'Admin'
                   ? provvM2square > 0 && (
@@ -151,7 +146,7 @@ export class ViewDealPage extends React.Component {
                   </h4>
                 )}
                 {payedAtStefano > 0 && (
-                  <span className='list-item__sub-title'>
+                  <span>
                     Bezahlt an Stefano am:{' '}
                     {moment(payedAtStefano).format('DD MMMM, YYYY')}
                   </span>
@@ -174,9 +169,9 @@ export class ViewDealPage extends React.Component {
           </div>
         </div>
 
-        <div className='content-container'>
+        <div className='container'>
           <button
-            className='print button button--secondary'
+            className='btn green'
             onClick={() => {
               creaPrenotazione(
                 acquirente,
@@ -192,7 +187,7 @@ export class ViewDealPage extends React.Component {
             Provisionsbestätigung
           </button>
           <button
-            className='print button button--secondary'
+            className='btn green'
             onClick={() => {
               widerrufsBelehrung(
                 acquirente,
@@ -206,7 +201,7 @@ export class ViewDealPage extends React.Component {
             Widerrufsbelehrung
           </button>
           <button
-            className='print button button--secondary'
+            className='btn green'
             onClick={() => {
               vollmachtNotarauftrag(
                 acquirente,
@@ -222,14 +217,11 @@ export class ViewDealPage extends React.Component {
           >
             Vollmacht Notarauftrag
           </button>
-          <Link
-            className='print button button--secondary'
-            to={`/datenblatt/${id}`}
-          >
+          <Link className='btn green' to={`/datenblatt/${id}`}>
             Notar Datenblatt
           </Link>
           <button
-            className='print button button--secondary'
+            className='btn green'
             onClick={() => {
               protocollo(
                 acquirente,

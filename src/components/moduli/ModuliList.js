@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 const ModuliPage = () => (
   <div>
-    <div className='page-header page-header-modulistica'>
-      <div className='content-container'>
-        <h1 className='page-header__title'>Formulare</h1>
+    <div className='grey lighten-4'>
+      <div className='container'>
+        <h1>Formulare</h1>
       </div>
     </div>
 
-    <div className='content-container'>
+    <div className='container'>
       <div className='list-header list-header-modulistica'>
         <div className='show-for-mobile'>Online ausfüllen</div>
         <div className='show-for-desktop'>Online ausfüllen</div>

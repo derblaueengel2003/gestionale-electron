@@ -20,18 +20,15 @@ export class EditUtentePage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Benutzer ändern</h1>
+        <div>
+          <div className='container'>
+            <h1>Benutzer ändern</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <UserForm user={this.props.utente} onSubmit={this.onSubmit} />
-          <button
-            className='button button--secondary-delete'
-            onClick={this.onRemove}
-          >
-            Benutzer löschen
+          <button className='btn-floating red' onClick={this.onRemove}>
+            <i className='material-icons'>remove</i>
           </button>
         </div>
       </div>
@@ -48,7 +45,4 @@ const mapDispatchToProps = dispatch => ({
   startRemoveUser: data => dispatch(startRemoveUser(data))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditUtentePage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditUtentePage);

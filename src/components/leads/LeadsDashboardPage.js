@@ -4,9 +4,9 @@ import LeadsListFilters from './LeadsListFilters';
 
 const LeadsDashboardPage = () => (
   <div>
-    <div className='page-header page-header-leads'>
-      <div className='content-container'>
-        <h1 className='page-header__title'>Aktive Anfrage</h1>
+    <div className='grey lighten-4'>
+      <div className='container'>
+        <h1>Aktive Anfrage</h1>
       </div>
     </div>
     <LeadsListFilters />

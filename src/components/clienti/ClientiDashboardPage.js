@@ -4,10 +4,9 @@ import ClientiListFilters from './ClientiListFilters';
 
 const ClientiDashboardPage = () => (
   <div>
-    {' '}
-    <div className='page-header page-header-clienti'>
-      <div className='content-container'>
-        <h1 className='page-header__title'>Adressbuch Kontakte</h1>
+    <div className='grey lighten-4'>
+      <div className='container'>
+        <h1>Adressbuch Kontakte</h1>
       </div>
     </div>
     <ClientiListFilters />

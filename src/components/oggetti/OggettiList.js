@@ -10,7 +10,7 @@ export const OggettiList = props => {
     // dal deal page
     return (
       props.oggetto.length > 0 && (
-        <div className='content-container'>
+        <div className='container'>
           <div className='list-header list-header-oggetti'>
             <div className='show-for-mobile'>Objekt</div>
             <div className='show-for-desktop'>Objekt</div>
@@ -27,16 +27,15 @@ export const OggettiList = props => {
   } else {
     // dalla dashboard oggetti page
     return (
-      <div className='content-container'>
-        <div className='page-header__actions'>
-          <Link className='btn-floating green' to='/oggettocreate'>
-            <i className='material-icons'>add</i>
-          </Link>
-        </div>
+      <div className='container'>
+        <div className='page-header__actions'></div>
         <div className='list-header list-header-oggetti'>
-          <div className='show-for-mobile'>Objekt</div>
-          <div className='show-for-desktop'>Objekt</div>
-          <div className='show-for-desktop'>Ref. Id</div>
+          <div>Objekt</div>
+          <div>
+            <Link className='btn-floating green' to='/oggettocreate'>
+              <i className='material-icons'>add</i>
+            </Link>
+          </div>
         </div>
         <div className='list-body'>
           {props.oggetti.length === 0 ? (

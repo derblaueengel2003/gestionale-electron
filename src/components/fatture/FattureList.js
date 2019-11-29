@@ -9,11 +9,10 @@ export const FattureList = props => {
   if (props.dealFatture) {
     return (
       props.dealFatture.length > 0 && (
-        <div className='content-container'>
+        <div className='container'>
           <div className='list-header'>
-            <div className='show-for-mobile'>Rechnungsnummer</div>
-            <div className='show-for-desktop'>Rechnungsnummer</div>
-            <div className='show-for-desktop'>Datum</div>
+            <div>Rechnungsnummer</div>
+            <div>Datum</div>
           </div>
           <div className='list-body'>
             {props.dealFatture.map(fattura => {
@@ -44,16 +43,16 @@ export const FattureList = props => {
   } else {
     //in questo caso i dati provengono dallo state. Siamo sulla fatture dashboard page
     return (
-      <div className='content-container'>
-        <div className='page-header__actions'>
-          <Link className='btn-floating green' to='/fatturacreate'>
-            <i className='material-icons'>add</i>
-          </Link>
-        </div>
+      <div className='container'>
+        <div className='page-header__actions'></div>
         <div className='list-header'>
-          <div className='show-for-mobile'>Rechnung</div>
-          <div className='show-for-desktop'>Rechnung</div>
-          <div className='show-for-desktop'>Datum</div>
+          <div>Rechnung</div>
+          <div>
+            {' '}
+            <Link className='btn-floating green' to='/fatturacreate'>
+              <i className='material-icons'>add</i>
+            </Link>
+          </div>
         </div>
         <div className='list-body'>
           {props.fatture.length === 0 ? (

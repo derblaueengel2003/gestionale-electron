@@ -11,7 +11,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
   if (cliente) {
     //dal deal page - singolo cliente
     return (
-      <div className='content-container'>
+      <div className='container'>
         <div className='list-header list-header-clienti'>{ruolo}</div>
         <div className='list-body'>
           <ClientiListItem key={cliente.id} {...cliente} />
@@ -21,16 +21,15 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
   } else {
     //tutti i clienti - visualizzazione nella clienti dashboard
     return (
-      <div className='content-container'>
-        <div className='page-header__actions'>
-          <Link className='btn-floating green' to='/customercreate'>
-            <i className='material-icons'>add</i>
-          </Link>
-        </div>
+      <div className='container'>
+        <div className='page-header__actions'></div>
         <div className='list-header list-header-clienti'>
-          <div className='show-for-mobile'>Kunde</div>
-          <div className='show-for-desktop'>Kunde</div>
-          <div className='show-for-desktop'>Firma</div>
+          <div>Kunde</div>
+          <div>
+            <Link className='btn-floating green' to='/customercreate'>
+              <i className='material-icons'>add</i>
+            </Link>
+          </div>
         </div>
         <div className='list-body'>
           {clienti.length === 0 ? (

@@ -70,7 +70,7 @@ export class DealListFilters extends React.Component {
 
   render() {
     return (
-      <div className='content-container'>
+      <div className='container'>
         <div className='input-group'>
           <div className='input-group__item'>
             <input

@@ -11,12 +11,12 @@ export class AddDealPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Deal hinzufügen</h1>
+        <div>
+          <div className='container'>
+            <h1>Deal hinzufügen</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <DealForm onSubmit={this.onSubmit} />
         </div>
       </div>
@@ -28,7 +28,4 @@ const mapDispatchToProps = dispatch => ({
   startAddDeal: deal => dispatch(startAddDeal(deal))
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(AddDealPage);
+export default connect(undefined, mapDispatchToProps)(AddDealPage);

@@ -21,15 +21,27 @@ export class ViewOggettiPage extends React.Component {
       <div>
         <div>
           <div className='page-header page-header-oggetti'>
-            <div className='content-container'>
-              <h1 className='page-header__title'>Objekt</h1>
+            <div className='container'>
+              <h1>Objekt</h1>
             </div>
           </div>
-          <div className='content-container'>
+          <div className='container'>
             <div className='list-header list-header-oggetti'>
-              <div className='show-for-mobile'>Details</div>
-              <div className='show-for-desktop'>Details</div>
-              <div className='show-for-desktop'></div>
+              <div>Details</div>
+              <div>
+                <Link
+                  className='btn-floating orange'
+                  to={`/oggettoedit/${this.props.oggetto.id}`}
+                >
+                  <i className='material-icons'>edit</i>
+                </Link>
+                <Link
+                  className='btn-floating green accent-3'
+                  to={`/oggettomatchview/${this.props.oggetto.id}`}
+                >
+                  Match
+                </Link>
+              </div>
             </div>
             <div className='list-body'>
               <div className='list-item'>
@@ -110,18 +122,7 @@ export class ViewOggettiPage extends React.Component {
                 </div>
               </div>
             </div>
-            <Link
-              className='button button--secondary-oggetti'
-              to={`/oggettoedit/${this.props.oggetto.id}`}
-            >
-              Objekt ändern
-            </Link>
-            <Link
-              className='button button--secondary-leads'
-              to={`/oggettomatchview/${this.props.oggetto.id}`}
-            >
-              Find a Match!
-            </Link>
+
             {/* Se ho cover e titolo, mostro il pulsante exposé */}
             {this.props.oggetto.downloadURLsCover &&
               this.props.oggetto.titoloDe.length > 0 && (
@@ -203,7 +204,7 @@ export class ViewOggettiPage extends React.Component {
             <ClientiList cliente={proprietario2} ruolo={'2. Eigentümer'} />
           </div>
         )}
-        <div className='content-container'>
+        <div className='container'>
           {this.props.oggetto.downloadURLsCover && (
             <div className='list-header list-header-oggetti'>Cover</div>
           )}
@@ -212,7 +213,7 @@ export class ViewOggettiPage extends React.Component {
               return <img className='foto' key={i} src={downloadURL} />;
             })}
         </div>
-        <div className='content-container'>
+        <div className='container'>
           {this.props.oggetto.downloadURLs && (
             <div className='list-header list-header-oggetti'>Bilder</div>
           )}
@@ -222,7 +223,7 @@ export class ViewOggettiPage extends React.Component {
             })}
         </div>
 
-        <div className='content-container'>
+        <div className='container'>
           {this.props.oggetto.downloadURLsGrundriss && (
             <div className='list-header list-header-oggetti'>Grundriss</div>
           )}
@@ -231,7 +232,7 @@ export class ViewOggettiPage extends React.Component {
               return <img className='foto' key={i} src={downloadURL} />;
             })}
         </div>
-        <div className='content-container'>
+        <div className='container'>
           {this.props.oggetto.downloadURLsMap && (
             <div className='list-header list-header-oggetti'>Map</div>
           )}
@@ -241,7 +242,7 @@ export class ViewOggettiPage extends React.Component {
             })}
         </div>
         {this.props.oggetto.titolo.length > 0 && (
-          <div className='content-container'>
+          <div className='container'>
             <div className='list-header list-header-oggetti'>Texte</div>
             <div className='list-item__sub-title'>{`Titolo: ${this.props.oggetto.titolo}`}</div>
             <div className='list-item__sub-title'>{`Descrizione: ${this.props.oggetto.descrizione}`}</div>

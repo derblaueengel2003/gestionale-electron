@@ -203,7 +203,11 @@ export default class FirmaForm extends React.Component {
           value={this.state.bic}
           onChange={this.changeHandler}
         />
-        <button className='button button--secondary-utenti'>Speichern</button>
+        <div>
+          <button className='btn-floating blue'>
+            <i className='material-icons'>save</i>
+          </button>
+        </div>
       </form>
     );
   }

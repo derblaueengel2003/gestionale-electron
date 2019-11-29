@@ -5,7 +5,7 @@ exports[`should correctly render Deals Summary with 1 deal 1`] = `
   className="page-header"
 >
   <div
-    className="content-container"
+    className="container"
   >
     <h1
       className="page-header__title"
@@ -40,7 +40,7 @@ exports[`should correctly render Deals Summary with more deals 1`] = `
   className="page-header"
 >
   <div
-    className="content-container"
+    className="container"
   >
     <h1
       className="page-header__title"

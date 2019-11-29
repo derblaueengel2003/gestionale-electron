@@ -5,86 +5,90 @@ import { Link } from 'react-router-dom';
 export const NavBar = ({ utente }) => {
   if (utente) {
     return (
-      <div className='content-container page-header__navbar'>
-        <div className='hide-on-med-and-up'>
-          <div id='menuToggle'>
-            <input type='checkbox' />
-            <span></span>
-            <span></span>
-            <span></span>
-            <ul id='menu'>
-              <Link to='/dashboard'>
-                <li>Deals</li>
-              </Link>
-              <Link to='/leads'>
-                <li>Anfragen</li>
-              </Link>
-              <Link to='/moduli'>
-                <li>Formulare</li>
-              </Link>
-              <Link to='/oggetti'>
-                <li>Objekte</li>
-              </Link>
-              <Link to='/customer'>
-                <li>Kontakte</li>
-              </Link>
+      <div>
+        <nav className='nav-wraper blue'>
+          <div className='container'>
+            <a href='#' className='sidenav-trigger' data-target='mobile-links'>
+              <i className='material-icons'>menu</i>
+            </a>
+            <ul className='hide-on-med-and-down'>
+              <li>
+                {' '}
+                <Link to='/dashboard'>Deals</Link>
+              </li>
+              <li>
+                {' '}
+                <Link to='/leads'>Anfragen</Link>
+              </li>
+              <li>
+                {' '}
+                <Link to='/moduli'>Formulare</Link>
+              </li>
+              <li>
+                {' '}
+                <Link to='/oggetti'>Objekte</Link>
+              </li>
+              <li>
+                {' '}
+                <Link to='/customer'>Kontakte</Link>
+              </li>
               {utente.role === 'Admin' && (
-                <Link to='/report'>
-                  <li>Report</li>
-                </Link>
+                <li>
+                  <Link to='/report'>Report</Link>
+                </li>
               )}
               {utente.role === 'Admin' && (
-                <Link to='/users'>
-                  <li>Benutzer</li>
-                </Link>
+                <li>
+                  <Link to='/users'>Benutzer</Link>
+                </li>
               )}
               {utente.role === 'Admin' && (
-                <Link to='/fatture'>
-                  <li>Rechnungen</li>
-                </Link>
+                <li>
+                  <Link to='/fatture'>Rechnungen</Link>
+                </li>
               )}
             </ul>
           </div>
-        </div>
-        <div className='content-container show-for-desktop'>
-          <Link className='btn blue waves-effect waves-light ' to='/dashboard'>
-            Deals
-          </Link>
-          <Link className='btn blue waves-effect waves-light ' to='/leads'>
-            Anfragen
-          </Link>
-          <Link className='btn blue waves-effect waves-light ' to='/moduli'>
-            Formulare
-          </Link>
-          <Link className='btn blue waves-effect waves-light ' to='/oggetti'>
-            Objekte
-          </Link>
-          <Link className='btn blue waves-effect waves-light ' to='/customer'>
-            Kontakte
-          </Link>
+        </nav>
+
+        <ul className='sidenav' id='mobile-links'>
+          <li>
+            <Link to='/dashboard'>Deals</Link>
+          </li>
+          <li>
+            <Link to='/leads'>Anfragen</Link>
+          </li>
+          <li>
+            <Link to='/moduli'>Formulare</Link>
+          </li>
+          <li>
+            <Link to='/oggetti'>Objekte</Link>
+          </li>
+          <li>
+            <Link to='/customer'>Kontakte</Link>
+          </li>
           {utente.role === 'Admin' && (
-            <Link className='btn blue waves-effect waves-light ' to='/report'>
-              Report
-            </Link>
+            <li>
+              <Link to='/report'>Report</Link>
+            </li>
           )}
           {utente.role === 'Admin' && (
-            <Link className='btn blue waves-effect waves-light' to='/users'>
-              Benutzer
-            </Link>
+            <li>
+              <Link to='/users'>Benutzer</Link>
+            </li>
           )}
           {utente.role === 'Admin' && (
-            <Link className='btn blue waves-effect waves-light' to='/fatture'>
-              Rechnungen
-            </Link>
+            <li>
+              <Link to='/fatture'>Rechnungen</Link>
+            </li>
           )}
-        </div>
+        </ul>
       </div>
     );
   } else {
     setTimeout(location.reload(), 500);
   }
 };
-
 const mapStateToProps = state => {
   return {
     utente: state.utenti.find(

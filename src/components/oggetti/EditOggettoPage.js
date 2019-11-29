@@ -57,22 +57,23 @@ export class EditOggettoPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Objekt ändern</h1>
+        <div>
+          <div className='container'>
+            <h1>Objekt ändern</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <OggettoForm oggetto={this.props.oggetto} onSubmit={this.onSubmit} />
+
           <button
-            className='button button--secondary-delete'
+            className='btn-floating red'
             onClick={
               this.props.utente.role === 'Admin'
                 ? this.onRemove
                 : this.onDisable
             }
           >
-            Objekt löschen
+            <i className='material-icons'>remove</i>
           </button>
         </div>
       </div>
