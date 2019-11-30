@@ -22,9 +22,8 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
     //tutti i clienti - visualizzazione nella clienti dashboard
     return (
       <div className='container'>
-        <div className='page-header__actions'></div>
-        <div className='list-header list-header-clienti'>
-          <div>Kunde</div>
+        <div className='list-header'>
+          <div></div>
           <div>
             <Link className='btn-floating green' to='/customercreate'>
               <i className='material-icons'>add</i>

@@ -26,8 +26,8 @@ export const LeadsList = props => {
     //in questo caso i dati provengono dallo state. Siamo sulla lead dashboard page
     return (
       <div className='container'>
-        <div className='list-header list-header-leads'>
-          <div>Anfragen</div>
+        <div className='list-header'>
+          <div></div>
           <div>
             <Link className='btn-floating green' to='/leadscreate'>
               <i className='material-icons'>add</i>

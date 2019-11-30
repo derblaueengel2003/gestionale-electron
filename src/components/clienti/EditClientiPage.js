@@ -77,13 +77,8 @@ export class EditClientePage extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <CustomerForm
-            customer={this.props.cliente}
-            onSubmit={this.onSubmit}
-          />
-
           <button
-            className='btn-floating red'
+            className='btn-floating red right'
             onClick={
               this.props.utente.role === 'Admin'
                 ? this.onRemove
@@ -92,6 +87,10 @@ export class EditClientePage extends React.Component {
           >
             <i className='material-icons'>remove</i>
           </button>
+          <CustomerForm
+            customer={this.props.cliente}
+            onSubmit={this.onSubmit}
+          />
         </div>
       </div>
     );

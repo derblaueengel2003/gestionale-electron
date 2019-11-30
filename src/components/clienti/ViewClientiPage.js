@@ -37,22 +37,22 @@ export class ViewClientiPage extends React.Component {
     );
     return (
       <div>
-        <div className='page-header page-header-clienti'>
+        <div className='grey lighten-4'>
           <div className='container'>
-            <h1>Kunde</h1>
+            <h1>Adressbuch Kontakte</h1>
           </div>
         </div>
         <div className='container'>
-          <div className='list-header list-header-clienti'>
-            <div>Kundendetails</div>
+          <div className='list-header'>
+            <div></div>
             <div>
               <Link className='btn-floating orange' to={`/customeredit/${id}`}>
                 <i className='material-icons'>edit</i>
               </Link>
             </div>
           </div>
-          <div className='list-body'>
-            <div className='list-item'>
+          <div>
+            <div>
               <div>
                 {ditta.length > 0 && <h3>{ditta}</h3>}
                 {cognome.length > 0 && (

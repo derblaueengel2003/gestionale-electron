@@ -16,15 +16,27 @@ export const OggettiListItem = ({
 }) => {
   if (visible || utente.role === 'Admin') {
     return (
-      <div className={visible ? 'list-item' : 'list-item disabled'}>
-        <div>
-          <Link to={`/oggettoview/${id}`}>
-            <h3 className='list-item__title'>{`${via} ${numeroCivico}, WE ${numeroAppartamento}`}</h3>
-          </Link>
-          <span className='list-item__sub-title'>{`${cap} ${citta}, ${nazione}`}</span>
-        </div>
-        <div>
-          <h3 className='list-item__title'>{rifId} </h3>
+      <div className='row'>
+        <div className='col s12'>
+          <div className='card'>
+            <div className='card-content'>
+              <div className='row'>
+                <div className='col s12 m10'>
+                  <div className={visible ? '' : 'disabled'}>
+                    <div>
+                      <Link to={`/oggettoview/${id}`}>
+                        <span className='card-title'>{`${via} ${numeroCivico}, WE ${numeroAppartamento}`}</span>
+                      </Link>
+                      <span>{`${cap} ${citta}, ${nazione}`}</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <span className='card-title'>Rif. ID{rifId} </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

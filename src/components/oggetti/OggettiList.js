@@ -28,9 +28,8 @@ export const OggettiList = props => {
     // dalla dashboard oggetti page
     return (
       <div className='container'>
-        <div className='page-header__actions'></div>
-        <div className='list-header list-header-oggetti'>
-          <div>Objekt</div>
+        <div className='list-header'>
+          <div></div>
           <div>
             <Link className='btn-floating green' to='/oggettocreate'>
               <i className='material-icons'>add</i>

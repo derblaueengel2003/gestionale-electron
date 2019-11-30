@@ -15,15 +15,13 @@ export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed }) => {
 
   return (
     <div>
-      <div className='container'>
-        <h2>
-          Zusammenfassung: <span>{dealCount}</span> {dealWord} und Gesamtbetrag
-          von <span>{formattedDealsTotal}</span>
-        </h2>
-        <h2>
-          Erhalten: <span>{formattedDealsPayed}</span> - Offen:{' '}
+      <div className=''>
+        <h5>
+          <span>{dealCount}</span> {dealWord} - Total:{' '}
+          <span>{formattedDealsTotal}</span> - Erhalten:{' '}
+          <span>{formattedDealsPayed}</span> - Offen:{' '}
           <span>{dealsPending}</span>
-        </h2>
+        </h5>
       </div>
     </div>
   );

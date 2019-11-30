@@ -10,7 +10,7 @@ export const Header = ({ startLogout }) => (
         <Link className='header__title' to='/dashboard'>
           <img src='/images/logo.png'></img>
         </Link>
-        <button className='button button--link' onClick={startLogout}>
+        <button className='btn white black-text' onClick={startLogout}>
           Logout
         </button>
       </div>
@@ -22,7 +22,4 @@ const mapDispatchToProps = dispatch => ({
   startLogout: () => dispatch(startLogout())
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(Header);
+export default connect(undefined, mapDispatchToProps)(Header);

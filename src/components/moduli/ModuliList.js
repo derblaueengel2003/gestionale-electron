@@ -10,74 +10,62 @@ const ModuliPage = () => (
     </div>
 
     <div className='container'>
-      <div className='list-header list-header-modulistica'>
-        <div className='show-for-mobile'>Online ausfüllen</div>
-        <div className='show-for-desktop'>Online ausfüllen</div>
-      </div>
-      <div className='list-item'>
-        <Link
-          className='print button button--secondary-modulistica'
-          to='/makleralleinauftrag'
-        >
+      <div>
+        <div>Online ausfüllen</div>
+
+        <Link className='btn teal' to='/makleralleinauftrag'>
           Makler-Allein-Auftrag
         </Link>
-        <Link
-          className='print button button--secondary-modulistica'
-          to='/widerrufsbelehrung'
-        >
+        <Link className='btn teal' to='/widerrufsbelehrung'>
           Widerrufsbelehrung
         </Link>
-        <Link
-          className='print button button--secondary-modulistica'
-          to='/vollmachtunterlagen'
-        >
+        <Link className='btn teal' to='/vollmachtunterlagen'>
           Vollmacht Empfang Unterlagen
         </Link>
       </div>
+    </div>
 
-      <div className='list-header list-header-modulistica'>
-        <div className='show-for-mobile'>Blanko</div>
-        <div className='show-for-desktop'>Blanko</div>
-      </div>
-      <div className='list-item'>
-        <a href='./files/Provisionsbestaetigung.pdf' download>
-          Provisionsbestätigung
-        </a>
-      </div>
+    <div className='container'>
+      <ul className='collection with-header'>
+        <li className='collection-header'>
+          <h4>Blanko</h4>
+        </li>
+        <li className='collection-item'>
+          <a href='./files/Provisionsbestaetigung.pdf' download>
+            Provisionsbestätigung
+          </a>
+        </li>
 
-      <div className='list-item'>
-        <a href='./files/Verbraucherwiderrufsbelehrung.pdf' download>
-          Verbraucherwiderrufsbelehrung
-        </a>
-      </div>
-      <div className='list-item'>
-        <a
-          href='./files/Vollmacht zur Vorbereitung einer notariellen Kaufvertragsurkunde.pdf'
-          download
-        >
-          Vollmacht zur Vorbereitung einer notariellen Kaufvertragsurkunde
-        </a>
-      </div>
-      <div className='list-item'>
-        <a href='./files/Makleralleinauftrag.pdf' download>
-          Makler-Allein-Auftrag
-        </a>
-      </div>
+        <li className='collection-item'>
+          <a href='./files/Verbraucherwiderrufsbelehrung.pdf' download>
+            Verbraucherwiderrufsbelehrung
+          </a>
+        </li>
+        <li className='collection-item'>
+          <a
+            href='./files/Vollmacht zur Vorbereitung einer notariellen Kaufvertragsurkunde.pdf'
+            download
+          >
+            Vollmacht zur Vorbereitung einer notariellen Kaufvertragsurkunde
+          </a>
+        </li>
+        <li className='collection-item'>
+          <a href='./files/Makleralleinauftrag.pdf' download>
+            Makler-Allein-Auftrag
+          </a>
+        </li>
 
-      <div className='list-item'>
-        <a href='./files/Dokumentationsbogen.docx' download>
-          GWG Dokumentationsbogen Nat.Pers.
-        </a>
-      </div>
-      <div className='list-item'>
-        <a href='./files/DokumentationsbogenJP.docx' download>
-          GWG Dokumentationsbogen Jur.Pers.
-        </a>
-      </div>
-      <div className='list-header'>
-        <div className='show-for-mobile'> </div>
-        <div className='show-for-desktop'> </div>
-      </div>
+        <li className='collection-item'>
+          <a href='./files/Dokumentationsbogen.docx' download>
+            GWG Dokumentationsbogen Nat.Pers.
+          </a>
+        </li>
+        <li className='collection-item'>
+          <a href='./files/DokumentationsbogenJP.docx' download>
+            GWG Dokumentationsbogen Jur.Pers.
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DealListItem from './DealListItem';
+import DealsSummary from './DealsSummary';
 import selectDeals from '../../selectors/deals';
 import { Link } from 'react-router-dom';
 
@@ -18,8 +19,8 @@ export const DealList = ({
       clienteDeals.length > 0 && (
         <div className='container'>
           <div className='list-header list-header-deals'>
-            <div className='show-for-mobile'>Provision</div>
-            <div className='show-for-desktop'>Provision</div>
+            <div className='show-for-mobile'>Deal</div>
+            <div className='show-for-desktop'>Deal</div>
             <div className='show-for-desktop'>Betrag</div>{' '}
           </div>
           <div className='list-body'>
@@ -61,8 +62,8 @@ export const DealList = ({
   } else {
     return (
       <div className='container'>
-        <div className='list-header list-header-deals'>
-          <div>Provision</div>
+        <div className='list-header'>
+          <DealsSummary />
           <div>
             {' '}
             {utente.role === 'Admin' && (
