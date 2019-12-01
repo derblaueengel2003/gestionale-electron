@@ -109,31 +109,33 @@ const DealListItem = ({
                   {' '}
                   <span className='card-title'>{`Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</span>
                 </Link>
-                <span>
+                <h6>
                   {createdAt
                     ? `Reservierung vom ${moment(createdAt).format(
                         'DD MMMM, YYYY'
                       )}`
                     : null}
-                </span>
-                <h5>
+                </h6>
+                <h6>
                   {acquirente
                     ? `Käufer: ${acquirente.nome} ${acquirente.cognome} ${acquirente.ditta}`
                     : ''}{' '}
                   {acquirente2
                     ? `- ${acquirente2.nome} ${acquirente2.cognome} ${acquirente2.ditta}`
                     : ''}
-                </h5>
-                <h5>
+                </h6>
+                <h6>
                   {venditore
                     ? `Verkäufer: ${venditore.nome} ${venditore.cognome} ${venditore.ditta}`
                     : ''}{' '}
                   {venditore2
                     ? `- ${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta}`
                     : ''}
-                </h5>
-                {`Erledigte To-dos: ${todoCount} di 11`}
-                <ProgressBar percentage={(todoCount * 100) / 11} />
+                </h6>
+                <blockquote>
+                  {`Erledigte To-dos: ${todoCount} von 11`}
+                  <ProgressBar percentage={(todoCount * 100) / 11} />
+                </blockquote>
               </div>
               <div>
                 {utente.role === 'Mitarbeiter' ? (

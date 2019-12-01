@@ -2,12 +2,12 @@
   position: relative;
   height: 10px;
   // width: 50px;
-  border-radius: 50px;
+  border-radius: 0px;
   border: 1px solid #333;
 
-  @media (min-width: $desktop-breakpoint) {
-    width: $desktop-breakpoint;
-  }
+  // @media (min-width: $desktop-breakpoint) {
+  //   width: $desktop-breakpoint;
+  // }
 }
 
 .filler {

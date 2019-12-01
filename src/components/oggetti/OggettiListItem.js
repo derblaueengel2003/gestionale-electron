@@ -32,7 +32,7 @@ export const OggettiListItem = ({
                   </div>
                 </div>
                 <div>
-                  <span className='card-title'>Rif. ID{rifId} </span>
+                  <span className='card-title'>Ref. ID{rifId} </span>
                 </div>
               </div>
             </div>

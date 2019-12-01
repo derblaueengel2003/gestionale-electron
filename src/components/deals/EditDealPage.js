@@ -28,10 +28,10 @@ export class EditDealPage extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <DealForm deal={this.props.deal} onSubmit={this.onSubmit} />
-          <button className='btn-floating red' onClick={this.onRemove}>
+          <button className='btn-floating red right' onClick={this.onRemove}>
             <i className='material-icons'>remove</i>
           </button>
+          <DealForm deal={this.props.deal} onSubmit={this.onSubmit} />
         </div>
       </div>
     );
