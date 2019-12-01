@@ -16,10 +16,13 @@ const ModuliPage = () => (
         <Link className='btn teal' to='/makleralleinauftrag'>
           Makler-Allein-Auftrag
         </Link>
-        <Link className='btn teal' to='/widerrufsbelehrung'>
+        <Link className='btn teal btn-floating-margin' to='/widerrufsbelehrung'>
           Widerrufsbelehrung
         </Link>
-        <Link className='btn teal' to='/vollmachtunterlagen'>
+        <Link
+          className='btn teal btn-floating-margin'
+          to='/vollmachtunterlagen'
+        >
           Vollmacht Empfang Unterlagen
         </Link>
       </div>

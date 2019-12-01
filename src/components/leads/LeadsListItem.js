@@ -41,40 +41,32 @@ export class LeadsListItem extends React.Component {
                       {cliente && cliente.cognome}
                     </span>
                   </Link>
-                  <h5>
+                  <h6>
                     Budget:{' '}
                     {numeral(this.props.leadBudget / 100).format('0,0[.]00 $')}
-                  </h5>
-                  <span className='list-item__sub-title'>
+                  </h6>
+                  <p>
                     {consulenteVendita ? `(${consulenteVendita.name})` : null}
-                  </span>
-                  <div className='list-item__sub-title'>
+                  </p>
+                  <p>
                     {this.props.leadCreatedAt
                       ? moment(this.props.leadCreatedAt).format('DD MMMM, YYYY')
                       : null}
-                  </div>
-                  <div className='list-item__sub-title'>
-                    {cliente ? cliente.email : this.props.leadEmail}
-                  </div>
-                  <div className='list-item__sub-title'>
-                    {cliente ? cliente.telefono1 : this.props.leadTelefono}
-                  </div>
-                  <div className='list-item__sub-title'>
-                    {this.props.leadOggettoStato ? immobile : null}
-                  </div>
+                  </p>
+                  <p>{cliente ? cliente.email : this.props.leadEmail}</p>
+                  <p>{cliente ? cliente.telefono1 : this.props.leadTelefono}</p>
+                  <p>{this.props.leadOggettoStato ? immobile : null}</p>
                   {/* il prop showAll lo passo per stabilire se mostrare tutto o meno a seconda da dove arriva la richiesta al componente (dashboard o pagina dettaglio)*/}
                   {this.props.showAll ? (
-                    <div className='list-item__sub-title'>
-                      {this.props.leadNote ? this.props.leadNote : null}
-                    </div>
+                    <p>{this.props.leadNote ? this.props.leadNote : null}</p>
                   ) : (
-                    <div className='list-item__sub-title'>
+                    <p>
                       <Link to={`/leadview/${this.props.id}`}>
                         {this.props.leadNote ? (
                           <strong>Mehr details -></strong>
                         ) : null}
                       </Link>
-                    </div>
+                    </p>
                   )}
                 </div>
 
@@ -95,7 +87,7 @@ export class LeadsListItem extends React.Component {
 
                   {cliente && cliente.email && (
                     <a
-                      className='btn-floating blue right'
+                      className='btn-floating blue right btn-floating-margin'
                       href={`mailto:${
                         cliente ? cliente.email : this.props.leadEmail
                       }`}

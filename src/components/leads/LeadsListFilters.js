@@ -6,8 +6,12 @@ import {
   sortByAmount,
   setLeadsStatoFilter
 } from '../../actions/filters';
+import M from 'materialize-css';
 
 export class LeadsListFilters extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
   onLeadChange = e => {
     this.props.setLeadsFilter(e.target.value);
   };
@@ -36,26 +40,23 @@ export class LeadsListFilters extends React.Component {
               onChange={this.onLeadChange}
             />
           </div>
-          <div className='input-group__item'>
+          <div>
             <select
-              className='select'
               value={this.props.filters.leadStato}
               onChange={this.onLeadsStatoChange}
             >
               <option value=''>Typ:</option>
-              <option value='libero'>Leerstehend</option>
-              <option value='affittato'>Vermietet</option>
+              <option value='libero'>WHG Leerstehend</option>
+              <option value='affittato'>WHG Vermietet</option>
               <option value='libero o affittato'>
-                Leerstehend oder vermietet
+                WHG Leerstehend oder vermietet
               </option>
               <option value='commerciale'>Gewerbe</option>
               <option value='aph'>Pflegeheim</option>
             </select>
           </div>
-          <div className='input-group__item'>
-            <label>Sortieren: </label>
+          <div className='margine-sinistro'>
             <select
-              className='select'
               value={this.props.filters.sortBy}
               onChange={this.onSortChange}
             >
@@ -80,7 +81,4 @@ const mapDispatchToProps = dispatch => ({
   sortByAmount: () => dispatch(sortByAmount())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LeadsListFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(LeadsListFilters);

@@ -63,10 +63,8 @@ export class EditOggettoPage extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <OggettoForm oggetto={this.props.oggetto} onSubmit={this.onSubmit} />
-
           <button
-            className='btn-floating red'
+            className='btn-floating red right'
             onClick={
               this.props.utente.role === 'Admin'
                 ? this.onRemove
@@ -75,6 +73,7 @@ export class EditOggettoPage extends React.Component {
           >
             <i className='material-icons'>remove</i>
           </button>
+          <OggettoForm oggetto={this.props.oggetto} onSubmit={this.onSubmit} />
         </div>
       </div>
     );

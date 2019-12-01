@@ -44,45 +44,37 @@ export const FattureList = props => {
     //in questo caso i dati provengono dallo state. Siamo sulla fatture dashboard page
     return (
       <div className='container'>
-        <div className='page-header__actions'></div>
-        <div className='list-header'>
-          <div>Rechnung</div>
+        <Link className='btn-floating green right' to='/fatturacreate'>
+          <i className='material-icons'>add</i>
+        </Link>
+
+        {props.fatture.length === 0 ? (
           <div>
-            {' '}
-            <Link className='btn-floating green' to='/fatturacreate'>
-              <i className='material-icons'>add</i>
-            </Link>
+            <span>Kein Ergebnis anhand der angegebenen Filtern</span>
           </div>
-        </div>
-        <div className='list-body'>
-          {props.fatture.length === 0 ? (
-            <div className='list-item list-item--message'>
-              <span>Kein Ergebnis anhand der angegebenen Filtern</span>
-            </div>
-          ) : (
-            props.fatture.map(fattura => {
-              const deal = props.deals.find(deal => deal.id === fattura.dealId);
-              const oggetto = deal
-                ? props.oggetti.find(ogg => ogg.id === deal.oggettoId)
-                : '';
-              const cliente = props.clienti.find(
-                ilcliente => ilcliente.id === fattura.clienteId
-              );
-              const cliente2 = props.clienti.find(
-                ilcliente => ilcliente.id === fattura.clienteId2
-              );
-              return (
-                <FattureListItem
-                  key={fattura.id}
-                  {...fattura}
-                  oggetto={oggetto}
-                  cliente={cliente}
-                  cliente2={cliente2}
-                />
-              );
-            })
-          )}
-        </div>
+        ) : (
+          props.fatture.map(fattura => {
+            const deal = props.deals.find(deal => deal.id === fattura.dealId);
+            const oggetto = deal
+              ? props.oggetti.find(ogg => ogg.id === deal.oggettoId)
+              : '';
+            const cliente = props.clienti.find(
+              ilcliente => ilcliente.id === fattura.clienteId
+            );
+            const cliente2 = props.clienti.find(
+              ilcliente => ilcliente.id === fattura.clienteId2
+            );
+            return (
+              <FattureListItem
+                key={fattura.id}
+                {...fattura}
+                oggetto={oggetto}
+                cliente={cliente}
+                cliente2={cliente2}
+              />
+            );
+          })
+        )}
       </div>
     );
   }

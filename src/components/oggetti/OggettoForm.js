@@ -368,8 +368,13 @@ export class OggettoForm extends React.Component {
     const filterOptions = createFilterOptions({ options });
 
     return (
-      <form className='formfff' onSubmit={this.onSubmit}>
+      <form className='form' onSubmit={this.onSubmit}>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
+        <div>
+          <button className='btn-floating blue right btn-floating-margin'>
+            <i className='material-icons'>save</i>
+          </button>
+        </div>
         <div className='row'>
           <div className='col s12'>
             <ul

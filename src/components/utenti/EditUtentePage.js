@@ -26,10 +26,13 @@ export class EditUtentePage extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <UserForm user={this.props.utente} onSubmit={this.onSubmit} />
-          <button className='btn-floating red' onClick={this.onRemove}>
+          <button
+            className='btn-floating red right btn-floating-margin'
+            onClick={this.onRemove}
+          >
             <i className='material-icons'>remove</i>
           </button>
+          <UserForm user={this.props.utente} onSubmit={this.onSubmit} />
         </div>
       </div>
     );

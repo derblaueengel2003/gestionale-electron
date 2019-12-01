@@ -8,8 +8,12 @@ import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import { Link } from 'react-router-dom';
+import M from 'materialize-css';
 
 export class LeadForm extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -91,6 +95,8 @@ export class LeadForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onLeadIdChange}
         />
+        {/*
+          tolgo il pulsante aggiungi nuovo utente 
         {!this.state.leadId && (
           <div className='page-header__actions'>
             <Link
@@ -101,6 +107,7 @@ export class LeadForm extends React.Component {
             </Link>
           </div>
         )}
+        */}
         Budget:
         <input
           className={`text-input`}
@@ -111,7 +118,6 @@ export class LeadForm extends React.Component {
         />
         Immobilientyp und -status:
         <select
-          className='select'
           name='leadOggettoStato'
           value={this.state.leadOggettoStato}
           onChange={this.changeHandler}
@@ -133,7 +139,7 @@ export class LeadForm extends React.Component {
           onChange={this.changeHandler}
         ></textarea>
         <div>
-          <button className='btn-floating blue'>
+          <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>
           </button>
         </div>

@@ -4,27 +4,27 @@ import { connect } from 'react-redux';
 import UtentiListItem from './UtentiListItem';
 
 export const UtentiList = props => (
-  <div className='container'>
-    <div className='page-header__actions'></div>
-    <div className='list-header'>
-      <div>Benutzer</div>
-      <div>
-        {' '}
-        <Link className='btn-floating green' to='/usercreate'>
-          <i className='material-icons'>add</i>
-        </Link>
+  <div>
+    <div className='grey lighten-4'>
+      <div className='container'>
+        <h1>Benutzer</h1>
       </div>
     </div>
-    <div className='list-body'>
-      {props.utenti.length === 0 ? (
-        <div className='list-item list-item--message'>
-          <span>Kein Ergebnis anhand der angegebenen Filtern</span>
-        </div>
-      ) : (
-        props.utenti.map(utente => {
-          return <UtentiListItem key={utente.id} {...utente} />;
-        })
-      )}
+    <div className='container'>
+      <Link className='btn-floating green right' to='/usercreate'>
+        <i className='material-icons'>add</i>
+      </Link>
+      <div>
+        {props.utenti.length === 0 ? (
+          <div>
+            <span>Kein Ergebnis anhand der angegebenen Filtern</span>
+          </div>
+        ) : (
+          props.utenti.map(utente => {
+            return <UtentiListItem key={utente.id} {...utente} />;
+          })
+        )}
+      </div>
     </div>
   </div>
 );

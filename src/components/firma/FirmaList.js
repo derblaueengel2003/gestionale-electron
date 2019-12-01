@@ -4,9 +4,13 @@ import { connect } from 'react-redux';
 import FirmaListItem from './FirmaListItem';
 
 export const FirmaList = props => (
-  <div className='container'>
-    <div className='list-header'>
-      <div>Firmendaten</div>
+  <div>
+    <div className='grey lighten-4'>
+      <div className='container'>
+        <h1>Firmendaten</h1>
+      </div>
+    </div>
+    <div className='container'>
       <div>
         {props.firma.length < 1 && (
           <div>
@@ -16,12 +20,12 @@ export const FirmaList = props => (
           </div>
         )}
       </div>
-    </div>
-    <div className='list-body'>
-      {props.firma &&
-        props.firma.map(firma => {
-          return <FirmaListItem key={firma.id} {...firma} />;
-        })}
+      <div>
+        {props.firma &&
+          props.firma.map(firma => {
+            return <FirmaListItem key={firma.id} {...firma} />;
+          })}
+      </div>
     </div>
   </div>
 );

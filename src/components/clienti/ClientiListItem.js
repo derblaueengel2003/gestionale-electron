@@ -28,14 +28,22 @@ export const ClientiListItem = ({
                           {nome} {cognome}{' '}
                         </span>{' '}
                       </Link>
+                      <p>{ditta} </p>
                       <p>{email}</p>
                       <p>{telefono1}</p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                <span className='card-title'>{ditta} </span>
+                <div>
+                  {email.length > 0 && (
+                    <a
+                      href={`mailto:${email}`}
+                      className='btn-floating blue right'
+                    >
+                      <i className='material-icons'>email</i>
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </div>

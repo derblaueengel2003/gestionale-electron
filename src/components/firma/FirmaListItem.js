@@ -22,32 +22,43 @@ const FirmaListItem = ({
   bic,
   id
 }) => (
-  <Link className='list-item' to={`/firmaedit/${id}`}>
-    <div>
-      <h3 className='list-item__title'>
-        {name} {name2 && ` - ${name2}`}
-      </h3>
-      <div className='list-item__sub-title'> {adresse}</div>
-      <div className='list-item__sub-title'>
-        {' '}
-        {plz} {stadt}, {staat}
+  <div className='row'>
+    <div className='col s12'>
+      <div className='card'>
+        <div className='card-content'>
+          <div className='row'>
+            <div className='col s12 m10'>
+              <Link to={`/firmaedit/${id}`}>
+                <span className='card-title'>
+                  {name} {name2 && ` - ${name2}`}
+                </span>
+              </Link>
+              <p> {adresse}</p>
+              <p>
+                {' '}
+                {plz} {stadt}, {staat}
+              </p>
+              <p> {telefon}</p>
+              <p> {fax}</p>
+              <p> {website}</p>
+              <p>Steuernummer {steuerNr}</p>
+              <p>Ust.-IdNr. {ustIdNr}</p>
+              <p> {motto}</p>
+              <p>Öffnungszeiten {open}</p>
+              <p>Kontoinhaber {kontoInhaber}</p>
+              <p>Bank {bank}</p>
+              <p>IBAN {iban}</p>
+              <p>BIC/SWIFT {bic}</p>
+
+              <div>
+                <span className='card-title'>{email} </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className='list-item__sub-title'> {telefon}</div>
-      <div className='list-item__sub-title'> {fax}</div>
-      <div className='list-item__sub-title'> {website}</div>
-      <div className='list-item__sub-title'>Steuernummer {steuerNr}</div>
-      <div className='list-item__sub-title'>Ust.-IdNr. {ustIdNr}</div>
-      <div className='list-item__sub-title'> {motto}</div>
-      <div className='list-item__sub-title'>Öffnungszeiten {open}</div>
-      <div className='list-item__sub-title'>Kontoinhaber {kontoInhaber}</div>
-      <div className='list-item__sub-title'>Bank {bank}</div>
-      <div className='list-item__sub-title'>IBAN {iban}</div>
-      <div className='list-item__sub-title'>BIC/SWIFT {bic}</div>
     </div>
-    <div>
-      <h3 className='list-item__title'>{email} </h3>
-    </div>
-  </Link>
+  </div>
 );
 
 export default FirmaListItem;

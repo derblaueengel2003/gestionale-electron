@@ -10,8 +10,12 @@ import {
   setEndDate
 } from '../../actions/filters';
 import moment from 'moment';
+import M from 'materialize-css';
 
 export class DealListFilters extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
   state = {
     calendarFocused: null
   };
@@ -81,9 +85,8 @@ export class DealListFilters extends React.Component {
               onChange={this.onTextChange}
             />
           </div>
-          <div className='input-group__item'>
+          <div>
             <select
-              className='select'
               value={this.props.filters.sortBy}
               onChange={this.onSortChange}
             >
@@ -92,7 +95,7 @@ export class DealListFilters extends React.Component {
               <option value='paid'>Bezahlt</option>
             </select>
           </div>
-          <div className='input-group__item'>
+          <div className='margine-sinistro'>
             <DateRangePicker
               startDate={this.props.filters.startDate}
               endDate={this.props.filters.endDate}

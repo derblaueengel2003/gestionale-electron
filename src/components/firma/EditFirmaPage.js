@@ -26,10 +26,10 @@ export class EditFirmaPage extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <FirmaForm firma={this.props.firma} onSubmit={this.onSubmit} />
-          <button className='btn-floating red' onClick={this.onRemove}>
+          <button className='btn-floating red right' onClick={this.onRemove}>
             <i className='material-icons'>remove</i>
           </button>
+          <FirmaForm firma={this.props.firma} onSubmit={this.onSubmit} />
         </div>
       </div>
     );

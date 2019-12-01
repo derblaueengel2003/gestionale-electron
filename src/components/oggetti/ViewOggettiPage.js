@@ -33,7 +33,7 @@ export class ViewOggettiPage extends React.Component {
               <i className='material-icons'>edit</i>
             </Link>
             <Link
-              className='btn-floating green accent-3 right'
+              className='btn-floating green accent-3 right btn-floating-margin'
               to={`/oggettomatchview/${this.props.oggetto.id}`}
             >
               Match
@@ -117,63 +117,87 @@ export class ViewOggettiPage extends React.Component {
         </div>
         <div className='container section'>
           {/* Se ho cover e titolo, mostro il pulsante exposé */}
-          {this.props.oggetto.downloadURLsCover &&
-            this.props.oggetto.titoloDe.length > 0 && (
-              <button
-                className='btn'
-                onClick={() => {
-                  expose(
-                    this.props.oggetto,
-                    this.props.firma,
-                    this.props.utente,
-                    this.props.ceo,
-                    'de'
-                  );
-                }}
-              >
-                Exposé deutsch
-              </button>
-            )}
-          {this.props.oggetto.downloadURLsCover &&
-            this.props.oggetto.titolo.length > 0 && (
-              <button
-                className='btn'
-                onClick={() => {
-                  expose(
-                    this.props.oggetto,
-                    this.props.firma,
-                    this.props.utente,
-                    this.props.ceo,
-                    'it'
-                  );
-                }}
-              >
-                Exposé italienisch
-              </button>
-            )}
+          <ul className='collection  s12 m6'>
+            {this.props.oggetto.downloadURLsCover &&
+              this.props.oggetto.titoloDe.length > 0 && (
+                <li class='collection-item'>
+                  <div>
+                    Exposé deutsch
+                    <a href='#!' class='secondary-content'>
+                      <i
+                        class='material-icons'
+                        onClick={() => {
+                          expose(
+                            this.props.oggetto,
+                            this.props.firma,
+                            this.props.utente,
+                            this.props.ceo,
+                            'de'
+                          );
+                        }}
+                      >
+                        picture_as_pdf
+                      </i>
+                    </a>
+                  </div>
+                </li>
+              )}
 
-          {this.props.oggetto.downloadURLsCover &&
-            this.props.oggetto.titoloEn.length > 0 && (
-              <button
-                className='btn'
-                onClick={() => {
-                  expose(
-                    this.props.oggetto,
-                    this.props.firma,
-                    this.props.utente,
-                    this.props.ceo,
-                    'en'
-                  );
-                }}
-              >
-                Exposé englisch
-              </button>
-            )}
+            {this.props.oggetto.downloadURLsCover &&
+              this.props.oggetto.titolo.length > 0 && (
+                <li class='collection-item'>
+                  <div>
+                    Exposé italienisch
+                    <a href='#!' class='secondary-content'>
+                      <i
+                        class='material-icons'
+                        onClick={() => {
+                          expose(
+                            this.props.oggetto,
+                            this.props.firma,
+                            this.props.utente,
+                            this.props.ceo,
+                            'it'
+                          );
+                        }}
+                      >
+                        picture_as_pdf
+                      </i>
+                    </a>
+                  </div>
+                </li>
+              )}
+            {this.props.oggetto.downloadURLsCover &&
+              this.props.oggetto.titoloEn.length > 0 && (
+                <li class='collection-item'>
+                  <div>
+                    Exposé englisch
+                    <a href='#!' class='secondary-content'>
+                      <i
+                        class='material-icons'
+                        onClick={() => {
+                          expose(
+                            this.props.oggetto,
+                            this.props.firma,
+                            this.props.utente,
+                            this.props.ceo,
+                            'en'
+                          );
+                        }}
+                      >
+                        picture_as_pdf
+                      </i>
+                    </a>
+                  </div>
+                </li>
+              )}
+          </ul>
+
           {!this.props.oggetto.downloadURLsCover ||
           this.props.oggetto.titolo.length < 1 ||
           this.props.oggetto.titoloDe.length < 1 ||
           this.props.oggetto.titoloEn.length < 1 ? (
-            <div className='list-item__sub-title'>
+            <div className=''>
               Um ein Exposé zu erstellen, fügen Sie wenigstens ein Cover-Bild
               und eine Überschrift hinzu
             </div>
@@ -251,14 +275,18 @@ export class ViewOggettiPage extends React.Component {
             })}
         </div>
         {this.props.oggetto.titolo.length > 0 && (
-          <div className='container'>
-            <div className='list-header list-header-oggetti'>Texte</div>
-            <div className='list-item__sub-title'>{`Titolo: ${this.props.oggetto.titolo}`}</div>
-            <div className='list-item__sub-title'>{`Descrizione: ${this.props.oggetto.descrizione}`}</div>
-            <div className='list-item__sub-title'>{`Titel: ${this.props.oggetto.titoloDe}`}</div>
-            <div className='list-item__sub-title'>{`Beschreibung: ${this.props.oggetto.descrizioneDe}`}</div>
-            <div className='list-item__sub-title'>{`Title: ${this.props.oggetto.titoloEn}`}</div>
-            <div className='list-item__sub-title'>{`Description: ${this.props.oggetto.descrizioneEn}`}</div>
+          <div className='container margine-basso'>
+            <div className='grey lighten-4'>
+              <div>
+                <h1>Texte</h1>
+              </div>
+            </div>
+            <div>{`Titolo: ${this.props.oggetto.titolo}`}</div>
+            <div>{`Descrizione: ${this.props.oggetto.descrizione}`}</div>
+            <div>{`Titel: ${this.props.oggetto.titoloDe}`}</div>
+            <div>{`Beschreibung: ${this.props.oggetto.descrizioneDe}`}</div>
+            <div>{`Title: ${this.props.oggetto.titoloEn}`}</div>
+            <div>{`Description: ${this.props.oggetto.descrizioneEn}`}</div>
           </div>
         )}
       </div>

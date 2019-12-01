@@ -41,11 +41,11 @@ export const ReportPage = ({
           Erhalten: <span>{formattedDealsPayed}</span> - Offen:{' '}
           <span>{dealsPending}</span>
         </h1>
-        <h2>
+        <h1>
           Stefano: <span>{formattedDealsTotalStefano}</span> - Bezahlt:{' '}
           <span>{formattedDealsStefano}</span> - Offen:{' '}
           <span>{dealsPendingStefano}</span>
-        </h2>
+        </h1>
       </div>
     </div>
   );

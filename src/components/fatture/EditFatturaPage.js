@@ -26,10 +26,10 @@ export class EditFatturaPage extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <FatturaForm fattura={this.props.fattura} onSubmit={this.onSubmit} />
-          <button className='btn-floating red' onClick={this.onRemove}>
+          <button className='btn-floating red right' onClick={this.onRemove}>
             <i className='material-icons'>remove</i>
           </button>
+          <FatturaForm fattura={this.props.fattura} onSubmit={this.onSubmit} />
         </div>
       </div>
     );
