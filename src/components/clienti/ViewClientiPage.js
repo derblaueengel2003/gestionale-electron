@@ -5,8 +5,19 @@ import LeadsList from '../leads/LeadsList';
 import FattureList from '../fatture/FattureList';
 import DealList from '../deals/DealList';
 import OggettiList from '../oggetti/OggettiList';
+import Modal from '../Modal';
 
 export class ViewClientiPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false
+    };
+  }
+  modalToggle = () => {
+    this.setState({ modal: !this.state.modal });
+    console.log(this.state.modal);
+  };
   render() {
     const {
       ditta,
@@ -49,6 +60,12 @@ export class ViewClientiPage extends React.Component {
               <Link className='btn-floating orange' to={`/customeredit/${id}`}>
                 <i className='material-icons'>edit</i>
               </Link>
+              <Modal
+                onClick={this.modalToggle}
+                status={this.state.modal}
+                id={id}
+                page='clienti'
+              />
             </div>
           </div>
           <div>
