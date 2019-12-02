@@ -24,7 +24,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
           titoloDestra={cliente.email.length > 0 && (
                     <a
                       href={`mailto:${cliente.email}`}
-                      className='btn-floating blue'
+                      className='btn-floating blue right'
                     >
                       <i className='material-icons'>email</i>
                     </a>
