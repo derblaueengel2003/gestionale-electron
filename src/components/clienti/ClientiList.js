@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ClientiListItem from './ClientiListItem';
+// import ClientiListItem from './ClientiListItem';
 import { startSetCustomers } from '../../actions/clienti';
 import selectClienti from '../../selectors/clienti';
 import Card from '../Card';
@@ -13,24 +13,26 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
     //dal deal page - singolo cliente
     return (
       <div className='container'>
-        <div className='list-header list-header-clienti'>{ruolo}</div>
+        <h5>{ruolo}</h5>
         <div className='list-body'>
-          <Card key={cliente.id} 
-          link={`/customerview/${cliente.id}`}
-          titolo={`${cliente.nome} ${cliente.cognome}`}
-          sottotitolo={cliente.ditta}
-          linea1={cliente.email}
-          linea2={cliente.telefono1}
-          titoloDestra={cliente.email.length > 0 && (
-                    <a
-                      href={`mailto:${cliente.email}`}
-                      className='btn-floating blue right'
-                    >
-                      <i className='material-icons'>email</i>
-                    </a>
-                  )}
-          
-          visible={cliente.visible}
+          <Card
+            key={cliente.id}
+            link={`/customerview/${cliente.id}`}
+            titolo={`${cliente.nome} ${cliente.cognome}`}
+            sottotitolo={cliente.ditta}
+            linea1={cliente.email}
+            linea2={cliente.telefono1}
+            titoloDestra={
+              cliente.email.length > 0 && (
+                <a
+                  href={`mailto:${cliente.email}`}
+                  className='btn-floating blue right'
+                >
+                  <i className='material-icons'>email</i>
+                </a>
+              )
+            }
+            visible={cliente.visible}
           />
         </div>
       </div>
@@ -58,7 +60,27 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
                 return a.visible < b.visible ? -1 : 1;
               })
               .map(cliente => {
-                return <ClientiListItem key={cliente.id} {...cliente} />;
+                return (
+                  <Card
+                    key={cliente.id}
+                    link={`/customerview/${cliente.id}`}
+                    titolo={`${cliente.nome} ${cliente.cognome}`}
+                    sottotitolo={cliente.ditta}
+                    linea1={cliente.email}
+                    linea2={cliente.telefono1}
+                    titoloDestra={
+                      cliente.email.length > 0 && (
+                        <a
+                          href={`mailto:${cliente.email}`}
+                          className='btn-floating blue right'
+                        >
+                          <i className='material-icons'>email</i>
+                        </a>
+                      )
+                    }
+                    visible={cliente.visible}
+                  />
+                );
               })
           )}
         </div>

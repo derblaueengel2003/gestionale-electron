@@ -8,6 +8,10 @@ export const Card = ({
   sottotitolo,
   linea1,
   linea2,
+  linea3,
+  linea4,
+  linea5,
+  lineaMehr,
   visible,
   link,
   utente
@@ -28,11 +32,15 @@ export const Card = ({
                       <span>{sottotitolo}</span>
                       <p>{linea1}</p>
                       <p>{linea2}</p>
+                      <p>{linea3}</p>
+                      <p>{linea4}</p>
+                      <p>{linea5}</p>
+                      <p>{lineaMehr}</p>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <span >{titoloDestra} </span>
+                  <span>{titoloDestra} </span>
                 </div>
               </div>
             </div>
