@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import OggettiListItem from './OggettiListItem';
+// import OggettiListItem from './OggettiListItem';
 import selectOggetti from '../../selectors/oggetti';
+import Card from '../Card'
 
 export const OggettiList = props => {
   //controllo se arrivo da view deal o dalla dashboard oggetti
@@ -11,15 +12,17 @@ export const OggettiList = props => {
     return (
       props.oggetto.length > 0 && (
         <div className='container'>
-          <div className='list-header list-header-oggetti'>
-            <div className='show-for-mobile'>Objekt</div>
-            <div className='show-for-desktop'>Objekt</div>
-            <div className='show-for-desktop'>Ref. Id</div>
-          </div>
-          <div className='list-body'>
+          <h5>Objekt</h5>
+          <div>
             {props.oggetto.map(oggetto => {
-              return <OggettiListItem key={oggetto.id} {...oggetto} />;
-            })}
+              return <Card key={oggetto.id} 
+                titolo={`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`} 
+                sottotitolo={`${oggetto.cap} ${oggetto.citta}, ${oggetto.nazione}`} 
+                titoloDestra={`Ref. ID ${oggetto.rifId}`}
+                visible={oggetto.visible}
+                link={`/oggettoview/${oggetto.id}`}
+                />;
+            })}     
           </div>
         </div>
       )
@@ -47,7 +50,13 @@ export const OggettiList = props => {
                 return a.visible < b.visible ? -1 : 1;
               })
               .map(oggetto => {
-                return <OggettiListItem key={oggetto.id} {...oggetto} />;
+                return <Card key={oggetto.id} 
+                titolo={`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`} 
+                sottotitolo={`${oggetto.cap} ${oggetto.citta}, ${oggetto.nazione}`} 
+                titoloDestra={`Ref. ID ${oggetto.rifId}`}
+                visible={oggetto.visible}
+                link={`/oggettoview/${oggetto.id}`}
+                />;
               })
           )}
         </div>

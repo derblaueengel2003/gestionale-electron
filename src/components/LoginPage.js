@@ -6,8 +6,8 @@ export const LoginPage = ({ startLogin }) => (
   <div className='box-layout'>
     <div className='box-layout__box'>
       <img src='/images/logo.png'></img>
-      <h2 className='box-layout__title'>Gestionale</h2>
-      <p>Per accedere inserire email e password</p>
+      <h2 className='box-layout__title'>Verwaltung</h2>
+      <p>Bitte geben Sie Ihre E-Mail und Passwort ein</p>
       <input id='email' type='email' name='email' placeholder='email' />
       <input
         id='password'
@@ -15,7 +15,7 @@ export const LoginPage = ({ startLogin }) => (
         name='password'
         placeholder='password'
       />
-      <button className='button button--login' onClick={startLogin}>
+      <button className='btn blue' onClick={startLogin}>
         Login
       </button>
     </div>

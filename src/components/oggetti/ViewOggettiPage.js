@@ -120,12 +120,12 @@ export class ViewOggettiPage extends React.Component {
           <ul className='collection  s12 m6'>
             {this.props.oggetto.downloadURLsCover &&
               this.props.oggetto.titoloDe.length > 0 && (
-                <li class='collection-item'>
+                <li className='collection-item'>
                   <div>
                     Exposé deutsch
-                    <a href='#!' class='secondary-content'>
+                    <a href='#!' className='secondary-content'>
                       <i
-                        class='material-icons'
+                        className='material-icons'
                         onClick={() => {
                           expose(
                             this.props.oggetto,
@@ -145,12 +145,12 @@ export class ViewOggettiPage extends React.Component {
 
             {this.props.oggetto.downloadURLsCover &&
               this.props.oggetto.titolo.length > 0 && (
-                <li class='collection-item'>
+                <li className='collection-item'>
                   <div>
                     Exposé italienisch
-                    <a href='#!' class='secondary-content'>
+                    <a href='#!' className='secondary-content'>
                       <i
-                        class='material-icons'
+                        className='material-icons'
                         onClick={() => {
                           expose(
                             this.props.oggetto,
@@ -169,12 +169,12 @@ export class ViewOggettiPage extends React.Component {
               )}
             {this.props.oggetto.downloadURLsCover &&
               this.props.oggetto.titoloEn.length > 0 && (
-                <li class='collection-item'>
+                <li className='collection-item'>
                   <div>
                     Exposé englisch
-                    <a href='#!' class='secondary-content'>
+                    <a href='#!' className='secondary-content'>
                       <i
-                        class='material-icons'
+                        className='material-icons'
                         onClick={() => {
                           expose(
                             this.props.oggetto,

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ClientiListItem from './ClientiListItem';
 import { startSetCustomers } from '../../actions/clienti';
 import selectClienti from '../../selectors/clienti';
+import Card from '../Card';
 
 export const ClientiList = ({ cliente, clienti, ruolo }) => {
   //controllo se i dati vengono dal deal page o se sono passati via props
@@ -14,7 +15,23 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
       <div className='container'>
         <div className='list-header list-header-clienti'>{ruolo}</div>
         <div className='list-body'>
-          <ClientiListItem key={cliente.id} {...cliente} />
+          <Card key={cliente.id} 
+          link={`/customerview/${cliente.id}`}
+          titolo={`${cliente.nome} ${cliente.cognome}`}
+          sottotitolo={cliente.ditta}
+          linea1={cliente.email}
+          linea2={cliente.telefono1}
+          titoloDestra={cliente.email.length > 0 && (
+                    <a
+                      href={`mailto:${cliente.email}`}
+                      className='btn-floating blue'
+                    >
+                      <i className='material-icons'>email</i>
+                    </a>
+                  )}
+          
+          visible={cliente.visible}
+          />
         </div>
       </div>
     );
