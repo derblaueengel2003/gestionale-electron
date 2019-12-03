@@ -7,13 +7,13 @@ import { expose } from '../moduli/Expose';
 
 export class ViewOggettiPage extends React.Component {
   render() {
-    const verwalter = this.props.clienti.find(
+    const verwalter = this.props.clienti.filter(
       cliente => cliente.id === this.props.oggetto.verwalter
     );
-    const proprietario = this.props.clienti.find(
+    const proprietario = this.props.clienti.filter(
       cliente => cliente.id === this.props.oggetto.proprietarioId
     );
-    const proprietario2 = this.props.clienti.find(
+    const proprietario2 = this.props.clienti.filter(
       cliente => cliente.id === this.props.oggetto.proprietarioId2
     );
 

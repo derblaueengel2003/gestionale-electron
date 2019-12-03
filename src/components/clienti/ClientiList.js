@@ -8,54 +8,22 @@ import Card from '../Card';
 
 export const ClientiList = ({ cliente, clienti, ruolo }) => {
   //controllo se i dati vengono dal deal page o se sono passati via props
+  const clientiPayload = cliente || clienti;
 
-  if (cliente) {
-    //dal deal page - singolo cliente
-    return (
-      <div className='container'>
-        <h5>{ruolo}</h5>
-        <div className='list-body'>
-          <Card
-            key={cliente.id}
-            link={`/customerview/${cliente.id}`}
-            titolo={`${cliente.nome} ${cliente.cognome}`}
-            sottotitolo={cliente.ditta}
-            linea1={cliente.email}
-            linea2={cliente.telefono1}
-            titoloDestra={
-              cliente.email.length > 0 && (
-                <a
-                  href={`mailto:${cliente.email}`}
-                  className='btn-floating blue right'
-                >
-                  <i className='material-icons'>email</i>
-                </a>
-              )
-            }
-            visible={cliente.visible}
-          />
-        </div>
-      </div>
-    );
-  } else {
-    //tutti i clienti - visualizzazione nella clienti dashboard
-    return (
-      <div className='container'>
-        <div className='list-header'>
-          <div></div>
+  return (
+    <div className='container'>
+      {!cliente && (
+        <Link className='btn-floating green right' to='/customercreate'>
+          <i className='material-icons'>add</i>
+        </Link>
+      )}
+
+      <div className='list-body'>
+        {clientiPayload.length > 0 && (
           <div>
-            <Link className='btn-floating green' to='/customercreate'>
-              <i className='material-icons'>add</i>
-            </Link>
-          </div>
-        </div>
-        <div className='list-body'>
-          {clienti.length === 0 ? (
-            <div className='list-item list-item--message'>
-              <span>Kein Ergebnis anhand der angegebenen Filtern</span>
-            </div>
-          ) : (
-            clienti
+            <h5>{ruolo || 'Adressbuch'}</h5>
+
+            {clientiPayload
               .sort((a, b) => {
                 return a.visible < b.visible ? -1 : 1;
               })
@@ -81,12 +49,12 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
                     visible={cliente.visible}
                   />
                 );
-              })
-          )}
-        </div>
+              })}
+          </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 const mapStateToProps = state => {

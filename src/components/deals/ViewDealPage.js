@@ -35,19 +35,19 @@ export class ViewDealPage extends React.Component {
       id
     } = this.props.deal;
     const { utente } = this.props;
-    const acquirente = this.props.clienti.find(
+    const acquirente = this.props.clienti.filter(
       cliente => cliente.id === acquirenteId
     );
-    const acquirente2 = this.props.clienti.find(
+    const acquirente2 = this.props.clienti.filter(
       cliente => cliente.id === this.props.deal.acquirenteId2
     );
-    const venditore = this.props.clienti.find(
+    const venditore = this.props.clienti.filter(
       cliente => cliente.id === this.props.deal.venditoreId
     );
-    const venditore2 = this.props.clienti.find(
+    const venditore2 = this.props.clienti.filter(
       cliente => cliente.id === this.props.deal.venditoreId2
     );
-    const agenziaPartner = this.props.clienti.find(
+    const agenziaPartner = this.props.clienti.filter(
       cliente => cliente.id === this.props.deal.agenziaPartnerId
     );
     const oggetto = this.props.oggetti.find(

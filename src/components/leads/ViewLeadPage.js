@@ -15,7 +15,7 @@ export class ViewLeadPage extends React.Component {
     }
   };
   render() {
-    const cliente = this.props.clienti.find(
+    const cliente = this.props.clienti.filter(
       cliente => cliente.id === this.props.lead.leadId
     );
     return (
