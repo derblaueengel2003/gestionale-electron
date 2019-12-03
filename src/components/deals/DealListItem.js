@@ -3,43 +3,6 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import numeral from 'numeral';
 
-// load a locale
-numeral.register('locale', 'de', {
-  delimiters: {
-    thousands: '.',
-    decimal: ','
-  },
-  abbreviations: {
-    thousand: 'k',
-    million: 'm',
-    billion: 'b',
-    trillion: 't'
-  },
-  ordinal: function(number) {
-    return number === 1 ? 'er' : '°';
-  },
-  currency: {
-    symbol: '€'
-  }
-});
-// switch between locales
-numeral.locale('de');
-moment.locale('de');
-
-const ProgressBar = props => {
-  return (
-    <div className='progress-bar'>
-      <Filler percentage={props.percentage} />
-    </div>
-  );
-};
-
-const Filler = props => {
-  return (
-    <div className='filler' style={{ width: `${props.percentage}%` }}></div>
-  );
-};
-
 //destrutturo i props in singole variabili
 const DealListItem = ({
   todo1,

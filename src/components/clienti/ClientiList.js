@@ -12,12 +12,6 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
 
   return (
     <div className='container'>
-      {!cliente && (
-        <Link className='btn-floating green right' to='/customercreate'>
-          <i className='material-icons'>add</i>
-        </Link>
-      )}
-
       <div className='list-body'>
         {clientiPayload.length > 0 && (
           <div>

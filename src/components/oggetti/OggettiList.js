@@ -11,11 +11,6 @@ export const OggettiList = props => {
 
   return (
     <div className='container'>
-      {!props.oggetto && (
-        <Link className='btn-floating green right' to='/oggettocreate'>
-          <i className='material-icons'>add</i>
-        </Link>
-      )}
       <div className='list-body'>
         {oggettiPayload.length > 0 && (
           <div>

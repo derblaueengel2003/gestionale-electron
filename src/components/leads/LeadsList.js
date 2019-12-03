@@ -39,11 +39,6 @@ export const LeadsList = props => {
 
   return (
     <div className='container'>
-      {!props.userLeads && (
-        <Link className='btn-floating green right' to='/leadscreate'>
-          <i className='material-icons'>add</i>
-        </Link>
-      )}
       <div className='list-body'>
         {leadsPayload.length > 0 && (
           <div>

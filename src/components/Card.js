@@ -12,6 +12,7 @@ export const Card = ({
   linea4,
   linea5,
   lineaNote,
+  progressBar,
   visible,
   link,
   utente
@@ -36,6 +37,7 @@ export const Card = ({
                       <p>{linea4}</p>
                       <p>{linea5}</p>
                       <p>{lineaNote}</p>
+                      {progressBar}
                     </div>
                   </div>
                 </div>
