@@ -30,6 +30,7 @@ export class ViewClientiPage extends React.Component {
       cap,
       comune,
       nazione,
+      consulenteVenditaId,
       id
     } = this.props.cliente;
     const { utente } = this.props;
@@ -44,6 +45,9 @@ export class ViewClientiPage extends React.Component {
         deal.venditoreId === id ||
         deal.venditoreId2 === id ||
         deal.agenziaPartnerId === id
+    );
+    const consulenteVendita = this.props.utenti.find(
+      utente => utente.id === consulenteVenditaId
     );
     return (
       <div>
@@ -108,7 +112,8 @@ const mapStateToProps = (state, props) => ({
   ),
   fatture: state.fatture,
   deals: state.deals,
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+  utenti: state.utenti
 });
 
 export default connect(mapStateToProps)(ViewClientiPage);

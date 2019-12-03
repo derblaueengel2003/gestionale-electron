@@ -11,7 +11,7 @@ export const Card = ({
   linea3,
   linea4,
   linea5,
-  lineaMehr,
+  lineaNote,
   visible,
   link,
   utente
@@ -29,13 +29,13 @@ export const Card = ({
                       <Link to={link}>
                         <span className='card-title'>{titolo}</span>
                       </Link>
-                      <span>{sottotitolo}</span>
+                      <h6>{sottotitolo}</h6>
                       <p>{linea1}</p>
                       <p>{linea2}</p>
                       <p>{linea3}</p>
                       <p>{linea4}</p>
                       <p>{linea5}</p>
-                      <p>{lineaMehr}</p>
+                      <p>{lineaNote}</p>
                     </div>
                   </div>
                 </div>

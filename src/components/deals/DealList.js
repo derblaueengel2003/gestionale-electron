@@ -18,11 +18,7 @@ export const DealList = ({
     return (
       clienteDeals.length > 0 && (
         <div className='container'>
-          <div className='list-header list-header-deals'>
-            <div className='show-for-mobile'>Deal</div>
-            <div className='show-for-desktop'>Deal</div>
-            <div className='show-for-desktop'>Betrag</div>{' '}
-          </div>
+          <h5>Deals</h5>
           <div className='list-body'>
             {clienteDeals.map(deal => {
               const oggetto = oggetti.find(ogg => ogg.id === deal.oggettoId);
