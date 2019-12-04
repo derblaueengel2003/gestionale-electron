@@ -42,12 +42,12 @@ export class ViewFatturePage extends React.Component {
 
     return (
       <div>
-        <div>
+        <div className='grey lighten-4'>
           <div className='container'>
             <h1>Rechnung</h1>
           </div>
         </div>
-        <div className='container'>
+        <div className='container section'>
           <div>
             <Link
               className='btn-floating orange right btn-floating-margin'
@@ -81,61 +81,45 @@ export class ViewFatturePage extends React.Component {
               <i className='material-icons'>print</i>
             </button>
           </div>
-          <div className='row'>
-            <div className='col s12'>
-              <div className='card'>
-                <div className='card-content'>
-                  <div className='row'>
-                    <div className='col s12 m10'>
-                      {deal && deal.dealType}
 
-                      {this.props.fattura.numeroFattura.length > 0 && (
-                        <div
-                          className={`card-title ${this.props.fattura.payed &&
-                            'list-item--paid'}`}
-                        >
-                          Rechnungsnummer: {this.props.fattura.numeroFattura}
-                        </div>
-                      )}
-                      {this.props.fattura.note}
-                      <div className='list-item__title'>
-                        {oggetto &&
-                          `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}
-                      </div>
+          <div className='section'>
+            {deal && deal.dealType}
 
-                      {cliente && (
-                        <div>
-                          Kunde: {cliente.nome} {cliente.cognome}{' '}
-                          {cliente.ditta && ` - Firma: ${cliente.ditta}`}
-                        </div>
-                      )}
-                      {cliente2 && (
-                        <div>
-                          2. Kunde: {cliente2.nome} {cliente2.cognome}{' '}
-                          {cliente2.ditta && ` - Firma: ${cliente2.ditta}`}
-                        </div>
-                      )}
-                    </div>
-                    <div>
-                      {this.props.fattura.dataFattura > 0 && (
-                        <div>
-                          Rechnungsdatum:{' '}
-                          {moment(this.props.dataFattura).format(
-                            'DD MMMM, YYYY'
-                          )}
-                        </div>
-                      )}
-                      {deal && deal.dataRogito > 0 && (
-                        <div>
-                          Beurkundungsdatum:{' '}
-                          {moment(deal.dataRogito).format('DD MMMM, YYYY')}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {this.props.fattura.numeroFattura.length > 0 && (
+              <h5>Rechnungsnummer: {this.props.fattura.numeroFattura}</h5>
+            )}
+            {this.props.fattura.note}
+            <div className='list-item__title'>
+              {oggetto &&
+                `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}
             </div>
+
+            {cliente && (
+              <div>
+                Kunde: {cliente.nome} {cliente.cognome}{' '}
+                {cliente.ditta && ` - Firma: ${cliente.ditta}`}
+              </div>
+            )}
+            {cliente2 && (
+              <div>
+                2. Kunde: {cliente2.nome} {cliente2.cognome}{' '}
+                {cliente2.ditta && ` - Firma: ${cliente2.ditta}`}
+              </div>
+            )}
+          </div>
+          <div>
+            {this.props.fattura.dataFattura > 0 && (
+              <div>
+                Rechnungsdatum:{' '}
+                {moment(this.props.dataFattura).format('DD MMMM, YYYY')}
+              </div>
+            )}
+            {deal && deal.dataRogito > 0 && (
+              <div>
+                Beurkundungsdatum:{' '}
+                {moment(deal.dataRogito).format('DD MMMM, YYYY')}
+              </div>
+            )}
           </div>
         </div>
         {/* passo deal come array perché è quello che si aspetta il componente */}

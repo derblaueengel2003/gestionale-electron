@@ -1,6 +1,7 @@
 import React from 'react';
 import FattureList from './FattureList';
 import FattureListFilters from './FattureListFilters';
+import { Link } from 'react-router-dom';
 
 const FattureDashboardPage = () => (
   <div>
@@ -10,6 +11,11 @@ const FattureDashboardPage = () => (
       </div>
     </div>
     <FattureListFilters />
+    <div className='container'>
+      <Link className='btn-floating green right' to='/fatturacreate'>
+        <i className='material-icons'>add</i>
+      </Link>
+    </div>
     <FattureList />
   </div>
 );

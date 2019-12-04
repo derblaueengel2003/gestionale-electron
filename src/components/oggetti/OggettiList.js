@@ -14,7 +14,7 @@ export const OggettiList = props => {
       <div className='list-body'>
         {oggettiPayload.length > 0 && (
           <div>
-            <h5>Objekte</h5>
+            <h5>{props.ruolo || 'Objekte'}</h5>
             {oggettiPayload
               .sort((a, b) => {
                 return a.visible < b.visible ? -1 : 1;
@@ -28,6 +28,7 @@ export const OggettiList = props => {
                     titoloDestra={`Ref. ID ${oggetto.rifId}`}
                     visible={oggetto.visible}
                     link={`/oggettoview/${oggetto.id}`}
+                    linea1={`Kaufpreis: ${oggetto.kaufpreis}`}
                   />
                 );
               })}

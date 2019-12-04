@@ -10,25 +10,25 @@ const ModuliPage = () => (
     </div>
 
     <div className='container'>
-      <div>
-        <div>Online ausfüllen</div>
-
-        <Link className='btn teal' to='/makleralleinauftrag'>
-          Makler-Allein-Auftrag
-        </Link>
-        <Link className='btn teal btn-floating-margin' to='/widerrufsbelehrung'>
-          Widerrufsbelehrung
-        </Link>
-        <Link
-          className='btn teal btn-floating-margin'
-          to='/vollmachtunterlagen'
-        >
-          Vollmacht Empfang Unterlagen
-        </Link>
-      </div>
+      <ul className='collection with-header'>
+        <li className='collection-header'>
+          <h4>Online ausfüllen</h4>
+        </li>
+        <li className='collection-item'>
+          <Link to='/makleralleinauftrag'>Makler-Allein-Auftrag</Link>
+        </li>
+        <li className='collection-item'>
+          <Link to='/widerrufsbelehrung'>Widerrufsbelehrung</Link>
+        </li>
+        <li className='collection-item'>
+          <Link to='/vollmachtunterlagen'>
+            Vollmacht Empfang von Unterlagen
+          </Link>
+        </li>
+      </ul>
     </div>
 
-    <div className='container'>
+    <div className='container section'>
       <ul className='collection with-header'>
         <li className='collection-header'>
           <h4>Blanko</h4>

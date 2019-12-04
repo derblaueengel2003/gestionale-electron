@@ -65,7 +65,10 @@ export class ViewClientiPage extends React.Component {
               <i className='material-icons'>edit</i>
             </Link>
             {email.length > 0 && (
-              <a href={`mailto:${email}`} className='btn-floating blue right'>
+              <a
+                href={`mailto:${email}`}
+                className='btn-floating blue right btn-floating-margin'
+              >
                 <i className='material-icons'>email</i>
               </a>
             )}

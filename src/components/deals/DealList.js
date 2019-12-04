@@ -36,10 +36,6 @@ export const DealList = ({
   clienti,
   fatture,
   utente,
-  provvM2square,
-  provvStefano,
-  createdAt,
-  payedStefano,
   deals
 }) => {
   //controllo se i dati vengono dal clienti page o sono passati via props

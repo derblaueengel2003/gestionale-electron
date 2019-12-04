@@ -97,8 +97,8 @@ export class VollmachtForm extends React.Component {
             onChange={this.onOggettoChange}
           />
           <div>
-            <button className='button button--secondary-modulistica'>
-              PDF erstellen
+            <button className='btn-floating right'>
+              <i className='material-icons'>picture_as_pdf</i>
             </button>
           </div>
         </form>

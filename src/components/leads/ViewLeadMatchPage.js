@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { AccentroListItem } from './AccentroListItem';
-import OggettiListItem from '../oggetti/OggettiListItem';
+// import { AccentroListItem } from './AccentroListItem';
+// import OggettiListItem from '../oggetti/OggettiListItem';
+import Card from '../Card';
+import ClientiList from '../clienti/ClientiList';
+import OggettiList from '../oggetti/OggettiList';
+import numeral from 'numeral';
 
 export class ViewLeadMatchPage extends React.Component {
   primoMatch = () => {
@@ -56,7 +60,7 @@ export class ViewLeadMatchPage extends React.Component {
   };
 
   render() {
-    const cliente = this.props.clienti.find(
+    const cliente = this.props.clienti.filter(
       cliente => cliente.id === this.props.lead.leadId
     );
 
@@ -73,38 +77,44 @@ export class ViewLeadMatchPage extends React.Component {
           </div>
         </div>
 
+        <ClientiList cliente={cliente} ruolo={'Anfrage von:'} />
+        {this.primoMatch().length > 0 && (
+          <OggettiList
+            oggetto={this.primoMatch()}
+            ruolo={`Objekte von ${this.props.firma[0].name}`}
+          />
+        )}
+        {this.secondoMatch().length > 0 && (
+          <div className='container'>
+            <h5>Objekte von Accentro</h5>
+          </div>
+        )}
         <div className='container'>
-          <div className='list-header list-header-leads'>
-            <div>
-              {cliente ? cliente.nome : this.props.lead.leadNome}{' '}
-              {cliente && cliente.cognome}
-            </div>
-            <div>
-              <a
-                href={`mailto:${
-                  cliente ? cliente.email : this.props.lead.leadEmail
-                }`}
-              >
-                {cliente ? cliente.email : this.props.lead.leadEmail}
-              </a>
-            </div>
-          </div>
-          {this.primoMatch().length > 0 && (
-            <div className='list-header'>
-              <div className='show-for-mobile'>Objekte von m2Square</div>
-              <div className='show-for-desktop'>Objekte von m2Square</div>
-              <div className='show-for-desktop'>Ref.ID</div>{' '}
-            </div>
-          )}
           <div>
-            {this.primoMatch().map(ogg => {
-              return <OggettiListItem key={ogg.id} {...ogg} />;
-            })}
-          </div>
-          <div className='list-header'>Objekte von Accentro</div>
-          <div>
-            {this.secondoMatch().map(ogg => {
-              return <AccentroListItem key={ogg.id} {...ogg} />;
+            {this.secondoMatch().map(oggetto => {
+              return (
+                <Card
+                  key={oggetto.id}
+                  link={'#'}
+                  titolo={`${oggetto.Strasse}`}
+                  titoloDestra={`WE: ${oggetto.WEG} - ${oggetto.ETW}`}
+                  visible={true}
+                  sottotitolo={`Preis: ${numeral(
+                    oggetto.Kaufpreis / 100
+                  ).format('0,0[.]00 $')}`}
+                  linea1={oggetto.Bezirk}
+                  linea2={`m2: ${oggetto.m2} - Zimmer: ${oggetto.Vani}`}
+                  linea3={`Etage: ${oggetto.Etage}`}
+                  linea4={`Kaltmiete: ${numeral(oggetto.Miete / 100).format(
+                    '0,0[.]00 $'
+                  )}`}
+                  linea5={`Wohngeld: ${numeral(oggetto.Wohngeld / 100).format(
+                    '0,0[.]00 $'
+                  )}`}
+                  linea6={`Balkon: ${oggetto.Balcone}`}
+                  linea7={`Aufzug: ${oggetto.Aufzug}`}
+                />
+              );
             })}
           </div>
         </div>
@@ -117,7 +127,8 @@ const mapStateToProps = (state, props) => ({
   lead: state.leads.find(lead => lead.id === props.match.params.id),
   clienti: state.clienti,
   accentro: state.accentro,
-  oggetti: state.oggetti
+  oggetti: state.oggetti,
+  firma: state.firma
 });
 
 export default connect(mapStateToProps)(ViewLeadMatchPage);

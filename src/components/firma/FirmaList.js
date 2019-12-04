@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import FirmaListItem from './FirmaListItem';
+import Card from '../Card';
 
 export const FirmaList = props => (
   <div>
@@ -23,7 +24,23 @@ export const FirmaList = props => (
       <div>
         {props.firma &&
           props.firma.map(firma => {
-            return <FirmaListItem key={firma.id} {...firma} />;
+            return (
+              <Card
+                key={firma.id}
+                titolo={`${firma.name} ${firma.name2 && ` - ${firma.name2}`}`}
+                sottotitolo={`${firma.adresse}, ${firma.plz} ${firma.stadt}, ${firma.staat}`}
+                titoloDestra={`${firma.email}`}
+                visible={true}
+                link={`/firmaedit/${firma.id}`}
+                linea1={`Telefon: ${firma.telefon} - Fax: ${firma.fax}`}
+                linea2={`${firma.website}`}
+                linea3={`Steuernr. ${firma.steuerNr} - Ust.-IdNr. ${firma.ustIdNr}`}
+                linea3={`${firma.motto}`}
+                linea4={`Öffnungszeiten ${firma.open}`}
+                linea5={`Kontodetails: Inhaber ${firma.kontoInhaber} - Bank ${firma.bank}`}
+                linea6={`Bankverbindung: IBAN ${firma.iban} - BIC ${firma.bic}`}
+              />
+            );
           })}
       </div>
     </div>

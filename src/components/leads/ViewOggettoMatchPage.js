@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LeadsListItem from '../leads/LeadsListItem';
-import OggettiListItem from '../oggetti/OggettiListItem';
+import OggettiList from '../oggetti/OggettiList';
 
 export class ViewOggettoMatchPage extends React.Component {
   primoMatch = () => {
@@ -32,34 +32,17 @@ export class ViewOggettoMatchPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header page-header-leads'>
-          <div className='container'>
-            <h1>Match mit den Anfragen: {this.primoMatch().length}</h1>
-            <span>
-              Die Übereinstimmung basiert sich auf Kundenbudget (+-20%) und
-              Immobilientyp
-            </span>
-          </div>
+        <div className='container'>
+          <h1>Match mit den Anfragen: {this.primoMatch().length}</h1>
+          <span>
+            Die Übereinstimmung basiert sich auf Kundenbudget (+-20%) und
+            Immobilientyp
+          </span>
         </div>
 
+        <OggettiList oggetto={[this.props.oggetto]} ruolo={'Objekt'} />
         <div className='container'>
-          <div className='page-header__actions'></div>
-          <div className='list-header list-header-oggetti'>
-            <div className='show-for-mobile'>Objekt</div>
-            <div className='show-for-desktop'>Objekt</div>
-            <div className='show-for-desktop'>Ref. Id</div>
-          </div>
-          <div className='list-body'>
-            <OggettiListItem
-              key={this.props.oggetto.id}
-              {...this.props.oggetto}
-            />
-          </div>
-
-          <div className='list-header list-header-leads'>
-            <div>Anfragen</div>
-            <div>Budget</div>
-          </div>
+          <h5>Anfragen</h5>
           <div>
             {this.primoMatch().map(lead => {
               return <LeadsListItem key={lead.id} {...lead} />;

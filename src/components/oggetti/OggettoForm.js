@@ -896,11 +896,13 @@ export class OggettoForm extends React.Component {
             </div>
           </div>
           <div id='test3' className='col s12'>
-            <div label='Bilder'>
+            <ul className='collection'>
               {/* Cover */}
-              <div>
-                <label className='btn'>
-                  Cover auswählen
+              <li className='collection-item'>
+                Cover auswählen
+                <label className='secondary-content'>
+                  {' '}
+                  <i className='material-icons'>add_photo_alternate</i>
                   <FileUploader
                     hidden
                     accept='image/*'
@@ -915,7 +917,6 @@ export class OggettoForm extends React.Component {
                     // multiple
                   />
                 </label>
-
                 <div>
                   {this.state.downloadURLsCover &&
                     this.state.downloadURLsCover.map((downloadURLCover, i) => {
@@ -931,11 +932,13 @@ export class OggettoForm extends React.Component {
                       );
                     })}
                 </div>
-              </div>
+              </li>
               {/* Bilder */}
-              <div>
-                <label className='btn'>
-                  Bilder auswählen
+              <li className='collection-item'>
+                Bilder auswählen
+                <label className='secondary-content'>
+                  <i className='material-icons'>add_photo_alternate</i>
+
                   <FileUploader
                     hidden
                     accept='image/*'
@@ -954,7 +957,6 @@ export class OggettoForm extends React.Component {
                     multiple
                   />
                 </label>
-
                 <div>
                   {this.state.downloadURLs &&
                     this.state.downloadURLs.map((downloadURL, i) => {
@@ -970,11 +972,13 @@ export class OggettoForm extends React.Component {
                       );
                     })}
                 </div>
-              </div>
+              </li>
               {/* Grundriss */}
-              <div>
-                <label className='btn'>
-                  Grundriss auswählen
+              <li className='collection-item'>
+                Grundriss auswählen
+                <label className='secondary-content'>
+                  <i className='material-icons'>add_photo_alternate</i>
+
                   <FileUploader
                     hidden
                     accept='image/*'
@@ -993,7 +997,6 @@ export class OggettoForm extends React.Component {
                     multiple
                   />
                 </label>
-
                 <div>
                   {this.state.downloadURLsGrundriss &&
                     this.state.downloadURLsGrundriss.map(
@@ -1013,11 +1016,13 @@ export class OggettoForm extends React.Component {
                       }
                     )}
                 </div>
-              </div>
+              </li>
               {/* Map */}
-              <div>
-                <label className='btn'>
-                  Map auswählen
+              <li className='collection-item'>
+                Map auswählen
+                <label className='secondary-content'>
+                  <i className='material-icons'>add_photo_alternate</i>
+
                   <FileUploader
                     hidden
                     accept='image/*'
@@ -1036,7 +1041,6 @@ export class OggettoForm extends React.Component {
                     // multiple
                   />
                 </label>
-
                 <div>
                   {this.state.downloadURLsMap &&
                     this.state.downloadURLsMap.map((downloadURLMap, i) => {
@@ -1052,8 +1056,8 @@ export class OggettoForm extends React.Component {
                       );
                     })}
                 </div>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
 

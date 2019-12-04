@@ -31,7 +31,7 @@ export class LeadsListFilters extends React.Component {
     return (
       <div className='container'>
         <div className='input-group'>
-          <div className='input-group__item'>
+          <div className='input-field'>
             <input
               type='text'
               className='text-input'
@@ -40,12 +40,12 @@ export class LeadsListFilters extends React.Component {
               onChange={this.onLeadChange}
             />
           </div>
-          <div>
+          <div className='input-field margine-sinistro'>
             <select
               value={this.props.filters.leadStato}
               onChange={this.onLeadsStatoChange}
             >
-              <option value=''>Typ:</option>
+              <option value=''>Alle</option>
               <option value='libero'>WHG Leerstehend</option>
               <option value='affittato'>WHG Vermietet</option>
               <option value='libero o affittato'>
@@ -54,15 +54,17 @@ export class LeadsListFilters extends React.Component {
               <option value='commerciale'>Gewerbe</option>
               <option value='aph'>Pflegeheim</option>
             </select>
+            <label>Immobilientyp</label>
           </div>
-          <div className='margine-sinistro'>
+          <div className='input-field margine-sinistro'>
             <select
               value={this.props.filters.sortBy}
               onChange={this.onSortChange}
             >
-              <option value='date'>Datum</option>
-              <option value='amount'>Budget</option>
+              <option value='date'> Datum</option>
+              <option value='amount'>Nach Budget</option>
             </select>
+            <label>Sortieren nach</label>
           </div>
         </div>
       </div>

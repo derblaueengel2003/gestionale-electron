@@ -13,7 +13,7 @@ export default class UserForm extends React.Component {
       email: props.user ? props.user.email : '',
       telefon: props.user ? props.user.telefon : '',
       qualifica: props.user ? props.user.qualifica : '',
-      firebaseAuthId: props.user ? props.user.firebaseAuthId : null
+      firebaseAuthId: props.user ? props.user.firebaseAuthId : ''
     };
   }
   changeHandler = e => {
@@ -63,7 +63,6 @@ export default class UserForm extends React.Component {
           name='name'
           type='text'
           placeholder='Vor- und Nachname'
-          autoFocus
           value={this.state.name}
           onChange={this.changeHandler}
         />
@@ -80,7 +79,6 @@ export default class UserForm extends React.Component {
           name='firebaseAuthId'
           type='text'
           placeholder='firebase user id'
-          autoFocus
           value={this.state.firebaseAuthId}
           onChange={this.changeHandler}
         />
@@ -89,7 +87,6 @@ export default class UserForm extends React.Component {
           className={`text-input`}
           name='email'
           type='text'
-          autoFocus
           value={this.state.email}
           onChange={this.changeHandler}
         />
@@ -98,7 +95,6 @@ export default class UserForm extends React.Component {
           className={`text-input`}
           name='telefon'
           type='text'
-          autoFocus
           value={this.state.telefon}
           onChange={this.changeHandler}
         />
@@ -107,7 +103,6 @@ export default class UserForm extends React.Component {
           className={`text-input`}
           name='qualifica'
           type='text'
-          autoFocus
           value={this.state.qualifica}
           onChange={this.changeHandler}
         />

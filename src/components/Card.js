@@ -11,6 +11,8 @@ export const Card = ({
   linea3,
   linea4,
   linea5,
+  linea6,
+  linea7,
   lineaNote,
   progressBar,
   visible,
@@ -36,6 +38,8 @@ export const Card = ({
                       <p>{linea3}</p>
                       <p>{linea4}</p>
                       <p>{linea5}</p>
+                      <p>{linea6}</p>
+                      <p>{linea7}</p>
                       <p>{lineaNote}</p>
                       {progressBar}
                     </div>

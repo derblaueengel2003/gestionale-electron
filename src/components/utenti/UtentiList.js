@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import UtentiListItem from './UtentiListItem';
+// import UtentiListItem from './UtentiListItem';
+import Card from '../Card';
 
 export const UtentiList = props => (
   <div>
@@ -15,15 +16,21 @@ export const UtentiList = props => (
         <i className='material-icons'>add</i>
       </Link>
       <div>
-        {props.utenti.length === 0 ? (
-          <div>
-            <span>Kein Ergebnis anhand der angegebenen Filtern</span>
-          </div>
-        ) : (
+        {props.utenti.length > 0 &&
           props.utenti.map(utente => {
-            return <UtentiListItem key={utente.id} {...utente} />;
-          })
-        )}
+            return (
+              <Card
+                key={utente.id}
+                titolo={`${utente.name}`}
+                sottotitolo={`${utente.qualifica}`}
+                titoloDestra={`${utente.role}`}
+                visible={true}
+                link={`/useredit/${utente.id}`}
+                linea1={`${utente.email}`}
+                linea2={`${utente.telefon}`}
+              />
+            );
+          })}
       </div>
     </div>
   </div>
