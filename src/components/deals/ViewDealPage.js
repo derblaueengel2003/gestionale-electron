@@ -171,10 +171,10 @@ export class ViewDealPage extends React.Component {
                       className='material-icons'
                       onClick={() => {
                         creaPrenotazione(
-                          acquirente,
-                          acquirente2,
-                          venditore,
-                          venditore2,
+                          acquirente[0],
+                          acquirente2[0],
+                          venditore[0],
+                          venditore2[0],
                           oggetto,
                           provvPercentuale,
                           this.props.firma
@@ -194,8 +194,8 @@ export class ViewDealPage extends React.Component {
                       className='material-icons'
                       onClick={() => {
                         widerrufsBelehrung(
-                          acquirente,
-                          acquirente2,
+                          acquirente[0],
+                          acquirente2[0],
                           dataPrenotazione,
                           oggetto,
                           this.props.firma
@@ -215,10 +215,10 @@ export class ViewDealPage extends React.Component {
                       className='material-icons'
                       onClick={() => {
                         vollmachtNotarauftrag(
-                          acquirente,
-                          acquirente2,
-                          venditore,
-                          venditore2,
+                          acquirente[0],
+                          acquirente2[0],
+                          venditore[0],
+                          venditore2[0],
                           oggetto,
                           notaio,
                           prezzoDiVendita,
@@ -247,10 +247,10 @@ export class ViewDealPage extends React.Component {
                       className='material-icons'
                       onClick={() => {
                         protocollo(
-                          acquirente,
-                          acquirente2,
-                          venditore,
-                          venditore2,
+                          acquirente[0],
+                          acquirente2[0],
+                          venditore[0],
+                          venditore2[0],
                           oggetto,
                           this.props.utente,
                           this.props.firma,
