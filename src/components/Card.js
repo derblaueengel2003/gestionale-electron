@@ -26,7 +26,7 @@ export const Card = ({
           <div className='card'>
             <div className='card-content'>
               <div className='row'>
-                <div className='col s12 m10'>
+                <div className='col s12 m9'>
                   <div className={visible ? '' : 'disabled'}>
                     <div>
                       <Link to={link}>
@@ -46,7 +46,7 @@ export const Card = ({
                   </div>
                 </div>
                 <div>
-                  <span>{titoloDestra} </span>
+                  <span className='right'>{titoloDestra} </span>
                 </div>
               </div>
             </div>

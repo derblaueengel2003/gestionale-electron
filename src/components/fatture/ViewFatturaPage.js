@@ -127,12 +127,15 @@ export class ViewFatturePage extends React.Component {
         <OggettiList oggetto={[oggetto]} />
         {cliente && (
           <div>
-            <ClientiList cliente={cliente} ruolo={'Intestatario fattura'} />
+            <ClientiList cliente={[cliente]} ruolo={'Intestatario fattura'} />
           </div>
         )}
         {cliente2 && (
           <div>
-            <ClientiList cliente={cliente2} ruolo={'2. Intestatario fattura'} />
+            <ClientiList
+              cliente={[cliente2]}
+              ruolo={'2. Intestatario fattura'}
+            />
           </div>
         )}
       </div>

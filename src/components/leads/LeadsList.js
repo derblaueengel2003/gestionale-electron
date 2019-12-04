@@ -50,6 +50,33 @@ export const LeadsList = props => {
                 props.utenti
               );
               const immobile = findImmobile(lead);
+              const pulsanti = (
+                <div>
+                  {lead.leadOggettoStato === 'libero' ||
+                  lead.leadOggettoStato === 'affittato' ||
+                  lead.leadOggettoStato === 'libero o affittato' ||
+                  lead.leadOggettoStato === '' ? (
+                    <Link
+                      className='btn-floating green accent-3 right'
+                      to={`/leadmatchview/${lead.id}`}
+                    >
+                      Match
+                    </Link>
+                  ) : (
+                    ''
+                  )}
+
+                  {clienteNomeCognome.email && (
+                    <a
+                      className='btn-floating blue right btn-floating-margin'
+                      href={`mailto:${clienteNomeCognome.email}`}
+                    >
+                      <i className='material-icons'>email</i>
+                    </a>
+                  )}
+                </div>
+              );
+
               return (
                 <Card
                   key={lead.id}
@@ -65,21 +92,7 @@ export const LeadsList = props => {
                   linea2={moment(lead.leadCreatedAt).format('DD MMMM, YYYY')}
                   linea3={immobile}
                   lineaNote={`Note: ${lead.leadNote}`}
-                  titoloDestra={
-                    lead.leadOggettoStato === 'libero' ||
-                    lead.leadOggettoStato === 'affittato' ||
-                    lead.leadOggettoStato === 'libero o affittato' ||
-                    lead.leadOggettoStato === '' ? (
-                      <Link
-                        className='btn-floating green accent-3 right'
-                        to={`/leadmatchview/${lead.id}`}
-                      >
-                        Match
-                      </Link>
-                    ) : (
-                      ''
-                    )
-                  }
+                  titoloDestra={pulsanti}
                 />
               );
             })}
