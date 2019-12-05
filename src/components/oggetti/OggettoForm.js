@@ -41,6 +41,7 @@ export class OggettoForm extends React.Component {
       ruecklage: props.oggetto ? props.oggetto.ruecklage : '',
       proprietarioId: props.oggetto ? props.oggetto.proprietarioId : '',
       proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : '',
+      inquilinoId: props.oggetto ? props.oggetto.inquilinoId : '',
       visible: props.oggetto ? props.oggetto.visible : true,
       filenames: props.oggetto ? props.oggetto.filenames : '',
       downloadURLs: props.oggetto ? props.oggetto.downloadURLs : '',
@@ -100,6 +101,10 @@ export class OggettoForm extends React.Component {
   onProprietarioChange2 = e => {
     const proprietarioId2 = e ? e.value : '';
     this.setState(() => ({ proprietarioId2 }));
+  };
+  onInquilinoChange = e => {
+    const inquilinoId = e ? e.value : '';
+    this.setState(() => ({ inquilinoId }));
   };
   handleUploadStart = () =>
     this.setState({
@@ -323,6 +328,7 @@ export class OggettoForm extends React.Component {
         ruecklage: this.state.ruecklage,
         proprietarioId: this.state.proprietarioId,
         proprietarioId2: this.state.proprietarioId2,
+        inquilinoId: this.state.inquilinoId,
         visible: this.state.visible,
         filenames: this.state.filenames,
         downloadURLs: this.state.downloadURLs,
@@ -564,6 +570,14 @@ export class OggettoForm extends React.Component {
               options={options}
               filterOptions={filterOptions}
               onChange={this.onProprietarioChange2}
+            />
+            Mieter:
+            <Select
+              name='inquilinoId'
+              value={this.state.inquilinoId}
+              options={options}
+              filterOptions={filterOptions}
+              onChange={this.onInquilinoChange}
             />
             {this.props.utente.role === 'Admin' ? (
               <label>

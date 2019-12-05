@@ -16,6 +16,9 @@ export class ViewOggettiPage extends React.Component {
     const proprietario2 = this.props.clienti.find(
       cliente => cliente.id === this.props.oggetto.proprietarioId2
     );
+    const inquilino = this.props.clienti.find(
+      cliente => cliente.id === this.props.oggetto.inquilinoId
+    );
 
     return (
       <div>
@@ -201,6 +204,11 @@ export class ViewOggettiPage extends React.Component {
         {this.props.oggetto.proprietarioId2.length > 0 && (
           <div>
             <ClientiList cliente={proprietario2} ruolo={'2. Eigentümer'} />
+          </div>
+        )}
+        {this.props.oggetto.inquilinoId.length > 0 && (
+          <div>
+            <ClientiList cliente={inquilino} ruolo={'Mieter'} />
           </div>
         )}
         <div className='content-container'>

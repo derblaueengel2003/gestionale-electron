@@ -59,7 +59,8 @@ export const startAddOggetto = (oggettoData = {}) => {
       heizungsart = '',
       energieTraeger = '',
       energieBedarf = '',
-      provvigione = ''
+      provvigione = '',
+      inquilinoId
     } = oggettoData;
     const oggetto = {
       via,
@@ -112,7 +113,8 @@ export const startAddOggetto = (oggettoData = {}) => {
       heizungsart,
       energieTraeger,
       energieBedarf,
-      provvigione
+      provvigione,
+      inquilinoId
     };
 
     return database
