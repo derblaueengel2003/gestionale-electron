@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import LeadsListItem from '../leads/LeadsListItem';
 import ClientiList from '../clienti/ClientiList';
 import { startRemoveLead } from '../../actions/leads';
+import numeral from 'numeral';
+import moment from 'moment';
 
 export class ViewLeadPage extends React.Component {
   onRemove = () => {
@@ -15,9 +17,25 @@ export class ViewLeadPage extends React.Component {
     }
   };
   render() {
-    const cliente = this.props.clienti.filter(
+    const cliente = this.props.clienti.find(
       cliente => cliente.id === this.props.lead.leadId
     );
+    const consulenteVendita = this.props.utenti.find(
+      utente => utente.id === cliente.consulenteVenditaId
+    );
+
+    let immobile = '';
+    if (this.props.lead.leadOggettoStato === 'commerciale') {
+      immobile = `Locale ${this.props.lead.leadOggettoStato}`;
+    } else if (this.props.lead.leadOggettoStato === 'aph') {
+      immobile = 'Casa di cura';
+    } else if (
+      this.props.lead.leadOggettoStato === 'libero' ||
+      this.props.lead.leadOggettoStato === 'affittato' ||
+      this.props.lead.leadOggettoStato === 'libero o affittato'
+    ) {
+      immobile = `Appartamento ${this.props.lead.leadOggettoStato}`;
+    }
     return (
       <div>
         <div className='grey lighten-4'>
@@ -34,21 +52,59 @@ export class ViewLeadPage extends React.Component {
               <i className='material-icons'>remove</i>
             </button>
             <Link
-              className='btn-floating orange right'
+              className='btn-floating orange right btn-floating-margin'
               to={`/leadedit/${this.props.lead.id}`}
             >
               <i className='material-icons'>edit</i>
             </Link>
+            {this.props.lead.leadOggettoStato === 'libero' ||
+            this.props.lead.leadOggettoStato === 'affittato' ||
+            this.props.lead.leadOggettoStato === 'libero o affittato' ||
+            this.props.lead.leadOggettoStato === '' ? (
+              <Link
+                className='btn-floating green accent-3 right btn-floating-margin'
+                to={`/leadmatchview/${this.props.lead.id}`}
+              >
+                Match
+              </Link>
+            ) : (
+              ''
+            )}
+
+            {cliente.email && (
+              <a
+                className='btn-floating blue right btn-floating-margin'
+                href={`mailto:${cliente.email}`}
+              >
+                <i className='material-icons'>email</i>
+              </a>
+            )}
           </div>
 
-          <div className='list-body'>
-            <div>
-              <LeadsListItem {...this.props.lead} showAll={true} />
-            </div>
+          <div>
+            {cliente && (
+              <h5>{`${cliente.titolo} ${cliente.nome} ${cliente.cognome}`}</h5>
+            )}
+            <h6>
+              Budget:{' '}
+              {numeral(this.props.lead.leadBudget / 100).format('0,0[.]00 $')}
+            </h6>
+            <p>{consulenteVendita && `(${consulenteVendita.name})`}</p>
+            <p>
+              {this.props.lead.leadCreatedAt
+                ? moment(this.props.lead.leadCreatedAt).format('DD MMMM, YYYY')
+                : null}
+            </p>
+            <p>{cliente && cliente.email}</p>
+            <p>{cliente && cliente.telefono1}</p>
+            <p>{this.props.lead.leadOggettoStato ? immobile : null}</p>
+            <p>
+              {this.props.lead.leadNote && `Note: ${this.props.lead.leadNote}`}
+            </p>
           </div>
         </div>
 
-        <ClientiList cliente={cliente} ruolo={'Cliente'} />
+        <ClientiList cliente={[cliente]} ruolo={'Cliente'} />
       </div>
     );
   }
@@ -56,7 +112,8 @@ export class ViewLeadPage extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   lead: state.leads.find(lead => lead.id === props.match.params.id),
-  clienti: state.clienti
+  clienti: state.clienti,
+  utenti: state.utenti
 });
 const mapDispatchToProps = dispatch => ({
   startRemoveLead: data => dispatch(startRemoveLead(data))

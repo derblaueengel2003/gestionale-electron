@@ -7,6 +7,7 @@ import { creaPrenotazione } from '../moduli/Provisionsbestaetigung';
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung';
 import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag';
 import { protocollo } from '../moduli/UebergabeProtokoll';
+import { notarDatenblatt } from '../moduli/NotarDatenblatt';
 import TodoForm from './TodoForm';
 import FattureList from '../fatture/FattureList';
 import ClientiList from '../clienti/ClientiList';
@@ -32,6 +33,7 @@ export class ViewDealPage extends React.Component {
       acquirenteId2,
       agenziaPartnerId,
       payedStefano,
+      belastungsVollmacht,
       id
     } = this.props.deal;
     const { utente } = this.props;
@@ -65,6 +67,9 @@ export class ViewDealPage extends React.Component {
     );
     const notaio = this.props.clienti.find(
       cliente => cliente.id === this.props.deal.notaioId
+    );
+    const verwalter = this.props.clienti.find(
+      cliente => cliente.id === oggetto.verwalter
     );
     // Determino quante fatture sono state pagate per mostrare i colori adatti. Da dealFature mi arriva un array
     let payed = 0;
@@ -234,9 +239,34 @@ export class ViewDealPage extends React.Component {
               <li className='collection-item'>
                 <div>
                   Notar Datenblatt
-                  <Link className='secondary-content' to={`/datenblatt/${id}`}>
+                  {/*                   
+                    <Link className='secondary-content' to={`/datenblatt/${id}`}>
                     <i className='material-icons'>print</i>
                   </Link>
+*/}
+                  <a href='#!' className='secondary-content'>
+                    <i
+                      className='material-icons'
+                      onClick={() => {
+                        notarDatenblatt(
+                          acquirente[0],
+                          acquirente2[0],
+                          venditore[0],
+                          venditore2[0],
+                          oggetto,
+                          notaio,
+                          verwalter,
+                          belastungsVollmacht,
+                          prezzoDiVendita,
+                          utente,
+                          this.props.firma,
+                          this.props.ceo
+                        );
+                      }}
+                    >
+                      picture_as_pdf
+                    </i>
+                  </a>
                 </div>
               </li>
               <li className='collection-item'>

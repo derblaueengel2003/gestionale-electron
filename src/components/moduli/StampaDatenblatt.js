@@ -34,13 +34,13 @@ export class StampaDatenblatt extends React.Component {
           <h1>Datenblatt Wohnungskauf</h1>
         </div>
         <div>
-          <h2>Makler</h2>
+          <h5>Makler</h5>
           <p>{`${firma.name} ${firma.name2 && ` - ${firma.name2}`}`}</p>
           <p>{`${firma.adresse}, ${firma.plz} ${firma.stadt}`}</p>
           <p>{`Tel: ${firma.telefon} - E-Mail: ${firma.email}`}</p>
         </div>
         <div>
-          <h2>Objekt</h2>
+          <h5>Objekt</h5>
           <p>{`Adresse: ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</p>
           <p>
             {oggetto.grundbuch !== '' &&
@@ -79,7 +79,7 @@ export class StampaDatenblatt extends React.Component {
           <p></p>
         </div>
         <div>
-          <h2>Verkäufer</h2>
+          <h5>Verkäufer</h5>
           <p>{venditore.ditta && `Firma ${venditore.ditta}`}</p>
           <p>{`${venditore.titolo} ${venditore.nome} ${venditore.cognome}`}</p>
           <p>
@@ -103,7 +103,7 @@ export class StampaDatenblatt extends React.Component {
         </div>
         {this.props.deal.venditoreId2.length > 0 && (
           <div>
-            <h2>Verkäufer Nr. 2</h2>
+            <h5>Verkäufer Nr. 2</h5>
             <p>{venditore2.ditta && `Firma ${venditore2.ditta}`}</p>
             <p>{`${venditore2.titolo} ${venditore2.nome} ${venditore2.cognome}`}</p>
             <p>
@@ -129,7 +129,7 @@ export class StampaDatenblatt extends React.Component {
           </div>
         )}
         <div>
-          <h2>Käufer</h2>
+          <h5>Käufer</h5>
           <p>{acquirente.ditta && `Firma ${acquirente.ditta}`}</p>
           <p>{`${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`}</p>
           <p>
@@ -155,7 +155,7 @@ export class StampaDatenblatt extends React.Component {
         </div>
         {this.props.deal.acquirenteId2.length > 0 && (
           <div>
-            <h2>Käufer Nr. 2</h2>
+            <h5>Käufer Nr. 2</h5>
             <p>{acquirente2.ditta && `Firma ${acquirente2.ditta}`}</p>
             <p>{`${acquirente2.titolo} ${acquirente2.nome} ${acquirente2.cognome}`}</p>
             <p>
@@ -183,7 +183,7 @@ export class StampaDatenblatt extends React.Component {
 
         {verwalter && (
           <div>
-            <h2>Verwalter</h2>
+            <h5>Verwalter</h5>
             <p>{verwalter.ditta}</p>
             <p>
               {verwalter.titolo} {verwalter.nome} {verwalter.cognome}
@@ -195,11 +195,11 @@ export class StampaDatenblatt extends React.Component {
 
         {oggetto.mobilio !== '' && (
           <div className='page-divide'>
-            <h2>Einrichtung</h2>
+            <h5>Einrichtung</h5>
             <p className='show-textarea'>{`${oggetto.mobilio}`}</p>
           </div>
         )}
-        <button className='print button button--secondary' onClick={this.print}>
+        <button className='print btn' onClick={this.print}>
           Stampa Datenblatt
         </button>
       </div>

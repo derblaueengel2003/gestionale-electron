@@ -16,7 +16,9 @@ export class ViewOggettiPage extends React.Component {
     const proprietario2 = this.props.clienti.filter(
       cliente => cliente.id === this.props.oggetto.proprietarioId2
     );
-
+    const inquilino = this.props.clienti.filter(
+      cliente => cliente.id === this.props.oggetto.inquilinoId
+    );
     return (
       <div>
         <div className='grey lighten-4'>
@@ -219,6 +221,11 @@ export class ViewOggettiPage extends React.Component {
         {this.props.oggetto.proprietarioId2.length > 0 && (
           <div>
             <ClientiList cliente={proprietario2} ruolo={'2. Eigentümer'} />
+          </div>
+        )}
+        {this.props.oggetto.inquilinoId.length > 0 && (
+          <div>
+            <ClientiList cliente={inquilino} ruolo={'Mieter'} />
           </div>
         )}
         <div className='container'>
