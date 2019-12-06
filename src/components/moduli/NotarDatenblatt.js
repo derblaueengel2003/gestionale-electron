@@ -319,14 +319,30 @@ export const notarDatenblatt = (
     doc.addPage();
     cartaIntestata();
 
-    //Objekt
+    //Titolo per Einrichtungsliste
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(12);
     doc.setFontType('bold');
     doc.text(`Einrichtung`, 15, 38);
     doc.setFontSize(10);
     doc.setFontType('normal');
-    doc.text(oggetto.mobilio, 15, 43);
+
+    //questa funzione splitta il testo in array di linee di testo. Lo reitero e aggiungo margine dall'alto fino a 260 che è fondo pagina, dopodichè aggiungo pagina e reinizializzo il margine alto
+    const lines = doc.splitTextToSize(oggetto.mobilio, 180);
+    let y = 45;
+    for (let i = 0; i < lines.length; i++) {
+      if (y > 260) {
+        y = 38;
+        doc.addPage();
+        cartaIntestata();
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(10);
+        doc.setFontType('normal');
+      }
+      doc.text(15, y, lines[i]);
+      y = y + 5;
+    }
   }
+
   doc.save(`Notar Danteblatt.pdf`);
 };
