@@ -20,19 +20,16 @@ export class EditFatturaPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Rechnung ändern</h1>
+        <div>
+          <div className='container'>
+            <h1>Rechnung ändern</h1>
           </div>
         </div>
-        <div className='content-container'>
-          <FatturaForm fattura={this.props.fattura} onSubmit={this.onSubmit} />
-          <button
-            className='button button--secondary-delete'
-            onClick={this.onRemove}
-          >
-            Rechnung löschen
+        <div className='container'>
+          <button className='btn-floating red right' onClick={this.onRemove}>
+            <i className='material-icons'>remove</i>
           </button>
+          <FatturaForm fattura={this.props.fattura} onSubmit={this.onSubmit} />
         </div>
       </div>
     );
@@ -48,7 +45,4 @@ const mapDispatchToProps = dispatch => ({
   startRemoveFattura: data => dispatch(startRemoveFattura(data))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditFatturaPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditFatturaPage);

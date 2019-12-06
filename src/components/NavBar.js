@@ -1,114 +1,58 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Sidebar from './Sidebar';
 
 export const NavBar = ({ utente }) => {
   if (utente) {
     return (
-      <div className='content-container page-header__navbar'>
-        <div className='show-for-mobile'>
-          <div id='menuToggle'>
-            <input type='checkbox' />
-            <span></span>
-            <span></span>
-            <span></span>
-            <ul id='menu'>
-              <Link to='/dashboard'>
-                <li>Deals</li>
-              </Link>
-              <Link to='/leads'>
-                <li>Anfragen</li>
-              </Link>
-              <Link to='/moduli'>
-                <li>Formulare</li>
-              </Link>
-              <Link to='/oggetti'>
-                <li>Objekte</li>
-              </Link>
-              <Link to='/customer'>
-                <li>Kontakte</li>
-              </Link>
-              {utente.role === 'Admin' && (
-                <Link to='/report'>
-                  <li>Report</li>
-                </Link>
-              )}
-              {utente.role === 'Admin' && (
-                <Link to='/users'>
-                  <li>Benutzer</li>
-                </Link>
-              )}
-              {utente.role === 'Admin' && (
-                <Link to='/fatture'>
-                  <li>Rechnungen</li>
-                </Link>
-              )}
-            </ul>
-          </div>
+      <nav className='nav-wraper blue'>
+        <div className='container'>
+          <Sidebar />
+          <ul className='hide-on-med-and-down'>
+            <li>
+              {' '}
+              <Link to='/dashboard'>Deals</Link>
+            </li>
+            <li>
+              {' '}
+              <Link to='/leads'>Anfragen</Link>
+            </li>
+            <li>
+              {' '}
+              <Link to='/moduli'>Formulare</Link>
+            </li>
+            <li>
+              {' '}
+              <Link to='/oggetti'>Objekte</Link>
+            </li>
+            <li>
+              {' '}
+              <Link to='/customer'>Kontakte</Link>
+            </li>
+            {utente.role === 'Admin' && (
+              <li>
+                <Link to='/report'>Report</Link>
+              </li>
+            )}
+            {utente.role === 'Admin' && (
+              <li>
+                <Link to='/users'>Benutzer</Link>
+              </li>
+            )}
+            {utente.role === 'Admin' && (
+              <li>
+                <Link to='/fatture'>Rechnungen</Link>
+              </li>
+            )}
+          </ul>
         </div>
-        <div className='content-container show-for-desktop'>
-          <Link
-            className='button page-header__button page-header__button-deals'
-            to='/dashboard'
-          >
-            Deals
-          </Link>
-          <Link
-            className='button page-header__button page-header__button-leads'
-            to='/leads'
-          >
-            Anfragen
-          </Link>
-          <Link
-            className='button page-header__button page-header__button-modulistica'
-            to='/moduli'
-          >
-            Formulare
-          </Link>
-          <Link
-            className='button page-header__button page-header__button-oggetti'
-            to='/oggetti'
-          >
-            Objekte
-          </Link>
-          <Link
-            className='button page-header__button page-header__button-clienti'
-            to='/customer'
-          >
-            Kontakte
-          </Link>
-          {utente.role === 'Admin' && (
-            <Link
-              className='button page-header__button page-header__button-report'
-              to='/report'
-            >
-              Report
-            </Link>
-          )}
-          {utente.role === 'Admin' && (
-            <Link
-              className='button page-header__button page-header__button-utenti'
-              to='/users'
-            >
-              Benutzer
-            </Link>
-          )}
-          {utente.role === 'Admin' && (
-            <Link
-              className='button page-header__button page-header__button-fatture'
-              to='/fatture'
-            >
-              Rechnungen
-            </Link>
-          )}
-        </div>
-      </div>
+      </nav>
     );
   } else {
     setTimeout(location.reload(), 500);
   }
 };
-
 const mapStateToProps = state => {
   return {
     utente: state.utenti.find(
@@ -116,4 +60,5 @@ const mapStateToProps = state => {
     )
   };
 };
+
 export default connect(mapStateToProps)(NavBar);

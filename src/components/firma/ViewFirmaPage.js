@@ -6,12 +6,12 @@ export class ViewFirmaPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Firma</h1>
+        <div>
+          <div className='container'>
+            <h1>Firma</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           {this.props.utente.name.length > 0 && (
             <div>Name: {this.props.utente.name}</div>
           )}

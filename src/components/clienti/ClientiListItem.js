@@ -15,18 +15,38 @@ export const ClientiListItem = ({
 }) => {
   if (visible || utente.role === 'Admin') {
     return (
-      <div className={visible ? 'list-item' : 'list-item disabled'}>
-        <div>
-          <Link to={`/customerview/${id}`}>
-            <h3 className='list-item__title'>
-              {nome} {cognome}{' '}
-            </h3>{' '}
-          </Link>
-          <h4 className='list-item__sub-title'>{email}</h4>
-          <h4 className='list-item__sub-title'>{telefono1}</h4>
-        </div>
-        <div>
-          <h3 className='list-item__title'>{ditta} </h3>
+      <div className='row'>
+        <div className='col s12'>
+          <div className='card'>
+            <div className='card-content'>
+              <div className='row'>
+                <div className='col s12 m10'>
+                  <div className={visible ? '' : 'disabled'}>
+                    <div>
+                      <Link to={`/customerview/${id}`}>
+                        <span className='card-title'>
+                          {nome} {cognome}{' '}
+                        </span>{' '}
+                      </Link>
+                      <p>{ditta} </p>
+                      <p>{email}</p>
+                      <p>{telefono1}</p>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  {email.length > 0 && (
+                    <a
+                      href={`mailto:${email}`}
+                      className='btn-floating blue right'
+                    >
+                      <i className='material-icons'>email</i>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

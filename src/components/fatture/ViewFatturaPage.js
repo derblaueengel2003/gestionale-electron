@@ -42,107 +42,100 @@ export class ViewFatturePage extends React.Component {
 
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Rechnungen</h1>
+        <div className='grey lighten-4'>
+          <div className='container'>
+            <h1>Rechnung</h1>
           </div>
         </div>
-        <div className='content-container'>
-          <div className='list-header'>
-            <div className='show-for-mobile'>{deal && deal.dealType}</div>
-            <div className='show-for-desktop'>{deal && deal.dealType}</div>
-            <div className='show-for-desktop'></div>
+        <div className='container section'>
+          <div>
+            <Link
+              className='btn-floating orange right btn-floating-margin'
+              to={`/fatturaedit/${this.props.fattura.id}`}
+            >
+              <i className='material-icons'>edit</i>
+            </Link>
+            <button
+              className='btn-floating blue-grey right'
+              onClick={() => {
+                fattura(
+                  cliente,
+                  cliente2,
+                  this.props.fattura.numeroFattura,
+                  this.props.fattura.dataFattura,
+                  this.props.fattura.note,
+                  oggetto,
+                  deal.prezzoDiVendita,
+                  deal.dataRogito,
+                  deal.amount,
+                  deal.createdAt,
+                  deal.dealType,
+                  acquirente,
+                  acquirente2,
+                  this.props.firma,
+                  this.props.utente,
+                  this.props.ceo
+                );
+              }}
+            >
+              <i className='material-icons'>print</i>
+            </button>
           </div>
-          <div className='list-body'>
-            <div className='list-item'>
-              <div>
-                {this.props.fattura.numeroFattura.length > 0 && (
-                  <div
-                    className={`${this.props.fattura.payed &&
-                      'list-item--paid'}`}
-                  >
-                    Rechnungsnummer: {this.props.fattura.numeroFattura}
-                  </div>
-                )}
-                {this.props.fattura.note}
-                <div className='list-item__title'>
-                  {oggetto &&
-                    `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}
-                </div>
 
-                {cliente && (
-                  <div>
-                    Kunde: {cliente.nome} {cliente.cognome}{' '}
-                    {cliente.ditta && ` - Firma: ${cliente.ditta}`}
-                  </div>
-                )}
-                {cliente2 && (
-                  <div>
-                    2. Kunde: {cliente2.nome} {cliente2.cognome}{' '}
-                    {cliente2.ditta && ` - Firma: ${cliente2.ditta}`}
-                  </div>
-                )}
-              </div>
-              <div>
-                {this.props.fattura.dataFattura > 0 && (
-                  <div>
-                    Rechnungsdatum:{' '}
-                    {moment(this.props.dataFattura).format('DD MMMM, YYYY')}
-                  </div>
-                )}
-                {deal && deal.dataRogito > 0 && (
-                  <div>
-                    Beurkundungsdatum:{' '}
-                    {moment(deal.dataRogito).format('DD MMMM, YYYY')}
-                  </div>
-                )}
-              </div>
+          <div className='section'>
+            {deal && deal.dealType}
+
+            {this.props.fattura.numeroFattura.length > 0 && (
+              <h5>Rechnungsnummer: {this.props.fattura.numeroFattura}</h5>
+            )}
+            {this.props.fattura.note}
+            <div className='list-item__title'>
+              {oggetto &&
+                `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}
             </div>
-          </div>
 
-          <Link
-            className='print button button--secondary'
-            to={`/fatturaedit/${this.props.fattura.id}`}
-          >
-            Rechnung ändern
-          </Link>
-          <button
-            className='print button button--secondary'
-            onClick={() => {
-              fattura(
-                cliente,
-                cliente2,
-                this.props.fattura.numeroFattura,
-                this.props.fattura.dataFattura,
-                this.props.fattura.note,
-                oggetto,
-                deal.prezzoDiVendita,
-                deal.dataRogito,
-                deal.amount,
-                deal.createdAt,
-                deal.dealType,
-                acquirente,
-                acquirente2,
-                this.props.firma,
-                this.props.utente,
-                this.props.ceo
-              );
-            }}
-          >
-            Rechnung drucken
-          </button>
+            {cliente && (
+              <div>
+                Kunde: {cliente.nome} {cliente.cognome}{' '}
+                {cliente.ditta && ` - Firma: ${cliente.ditta}`}
+              </div>
+            )}
+            {cliente2 && (
+              <div>
+                2. Kunde: {cliente2.nome} {cliente2.cognome}{' '}
+                {cliente2.ditta && ` - Firma: ${cliente2.ditta}`}
+              </div>
+            )}
+          </div>
+          <div>
+            {this.props.fattura.dataFattura > 0 && (
+              <div>
+                Rechnungsdatum:{' '}
+                {moment(this.props.dataFattura).format('DD MMMM, YYYY')}
+              </div>
+            )}
+            {deal && deal.dataRogito > 0 && (
+              <div>
+                Beurkundungsdatum:{' '}
+                {moment(deal.dataRogito).format('DD MMMM, YYYY')}
+              </div>
+            )}
+          </div>
         </div>
         {/* passo deal come array perché è quello che si aspetta il componente */}
         <DealList clienteDeals={[deal]} />
         <OggettiList oggetto={[oggetto]} />
         {cliente && (
           <div>
-            <ClientiList cliente={cliente} ruolo={'Intestatario fattura'} />
+            <ClientiList cliente={[cliente]} ruolo={'Intestatario fattura'} />
           </div>
         )}
         {cliente2 && (
           <div>
-            <ClientiList cliente={cliente2} ruolo={'2. Intestatario fattura'} />
+            <ClientiList
+              cliente={[cliente2]}
+              ruolo={'2. Intestatario fattura'}
+            />
           </div>
         )}
       </div>

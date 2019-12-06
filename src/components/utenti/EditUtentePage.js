@@ -20,19 +20,19 @@ export class EditUtentePage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Benutzer ändern</h1>
+        <div>
+          <div className='container'>
+            <h1>Benutzer ändern</h1>
           </div>
         </div>
-        <div className='content-container'>
-          <UserForm user={this.props.utente} onSubmit={this.onSubmit} />
+        <div className='container'>
           <button
-            className='button button--secondary-delete'
+            className='btn-floating red right btn-floating-margin'
             onClick={this.onRemove}
           >
-            Benutzer löschen
+            <i className='material-icons'>remove</i>
           </button>
+          <UserForm user={this.props.utente} onSubmit={this.onSubmit} />
         </div>
       </div>
     );
@@ -48,7 +48,4 @@ const mapDispatchToProps = dispatch => ({
   startRemoveUser: data => dispatch(startRemoveUser(data))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditUtentePage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditUtentePage);

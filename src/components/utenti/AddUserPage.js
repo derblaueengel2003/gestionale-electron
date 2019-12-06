@@ -11,12 +11,12 @@ export class AddUserPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Benutzer hinzufügen</h1>
+        <div>
+          <div className='container'>
+            <h1>Benutzer hinzufügen</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <UserForm onSubmit={this.onSubmit} />
         </div>
       </div>
@@ -28,7 +28,4 @@ const mapDispatchToProps = dispatch => ({
   startAddUser: user => dispatch(startAddUser(user))
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(AddUserPage);
+export default connect(undefined, mapDispatchToProps)(AddUserPage);

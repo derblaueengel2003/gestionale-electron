@@ -11,12 +11,12 @@ export class AddFirmaPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Firma hinzufügen</h1>
+        <div>
+          <div className='container'>
+            <h1>Firma hinzufügen</h1>
           </div>
         </div>
-        <div className='content-container'>
+        <div className='container'>
           <FirmaForm onSubmit={this.onSubmit} />
         </div>
       </div>
@@ -28,7 +28,4 @@ const mapDispatchToProps = dispatch => ({
   startAddFirma: firma => dispatch(startAddFirma(firma))
 });
 
-export default connect(
-  undefined,
-  mapDispatchToProps
-)(AddFirmaPage);
+export default connect(undefined, mapDispatchToProps)(AddFirmaPage);

@@ -6,7 +6,7 @@ exports[`should render EditDealPage correctly 1`] = `
     className="page-header"
   >
     <div
-      className="content-container"
+      className="container"
     >
       <h1
         className="page-header__title"
@@ -16,7 +16,7 @@ exports[`should render EditDealPage correctly 1`] = `
     </div>
   </div>
   <div
-    className="content-container"
+    className="container"
   >
     <DealForm
       deal={

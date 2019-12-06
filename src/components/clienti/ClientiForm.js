@@ -116,18 +116,14 @@ export class CustomerForm extends React.Component {
     return (
       <form className='form' onSubmit={this.onSubmit}>
         <div>
-          <button className='button button--secondary-clienti'>
-            Speichern
+          <button className='btn-floating blue right'>
+            <i className='material-icons'>save</i>
           </button>
         </div>
         {this.state.error && (
           <div>
             <p className='form__error'>{this.state.error}</p>
-            <Link
-              to={`customer/`}
-              target='_blank'
-              className='button button--secondary-clienti'
-            >
+            <Link to={`customer/`} target='_blank' className='btn'>
               Überprüfen
             </Link>
           </div>
@@ -318,7 +314,6 @@ export class CustomerForm extends React.Component {
         ></textarea>
         {this.props.utente.role === 'Admin' ? (
           <label>
-            Visible&nbsp;
             <input
               type='checkbox'
               name='visible'
@@ -329,14 +324,15 @@ export class CustomerForm extends React.Component {
                 }));
               }}
             />
+            <span>Visible</span>
           </label>
         ) : (
           ''
         )}
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
         <div>
-          <button className='button button--secondary-clienti'>
-            Speichern
+          <button className='btn-floating blue right'>
+            <i className='material-icons'>save</i>
           </button>
         </div>
       </form>

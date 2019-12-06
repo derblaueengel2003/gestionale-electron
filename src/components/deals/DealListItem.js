@@ -3,43 +3,6 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import numeral from 'numeral';
 
-// load a locale
-numeral.register('locale', 'de', {
-  delimiters: {
-    thousands: '.',
-    decimal: ','
-  },
-  abbreviations: {
-    thousand: 'k',
-    million: 'm',
-    billion: 'b',
-    trillion: 't'
-  },
-  ordinal: function(number) {
-    return number === 1 ? 'er' : '°';
-  },
-  currency: {
-    symbol: '€'
-  }
-});
-// switch between locales
-numeral.locale('de');
-moment.locale('de');
-
-const ProgressBar = props => {
-  return (
-    <div className='progress-bar'>
-      <Filler percentage={props.percentage} />
-    </div>
-  );
-};
-
-const Filler = props => {
-  return (
-    <div className='filler' style={{ width: `${props.percentage}%` }}></div>
-  );
-};
-
 //destrutturo i props in singole variabili
 const DealListItem = ({
   todo1,
@@ -99,48 +62,63 @@ const DealListItem = ({
     }
   }
   return (
-    <div className='list-item'>
-      <div>
-        <Link to={`/view/${id}`}>
-          {' '}
-          <h3 className='list-item__title'>{`Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</h3>
-        </Link>
-        <span className='list-item__sub-title'>
-          {createdAt
-            ? `Reservierung vom ${moment(createdAt).format('DD MMMM, YYYY')}`
-            : null}
-        </span>
-        <h4 className='list-item__sub-title'>
-          {acquirente
-            ? `Käufer: ${acquirente.nome} ${acquirente.cognome} ${acquirente.ditta}`
-            : ''}{' '}
-          {acquirente2
-            ? `- ${acquirente2.nome} ${acquirente2.cognome} ${acquirente2.ditta}`
-            : ''}
-        </h4>
-        <h4 className='list-item__sub-title'>
-          {venditore
-            ? `Verkäufer: ${venditore.nome} ${venditore.cognome} ${venditore.ditta}`
-            : ''}{' '}
-          {venditore2
-            ? `- ${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta}`
-            : ''}
-        </h4>
-        {`Erledigte To-dos: ${todoCount} di 11`}
-        <ProgressBar percentage={(todoCount * 100) / 11} />
-      </div>
-      <div>
-        {utente.role === 'Mitarbeiter' ? (
-          <h3
-            className={`list-item__data ${payedStefano && 'list-item--paid'}`}
-          >
-            {numeral(provvStefano / 100).format('0,0[.]00 $')}
-          </h3>
-        ) : (
-          <h3 className={`list-item__data  list-item--paid${payed}`}>
-            {numeral(provvM2square / 100).format('0,0[.]00 $')}
-          </h3>
-        )}
+    <div className='row'>
+      <div className='col s12'>
+        <div className='card'>
+          <div className='card-content'>
+            <div className='row'>
+              <div className='col s12 m10'>
+                <Link to={`/view/${id}`}>
+                  {' '}
+                  <span className='card-title'>{`Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</span>
+                </Link>
+                <h6>
+                  {createdAt
+                    ? `Reservierung vom ${moment(createdAt).format(
+                        'DD MMMM, YYYY'
+                      )}`
+                    : null}
+                </h6>
+                <h6>
+                  {acquirente
+                    ? `Käufer: ${acquirente.nome} ${acquirente.cognome} ${acquirente.ditta}`
+                    : ''}{' '}
+                  {acquirente2
+                    ? `- ${acquirente2.nome} ${acquirente2.cognome} ${acquirente2.ditta}`
+                    : ''}
+                </h6>
+                <h6>
+                  {venditore
+                    ? `Verkäufer: ${venditore.nome} ${venditore.cognome} ${venditore.ditta}`
+                    : ''}{' '}
+                  {venditore2
+                    ? `- ${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta}`
+                    : ''}
+                </h6>
+                <blockquote>
+                  {`Erledigte To-dos: ${todoCount} von 11`}
+                  <ProgressBar percentage={(todoCount * 100) / 11} />
+                </blockquote>
+              </div>
+              <div>
+                {utente.role === 'Mitarbeiter' ? (
+                  <span
+                    className={` card-title list-item__data ${payedStefano &&
+                      'list-item--paid'}`}
+                  >
+                    {numeral(provvStefano / 100).format('0,0[.]00 $')}
+                  </span>
+                ) : (
+                  <span
+                    className={` card-title list-item__data  list-item--paid${payed}`}
+                  >
+                    {numeral(provvM2square / 100).format('0,0[.]00 $')}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

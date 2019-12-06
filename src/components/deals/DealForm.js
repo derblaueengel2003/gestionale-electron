@@ -267,7 +267,9 @@ export class DealForm extends React.Component {
       <form className='form' onSubmit={this.onSubmit}>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
         <div>
-          <button className='button button--secondary'>Speichern</button>
+          <button className='btn-floating blue right'>
+            <i className='material-icons'>save</i>
+          </button>
         </div>
         Deal-Typ:
         <Select
@@ -348,7 +350,6 @@ export class DealForm extends React.Component {
           onChange={this.changeHandlerValuta}
         />
         <label>
-          Bezahlt&nbsp;
           <input
             type='checkbox'
             name='payedStefano'
@@ -360,6 +361,7 @@ export class DealForm extends React.Component {
               }));
             }}
           />
+          <span>Bezahlt</span>
         </label>
         <div className={`visible-${this.state.payedStefano} form`}>
           Bezahlt am:
@@ -391,7 +393,6 @@ export class DealForm extends React.Component {
           onChange={this.changeHandlerValuta}
         />
         <label>
-          Bezahlt&nbsp;
           <input
             type='checkbox'
             name='payedAgenziaPartner'
@@ -402,6 +403,7 @@ export class DealForm extends React.Component {
               }));
             }}
           />
+          <span>Bezahlt</span>
         </label>
         Verkäufer:
         <Select
@@ -461,7 +463,6 @@ export class DealForm extends React.Component {
           onChange={this.onLinguaRogitoChange}
         />
         <label>
-          Belastungsvollmacht&nbsp;
           <input
             type='checkbox'
             name='belastungsVollmacht'
@@ -472,6 +473,7 @@ export class DealForm extends React.Component {
               }));
             }}
           />
+          <span>Belastungsvollmacht</span>
         </label>
         Übergabedatum:
         <SingleDatePicker
@@ -486,12 +488,14 @@ export class DealForm extends React.Component {
         <textarea
           name='note'
           className={`textarea text-input--${this.state.modificato.note}`}
-          placeholder='Nota  (opzionale)'
+          placeholder='Note (optional)'
           value={this.state.note}
           onChange={this.changeHandler}
         ></textarea>
         <div>
-          <button className='button button--secondary'>Speichern</button>
+          <button className='btn-floating blue right'>
+            <i className='material-icons'>save</i>
+          </button>{' '}
         </div>
       </form>
     );

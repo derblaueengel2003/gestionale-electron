@@ -1,37 +1,37 @@
 .list-header {
-  background: $off-white;
-  border: 1px solid darken($off-white, 7);
-  color: $grey;
+  // background: $off-white;
+  // border: 1px solid darken($off-white, 7);
+  // color: $grey;
   display: flex;
   justify-content: space-between;
   padding: $s-size $m-size;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 
-  &-deals {
-    background: $light-green;
-    border: 1px solid darken($light-green, 7);
-  }
+  // &-deals {
+  //   background: $light-green;
+  //   border: 1px solid darken($light-green, 7);
+  // }
 
-  &-leads {
-    background: $light-orange;
-    border: 1px solid darken($light-orange, 7);
-  }
+  // &-leads {
+  //   background: $light-orange;
+  //   border: 1px solid darken($light-orange, 7);
+  // }
 
-  &-modulistica {
-    background: $light-acqua;
-    border: 1px solid darken($light-acqua, 7);
-  }
+  // &-modulistica {
+  //   background: $light-acqua;
+  //   border: 1px solid darken($light-acqua, 7);
+  // }
 
-  &-oggetti {
-    background: $light-purple;
-    border: 1px solid darken($light-purple, 7);
-  }
+  // &-oggetti {
+  //   background: $light-purple;
+  //   border: 1px solid darken($light-purple, 7);
+  // }
 
-  &-clienti {
-    background: $light-blue;
-    border: 1px solid darken($light-blue, 7);
-  }
+  // &-clienti {
+  //   background: $light-blue;
+  //   border: 1px solid darken($light-blue, 7);
+  // }
 }
 
 .list-body {

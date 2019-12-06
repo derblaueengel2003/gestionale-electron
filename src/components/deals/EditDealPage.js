@@ -22,19 +22,19 @@ export class EditDealPage extends React.Component {
   render() {
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Deal bearbeiten</h1>
+        <div>
+          <div className='container'>
+            <h1>Deal bearbeiten</h1>
           </div>
         </div>
-        <div className='content-container'>
-          <DealForm deal={this.props.deal} onSubmit={this.onSubmit} />
+        <div className='container'>
           <button
-            className='button button--secondary-delete'
+            className='btn-floating red right btn-floating-margin'
             onClick={this.onRemove}
           >
-            Deal löschen
+            <i className='material-icons'>remove</i>
           </button>
+          <DealForm deal={this.props.deal} onSubmit={this.onSubmit} />
         </div>
       </div>
     );

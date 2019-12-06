@@ -31,21 +31,21 @@ export const ReportPage = ({
   ).format('0,0[.]00 $');
 
   return (
-    <div className='page-header'>
-      <div className='content-container'>
-        <h1 className='page-header__title'>
+    <div>
+      <div className='container'>
+        <h1>
           Zusammenfassung: <span>{dealCount}</span> {dealWord} und Gesamtbetrag
           von <span>{formattedDealsTotal}</span>
         </h1>
-        <h1 className='page-header__title'>
+        <h1>
           Erhalten: <span>{formattedDealsPayed}</span> - Offen:{' '}
           <span>{dealsPending}</span>
         </h1>
-        <h2 className='page-header__title'>
+        <h1>
           Stefano: <span>{formattedDealsTotalStefano}</span> - Bezahlt:{' '}
           <span>{formattedDealsStefano}</span> - Offen:{' '}
           <span>{dealsPendingStefano}</span>
-        </h2>
+        </h1>
       </div>
     </div>
   );

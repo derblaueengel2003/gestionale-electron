@@ -2,16 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-export const OggettiListItem = ({
-  via,
-  numeroCivico,
-  cap,
-  citta,
-  rifId,
-  id,
-  numeroAppartamento,
-  nazione,
+export const Card = ({
+  titolo,
+  titoloDestra,
+  sottotitolo,
+  linea1,
+  linea2,
+  linea3,
+  linea4,
+  linea5,
+  linea6,
+  linea7,
+  lineaNote,
+  progressBar,
   visible,
+  link,
   utente
 }) => {
   if (visible || utente.role === 'Admin') {
@@ -21,18 +26,27 @@ export const OggettiListItem = ({
           <div className='card'>
             <div className='card-content'>
               <div className='row'>
-                <div className='col s12 m10'>
+                <div className='col s12 m9'>
                   <div className={visible ? '' : 'disabled'}>
                     <div>
-                      <Link to={`/oggettoview/${id}`}>
-                        <span className='card-title'>{`${via} ${numeroCivico}, WE ${numeroAppartamento}`}</span>
+                      <Link to={link}>
+                        <span className='card-title'>{titolo}</span>
                       </Link>
-                      <span>{`${cap} ${citta}, ${nazione}`}</span>
+                      <h6>{sottotitolo}</h6>
+                      <p>{linea1}</p>
+                      <p>{linea2}</p>
+                      <p>{linea3}</p>
+                      <p>{linea4}</p>
+                      <p>{linea5}</p>
+                      <p>{linea6}</p>
+                      <p>{linea7}</p>
+                      <p>{lineaNote}</p>
+                      {progressBar}
                     </div>
                   </div>
                 </div>
                 <div>
-                  <span className='card-title'>Ref. ID{rifId} </span>
+                  <span className='right'>{titoloDestra} </span>
                 </div>
               </div>
             </div>
@@ -53,4 +67,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(OggettiListItem);
+export default connect(mapStateToProps)(Card);

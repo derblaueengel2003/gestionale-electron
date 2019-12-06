@@ -1,58 +1,54 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ClientiListItem from './ClientiListItem';
+// import ClientiListItem from './ClientiListItem';
 import { startSetCustomers } from '../../actions/clienti';
 import selectClienti from '../../selectors/clienti';
+import Card from '../Card';
 
 export const ClientiList = ({ cliente, clienti, ruolo }) => {
   //controllo se i dati vengono dal deal page o se sono passati via props
+  const clientiPayload = cliente || clienti;
 
-  if (cliente) {
-    //dal deal page - singolo cliente
-    return (
-      <div className='content-container'>
-        <div className='list-header list-header-clienti'>{ruolo}</div>
-        <div className='list-body'>
-          <ClientiListItem key={cliente.id} {...cliente} />
-        </div>
-      </div>
-    );
-  } else {
-    //tutti i clienti - visualizzazione nella clienti dashboard
-    return (
-      <div className='content-container'>
-        <div className='page-header__actions'>
-          <Link
-            className='button button--secondary-clienti button-add'
-            to='/customercreate'
-          >
-            +
-          </Link>
-        </div>
-        <div className='list-header list-header-clienti'>
-          <div className='show-for-mobile'>Kunde</div>
-          <div className='show-for-desktop'>Kunde</div>
-          <div className='show-for-desktop'>Firma</div>
-        </div>
-        <div className='list-body'>
-          {clienti.length === 0 ? (
-            <div className='list-item list-item--message'>
-              <span>Kein Ergebnis anhand der angegebenen Filtern</span>
-            </div>
-          ) : (
-            clienti
+  return (
+    <div className='container'>
+      <div className='list-body'>
+        {clientiPayload.length > 0 && (
+          <div>
+            <h5>{ruolo || 'Adressbuch'}</h5>
+
+            {clientiPayload
               .sort((a, b) => {
                 return a.visible < b.visible ? -1 : 1;
               })
               .map(cliente => {
-                return <ClientiListItem key={cliente.id} {...cliente} />;
-              })
-          )}
-        </div>
+                return (
+                  <Card
+                    key={cliente.id}
+                    link={`/customerview/${cliente.id}`}
+                    titolo={`${cliente.nome} ${cliente.cognome}`}
+                    sottotitolo={cliente.ditta}
+                    linea1={cliente.email}
+                    linea2={cliente.telefono1}
+                    titoloDestra={
+                      cliente.email.length > 0 && (
+                        <a
+                          href={`mailto:${cliente.email}`}
+                          className='btn-floating blue right'
+                        >
+                          <i className='material-icons'>email</i>
+                        </a>
+                      )
+                    }
+                    visible={cliente.visible}
+                  />
+                );
+              })}
+          </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 const mapStateToProps = state => {

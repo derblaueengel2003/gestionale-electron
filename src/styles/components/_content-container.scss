@@ -1,13 +1,17 @@
 .content-container {
-    margin: 0 auto;
-    padding: 0 $m-size;
-    max-width: 90rem;
+  margin: 0 auto;
+  padding: 0 $m-size;
+  max-width: 90rem;
 }
 
 .margine-basso {
-    margin-bottom: $l-size;
+  margin-bottom: $l-size;
 }
 
 .margine-alto {
-    margin-top: $l-size;
+  margin-top: $l-size;
+}
+
+.margine-sinistro {
+  margin-left: $m-size;
 }

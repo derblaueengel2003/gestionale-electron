@@ -7,6 +7,7 @@ import { creaPrenotazione } from '../moduli/Provisionsbestaetigung';
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung';
 import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag';
 import { protocollo } from '../moduli/UebergabeProtokoll';
+import { notarDatenblatt } from '../moduli/NotarDatenblatt';
 import TodoForm from './TodoForm';
 import FattureList from '../fatture/FattureList';
 import ClientiList from '../clienti/ClientiList';
@@ -32,28 +33,32 @@ export class ViewDealPage extends React.Component {
       acquirenteId2,
       agenziaPartnerId,
       payedStefano,
+      belastungsVollmacht,
       id
     } = this.props.deal;
     const { utente } = this.props;
-    const acquirente = this.props.clienti.find(
+    const acquirente = this.props.clienti.filter(
       cliente => cliente.id === acquirenteId
     );
-    const acquirente2 = this.props.clienti.find(
+    const acquirente2 = this.props.clienti.filter(
       cliente => cliente.id === this.props.deal.acquirenteId2
     );
-    const venditore = this.props.clienti.find(
+    const venditore = this.props.clienti.filter(
       cliente => cliente.id === this.props.deal.venditoreId
     );
-    const venditore2 = this.props.clienti.find(
+    const venditore2 = this.props.clienti.filter(
       cliente => cliente.id === this.props.deal.venditoreId2
     );
-    const agenziaPartner = this.props.clienti.find(
+    const agenziaPartner = this.props.clienti.filter(
       cliente => cliente.id === this.props.deal.agenziaPartnerId
     );
     const oggetto = this.props.oggetti.find(
       ogg => ogg.id === this.props.deal.oggettoId
     );
 
+    const kundenbetreuer = this.props.utenti.find(
+      utente => utente.id === consulenteVendita
+    );
     const provvPercentuale = numeral(
       (this.props.deal.amount / this.props.deal.prezzoDiVendita) * 119
     ).format('0,0.00');
@@ -62,6 +67,9 @@ export class ViewDealPage extends React.Component {
     );
     const notaio = this.props.clienti.find(
       cliente => cliente.id === this.props.deal.notaioId
+    );
+    const verwalter = this.props.clienti.find(
+      cliente => cliente.id === oggetto.verwalter
     );
     // Determino quante fatture sono state pagate per mostrare i colori adatti. Da dealFature mi arriva un array
     let payed = 0;
@@ -75,179 +83,229 @@ export class ViewDealPage extends React.Component {
     }
     return (
       <div>
-        <div className='page-header page-header-deals'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Deal-Details</h1>
+        <div className='grey lighten-4'>
+          <div className='container'>
+            <h1>Deal-Details</h1>
           </div>
         </div>
-        <div className='content-container'>
-          <div className='list-header list-header-deals'>
-            <div className='show-for-mobile'>Details</div>
-            <div className='show-for-desktop'>Details</div>
-            <div className='show-for-desktop'></div>
+
+        <div className='container section'>
+          <div>
+            {utente.role === 'Admin' && (
+              <Link className='btn-floating orange right' to={`/edit/${id}`}>
+                <i className='material-icons'>edit</i>
+              </Link>
+            )}
           </div>
-          <div className='list-body'>
-            <div className='list-item'>
-              <div>
-                {prezzoDiVendita > 0 && (
-                  <h3 className='list-item__title'>
-                    Verkaufspreis:{' '}
-                    {numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}
-                  </h3>
-                )}
-                {createdAt > 0 && (
-                  <span className='list-item__sub-title'>
-                    Reservierungsdatum:{' '}
-                    {moment(createdAt).format('DD MMMM, YYYY')}
-                  </span>
-                )}
-                {dataRogito > 0 && (
-                  <h4 className='list-item__sub-title'>
-                    Beurkundungsdatum:{' '}
-                    {moment(dataRogito).format('DD MMMM, YYYY')}
-                  </h4>
-                )}
-                {note.length > 0 && (
-                  <span className='list-item__sub-title'>Note: {note}</span>
-                )}
-              </div>
-              <div>
-                {amount > 0 && (
-                  <h3 className='list-item__title'>
-                    Provision:{' '}
-                    {utente.role === 'Admin'
-                      ? numeral(amount / 100).format('0,0[.]00 $')
-                      : ''}
-                  </h3>
-                )}
-                {consulenteVendita > 0 && (
-                  <h4 className='list-item__sub-title'>
-                    Kundenbetreuer: {consulenteVendita}
-                  </h4>
-                )}
+          <div>
+            {prezzoDiVendita > 0 && (
+              <h5>
+                Verkaufspreis:{' '}
+                {numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}
+              </h5>
+            )}
+            {createdAt > 0 && (
+              <p>
+                Reservierungsdatum: {moment(createdAt).format('DD MMMM, YYYY')}
+              </p>
+            )}
+            {dataRogito > 0 && (
+              <p>
+                Beurkundungsdatum: {moment(dataRogito).format('DD MMMM, YYYY')}
+              </p>
+            )}
+            {note.length > 0 && <p>Note: {note}</p>}
+          </div>
+          <div className='divider'></div>
+
+          <div>
+            {amount > 0 && (
+              <h5>
+                Provision:{' '}
                 {utente.role === 'Admin'
-                  ? provvM2square > 0 && (
-                      <h4
-                        className={`list-item__sub-title list-item--paid${payed}`}
-                      >
-                        m2Square:{' '}
-                        {numeral(provvM2square / 100).format('0,0[.]00 $')}
-                      </h4>
-                    )
+                  ? numeral(amount / 100).format('0,0[.]00 $')
                   : ''}
-                {provvStefano > 0 && (
-                  <h4
-                    className={`list-item__sub-title ${payedStefano &&
-                      'list-item--paid'}`}
-                  >
-                    Stefano: {numeral(provvStefano / 100).format('0,0[.]00 $')}
-                  </h4>
-                )}
-                {payedAtStefano > 0 && (
-                  <span className='list-item__sub-title'>
-                    Bezahlt an Stefano am:{' '}
-                    {moment(payedAtStefano).format('DD MMMM, YYYY')}
-                  </span>
-                )}
-                {utente.role === 'Admin'
-                  ? provvAgenziaPartner > 0 && (
-                      <h4
-                        className={`list-item__sub-title ${payedAgenziaPartner &&
-                          'list-item--paid'}`}
-                      >
-                        Provision Kooperationspartner:{' '}
-                        {numeral(provvAgenziaPartner / 100).format(
-                          '0,0[.]00 $'
-                        )}
-                      </h4>
-                    )
-                  : ''}
-              </div>
+              </h5>
+            )}
+            {kundenbetreuer && <p>Kundenbetreuer: {kundenbetreuer.name}</p>}
+            {utente.role === 'Admin'
+              ? provvM2square > 0 && (
+                  <p className={`list-item--paid${payed}`}>
+                    m2Square:{' '}
+                    {numeral(provvM2square / 100).format('0,0[.]00 $')}
+                  </p>
+                )
+              : ''}
+            {provvStefano > 0 && (
+              <p className={`${payedStefano && 'list-item--paid'}`}>
+                Stefano: {numeral(provvStefano / 100).format('0,0[.]00 $')}
+              </p>
+            )}
+            {payedAtStefano > 0 && (
+              <p>
+                Bezahlt an Stefano am:{' '}
+                {moment(payedAtStefano).format('DD MMMM, YYYY')}
+              </p>
+            )}
+            {utente.role === 'Admin'
+              ? provvAgenziaPartner > 0 && (
+                  <p className={`${payedAgenziaPartner && 'list-item--paid'}`}>
+                    Provision Kooperationspartner:{' '}
+                    {numeral(provvAgenziaPartner / 100).format('0,0[.]00 $')}
+                  </p>
+                )
+              : ''}
+          </div>
+          <div className='divider'></div>
+        </div>
+
+        <div className='section'>
+          <div className='grey lighten-4'>
+            <div className='container'>
+              <h1>Unterlagen herstellen</h1>
             </div>
           </div>
+          <div className='container'>
+            <ul className='collection'>
+              <li className='collection-item'>
+                <div>
+                  {' '}
+                  Provisionsbestätigung
+                  <a href='#!' className='secondary-content'>
+                    <i
+                      className='material-icons'
+                      onClick={() => {
+                        creaPrenotazione(
+                          acquirente[0],
+                          acquirente2[0],
+                          venditore[0],
+                          venditore2[0],
+                          oggetto,
+                          provvPercentuale,
+                          this.props.firma
+                        );
+                      }}
+                    >
+                      picture_as_pdf
+                    </i>
+                  </a>
+                </div>
+              </li>
+              <li className='collection-item'>
+                <div>
+                  Widerrufsbelehrung
+                  <a href='#!' className='secondary-content'>
+                    <i
+                      className='material-icons'
+                      onClick={() => {
+                        widerrufsBelehrung(
+                          acquirente[0],
+                          acquirente2[0],
+                          dataPrenotazione,
+                          oggetto,
+                          this.props.firma
+                        );
+                      }}
+                    >
+                      picture_as_pdf
+                    </i>
+                  </a>
+                </div>
+              </li>
+              <li className='collection-item'>
+                <div>
+                  Vollmacht Notarauftrag
+                  <a href='#!' className='secondary-content'>
+                    <i
+                      className='material-icons'
+                      onClick={() => {
+                        vollmachtNotarauftrag(
+                          acquirente[0],
+                          acquirente2[0],
+                          venditore[0],
+                          venditore2[0],
+                          oggetto,
+                          notaio,
+                          prezzoDiVendita,
+                          this.props.firma
+                        );
+                      }}
+                    >
+                      picture_as_pdf
+                    </i>
+                  </a>
+                </div>
+              </li>
+              <li className='collection-item'>
+                <div>
+                  Notar Datenblatt
+                  {/*                   
+                    <Link className='secondary-content' to={`/datenblatt/${id}`}>
+                    <i className='material-icons'>print</i>
+                  </Link>
+*/}
+                  <a href='#!' className='secondary-content'>
+                    <i
+                      className='material-icons'
+                      onClick={() => {
+                        notarDatenblatt(
+                          acquirente[0],
+                          acquirente2[0],
+                          venditore[0],
+                          venditore2[0],
+                          oggetto,
+                          notaio,
+                          verwalter,
+                          belastungsVollmacht,
+                          prezzoDiVendita,
+                          utente,
+                          this.props.firma,
+                          this.props.ceo
+                        );
+                      }}
+                    >
+                      picture_as_pdf
+                    </i>
+                  </a>
+                </div>
+              </li>
+              <li className='collection-item'>
+                <div>
+                  Übergabeprotokoll
+                  <a href='#!' className='secondary-content'>
+                    <i
+                      className='material-icons'
+                      onClick={() => {
+                        protocollo(
+                          acquirente[0],
+                          acquirente2[0],
+                          venditore[0],
+                          venditore2[0],
+                          oggetto,
+                          this.props.utente,
+                          this.props.firma,
+                          this.props.ceo
+                        );
+                      }}
+                    >
+                      picture_as_pdf
+                    </i>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div className='content-container'>
-          {utente.role === 'Admin' && (
-            <Link className='button button--secondary' to={`/edit/${id}`}>
-              Deal bearbeiten
-            </Link>
-          )}
-
-          <button
-            className='print button button--secondary'
-            onClick={() => {
-              creaPrenotazione(
-                acquirente,
-                acquirente2,
-                venditore,
-                venditore2,
-                oggetto,
-                provvPercentuale,
-                this.props.firma
-              );
-            }}
-          >
-            Provisionsbestätigung
-          </button>
-          <button
-            className='print button button--secondary'
-            onClick={() => {
-              widerrufsBelehrung(
-                acquirente,
-                acquirente2,
-                dataPrenotazione,
-                oggetto,
-                this.props.firma
-              );
-            }}
-          >
-            Widerrufsbelehrung
-          </button>
-          <button
-            className='print button button--secondary'
-            onClick={() => {
-              vollmachtNotarauftrag(
-                acquirente,
-                acquirente2,
-                venditore,
-                venditore2,
-                oggetto,
-                notaio,
-                prezzoDiVendita,
-                this.props.firma
-              );
-            }}
-          >
-            Vollmacht Notarauftrag
-          </button>
-          <Link
-            className='print button button--secondary'
-            to={`/datenblatt/${id}`}
-          >
-            Notar Datenblatt
-          </Link>
-          <button
-            className='print button button--secondary'
-            onClick={() => {
-              protocollo(
-                acquirente,
-                acquirente2,
-                venditore,
-                venditore2,
-                oggetto,
-                this.props.utente,
-                this.props.firma,
-                this.props.ceo
-              );
-            }}
-          >
-            Übergabeprotokoll
-          </button>
+        <div className='grey lighten-4'>
+          <div className='container'>
+            <h1>Infos</h1>
+          </div>
         </div>
-
         {/* se invio un oggetto singolo lo devo far diventare un array per poter utilizzare .map nel componete */}
-        <OggettiList oggetto={[oggetto]} />
+        <div>
+          <OggettiList oggetto={[oggetto]} />
+        </div>
         {venditoreId.length > 0 && (
           <div>
             <ClientiList cliente={venditore} ruolo={'Verkäufer'} />
@@ -276,13 +334,12 @@ export class ViewDealPage extends React.Component {
             />
           </div>
         )}
-
-        <TodoForm dealId={id} />
         {utente.role === 'Admin' ? (
           <FattureList dealFatture={this.props.fatture} />
         ) : (
           ''
         )}
+        <TodoForm dealId={id} />
       </div>
     );
   }
@@ -296,6 +353,7 @@ const mapStateToProps = (state, props) => ({
     fattura => fattura.dealId === props.match.params.id
   ),
   utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+  utenti: state.utenti,
   ceo: state.utenti.filter(utente => utente.qualifica === 'Geschäftsführer'),
   firma: state.firma[0]
 });

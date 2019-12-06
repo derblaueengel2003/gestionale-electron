@@ -57,6 +57,11 @@ export default class FirmaForm extends React.Component {
   render() {
     return (
       <form className='form' onSubmit={this.onSubmit}>
+        <div>
+          <button className='btn-floating blue right btn-floating-margin'>
+            <i className='material-icons'>save</i>
+          </button>
+        </div>
         Name:
         <input
           name='name'
@@ -203,7 +208,11 @@ export default class FirmaForm extends React.Component {
           value={this.state.bic}
           onChange={this.changeHandler}
         />
-        <button className='button button--secondary-utenti'>Speichern</button>
+        <div>
+          <button className='btn-floating blue right btn-floating-margin'>
+            <i className='material-icons'>save</i>
+          </button>
+        </div>
       </form>
     );
   }

@@ -13,7 +13,7 @@ export default class UserForm extends React.Component {
       email: props.user ? props.user.email : '',
       telefon: props.user ? props.user.telefon : '',
       qualifica: props.user ? props.user.qualifica : '',
-      firebaseAuthId: props.user ? props.user.firebaseAuthId : null
+      firebaseAuthId: props.user ? props.user.firebaseAuthId : ''
     };
   }
   changeHandler = e => {
@@ -52,13 +52,17 @@ export default class UserForm extends React.Component {
     return (
       <form className='form' onSubmit={this.onSubmit}>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
+        <div>
+          <button className='btn-floating blue right'>
+            <i className='material-icons'>save</i>
+          </button>
+        </div>
         Vor- und Nachname:
         <input
           className={`text-input`}
           name='name'
           type='text'
           placeholder='Vor- und Nachname'
-          autoFocus
           value={this.state.name}
           onChange={this.changeHandler}
         />
@@ -75,7 +79,6 @@ export default class UserForm extends React.Component {
           name='firebaseAuthId'
           type='text'
           placeholder='firebase user id'
-          autoFocus
           value={this.state.firebaseAuthId}
           onChange={this.changeHandler}
         />
@@ -84,7 +87,6 @@ export default class UserForm extends React.Component {
           className={`text-input`}
           name='email'
           type='text'
-          autoFocus
           value={this.state.email}
           onChange={this.changeHandler}
         />
@@ -93,7 +95,6 @@ export default class UserForm extends React.Component {
           className={`text-input`}
           name='telefon'
           type='text'
-          autoFocus
           value={this.state.telefon}
           onChange={this.changeHandler}
         />
@@ -102,13 +103,9 @@ export default class UserForm extends React.Component {
           className={`text-input`}
           name='qualifica'
           type='text'
-          autoFocus
           value={this.state.qualifica}
           onChange={this.changeHandler}
         />
-        <div>
-          <button className='button button--secondary-utenti'>Speichern</button>
-        </div>
       </form>
     );
   }

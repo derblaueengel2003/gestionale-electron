@@ -10,8 +10,12 @@ import {
   setEndDate
 } from '../../actions/filters';
 import moment from 'moment';
+import M from 'materialize-css';
 
 export class DealListFilters extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
   state = {
     calendarFocused: null
   };
@@ -53,7 +57,7 @@ export class DealListFilters extends React.Component {
         {presets.map(({ text, start, end }) => {
           return (
             <button
-              className='button button--secondary-datepicker'
+              className='btn-floating'
               key={text}
               type='button'
               onClick={() =>
@@ -70,9 +74,9 @@ export class DealListFilters extends React.Component {
 
   render() {
     return (
-      <div className='content-container'>
+      <div className='container'>
         <div className='input-group'>
-          <div className='input-group__item'>
+          <div className='input-field'>
             <input
               type='text'
               className='text-input'
@@ -81,9 +85,8 @@ export class DealListFilters extends React.Component {
               onChange={this.onTextChange}
             />
           </div>
-          <div className='input-group__item'>
+          <div className='input-field margine-sinistro'>
             <select
-              className='select'
               value={this.props.filters.sortBy}
               onChange={this.onSortChange}
             >
@@ -91,8 +94,9 @@ export class DealListFilters extends React.Component {
               <option value='amount'>Betrag</option>
               <option value='paid'>Bezahlt</option>
             </select>
+            <label>Sortieren nach</label>
           </div>
-          <div className='input-group__item'>
+          <div className='margine-sinistro'>
             <DateRangePicker
               startDate={this.props.filters.startDate}
               endDate={this.props.filters.endDate}

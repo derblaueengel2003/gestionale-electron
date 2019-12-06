@@ -86,14 +86,12 @@ export class VWBForm extends React.Component {
 
     return (
       <div>
-        <div className='page-header'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>
-              Verbraucher WiderrufsBelehrung
-            </h1>
+        <div>
+          <div className='container'>
+            <h1>Verbraucher WiderrufsBelehrung</h1>
           </div>
         </div>
-        <form className='form content-container' onSubmit={this.onSubmit}>
+        <form className='form container' onSubmit={this.onSubmit}>
           {this.state.error && (
             <p className='form__error'>{this.state.error}</p>
           )}
@@ -133,8 +131,8 @@ export class VWBForm extends React.Component {
             />
           </div>
           <div>
-            <button className='button button--secondary-modulistica'>
-              PDF erstellen
+            <button className='btn-floating right'>
+              <i className='material-icons'>picture_as_pdf</i>
             </button>
           </div>
         </form>

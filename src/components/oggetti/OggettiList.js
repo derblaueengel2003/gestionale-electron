@@ -1,64 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import OggettiListItem from './OggettiListItem';
+// import OggettiListItem from './OggettiListItem';
 import selectOggetti from '../../selectors/oggetti';
+import Card from '../Card';
 
 export const OggettiList = props => {
   //controllo se arrivo da view deal o dalla dashboard oggetti
-  if (props.oggetto) {
-    // dal deal page
-    return (
-      props.oggetto.length > 0 && (
-        <div className='content-container'>
-          <div className='list-header list-header-oggetti'>
-            <div className='show-for-mobile'>Objekt</div>
-            <div className='show-for-desktop'>Objekt</div>
-            <div className='show-for-desktop'>Ref. Id</div>
-          </div>
-          <div className='list-body'>
-            {props.oggetto.map(oggetto => {
-              return <OggettiListItem key={oggetto.id} {...oggetto} />;
-            })}
-          </div>
-        </div>
-      )
-    );
-  } else {
-    // dalla dashboard oggetti page
-    return (
-      <div className='content-container'>
-        <div className='page-header__actions'>
-          <Link
-            className='button button--secondary-oggetti button-add'
-            to='/oggettocreate'
-          >
-            +
-          </Link>
-        </div>
-        <div className='list-header list-header-oggetti'>
-          <div className='show-for-mobile'>Objekt</div>
-          <div className='show-for-desktop'>Objekt</div>
-          <div className='show-for-desktop'>Ref. Id</div>
-        </div>
-        <div className='list-body'>
-          {props.oggetti.length === 0 ? (
-            <div className='list-item list-item--message'>
-              <span>Kein Ergebnis anhand der angegebenen Filtern</span>
-            </div>
-          ) : (
-            props.oggetti
+  const oggettiPayload = props.oggetto || props.oggetti;
+
+  return (
+    <div className='container'>
+      <div className='list-body'>
+        {oggettiPayload.length > 0 && (
+          <div>
+            <h5>{props.ruolo || 'Objekte'}</h5>
+            {oggettiPayload
               .sort((a, b) => {
                 return a.visible < b.visible ? -1 : 1;
               })
               .map(oggetto => {
-                return <OggettiListItem key={oggetto.id} {...oggetto} />;
-              })
-          )}
-        </div>
+                return (
+                  <Card
+                    key={oggetto.id}
+                    titolo={`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`}
+                    sottotitolo={`${oggetto.cap} ${oggetto.citta}, ${oggetto.nazione}`}
+                    titoloDestra={`Ref. ID ${oggetto.rifId}`}
+                    visible={oggetto.visible}
+                    link={`/oggettoview/${oggetto.id}`}
+                    linea1={`Kaufpreis: ${oggetto.kaufpreis}`}
+                  />
+                );
+              })}
+          </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 const mapStateToProps = state => {

@@ -72,13 +72,13 @@ export class TodoForm extends React.Component {
   render() {
     return (
       <div className='margine-basso'>
-        <div className='page-header page-header-deals'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>To-dos Da Rifare</h1>
+        <div className='grey lighten-4'>
+          <div className='container'>
+            <h1>To-Dos</h1>
           </div>
         </div>
-        <div className='content-container'>
-          <div className={this.state.todo1 === true ? 'list-item--todo' : ''}>
+        <div className='container'>
+          <div>
             <label>
               {' '}
               <input
@@ -87,11 +87,11 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo1}
                 onChange={this.onTodo1Change}
               />{' '}
-              Reservierung
+              <span>Reservierung</span>
             </label>
           </div>
 
-          <div className={this.state.todo2 === true ? 'list-item--todo' : ''}>
+          <div>
             <label>
               {' '}
               <input
@@ -100,11 +100,11 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo2}
                 onChange={this.onTodo2Change}
               />{' '}
-              Widerrufsbelehrung
+              <span>Widerrufsbelehrung</span>
             </label>
           </div>
 
-          <div className={this.state.todo3 === true ? 'list-item--todo' : ''}>
+          <div>
             <label>
               {' '}
               <input
@@ -113,11 +113,11 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo3}
                 onChange={this.onTodo3Change}
               />{' '}
-              Kapitalnachweis
+              <span>Kapitalnachweis</span>
             </label>
           </div>
 
-          <div className={this.state.todo4 === true ? 'list-item--todo' : ''}>
+          <div>
             <label>
               {' '}
               <input
@@ -126,11 +126,11 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo4}
                 onChange={this.onTodo4Change}
               />{' '}
-              Unterlagen an den Käufer versendet
+              <span>Unterlagen an den Käufer versendet</span>
             </label>
           </div>
 
-          <div className={this.state.todo5 === true ? 'list-item--todo' : ''}>
+          <div>
             <label>
               {' '}
               <input
@@ -139,11 +139,11 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo5}
                 onChange={this.onTodo5Change}
               />{' '}
-              Unterschriebener Notarauftrag
+              <span>Unterschriebener Notarauftrag</span>
             </label>
           </div>
 
-          <div className={this.state.todo6 === true ? 'list-item--todo' : ''}>
+          <div>
             <label>
               {' '}
               <input
@@ -152,11 +152,11 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo6}
                 onChange={this.onTodo6Change}
               />{' '}
-              Notardatenblatt versendet
+              <span>Notardatenblatt versendet</span>
             </label>
           </div>
 
-          <div className={this.state.todo7 === true ? 'list-item--todo' : ''}>
+          <div>
             <label>
               {' '}
               <input
@@ -165,11 +165,11 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo7}
                 onChange={this.onTodo7Change}
               />{' '}
-              Info über die Rücklage
+              <span>Info über die Rücklage</span>
             </label>
           </div>
 
-          <div className={this.state.todo8 === true ? 'list-item--todo' : ''}>
+          <div>
             <label>
               {' '}
               <input
@@ -178,11 +178,11 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo8}
                 onChange={this.onTodo8Change}
               />{' '}
-              Kaufvertrag-Entwurf
+              <span>Kaufvertrag-Entwurf</span>
             </label>
           </div>
 
-          <div className={this.state.todo9 === true ? 'list-item--todo' : ''}>
+          <div>
             <label>
               {' '}
               <input
@@ -191,11 +191,11 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo9}
                 onChange={this.onTodo9Change}
               />{' '}
-              Beurkundunstermin vereinbart
+              <span>Beurkundunstermin vereinbart</span>
             </label>
           </div>
 
-          <div className={this.state.todo10 === true ? 'list-item--todo' : ''}>
+          <div>
             <label>
               {' '}
               <input
@@ -204,20 +204,19 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo10}
                 onChange={this.onTodo10Change}
               />{' '}
-              GWG Dokumentationsbogen
+              <span>GWG Dokumentationsbogen</span>
             </label>
           </div>
 
-          <div className={this.state.todo11 === true ? 'list-item--todo' : ''}>
+          <div>
             <label>
-              {' '}
               <input
                 type='checkbox'
                 name='todo11'
                 checked={this.state.todo11}
                 onChange={this.onTodo11Change}
-              />{' '}
-              Übergabe erledigt
+              />
+              <span>Übergabe erledigt</span>
             </label>
           </div>
         </div>

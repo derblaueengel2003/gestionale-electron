@@ -7,6 +7,16 @@ import DealList from '../deals/DealList';
 import OggettiList from '../oggetti/OggettiList';
 
 export class ViewClientiPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false
+    };
+  }
+  modalToggle = () => {
+    this.setState({ modal: !this.state.modal });
+    console.log(this.state.modal);
+  };
   render() {
     const {
       ditta,
@@ -20,6 +30,7 @@ export class ViewClientiPage extends React.Component {
       cap,
       comune,
       nazione,
+      consulenteVenditaId,
       id
     } = this.props.cliente;
     const { utente } = this.props;
@@ -35,49 +46,53 @@ export class ViewClientiPage extends React.Component {
         deal.venditoreId2 === id ||
         deal.agenziaPartnerId === id
     );
+    const consulenteVendita = this.props.utenti.find(
+      utente => utente.id === consulenteVenditaId
+    );
     return (
       <div>
-        <div className='page-header page-header-clienti'>
-          <div className='content-container'>
-            <h1 className='page-header__title'>Kunde</h1>
+        <div className='grey lighten-4'>
+          <div className='container'>
+            <h1>Adressbuch Kontakte</h1>
           </div>
         </div>
-        <div className='content-container'>
-          <div className='list-header list-header-clienti'>
-            <div className='show-for-mobile'>Kundendetails</div>
-            <div className='show-for-desktop'>Kundendetails</div>
-            <div className='show-for-desktop'></div>
+        <div className='container section'>
+          <div>
+            <Link
+              className='btn-floating orange right'
+              to={`/customeredit/${id}`}
+            >
+              <i className='material-icons'>edit</i>
+            </Link>
+            {email.length > 0 && (
+              <a
+                href={`mailto:${email}`}
+                className='btn-floating blue right btn-floating-margin'
+              >
+                <i className='material-icons'>email</i>
+              </a>
+            )}
           </div>
-          <div className='list-body'>
-            <div className='list-item'>
-              <div>
-                {ditta.length > 0 && <h3>{ditta}</h3>}
-                {cognome.length > 0 && (
-                  <h3>
-                    {titolo} {nome} {cognome}
-                  </h3>
-                )}
-                {indirizzo.length > 0 && (
-                  <div>{`${indirizzo} ${indirizzo2 &&
-                    indirizzo2}, ${cap} ${comune}, ${nazione}`}</div>
-                )}
-              </div>
-              <div>
-                {telefono1.length > 0 && <div>Tel: {telefono1}</div>}
-                {email.length > 0 && (
-                  <div>
-                    E-Mail: <a href={`mailto:${email}`}>{email}</a>
-                  </div>
-                )}
-              </div>
-            </div>
+
+          <div>
+            {ditta.length > 0 && <h5>{ditta}</h5>}
+            {cognome.length > 0 && (
+              <h5>
+                {titolo} {nome} {cognome}
+              </h5>
+            )}
+            {indirizzo.length > 0 && (
+              <p>{`${indirizzo} ${indirizzo2 &&
+                indirizzo2}, ${cap} ${comune}, ${nazione}`}</p>
+            )}
+
+            {telefono1.length > 0 && <p>Tel: {telefono1}</p>}
+            {email.length > 0 && (
+              <p>
+                E-Mail: <a href={`mailto:${email}`}>{email}</a>
+              </p>
+            )}
           </div>
-          <Link
-            className='print button button--secondary-clienti'
-            to={`/customeredit/${id}`}
-          >
-            Kundendaten ändern
-          </Link>
         </div>
         <LeadsList userLeads={this.props.leads} />
         <OggettiList oggetto={this.props.oggetti} />
@@ -100,7 +115,8 @@ const mapStateToProps = (state, props) => ({
   ),
   fatture: state.fatture,
   deals: state.deals,
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+  utenti: state.utenti
 });
 
 export default connect(mapStateToProps)(ViewClientiPage);

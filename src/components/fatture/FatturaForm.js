@@ -7,8 +7,12 @@ import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
+import M from 'materialize-css';
 
 export class FatturaForm extends React.Component {
+  componentDidMount() {
+    M.AutoInit();
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +37,10 @@ export class FatturaForm extends React.Component {
     const numeroFattura = e.target.value;
     this.setState(() => ({
       numeroFattura,
-      modificato: { ...this.state.modificato, numeroFattura: 'modificato' }
+      modificato: {
+        ...this.state.modificato,
+        numeroFattura: 'modificato'
+      }
     }));
   };
   onDataFatturaChange = dataFattura => {
@@ -132,6 +139,11 @@ export class FatturaForm extends React.Component {
     return (
       <form className='form' onSubmit={this.onSubmit}>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
+        <div>
+          <button className='btn-floating blue right btn-floating-margin'>
+            <i className='material-icons'>save</i>
+          </button>
+        </div>
         Deal:
         <Select
           name='dealId'
@@ -173,13 +185,13 @@ export class FatturaForm extends React.Component {
           isOutsideRange={() => false}
         />
         <label>
-          Bezahlt&nbsp;
           <input
             type='checkbox'
             name='payed'
             checked={this.state.payed}
             onChange={this.onPayedChange}
           />
+          <span>Bezahlt</span>
         </label>
         <div className={`visible-${this.state.payed} form`}>
           Bezahlt am:
@@ -204,8 +216,8 @@ Gesamtbetrag:             11,9 €`}
           onChange={this.onNoteChange}
         ></textarea>
         <div>
-          <button className='button button--secondary-fatture'>
-            Speichern
+          <button className='btn-floating blue right'>
+            <i className='material-icons'>save</i>
           </button>
         </div>
       </form>

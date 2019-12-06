@@ -2,7 +2,7 @@
 
 exports[`should render DealList with empty message 1`] = `
 <div
-  className="content-container"
+  className="container"
 >
   <div
     className="list-header"
@@ -39,7 +39,7 @@ exports[`should render DealList with empty message 1`] = `
 
 exports[`should render DealList with deals 1`] = `
 <div
-  className="content-container"
+  className="container"
 >
   <div
     className="list-header"
