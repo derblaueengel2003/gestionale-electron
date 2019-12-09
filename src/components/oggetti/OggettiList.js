@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // import OggettiListItem from './OggettiListItem';
 import selectOggetti from '../../selectors/oggetti';
 import Card from '../Card';
+import numeral from 'numeral';
 
 export const OggettiList = props => {
   //controllo se arrivo da view deal o dalla dashboard oggetti
@@ -33,7 +34,9 @@ export const OggettiList = props => {
                     titoloDestra={`Ref. ID ${oggetto.rifId}`}
                     visible={oggetto.visible}
                     link={`/oggettoview/${oggetto.id}`}
-                    linea1={`Kaufpreis: ${oggetto.kaufpreis}`}
+                    linea1={`Kaufpreis: ${numeral(
+                      oggetto.kaufpreis / 100
+                    ).format('0,0[.]00 $')}`}
                     verkauft={verkauft}
                   />
                 );
