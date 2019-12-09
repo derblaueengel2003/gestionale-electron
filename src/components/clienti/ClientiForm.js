@@ -278,7 +278,7 @@ export class CustomerForm extends React.Component {
           value={this.state.lingua}
           onChange={this.changeHandler}
         />
-        BanK:
+        Bank:
         <input
           name='bank'
           className={`text-input`}

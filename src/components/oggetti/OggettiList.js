@@ -20,6 +20,11 @@ export const OggettiList = props => {
                 return a.visible < b.visible ? -1 : 1;
               })
               .map(oggetto => {
+                const verkauft = oggetto.venduto ? (
+                  <h5 className='red-text'>Verkauft!</h5>
+                ) : (
+                  ''
+                );
                 return (
                   <Card
                     key={oggetto.id}
@@ -29,6 +34,7 @@ export const OggettiList = props => {
                     visible={oggetto.visible}
                     link={`/oggettoview/${oggetto.id}`}
                     linea1={`Kaufpreis: ${oggetto.kaufpreis}`}
+                    verkauft={verkauft}
                   />
                 );
               })}

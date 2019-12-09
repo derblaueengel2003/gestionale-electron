@@ -34,13 +34,13 @@ export class LeadsListFilters extends React.Component {
           <div className='input-field'>
             <input
               type='text'
-              className='text-input'
+              className='input-field'
               placeholder='Budget'
               value={this.props.filters.lead}
               onChange={this.onLeadChange}
             />
           </div>
-          <div className='input-field margine-sinistro'>
+          <div className='input-field'>
             <select
               value={this.props.filters.leadStato}
               onChange={this.onLeadsStatoChange}
@@ -56,7 +56,7 @@ export class LeadsListFilters extends React.Component {
             </select>
             <label>Immobilientyp</label>
           </div>
-          <div className='input-field margine-sinistro'>
+          <div className='input-field'>
             <select
               value={this.props.filters.sortBy}
               onChange={this.onSortChange}

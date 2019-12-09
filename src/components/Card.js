@@ -17,7 +17,8 @@ export const Card = ({
   progressBar,
   visible,
   link,
-  utente
+  utente,
+  verkauft
 }) => {
   if (visible || utente.role === 'Admin') {
     return (
@@ -42,6 +43,7 @@ export const Card = ({
                       <p>{linea7}</p>
                       <p>{lineaNote}</p>
                       {progressBar}
+                      {verkauft}
                     </div>
                   </div>
                 </div>

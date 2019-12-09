@@ -60,7 +60,8 @@ export const startAddOggetto = (oggettoData = {}) => {
       energieTraeger = '',
       energieBedarf = '',
       provvigione = '',
-      inquilinoId
+      inquilinoId = '',
+      venduto = false
     } = oggettoData;
     const oggetto = {
       via,
@@ -114,7 +115,8 @@ export const startAddOggetto = (oggettoData = {}) => {
       energieTraeger,
       energieBedarf,
       provvigione,
-      inquilinoId
+      inquilinoId,
+      venduto
     };
 
     return database

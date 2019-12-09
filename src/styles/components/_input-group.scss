@@ -4,7 +4,8 @@
   margin-top: $m-size;
   @media (min-width: $desktop-breakpoint) {
     flex-direction: row;
-    margin-top: $l-size;
+    justify-content: space-between;
+    margin: $l-size $s-size 0 0;
   }
 }
 

@@ -34,12 +34,15 @@ export class ViewOggettiPage extends React.Component {
             >
               <i className='material-icons'>edit</i>
             </Link>
-            <Link
-              className='btn-floating green accent-3 right btn-floating-margin'
-              to={`/oggettomatchview/${this.props.oggetto.id}`}
-            >
-              Match
-            </Link>
+            {/* se l'oggetto è venduto nascondo il pulsante match */}
+            {!this.props.oggetto.venduto && (
+              <Link
+                className='btn-floating green accent-3 right btn-floating-margin'
+                to={`/oggettomatchview/${this.props.oggetto.id}`}
+              >
+                Match
+              </Link>
+            )}
           </div>
 
           <div>
@@ -114,6 +117,9 @@ export class ViewOggettiPage extends React.Component {
             {this.props.oggetto.cantina && <p>{`Keller: ja`}</p>}
             {this.props.oggetto.condizioni.length > 0 && (
               <p>{`Zustand: ${this.props.oggetto.condizioni}`}</p>
+            )}
+            {this.props.oggetto.venduto === true && (
+              <h5 className='red-text'>Verkauft!</h5>
             )}
           </div>
         </div>

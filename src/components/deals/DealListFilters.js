@@ -53,11 +53,11 @@ export class DealListFilters extends React.Component {
       });
     }
     return (
-      <div className='button'>
+      <div className='container'>
         {presets.map(({ text, start, end }) => {
           return (
             <button
-              className='btn-floating'
+              className='btn-floating margine-basso'
               key={text}
               type='button'
               onClick={() =>
@@ -79,13 +79,13 @@ export class DealListFilters extends React.Component {
           <div className='input-field'>
             <input
               type='text'
-              className='text-input'
+              className='input-field'
               placeholder='Deals-Suche'
               value={this.props.filters.text}
               onChange={this.onTextChange}
             />
           </div>
-          <div className='input-field margine-sinistro'>
+          <div className='input-field '>
             <select
               value={this.props.filters.sortBy}
               onChange={this.onSortChange}
@@ -96,7 +96,7 @@ export class DealListFilters extends React.Component {
             </select>
             <label>Sortieren nach</label>
           </div>
-          <div className='margine-sinistro'>
+          <div className=''>
             <DateRangePicker
               startDate={this.props.filters.startDate}
               endDate={this.props.filters.endDate}

@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { AccentroListItem } from './AccentroListItem';
-// import OggettiListItem from '../oggetti/OggettiListItem';
 import Card from '../Card';
 import ClientiList from '../clienti/ClientiList';
 import OggettiList from '../oggetti/OggettiList';
@@ -10,11 +8,15 @@ import numeral from 'numeral';
 export class ViewLeadMatchPage extends React.Component {
   primoMatch = () => {
     if (this.props.lead.leadBudget > 500) {
-      const match = this.props.oggetti.filter(
-        ogg =>
-          ogg.kaufpreis <= this.props.lead.leadBudget * 1.2 &&
-          ogg.kaufpreis > this.props.lead.leadBudget / 1.2
-      );
+      const match = this.props.oggetti
+        // filtro gli oggetti che hanno un prezzo di vendita del 20% sopra o sotto il budget
+        .filter(
+          ogg =>
+            ogg.kaufpreis <= this.props.lead.leadBudget * 1.2 &&
+            ogg.kaufpreis > this.props.lead.leadBudget / 1.2
+        )
+        //filtro gli oggetti non flaggati come venduto
+        .filter(ogg => !ogg.venduto);
       if (this.props.lead.leadOggettoStato === 'libero') {
         return match.filter(ogg => ogg.stato === 'leerstehend');
       } else if (this.props.lead.leadOggettoStato === 'affittato') {
@@ -23,9 +25,9 @@ export class ViewLeadMatchPage extends React.Component {
         return match;
       }
     } else {
-      const match = this.props.accentro.filter(ogg => ogg.kaufpreis);
+      const match = this.props.oggetti.filter(ogg => !ogg.venduto);
       if (this.props.lead.leadOggettoStato === 'libero') {
-        return match.filter(ogg => ogg.affittoNetto);
+        return match.filter(ogg => ogg.affittoNetto < 1);
       } else if (this.props.lead.leadOggettoStato === 'affittato') {
         return match.filter(ogg => ogg.affittoNetto > 0);
       } else {
