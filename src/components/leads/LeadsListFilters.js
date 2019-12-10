@@ -7,13 +7,16 @@ import {
   setLeadsStatoFilter
 } from '../../actions/filters';
 import M from 'materialize-css';
+import numeral from 'numeral';
 
 export class LeadsListFilters extends React.Component {
   componentDidMount() {
     M.AutoInit();
   }
   onLeadChange = e => {
-    this.props.setLeadsFilter(e.target.value);
+    //il valore convertito in euro lo riconverto in semplici numeri prima di passarli al filtro. Se cancello il valore, mi restituisce una stringa vuota per evitare errori
+    const value = numeral(e.target.value).value() || '';
+    this.props.setLeadsFilter(value);
   };
   onLeadsStatoChange = e => {
     this.props.setLeadsStatoFilter(e.target.value);
@@ -33,12 +36,16 @@ export class LeadsListFilters extends React.Component {
         <div className='input-group'>
           <div className='input-field'>
             <input
+              id='budget'
               type='text'
               className='input-field'
-              placeholder='Budget'
-              value={this.props.filters.lead}
+              value={
+                this.props.filters.lead &&
+                numeral(this.props.filters.lead).format('0,0[.]00')
+              }
               onChange={this.onLeadChange}
             />
+            <label htmlFor='budget'>Budget</label>
           </div>
           <div className='input-field'>
             <select

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
+import GoogleMaps from '../GoogleMaps';
 
 export class ViewOggettiPage extends React.Component {
   render() {
@@ -275,6 +276,7 @@ export class ViewOggettiPage extends React.Component {
             })}
         </div>
         <div className='container'>
+          <GoogleMaps oggetto={this.props.oggetto} />
           {this.props.oggetto.downloadURLsMap && (
             <div className='grey lighten-4'>
               <div>
