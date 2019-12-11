@@ -4,6 +4,7 @@ import { imgLogo } from './ImageLogo';
 import { ivdLogo } from './IvdLogo';
 import numeral from 'numeral';
 import GoogleMaps from '../GoogleMaps';
+import html2canvas from 'html2canvas';
 
 export const expose = (oggetto, firma, utente, ceo, lingua) => {
   const doc = new jsPDF('p', 'mm', 'a4');

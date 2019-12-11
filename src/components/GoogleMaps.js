@@ -1,7 +1,6 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import Geocode from 'react-geocode';
-import { relative } from 'upath';
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
 Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
@@ -56,7 +55,6 @@ export class MapContainer extends React.Component {
         console.error(error);
       }
     );
-    console.log(this.state);
   }
 
   render() {
@@ -77,7 +75,7 @@ export class MapContainer extends React.Component {
 }
 
 const mapStyles = {
-  width: '50%',
+  width: '70%',
   height: '50%'
 };
 

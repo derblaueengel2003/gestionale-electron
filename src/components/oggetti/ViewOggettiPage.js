@@ -23,7 +23,7 @@ export class ViewOggettiPage extends React.Component {
     return (
       <div>
         <div className='grey lighten-4'>
-          <div className='container'>
+          <div className='container' id='capture'>
             <h1>Objekt</h1>
           </div>
         </div>
@@ -275,14 +275,15 @@ export class ViewOggettiPage extends React.Component {
               return <img className='foto' key={i} src={downloadURL} />;
             })}
         </div>
-        <div className='container' id='mappa'>
+        <div className='container'>
           <div className='grey lighten-4'>
             <div>
               <h1>Map</h1>
             </div>
           </div>
-          <GoogleMaps oggetto={this.props.oggetto} />
-          );
+          <div>
+            <GoogleMaps oggetto={this.props.oggetto} />
+          </div>
         </div>
       </div>
     );
