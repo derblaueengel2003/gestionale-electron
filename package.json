@@ -31,6 +31,7 @@
     "firebase": "^7.4.0",
     "google-maps-react": "^2.0.2",
     "history": "4.7.2",
+    "html2canvas": "^1.0.0-rc.5",
     "jquery": "^3.4.1",
     "jspdf": "^1.5.3",
     "materialize-css": "^1.0.0-rc.2",

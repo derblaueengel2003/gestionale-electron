@@ -275,35 +275,15 @@ export class ViewOggettiPage extends React.Component {
               return <img className='foto' key={i} src={downloadURL} />;
             })}
         </div>
-        <div className='container'>
-          <GoogleMaps oggetto={this.props.oggetto} />
-          {this.props.oggetto.downloadURLsMap && (
-            <div className='grey lighten-4'>
-              <div>
-                <h1>Map</h1>
-              </div>{' '}
+        <div className='container' id='mappa'>
+          <div className='grey lighten-4'>
+            <div>
+              <h1>Map</h1>
             </div>
-          )}
-          {this.props.oggetto.downloadURLsMap &&
-            this.props.oggetto.downloadURLsMap.map((downloadURL, i) => {
-              return <img className='foto' key={i} src={downloadURL} />;
-            })}
-        </div>
-        {this.props.oggetto.titolo.length > 0 && (
-          <div className='container margine-basso'>
-            <div className='grey lighten-4'>
-              <div>
-                <h1>Texte</h1>
-              </div>
-            </div>
-            <div>{`Titolo: ${this.props.oggetto.titolo}`}</div>
-            <div>{`Descrizione: ${this.props.oggetto.descrizione}`}</div>
-            <div>{`Titel: ${this.props.oggetto.titoloDe}`}</div>
-            <div>{`Beschreibung: ${this.props.oggetto.descrizioneDe}`}</div>
-            <div>{`Title: ${this.props.oggetto.titoloEn}`}</div>
-            <div>{`Description: ${this.props.oggetto.descrizioneEn}`}</div>
           </div>
-        )}
+          <GoogleMaps oggetto={this.props.oggetto} />
+          );
+        </div>
       </div>
     );
   }

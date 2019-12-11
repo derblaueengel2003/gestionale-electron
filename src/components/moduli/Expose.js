@@ -1,7 +1,9 @@
+import React from 'react';
 import jsPDF from 'jspdf';
 import { imgLogo } from './ImageLogo';
 import { ivdLogo } from './IvdLogo';
 import numeral from 'numeral';
+import GoogleMaps from '../GoogleMaps';
 
 export const expose = (oggetto, firma, utente, ceo, lingua) => {
   const doc = new jsPDF('p', 'mm', 'a4');
@@ -448,14 +450,8 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
   };
   const mappa = () => {
     //Pagina Mappa
-    if (oggetto.downloadURLsMap.length > 0) {
-      doc.addPage();
-      cartaIntestata();
-
-      const map = new Image();
-      map.src = oggetto.downloadURLsMap;
-      doc.addImage(map, 'JPEG', 25, 35, 150, 150, undefined, 'SLOW');
-    }
+    doc.addPage();
+    cartaIntestata();
   };
   const agb = () => {
     // AGBs

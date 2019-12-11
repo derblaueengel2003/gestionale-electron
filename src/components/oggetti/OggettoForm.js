@@ -1049,46 +1049,6 @@ export class OggettoForm extends React.Component {
                     )}
                 </div>
               </li>
-              {/* Map */}
-              <li className='collection-item'>
-                Map auswählen
-                <label className='secondary-content'>
-                  <i className='material-icons'>add_photo_alternate</i>
-
-                  <FileUploader
-                    hidden
-                    accept='image/*'
-                    name='image-uploader-multiple'
-                    // randomizeFilename
-                    filename={() =>
-                      `${this.state.rifId}-Map-${Math.floor(
-                        Math.random() * 100
-                      ).toString()}`
-                    }
-                    storageRef={firebase.storage().ref('map')}
-                    onUploadStart={this.handleUploadStart}
-                    onUploadError={this.handleUploadError}
-                    onUploadSuccess={this.handleUploadSuccessMap}
-                    onProgress={this.handleProgress}
-                    // multiple
-                  />
-                </label>
-                <div>
-                  {this.state.downloadURLsMap &&
-                    this.state.downloadURLsMap.map((downloadURLMap, i) => {
-                      return (
-                        <span key={i}>
-                          <img className='foto' src={downloadURLMap} />
-                          <img
-                            src='/images/trash.jpg'
-                            className='cancella'
-                            onClick={() => this.handleRemovePictureMap(i)}
-                          />
-                        </span>
-                      );
-                    })}
-                </div>
-              </li>
             </ul>
           </div>
         </div>
