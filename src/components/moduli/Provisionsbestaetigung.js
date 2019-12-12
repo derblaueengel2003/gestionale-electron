@@ -34,6 +34,13 @@ export const creaPrenotazione = (
 
   doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
   doc.addImage(imgLogo, 'JPEG', 165, 10, 35, 8);
+
+  //cancello frase che dice che gli abbiamo mandato exposé oggi. Metto una riga bianca sopra
+
+  doc.setDrawColor(255, 255, 255);
+  doc.setLineWidth(7);
+  doc.line(20, 250, 200, 250);
+
   doc.setFontSize(10);
   // nuovo
   if (!acquirente2) {

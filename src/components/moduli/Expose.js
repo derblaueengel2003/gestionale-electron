@@ -1,12 +1,9 @@
-import React from 'react';
 import jsPDF from 'jspdf';
 import { imgLogo } from './ImageLogo';
 import { ivdLogo } from './IvdLogo';
 import numeral from 'numeral';
-import GoogleMaps from '../GoogleMaps';
-import html2canvas from 'html2canvas';
 
-export const expose = (oggetto, firma, utente, ceo, lingua) => {
+export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
   const doc = new jsPDF('p', 'mm', 'a4');
   doc.setFont('times');
   const fontStart = 10;
@@ -453,7 +450,14 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     //Pagina Mappa
     doc.addPage();
     cartaIntestata();
+
+    const mappa = new Image();
+    mappa.src = `https://maps.googleapis.com/maps/api/staticmap?center=${oggetto.via}+${oggetto.numeroCivico},+${oggetto.cap}+${oggetto.citta}&zoom=15&size=800x800&maptype=roadmap
+&markers=color:blue%7Clabel:A%7C${mapMarker.latitude},${mapMarker.longitude}
+&key=AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE`;
+    doc.addImage(mappa, 'PNG', 15, 50, 180, 180, undefined, 'SLOW');
   };
+
   const agb = () => {
     // AGBs
     doc.addPage();

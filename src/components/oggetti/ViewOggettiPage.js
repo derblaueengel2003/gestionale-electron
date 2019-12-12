@@ -4,9 +4,48 @@ import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
-import GoogleMaps from '../GoogleMaps';
+import Geocode from 'react-geocode';
+
+// set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
+Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
+// set response language. Defaults to english.
+Geocode.setLanguage('de');
+// set response region. Its optional.
+// A Geocoding request with region=es (Spain) will return the Spanish city.
+Geocode.setRegion('de');
+// Enable or disable logs. Its optional.
+Geocode.enableDebug();
+// Get latidude & longitude from address.
 
 export class ViewOggettiPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      stores: [{ latitude: '', longitude: '' }]
+    };
+  }
+
+  componentDidMount() {
+    Geocode.fromAddress(
+      `${this.props.oggetto.via} ${this.props.oggetto.numeroCivico}, ${this.props.oggetto.cap} ${this.props.oggetto.citta}`
+    ).then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        this.setState(
+          prevState => (
+            (prevState.stores[0].latitude = lat),
+            (prevState.stores[0].longitude = lng)
+          )
+        );
+      },
+      error => {
+        console.error(error);
+      }
+    );
+    console.log(this.state);
+  }
+
   render() {
     const verwalter = this.props.clienti.filter(
       cliente => cliente.id === this.props.oggetto.verwalter
@@ -23,7 +62,7 @@ export class ViewOggettiPage extends React.Component {
     return (
       <div>
         <div className='grey lighten-4'>
-          <div className='container' id='capture'>
+          <div className='container'>
             <h1>Objekt</h1>
           </div>
         </div>
@@ -141,7 +180,8 @@ export class ViewOggettiPage extends React.Component {
                             this.props.firma,
                             this.props.utente,
                             this.props.ceo,
-                            'de'
+                            'de',
+                            this.state.stores[0]
                           );
                         }}
                       >
@@ -166,7 +206,8 @@ export class ViewOggettiPage extends React.Component {
                             this.props.firma,
                             this.props.utente,
                             this.props.ceo,
-                            'it'
+                            'it',
+                            this.state.stores[0]
                           );
                         }}
                       >
@@ -190,7 +231,8 @@ export class ViewOggettiPage extends React.Component {
                             this.props.firma,
                             this.props.utente,
                             this.props.ceo,
-                            'en'
+                            'en',
+                            this.state.stores[0]
                           );
                         }}
                       >
@@ -281,10 +323,50 @@ export class ViewOggettiPage extends React.Component {
               <h1>Map</h1>
             </div>
           </div>
-          <div>
-            <GoogleMaps oggetto={this.props.oggetto} />
-          </div>
+          <a
+            href={`https://www.google.de/maps/place/${this.props.oggetto.via}+${this.props.oggetto.numeroCivico},+${this.props.oggetto.cap}+${this.props.oggetto.citta}/`}
+            target='_blank'
+          >
+            <img
+              src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.props.oggetto.via}+${this.props.oggetto.numeroCivico},+${this.props.oggetto.cap}+${this.props.oggetto.citta}&zoom=15&size=400x400&maptype=roadmap
+&markers=color:blue%7Clabel:A%7C${this.state.stores[0].latitude},${this.state.stores[0].longitude}
+&key=AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE`}
+            />
+          </a>
         </div>
+        {this.props.oggetto.titolo.length > 0 && (
+          <div className='container margine-basso'>
+            <div className='grey lighten-4'>
+              <div>
+                <h1>Exposé-Text auf Italienisch</h1>
+              </div>
+            </div>
+            <div>{`Titolo: ${this.props.oggetto.titolo}`}</div>
+            <div>{`Descrizione: ${this.props.oggetto.descrizione}`}</div>
+          </div>
+        )}
+        {this.props.oggetto.titoloDe.length > 0 && (
+          <div className='container margine-basso'>
+            <div className='grey lighten-4'>
+              <div>
+                <h1>Exposé-Text auf Deutsch</h1>
+              </div>
+            </div>
+            <div>{`Titel: ${this.props.oggetto.titoloDe}`}</div>
+            <div>{`Beschreibung: ${this.props.oggetto.descrizioneDe}`}</div>
+          </div>
+        )}
+        {this.props.oggetto.titolo.length > 0 && (
+          <div className='container margine-basso'>
+            <div className='grey lighten-4'>
+              <div>
+                <h1>Exposé-Text auf Englisch</h1>
+              </div>
+            </div>
+            <div>{`Title: ${this.props.oggetto.titoloEn}`}</div>
+            <div>{`Description: ${this.props.oggetto.descrizioneEn}`}</div>
+          </div>
+        )}
       </div>
     );
   }
