@@ -11,14 +11,15 @@ export class OggettiListFilters extends React.Component {
     return (
       <div className='container'>
         <div className='input-group'>
-          <div className='input-group__item'>
+          <div className='input-field'>
             <input
+              id='objektsuche'
               type='text'
-              className='text-input'
-              placeholder='Objektsuche'
+              className='input-field'
               value={this.props.filters.oggetto}
               onChange={this.onOggettoChange}
             />
+            <label htmlFor='obektsuche'>Objektsuche</label>
           </div>
         </div>
       </div>
@@ -34,7 +35,4 @@ const mapDispatchToProps = dispatch => ({
   setOggettoFilter: oggetto => dispatch(setOggettoFilter(oggetto))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OggettiListFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(OggettiListFilters);

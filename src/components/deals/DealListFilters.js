@@ -78,12 +78,13 @@ export class DealListFilters extends React.Component {
         <div className='input-group'>
           <div className='input-field'>
             <input
+              id='deals-suche'
               type='text'
               className='input-field'
-              placeholder='Deals-Suche'
               value={this.props.filters.text}
               onChange={this.onTextChange}
             />
+            <label htmlFor='deal-suche'>Deals-Suche</label>
           </div>
           <div className='input-field '>
             <select

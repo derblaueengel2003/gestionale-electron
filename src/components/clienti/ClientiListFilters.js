@@ -11,14 +11,15 @@ export class ClientiListFilters extends React.Component {
     return (
       <div className='container'>
         <div className='input-group'>
-          <div className='input-group__item'>
+          <div className='input-field'>
             <input
+              id='kundensuche'
               type='text'
-              className='text-input'
-              placeholder='Kundensuche'
+              className='input-field'
               value={this.props.filters.cliente}
               onChange={this.onClienteChange}
             />
+            <label htmlFor='kundensuche'>Kundensuche</label>
           </div>
         </div>
       </div>
@@ -34,7 +35,4 @@ const mapDispatchToProps = dispatch => ({
   setClienteFilter: cliente => dispatch(setClienteFilter(cliente))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ClientiListFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(ClientiListFilters);

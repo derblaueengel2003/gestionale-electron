@@ -11,14 +11,15 @@ export class FattureListFilters extends React.Component {
     return (
       <div className='container'>
         <div className='input-group'>
-          <div className='input-group__item'>
+          <div className='input-field'>
             <input
+              id='rechnungssuche'
               type='text'
-              className='text-input'
-              placeholder='Rechnungssuche'
+              className='input-field'
               value={this.props.filters.fattura}
               onChange={this.onFatturaChange}
             />
+            <label htmlFor='rechnungssuche'>Rechnungssuche</label>
           </div>
         </div>
       </div>
@@ -34,7 +35,4 @@ const mapDispatchToProps = dispatch => ({
   setFatturaFilter: fattura => dispatch(setFatturaFilter(fattura))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FattureListFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(FattureListFilters);
