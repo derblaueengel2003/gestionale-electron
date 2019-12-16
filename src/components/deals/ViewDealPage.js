@@ -257,10 +257,10 @@ export class ViewDealPage extends React.Component {
                           notaio,
                           verwalter,
                           belastungsVollmacht,
-                          prezzoDiVendita,
                           utente,
                           this.props.firma,
-                          this.props.ceo
+                          this.props.ceo,
+                          prezzoDiVendita
                         );
                       }}
                     >

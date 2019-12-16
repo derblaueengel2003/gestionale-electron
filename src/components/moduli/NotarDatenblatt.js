@@ -12,10 +12,10 @@ export const notarDatenblatt = (
   notaio,
   verwalter,
   belastungsVollmacht,
-  prezzoDiVendita,
   utente,
   firma,
-  ceo
+  ceo,
+  prezzoDiVendita
 ) => {
   const doc = new jsPDF('p', 'mm', 'a4');
   doc.setFont('times');
@@ -128,14 +128,6 @@ export const notarDatenblatt = (
   acapo += 5;
   doc.text(`WE Nr. ${oggetto.numeroAppartamento}`, 15, acapo);
 
-  if (oggetto.grundbuch.length > 0) {
-    acapo += 5;
-    doc.text(
-      `Amtsgericht ${oggetto.amtsgericht}, Grundbuch von ${oggetto.grundbuch}, Blatt Nr. ${oggetto.grundbuchBlatt}`,
-      15,
-      acapo
-    );
-  }
   if (oggetto.m2.length > 0) {
     acapo += 5;
     doc.text(`m2: ${oggetto.m2}`, 15, acapo);
@@ -165,14 +157,12 @@ export const notarDatenblatt = (
     );
   }
 
-  if (oggetto.kaufpreis.length > 0) {
-    acapo += 5;
-    doc.text(
-      `Kaufpreis: ${numeral(kaufpreis / 100).format('0,0[.]00 $')}`,
-      15,
-      acapo
-    );
-  }
+  acapo += 5;
+  doc.text(
+    `Kaufpreis: ${numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}`,
+    15,
+    acapo
+  );
 
   acapo += 5;
   doc.text(
@@ -180,6 +170,15 @@ export const notarDatenblatt = (
     15,
     acapo
   );
+
+  if (oggetto.grundbuch.length > 0) {
+    acapo += 5;
+    doc.text(
+      `Amtsgericht ${oggetto.amtsgericht}, Grundbuch von ${oggetto.grundbuch}, Blatt Nr. ${oggetto.grundbuchBlatt}`,
+      15,
+      acapo
+    );
+  }
 
   acapo += 5;
   oggetto.mobilio && doc.text(`Einrichtung: siehe Liste`, 15, acapo);
@@ -211,6 +210,22 @@ export const notarDatenblatt = (
     15,
     acapo
   );
+
+  if (
+    venditore.bank.length > 0 ||
+    venditore.iban.length > 0 ||
+    venditore.bic.length > 0
+  ) {
+    acapo += 5;
+    doc.text(
+      `${venditore.bank && `Bank: ${venditore.bank}`} ${venditore.iban &&
+        `- IBAN: ${venditore.iban}`} ${venditore.bic &&
+        `- BIC/SWIFT: ${venditore.bic}`} `,
+      15,
+      acapo
+    );
+  }
+
   if (venditore2) {
     acapo += 10;
     doc.text(
@@ -232,6 +247,20 @@ export const notarDatenblatt = (
       15,
       acapo
     );
+    if (
+      venditore2.bank.length > 0 ||
+      venditore2.iban.length > 0 ||
+      venditore2.bic.length > 0
+    ) {
+      acapo += 5;
+      doc.text(
+        `${venditore2.bank && `Bank: ${venditore2.bank}`} ${venditore2.iban &&
+          `- IBAN: ${venditore2.iban}`} ${venditore2.bic &&
+          `- BIC/SWIFT: ${venditore2.bic}`} `,
+        15,
+        acapo
+      );
+    }
   }
 
   //Käufer
