@@ -9,7 +9,8 @@ export default (
   { text, sortBy, startDate, endDate },
   oggetti,
   clienti,
-  utente
+  utente,
+  fatture
 ) => {
   if (utente.role === 'Mitarbeiter') {
     return deals
@@ -44,13 +45,21 @@ export default (
         venditore2
           ? (indirizzo += `${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta}`)
           : indirizzo;
-        const createdAtMoment = moment(deal.createdAt);
-        const startDateMatch = startDate
-          ? startDate.isSameOrBefore(createdAtMoment, 'day')
-          : true;
-        const endDateMatch = endDate
-          ? endDate.isSameOrAfter(createdAtMoment, 'day')
-          : true;
+        const dealFatture = fatture.find(fattura => fattura.dealId === deal.id);
+
+        // il match delle date lo faccio sulla data di emissione della fattura anche per avere un'idea concreta degli incassi dell'anno.
+        // I deals che non sono ancora fatturati appaiono come primi
+        const createdAtMoment = dealFatture
+          ? moment(dealFatture.dataFattura)
+          : false;
+        const startDateMatch =
+          startDate && createdAtMoment
+            ? startDate.isSameOrBefore(createdAtMoment, 'day')
+            : true;
+        const endDateMatch =
+          endDate && createdAtMoment
+            ? endDate.isSameOrAfter(createdAtMoment, 'day')
+            : true;
         const textMatch = indirizzo.toLowerCase().includes(text.toLowerCase());
         const sellerMatch = deal.provvStefano > 0;
 
@@ -98,13 +107,21 @@ export default (
         venditore2
           ? (indirizzo += `${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta}`)
           : indirizzo;
-        const createdAtMoment = moment(deal.createdAt);
-        const startDateMatch = startDate
-          ? startDate.isSameOrBefore(createdAtMoment, 'day')
-          : true;
-        const endDateMatch = endDate
-          ? endDate.isSameOrAfter(createdAtMoment, 'day')
-          : true;
+        const dealFatture = fatture.find(fattura => fattura.dealId === deal.id);
+
+        // il match delle date lo faccio sulla data di emissione della fattura anche per avere un'idea concreta degli incassi dell'anno.
+        // I deals che non sono ancora fatturati appaiono come primi
+        const createdAtMoment = dealFatture
+          ? moment(dealFatture.dataFattura)
+          : false;
+        const startDateMatch =
+          startDate && createdAtMoment
+            ? startDate.isSameOrBefore(createdAtMoment, 'day')
+            : true;
+        const endDateMatch =
+          endDate && createdAtMoment
+            ? endDate.isSameOrAfter(createdAtMoment, 'day')
+            : true;
         const textMatch = indirizzo.toLowerCase().includes(text.toLowerCase());
 
         return startDateMatch && endDateMatch && textMatch;

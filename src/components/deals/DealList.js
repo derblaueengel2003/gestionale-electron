@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import DealListItem from './DealListItem';
 import selectDeals from '../../selectors/deals';
 import Card from '../Card';
 import { TodoProgressBar } from './TodoProgressBar';
@@ -145,7 +144,8 @@ const mapStateToProps = state => {
       state.filters,
       state.oggetti,
       state.clienti,
-      state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+      state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+      state.fatture
     ),
     oggetti: state.oggetti,
     clienti: state.clienti,
