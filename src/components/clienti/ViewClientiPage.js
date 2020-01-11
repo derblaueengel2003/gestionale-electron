@@ -72,6 +72,14 @@ export class ViewClientiPage extends React.Component {
                 <i className='material-icons'>email</i>
               </a>
             )}
+            {telefono1.length > 0 && (
+              <a
+                href={`tel:${telefono1}`}
+                className='btn-floating light-green accent-3 right'
+              >
+                <i className='material-icons'>phone</i>
+              </a>
+            )}
           </div>
 
           <div>

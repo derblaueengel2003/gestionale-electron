@@ -31,14 +31,25 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
                     linea1={cliente.email}
                     linea2={cliente.telefono1}
                     titoloDestra={
-                      cliente.email.length > 0 && (
-                        <a
-                          href={`mailto:${cliente.email}`}
-                          className='btn-floating blue right'
-                        >
-                          <i className='material-icons'>email</i>
-                        </a>
-                      )
+                      <div>
+                        {cliente.email.length > 0 && (
+                          <a
+                            href={`mailto:${cliente.email}`}
+                            className='btn-floating blue right'
+                          >
+                            <i className='material-icons'>email</i>
+                          </a>
+                        )}
+
+                        {cliente.telefono1.length > 0 && (
+                          <a
+                            href={`tel:${cliente.telefono1}`}
+                            className='btn-floating light-green accent-3 right btn-floating-margin'
+                          >
+                            <i className='material-icons'>phone</i>
+                          </a>
+                        )}
+                      </div>
                     }
                     visible={cliente.visible}
                   />

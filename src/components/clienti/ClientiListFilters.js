@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { setClienteFilter } from '../../actions/filters';
+import React from "react";
+import { connect } from "react-redux";
+import { setClienteFilter } from "../../actions/filters";
 
 export class ClientiListFilters extends React.Component {
   onClienteChange = e => {
@@ -9,17 +9,19 @@ export class ClientiListFilters extends React.Component {
 
   render() {
     return (
-      <div className='container'>
-        <div className='input-group'>
-          <div className='input-field'>
+      <div className="container">
+        <div className="input-group">
+          <div className="input-field">
             <input
-              id='kundensuche'
-              type='text'
-              className='input-field'
+              id="kundensuche"
+              type="text"
+              className="input-field"
               value={this.props.filters.cliente}
               onChange={this.onClienteChange}
             />
-            <label htmlFor='kundensuche'>Kundensuche</label>
+            <label className="active" htmlFor="kundensuche">
+              Kundensuche
+            </label>
           </div>
         </div>
       </div>

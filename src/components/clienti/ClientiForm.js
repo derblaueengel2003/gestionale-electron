@@ -189,7 +189,7 @@ export class CustomerForm extends React.Component {
           name='telefono1'
           className={`text-input`}
           type='text'
-          placeholder='Telefonnummer'
+          placeholder='z.B. +49123456789'
           value={this.state.telefono1}
           onChange={this.changeHandler}
         />
