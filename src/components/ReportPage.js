@@ -57,7 +57,8 @@ const mapStateToProps = state => {
     state.filters,
     state.oggetti,
     state.clienti,
-    state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+    state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+    state.fatture
   );
   // const payedDeals = visibleDeals.filter(deal =>
   //   state.fatture.find(fattura => fattura.dealId === deal.id && fattura.payed)
