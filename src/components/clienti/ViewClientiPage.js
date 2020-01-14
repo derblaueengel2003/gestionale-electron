@@ -31,7 +31,8 @@ export class ViewClientiPage extends React.Component {
       comune,
       nazione,
       consulenteVenditaId,
-      id
+      id,
+      note
     } = this.props.cliente;
     const { utente } = this.props;
 
@@ -72,6 +73,14 @@ export class ViewClientiPage extends React.Component {
                 <i className='material-icons'>email</i>
               </a>
             )}
+            {telefono1.length > 0 && (
+              <a
+                href={`tel:${telefono1}`}
+                className='btn-floating light-green accent-3 right'
+              >
+                <i className='material-icons'>phone</i>
+              </a>
+            )}
           </div>
 
           <div>
@@ -92,6 +101,7 @@ export class ViewClientiPage extends React.Component {
                 E-Mail: <a href={`mailto:${email}`}>{email}</a>
               </p>
             )}
+            {note.length > 0 && <p>Note: {note}</p>}
           </div>
         </div>
         <LeadsList userLeads={this.props.leads} />

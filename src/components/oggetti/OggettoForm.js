@@ -51,8 +51,6 @@ export class OggettoForm extends React.Component {
       downloadURLs: props.oggetto ? props.oggetto.downloadURLs : '',
       filenamesCover: props.oggetto ? props.oggetto.filenamesCover : '',
       downloadURLsCover: props.oggetto ? props.oggetto.downloadURLsCover : '',
-      filenamesMap: props.oggetto ? props.oggetto.filenamesMap : '',
-      downloadURLsMap: props.oggetto ? props.oggetto.downloadURLsMap : '',
       filenamesGrundriss: props.oggetto ? props.oggetto.filenamesGrundriss : '',
       downloadURLsGrundriss: props.oggetto
         ? props.oggetto.downloadURLsGrundriss
@@ -79,6 +77,7 @@ export class OggettoForm extends React.Component {
       energieTraeger: props.oggetto ? props.oggetto.energieTraeger : '',
       energieBedarf: props.oggetto ? props.oggetto.energieBedarf : '',
       provvigione: props.oggetto ? props.oggetto.provvigione : '',
+      note: props.oggetto ? props.oggetto.note : '',
       venduto: props.oggetto ? props.oggetto.venduto : false
     };
   }
@@ -158,20 +157,7 @@ export class OggettoForm extends React.Component {
       isUploading: false
     }));
   };
-  handleUploadSuccessMap = async filename => {
-    const downloadURL = await firebase
-      .storage()
-      .ref('map')
-      .child(filename)
-      .getDownloadURL();
 
-    this.setState(oldState => ({
-      filenamesMap: [...oldState.filenamesMap, filename],
-      downloadURLsMap: [...oldState.downloadURLsMap, downloadURL],
-      uploadProgress: 100,
-      isUploading: false
-    }));
-  };
   handleUploadSuccessGrundriss = async filename => {
     const downloadURL = await firebase
       .storage()
@@ -239,32 +225,7 @@ export class OggettoForm extends React.Component {
         console.log(err);
       });
   };
-  handleRemovePictureMap = picture => {
-    console.log(picture);
-    let downloadURLsMap = this.state.downloadURLsMap;
-    let filenamesMap = this.state.filenamesMap;
-    downloadURLsMap.splice(picture, 1);
-    const removedFilename = filenamesMap.splice(picture, 1);
-    const [filenameMap] = removedFilename;
-    if (downloadURLsMap === undefined || downloadURLsMap.length < 1) {
-      downloadURLsMap = '';
-    }
-    if (filenamesMap === undefined || filenamesMap.length < 1) {
-      filenamesMap = '';
-    }
-    this.setState(() => ({ downloadURLsMap, filenamesMap }));
-    firebase
-      .storage()
-      .ref('map')
-      .child(filenameMap)
-      .delete()
-      .then(() => {
-        console.log('File deleted');
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+
   handleRemovePictureGrundriss = picture => {
     console.log(picture);
     let downloadURLsGrundriss = this.state.downloadURLsGrundriss;
@@ -341,8 +302,6 @@ export class OggettoForm extends React.Component {
         downloadURLsCover: this.state.downloadURLsCover,
         filenamesGrundriss: this.state.filenamesGrundriss,
         downloadURLsGrundriss: this.state.downloadURLsGrundriss,
-        filenamesMap: this.state.filenamesMap,
-        downloadURLsMap: this.state.downloadURLsMap,
         titolo: this.state.titolo,
         descrizione: this.state.descrizione,
         titoloDe: this.state.titoloDe,
@@ -363,6 +322,7 @@ export class OggettoForm extends React.Component {
         energieTraeger: this.state.energieTraeger,
         energieBedarf: this.state.energieBedarf,
         provvigione: this.state.provvigione,
+        note: this.state.note,
         venduto: this.state.venduto
       });
     }
@@ -668,6 +628,13 @@ export class OggettoForm extends React.Component {
                   <span>Verkauft</span>
                 </label>
               </div>
+              <textarea
+                name='note'
+                className={`textarea text-input`}
+                placeholder='Note'
+                value={this.state.note}
+                onChange={this.changeHandler}
+              ></textarea>
               {this.props.utente.role === 'Admin' ? (
                 <label>
                   <div className='input-field'></div>
