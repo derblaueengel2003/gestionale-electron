@@ -50,8 +50,7 @@ export const NavBar = ({ utente }) => {
       </nav>
     );
   } else {
-    <div>Niente</div>;
-    // setTimeout(location.reload(), 500);
+    setTimeout(location.reload(), 500);
   }
 };
 const mapStateToProps = state => {

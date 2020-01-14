@@ -15,6 +15,5 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 const storage = firebase.storage();
-googleAuthProvider.addScope('https://www.googleapis.com/auth/contacts');
 
-export { firebase, storage, googleAuthProvider, database as default };
+export { firebase, storage, database as default };
