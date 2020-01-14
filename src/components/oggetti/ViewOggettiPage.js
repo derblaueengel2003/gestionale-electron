@@ -158,6 +158,9 @@ export class ViewOggettiPage extends React.Component {
             {this.props.oggetto.condizioni.length > 0 && (
               <p>{`Zustand: ${this.props.oggetto.condizioni}`}</p>
             )}
+            {this.props.oggetto.note.length > 0 && (
+              <p>{`Note: ${this.props.oggetto.note}`}</p>
+            )}
             {this.props.oggetto.venduto === true && (
               <h5 className='red-text'>Verkauft!</h5>
             )}

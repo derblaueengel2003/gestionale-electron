@@ -38,8 +38,6 @@ export const startAddOggetto = (oggettoData = {}) => {
       downloadURLsCover = '',
       filenamesGrundriss = '',
       downloadURLsGrundriss = '',
-      filenamesMap = '',
-      downloadURLsMap = '',
       titolo = '',
       descrizione = '',
       titoloDe = '',
@@ -61,6 +59,7 @@ export const startAddOggetto = (oggettoData = {}) => {
       energieBedarf = '',
       provvigione = '',
       inquilinoId = '',
+      note = '',
       venduto = false
     } = oggettoData;
     const oggetto = {
@@ -93,8 +92,6 @@ export const startAddOggetto = (oggettoData = {}) => {
       downloadURLsCover,
       filenamesGrundriss,
       downloadURLsGrundriss,
-      filenamesMap,
-      downloadURLsMap,
       titolo,
       descrizione,
       titoloDe,
@@ -116,6 +113,7 @@ export const startAddOggetto = (oggettoData = {}) => {
       energieBedarf,
       provvigione,
       inquilinoId,
+      note,
       venduto
     };
 
