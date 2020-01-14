@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
+import Select from 'react-virtualized-select';
 
 export class CustomerForm extends React.Component {
   constructor(props) {
@@ -77,11 +78,17 @@ export class CustomerForm extends React.Component {
   onFocusChange = ({ focused }) => {
     this.setState(() => ({ calendarFocused: focused }));
   };
+  onConsulenteVenditaChange = e => {
+    const consulenteVendita = e ? e.value : '';
+    this.setState(() => ({ consulenteVendita }));
+  };
   onSubmit = e => {
     e.preventDefault();
 
     if (!this.state.cognome) {
-      this.setState(() => ({ error: 'Vorname und Name bitte eingeben.' }));
+      this.setState(() => ({
+        error: 'Vorname und Name bitte eingeben.'
+      }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
@@ -113,6 +120,11 @@ export class CustomerForm extends React.Component {
     }
   };
   render() {
+    const consulenteVenditaOptions = this.props.utenti.map(consulente => ({
+      value: consulente.id,
+      label: consulente.name
+    }));
+
     return (
       <form className='form' onSubmit={this.onSubmit}>
         <div>
@@ -129,18 +141,12 @@ export class CustomerForm extends React.Component {
           </div>
         )}
         Kundenbetreuer:
-        <select
-          name='consulenteVenditaId'
-          value={this.state.consulenteVenditaId}
-          onChange={this.changeHandler}
-        >
-          <option></option>
-          {this.props.utenti.map(consulente => (
-            <option key={consulente.id} value={consulente.id}>
-              {consulente.name}
-            </option>
-          ))}
-        </select>
+        <Select
+          name='consulentevendita'
+          value={this.state.consulenteVendita}
+          options={consulenteVenditaOptions}
+          onChange={this.onConsulenteVenditaChange}
+        />
         Anrede:
         <input
           name='titolo'
@@ -183,7 +189,7 @@ export class CustomerForm extends React.Component {
           name='telefono1'
           className={`text-input`}
           type='text'
-          placeholder='Telefonnummer'
+          placeholder='z.B. +49123456789'
           value={this.state.telefono1}
           onChange={this.changeHandler}
         />
