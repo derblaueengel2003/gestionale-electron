@@ -206,7 +206,11 @@ export const notarDatenblatt = (
   );
   acapo += 5;
   doc.text(
-    `Tel.: ${venditore.telefono1} - E-Mail: ${venditore.email}`,
+    `${venditore.telefono1 &&
+      `Tel.: ${venditore.telefono1} - `}${venditore.fax &&
+      `Fax: ${venditore.fax} - `}${venditore.cellulare &&
+      `Handy: ${venditore.cellulare} - `}${venditore.email &&
+      `E-Mail: ${venditore.email}`}`,
     15,
     acapo
   );
@@ -243,7 +247,11 @@ export const notarDatenblatt = (
     );
     acapo += 5;
     doc.text(
-      `Tel.: ${venditore2.telefono1} - E-Mail: ${venditore2.email}`,
+      `${venditore2.telefono1 &&
+        `Tel.: ${venditore2.telefono1} - `}${venditore2.fax &&
+        `Fax: ${venditore2.fax} - `}${venditore2.cellulare &&
+        `Handy: ${venditore2.cellulare} - `}${venditore2.email &&
+        `E-Mail: ${venditore2.email}`}`,
       15,
       acapo
     );
@@ -286,7 +294,11 @@ export const notarDatenblatt = (
   );
   acapo += 5;
   doc.text(
-    `Tel.: ${acquirente.telefono1} - E-Mail: ${acquirente.email}`,
+    `${acquirente.telefono1 &&
+      `Tel.: ${acquirente.telefono1} - `}${acquirente.fax &&
+      `Fax: ${acquirente.fax} - `}${acquirente.cellulare &&
+      `Handy: ${acquirente.cellulare} - `}${acquirente.email &&
+      `E-Mail: ${acquirente.email}`}`,
     15,
     acapo
   );
@@ -307,7 +319,11 @@ export const notarDatenblatt = (
     );
     acapo += 5;
     doc.text(
-      `Tel.: ${acquirente2.telefono1} - E-Mail: ${acquirente2.email}`,
+      `${acquirente2.telefono1 &&
+        `Tel.: ${acquirente2.telefono1} - `}${acquirente2.fax &&
+        `Fax: ${acquirente2.fax} - `}${acquirente2.cellulare &&
+        `Handy: ${acquirente2.cellulare} - `}${acquirente2.email &&
+        `E-Mail: ${acquirente2.email}`}`,
       15,
       acapo
     );
@@ -338,7 +354,11 @@ export const notarDatenblatt = (
     );
     acapo += 5;
     doc.text(
-      `Tel.: ${verwalter.telefono1} - E-Mail: ${verwalter.email}`,
+      `${verwalter.telefono1 &&
+        `Tel.: ${verwalter.telefono1} - `}${verwalter.fax &&
+        `Fax: ${verwalter.fax} - `}${verwalter.cellulare &&
+        `Handy: ${verwalter.cellulare} - `}${verwalter.email &&
+        `E-Mail: ${verwalter.email}`}`,
       15,
       acapo
     );

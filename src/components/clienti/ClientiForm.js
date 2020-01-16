@@ -28,6 +28,8 @@ export class CustomerForm extends React.Component {
         ? props.customer.consulenteVenditaId
         : '',
       telefono1: props.customer ? props.customer.telefono1 : '',
+      fax: props.customer ? props.customer.fax : '',
+      cellulare: props.customer ? props.customer.cellulare : '',
       codiceFiscale: props.customer ? props.customer.codiceFiscale : '',
       handelsRegisterNummer: props.customer
         ? props.customer.handelsRegisterNummer
@@ -108,6 +110,8 @@ export class CustomerForm extends React.Component {
         email: this.state.email,
         consulenteVenditaId: this.state.consulenteVenditaId,
         telefono1: this.state.telefono1,
+        fax: this.state.fax,
+        cellulare: this.state.cellulare,
         codiceFiscale: this.state.codiceFiscale,
         handelsRegisterNummer: this.state.handelsRegisterNummer,
         bank: this.state.bank,
@@ -184,13 +188,31 @@ export class CustomerForm extends React.Component {
           value={this.state.email}
           onChange={this.changeHandlerValidate}
         />
-        Telefon:
+        Telefon Festnetz:
         <input
           name='telefono1'
           className={`text-input`}
           type='text'
           placeholder='z.B. +49123456789'
           value={this.state.telefono1}
+          onChange={this.changeHandler}
+        />
+        Fax:
+        <input
+          name='fax'
+          className={`text-input`}
+          type='text'
+          placeholder='z.B. +49123456789'
+          value={this.state.fax}
+          onChange={this.changeHandler}
+        />
+        Handynummer:
+        <input
+          name='cellulare'
+          className={`text-input`}
+          type='text'
+          placeholder='z.B. +49123456789'
+          value={this.state.cellulare}
           onChange={this.changeHandler}
         />
         Geboren am:

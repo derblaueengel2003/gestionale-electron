@@ -30,12 +30,13 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
                     sottotitolo={cliente.ditta}
                     linea1={cliente.email}
                     linea2={cliente.telefono1}
+                    linea3={cliente.cellulare}
                     titoloDestra={
                       <div>
                         {cliente.email.length > 0 && (
                           <a
                             href={`mailto:${cliente.email}`}
-                            className='btn-floating blue right'
+                            className='btn-floating blue right btn-floating-margin'
                           >
                             <i className='material-icons'>email</i>
                           </a>
@@ -47,6 +48,14 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
                             className='btn-floating light-green accent-3 right btn-floating-margin'
                           >
                             <i className='material-icons'>phone</i>
+                          </a>
+                        )}
+                        {cliente.cellulare.length > 0 && (
+                          <a
+                            href={`tel:${cliente.cellulare}`}
+                            className='btn-floating light-green accent-3 right btn-floating-margin'
+                          >
+                            <i className='material-icons'>phone_iphone</i>
                           </a>
                         )}
                       </div>

@@ -32,7 +32,9 @@ export class ViewClientiPage extends React.Component {
       nazione,
       consulenteVenditaId,
       id,
-      note
+      note,
+      cellulare,
+      fax
     } = this.props.cliente;
     const { utente } = this.props;
 
@@ -60,7 +62,7 @@ export class ViewClientiPage extends React.Component {
         <div className='container section'>
           <div>
             <Link
-              className='btn-floating orange right'
+              className='btn-floating orange right btn-floating-margin'
               to={`/customeredit/${id}`}
             >
               <i className='material-icons'>edit</i>
@@ -76,9 +78,17 @@ export class ViewClientiPage extends React.Component {
             {telefono1.length > 0 && (
               <a
                 href={`tel:${telefono1}`}
-                className='btn-floating light-green accent-3 right'
+                className='btn-floating light-green accent-3 right btn-floating-margin'
               >
                 <i className='material-icons'>phone</i>
+              </a>
+            )}
+            {cellulare.length > 0 && (
+              <a
+                href={`tel:${cellulare}`}
+                className='btn-floating light-green accent-3 right btn-floating-margin'
+              >
+                <i className='material-icons'>phone_iphone</i>
               </a>
             )}
           </div>
@@ -96,6 +106,8 @@ export class ViewClientiPage extends React.Component {
             )}
 
             {telefono1.length > 0 && <p>Tel: {telefono1}</p>}
+            {fax.length > 0 && <p>Fax: {fax}</p>}
+            {cellulare.length > 0 && <p>Handy: {cellulare}</p>}
             {email.length > 0 && (
               <p>
                 E-Mail: <a href={`mailto:${email}`}>{email}</a>
