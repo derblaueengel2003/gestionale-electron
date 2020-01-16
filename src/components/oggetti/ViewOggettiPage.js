@@ -69,7 +69,7 @@ export class ViewOggettiPage extends React.Component {
         <div className='container section'>
           <div>
             <Link
-              className='btn-floating orange right'
+              className='btn-floating orange right btn-floating-margin'
               to={`/oggettoedit/${this.props.oggetto.id}`}
             >
               <i className='material-icons'>edit</i>

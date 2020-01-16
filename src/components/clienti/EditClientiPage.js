@@ -78,7 +78,7 @@ export class EditClientePage extends React.Component {
         </div>
         <div className='container'>
           <button
-            className='btn-floating red right'
+            className='btn-floating red right btn-floating-margin'
             onClick={
               this.props.utente.role === 'Admin'
                 ? this.onRemove

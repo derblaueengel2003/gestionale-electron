@@ -57,7 +57,7 @@ export const LeadsList = props => {
                   lead.leadOggettoStato === 'libero o affittato' ||
                   lead.leadOggettoStato === '' ? (
                     <Link
-                      className='btn-floating green accent-3 right'
+                      className='btn-floating green accent-3 right btn-floating-margin'
                       to={`/leadmatchview/${lead.id}`}
                     >
                       Match
@@ -91,7 +91,7 @@ export const LeadsList = props => {
                   }
                   linea2={moment(lead.leadCreatedAt).format('DD MMMM, YYYY')}
                   linea3={immobile}
-                  lineaNote={`Note: ${lead.leadNote}`}
+                  lineaNote={`${lead.leadNote && `Note: ${lead.leadNote}`}`}
                   titoloDestra={pulsanti}
                 />
               );
