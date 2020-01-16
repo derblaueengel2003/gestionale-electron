@@ -78,6 +78,11 @@ export class LeadForm extends React.Component {
     return (
       <form className='form' onSubmit={this.onSubmit}>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
+        <div>
+          <button className='btn-floating blue right'>
+            <i className='material-icons'>save</i>
+          </button>
+        </div>
         Anfragedatum:
         <SingleDatePicker
           date={this.state.leadCreatedAt}

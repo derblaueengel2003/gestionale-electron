@@ -25,10 +25,13 @@ export class EditLeadPage extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <LeadForm lead={this.props.lead} onSubmit={this.onSubmit} />
-          <button className='btn-floating red' onClick={this.onRemove}>
+          <button
+            className='btn-floating red right btn-floating-margin'
+            onClick={this.onRemove}
+          >
             <i className='material-icons'>remove</i>
           </button>
+          <LeadForm lead={this.props.lead} onSubmit={this.onSubmit} />
         </div>
       </div>
     );
