@@ -148,7 +148,7 @@ export const notarDatenblatt = (
       acapo
     );
   }
-  if (oggetto.wohngeld.length > 0) {
+  if (oggetto.wohngeld) {
     acapo += 5;
     doc.text(
       `Wohngeld: ${numeral(oggetto.wohngeld / 100).format('0,0[.]00 $')}`,
@@ -156,7 +156,10 @@ export const notarDatenblatt = (
       acapo
     );
   }
-
+  if (oggetto.ruecklage.length > 0) {
+    acapo += 5;
+    doc.text(`Rücklage: ${oggetto.ruecklage}`, 15, acapo);
+  }
   acapo += 5;
   doc.text(
     `Kaufpreis: ${numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}`,
@@ -182,6 +185,9 @@ export const notarDatenblatt = (
 
   acapo += 5;
   oggetto.mobilio && doc.text(`Einrichtung: siehe Liste`, 15, acapo);
+
+  acapo += 5;
+  oggetto.note && doc.text(`Anmerkung: ${oggetto.note}`, 15, acapo);
 
   //Verkäufer
   acapo += 10;
