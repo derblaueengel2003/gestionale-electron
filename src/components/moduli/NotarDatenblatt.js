@@ -128,19 +128,19 @@ export const notarDatenblatt = (
   acapo += 5;
   doc.text(`WE Nr. ${oggetto.numeroAppartamento}`, 15, acapo);
 
-  if (oggetto.m2.length > 0) {
+  if (oggetto.m2) {
     acapo += 5;
     doc.text(`m2: ${oggetto.m2}`, 15, acapo);
   }
-  if (oggetto.piano.length > 0) {
+  if (oggetto.piano) {
     acapo += 5;
     doc.text(`Etage: ${oggetto.piano}`, 15, acapo);
   }
-  if (oggetto.stato.length > 0) {
+  if (oggetto.stato) {
     acapo += 5;
     doc.text(`Status: ${oggetto.stato}`, 15, acapo);
   }
-  if (oggetto.stato === 'vermietet' > 0) {
+  if (oggetto.stato === 'vermietet') {
     acapo += 5;
     doc.text(
       `Kaltmiete: ${numeral(oggetto.affittoNetto / 100).format('0,0[.]00 $')}`,
@@ -156,7 +156,7 @@ export const notarDatenblatt = (
       acapo
     );
   }
-  if (oggetto.ruecklage.length > 0) {
+  if (oggetto.ruecklage) {
     acapo += 5;
     doc.text(`Rücklage: ${oggetto.ruecklage}`, 15, acapo);
   }
@@ -174,7 +174,7 @@ export const notarDatenblatt = (
     acapo
   );
 
-  if (oggetto.grundbuch.length > 0) {
+  if (oggetto.grundbuch) {
     acapo += 5;
     doc.text(
       `Amtsgericht ${oggetto.amtsgericht}, Grundbuch von ${oggetto.grundbuch}, Blatt Nr. ${oggetto.grundbuchBlatt}`,
@@ -183,11 +183,15 @@ export const notarDatenblatt = (
     );
   }
 
-  acapo += 5;
-  oggetto.mobilio && doc.text(`Einrichtung: siehe Liste`, 15, acapo);
+  if (oggetto.note) {
+    acapo += 5;
+    doc.text(`Anmerkung: ${oggetto.note}`, 15, acapo);
+  }
 
-  acapo += 5;
-  oggetto.note && doc.text(`Anmerkung: ${oggetto.note}`, 15, acapo);
+  if (oggetto.mobilio) {
+    acapo += 5;
+    doc.text(`Einrichtung: siehe Liste`, 15, acapo);
+  }
 
   //Verkäufer
   acapo += 10;
@@ -221,11 +225,7 @@ export const notarDatenblatt = (
     acapo
   );
 
-  if (
-    venditore.bank.length > 0 ||
-    venditore.iban.length > 0 ||
-    venditore.bic.length > 0
-  ) {
+  if (venditore.bank || venditore.iban || venditore.bic) {
     acapo += 5;
     doc.text(
       `${venditore.bank && `Bank: ${venditore.bank}`} ${venditore.iban &&
@@ -261,11 +261,7 @@ export const notarDatenblatt = (
       15,
       acapo
     );
-    if (
-      venditore2.bank.length > 0 ||
-      venditore2.iban.length > 0 ||
-      venditore2.bic.length > 0
-    ) {
+    if (venditore2.bank || venditore2.iban || venditore2.bic) {
       acapo += 5;
       doc.text(
         `${venditore2.bank && `Bank: ${venditore2.bank}`} ${venditore2.iban &&

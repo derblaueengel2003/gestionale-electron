@@ -34,7 +34,8 @@ export class ViewClientiPage extends React.Component {
       id,
       note,
       cellulare,
-      fax
+      fax,
+      www
     } = this.props.cliente;
     const { utente } = this.props;
 
@@ -108,6 +109,11 @@ export class ViewClientiPage extends React.Component {
             {telefono1.length > 0 && <p>Tel: {telefono1}</p>}
             {fax.length > 0 && <p>Fax: {fax}</p>}
             {cellulare.length > 0 && <p>Handy: {cellulare}</p>}
+            {www && (
+              <p>
+                Webseite: <a href={`http://${www}`}>{www}</a>
+              </p>
+            )}
             {email.length > 0 && (
               <p>
                 E-Mail: <a href={`mailto:${email}`}>{email}</a>

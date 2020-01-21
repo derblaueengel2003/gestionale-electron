@@ -1,76 +1,64 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
-import numeral from 'numeral';
 import { creaPrenotazione } from '../moduli/Provisionsbestaetigung';
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung';
 import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag';
 import { protocollo } from '../moduli/UebergabeProtokoll';
 import { notarDatenblatt } from '../moduli/NotarDatenblatt';
+import moment from 'moment';
+import numeral from 'numeral';
 import TodoForm from './TodoForm';
 import FattureList from '../fatture/FattureList';
 import ClientiList from '../clienti/ClientiList';
 import OggettiList from '../oggetti/OggettiList';
 
 export class ViewDealPage extends React.Component {
+  findContact = contact => {
+    return this.props.clienti.filter(cliente => cliente.id === contact);
+  };
+
   render() {
     const {
-      prezzoDiVendita,
-      createdAt,
-      dataRogito,
-      note,
-      amount,
-      consulenteVendita,
-      provvM2square,
-      provvStefano,
-      payedAtStefano,
-      provvAgenziaPartner,
-      payedAgenziaPartner,
-      venditoreId,
-      venditoreId2,
       acquirenteId,
       acquirenteId2,
       agenziaPartnerId,
-      payedStefano,
+      amount,
       belastungsVollmacht,
-      id
+      consulenteVendita,
+      createdAt,
+      dataRogito,
+      id,
+      notaioId,
+      note,
+      oggettoId,
+      payedAtStefano,
+      payedStefano,
+      payedAgenziaPartner,
+      prezzoDiVendita,
+      provvM2square,
+      provvStefano,
+      provvAgenziaPartner,
+      venditoreId,
+      venditoreId2
     } = this.props.deal;
     const { utente } = this.props;
-    const acquirente = this.props.clienti.filter(
-      cliente => cliente.id === acquirenteId
-    );
-    const acquirente2 = this.props.clienti.filter(
-      cliente => cliente.id === this.props.deal.acquirenteId2
-    );
-    const venditore = this.props.clienti.filter(
-      cliente => cliente.id === this.props.deal.venditoreId
-    );
-    const venditore2 = this.props.clienti.filter(
-      cliente => cliente.id === this.props.deal.venditoreId2
-    );
-    const agenziaPartner = this.props.clienti.filter(
-      cliente => cliente.id === this.props.deal.agenziaPartnerId
-    );
-    const oggetto = this.props.oggetti.find(
-      ogg => ogg.id === this.props.deal.oggettoId
-    );
+    const oggetto = this.props.oggetti.find(ogg => ogg.id === oggettoId);
+    const acquirente = this.findContact(acquirenteId);
+    const acquirente2 = this.findContact(acquirenteId2);
+    const venditore = this.findContact(venditoreId);
+    const venditore2 = this.findContact(venditoreId2);
+    const notaio = this.findContact(notaioId);
+    const verwalter = this.findContact(oggetto.verwalter);
+    const agenziaPartner = this.findContact(agenziaPartnerId);
 
     const kundenbetreuer = this.props.utenti.find(
       utente => utente.id === consulenteVendita
     );
-    const provvPercentuale = numeral(
-      (this.props.deal.amount / this.props.deal.prezzoDiVendita) * 119
-    ).format('0,0.00');
-    const dataPrenotazione = moment(this.props.deal.createdAt).format(
-      'DD.MM.YYYY'
+    const provvPercentuale = numeral((amount / prezzoDiVendita) * 119).format(
+      '0,0.00'
     );
-    const notaio = this.props.clienti.find(
-      cliente => cliente.id === this.props.deal.notaioId
-    );
-    const verwalter = this.props.clienti.find(
-      cliente => cliente.id === oggetto.verwalter
-    );
+    const dataPrenotazione = moment(createdAt).format('DD.MM.YYYY');
     // Determino quante fatture sono state pagate per mostrare i colori adatti. Da dealFature mi arriva un array
     let payed = 0;
     this.props.fatture.map(fattura => fattura.payed && payed++);
@@ -225,7 +213,7 @@ export class ViewDealPage extends React.Component {
                           venditore[0],
                           venditore2[0],
                           oggetto,
-                          notaio,
+                          notaio[0],
                           prezzoDiVendita,
                           this.props.firma
                         );
@@ -254,8 +242,8 @@ export class ViewDealPage extends React.Component {
                           venditore[0],
                           venditore2[0],
                           oggetto,
-                          notaio,
-                          verwalter,
+                          notaio[0],
+                          verwalter[0],
                           belastungsVollmacht,
                           utente,
                           this.props.firma,
@@ -324,6 +312,11 @@ export class ViewDealPage extends React.Component {
         {acquirenteId2.length > 0 && (
           <div>
             <ClientiList cliente={acquirente2} ruolo={'2. Käufer'} />
+          </div>
+        )}
+        {notaio.length > 0 && (
+          <div>
+            <ClientiList cliente={notaio} ruolo={'Notar'} />
           </div>
         )}
         {agenziaPartnerId.length > 0 && (

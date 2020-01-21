@@ -39,7 +39,8 @@ export class CustomerForm extends React.Component {
       bic: props.customer ? props.customer.bic : '',
       note: props.customer ? props.customer.note : '',
       visible: props.customer ? props.customer.visible : true,
-      error: ''
+      error: '',
+      www: props.customer ? props.customer.www || '' : ''
     };
   }
   changeHandler = e => {
@@ -118,7 +119,7 @@ export class CustomerForm extends React.Component {
         iban: this.state.iban,
         bic: this.state.bic,
         visible: this.state.visible,
-
+        www: this.state.www,
         note: this.state.note
       });
     }
@@ -213,6 +214,14 @@ export class CustomerForm extends React.Component {
           type='text'
           placeholder='z.B. +49123456789'
           value={this.state.cellulare}
+          onChange={this.changeHandler}
+        />
+        Webseite:
+        <input
+          name='www'
+          className={`text-input`}
+          type='text'
+          value={this.state.www}
           onChange={this.changeHandler}
         />
         Geboren am:
