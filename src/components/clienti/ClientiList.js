@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import ClientiListItem from './ClientiListItem';
 import { startSetCustomers } from '../../actions/clienti';
 import selectClienti from '../../selectors/clienti';
 import Card from '../Card';
@@ -33,7 +31,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
                     linea3={cliente.cellulare}
                     titoloDestra={
                       <div>
-                        {cliente.email.length > 0 && (
+                        {cliente.email && (
                           <a
                             href={`mailto:${cliente.email}`}
                             className='btn-floating blue right btn-floating-margin'
@@ -42,7 +40,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
                           </a>
                         )}
 
-                        {cliente.telefono1.length > 0 && (
+                        {cliente.telefono1 && (
                           <a
                             href={`tel:${cliente.telefono1}`}
                             className='btn-floating light-green accent-3 right btn-floating-margin'
@@ -50,7 +48,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
                             <i className='material-icons'>phone</i>
                           </a>
                         )}
-                        {cliente.cellulare.length > 0 && (
+                        {cliente.cellulare && (
                           <a
                             href={`tel:${cliente.cellulare}`}
                             className='btn-floating light-green accent-3 right btn-floating-margin'

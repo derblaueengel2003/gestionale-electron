@@ -11,11 +11,11 @@ export class CustomerForm extends React.Component {
     this.state = {
       nome: props.customer ? props.customer.nome : '',
       cognome: props.customer ? props.customer.cognome : '',
+      calendarFocused: false,
       titolo: props.customer ? props.customer.titolo : '',
       dataDiNascita: props.customer
         ? props.customer.dataDiNascita && moment(props.customer.dataDiNascita)
         : null,
-      calendarFocused: false,
       ditta: props.customer ? props.customer.ditta : '',
       indirizzo: props.customer ? props.customer.indirizzo : '',
       indirizzo2: props.customer ? props.customer.indirizzo2 : '',
@@ -82,8 +82,8 @@ export class CustomerForm extends React.Component {
     this.setState(() => ({ calendarFocused: focused }));
   };
   onConsulenteVenditaChange = e => {
-    const consulenteVendita = e ? e.value : '';
-    this.setState(() => ({ consulenteVendita }));
+    const consulenteVenditaId = e ? e.value : '';
+    this.setState(() => ({ consulenteVenditaId }));
   };
   onSubmit = e => {
     e.preventDefault();
@@ -148,7 +148,7 @@ export class CustomerForm extends React.Component {
         Kundenbetreuer:
         <Select
           name='consulentevendita'
-          value={this.state.consulenteVendita}
+          value={this.state.consulenteVenditaId}
           options={consulenteVenditaOptions}
           onChange={this.onConsulenteVenditaChange}
         />

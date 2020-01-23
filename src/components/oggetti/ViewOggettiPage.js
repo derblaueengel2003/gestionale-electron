@@ -46,19 +46,15 @@ export class ViewOggettiPage extends React.Component {
     console.log(this.state);
   }
 
+  findContact = contact => {
+    return this.props.clienti.filter(cliente => cliente.id === contact);
+  };
+
   render() {
-    const verwalter = this.props.clienti.filter(
-      cliente => cliente.id === this.props.oggetto.verwalter
-    );
-    const proprietario = this.props.clienti.filter(
-      cliente => cliente.id === this.props.oggetto.proprietarioId
-    );
-    const proprietario2 = this.props.clienti.filter(
-      cliente => cliente.id === this.props.oggetto.proprietarioId2
-    );
-    const inquilino = this.props.clienti.filter(
-      cliente => cliente.id === this.props.oggetto.inquilinoId
-    );
+    const verwalter = this.findContact(this.props.oggetto.verwalter);
+    const proprietario = this.findContact(this.props.oggetto.proprietarioId);
+    const proprietario2 = this.findContact(this.props.oggetto.proprietarioId2);
+    const inquilino = this.findContact(this.props.oggetto.inquilinoId);
     return (
       <div>
         <div className='grey lighten-4'>

@@ -15,7 +15,8 @@ export const notarDatenblatt = (
   utente,
   firma,
   ceo,
-  prezzoDiVendita
+  prezzoDiVendita,
+  linguaRogito
 ) => {
   const doc = new jsPDF('p', 'mm', 'a4');
   doc.setFont('times');
@@ -181,6 +182,10 @@ export const notarDatenblatt = (
       15,
       acapo
     );
+  }
+  if (linguaRogito) {
+    acapo += 5;
+    doc.text(`Zusätzliche Beurkundungssprache: ${linguaRogito}`, 15, acapo);
   }
 
   if (oggetto.note) {

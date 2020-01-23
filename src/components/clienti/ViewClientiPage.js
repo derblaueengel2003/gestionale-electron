@@ -1,40 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import LeadsList from '../leads/LeadsList';
-import FattureList from '../fatture/FattureList';
 import DealList from '../deals/DealList';
+import FattureList from '../fatture/FattureList';
+import LeadsList from '../leads/LeadsList';
 import OggettiList from '../oggetti/OggettiList';
 
 export class ViewClientiPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: false
-    };
-  }
-  modalToggle = () => {
-    this.setState({ modal: !this.state.modal });
-    console.log(this.state.modal);
-  };
   render() {
     const {
-      ditta,
-      nome,
+      cap,
+      cellulare,
       cognome,
-      titolo,
+      comune,
+      consulenteVenditaId,
+      ditta,
+      email,
+      fax,
+      id,
       indirizzo,
       indirizzo2,
-      telefono1,
-      email,
-      cap,
-      comune,
       nazione,
-      consulenteVenditaId,
-      id,
+      nome,
       note,
-      cellulare,
-      fax,
+      telefono1,
+      titolo,
       www
     } = this.props.cliente;
     const { utente } = this.props;
@@ -68,7 +58,7 @@ export class ViewClientiPage extends React.Component {
             >
               <i className='material-icons'>edit</i>
             </Link>
-            {email.length > 0 && (
+            {email && (
               <a
                 href={`mailto:${email}`}
                 className='btn-floating blue right btn-floating-margin'
@@ -76,7 +66,7 @@ export class ViewClientiPage extends React.Component {
                 <i className='material-icons'>email</i>
               </a>
             )}
-            {telefono1.length > 0 && (
+            {telefono1 && (
               <a
                 href={`tel:${telefono1}`}
                 className='btn-floating light-green accent-3 right btn-floating-margin'
@@ -84,7 +74,7 @@ export class ViewClientiPage extends React.Component {
                 <i className='material-icons'>phone</i>
               </a>
             )}
-            {cellulare.length > 0 && (
+            {cellulare && (
               <a
                 href={`tel:${cellulare}`}
                 className='btn-floating light-green accent-3 right btn-floating-margin'
@@ -95,31 +85,32 @@ export class ViewClientiPage extends React.Component {
           </div>
 
           <div>
-            {ditta.length > 0 && <h5>{ditta}</h5>}
-            {cognome.length > 0 && (
+            {ditta && <h5>{ditta}</h5>}
+            {cognome && (
               <h5>
                 {titolo} {nome} {cognome}
               </h5>
             )}
-            {indirizzo.length > 0 && (
+            {consulenteVendita && <p>{`(${consulenteVendita.name})`}</p>}
+            {indirizzo && (
               <p>{`${indirizzo} ${indirizzo2 &&
                 indirizzo2}, ${cap} ${comune}, ${nazione}`}</p>
             )}
 
-            {telefono1.length > 0 && <p>Tel: {telefono1}</p>}
-            {fax.length > 0 && <p>Fax: {fax}</p>}
-            {cellulare.length > 0 && <p>Handy: {cellulare}</p>}
+            {telefono1 && <p>Tel: {telefono1}</p>}
+            {fax && <p>Fax: {fax}</p>}
+            {cellulare && <p>Handy: {cellulare}</p>}
             {www && (
               <p>
                 Webseite: <a href={`http://${www}`}>{www}</a>
               </p>
             )}
-            {email.length > 0 && (
+            {email && (
               <p>
                 E-Mail: <a href={`mailto:${email}`}>{email}</a>
               </p>
             )}
-            {note.length > 0 && <p>Note: {note}</p>}
+            {note && <p>Note: {note}</p>}
           </div>
         </div>
         <LeadsList userLeads={this.props.leads} />

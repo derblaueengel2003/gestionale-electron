@@ -29,6 +29,7 @@ export class ViewDealPage extends React.Component {
       createdAt,
       dataRogito,
       id,
+      linguaRogito,
       notaioId,
       note,
       oggettoId,
@@ -102,7 +103,7 @@ export class ViewDealPage extends React.Component {
                 Beurkundungsdatum: {moment(dataRogito).format('DD MMMM, YYYY')}
               </p>
             )}
-            {note.length > 0 && <p>Note: {note}</p>}
+            {note && <p>Note: {note}</p>}
           </div>
           <div className='divider'></div>
 
@@ -248,7 +249,8 @@ export class ViewDealPage extends React.Component {
                           utente,
                           this.props.firma,
                           this.props.ceo,
-                          prezzoDiVendita
+                          prezzoDiVendita,
+                          linguaRogito
                         );
                       }}
                     >
@@ -294,32 +296,32 @@ export class ViewDealPage extends React.Component {
         <div>
           <OggettiList oggetto={[oggetto]} />
         </div>
-        {venditoreId.length > 0 && (
+        {venditoreId && (
           <div>
             <ClientiList cliente={venditore} ruolo={'Verkäufer'} />
           </div>
         )}
-        {venditoreId2.length > 0 && (
+        {venditoreId2 && (
           <div>
             <ClientiList cliente={venditore2} ruolo={'2. Verkäufer'} />
           </div>
         )}
-        {acquirenteId.length > 0 && (
+        {acquirenteId && (
           <div>
             <ClientiList cliente={acquirente} ruolo={'Käufer'} />
           </div>
         )}
-        {acquirenteId2.length > 0 && (
+        {acquirenteId2 && (
           <div>
             <ClientiList cliente={acquirente2} ruolo={'2. Käufer'} />
           </div>
         )}
-        {notaio.length > 0 && (
+        {notaio && (
           <div>
             <ClientiList cliente={notaio} ruolo={'Notar'} />
           </div>
         )}
-        {agenziaPartnerId.length > 0 && (
+        {agenziaPartnerId && (
           <div>
             <ClientiList
               cliente={agenziaPartner}
