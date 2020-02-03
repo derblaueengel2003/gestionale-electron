@@ -215,7 +215,7 @@ export const notarDatenblatt = (
   );
   acapo += 5;
   doc.text(
-    `${venditore.indirizzo} ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`,
+    `${venditore.indirizzo}, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`,
     15,
     acapo
   );
@@ -252,7 +252,7 @@ export const notarDatenblatt = (
     );
     acapo += 5;
     doc.text(
-      `${venditore2.indirizzo} ${venditore2.cap} ${venditore2.comune}, ${venditore2.nazione}`,
+      `${venditore2.indirizzo}, ${venditore2.cap} ${venditore2.comune}, ${venditore2.nazione}`,
       15,
       acapo
     );
@@ -295,7 +295,7 @@ export const notarDatenblatt = (
   );
   acapo += 5;
   doc.text(
-    `${acquirente.indirizzo} ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`,
+    `${acquirente.indirizzo}, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`,
     15,
     acapo
   );
@@ -320,7 +320,7 @@ export const notarDatenblatt = (
     );
     acapo += 5;
     doc.text(
-      `${acquirente2.indirizzo} ${acquirente2.cap} ${acquirente2.comune}, ${acquirente2.nazione}`,
+      `${acquirente2.indirizzo}, ${acquirente2.cap} ${acquirente2.comune}, ${acquirente2.nazione}`,
       15,
       acapo
     );

@@ -355,7 +355,7 @@ export class ViewOggettiPage extends React.Component {
             <div>{`Beschreibung: ${this.props.oggetto.descrizioneDe}`}</div>
           </div>
         )}
-        {this.props.oggetto.titolo.length > 0 && (
+        {this.props.oggetto.titoloEn.length > 0 && (
           <div className='container margine-basso'>
             <div className='grey lighten-4'>
               <div>
