@@ -42,6 +42,7 @@ import MAAForm from '../components/moduli/MAAForm';
 import VWBForm from '../components/moduli/VWBForm';
 import VollmachtForm from '../components/moduli/VollmachtForm';
 import ProvisionForm from '../components/moduli/ProvisionForm';
+import NotarauftragForm from '../components/moduli/NotarauftragForm';
 
 export const history = createHistory();
 
@@ -103,6 +104,10 @@ const AppRouter = ({ uid }) => {
             component={ProvisionForm}
           />
           <PrivateRoute path='/widerrufsbelehrung' component={VWBForm} />
+          <PrivateRoute
+            path='/vollmachtnotarauftrag'
+            component={NotarauftragForm}
+          />
           <PrivateRoute path='/vollmachtunterlagen' component={VollmachtForm} />
           <Route component={NotFoundPage} />
         </Switch>

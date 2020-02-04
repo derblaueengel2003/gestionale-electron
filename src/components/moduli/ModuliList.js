@@ -18,6 +18,9 @@ const ModuliPage = () => (
           <Link to='/provisionsbestaetigung'>Provisionsbestätigung</Link>
         </li>
         <li className='collection-item'>
+          <Link to='/vollmachtnotarauftrag'>Vollmacht Notarauftrag</Link>
+        </li>
+        <li className='collection-item'>
           <Link to='/makleralleinauftrag'>Makler-Allein-Auftrag</Link>
         </li>
         <li className='collection-item'>
