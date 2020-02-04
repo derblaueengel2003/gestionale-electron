@@ -41,6 +41,7 @@ import StampaDatenblatt from '../components/moduli/StampaDatenblatt';
 import MAAForm from '../components/moduli/MAAForm';
 import VWBForm from '../components/moduli/VWBForm';
 import VollmachtForm from '../components/moduli/VollmachtForm';
+import ProvisionForm from '../components/moduli/ProvisionForm';
 
 export const history = createHistory();
 
@@ -97,6 +98,10 @@ const AppRouter = ({ uid }) => {
           <PrivateRoute path='/datenblatt/:id' component={StampaDatenblatt} />
           <PrivateRoute path='/moduli' component={ModuliPage} />
           <PrivateRoute path='/makleralleinauftrag' component={MAAForm} />
+          <PrivateRoute
+            path='/provisionsbestaetigung'
+            component={ProvisionForm}
+          />
           <PrivateRoute path='/widerrufsbelehrung' component={VWBForm} />
           <PrivateRoute path='/vollmachtunterlagen' component={VollmachtForm} />
           <Route component={NotFoundPage} />

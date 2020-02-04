@@ -171,6 +171,7 @@ export class ViewDealPage extends React.Component {
                           venditore2[0],
                           oggetto,
                           provvPercentuale,
+                          prezzoDiVendita,
                           this.props.firma
                         );
                       }}

@@ -15,6 +15,9 @@ const ModuliPage = () => (
           <h4>Online ausfüllen</h4>
         </li>
         <li className='collection-item'>
+          <Link to='/provisionsbestaetigung'>Provisionsbestätigung</Link>
+        </li>
+        <li className='collection-item'>
           <Link to='/makleralleinauftrag'>Makler-Allein-Auftrag</Link>
         </li>
         <li className='collection-item'>

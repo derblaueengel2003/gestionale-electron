@@ -1,5 +1,8 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './ImageLogo';
+import { ivdLogo } from './IvdLogo';
+
+import numeral from 'numeral';
 
 export const creaPrenotazione = (
   acquirente,
@@ -8,6 +11,7 @@ export const creaPrenotazione = (
   venditore2,
   oggetto,
   provvPercentuale,
+  prezzoDiVendita,
   firma
 ) => {
   const doc = new jsPDF();
@@ -33,7 +37,9 @@ export const creaPrenotazione = (
     `${venditore2.titolo} ${venditore2.nome} ${venditore2.cognome}`;
 
   doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
-  doc.addImage(imgLogo, 'JPEG', 165, 10, 35, 8);
+  doc.addImage(imgLogo, 'JPEG', 28, 11, 35, 8);
+  //Logo IVD
+  doc.addImage(ivdLogo, 'JPEG', 165, 10, 30, 12, undefined, 'SLOW');
 
   //cancello frase che dice che gli abbiamo mandato exposé oggi. Metto una riga bianca sopra
 
@@ -74,6 +80,11 @@ export const creaPrenotazione = (
   doc.text(`${oggetto.stato}`, 41, 141);
   doc.text(`Etage: ${oggetto.piano}`, 41, 146);
   doc.text(`m2: ${oggetto.m2}`, 41, 151);
+  doc.text(
+    `Kaufpreis: ${numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}`,
+    41,
+    156
+  );
 
   doc.text(`${oggetto.via} ${oggetto.numeroCivico}`, 95, 136);
   doc.text(`WE ${oggetto.numeroAppartamento}`, 95, 141);
