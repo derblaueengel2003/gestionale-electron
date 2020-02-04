@@ -88,14 +88,14 @@ export class VWBForm extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Verbraucher WiderrufsBelehrung</h1>
+            <h1>Verbraucher Widerrufsbelehrung</h1>
           </div>
         </div>
         <form className='form container' onSubmit={this.onSubmit}>
           {this.state.error && (
             <p className='form__error'>{this.state.error}</p>
           )}
-          Verkäufer:
+          Kunde:
           <Select
             name='venditore'
             value={this.state.venditoreId}
@@ -103,7 +103,7 @@ export class VWBForm extends React.Component {
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange}
           />
-          2. Verkäufer:
+          2. Kunde:
           <Select
             name='venditore2'
             value={this.state.venditoreId2}
