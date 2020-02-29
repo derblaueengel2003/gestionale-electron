@@ -1,30 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 // import OggettiListItem from './OggettiListItem';
-import selectOggetti from '../../selectors/oggetti';
-import Card from '../Card';
-import numeral from 'numeral';
+import selectOggetti from "../../selectors/oggetti";
+import Card from "../Card";
+import numeral from "numeral";
 
 export const OggettiList = props => {
   //controllo se arrivo da view deal o dalla dashboard oggetti
   const oggettiPayload = props.oggetto || props.oggetti;
 
   return (
-    <div className='container'>
-      <div className='list-body'>
+    <div className="container">
+      <div className="list-body">
         {oggettiPayload.length > 0 && (
           <div>
-            <h5>{props.ruolo || 'Objekte'}</h5>
+            <h5>{props.ruolo || "Objekte"}</h5>
             {oggettiPayload
               .sort((a, b) => {
                 return a.visible < b.visible ? -1 : 1;
               })
               .map(oggetto => {
                 const verkauft = oggetto.venduto ? (
-                  <h5 className='red-text'>Verkauft!</h5>
+                  <h5 className="red-text">Verkauft!</h5>
                 ) : (
-                  ''
+                  ""
                 );
                 return (
                   <Card
@@ -36,7 +36,7 @@ export const OggettiList = props => {
                     link={`/oggettoview/${oggetto.id}`}
                     linea1={`Kaufpreis: ${numeral(
                       oggetto.kaufpreis / 100
-                    ).format('0,0[.]00 $')}`}
+                    ).format("0,0[.]00 $")}`}
                     verkauft={verkauft}
                   />
                 );

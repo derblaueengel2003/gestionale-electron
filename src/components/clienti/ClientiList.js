@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { startSetCustomers } from '../../actions/clienti';
 import selectClienti from '../../selectors/clienti';
 import Card from '../Card';
 
-export const ClientiList = ({ cliente, clienti, ruolo }) => {
-  //controllo se i dati vengono dal deal page o se sono passati via props
+export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
+  //controllo se i dati vengono dal deal page o se sono passati via props.
   const clientiPayload = cliente || clienti;
 
   return (
@@ -13,7 +14,7 @@ export const ClientiList = ({ cliente, clienti, ruolo }) => {
       <div className='list-body'>
         {clientiPayload.length > 0 && (
           <div>
-            <h5>{ruolo || 'Adressbuch'}</h5>
+            <h5>{ruolo || `${t('Rubrica')}`}</h5>
 
             {clientiPayload
               .sort((a, b) => {
@@ -78,4 +79,7 @@ const mapDispatchToProps = dispatch => ({
   startSetCustomers: () => dispatch(startSetCustomers())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClientiList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(ClientiList));

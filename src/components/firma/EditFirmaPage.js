@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 import FirmaForm from './FirmaForm';
 import { startEditFirma, startRemoveFirma } from '../../actions/firma';
 
@@ -22,11 +22,14 @@ export class EditFirmaPage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Firmendaten ändern</h1>
+            <h1>{this.props.t('Modifica dati azienda')}</h1>
           </div>
         </div>
         <div className='container'>
-          <button className='btn-floating red right' onClick={this.onRemove}>
+          <button
+            className='btn-floating red right btn-floating-margin'
+            onClick={this.onRemove}
+          >
             <i className='material-icons'>remove</i>
           </button>
           <FirmaForm firma={this.props.firma} onSubmit={this.onSubmit} />
@@ -45,4 +48,7 @@ const mapDispatchToProps = dispatch => ({
   startRemoveFirma: data => dispatch(startRemoveFirma(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditFirmaPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(EditFirmaPage));

@@ -1,25 +1,32 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import DealForm from './DealForm';
-import { startAddDeal } from '../../actions/deals';
+import React from "react";
+import { connect } from "react-redux";
+import { Translation } from "react-i18next";
+import DealForm from "./DealForm";
+import { startAddDeal } from "../../actions/deals";
 
 export class AddDealPage extends React.Component {
   onSubmit = deal => {
     this.props.startAddDeal(deal);
-    this.props.history.push('/');
+    this.props.history.push("/");
   };
   render() {
     return (
-      <div>
-        <div>
-          <div className='container'>
-            <h1>Deal hinzufügen</h1>
-          </div>
-        </div>
-        <div className='container'>
-          <DealForm onSubmit={this.onSubmit} />
-        </div>
-      </div>
+      <Translation>
+        {t => {
+          return (
+            <div>
+              <div>
+                <div className="container">
+                  <h1>{t("Aggiungi vendita")}</h1>
+                </div>
+              </div>
+              <div className="container">
+                <DealForm onSubmit={this.onSubmit} />
+              </div>
+            </div>
+          );
+        }}
+      </Translation>
     );
   }
 }

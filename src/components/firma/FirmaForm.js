@@ -1,6 +1,7 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 
-export default class FirmaForm extends React.Component {
+export class FirmaForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,6 +56,7 @@ export default class FirmaForm extends React.Component {
     });
   };
   render() {
+    const { t } = this.props;
     return (
       <form className='form' onSubmit={this.onSubmit}>
         <div>
@@ -62,7 +64,7 @@ export default class FirmaForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        Name:
+        {t('Nome')}:
         <input
           name='name'
           className={`text-input`}
@@ -71,7 +73,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.name}
           onChange={this.changeHandler}
         />
-        Gesetzlicher Name:
+        {t('Ragione sociale')}:
         <input
           name='name2'
           className={`text-input`}
@@ -80,7 +82,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.name2}
           onChange={this.changeHandler}
         />
-        Adresse:
+        {t('Indirizzo')}:
         <input
           name='adresse'
           className={`text-input`}
@@ -88,7 +90,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.adresse}
           onChange={this.changeHandler}
         />
-        PLZ:
+        {t('CAP')}:
         <input
           name='plz'
           className={`text-input`}
@@ -96,7 +98,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.plz}
           onChange={this.changeHandler}
         />
-        Stadt:
+        {t('Città')}:
         <input
           name='stadt'
           className={`text-input`}
@@ -104,7 +106,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.stadt}
           onChange={this.changeHandler}
         />
-        Staat:
+        {t('Nazione')}:
         <input
           name='staat'
           className={`text-input`}
@@ -112,7 +114,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.staat}
           onChange={this.changeHandler}
         />
-        Telefon:
+        {t('Telefono fisso')}:
         <input
           name='telefon'
           className={`text-input`}
@@ -128,7 +130,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.fax}
           onChange={this.changeHandler}
         />
-        E-Mail:
+        {t('Email')}:
         <input
           name='email'
           className={`text-input`}
@@ -136,7 +138,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.email}
           onChange={this.changeHandler}
         />
-        Website:
+        {t('Sito web')}:
         <input
           name='website'
           className={`text-input`}
@@ -144,7 +146,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.website}
           onChange={this.changeHandler}
         />
-        Steuernummer:
+        {t('Codice fiscale tedesco')}:
         <input
           name='steuerNr'
           className={`text-input`}
@@ -168,7 +170,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.motto}
           onChange={this.changeHandler}
         />
-        Öffnungszeit:
+        {t('Orari di apertura')}:
         <input
           name='open'
           className={`text-input`}
@@ -176,7 +178,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.open}
           onChange={this.changeHandler}
         />
-        Kontoinhaber:
+        {t('Intestatario conto corrente')}:
         <input
           name='kontoInhaber'
           className={`text-input`}
@@ -184,7 +186,7 @@ export default class FirmaForm extends React.Component {
           value={this.state.kontoInhaber}
           onChange={this.changeHandler}
         />
-        Bank:
+        {t('Banca')}:
         <input
           name='bank'
           className={`text-input`}
@@ -217,3 +219,5 @@ export default class FirmaForm extends React.Component {
     );
   }
 }
+
+export default withTranslation()(FirmaForm);

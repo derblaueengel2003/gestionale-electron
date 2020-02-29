@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import CustomerForm from './ClientiForm';
 import { startAddCustomer } from '../../actions/clienti';
 
@@ -19,7 +20,7 @@ export class AddCustomerPage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Kontakt hinzufügen</h1>
+            <h1>{this.props.t('Aggiungi contatto')}</h1>
           </div>
         </div>
         <div className='container'>
@@ -34,4 +35,7 @@ const mapDispatchToProps = dispatch => ({
   startAddCustomer: customer => dispatch(startAddCustomer(customer))
 });
 
-export default connect(undefined, mapDispatchToProps)(AddCustomerPage);
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(withTranslation()(AddCustomerPage));

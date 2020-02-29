@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import DealForm from './DealForm';
+import { withTranslation } from 'react-i18next';
 import { startEditDeal, startRemoveDeal } from '../../actions/deals';
+import DealForm from './DealForm';
 
 export class EditDealPage extends React.Component {
   onSubmit = deal => {
@@ -24,7 +24,7 @@ export class EditDealPage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Deal bearbeiten</h1>
+            <h1>{this.props.t('Modifica dati vendita')}</h1>
           </div>
         </div>
         <div className='container'>
@@ -50,4 +50,7 @@ const mapDispatchToProps = dispatch => ({
   startRemoveDeal: data => dispatch(startRemoveDeal(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditDealPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(EditDealPage));

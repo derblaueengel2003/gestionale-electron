@@ -1,7 +1,8 @@
-import jsPDF from 'jspdf';
-import { imgLogo } from './ImageLogo';
-import { ivdLogo } from './IvdLogo';
-import numeral from 'numeral';
+import jsPDF from "jspdf";
+import { imgLogo } from "./ImageLogo";
+import { ivdLogo } from "./IvdLogo";
+import numeral from "numeral";
+import moment from "moment";
 
 export const notarDatenblatt = (
   acquirente,
@@ -18,12 +19,12 @@ export const notarDatenblatt = (
   prezzoDiVendita,
   linguaRogito
 ) => {
-  const doc = new jsPDF('p', 'mm', 'a4');
-  doc.setFont('times');
+  const doc = new jsPDF("p", "mm", "a4");
+  doc.setFont("times");
   const fontStart = 10;
 
   const cartaIntestata = () => {
-    doc.addImage(imgLogo, 'JPEG', 130, 10, 55, 12, undefined, 'SLOW');
+    doc.addImage(imgLogo, "JPEG", 130, 10, 55, 12, undefined, "SLOW");
     //linea rossa
     doc.setDrawColor(145, 0, 0);
     doc.setLineWidth(7);
@@ -37,7 +38,7 @@ export const notarDatenblatt = (
     doc.setFontSize(fontStart + 1);
     doc.setTextColor(255, 255, 255);
 
-    doc.setFontType('bold');
+    doc.setFontType("bold");
     doc.text(
       `${firma.name} ${firma.name2 && ` - ${firma.name2}`} - ${
         firma.adresse
@@ -54,7 +55,7 @@ export const notarDatenblatt = (
     // doc.line(160, 267, 160, 282);
     doc.setFontSize(fontStart);
     doc.setTextColor(143, 143, 143);
-    doc.text('Geschäftsführer:', 16, 270);
+    doc.text("Geschäftsführer:", 16, 270);
     let position = 274;
 
     ceo.forEach(eachCeo => {
@@ -69,7 +70,44 @@ export const notarDatenblatt = (
     doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
 
     //Logo IVD
-    doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12, undefined, 'SLOW');
+    doc.addImage(ivdLogo, "JPEG", 161, 270, 30, 12, undefined, "SLOW");
+  };
+
+  const datiVerwalter = () => {
+    //Verwalter
+    acapo += 10;
+    verwalter && doc.setFontSize(14);
+    verwalter && doc.setFontType("bold");
+    verwalter && doc.text(`Verwalter`, 15, acapo);
+    acapo += 5;
+    verwalter && doc.setFontSize(12);
+    verwalter && doc.setFontType("normal");
+    verwalter && doc.text(verwalter.ditta, 15, acapo);
+
+    if (verwalter) {
+      acapo += 5;
+      doc.text(
+        `${verwalter.titolo} ${verwalter.nome}, ${verwalter.cognome}`,
+        15,
+        acapo
+      );
+      acapo += 5;
+      doc.text(
+        `${verwalter.indirizzo}, ${verwalter.cap} ${verwalter.comune}`,
+        15,
+        acapo
+      );
+      acapo += 5;
+      doc.text(
+        `${verwalter.telefono1 &&
+          `Tel.: ${verwalter.telefono1} - `}${verwalter.fax &&
+          `Fax: ${verwalter.fax} - `}${verwalter.cellulare &&
+          `Handy: ${verwalter.cellulare} - `}${verwalter.email &&
+          `E-Mail: ${verwalter.email}`}`,
+        15,
+        acapo
+      );
+    }
   };
 
   cartaIntestata();
@@ -79,21 +117,21 @@ export const notarDatenblatt = (
   doc.line(146, 70, 199, 70);
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(fontStart);
-  doc.setFontType('normal');
-  doc.text('Ihr Ansprechpartner', 149, 40);
-  doc.setFontType('bold');
+  doc.setFontType("normal");
+  doc.text("Ihr Ansprechpartner", 149, 40);
+  doc.setFontType("bold");
   doc.text(`${utente.name}`, 149, 44);
-  doc.setFontType('normal');
+  doc.setFontType("normal");
   doc.text(`${utente.email}`, 149, 48);
   doc.text(`Tel. ${utente.telefon}`, 149, 52);
   doc.text(`${firma.website}`, 149, 56);
-  doc.setFontType('bold');
-  doc.text('Öffnungszeiten', 149, 68);
-  doc.setFontType('normal');
+  doc.setFontType("bold");
+  doc.text("Öffnungszeiten", 149, 68);
+  doc.setFontType("normal");
   doc.text(`${firma.open}`, 149, 72);
-  doc.setFontType('bold');
+  doc.setFontType("bold");
   doc.text(`${firma.name2 ? firma.name2 : firma.name}`, 149, 84);
-  doc.setFontType('normal');
+  doc.setFontType("normal");
   doc.text(`${firma.motto}`, 149, 88);
   doc.text(`${firma.adresse}`, 149, 92);
   doc.text(`${firma.plz} ${firma.stadt}`, 149, 96);
@@ -102,7 +140,7 @@ export const notarDatenblatt = (
   if (notaio) {
     //Intestazione Datenblatt
     doc.setFontSize(12);
-    doc.setFontType('normal');
+    doc.setFontType("normal");
     doc.text(notaio.ditta, 15, 38);
     doc.text(`${notaio.titolo} ${notaio.nome} ${notaio.cognome}`, 15, 43);
     doc.text(`${notaio.indirizzo} ${notaio.indirizzo2}`, 15, 48);
@@ -111,16 +149,16 @@ export const notarDatenblatt = (
 
   //Data e titolo
   doc.setFontSize(14);
-  doc.setFontType('bold');
+  doc.setFontType("bold");
   doc.text(`Datenblatt zur Vorbereitung eines Kaufvertragsentwurfs`, 15, 70);
 
   //Objekt
   let acapo = 90;
   doc.setFontSize(14);
-  doc.setFontType('bold');
+  doc.setFontType("bold");
   doc.text(`Objekt`, 15, 85);
   doc.setFontSize(12);
-  doc.setFontType('normal');
+  doc.setFontType("normal");
   doc.text(
     `Adresse: ${oggetto.via} ${oggetto.numeroCivico}, ${oggetto.cap} ${oggetto.citta}`,
     15,
@@ -141,10 +179,10 @@ export const notarDatenblatt = (
     acapo += 5;
     doc.text(`Status: ${oggetto.stato}`, 15, acapo);
   }
-  if (oggetto.stato === 'vermietet') {
+  if (oggetto.stato === "vermietet") {
     acapo += 5;
     doc.text(
-      `Kaltmiete: ${numeral(oggetto.affittoNetto / 100).format('0,0[.]00 $')}`,
+      `Kaltmiete: ${numeral(oggetto.affittoNetto / 100).format("0,0[.]00 $")}`,
       15,
       acapo
     );
@@ -152,7 +190,7 @@ export const notarDatenblatt = (
   if (oggetto.wohngeld) {
     acapo += 5;
     doc.text(
-      `Wohngeld: ${numeral(oggetto.wohngeld / 100).format('0,0[.]00 $')}`,
+      `Wohngeld: ${numeral(oggetto.wohngeld / 100).format("0,0[.]00 $")}`,
       15,
       acapo
     );
@@ -163,7 +201,7 @@ export const notarDatenblatt = (
   }
   acapo += 5;
   doc.text(
-    `Kaufpreis: ${numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}`,
+    `Kaufpreis: ${numeral(prezzoDiVendita / 100).format("0,0[.]00 $")}`,
     15,
     acapo
   );
@@ -201,11 +239,11 @@ export const notarDatenblatt = (
   //Verkäufer
   acapo += 10;
   doc.setFontSize(14);
-  doc.setFontType('bold');
+  doc.setFontType("bold");
   doc.text(`Verkäufer`, 15, acapo);
   acapo += 5;
   doc.setFontSize(12);
-  doc.setFontType('normal');
+  doc.setFontType("normal");
   doc.text(
     `${venditore.titolo} ${venditore.nome} ${
       venditore.cognome
@@ -219,6 +257,14 @@ export const notarDatenblatt = (
     15,
     acapo
   );
+  if (venditore.dataDiNascita) {
+    acapo += 5;
+    doc.text(
+      `Geburtsdatum: ${moment(venditore.dataDiNascita).format("DD.MM.YYYY")}`,
+      15,
+      acapo
+    );
+  }
   acapo += 5;
   doc.text(
     `${venditore.telefono1 &&
@@ -256,6 +302,16 @@ export const notarDatenblatt = (
       15,
       acapo
     );
+    if (venditore2.dataDiNascita) {
+      acapo += 5;
+      doc.text(
+        `Geburtsdatum: ${moment(venditore2.dataDiNascita).format(
+          "DD.MM.YYYY"
+        )}`,
+        15,
+        acapo
+      );
+    }
     acapo += 5;
     doc.text(
       `${venditore2.telefono1 &&
@@ -281,11 +337,11 @@ export const notarDatenblatt = (
   //Käufer
   acapo += 10;
   doc.setFontSize(14);
-  doc.setFontType('bold');
+  doc.setFontType("bold");
   doc.text(`Käufer`, 15, acapo);
   acapo += 5;
   doc.setFontSize(12);
-  doc.setFontType('normal');
+  doc.setFontType("normal");
   doc.text(
     `${acquirente.titolo} ${acquirente.nome} ${
       acquirente.cognome
@@ -299,6 +355,14 @@ export const notarDatenblatt = (
     15,
     acapo
   );
+  if (acquirente.dataDiNascita) {
+    acapo += 5;
+    doc.text(
+      `Geburtsdatum: ${moment(acquirente.dataDiNascita).format("DD.MM.YYYY")}`,
+      15,
+      acapo
+    );
+  }
   acapo += 5;
   doc.text(
     `${acquirente.telefono1 &&
@@ -324,6 +388,16 @@ export const notarDatenblatt = (
       15,
       acapo
     );
+    if (acquirente2.dataDiNascita) {
+      acapo += 5;
+      doc.text(
+        `Geburtsdatum: ${moment(acquirente2.dataDiNascita).format(
+          "DD.MM.YYYY"
+        )}`,
+        15,
+        acapo
+      );
+    }
     acapo += 5;
     doc.text(
       `${acquirente2.telefono1 &&
@@ -335,40 +409,17 @@ export const notarDatenblatt = (
       acapo
     );
   }
-
-  //Verwalter
-  acapo += 10;
-  verwalter && doc.setFontSize(14);
-  verwalter && doc.setFontType('bold');
-  verwalter && doc.text(`Verwalter`, 15, acapo);
-  acapo += 5;
-  verwalter && doc.setFontSize(12);
-  verwalter && doc.setFontType('normal');
-  verwalter && doc.text(verwalter.ditta, 15, acapo);
-
-  if (verwalter) {
-    acapo += 5;
-    doc.text(
-      `${verwalter.titolo} ${verwalter.nome}, ${verwalter.cognome}`,
-      15,
-      acapo
-    );
-    acapo += 5;
-    doc.text(
-      `${verwalter.indirizzo}, ${verwalter.cap} ${verwalter.comune}`,
-      15,
-      acapo
-    );
-    acapo += 5;
-    doc.text(
-      `${verwalter.telefono1 &&
-        `Tel.: ${verwalter.telefono1} - `}${verwalter.fax &&
-        `Fax: ${verwalter.fax} - `}${verwalter.cellulare &&
-        `Handy: ${verwalter.cellulare} - `}${verwalter.email &&
-        `E-Mail: ${verwalter.email}`}`,
-      15,
-      acapo
-    );
+  console.log(acapo);
+  if (acapo > 250) {
+    doc.addPage();
+    cartaIntestata();
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(10);
+    doc.setFontType("normal");
+    acapo = 28;
+    datiVerwalter();
+  } else {
+    datiVerwalter();
   }
 
   if (oggetto.mobilio) {
@@ -378,10 +429,10 @@ export const notarDatenblatt = (
     //Titolo per Einrichtungsliste
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(12);
-    doc.setFontType('bold');
+    doc.setFontType("bold");
     doc.text(`Einrichtung`, 15, 38);
     doc.setFontSize(10);
-    doc.setFontType('normal');
+    doc.setFontType("normal");
 
     //questa funzione splitta il testo in array di linee di testo. Lo reitero e aggiungo margine dall'alto fino a 260 che è fondo pagina, dopodichè aggiungo pagina e reinizializzo il margine alto
     const lines = doc.splitTextToSize(oggetto.mobilio, 180);
@@ -393,7 +444,7 @@ export const notarDatenblatt = (
         cartaIntestata();
         doc.setTextColor(0, 0, 0);
         doc.setFontSize(10);
-        doc.setFontType('normal');
+        doc.setFontType("normal");
       }
       doc.text(15, y, lines[i]);
       y = y + 5;

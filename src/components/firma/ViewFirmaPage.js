@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 export class ViewFirmaPage extends React.Component {
@@ -34,4 +35,4 @@ const mapStateToProps = (state, props) => ({
   firma: state.firma.find(firma => firma.id === props.match.params.id)
 });
 
-export default connect(mapStateToProps)(ViewFirmaPage);
+export default connect(mapStateToProps)(withTranslation()(ViewFirmaPage));

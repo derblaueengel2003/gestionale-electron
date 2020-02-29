@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
@@ -24,6 +25,27 @@ export class FatturaForm extends React.Component {
         ? props.fattura.dataFattura && moment(props.fattura.dataFattura)
         : null,
       calendarDataFatturaFocused: false,
+      dataZahlungserinnerung: props.fattura
+        ? props.fattura.dataZahlungserinnerung &&
+          moment(props.fattura.dataZahlungserinnerung)
+        : null,
+      calendarDataZahlungserinnerungFocused: false,
+      dataMahnung: props.fattura
+        ? props.fattura.dataMahnung && moment(props.fattura.dataMahnung)
+        : null,
+      calendarDataMahnungFocused: false,
+      dataMahnung2: props.fattura
+        ? props.fattura.dataMahnung2 && moment(props.fattura.dataMahnung2)
+        : null,
+      calendarDataMahnung2Focused: false,
+      mahngebuehren:
+        props.fattura && props.fattura.mahngebuehren
+          ? (props.fattura.mahngebuehren / 100).toString().replace(/\./, ',')
+          : '0',
+      mahngebuehren2:
+        props.fattura && props.fattura.mahngebuehren2
+          ? (props.fattura.mahngebuehren2 / 100).toString().replace(/\./, ',')
+          : '0',
       payed: props.fattura ? props.fattura.payed : false,
       payedAt: props.fattura
         ? props.fattura.payedAt && moment(props.fattura.payedAt)
@@ -46,10 +68,44 @@ export class FatturaForm extends React.Component {
   onDataFatturaChange = dataFattura => {
     if (dataFattura) {
       this.setState(() => ({ dataFattura }));
+    } else {
+      this.setState(() => ({ dataFattura: null }));
     }
   };
   onFocusDataFatturaChange = ({ focused }) => {
     this.setState(() => ({ calendarDataFatturaFocused: focused }));
+  };
+  onDataZahlungserinnerungChange = dataZahlungserinnerung => {
+    if (dataZahlungserinnerung) {
+      this.setState(() => ({ dataZahlungserinnerung }));
+    } else {
+      this.setState(() => ({ dataZahlungserinnerung: null }));
+    }
+  };
+  onFocusDataZahlungserinnerungChange = ({ focused }) => {
+    this.setState(() => ({
+      calendarDataZahlungserinnerungFocused: focused
+    }));
+  };
+  onDataMahnungChange = dataMahnung => {
+    if (dataMahnung) {
+      this.setState(() => ({ dataMahnung }));
+    } else {
+      this.setState(() => ({ dataMahnung: null }));
+    }
+  };
+  onFocusDataMahnungChange = ({ focused }) => {
+    this.setState(() => ({ calendarDataMahnungFocused: focused }));
+  };
+  onDataMahnung2Change = dataMahnung2 => {
+    if (dataMahnung2) {
+      this.setState(() => ({ dataMahnung2 }));
+    } else {
+      this.setState(() => ({ dataMahnung2: null }));
+    }
+  };
+  onFocusDataMahnung2Change = ({ focused }) => {
+    this.setState(() => ({ calendarDataMahnung2Focused: focused }));
   };
   onPayedChange = () => {
     this.setState(() => ({ payed: !this.state.payed }));
@@ -83,8 +139,21 @@ export class FatturaForm extends React.Component {
     const note = e.target.value;
     this.setState(() => ({ note }));
   };
+  changeHandlerValuta = e => {
+    const name = e.target.name;
+    const value = e.target.value;
+    if (!value || value.match(/^\d{1,}(,\d{0,2})?$/)) {
+      this.setState(() => ({
+        [name]: value
+      }));
+    }
+  };
   onSubmit = e => {
     e.preventDefault();
+    const mahngebuehren =
+      parseFloat(this.state.mahngebuehren.replace(/,/, '.'), 10) * 100;
+    const mahngebuehren2 =
+      parseFloat(this.state.mahngebuehren2.replace(/,/, '.'), 10) * 100;
 
     if (!this.state.numeroFattura || !this.state.dataFattura) {
       this.setState(() => ({
@@ -100,6 +169,17 @@ export class FatturaForm extends React.Component {
         dataFattura: this.state.dataFattura
           ? this.state.dataFattura.valueOf()
           : null,
+        dataZahlungserinnerung: this.state.dataZahlungserinnerung
+          ? this.state.dataZahlungserinnerung.valueOf()
+          : null,
+        dataMahnung: this.state.dataMahnung
+          ? this.state.dataMahnung.valueOf()
+          : null,
+        dataMahnung2: this.state.dataMahnung2
+          ? this.state.dataMahnung2.valueOf()
+          : null,
+        mahngebuehren,
+        mahngebuehren2,
         payed: this.state.payed,
         payedAt: this.state.payedAt ? this.state.payedAt.valueOf() : null,
         note: this.state.note
@@ -107,6 +187,7 @@ export class FatturaForm extends React.Component {
     }
   };
   render() {
+    const { t } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
@@ -144,14 +225,14 @@ export class FatturaForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        Deal:
+        {t('Vendita')}:
         <Select
           name='dealId'
           value={this.state.dealId}
           options={dealIdOptions}
           onChange={this.onDealIdChange}
         />
-        Kunde:
+        {t('Cliente')}:
         <Select
           name='clienteId'
           value={this.state.clienteId}
@@ -159,7 +240,7 @@ export class FatturaForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onClienteIdChange}
         />
-        2. Kunde:
+        2. {t('Cliente')}:
         <Select
           name='clienteId2'
           value={this.state.clienteId2}
@@ -167,7 +248,7 @@ export class FatturaForm extends React.Component {
           filterOptions={filterOptions}
           onChange={this.onClienteIdChange2}
         />
-        Rechnungsnummer:
+        {t('Numero fattura')}:
         <input
           className={`text-input text-input--${this.state.modificato.numeroFattura}`}
           type='text'
@@ -175,7 +256,7 @@ export class FatturaForm extends React.Component {
           value={this.state.numeroFattura}
           onChange={this.onNumeroFatturaChange}
         />
-        Rechnungsdatum:
+        {t('Data fattura')}:
         <SingleDatePicker
           date={this.state.dataFattura}
           onDateChange={this.onDataFatturaChange}
@@ -183,6 +264,55 @@ export class FatturaForm extends React.Component {
           onFocusChange={this.onFocusDataFatturaChange}
           numberOfMonths={1}
           isOutsideRange={() => false}
+          showClearDate={true}
+        />
+        {t('Data sollecito')}:
+        <SingleDatePicker
+          date={this.state.dataZahlungserinnerung}
+          onDateChange={this.onDataZahlungserinnerungChange}
+          focused={this.state.calendarDataZahlungserinnerungFocused}
+          onFocusChange={this.onFocusDataZahlungserinnerungChange}
+          numberOfMonths={1}
+          isOutsideRange={() => false}
+          showClearDate={true}
+        />
+        1. {t('Sollecito con penale')}:
+        <SingleDatePicker
+          date={this.state.dataMahnung}
+          onDateChange={this.onDataMahnungChange}
+          focused={this.state.calendarDataMahnungFocused}
+          onFocusChange={this.onFocusDataMahnungChange}
+          numberOfMonths={1}
+          isOutsideRange={() => false}
+          showClearDate={true}
+        />
+        1. {t('Penale')}:
+        <input
+          name='mahngebuehren'
+          className={`text-input `}
+          type='text'
+          placeholder={`7,50`}
+          value={this.state.mahngebuehren}
+          onChange={this.changeHandlerValuta}
+        />
+        2. {t('Sollecito con penale')}:
+        <SingleDatePicker
+          date={this.state.dataMahnung2}
+          onDateChange={this.onDataMahnung2Change}
+          focused={this.state.calendarDataMahnung2Focused}
+          onFocusChange={this.onFocusDataMahnung2Change}
+          numberOfMonths={1}
+          isOutsideRange={() => false}
+          showClearDate={true}
+        />
+        2. {t('Penale')}:
+        <input
+          name='mahngebuehren2'
+          className={`text-input `}
+          type='text'
+          placeholder={`15`}
+          value={this.state.mahngebuehren2}
+          onChange={this.changeHandlerValuta}
         />
         <label>
           <input
@@ -191,10 +321,10 @@ export class FatturaForm extends React.Component {
             checked={this.state.payed}
             onChange={this.onPayedChange}
           />
-          <span>Bezahlt</span>
+          <span>{t('Pagato')}</span>
         </label>
         <div className={`visible-${this.state.payed} form`}>
-          Bezahlt am:
+          {t('Pagato il')}:
           <SingleDatePicker
             date={this.state.payedAt}
             onDateChange={this.onPayedAtDateChange}
@@ -203,6 +333,7 @@ export class FatturaForm extends React.Component {
             showClearDate={true}
             numberOfMonths={1}
             isOutsideRange={() => false}
+            showClearDate={true}
           />
         </div>
         <textarea
@@ -231,4 +362,4 @@ const mapStateToProps = state => ({
   oggetti: state.oggetti
 });
 
-export default connect(mapStateToProps)(FatturaForm);
+export default connect(mapStateToProps)(withTranslation()(FatturaForm));

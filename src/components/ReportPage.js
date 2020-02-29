@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Translation } from 'react-i18next';
+
 import numeral from 'numeral';
 import selectDeals from '../selectors/deals';
 import selectDealsTotal from '../selectors/deals-total';
@@ -31,23 +33,27 @@ export const ReportPage = ({
   ).format('0,0[.]00 $');
 
   return (
-    <div>
-      <div className='container'>
-        <h1>
-          Zusammenfassung: <span>{dealCount}</span> {dealWord} und Gesamtbetrag
-          von <span>{formattedDealsTotal}</span>
-        </h1>
-        <h1>
-          Erhalten: <span>{formattedDealsPayed}</span> - Offen:{' '}
-          <span>{dealsPending}</span>
-        </h1>
-        <h1>
-          Stefano: <span>{formattedDealsTotalStefano}</span> - Bezahlt:{' '}
-          <span>{formattedDealsStefano}</span> - Offen:{' '}
-          <span>{dealsPendingStefano}</span>
-        </h1>
-      </div>
-    </div>
+    <Translation>
+      {(t, { i18n }) => (
+        <div>
+          <div className='container'>
+            <h1>
+              {t('Riepilogo')}: <span>{dealCount}</span> {dealWord} und
+              Gesamtbetrag von <span>{formattedDealsTotal}</span>
+            </h1>
+            <h1>
+              Erhalten: <span>{formattedDealsPayed}</span> - Offen:{' '}
+              <span>{dealsPending}</span>
+            </h1>
+            <h1>
+              Stefano: <span>{formattedDealsTotalStefano}</span> - Bezahlt:{' '}
+              <span>{formattedDealsStefano}</span> - Offen:{' '}
+              <span>{dealsPendingStefano}</span>
+            </h1>
+          </div>
+        </div>
+      )}
+    </Translation>
   );
 };
 

@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { setOggettoFilter } from '../../actions/filters';
+import React from "react";
+import { connect } from "react-redux";
+import { setOggettoFilter } from "../../actions/filters";
 
 export class OggettiListFilters extends React.Component {
   onOggettoChange = e => {
@@ -9,17 +9,19 @@ export class OggettiListFilters extends React.Component {
 
   render() {
     return (
-      <div className='container'>
-        <div className='input-group'>
-          <div className='input-field'>
+      <div className="container">
+        <div className="input-group">
+          <div className="input-field">
             <input
-              id='objektsuche'
-              type='text'
-              className='input-field'
+              id="objektsuche"
+              type="text"
+              className="input-field"
               value={this.props.filters.oggetto}
               onChange={this.onOggettoChange}
             />
-            <label htmlFor='obektsuche'>Objektsuche</label>
+            <label className="active" htmlFor="objektsuche">
+              Objektsuche
+            </label>
           </div>
         </div>
       </div>

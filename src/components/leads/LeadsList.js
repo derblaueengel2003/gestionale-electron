@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LeadsListItem from './LeadsListItem';
+import { withTranslation } from 'react-i18next';
 import selectLeads from '../../selectors/leads';
 import { Link } from 'react-router-dom';
 import Card from '../Card';
@@ -42,7 +42,7 @@ export const LeadsList = props => {
       <div className='list-body'>
         {leadsPayload.length > 0 && (
           <div>
-            <h5>Anfragen</h5>
+            <h5>{props.t('Richieste')}</h5>
             {leadsPayload.map(lead => {
               const clienteNomeCognome = findCliente(lead, props.clienti);
               const consulenteVendita = findConsulenteVendita(
@@ -111,4 +111,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(LeadsList);
+export default connect(mapStateToProps)(withTranslation()(LeadsList));

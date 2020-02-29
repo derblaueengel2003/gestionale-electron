@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
+
 import { Link } from 'react-router-dom';
 import { creaPrenotazione } from '../moduli/Provisionsbestaetigung';
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung';
@@ -43,7 +45,7 @@ export class ViewDealPage extends React.Component {
       venditoreId,
       venditoreId2
     } = this.props.deal;
-    const { utente } = this.props;
+    const { utente, t } = this.props;
     const oggetto = this.props.oggetti.find(ogg => ogg.id === oggettoId);
     const acquirente = this.findContact(acquirenteId);
     const acquirente2 = this.findContact(acquirenteId2);
@@ -74,7 +76,7 @@ export class ViewDealPage extends React.Component {
       <div>
         <div className='grey lighten-4'>
           <div className='container'>
-            <h1>Deal-Details</h1>
+            <h1>{t('Dettagli vendita')}</h1>
           </div>
         </div>
 
@@ -89,34 +91,44 @@ export class ViewDealPage extends React.Component {
           <div>
             {prezzoDiVendita > 0 && (
               <h5>
-                Verkaufspreis:{' '}
+                {t('Prezzo di vendita')}:{' '}
                 {numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}
               </h5>
             )}
             {createdAt > 0 && (
               <p>
-                Reservierungsdatum: {moment(createdAt).format('DD MMMM, YYYY')}
+                {t('Data prenotazione')}:{' '}
+                {moment(createdAt).format('DD MMMM, YYYY')}
               </p>
             )}
             {dataRogito > 0 && (
               <p>
-                Beurkundungsdatum: {moment(dataRogito).format('DD MMMM, YYYY')}
+                {t('Data del rogito')}:{' '}
+                {moment(dataRogito).format('DD MMMM, YYYY')}
               </p>
             )}
-            {note && <p>Note: {note}</p>}
+            {note && (
+              <p>
+                {t('Note')}: {note}
+              </p>
+            )}
           </div>
           <div className='divider'></div>
 
           <div>
             {amount > 0 && (
               <h5>
-                Provision:{' '}
+                {t('Provvigione')}:{' '}
                 {utente.role === 'Admin'
                   ? numeral(amount / 100).format('0,0[.]00 $')
                   : ''}
               </h5>
             )}
-            {kundenbetreuer && <p>Kundenbetreuer: {kundenbetreuer.name}</p>}
+            {kundenbetreuer && (
+              <p>
+                {t('Consulente vendita')}: {kundenbetreuer.name}
+              </p>
+            )}
             {utente.role === 'Admin'
               ? provvM2square > 0 && (
                   <p className={`list-item--paid${payed}`}>
@@ -132,14 +144,14 @@ export class ViewDealPage extends React.Component {
             )}
             {payedAtStefano > 0 && (
               <p>
-                Bezahlt an Stefano am:{' '}
+                {t('Pagato')} Stefano:{' '}
                 {moment(payedAtStefano).format('DD MMMM, YYYY')}
               </p>
             )}
             {utente.role === 'Admin'
               ? provvAgenziaPartner > 0 && (
                   <p className={`${payedAgenziaPartner && 'list-item--paid'}`}>
-                    Provision Kooperationspartner:{' '}
+                    {t('Provvigione')} {t('Partner commerciale')}:{' '}
                     {numeral(provvAgenziaPartner / 100).format('0,0[.]00 $')}
                   </p>
                 )
@@ -151,7 +163,7 @@ export class ViewDealPage extends React.Component {
         <div className='section'>
           <div className='grey lighten-4'>
             <div className='container'>
-              <h1>Unterlagen herstellen</h1>
+              <h1>{t('Crea documentazione')}</h1>
             </div>
           </div>
           <div className='container'>
@@ -159,7 +171,7 @@ export class ViewDealPage extends React.Component {
               <li className='collection-item'>
                 <div>
                   {' '}
-                  Provisionsbestätigung
+                  {t('Conferma provvigione')}
                   <a href='#!' className='secondary-content'>
                     <i
                       className='material-icons'
@@ -183,7 +195,7 @@ export class ViewDealPage extends React.Component {
               </li>
               <li className='collection-item'>
                 <div>
-                  Widerrufsbelehrung
+                  {t('Informativa sul diritto di recesso')}
                   <a href='#!' className='secondary-content'>
                     <i
                       className='material-icons'
@@ -204,7 +216,7 @@ export class ViewDealPage extends React.Component {
               </li>
               <li className='collection-item'>
                 <div>
-                  Vollmacht Notarauftrag
+                  {t('Delega richiesta bozza di contratto')}
                   <a href='#!' className='secondary-content'>
                     <i
                       className='material-icons'
@@ -228,7 +240,7 @@ export class ViewDealPage extends React.Component {
               </li>
               <li className='collection-item'>
                 <div>
-                  Notar Datenblatt
+                  {t('Foglio informativo per il notaio')}
                   {/*                   
                     <Link className='secondary-content' to={`/datenblatt/${id}`}>
                     <i className='material-icons'>print</i>
@@ -262,7 +274,7 @@ export class ViewDealPage extends React.Component {
               </li>
               <li className='collection-item'>
                 <div>
-                  Übergabeprotokoll
+                  {t('Protocollo consegna appartamento')}
                   <a href='#!' className='secondary-content'>
                     <i
                       className='material-icons'
@@ -290,7 +302,7 @@ export class ViewDealPage extends React.Component {
 
         <div className='grey lighten-4'>
           <div className='container'>
-            <h1>Infos</h1>
+            <h1>{t('Informazioni')}</h1>
           </div>
         </div>
         {/* se invio un oggetto singolo lo devo far diventare un array per poter utilizzare .map nel componete */}
@@ -299,34 +311,37 @@ export class ViewDealPage extends React.Component {
         </div>
         {venditoreId && (
           <div>
-            <ClientiList cliente={venditore} ruolo={'Verkäufer'} />
+            <ClientiList cliente={venditore} ruolo={`${t('Venditore')}`} />
           </div>
         )}
         {venditoreId2 && (
           <div>
-            <ClientiList cliente={venditore2} ruolo={'2. Verkäufer'} />
+            <ClientiList cliente={venditore2} ruolo={`2. ${t('Venditore')}`} />
           </div>
         )}
         {acquirenteId && (
           <div>
-            <ClientiList cliente={acquirente} ruolo={'Käufer'} />
+            <ClientiList cliente={acquirente} ruolo={`${t('Acquirente')}`} />
           </div>
         )}
         {acquirenteId2 && (
           <div>
-            <ClientiList cliente={acquirente2} ruolo={'2. Käufer'} />
+            <ClientiList
+              cliente={acquirente2}
+              ruolo={`2. ${t('Acquirente')}`}
+            />
           </div>
         )}
         {notaio && (
           <div>
-            <ClientiList cliente={notaio} ruolo={'Notar'} />
+            <ClientiList cliente={notaio} ruolo={`${t('Notaio')}`} />
           </div>
         )}
         {agenziaPartnerId && (
           <div>
             <ClientiList
               cliente={agenziaPartner}
-              ruolo={'Kooperationspartner'}
+              ruolo={`${t('Partner commerciale')}`}
             />
           </div>
         )}
@@ -354,4 +369,4 @@ const mapStateToProps = (state, props) => ({
   firma: state.firma[0]
 });
 
-export default connect(mapStateToProps)(ViewDealPage);
+export default connect(mapStateToProps)(withTranslation()(ViewDealPage));

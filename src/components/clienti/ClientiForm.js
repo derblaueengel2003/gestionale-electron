@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
@@ -125,6 +126,7 @@ export class CustomerForm extends React.Component {
     }
   };
   render() {
+    const { t } = this.props;
     const consulenteVenditaOptions = this.props.utenti.map(consulente => ({
       value: consulente.id,
       label: consulente.name
@@ -141,18 +143,18 @@ export class CustomerForm extends React.Component {
           <div>
             <p className='form__error'>{this.state.error}</p>
             <Link to={`customer/`} target='_blank' className='btn'>
-              Überprüfen
+              {t('Verificare')}
             </Link>
           </div>
         )}
-        Kundenbetreuer:
+        {t('Consulente vendita')}:
         <Select
           name='consulentevendita'
           value={this.state.consulenteVenditaId}
           options={consulenteVenditaOptions}
           onChange={this.onConsulenteVenditaChange}
         />
-        Anrede:
+        {t('Titolo')}:
         <input
           name='titolo'
           className={`text-input`}
@@ -162,34 +164,32 @@ export class CustomerForm extends React.Component {
           value={this.state.titolo}
           onChange={this.changeHandler}
         />
-        Vorname:
+        {t('Nome')}:
         <input
           name='nome'
           className={`text-input`}
           type='text'
-          placeholder='Vorname'
           value={this.state.nome}
           onChange={this.changeHandler}
         />
-        Name:
+        {t('Cognome')}:
         <input
           name='cognome'
           className={`text-input ${this.state.error && 'form__error'}`}
           type='text'
-          placeholder='Name'
           value={this.state.cognome}
           onChange={this.changeHandlerValidate}
         />
-        E-Mail:
+        {t('Email')}:
         <input
           name='email'
           className={`text-input ${this.state.error && 'form__error'}`}
           type='text'
-          placeholder='E-Mail Adresse'
+          placeholder='info@esempio.it'
           value={this.state.email}
           onChange={this.changeHandlerValidate}
         />
-        Telefon Festnetz:
+        {t('Telefono fisso')}:
         <input
           name='telefono1'
           className={`text-input`}
@@ -207,7 +207,7 @@ export class CustomerForm extends React.Component {
           value={this.state.fax}
           onChange={this.changeHandler}
         />
-        Handynummer:
+        {t('Cellulare')}:
         <input
           name='cellulare'
           className={`text-input`}
@@ -216,7 +216,7 @@ export class CustomerForm extends React.Component {
           value={this.state.cellulare}
           onChange={this.changeHandler}
         />
-        Webseite:
+        {t('Sito web')}:
         <input
           name='www'
           className={`text-input`}
@@ -224,7 +224,7 @@ export class CustomerForm extends React.Component {
           value={this.state.www}
           onChange={this.changeHandler}
         />
-        Geboren am:
+        {t('Data di nascita')}:
         <SingleDatePicker
           date={this.state.dataDiNascita}
           onDateChange={this.onDateChange}
@@ -234,7 +234,7 @@ export class CustomerForm extends React.Component {
           isOutsideRange={() => false}
           showClearDate={true}
         />
-        Steuer ID-Nummer:
+        {t('Codice fiscale tedesco')}:
         <input
           name='codiceFiscale'
           className={`text-input`}
@@ -243,7 +243,7 @@ export class CustomerForm extends React.Component {
           value={this.state.codiceFiscale}
           onChange={this.changeHandler}
         />
-        Firma:
+        {t('Ditta')}:
         <input
           name='ditta'
           className={`text-input ${this.state.error && 'form__error'}`}
@@ -252,7 +252,7 @@ export class CustomerForm extends React.Component {
           value={this.state.ditta}
           onChange={this.changeHandlerValidate}
         />
-        Handelsregister-Nummer:
+        {t('Numero iscrizione registro delle imprese')}:
         <input
           name='handelsRegisterNummer'
           className={`text-input`}
@@ -261,7 +261,7 @@ export class CustomerForm extends React.Component {
           value={this.state.handelsRegisterNummer}
           onChange={this.changeHandler}
         />
-        Adresse:
+        {t('Indirizzo')}:
         <input
           name='indirizzo'
           className={`text-input`}
@@ -270,7 +270,7 @@ export class CustomerForm extends React.Component {
           value={this.state.indirizzo}
           onChange={this.changeHandler}
         />
-        Zusatzadresse:
+        {t('Estensione indirizzo')}:
         <input
           name='indirizzo2'
           className={`text-input`}
@@ -279,7 +279,7 @@ export class CustomerForm extends React.Component {
           value={this.state.indirizzo2}
           onChange={this.changeHandler}
         />
-        PLZ:
+        {t('CAP')}:
         <input
           name='cap'
           className={`text-input`}
@@ -288,7 +288,7 @@ export class CustomerForm extends React.Component {
           value={this.state.cap}
           onChange={this.changeHandler}
         />
-        Stadt:
+        {t('Città')}:
         <input
           name='comune'
           className={`text-input`}
@@ -297,7 +297,7 @@ export class CustomerForm extends React.Component {
           value={this.state.comune}
           onChange={this.changeHandler}
         />
-        Staat:
+        {t('Nazione')}:
         <input
           name='nazione'
           className={`text-input`}
@@ -306,7 +306,7 @@ export class CustomerForm extends React.Component {
           value={this.state.nazione}
           onChange={this.changeHandler}
         />
-        Sprache:
+        {t('Lingua')}:
         <input
           name='lingua'
           className={`text-input`}
@@ -315,7 +315,7 @@ export class CustomerForm extends React.Component {
           value={this.state.lingua}
           onChange={this.changeHandler}
         />
-        Bank:
+        {t('Banca')}:
         <input
           name='bank'
           className={`text-input`}
@@ -361,7 +361,7 @@ export class CustomerForm extends React.Component {
                 }));
               }}
             />
-            <span>Visible</span>
+            <span>{t('Visibile')}</span>
           </label>
         ) : (
           ''
@@ -383,4 +383,4 @@ const mapStateToProps = state => ({
   utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
-export default connect(mapStateToProps)(CustomerForm);
+export default connect(mapStateToProps)(withTranslation()(CustomerForm));

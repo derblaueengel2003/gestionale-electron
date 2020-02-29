@@ -4,20 +4,15 @@ import { ivdLogo } from "./IvdLogo";
 import moment from "moment";
 import numeral from "numeral";
 
-export const fattura = (
+export const mahnung = (
   cliente,
   cliente2,
   numeroFattura,
   dataFattura,
-  note,
-  oggetto,
-  prezzoDiVendita,
-  dataRogito,
+  dataZahlungserinnerung,
+  dataMahnung,
   amount,
-  dataPrenotazione,
-  dealType,
-  acquirente,
-  acquirente2,
+  mahngebuehren,
   firma,
   utente,
   ceo
@@ -37,32 +32,17 @@ export const fattura = (
     cliente2 && cliente2.titolo === "Herr"
       ? `Sehr geehrter Herr`
       : `Sehr geehrte Frau`;
-  const provvPercentuale = numeral(amount / prezzoDiVendita).format("0.00%");
-  let corpoFattura;
-  if (dealType === "Kauf Eigentumswohnung") {
-    corpoFattura = `entsprechend dem rechtskräftigen Kaufvertrag vom ${moment(
-      dataRogito
-    ).format(
-      "DD.MM.YYYY"
-    )} sowie unserer Vereinbarung berechnen wir Ihnen für unsere Nachweis- bzw. Vermittlungstätigkeit zum Verkauf des Objekts ${
-      oggetto.via
-    } ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${
-      oggetto.cap
-    } ${oggetto.citta}:`;
-  } else if (dealType === "APH") {
-    corpoFattura = `Objekt: ${oggetto.via} ${oggetto.numeroCivico}, ${
-      oggetto.cap
-    } ${oggetto.citta}
-Wohneinheit: ${oggetto.numeroAppartamento}
-Makler: Angelo Arboscello
-Kunde: ${acquirente.nome} ${acquirente.cognome}
-Notartermin: ${moment(dataRogito).format("DD.MM.YYYY")}`;
-  } else {
-    corpoFattura = `hier ist die Rechnung für Ihre gewählten Leistungen.
-
-
-${note}`;
-  }
+  const corpoFattura = `mit unserem Schreiben vom ${moment(dataFattura).format(
+    "DD.MM.YYYY"
+  )} haben wir Ihnen den fälligen Betrag in Höhe von ${numeral(
+    (amount / 100) * 1.19
+  ).format(
+    "0,0[.]00 $"
+  )}  für obengenannte Rechnungsnummer in Rechnung gestellt.\nAuf unsere Zahlungserinnerung vom ${moment(
+    dataZahlungserinnerung
+  ).format(
+    "DD.MM.YYYY"
+  )} haben Sie leider nicht reagiert. Aus gegebenen Anlass sehen wir uns gezwungen, Mahngebühren wie folgt zu verrechnen:`;
 
   doc.addImage(imgLogo, "JPEG", 130, 10, 55, 12);
 
@@ -129,9 +109,17 @@ ${note}`;
 
   //Dati fattura
   doc.setFontType("bold");
-  doc.text(`Rechnung Nr. ${numeroFattura}`, 15, 96);
+  doc.text(
+    `1. Mahnung\nRechnung Nr. ${numeroFattura}\nRechnungsdatum: ${moment(
+      dataFattura
+    ).format("DD.MM.YYYY")} \nRechnungsbetrag: ${numeral(
+      (amount / 100) * 1.19
+    ).format("0,0[.]00 $")}`,
+    15,
+    96
+  );
   doc.setFontType("normal");
-  doc.text(`Berlin, ${moment(dataFattura).format("DD.MM.YYYY")}`, 100, 96);
+  doc.text(`Berlin, ${moment(dataMahnung).format("DD.MM.YYYY")}`, 100, 96);
 
   // Linea per piegare
   doc.setDrawColor(0, 0, 0);
@@ -139,47 +127,33 @@ ${note}`;
   doc.line(5, 90, 10, 90);
 
   //Corpo
-  dealType !== "APH" &&
-    doc.text(`${formulaSaluto} ${cliente.cognome},`, 15, 110);
-  cliente2 && doc.text(`${formulaSaluto2} ${cliente2.cognome},`, 15, 115);
+
+  doc.text(`${formulaSaluto} ${cliente.cognome},`, 15, 120);
+  cliente2 && doc.text(`${formulaSaluto2} ${cliente2.cognome},`, 15, 125);
   const lines = doc.setFontSize(12).splitTextToSize(corpoFattura, 150);
-  dealType !== "APH"
-    ? doc.text(15, 125 + 12 / 110, lines)
-    : doc.text(corpoFattura, 15, 110);
+  doc.text(15, 125 + 12 / 110, lines);
 
-  if (dealType !== "") {
-    //Cifre
-    doc.text(
-      `${provvPercentuale} Provision aus Kaufpreis ${numeral(
-        prezzoDiVendita / 100
-      ).format("0,0[.]00 $")}`,
-      15,
-      150
-    );
-    doc.text(numeral(amount / 100).format("0,0[.]00 $"), 120, 150);
-    doc.text("+19% MWSt.", 15, 155);
-    doc.text(numeral((amount / 10000) * 19).format("0,0[.]00 $"), 120, 155);
-    doc.setDrawColor(0, 0, 0);
-    doc.setLineWidth(0.2);
-    doc.line(15, 157, 146, 157);
-    doc.text("Rechnungsbetrag inkl. 19% MWSt.", 15, 162);
-    doc.setFontType("bold");
-    doc.text(numeral((amount / 100) * 1.19).format("0,0[.]00 $"), 120, 162);
+  //Cifre
+  doc.text("Rechnungsbetrag", 15, 155);
+  doc.text(numeral((amount / 100) * 1.19).format("0,0[.]00 $"), 120, 155);
 
-    //Zeitraum
-    doc.setFontType("normal");
-    doc.text(
-      `Leistungszeitraum: vom ${moment(dataPrenotazione).format(
-        "DD.MM.YYYY"
-      )} bis ${moment(dataRogito).format("DD.MM.YYYY")}`,
-      15,
-      175
-    );
-  }
+  doc.text("Mahngebühren", 15, 160);
+  doc.text(numeral(mahngebuehren / 100).format("0,0[.]00 $"), 120, 160);
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.2);
+  doc.line(15, 162, 146, 162);
+  doc.setFontType("bold");
+  doc.text("Zu zahlender Gesamtbetrag", 15, 167);
+  doc.text(
+    numeral((amount / 100) * 1.19 + mahngebuehren / 100).format("0,0[.]00 $"),
+    120,
+    167
+  );
+  doc.setFontType("normal");
 
   //Coordinate pagamento
   doc.text(
-    "Bitte zahlen Sie den Rechnungsbetrag innerhalb von 8 Tagen ohne Abzug per",
+    "Bitte zahlen Sie den offenen Gesamtbetrag innerhalb von 7 Tagen per",
     15,
     185
   );
@@ -192,12 +166,12 @@ ${note}`;
 
   //Saluti finali
   doc.text(
-    "Sollten Sie noch Fragen haben, so stehen wir auch weiterhin gerne zur Verfügung.",
+    "Sofern Sie die Zahlung zwischenzeitlich veranlasst haben, bitten wir Sie, dieses Schreiben \nals gegenstandlos zu betrachten.\nSollten Sie noch Fragen haben, so stehen wir auch weiterhin gerne zur Verfügung.",
     15,
     230
   );
-  doc.text("Mit freundlichen Grüßen", 15, 240);
-  doc.text(`${utente.name}`, 15, 245);
+  doc.text("Mit freundlichen Grüßen", 15, 250);
+  doc.text(`${utente.name}`, 15, 255);
 
   //Footer
   doc.setDrawColor(0, 0, 0);

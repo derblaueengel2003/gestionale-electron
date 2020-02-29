@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import DealList from '../deals/DealList';
 import FattureList from '../fatture/FattureList';
@@ -27,7 +28,7 @@ export class ViewClientiPage extends React.Component {
       titolo,
       www
     } = this.props.cliente;
-    const { utente } = this.props;
+    const { utente, t } = this.props;
 
     const dealFatture = this.props.fatture.filter(
       fattura => fattura.clienteId === id || fattura.clienteId2 === id
@@ -47,7 +48,7 @@ export class ViewClientiPage extends React.Component {
       <div>
         <div className='grey lighten-4'>
           <div className='container'>
-            <h1>Adressbuch Kontakte</h1>
+            <h1>{t('Rubrica')}</h1>
           </div>
         </div>
         <div className='container section'>
@@ -97,20 +98,32 @@ export class ViewClientiPage extends React.Component {
                 indirizzo2}, ${cap} ${comune}, ${nazione}`}</p>
             )}
 
-            {telefono1 && <p>Tel: {telefono1}</p>}
+            {telefono1 && (
+              <p>
+                {t('Telefono fisso')}: {telefono1}
+              </p>
+            )}
             {fax && <p>Fax: {fax}</p>}
-            {cellulare && <p>Handy: {cellulare}</p>}
+            {cellulare && (
+              <p>
+                {t('Cellulare')}: {cellulare}
+              </p>
+            )}
             {www && (
               <p>
-                Webseite: <a href={`http://${www}`}>{www}</a>
+                {t('Sito web')}: <a href={`http://${www}`}>{www}</a>
               </p>
             )}
             {email && (
               <p>
-                E-Mail: <a href={`mailto:${email}`}>{email}</a>
+                {t('Email')}: <a href={`mailto:${email}`}>{email}</a>
               </p>
             )}
-            {note && <p>Note: {note}</p>}
+            {note && (
+              <p>
+                {t('Note')}: {note}
+              </p>
+            )}
           </div>
         </div>
         <LeadsList userLeads={this.props.leads} />
@@ -135,7 +148,8 @@ const mapStateToProps = (state, props) => ({
   fatture: state.fatture,
   deals: state.deals,
   utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
-  utenti: state.utenti
+  utenti: state.utenti,
+  lingua: state.lingua
 });
 
-export default connect(mapStateToProps)(ViewClientiPage);
+export default connect(mapStateToProps)(withTranslation()(ViewClientiPage));

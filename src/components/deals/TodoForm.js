@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { startEditDeal } from '../../actions/deals';
 
 export class TodoForm extends React.Component {
@@ -68,8 +69,8 @@ export class TodoForm extends React.Component {
       todo11: !this.state.todo11
     });
   };
-
   render() {
+    const { t } = this.props;
     return (
       <div className='margine-basso'>
         <div className='grey lighten-4'>
@@ -87,7 +88,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo1}
                 onChange={this.onTodo1Change}
               />{' '}
-              <span>Reservierung</span>
+              <span>{t('Prenotazione')}</span>
             </label>
           </div>
 
@@ -100,7 +101,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo2}
                 onChange={this.onTodo2Change}
               />{' '}
-              <span>Widerrufsbelehrung</span>
+              <span>{t('Informativa sul diritto di recesso')}</span>
             </label>
           </div>
 
@@ -113,7 +114,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo3}
                 onChange={this.onTodo3Change}
               />{' '}
-              <span>Kapitalnachweis</span>
+              <span>{t('Prova di solvibilità')}</span>
             </label>
           </div>
 
@@ -126,7 +127,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo4}
                 onChange={this.onTodo4Change}
               />{' '}
-              <span>Unterlagen an den Käufer versendet</span>
+              <span>{t("Documenti inviati all'acquirente")}</span>
             </label>
           </div>
 
@@ -139,7 +140,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo5}
                 onChange={this.onTodo5Change}
               />{' '}
-              <span>Unterschriebener Notarauftrag</span>
+              <span>{t('Delega incarico notaio sottoscritta')}</span>
             </label>
           </div>
 
@@ -152,7 +153,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo6}
                 onChange={this.onTodo6Change}
               />{' '}
-              <span>Notardatenblatt versendet</span>
+              <span>{t('Foglio informativo per il notaio inviato')}</span>
             </label>
           </div>
 
@@ -165,7 +166,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo7}
                 onChange={this.onTodo7Change}
               />{' '}
-              <span>Info über die Rücklage</span>
+              <span>{t('Informazioni sul fondo di accantonamento')}</span>
             </label>
           </div>
 
@@ -178,7 +179,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo8}
                 onChange={this.onTodo8Change}
               />{' '}
-              <span>Kaufvertrag-Entwurf</span>
+              <span>{t('Bozza di contratto')}</span>
             </label>
           </div>
 
@@ -191,7 +192,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo9}
                 onChange={this.onTodo9Change}
               />{' '}
-              <span>Beurkundunstermin vereinbart</span>
+              <span>{t('Data rogito concordata')}</span>
             </label>
           </div>
 
@@ -204,7 +205,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo10}
                 onChange={this.onTodo10Change}
               />{' '}
-              <span>GWG Dokumentationsbogen</span>
+              <span>{t('Modulo riciclo di denaro compilato')}</span>
             </label>
           </div>
 
@@ -216,7 +217,7 @@ export class TodoForm extends React.Component {
                 checked={this.state.todo11}
                 onChange={this.onTodo11Change}
               />
-              <span>Übergabe erledigt</span>
+              <span>{t('Immobile consegnato')}</span>
             </label>
           </div>
         </div>
@@ -233,4 +234,7 @@ const mapDispatchToProps = dispatch => ({
   startEditDeal: (id, deal) => dispatch(startEditDeal(id, deal))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(TodoForm));

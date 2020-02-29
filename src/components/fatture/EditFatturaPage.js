@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 import FatturaForm from './FatturaForm';
 import { startEditFattura, startRemoveFattura } from '../../actions/fatture';
 
@@ -22,7 +22,7 @@ export class EditFatturaPage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Rechnung ändern</h1>
+            <h1>{this.props.t('Modifica fattura')}</h1>
           </div>
         </div>
         <div className='container'>
@@ -48,4 +48,7 @@ const mapDispatchToProps = dispatch => ({
   startRemoveFattura: data => dispatch(startRemoveFattura(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditFatturaPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(EditFatturaPage));

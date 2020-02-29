@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 import LeadsList from './LeadsList';
 import LeadsListFilters from './LeadsListFilters';
 
-const LeadsDashboardPage = () => (
+const LeadsDashboardPage = ({ t }) => (
   <div>
     <div className='grey lighten-4'>
       <div className='container'>
-        <h1>Aktive Anfrage</h1>
+        <h1>{t('Richieste attive')}</h1>
       </div>
     </div>
     <LeadsListFilters />
@@ -20,4 +21,4 @@ const LeadsDashboardPage = () => (
   </div>
 );
 
-export default LeadsDashboardPage;
+export default withTranslation()(LeadsDashboardPage);

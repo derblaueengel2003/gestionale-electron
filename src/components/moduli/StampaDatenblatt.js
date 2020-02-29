@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import numeral from 'numeral';
-import moment from 'moment';
+import React from "react";
+import { connect } from "react-redux";
+import numeral from "numeral";
+import moment from "moment";
 
 export class StampaDatenblatt extends React.Component {
   print() {
@@ -29,7 +29,7 @@ export class StampaDatenblatt extends React.Component {
     const { firma } = this.props;
 
     return (
-      <div className='container'>
+      <div className="container">
         <div>
           <h1>Datenblatt Wohnungskauf</h1>
         </div>
@@ -43,20 +43,20 @@ export class StampaDatenblatt extends React.Component {
           <h5>Objekt</h5>
           <p>{`Adresse: ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}</p>
           <p>
-            {oggetto.grundbuch !== '' &&
+            {oggetto.grundbuch !== "" &&
               `Grundbuch von ${oggetto.grundbuch}, Blatt Nr. ${oggetto.grundbuchBlatt}`}
           </p>
           <p>{`m2: ${oggetto.m2}`}</p>
           <p>{`Etage: ${oggetto.piano}`}</p>
           <p>{`Status: ${oggetto.stato}`}</p>
-          {oggetto.stato === 'vermietet' && (
+          {oggetto.stato === "vermietet" && (
             <p>{`Kaltmiete: ${numeral(oggetto.affittoNetto / 100).format(
-              '0,0[.]00 $'
+              "0,0[.]00 $"
             )}`}</p>
           )}
 
           <p>{`Wohngeld: ${numeral(oggetto.wohngeld / 100).format(
-            '0,0[.]00 $'
+            "0,0[.]00 $"
           )}`}</p>
           <p>
             {oggetto.ruecklage &&
@@ -64,9 +64,9 @@ export class StampaDatenblatt extends React.Component {
           </p>
           <p>{`Kaufpreis: ${numeral(
             this.props.deal.prezzoDiVendita / 100
-          ).format('0,0[.]00 $')}`}</p>
+          ).format("0,0[.]00 $")}`}</p>
           <p>
-            Belastungsvollmacht:{' '}
+            Belastungsvollmacht:{" "}
             {this.props.deal.belastungsVollmacht ? `Ja` : `Nein`}
           </p>
           <p>
@@ -84,7 +84,7 @@ export class StampaDatenblatt extends React.Component {
           <p>{`${venditore.titolo} ${venditore.nome} ${venditore.cognome}`}</p>
           <p>
             {venditore.dataDiNascita &&
-              `geb. am ${moment(venditore.dataDiNascita).format('DD.MM.YYYY')}`}
+              `geb. am ${moment(venditore.dataDiNascita).format("DD.MM.YYYY")}`}
           </p>
           <p>{`${venditore.indirizzo} ${venditore.cap}, ${venditore.nazione}`}</p>
           <p>
@@ -109,7 +109,7 @@ export class StampaDatenblatt extends React.Component {
             <p>
               {venditore2.dataDiNascita &&
                 `geb. am ${moment(venditore2.dataDiNascita).format(
-                  'DD.MM.YYYY'
+                  "DD.MM.YYYY"
                 )}`}
             </p>
             <p>{`${venditore2.indirizzo} ${venditore2.cap}, ${venditore2.nazione}`}</p>
@@ -135,7 +135,7 @@ export class StampaDatenblatt extends React.Component {
           <p>
             {acquirente.dataDiNascita &&
               `geb. am ${moment(acquirente.dataDiNascita).format(
-                'DD.MM.YYYY'
+                "DD.MM.YYYY"
               )}`}
           </p>
           <p>{`${acquirente.indirizzo} ${acquirente.cap}, ${acquirente.nazione}`}</p>
@@ -161,7 +161,7 @@ export class StampaDatenblatt extends React.Component {
             <p>
               {acquirente2.dataDiNascita &&
                 `geb. am ${moment(acquirente2.dataDiNascita).format(
-                  'DD.MM.YYYY'
+                  "DD.MM.YYYY"
                 )}`}
             </p>
             <p>{`${acquirente2.indirizzo} ${acquirente2.cap}, ${acquirente2.nazione}`}</p>
@@ -193,13 +193,13 @@ export class StampaDatenblatt extends React.Component {
           </div>
         )}
 
-        {oggetto.mobilio !== '' && (
-          <div className='page-divide'>
+        {oggetto.mobilio !== "" && (
+          <div className="page-divide">
             <h5>Einrichtung</h5>
-            <p className='show-textarea'>{`${oggetto.mobilio}`}</p>
+            <p className="show-textarea">{`${oggetto.mobilio}`}</p>
           </div>
         )}
-        <button className='print btn' onClick={this.print}>
+        <button className="print btn" onClick={this.print}>
           Stampa Datenblatt
         </button>
       </div>

@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 export const Card = ({
   titolo,
@@ -20,18 +20,18 @@ export const Card = ({
   utente,
   verkauft
 }) => {
-  if (visible || utente.role === 'Admin') {
+  if (visible || utente.role === "Admin") {
     return (
-      <div className='row'>
-        <div className='col s12'>
-          <div className='card'>
-            <div className='card-content'>
-              <div className='row'>
-                <div className='col s12 m9'>
-                  <div className={visible ? '' : 'disabled'}>
+      <div className="row">
+        <div className="col s12">
+          <div className="card">
+            <div className="card-content">
+              <div className="row">
+                <div className="col s12 m9">
+                  <div className={visible ? "" : "disabled"}>
                     <div>
                       <Link to={link}>
-                        <span className='card-title'>{titolo}</span>
+                        <span className="card-title">{titolo}</span>
                       </Link>
                       <h6>{sottotitolo}</h6>
                       <p>{linea1}</p>
@@ -48,7 +48,7 @@ export const Card = ({
                   </div>
                 </div>
                 <div>
-                  <span className='right'>{titoloDestra} </span>
+                  <span className="right">{titoloDestra} </span>
                 </div>
               </div>
             </div>

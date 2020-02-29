@@ -1,19 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import FirmaListItem from './FirmaListItem';
+import { withTranslation } from 'react-i18next';
+
 import Card from '../Card';
 
-export const FirmaList = props => (
+export const FirmaList = ({ t, firma }) => (
   <div>
     <div className='grey lighten-4'>
       <div className='container'>
-        <h1>Firmendaten</h1>
+        <h1>{t('Dati aziendali')}</h1>
       </div>
     </div>
     <div className='container'>
       <div>
-        {props.firma.length < 1 && (
+        {firma.length < 1 && (
           <div>
             <Link className='btn-floating' to='/firmacreate'>
               <i className='material-icons'>add</i>
@@ -22,8 +23,8 @@ export const FirmaList = props => (
         )}
       </div>
       <div>
-        {props.firma &&
-          props.firma.map(firma => {
+        {firma &&
+          firma.map(firma => {
             return (
               <Card
                 key={firma.id}
@@ -32,13 +33,19 @@ export const FirmaList = props => (
                 titoloDestra={`${firma.email}`}
                 visible={true}
                 link={`/firmaedit/${firma.id}`}
-                linea1={`Telefon: ${firma.telefon} - Fax: ${firma.fax}`}
+                linea1={`${t('Telefono fisso')}: ${firma.telefon} - Fax: ${
+                  firma.fax
+                }`}
                 linea2={`${firma.website}`}
-                linea3={`Steuernr. ${firma.steuerNr} - Ust.-IdNr. ${firma.ustIdNr}`}
+                linea3={`${t('Codice fiscale tedesco')} ${
+                  firma.steuerNr
+                } - Ust.-IdNr. ${firma.ustIdNr}`}
                 linea3={`${firma.motto}`}
-                linea4={`Öffnungszeiten ${firma.open}`}
-                linea5={`Kontodetails: Inhaber ${firma.kontoInhaber} - Bank ${firma.bank}`}
-                linea6={`Bankverbindung: IBAN ${firma.iban} - BIC ${firma.bic}`}
+                linea4={`${t('Orari di apertura')} ${firma.open}`}
+                linea5={`${t('Dati conto corrente')}: ${t('Intestatario')} ${
+                  firma.kontoInhaber
+                } - ${t('Banca')} ${firma.bank}`}
+                linea6={`IBAN ${firma.iban} - BIC ${firma.bic}`}
               />
             );
           })}
@@ -53,4 +60,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(FirmaList);
+export default connect(mapStateToProps)(withTranslation()(FirmaList));

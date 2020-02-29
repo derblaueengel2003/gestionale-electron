@@ -4,21 +4,33 @@ import numeral from 'numeral';
 import selectDeals from '../../selectors/deals';
 import selectDealsTotal from '../../selectors/deals-total';
 import selectDealsPayed from '../../selectors/deals-payed';
+import { Translation } from 'react-i18next';
 
 export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed }) => {
-  const dealWord = dealCount === 1 ? 'Deal' : 'Deals';
-  const formattedDealsTotal = numeral(dealsTotal / 100).format('0,0[.]00 $');
-  const formattedDealsPayed = numeral(dealsPayed / 100).format('0,0[.]00 $');
-  const dealsPending = numeral((dealsTotal - dealsPayed) / 100).format(
-    '0,0[.]00 $'
-  );
-
   return (
-    <div className='container'>
-      <span>{dealCount}</span> {dealWord} - Total:{' '}
-      <span>{formattedDealsTotal}</span> - Erhalten:{' '}
-      <span>{formattedDealsPayed}</span> - Offen: <span>{dealsPending}</span>
-    </div>
+    <Translation>
+      {t => {
+        const dealWord = dealCount === 1 ? 'Deal' : 'Deals';
+        const formattedDealsTotal = numeral(dealsTotal / 100).format(
+          '0,0[.]00 $'
+        );
+        const formattedDealsPayed = numeral(dealsPayed / 100).format(
+          '0,0[.]00 $'
+        );
+        const dealsPending = numeral((dealsTotal - dealsPayed) / 100).format(
+          '0,0[.]00 $'
+        );
+
+        return (
+          <div className='container'>
+            <span>{dealCount}</span> {t('Vendite')} - {t('Totale')}:{' '}
+            <span>{formattedDealsTotal}</span> - {t('Incassate')}:{' '}
+            <span>{formattedDealsPayed}</span> - {t('Aperte')}:{' '}
+            <span>{dealsPending}</span>
+          </div>
+        );
+      }}
+    </Translation>
   );
 };
 

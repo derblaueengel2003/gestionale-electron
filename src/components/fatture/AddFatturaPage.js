@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import FatturaForm from './FatturaForm';
 import { startAddFattura } from '../../actions/fatture';
 
@@ -13,7 +14,7 @@ export class AddFatturaPage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Rechnung hinzufügen</h1>
+            <h1>{this.props.t('Aggiungi fattura')}</h1>
           </div>
         </div>
         <div className='container'>
@@ -28,4 +29,7 @@ const mapDispatchToProps = dispatch => ({
   startAddFattura: fattura => dispatch(startAddFattura(fattura))
 });
 
-export default connect(undefined, mapDispatchToProps)(AddFatturaPage);
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(withTranslation()(AddFatturaPage));

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import FirmaForm from './FirmaForm';
 import { startAddFirma } from '../../actions/firma';
 
@@ -13,7 +14,7 @@ export class AddFirmaPage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Firma hinzufügen</h1>
+            <h1>{this.props.t('Aggiungi azienda')}</h1>
           </div>
         </div>
         <div className='container'>
@@ -28,4 +29,7 @@ const mapDispatchToProps = dispatch => ({
   startAddFirma: firma => dispatch(startAddFirma(firma))
 });
 
-export default connect(undefined, mapDispatchToProps)(AddFirmaPage);
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(withTranslation()(AddFirmaPage));

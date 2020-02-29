@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import LeadForm from './LeadForm';
 import { startAddLead } from '../../actions/leads';
 
@@ -13,7 +14,7 @@ export class AddLeadPage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Neue Anfrage</h1>
+            <h1>{this.props.t('Aggiungi richiesta')}</h1>
           </div>
         </div>
         <div className='container'>
@@ -28,4 +29,7 @@ const mapDispatchToProps = dispatch => ({
   startAddLead: lead => dispatch(startAddLead(lead))
 });
 
-export default connect(undefined, mapDispatchToProps)(AddLeadPage);
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(withTranslation()(AddLeadPage));

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import FattureListItem from './FattureListItem';
+import { withTranslation } from 'react-i18next';
 import selectFatture from '../../selectors/fatture';
 import Card from '../Card';
 import moment from 'moment';
@@ -14,7 +13,7 @@ export const FattureList = props => {
     <div className='container'>
       {fatturePayload.length > 0 && (
         <div>
-          <h5>Rechnungen</h5>
+          <h5>{props.t('Fatture')}</h5>
           {fatturePayload
             .sort((a, b) => {
               return a.dataFattura > b.dataFattura ? -1 : 1;
@@ -32,8 +31,10 @@ export const FattureList = props => {
               );
               const iClienti = `${
                 cliente
-                  ? `Kunde: ${cliente.nome} ${cliente.cognome} ${cliente.ditta}`
-                  : 'nichts'
+                  ? `${props.t('Cliente')}: ${cliente.nome} ${
+                      cliente.cognome
+                    } ${cliente.ditta}`
+                  : props.t('Nessuno')
               } ${
                 cliente2
                   ? `- ${cliente2.nome} ${cliente2.cognome} ${cliente2.ditta}`
@@ -82,4 +83,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(FattureList);
+export default connect(mapStateToProps)(withTranslation()(FattureList));

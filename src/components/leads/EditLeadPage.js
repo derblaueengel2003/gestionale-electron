@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import LeadForm from './LeadForm';
 import { startEditLead, startRemoveLead } from '../../actions/leads';
 
@@ -21,7 +22,7 @@ export class EditLeadPage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Anfrage ändern</h1>
+            <h1>{this.props.t('Modifica richiesta')}</h1>
           </div>
         </div>
         <div className='container'>
@@ -47,4 +48,7 @@ const mapDispatchToProps = dispatch => ({
   startRemoveLead: data => dispatch(startRemoveLead(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditLeadPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(EditLeadPage));

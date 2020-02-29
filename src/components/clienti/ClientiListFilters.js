@@ -1,6 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { setClienteFilter } from "../../actions/filters";
+import React from 'react';
+import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
+import { setClienteFilter } from '../../actions/filters';
 
 export class ClientiListFilters extends React.Component {
   onClienteChange = e => {
@@ -9,18 +10,18 @@ export class ClientiListFilters extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="input-group">
-          <div className="input-field">
+      <div className='container'>
+        <div className='input-group'>
+          <div className='input-field'>
             <input
-              id="kundensuche"
-              type="text"
-              className="input-field"
+              id='kundensuche'
+              type='text'
+              className='input-field'
               value={this.props.filters.cliente}
               onChange={this.onClienteChange}
             />
-            <label className="active" htmlFor="kundensuche">
-              Kundensuche
+            <label className='active' htmlFor='kundensuche'>
+              {this.props.t('Cerca contatto')}
             </label>
           </div>
         </div>
@@ -37,4 +38,7 @@ const mapDispatchToProps = dispatch => ({
   setClienteFilter: cliente => dispatch(setClienteFilter(cliente))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClientiListFilters);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(ClientiListFilters));

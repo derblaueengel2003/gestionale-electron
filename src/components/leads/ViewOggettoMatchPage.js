@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LeadsListItem from '../leads/LeadsListItem';
+import { withTranslation } from 'react-i18next';
+import LeadsList from '../leads/LeadsList';
 import OggettiList from '../oggetti/OggettiList';
 
 export class ViewOggettoMatchPage extends React.Component {
@@ -33,22 +34,20 @@ export class ViewOggettoMatchPage extends React.Component {
     return (
       <div>
         <div className='container'>
-          <h1>Match mit den Anfragen: {this.primoMatch().length}</h1>
+          <h1>
+            {this.props.t('Match con le richieste')}: {this.primoMatch().length}
+          </h1>
           <span>
-            Die Übereinstimmung basiert sich auf Kundenbudget (+-20%) und
-            Immobilientyp
+            {this.props.t(
+              'La corrispondenza si basa sul budget (+-20%) e la tipologia di immobile'
+            )}
           </span>
         </div>
-
-        <OggettiList oggetto={[this.props.oggetto]} ruolo={'Objekt'} />
-        <div className='container'>
-          <h5>Anfragen</h5>
-          <div>
-            {this.primoMatch().map(lead => {
-              return <LeadsListItem key={lead.id} {...lead} />;
-            })}
-          </div>
-        </div>
+        <OggettiList
+          oggetto={[this.props.oggetto]}
+          ruolo={this.props.t('Oggetto')}
+        />
+        <LeadsList userLeads={this.primoMatch()} />;
       </div>
     );
   }
@@ -59,4 +58,6 @@ const mapStateToProps = (state, props) => ({
   leads: state.leads
 });
 
-export default connect(mapStateToProps)(ViewOggettoMatchPage);
+export default connect(mapStateToProps)(
+  withTranslation()(ViewOggettoMatchPage)
+);

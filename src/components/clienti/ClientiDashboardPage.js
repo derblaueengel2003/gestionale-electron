@@ -1,13 +1,14 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import ClientiList from './ClientiList';
 import ClientiListFilters from './ClientiListFilters';
 
-const ClientiDashboardPage = () => (
+const ClientiDashboardPage = ({ t }) => (
   <div>
     <div className='grey lighten-4'>
       <div className='container'>
-        <h1>Adressbuch Kontakte</h1>
+        <h1>{t('Rubrica contatti')}</h1>
       </div>
     </div>
     <ClientiListFilters />
@@ -20,4 +21,4 @@ const ClientiDashboardPage = () => (
   </div>
 );
 
-export default ClientiDashboardPage;
+export default withTranslation()(ClientiDashboardPage);

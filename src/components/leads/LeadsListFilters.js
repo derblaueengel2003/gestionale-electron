@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import {
   setLeadsFilter,
   sortByDate,
@@ -31,6 +32,7 @@ export class LeadsListFilters extends React.Component {
     }
   };
   render() {
+    const { t } = this.props;
     return (
       <div className='container'>
         <div className='input-group'>
@@ -45,33 +47,35 @@ export class LeadsListFilters extends React.Component {
               }
               onChange={this.onLeadChange}
             />
-            <label htmlFor='budget'>Budget</label>
+            <label className='active' htmlFor='budget'>
+              Budget
+            </label>
           </div>
           <div className='input-field'>
             <select
               value={this.props.filters.leadStato}
               onChange={this.onLeadsStatoChange}
             >
-              <option value=''>Alle</option>
-              <option value='libero'>WHG Leerstehend</option>
-              <option value='affittato'>WHG Vermietet</option>
+              <option value=''>{t('Tutti')}</option>
+              <option value='libero'>{t('Appartamento libero')}</option>
+              <option value='affittato'>{t('Appartamento affittato')}</option>
               <option value='libero o affittato'>
-                WHG Leerstehend oder vermietet
+                {t('Appartamento libero o affittato')}
               </option>
-              <option value='commerciale'>Gewerbe</option>
-              <option value='aph'>Pflegeheim</option>
+              <option value='commerciale'>{t('Locale commerciale')}</option>
+              <option value='aph'>{t('Casa di cura')}</option>
             </select>
-            <label>Immobilientyp</label>
+            <label>{t('Tipologia di immobile')}</label>
           </div>
           <div className='input-field'>
             <select
               value={this.props.filters.sortBy}
               onChange={this.onSortChange}
             >
-              <option value='date'> Datum</option>
-              <option value='amount'>Nach Budget</option>
+              <option value='date'> {t('Data')}</option>
+              <option value='amount'>Budget</option>
             </select>
-            <label>Sortieren nach</label>
+            <label>{t('Ordina per')}</label>
           </div>
         </div>
       </div>
@@ -90,4 +94,7 @@ const mapDispatchToProps = dispatch => ({
   sortByAmount: () => dispatch(sortByAmount())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeadsListFilters);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(LeadsListFilters));

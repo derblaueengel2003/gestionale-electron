@@ -1,18 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import numeral from 'numeral';
-import ClientiList from '../clienti/ClientiList';
-import { expose } from '../moduli/Expose';
-import Geocode from 'react-geocode';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import numeral from "numeral";
+import ClientiList from "../clienti/ClientiList";
+import { expose } from "../moduli/Expose";
+import Geocode from "react-geocode";
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
-Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
+Geocode.setApiKey("AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE");
 // set response language. Defaults to english.
-Geocode.setLanguage('de');
+Geocode.setLanguage("de");
 // set response region. Its optional.
 // A Geocoding request with region=es (Spain) will return the Spanish city.
-Geocode.setRegion('de');
+Geocode.setRegion("de");
 // Enable or disable logs. Its optional.
 Geocode.enableDebug();
 // Get latidude & longitude from address.
@@ -22,7 +22,7 @@ export class ViewOggettiPage extends React.Component {
     super(props);
 
     this.state = {
-      stores: [{ latitude: '', longitude: '' }]
+      stores: [{ latitude: "", longitude: "" }]
     };
   }
 
@@ -57,23 +57,23 @@ export class ViewOggettiPage extends React.Component {
     const inquilino = this.findContact(this.props.oggetto.inquilinoId);
     return (
       <div>
-        <div className='grey lighten-4'>
-          <div className='container'>
+        <div className="grey lighten-4">
+          <div className="container">
             <h1>Objekt</h1>
           </div>
         </div>
-        <div className='container section'>
+        <div className="container section">
           <div>
             <Link
-              className='btn-floating orange right btn-floating-margin'
+              className="btn-floating orange right btn-floating-margin"
               to={`/oggettoedit/${this.props.oggetto.id}`}
             >
-              <i className='material-icons'>edit</i>
+              <i className="material-icons">edit</i>
             </Link>
             {/* se l'oggetto è venduto nascondo il pulsante match */}
             {!this.props.oggetto.venduto && (
               <Link
-                className='btn-floating green accent-3 right btn-floating-margin'
+                className="btn-floating green accent-3 right btn-floating-margin"
                 to={`/oggettomatchview/${this.props.oggetto.id}`}
               >
                 Match
@@ -91,7 +91,7 @@ export class ViewOggettiPage extends React.Component {
             {this.props.oggetto.kaufpreis > 0 && (
               <p>{`Kaufpreis: ${numeral(
                 this.props.oggetto.kaufpreis / 100
-              ).format('0,0[.]00 $')}`}</p>
+              ).format("0,0[.]00 $")}`}</p>
             )}
             {this.props.oggetto.amtsgericht.length > 0 && (
               <p>Amtsgericht: {this.props.oggetto.amtsgericht}</p>
@@ -136,10 +136,10 @@ export class ViewOggettiPage extends React.Component {
             {this.props.oggetto.affittoNetto > 0 && (
               <p>{`Kaltmiete: ${numeral(
                 this.props.oggetto.affittoNetto / 100
-              ).format('0,0[.]00 $')}`}</p>
+              ).format("0,0[.]00 $")}`}</p>
             )}
             {`Wohngeld: ${numeral(this.props.oggetto.wohngeld / 100).format(
-              '0,0[.]00 $'
+              "0,0[.]00 $"
             )}`}
             {this.props.oggetto.vani.length > 0 && (
               <p>{`Zimmer: ${this.props.oggetto.vani}`}</p>
@@ -158,28 +158,28 @@ export class ViewOggettiPage extends React.Component {
               <p>{`Note: ${this.props.oggetto.note}`}</p>
             )}
             {this.props.oggetto.venduto === true && (
-              <h5 className='red-text'>Verkauft!</h5>
+              <h5 className="red-text">Verkauft!</h5>
             )}
           </div>
         </div>
-        <div className='container section'>
+        <div className="container section">
           {/* Se ho cover e titolo, mostro il pulsante exposé */}
-          <ul className='collection  s12 m6'>
+          <ul className="collection  s12 m6">
             {this.props.oggetto.downloadURLsCover &&
               this.props.oggetto.titoloDe.length > 0 && (
-                <li className='collection-item'>
+                <li className="collection-item">
                   <div>
                     Exposé deutsch
-                    <a href='#!' className='secondary-content'>
+                    <a href="#!" className="secondary-content">
                       <i
-                        className='material-icons'
+                        className="material-icons"
                         onClick={() => {
                           expose(
                             this.props.oggetto,
                             this.props.firma,
                             this.props.utente,
                             this.props.ceo,
-                            'de',
+                            "de",
                             this.state.stores[0]
                           );
                         }}
@@ -193,19 +193,19 @@ export class ViewOggettiPage extends React.Component {
 
             {this.props.oggetto.downloadURLsCover &&
               this.props.oggetto.titolo.length > 0 && (
-                <li className='collection-item'>
+                <li className="collection-item">
                   <div>
                     Exposé italienisch
-                    <a href='#!' className='secondary-content'>
+                    <a href="#!" className="secondary-content">
                       <i
-                        className='material-icons'
+                        className="material-icons"
                         onClick={() => {
                           expose(
                             this.props.oggetto,
                             this.props.firma,
                             this.props.utente,
                             this.props.ceo,
-                            'it',
+                            "it",
                             this.state.stores[0]
                           );
                         }}
@@ -218,19 +218,19 @@ export class ViewOggettiPage extends React.Component {
               )}
             {this.props.oggetto.downloadURLsCover &&
               this.props.oggetto.titoloEn.length > 0 && (
-                <li className='collection-item'>
+                <li className="collection-item">
                   <div>
                     Exposé englisch
-                    <a href='#!' className='secondary-content'>
+                    <a href="#!" className="secondary-content">
                       <i
-                        className='material-icons'
+                        className="material-icons"
                         onClick={() => {
                           expose(
                             this.props.oggetto,
                             this.props.firma,
                             this.props.utente,
                             this.props.ceo,
-                            'en',
+                            "en",
                             this.state.stores[0]
                           );
                         }}
@@ -247,84 +247,84 @@ export class ViewOggettiPage extends React.Component {
           this.props.oggetto.titolo.length < 1 ||
           this.props.oggetto.titoloDe.length < 1 ||
           this.props.oggetto.titoloEn.length < 1 ? (
-            <div className=''>
+            <div className="">
               Um ein Exposé zu erstellen, fügen Sie wenigstens ein Cover-Bild
               und eine Überschrift hinzu
             </div>
           ) : (
-            ''
+            ""
           )}
         </div>
 
         {this.props.oggetto.verwalter.length > 0 && (
           <div>
-            <ClientiList cliente={verwalter} ruolo={'Hausverwaltung'} />
+            <ClientiList cliente={verwalter} ruolo={"Hausverwaltung"} />
           </div>
         )}
         {this.props.oggetto.proprietarioId.length > 0 && (
           <div>
-            <ClientiList cliente={proprietario} ruolo={'Eigentümer'} />
+            <ClientiList cliente={proprietario} ruolo={"Eigentümer"} />
           </div>
         )}
         {this.props.oggetto.proprietarioId2.length > 0 && (
           <div>
-            <ClientiList cliente={proprietario2} ruolo={'2. Eigentümer'} />
+            <ClientiList cliente={proprietario2} ruolo={"2. Eigentümer"} />
           </div>
         )}
         {this.props.oggetto.inquilinoId.length > 0 && (
           <div>
-            <ClientiList cliente={inquilino} ruolo={'Mieter'} />
+            <ClientiList cliente={inquilino} ruolo={"Mieter"} />
           </div>
         )}
-        <div className='container'>
+        <div className="container">
           {this.props.oggetto.downloadURLsCover && (
-            <div className='grey lighten-4'>
+            <div className="grey lighten-4">
               <div>
                 <h1>Cover</h1>
-              </div>{' '}
+              </div>{" "}
             </div>
           )}
           {this.props.oggetto.downloadURLsCover &&
             this.props.oggetto.downloadURLsCover.map((downloadURL, i) => {
-              return <img className='foto' key={i} src={downloadURL} />;
+              return <img className="foto" key={i} src={downloadURL} />;
             })}
         </div>
-        <div className='container'>
+        <div className="container">
           {this.props.oggetto.downloadURLs && (
-            <div className='grey lighten-4'>
+            <div className="grey lighten-4">
               <div>
                 <h1>Bilder</h1>
-              </div>{' '}
+              </div>{" "}
             </div>
           )}
           {this.props.oggetto.downloadURLs &&
             this.props.oggetto.downloadURLs.map((downloadURL, i) => {
-              return <img className='foto' key={i} src={downloadURL} />;
+              return <img className="foto" key={i} src={downloadURL} />;
             })}
         </div>
 
-        <div className='container'>
+        <div className="container">
           {this.props.oggetto.downloadURLsGrundriss && (
-            <div className='grey lighten-4'>
+            <div className="grey lighten-4">
               <div>
                 <h1>Grundriss</h1>
-              </div>{' '}
+              </div>{" "}
             </div>
           )}
           {this.props.oggetto.downloadURLsGrundriss &&
             this.props.oggetto.downloadURLsGrundriss.map((downloadURL, i) => {
-              return <img className='foto' key={i} src={downloadURL} />;
+              return <img className="foto" key={i} src={downloadURL} />;
             })}
         </div>
-        <div className='container'>
-          <div className='grey lighten-4'>
+        <div className="container">
+          <div className="grey lighten-4">
             <div>
               <h1>Map</h1>
             </div>
           </div>
           <a
             href={`https://www.google.de/maps/place/${this.props.oggetto.via}+${this.props.oggetto.numeroCivico},+${this.props.oggetto.cap}+${this.props.oggetto.citta}/`}
-            target='_blank'
+            target="_blank"
           >
             <img
               src={`https://maps.googleapis.com/maps/api/staticmap?center=${this.props.oggetto.via}+${this.props.oggetto.numeroCivico},+${this.props.oggetto.cap}+${this.props.oggetto.citta}&zoom=15&size=400x400&maptype=roadmap
@@ -334,8 +334,8 @@ export class ViewOggettiPage extends React.Component {
           </a>
         </div>
         {this.props.oggetto.titolo.length > 0 && (
-          <div className='container margine-basso'>
-            <div className='grey lighten-4'>
+          <div className="container margine-basso">
+            <div className="grey lighten-4">
               <div>
                 <h1>Exposé-Text auf Italienisch</h1>
               </div>
@@ -345,8 +345,8 @@ export class ViewOggettiPage extends React.Component {
           </div>
         )}
         {this.props.oggetto.titoloDe.length > 0 && (
-          <div className='container margine-basso'>
-            <div className='grey lighten-4'>
+          <div className="container margine-basso">
+            <div className="grey lighten-4">
               <div>
                 <h1>Exposé-Text auf Deutsch</h1>
               </div>
@@ -355,9 +355,9 @@ export class ViewOggettiPage extends React.Component {
             <div>{`Beschreibung: ${this.props.oggetto.descrizioneDe}`}</div>
           </div>
         )}
-        {this.props.oggetto.titoloEn.length > 0 && (
-          <div className='container margine-basso'>
-            <div className='grey lighten-4'>
+        {this.props.oggetto.titolo.length > 0 && (
+          <div className="container margine-basso">
+            <div className="grey lighten-4">
               <div>
                 <h1>Exposé-Text auf Englisch</h1>
               </div>
@@ -375,7 +375,7 @@ const mapStateToProps = (state, props) => ({
   oggetto: state.oggetti.find(oggetto => oggetto.id === props.match.params.id),
   clienti: state.clienti,
   firma: state.firma[0],
-  ceo: state.utenti.filter(utente => utente.qualifica === 'Geschäftsführer'),
+  ceo: state.utenti.filter(utente => utente.qualifica === "Geschäftsführer"),
   utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 

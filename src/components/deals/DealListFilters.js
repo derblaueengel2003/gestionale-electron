@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Translation } from 'react-i18next';
 import { DateRangePicker } from 'react-dates';
 import {
   setTextFilter,
@@ -74,45 +75,53 @@ export class DealListFilters extends React.Component {
 
   render() {
     return (
-      <div className='container'>
-        <div className='input-group'>
-          <div className='input-field'>
-            <input
-              id='deals-suche'
-              type='text'
-              className='input-field'
-              value={this.props.filters.text}
-              onChange={this.onTextChange}
-            />
-            <label htmlFor='deal-suche'>Deals-Suche</label>
-          </div>
-          <div className='input-field '>
-            <select
-              value={this.props.filters.sortBy}
-              onChange={this.onSortChange}
-            >
-              <option value='date'>Datum</option>
-              <option value='amount'>Betrag</option>
-              <option value='paid'>Bezahlt</option>
-            </select>
-            <label>Sortieren nach</label>
-          </div>
-          <div className=''>
-            <DateRangePicker
-              startDate={this.props.filters.startDate}
-              endDate={this.props.filters.endDate}
-              onDatesChange={this.onDatesChange}
-              focusedInput={this.state.calendarFocused}
-              onFocusChange={this.onFocusChange}
-              showClearDates={true}
-              numberOfMonths={1}
-              isOutsideRange={() => false}
-              displayFormat={'DD.MM.YYYY'}
-              renderCalendarInfo={this.renderDatePresets}
-            />
-          </div>
-        </div>
-      </div>
+      <Translation>
+        {t => {
+          return (
+            <div className='container'>
+              <div className='input-group'>
+                <div className='input-field'>
+                  <input
+                    id='deals-suche'
+                    type='text'
+                    className='input-field'
+                    value={this.props.filters.text}
+                    onChange={this.onTextChange}
+                  />
+                  <label className='active' htmlFor='deals-suche'>
+                    {t('Cerca vendita')}
+                  </label>
+                </div>
+                <div className='input-field '>
+                  <select
+                    value={this.props.filters.sortBy}
+                    onChange={this.onSortChange}
+                  >
+                    <option value='date'>{t('Data')}</option>
+                    <option value='amount'>{t('Importo')}</option>
+                    <option value='paid'>{t('Pagato')}</option>
+                  </select>
+                  <label>{t('Ordina per')}</label>
+                </div>
+                <div className=''>
+                  <DateRangePicker
+                    startDate={this.props.filters.startDate}
+                    endDate={this.props.filters.endDate}
+                    onDatesChange={this.onDatesChange}
+                    focusedInput={this.state.calendarFocused}
+                    onFocusChange={this.onFocusChange}
+                    showClearDates={true}
+                    numberOfMonths={1}
+                    isOutsideRange={() => false}
+                    displayFormat={'DD.MM.YYYY'}
+                    renderCalendarInfo={this.renderDatePresets}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        }}
+      </Translation>
     );
   }
 }

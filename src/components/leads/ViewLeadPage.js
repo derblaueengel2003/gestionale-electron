@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import LeadsListItem from '../leads/LeadsListItem';
 import ClientiList from '../clienti/ClientiList';
 import { startRemoveLead } from '../../actions/leads';
 import numeral from 'numeral';
@@ -40,7 +40,7 @@ export class ViewLeadPage extends React.Component {
       <div>
         <div className='grey lighten-4'>
           <div className='container'>
-            <h1>Anfrage</h1>
+            <h1>{this.props.t('Richiesta')}</h1>
           </div>
         </div>
         <div className='container section'>
@@ -119,4 +119,7 @@ const mapDispatchToProps = dispatch => ({
   startRemoveLead: data => dispatch(startRemoveLead(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ViewLeadPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(ViewLeadPage));

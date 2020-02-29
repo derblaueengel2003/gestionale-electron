@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import CustomerForm from './ClientiForm';
 import { startEditCustomer, startRemoveCustomer } from '../../actions/clienti';
 
@@ -73,7 +74,7 @@ export class EditClientePage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Kundendaten ändern</h1>
+            <h1>{this.props.t('Modifica contatto')}</h1>
           </div>
         </div>
         <div className='container'>
@@ -112,4 +113,7 @@ const mapDispatchToProps = dispatch => ({
   startRemoveCustomer: data => dispatch(startRemoveCustomer(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditClientePage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(EditClientePage));

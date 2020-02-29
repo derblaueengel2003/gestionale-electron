@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
@@ -7,7 +8,6 @@ import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
-import { Link } from 'react-router-dom';
 import M from 'materialize-css';
 
 export class LeadForm extends React.Component {
@@ -68,6 +68,7 @@ export class LeadForm extends React.Component {
     }
   };
   render() {
+    const { t } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
@@ -83,7 +84,7 @@ export class LeadForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        Anfragedatum:
+        {t('Data richiesta')}:
         <SingleDatePicker
           date={this.state.leadCreatedAt}
           onDateChange={this.onDateChange}
@@ -92,7 +93,7 @@ export class LeadForm extends React.Component {
           numberOfMonths={1}
           isOutsideRange={() => false}
         />
-        Kunde:
+        {t('Cliente')}:
         <Select
           name='leadId'
           value={this.state.leadId}
@@ -121,20 +122,20 @@ export class LeadForm extends React.Component {
           value={this.state.leadBudget}
           onChange={this.onBudgetChange}
         />
-        Immobilientyp und -status:
+        {t('Tipologia immobile e stato')}:
         <select
           name='leadOggettoStato'
           value={this.state.leadOggettoStato}
           onChange={this.changeHandler}
         >
-          <option value='libero'>WHG Leerstehend</option>
-          <option value='affittato'>WHG Vermietet</option>
+          <option value='libero'>{t('Appartamento libero')}</option>
+          <option value='affittato'>{t('Appartamento affittato')}</option>
           <option value='libero o affittato'>
-            WHG Leerstehend oder vermietet
+            {t('Appartamento libero o affittato')}
           </option>
-          <option value='commerciale'>Gewerbe</option>
-          <option value='aph'>Pflegeheim</option>
-          <option value=''>Egal</option>
+          <option value='commerciale'>{t('Locale commerciale')}</option>
+          <option value='aph'>{t('Casa di cura')}</option>
+          <option value=''>{t('Indifferente')}</option>
         </select>
         <textarea
           name='leadNote'
@@ -158,4 +159,4 @@ const mapStateToProps = state => ({
   clienti: state.clienti
 });
 
-export default connect(mapStateToProps)(LeadForm);
+export default connect(mapStateToProps)(withTranslation()(LeadForm));

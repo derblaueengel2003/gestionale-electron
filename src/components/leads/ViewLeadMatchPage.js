@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Card from '../Card';
+import { withTranslation } from 'react-i18next';
 import ClientiList from '../clienti/ClientiList';
 import OggettiList from '../oggetti/OggettiList';
-import numeral from 'numeral';
 
 export class ViewLeadMatchPage extends React.Component {
   primoMatch = () => {
@@ -70,11 +69,16 @@ export class ViewLeadMatchPage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Match mit unseren Objekten: {this.primoMatch().length}</h1>
+            <h1>
+              {this.props.t('Match con i nostri oggetti')}:{' '}
+              {this.primoMatch().length}
+            </h1>
             {/*  <h1>Match mit Accentro: {this.secondoMatch().length}</h1>  */}
             <span>
-              Die Übereinstimmung basiert sich auf Kundenbudget (+-20%) und
-              Immobilientyp.
+              {this.props.t(
+                'La corrispondenza si basa sul budget (+-20%) e la tipologia di immobile'
+              )}
+              .
             </span>
           </div>
         </div>
@@ -137,4 +141,4 @@ const mapStateToProps = (state, props) => ({
   firma: state.firma
 });
 
-export default connect(mapStateToProps)(ViewLeadMatchPage);
+export default connect(mapStateToProps)(withTranslation()(ViewLeadMatchPage));

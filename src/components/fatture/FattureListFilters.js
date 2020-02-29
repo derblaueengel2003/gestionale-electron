@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import { setFatturaFilter } from '../../actions/filters';
 
 export class FattureListFilters extends React.Component {
@@ -19,7 +20,9 @@ export class FattureListFilters extends React.Component {
               value={this.props.filters.fattura}
               onChange={this.onFatturaChange}
             />
-            <label htmlFor='rechnungssuche'>Rechnungssuche</label>
+            <label className='active' htmlFor='rechnungssuche'>
+              {this.props.t('Cerca fattura')}
+            </label>
           </div>
         </div>
       </div>
@@ -35,4 +38,7 @@ const mapDispatchToProps = dispatch => ({
   setFatturaFilter: fattura => dispatch(setFatturaFilter(fattura))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FattureListFilters);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(FattureListFilters));
