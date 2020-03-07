@@ -48,7 +48,7 @@ export const FattureList = props => {
                   titolo={
                     oggetto
                       ? `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
-                      : ''
+                      : fattura.descrizioneProdotto
                   }
                   sottotitolo={oggetto ? `${oggetto.cap} ${oggetto.citta}` : ''}
                   titoloDestra={

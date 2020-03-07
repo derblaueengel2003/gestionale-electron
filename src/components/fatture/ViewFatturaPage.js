@@ -17,16 +17,7 @@ export class ViewFatturePage extends React.Component {
     let deal = this.props.deals.find(
       deal => deal.id === this.props.fattura.dealId
     );
-    !deal
-      ? (deal = {
-          prezzoDiVendita: 0,
-          dataFattura: null,
-          dataRogito: null,
-          amount: 0,
-          createdAt: null,
-          dealType: ''
-        })
-      : deal;
+
     const oggetto = deal
       ? this.props.oggetti.find(ogg => ogg.id === deal.oggettoId)
       : '';
@@ -68,13 +59,15 @@ export class ViewFatturePage extends React.Component {
                   cliente2,
                   this.props.fattura.numeroFattura,
                   this.props.fattura.dataFattura,
-                  this.props.fattura.note,
+                  this.props.fattura.descrizioneProdotto,
+                  this.props.fattura.importoNetto,
+                  this.props.fattura.dataPrestazione,
                   oggetto,
-                  deal.prezzoDiVendita,
-                  deal.dataRogito,
-                  deal.amount,
-                  deal.createdAt,
-                  deal.dealType,
+                  deal && deal.prezzoDiVendita,
+                  deal && deal.dataRogito,
+                  deal && deal.amount,
+                  deal && deal.createdAt,
+                  deal && deal.dealType,
                   acquirente,
                   acquirente2,
                   this.props.firma,
@@ -95,10 +88,11 @@ export class ViewFatturePage extends React.Component {
                     this.props.fattura.numeroFattura,
                     this.props.fattura.dataFattura,
                     this.props.fattura.dataZahlungserinnerung,
-                    deal.amount,
+                    deal && deal.amount,
                     this.props.firma,
                     this.props.utente,
-                    this.props.ceo
+                    this.props.ceo,
+                    this.props.fattura.importoNetto
                   );
                 }}
               >
@@ -116,11 +110,12 @@ export class ViewFatturePage extends React.Component {
                     this.props.fattura.dataFattura,
                     this.props.fattura.dataZahlungserinnerung,
                     this.props.fattura.dataMahnung,
-                    deal.amount,
+                    deal && deal.amount,
                     this.props.fattura.mahngebuehren,
                     this.props.firma,
                     this.props.utente,
-                    this.props.ceo
+                    this.props.ceo,
+                    this.props.fattura.importoNetto
                   );
                 }}
               >
@@ -139,11 +134,12 @@ export class ViewFatturePage extends React.Component {
                     this.props.fattura.dataZahlungserinnerung,
                     this.props.fattura.dataMahnung,
                     this.props.fattura.dataMahnung2,
-                    deal.amount,
+                    deal && deal.amount,
                     this.props.fattura.mahngebuehren2,
                     this.props.firma,
                     this.props.utente,
-                    this.props.ceo
+                    this.props.ceo,
+                    this.props.fattura.importoNetto
                   );
                 }}
               >
@@ -217,8 +213,8 @@ export class ViewFatturePage extends React.Component {
           </div>
         </div>
         {/* passo deal come array perché è quello che si aspetta il componente */}
-        <DealList clienteDeals={[deal]} traduci={this.traduci} />
-        <OggettiList oggetto={[oggetto]} />
+        {deal && <DealList clienteDeals={[deal]} />}
+        {oggetto && <OggettiList oggetto={[oggetto]} />}
         {cliente && (
           <div>
             <ClientiList

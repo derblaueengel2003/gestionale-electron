@@ -36,8 +36,7 @@ export const DealList = ({
   clienti,
   fatture,
   utente,
-  deals,
-  traduci
+  deals
 }) => {
   //controllo se i dati vengono dal clienti page o sono passati via props
   return (
@@ -55,6 +54,7 @@ export const DealList = ({
                     const oggetto = oggetti.find(
                       ogg => ogg.id === deal.oggettoId
                     );
+
                     const acquirente = clienti.find(
                       cliente => cliente.id === deal.acquirenteId
                     );
@@ -109,7 +109,10 @@ export const DealList = ({
                         visible={true}
                         link={`/view/${deal.id}`}
                         utente={utente}
-                        titolo={`Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`}
+                        titolo={
+                          oggetto &&
+                          `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
+                        }
                         titoloDestra={
                           utente.role === 'Mitarbeiter' ? (
                             <span
@@ -130,7 +133,9 @@ export const DealList = ({
                             </span>
                           )
                         }
-                        sottotitolo={`${oggetto.cap} ${oggetto.citta}`}
+                        sottotitolo={
+                          oggetto && `${oggetto.cap} ${oggetto.citta}`
+                        }
                         linea1={
                           deal.createdAt
                             ? `${t('Prenotazione del')} ${moment(

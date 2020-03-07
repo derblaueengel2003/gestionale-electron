@@ -52,7 +52,23 @@ export class FatturaForm extends React.Component {
         : null,
       error: '',
       modificato: '',
-      note: props.fattura ? props.fattura.note : ''
+      descrizioneProdotto: props.fattura
+        ? props.fattura.descrizioneProdotto
+          ? props.fattura.descrizioneProdotto
+          : ''
+        : '',
+      importoNetto: props.fattura
+        ? props.fattura.importoNetto
+          ? (props.fattura.importoNetto / 100).toString().replace(/\./, ',')
+          : '0'
+        : '0',
+      dataPrestazione: props.fattura
+        ? props.fattura.dataPrestazione
+          ? props.fattura.dataPrestazione &&
+            moment(props.fattura.dataPrestazione)
+          : null
+        : null,
+      calendarDataPrestazioneFocus: false
     };
   }
   onNumeroFatturaChange = e => {
@@ -135,9 +151,20 @@ export class FatturaForm extends React.Component {
     const clienteId2 = e ? e.value : '';
     this.setState(() => ({ clienteId2 }));
   };
-  onNoteChange = e => {
-    const note = e.target.value;
-    this.setState(() => ({ note }));
+  onDataPrestazioneChange = dataPrestazione => {
+    if (dataPrestazione) {
+      this.setState(() => ({ dataPrestazione }));
+    } else {
+      this.setState(() => ({ dataPrestazione: null }));
+    }
+  };
+  onFocusDataPrestazioneChange = ({ focused }) => {
+    this.setState(() => ({ calendarDataPrestazioneFocused: focused }));
+  };
+  changeHandler = e => {
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({ [name]: value });
   };
   changeHandlerValuta = e => {
     const name = e.target.name;
@@ -150,6 +177,8 @@ export class FatturaForm extends React.Component {
   };
   onSubmit = e => {
     e.preventDefault();
+    const importoNetto =
+      parseFloat(this.state.importoNetto.replace(/,/, '.'), 10) * 100;
     const mahngebuehren =
       parseFloat(this.state.mahngebuehren.replace(/,/, '.'), 10) * 100;
     const mahngebuehren2 =
@@ -182,7 +211,11 @@ export class FatturaForm extends React.Component {
         mahngebuehren2,
         payed: this.state.payed,
         payedAt: this.state.payedAt ? this.state.payedAt.valueOf() : null,
-        note: this.state.note
+        descrizioneProdotto: this.state.descrizioneProdotto,
+        importoNetto,
+        dataPrestazione: this.state.dataPrestazione
+          ? this.state.dataPrestazione.valueOf()
+          : null
       });
     }
   };
@@ -336,16 +369,35 @@ export class FatturaForm extends React.Component {
             showClearDate={true}
           />
         </div>
-        <textarea
-          className={`textarea text-input--${this.state.modificato.note}`}
-          placeholder={`Hier kann mann die Rechnung anpassen, z.B.: 
-Schlüssel Übergabe:        10 €
-+19% MWSt.:                1,9 €
-_________________________________
-Gesamtbetrag:             11,9 €`}
-          value={this.state.note}
-          onChange={this.onNoteChange}
-        ></textarea>
+        <blockquote>
+          {t('Usare questi campi solo se non si è associata una vendita!')}{' '}
+          {t('Descrizione prodotto')}:
+          <input
+            name='descrizioneProdotto'
+            className={`text-input `}
+            type='text'
+            value={this.state.descrizioneProdotto}
+            onChange={this.changeHandler}
+          />
+          {t('Importo netto')}:
+          <input
+            name='importoNetto'
+            className={`text-input `}
+            type='text'
+            value={this.state.importoNetto}
+            onChange={this.changeHandlerValuta}
+          />
+          {t('Data prestazione')}:
+          <SingleDatePicker
+            date={this.state.dataPrestazione}
+            onDateChange={this.onDataPrestazioneChange}
+            focused={this.state.calendarDataPrestazioneFocused}
+            onFocusChange={this.onFocusDataPrestazioneChange}
+            numberOfMonths={1}
+            isOutsideRange={() => false}
+            showClearDate={true}
+          />
+        </blockquote>
         <div>
           <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>

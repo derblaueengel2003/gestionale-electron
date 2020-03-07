@@ -1,8 +1,8 @@
-import jsPDF from "jspdf";
-import { imgLogo } from "./ImageLogo";
-import { ivdLogo } from "./IvdLogo";
-import moment from "moment";
-import numeral from "numeral";
+import jsPDF from 'jspdf';
+import { imgLogo } from './ImageLogo';
+import { ivdLogo } from './IvdLogo';
+import moment from 'moment';
+import numeral from 'numeral';
 
 export const zahlungserinnerung = (
   cliente,
@@ -13,9 +13,11 @@ export const zahlungserinnerung = (
   amount,
   firma,
   utente,
-  ceo
+  ceo,
+  importoNetto
 ) => {
-  const doc = new jsPDF("p", "mm", "a4");
+  const doc = new jsPDF('p', 'mm', 'a4');
+  let importo = amount || importoNetto;
   const acqNome = `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
   const acqInd = `${cliente.indirizzo} ${cliente.indirizzo2 &&
     cliente.indirizzo2}`;
@@ -24,24 +26,32 @@ export const zahlungserinnerung = (
   const acqInd2 =
     cliente2 &&
     `${cliente2.indirizzo} ${cliente2.indirizzo2 && cliente2.indirizzo2}`;
-  const formulaSaluto =
-    cliente.titolo === "Herr" ? `Sehr geehrter Herr` : `Sehr geehrte Frau`;
-  const formulaSaluto2 =
-    cliente2 && cliente2.titolo === "Herr"
-      ? `Sehr geehrter Herr`
-      : `Sehr geehrte Frau`;
+  let formulaSaluto = 'Sehr geehrte Damen und Herren';
+  if (cliente.titolo === 'Herr') {
+    formulaSaluto = 'Sehr geehrter Herr';
+  } else if (cliente.titolo === 'Frau') {
+    formulaSaluto = 'Sehr geehrte Frau';
+  }
+  let formulaSaluto2 = 'Sehr geehrte Damen und Herren';
+  if (cliente2) {
+    if (cliente2.titolo === 'Herr') {
+      formulaSaluto2 = 'Sehr geehrter Herr';
+    } else if (cliente2.titolo === 'Frau') {
+      formulaSaluto2 = 'Sehr geehrte Frau';
+    }
+  }
   const corpoFattura = `für die oben aufgeführte Rechnung konnten wir bis heute leider keine Zahlungseingang feststellen. 
 Sicherlich handelt es sitch um ein Versehen. Eine Kopie der Rechnung vom ${moment(
     dataFattura
-  ).format("DD.MM.YYYY")} haben wir dem Schreiben beigelegt. \n
+  ).format('DD.MM.YYYY')} haben wir dem Schreiben beigelegt. \n
 Um Mahnungsgebühren zu vermeiden, überweisen Sie bitte den fälligen Beitrag von ${numeral(
-    (amount / 100) * 1.19
+    (importo / 100) * 1.19
   ).format(
-    "0,0[.]00 $"
+    '0,0[.]00 $'
   )}  innerhalb von 7 Tagen ohne Abzüge auf das untenstehende Bankkonto. \n
 Sofern Sie die Zahlung zwischenzeitlich veranlasst haben, bitten wir Sie, dieses Schreiben als gegenstandlos zu betrachten.`;
 
-  doc.addImage(imgLogo, "JPEG", 130, 10, 55, 12);
+  doc.addImage(imgLogo, 'JPEG', 130, 10, 55, 12);
 
   //linea rossa
   doc.setDrawColor(145, 0, 0);
@@ -55,8 +65,8 @@ Sofern Sie die Zahlung zwischenzeitlich veranlasst haben, bitten wir Sie, dieses
   //Header
   doc.setFontSize(11);
   doc.setTextColor(255, 255, 255);
-  doc.setFont("times");
-  doc.setFontType("bold");
+  doc.setFont('times');
+  doc.setFontType('bold');
   doc.text(
     `${firma.name} ${firma.name2 && ` - ${firma.name2}`} - ${firma.adresse}, ${
       firma.plz
@@ -71,21 +81,21 @@ Sofern Sie die Zahlung zwischenzeitlich veranlasst haben, bitten wir Sie, dieses
   doc.line(146, 70, 199, 70);
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(10);
-  doc.setFontType("normal");
-  doc.text("Ihr Ansprechpartner", 149, 40);
-  doc.setFontType("bold");
+  doc.setFontType('normal');
+  doc.text('Ihr Ansprechpartner', 149, 40);
+  doc.setFontType('bold');
   doc.text(`${utente.name}`, 149, 44);
-  doc.setFontType("normal");
+  doc.setFontType('normal');
   doc.text(`${utente.email}`, 149, 48);
   doc.text(`Tel. ${utente.telefon}`, 149, 52);
   doc.text(`${firma.website}`, 149, 56);
-  doc.setFontType("bold");
-  doc.text("Öffnungszeiten", 149, 68);
-  doc.setFontType("normal");
+  doc.setFontType('bold');
+  doc.text('Öffnungszeiten', 149, 68);
+  doc.setFontType('normal');
   doc.text(`${firma.open}`, 149, 72);
-  doc.setFontType("bold");
+  doc.setFontType('bold');
   doc.text(`${firma.name2 ? firma.name2 : firma.name}`, 149, 84);
-  doc.setFontType("normal");
+  doc.setFontType('normal');
   doc.text(`${firma.motto}`, 149, 88);
   doc.text(`${firma.adresse}`, 149, 92);
   doc.text(`${firma.plz} ${firma.stadt}`, 149, 96);
@@ -94,7 +104,7 @@ Sofern Sie die Zahlung zwischenzeitlich veranlasst haben, bitten wir Sie, dieses
   let acapo = 38;
   //Intestazione fattura
   doc.setFontSize(12);
-  doc.setFontType("normal");
+  doc.setFontType('normal');
   doc.text(cliente.ditta, 15, acapo);
   acapo += 5;
   doc.text(acqNome, 15, acapo);
@@ -120,30 +130,39 @@ Sofern Sie die Zahlung zwischenzeitlich veranlasst haben, bitten wir Sie, dieses
   doc.line(5, acapo, 10, acapo);
   acapo += 6;
   //Dati fattura
-  doc.setFontType("bold");
+  doc.setFontType('bold');
   doc.text(
     `Zahlungserinnerung
 Rechnung Nr. ${numeroFattura}`,
     15,
     acapo
   );
-  doc.setFontType("normal");
+  doc.setFontType('normal');
   doc.text(
-    `Berlin, ${moment(dataZahlungserinnerung).format("DD.MM.YYYY")}`,
+    `Berlin, ${moment(dataZahlungserinnerung).format('DD.MM.YYYY')}`,
     100,
     acapo
   );
   acapo += 14;
   //Corpo
-  doc.text(`${formulaSaluto} ${cliente.cognome},`, 15, acapo);
+  doc.text(
+    `${formulaSaluto}${cliente.titolo && ` ${cliente.cognome}`},`,
+    15,
+    acapo
+  );
   acapo += 5;
-  cliente2 && doc.text(`${formulaSaluto2} ${cliente2.cognome},`, 15, acapo);
+  cliente2 &&
+    doc.text(
+      `${formulaSaluto2}${cliente2.titolo && ` ${cliente2.cognome}`},`,
+      15,
+      acapo
+    );
   acapo += 10;
   const lines = doc.setFontSize(12).splitTextToSize(corpoFattura, 150);
   doc.text(15, acapo + 12 / 110, lines);
   //Coordinate pagamento
   acapo += 55;
-  doc.text("Kontoverbindung:", 15, acapo);
+  doc.text('Kontoverbindung:', 15, acapo);
   acapo += 5;
   doc.text(`Kontoinhaber: ${firma.kontoInhaber}`, 15, acapo);
   acapo += 5;
@@ -158,12 +177,12 @@ Rechnung Nr. ${numeroFattura}`,
 
   //Saluti finali
   doc.text(
-    "Sollten Sie noch Fragen haben, so stehen wir auch weiterhin gerne zur Verfügung.",
+    'Sollten Sie noch Fragen haben, so stehen wir auch weiterhin gerne zur Verfügung.',
     15,
     acapo
   );
   acapo += 10;
-  doc.text("Mit freundlichen Grüßen", 15, acapo);
+  doc.text('Mit freundlichen Grüßen', 15, acapo);
   acapo += 5;
   doc.text(`${utente.name}`, 15, acapo);
 
@@ -176,7 +195,7 @@ Rechnung Nr. ${numeroFattura}`,
   // doc.line(160, 267, 160, 282);
   doc.setFontSize(10);
   doc.setTextColor(143, 143, 143);
-  doc.text("Geschäftsführer:", 16, 270);
+  doc.text('Geschäftsführer:', 16, 270);
   let position = 274;
 
   ceo.forEach(eachCeo => {
@@ -191,10 +210,10 @@ Rechnung Nr. ${numeroFattura}`,
   doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
 
   //Logo IVD
-  doc.addImage(ivdLogo, "JPEG", 161, 270, 30, 12);
+  doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);
 
   doc.save(
-    `Zahlungserinnerung - Rechnung ${numeroFattura.replace("/", "-")} ${
+    `Zahlungserinnerung - Rechnung ${numeroFattura.replace('/', '-')} ${
       cliente.cognome
     }.pdf`
   );

@@ -1,28 +1,30 @@
-import jsPDF from "jspdf";
-import { imgLogo } from "./ImageLogo";
-import { ivdLogo } from "./IvdLogo";
-import moment from "moment";
-import numeral from "numeral";
+import jsPDF from 'jspdf';
+import { imgLogo } from './ImageLogo';
+import { ivdLogo } from './IvdLogo';
+import moment from 'moment';
+import numeral from 'numeral';
 
 export const fattura = (
   cliente,
   cliente2,
   numeroFattura,
   dataFattura,
-  note,
+  descrizioneProdotto,
+  importoNetto,
+  dataPrestazione,
   oggetto,
-  prezzoDiVendita,
+  prezzoDiVendita = '0',
   dataRogito,
-  amount,
-  dataPrenotazione,
-  dealType,
+  amount = '0',
+  dataPrenotazione = null,
+  dealType = '',
   acquirente,
   acquirente2,
   firma,
   utente,
   ceo
 ) => {
-  const doc = new jsPDF("p", "mm", "a4");
+  const doc = new jsPDF('p', 'mm', 'a4');
   const acqNome = `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
   const acqInd = `${cliente.indirizzo} ${cliente.indirizzo2 &&
     cliente.indirizzo2}`;
@@ -31,40 +33,45 @@ export const fattura = (
   const acqInd2 =
     cliente2 &&
     `${cliente2.indirizzo} ${cliente2.indirizzo2 && cliente2.indirizzo2}`;
-  const formulaSaluto =
-    cliente.titolo === "Herr" ? `Sehr geehrter Herr` : `Sehr geehrte Frau`;
-  const formulaSaluto2 =
-    cliente2 && cliente2.titolo === "Herr"
-      ? `Sehr geehrter Herr`
-      : `Sehr geehrte Frau`;
-  const provvPercentuale = numeral(amount / prezzoDiVendita).format("0.00%");
+  let formulaSaluto = 'Sehr geehrte Damen und Herren';
+  if (cliente.titolo === 'Herr') {
+    formulaSaluto = 'Sehr geehrter Herr';
+  } else if (cliente.titolo === 'Frau') {
+    formulaSaluto = 'Sehr geehrte Frau';
+  }
+  let formulaSaluto2 = 'Sehr geehrte Damen und Herren';
+  if (cliente2) {
+    if (cliente2.titolo === 'Herr') {
+      formulaSaluto2 = 'Sehr geehrter Herr';
+    } else if (cliente2.titolo === 'Frau') {
+      formulaSaluto2 = 'Sehr geehrte Frau';
+    }
+  }
+  const provvPercentuale = numeral(amount / prezzoDiVendita).format('0.00%');
   let corpoFattura;
-  if (dealType === "Kauf Eigentumswohnung") {
+  if (dealType === 'Kauf Eigentumswohnung') {
     corpoFattura = `entsprechend dem rechtskräftigen Kaufvertrag vom ${moment(
       dataRogito
     ).format(
-      "DD.MM.YYYY"
+      'DD.MM.YYYY'
     )} sowie unserer Vereinbarung berechnen wir Ihnen für unsere Nachweis- bzw. Vermittlungstätigkeit zum Verkauf des Objekts ${
       oggetto.via
     } ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${
       oggetto.cap
     } ${oggetto.citta}:`;
-  } else if (dealType === "APH") {
+  } else if (dealType === 'APH') {
     corpoFattura = `Objekt: ${oggetto.via} ${oggetto.numeroCivico}, ${
       oggetto.cap
     } ${oggetto.citta}
 Wohneinheit: ${oggetto.numeroAppartamento}
 Makler: Angelo Arboscello
 Kunde: ${acquirente.nome} ${acquirente.cognome}
-Notartermin: ${moment(dataRogito).format("DD.MM.YYYY")}`;
+Notartermin: ${moment(dataRogito).format('DD.MM.YYYY')}`;
   } else {
-    corpoFattura = `hier ist die Rechnung für Ihre gewählten Leistungen.
-
-
-${note}`;
+    corpoFattura = `hier ist die Rechnung für Ihre gewählten Leistungen.`;
   }
 
-  doc.addImage(imgLogo, "JPEG", 130, 10, 55, 12);
+  doc.addImage(imgLogo, 'JPEG', 130, 10, 55, 12);
 
   //linea rossa
   doc.setDrawColor(145, 0, 0);
@@ -78,8 +85,8 @@ ${note}`;
   //Header
   doc.setFontSize(11);
   doc.setTextColor(255, 255, 255);
-  doc.setFont("times");
-  doc.setFontType("bold");
+  doc.setFont('times');
+  doc.setFontType('bold');
   doc.text(
     `${firma.name} ${firma.name2 && ` - ${firma.name2}`} - ${firma.adresse}, ${
       firma.plz
@@ -94,21 +101,21 @@ ${note}`;
   doc.line(146, 70, 199, 70);
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(10);
-  doc.setFontType("normal");
-  doc.text("Ihr Ansprechpartner", 149, 40);
-  doc.setFontType("bold");
+  doc.setFontType('normal');
+  doc.text('Ihr Ansprechpartner', 149, 40);
+  doc.setFontType('bold');
   doc.text(`${utente.name}`, 149, 44);
-  doc.setFontType("normal");
+  doc.setFontType('normal');
   doc.text(`${utente.email}`, 149, 48);
   doc.text(`Tel. ${utente.telefon}`, 149, 52);
   doc.text(`${firma.website}`, 149, 56);
-  doc.setFontType("bold");
-  doc.text("Öffnungszeiten", 149, 68);
-  doc.setFontType("normal");
+  doc.setFontType('bold');
+  doc.text('Öffnungszeiten', 149, 68);
+  doc.setFontType('normal');
   doc.text(`${firma.open}`, 149, 72);
-  doc.setFontType("bold");
+  doc.setFontType('bold');
   doc.text(`${firma.name2 ? firma.name2 : firma.name}`, 149, 84);
-  doc.setFontType("normal");
+  doc.setFontType('normal');
   doc.text(`${firma.motto}`, 149, 88);
   doc.text(`${firma.adresse}`, 149, 92);
   doc.text(`${firma.plz} ${firma.stadt}`, 149, 96);
@@ -116,7 +123,7 @@ ${note}`;
 
   //Intestazione fattura
   doc.setFontSize(12);
-  doc.setFontType("normal");
+  doc.setFontType('normal');
   doc.text(cliente.ditta, 15, 38);
   doc.text(acqNome, 15, 43);
   doc.text(acqInd, 15, 48);
@@ -128,10 +135,10 @@ ${note}`;
   cliente2 && doc.text(`${cliente2.nazione}`, 15, 80);
 
   //Dati fattura
-  doc.setFontType("bold");
+  doc.setFontType('bold');
   doc.text(`Rechnung Nr. ${numeroFattura}`, 15, 96);
-  doc.setFontType("normal");
-  doc.text(`Berlin, ${moment(dataFattura).format("DD.MM.YYYY")}`, 100, 96);
+  doc.setFontType('normal');
+  doc.text(`Berlin, ${moment(dataFattura).format('DD.MM.YYYY')}`, 100, 96);
 
   // Linea per piegare
   doc.setDrawColor(0, 0, 0);
@@ -139,39 +146,76 @@ ${note}`;
   doc.line(5, 90, 10, 90);
 
   //Corpo
-  dealType !== "APH" &&
-    doc.text(`${formulaSaluto} ${cliente.cognome},`, 15, 110);
-  cliente2 && doc.text(`${formulaSaluto2} ${cliente2.cognome},`, 15, 115);
+  dealType !== 'APH' &&
+    doc.text(
+      `${formulaSaluto}${cliente.titolo && ` ${cliente.cognome}`},`,
+      15,
+      110
+    );
+  cliente2 &&
+    doc.text(
+      `${formulaSaluto2}${cliente2.titolo && ` ${cliente2.cognome}`},`,
+      15,
+      115
+    );
   const lines = doc.setFontSize(12).splitTextToSize(corpoFattura, 150);
-  dealType !== "APH"
+  dealType !== 'APH'
     ? doc.text(15, 125 + 12 / 110, lines)
     : doc.text(corpoFattura, 15, 110);
 
-  if (dealType !== "") {
+  if (dealType !== '') {
     //Cifre
     doc.text(
       `${provvPercentuale} Provision aus Kaufpreis ${numeral(
         prezzoDiVendita / 100
-      ).format("0,0[.]00 $")}`,
+      ).format('0,0[.]00 $')}`,
       15,
       150
     );
-    doc.text(numeral(amount / 100).format("0,0[.]00 $"), 120, 150);
-    doc.text("+19% MWSt.", 15, 155);
-    doc.text(numeral((amount / 10000) * 19).format("0,0[.]00 $"), 120, 155);
+    doc.text(numeral(amount / 100).format('0,0[.]00 $'), 120, 150);
+    doc.text('+19% MWSt.', 15, 155);
+    doc.text(numeral((amount / 10000) * 19).format('0,0[.]00 $'), 120, 155);
     doc.setDrawColor(0, 0, 0);
     doc.setLineWidth(0.2);
     doc.line(15, 157, 146, 157);
-    doc.text("Rechnungsbetrag inkl. 19% MWSt.", 15, 162);
-    doc.setFontType("bold");
-    doc.text(numeral((amount / 100) * 1.19).format("0,0[.]00 $"), 120, 162);
+    doc.text('Rechnungsbetrag inkl. 19% MWSt.', 15, 162);
+    doc.setFontType('bold');
+    doc.text(numeral((amount / 100) * 1.19).format('0,0[.]00 $'), 120, 162);
 
     //Zeitraum
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     doc.text(
       `Leistungszeitraum: vom ${moment(dataPrenotazione).format(
-        "DD.MM.YYYY"
-      )} bis ${moment(dataRogito).format("DD.MM.YYYY")}`,
+        'DD.MM.YYYY'
+      )} bis ${moment(dataRogito).format('DD.MM.YYYY')}`,
+      15,
+      175
+    );
+  } else {
+    //Cifre
+    doc.text(`${descrizioneProdotto}`, 15, 150);
+    doc.text(numeral(importoNetto / 100).format('0,0[.]00 $'), 120, 150);
+    doc.text('+19% MWSt.', 15, 155);
+    doc.text(
+      numeral((importoNetto / 10000) * 19).format('0,0[.]00 $'),
+      120,
+      155
+    );
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.2);
+    doc.line(15, 157, 146, 157);
+    doc.text('Rechnungsbetrag inkl. 19% MWSt.', 15, 162);
+    doc.setFontType('bold');
+    doc.text(
+      numeral((importoNetto / 100) * 1.19).format('0,0[.]00 $'),
+      120,
+      162
+    );
+
+    //Zeitraum
+    doc.setFontType('normal');
+    doc.text(
+      `Leistungszeitraum: ${moment(dataPrestazione).format('DD.MM.YYYY')}`,
       15,
       175
     );
@@ -179,11 +223,11 @@ ${note}`;
 
   //Coordinate pagamento
   doc.text(
-    "Bitte zahlen Sie den Rechnungsbetrag innerhalb von 8 Tagen ohne Abzug per",
+    'Bitte zahlen Sie den Rechnungsbetrag innerhalb von 7 Tagen ohne Abzug per',
     15,
     185
   );
-  doc.text("Überweisung auf unser Konto:", 15, 190);
+  doc.text('Überweisung auf unser Konto:', 15, 190);
   doc.text(`Kontoinhaber: ${firma.kontoInhaber}`, 15, 200);
   doc.text(`Bankinstitut: ${firma.bank}`, 15, 205);
   doc.text(`IBAN: ${firma.iban}`, 15, 210);
@@ -192,11 +236,11 @@ ${note}`;
 
   //Saluti finali
   doc.text(
-    "Sollten Sie noch Fragen haben, so stehen wir auch weiterhin gerne zur Verfügung.",
+    'Sollten Sie noch Fragen haben, so stehen wir auch weiterhin gerne zur Verfügung.',
     15,
     230
   );
-  doc.text("Mit freundlichen Grüßen", 15, 240);
+  doc.text('Mit freundlichen Grüßen', 15, 240);
   doc.text(`${utente.name}`, 15, 245);
 
   //Footer
@@ -208,7 +252,7 @@ ${note}`;
   // doc.line(160, 267, 160, 282);
   doc.setFontSize(10);
   doc.setTextColor(143, 143, 143);
-  doc.text("Geschäftsführer:", 16, 270);
+  doc.text('Geschäftsführer:', 16, 270);
   let position = 274;
 
   ceo.forEach(eachCeo => {
@@ -223,9 +267,9 @@ ${note}`;
   doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
 
   //Logo IVD
-  doc.addImage(ivdLogo, "JPEG", 161, 270, 30, 12);
+  doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);
 
   doc.save(
-    `Rechnung ${numeroFattura.replace("/", "-")} ${cliente.cognome}.pdf`
+    `Rechnung ${numeroFattura.replace('/', '-')} ${cliente.cognome}.pdf`
   );
 };
