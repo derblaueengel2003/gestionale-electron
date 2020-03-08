@@ -37,7 +37,6 @@ import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import StampaDatenblatt from '../components/moduli/StampaDatenblatt';
 import MAAForm from '../components/moduli/MAAForm';
 import VWBForm from '../components/moduli/VWBForm';
 import VollmachtForm from '../components/moduli/VollmachtForm';
@@ -96,7 +95,6 @@ const AppRouter = ({ uid }) => {
 
           <PrivateRoute path='/report' component={ReportPage} />
 
-          <PrivateRoute path='/datenblatt/:id' component={StampaDatenblatt} />
           <PrivateRoute path='/moduli' component={ModuliPage} />
           <PrivateRoute path='/makleralleinauftrag' component={MAAForm} />
           <PrivateRoute

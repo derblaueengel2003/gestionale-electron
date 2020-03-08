@@ -1,35 +1,36 @@
-import React from "react";
-import { connect } from "react-redux";
-import moment from "moment";
-import { SingleDatePicker } from "react-dates";
-import Select from "react-virtualized-select";
-import createFilterOptions from "react-select-fast-filter-options";
-import "react-select/dist/react-select.css";
-import "react-virtualized/styles.css";
-import "react-virtualized-select/styles.css";
-import { widerrufsBelehrung } from "./WiderrufsBelehrung";
+import React from 'react';
+import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
+import moment from 'moment';
+import { SingleDatePicker } from 'react-dates';
+import Select from 'react-virtualized-select';
+import createFilterOptions from 'react-select-fast-filter-options';
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
+import { widerrufsBelehrung } from './WiderrufsBelehrung';
 
 export class VWBForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      venditoreId: "",
-      venditoreId2: "",
-      oggettoId: "",
+      venditoreId: '',
+      venditoreId2: '',
+      oggettoId: '',
       createdAt: null,
       calendarFocused: false
     };
   }
   onVenditoreIdChange = e => {
-    const venditoreId = e ? e.value : "";
+    const venditoreId = e ? e.value : '';
     this.setState(() => ({ venditoreId }));
   };
   onVenditoreIdChange2 = e => {
-    const venditoreId2 = e ? e.value : "";
+    const venditoreId2 = e ? e.value : '';
     this.setState(() => ({ venditoreId2 }));
   };
   onOggettoChange = e => {
-    const oggetto = e ? e.value : "";
+    const oggetto = e ? e.value : '';
     this.setState(() => ({ oggettoId: oggetto }));
   };
 
@@ -55,12 +56,15 @@ export class VWBForm extends React.Component {
     const oggetto = this.props.oggetti.find(
       oggetto => oggetto.id === this.state.oggettoId
     );
-    const createdAt = moment(this.state.createdAt).format("DD.MM.YYYY");
+    const createdAt = moment(this.state.createdAt).format('DD.MM.YYYY');
 
     if (!this.state.oggettoId || !this.state.venditoreId) {
-      this.setState(() => ({ error: "Verkäufer und Objekt bitte eingeben." }));
+      const error = this.props.t('Inserisci venditore e oggetto');
+      this.setState(() => ({
+        error
+      }));
     } else {
-      this.setState(() => ({ error: "" }));
+      this.setState(() => ({ error: '' }));
       widerrufsBelehrung(
         venditore,
         venditore2,
@@ -72,6 +76,7 @@ export class VWBForm extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
@@ -87,39 +92,39 @@ export class VWBForm extends React.Component {
     return (
       <div>
         <div>
-          <div className="container">
-            <h1>Verbraucher Widerrufsbelehrung</h1>
+          <div className='container'>
+            <h1>{t('Informativa sul diritto di recesso')}</h1>
           </div>
         </div>
-        <form className="form container" onSubmit={this.onSubmit}>
+        <form className='form container' onSubmit={this.onSubmit}>
           {this.state.error && (
-            <p className="form__error">{this.state.error}</p>
+            <p className='form__error'>{this.state.error}</p>
           )}
-          Kunde:
+          {t('Cliente')}:
           <Select
-            name="venditore"
+            name='venditore'
             value={this.state.venditoreId}
             options={options}
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange}
           />
-          2. Kunde:
+          2. {t('Cliente')}:
           <Select
-            name="venditore2"
+            name='venditore2'
             value={this.state.venditoreId2}
             options={options}
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange2}
           />
-          Objekt:
+          {t('Oggetto')}:
           <Select
-            name="oggettoId"
+            name='oggettoId'
             value={this.state.oggettoId}
             options={oggettiOptions}
             onChange={this.onOggettoChange}
           />
-          Auftragsdatum:
-          <div className="input-group__item">
+          {t('Data del contratto')}:
+          <div className='input-group__item'>
             <SingleDatePicker
               date={this.state.createdAt}
               onDateChange={this.onDateChange}
@@ -131,8 +136,8 @@ export class VWBForm extends React.Component {
             />
           </div>
           <div>
-            <button className="btn-floating right">
-              <i className="material-icons">picture_as_pdf</i>
+            <button className='btn-floating right'>
+              <i className='material-icons'>picture_as_pdf</i>
             </button>
           </div>
         </form>
@@ -147,4 +152,4 @@ const mapStateToProps = state => ({
   firma: state.firma[0]
 });
 
-export default connect(mapStateToProps)(VWBForm);
+export default connect(mapStateToProps)(withTranslation()(VWBForm));

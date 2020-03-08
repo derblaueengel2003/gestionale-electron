@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import M from 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import { Link } from 'react-router-dom';
@@ -17,6 +18,7 @@ export class Sidebar extends Component {
     let instance = M.Sidenav.getInstance(this.Sidenav);
   }
   render() {
+    const { t } = this.props;
     return (
       <div>
         <ul
@@ -28,27 +30,27 @@ export class Sidebar extends Component {
         >
           <li>
             <Link className='sidenav-close' to='/dashboard'>
-              Deals
+              {t('Vendite')}
             </Link>
           </li>
           <li>
             <Link className='sidenav-close' to='/leads'>
-              Anfragen
+              {t('Richieste')}
             </Link>
           </li>
           <li>
             <Link className='sidenav-close' to='/moduli'>
-              Formulare
+              {t('Moduli')}
             </Link>
           </li>
           <li>
             <Link className='sidenav-close' to='/oggetti'>
-              Objekte
+              {t('Oggetti')}
             </Link>
           </li>
           <li>
             <Link className='sidenav-close' to='/customer'>
-              Kontakte
+              {t('Contatti')}
             </Link>
           </li>
           {this.props.utente.role === 'Admin' && (
@@ -61,14 +63,14 @@ export class Sidebar extends Component {
           {this.props.utente.role === 'Admin' && (
             <li>
               <Link className='sidenav-close' to='/users'>
-                Benutzer
+                {t('Utenti')}
               </Link>
             </li>
           )}
           {this.props.utente.role === 'Admin' && (
             <li>
               <Link className='sidenav-close' to='/fatture'>
-                Rechnungen
+                {t('Fatture')}
               </Link>
             </li>
           )}
@@ -94,4 +96,4 @@ const mapStateToProps = state => {
     )
   };
 };
-export default connect(mapStateToProps)(Sidebar);
+export default connect(mapStateToProps)(withTranslation()(Sidebar));

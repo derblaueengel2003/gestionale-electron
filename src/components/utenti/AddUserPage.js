@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import UserForm from './UserForm';
 import { startAddUser } from '../../actions/utenti';
 
@@ -13,7 +14,7 @@ export class AddUserPage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Benutzer hinzufügen</h1>
+            <h1>{this.props.t('Aggiungi utente')}</h1>
           </div>
         </div>
         <div className='container'>
@@ -28,4 +29,7 @@ const mapDispatchToProps = dispatch => ({
   startAddUser: user => dispatch(startAddUser(user))
 });
 
-export default connect(undefined, mapDispatchToProps)(AddUserPage);
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(withTranslation()(AddUserPage));

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
@@ -42,7 +43,9 @@ export class VollmachtForm extends React.Component {
     );
 
     if (!this.state.oggettoId || !this.state.venditoreId) {
-      this.setState(() => ({ error: 'Käufer und Objekt bitte eingeben.' }));
+      this.setState(() => ({
+        error: this.props.t('Inserisci acquirente e oggetto')
+      }));
     } else {
       this.setState(() => ({ error: '' }));
       delegaDocumenti(cliente, cliente2, oggetto, this.props.firma);
@@ -50,6 +53,7 @@ export class VollmachtForm extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
@@ -66,14 +70,14 @@ export class VollmachtForm extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Vollmacht Unterlagen</h1>
+            <h1>{t('Delega per richiesta documenti')}</h1>
           </div>
         </div>
         <form className='form container' onSubmit={this.onSubmit}>
           {this.state.error && (
             <p className='form__error'>{this.state.error}</p>
           )}
-          Kunde:
+          {t('Cliente')}:
           <Select
             name='venditore'
             value={this.state.venditoreId}
@@ -81,7 +85,7 @@ export class VollmachtForm extends React.Component {
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange}
           />
-          2. Kunde:
+          2. {t('Cliente')}:
           <Select
             name='venditore2'
             value={this.state.venditoreId2}
@@ -89,7 +93,7 @@ export class VollmachtForm extends React.Component {
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange2}
           />
-          Objekt:
+          {t('Oggetto')}:
           <Select
             name='oggettoId'
             value={this.state.oggettoId}
@@ -113,4 +117,4 @@ const mapStateToProps = state => ({
   firma: state.firma[0]
 });
 
-export default connect(mapStateToProps)(VollmachtForm);
+export default connect(mapStateToProps)(withTranslation()(VollmachtForm));

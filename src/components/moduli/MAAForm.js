@@ -1,40 +1,41 @@
-import React from "react";
-import { connect } from "react-redux";
-import { DateRangePicker } from "react-dates";
-import Select from "react-virtualized-select";
-import createFilterOptions from "react-select-fast-filter-options";
-import "react-select/dist/react-select.css";
-import "react-virtualized/styles.css";
-import "react-virtualized-select/styles.css";
-import { maklerAlleinauftrag } from "./MaklerAlleinauftrag";
+import React from 'react';
+import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
+import { DateRangePicker } from 'react-dates';
+import Select from 'react-virtualized-select';
+import createFilterOptions from 'react-select-fast-filter-options';
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
+import { maklerAlleinauftrag } from './MaklerAlleinauftrag';
 
 export class MAAForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      venditoreId: "",
-      venditoreId2: "",
-      oggettoId: "",
-      prezzoDiVendita: "",
-      prezzoDiVendita2: "",
+      venditoreId: '',
+      venditoreId2: '',
+      oggettoId: '',
+      prezzoDiVendita: '',
+      prezzoDiVendita2: '',
       startDate: null,
       endDate: null,
       calendarFocused: null,
-      maklerProvision: "",
-      error: "",
-      sonstige: ""
+      maklerProvision: '',
+      error: '',
+      sonstige: ''
     };
   }
   onVenditoreIdChange = e => {
-    const venditoreId = e ? e.value : "";
+    const venditoreId = e ? e.value : '';
     this.setState(() => ({ venditoreId }));
   };
   onVenditoreIdChange2 = e => {
-    const venditoreId2 = e ? e.value : "";
+    const venditoreId2 = e ? e.value : '';
     this.setState(() => ({ venditoreId2 }));
   };
   onOggettoChange = e => {
-    const oggetto = e ? e.value : "";
+    const oggetto = e ? e.value : '';
     this.setState(() => ({ oggettoId: oggetto }));
   };
   onPrezzoDiVenditaChange = e => {
@@ -82,9 +83,11 @@ export class MAAForm extends React.Component {
     const sonstige = this.state.sonstige;
 
     if (!this.state.oggettoId || !this.state.venditoreId) {
-      this.setState(() => ({ error: "Verkäufer und Objekt bitte eingeben." }));
+      this.setState(() => ({
+        error: [this.props.t('Inserisci venditore e oggetto')]
+      }));
     } else {
-      this.setState(() => ({ error: "" }));
+      this.setState(() => ({ error: '' }));
       maklerAlleinauftrag(
         venditore,
         venditore2,
@@ -101,6 +104,7 @@ export class MAAForm extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
@@ -116,39 +120,39 @@ export class MAAForm extends React.Component {
     return (
       <div>
         <div>
-          <div className="container">
-            <h1>Makler-Allein-Auftrag</h1>
+          <div className='container'>
+            <h1>{t('Mandato alla vendita')}</h1>
           </div>
         </div>
-        <form className="form container" onSubmit={this.onSubmit}>
+        <form className='form container' onSubmit={this.onSubmit}>
           {this.state.error && (
-            <p className="form__error">{this.state.error}</p>
+            <p className='form__error'>{this.state.error}</p>
           )}
-          Verkäufer:
+          {t('Venditore')}:
           <Select
-            name="venditore"
+            name='venditore'
             value={this.state.venditoreId}
             options={options}
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange}
           />
-          2. Verkäufer:
+          2. {t('Venditore')}:
           <Select
-            name="venditore2"
+            name='venditore2'
             value={this.state.venditoreId2}
             options={options}
             filterOptions={filterOptions}
             onChange={this.onVenditoreIdChange2}
           />
-          Objekt:
+          {t('Oggetto')}:
           <Select
-            name="oggettoId"
+            name='oggettoId'
             value={this.state.oggettoId}
             options={oggettiOptions}
             onChange={this.onOggettoChange}
           />
-          Exklusivperiode:
-          <div className="input-group__item">
+          {t('Periodo di esclusiva')}:
+          <div className='input-group__item'>
             <DateRangePicker
               startDate={this.state.startDate}
               endDate={this.state.endDate}
@@ -158,46 +162,43 @@ export class MAAForm extends React.Component {
               showClearDates={true}
               numberOfMonths={1}
               isOutsideRange={() => false}
-              displayFormat={"DD.MM.YYYY"}
+              displayFormat={'DD.MM.YYYY'}
             />
           </div>
-          Verkaufspreis min.:
+          {t('Prezzo di vendita')} min.:
           <input
             className={`text-input`}
-            type="text"
-            placeholder="Prezzo di vendita"
+            type='text'
             value={this.state.prezzoDiVendita}
             onChange={this.onPrezzoDiVenditaChange}
           />
-          Verkaufspreis max.:
+          {t('Prezzo di vendita')} max.:
           <input
             className={`text-input`}
-            type="text"
-            placeholder="Prezzo di vendita"
+            type='text'
             value={this.state.prezzoDiVendita2}
             onChange={this.onPrezzoDiVenditaChange2}
           />
-          Makler Provision %:
+          {t('Provvigione')} %:
           <input
-            name="maklerProvision"
+            name='maklerProvision'
             className={`text-input`}
-            type="text"
-            placeholder="Solo numeri"
+            type='text'
+            placeholder={t('Solo numeri')}
             value={this.state.maklerProvision}
             onChange={this.changeHandler}
           />
-          Sonstige Vereinbarungen:
+          {t('Altri accordi')}:
           <input
-            name="sonstige"
+            name='sonstige'
             className={`text-input`}
-            type="text"
-            placeholder="Sonstige Vereinbarungen"
+            type='text'
             value={this.state.sonstige}
             onChange={this.changeHandler}
           />
           <div>
-            <button className="btn-floating right">
-              <i className="material-icons">picture_as_pdf</i>
+            <button className='btn-floating right'>
+              <i className='material-icons'>picture_as_pdf</i>
             </button>
           </div>
         </form>
@@ -212,4 +213,4 @@ const mapStateToProps = state => ({
   firma: state.firma[0]
 });
 
-export default connect(mapStateToProps)(MAAForm);
+export default connect(mapStateToProps)(withTranslation()(MAAForm));

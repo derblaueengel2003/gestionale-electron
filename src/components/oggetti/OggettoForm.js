@@ -1,13 +1,14 @@
-import React from "react";
-import { connect } from "react-redux";
-import Select from "react-virtualized-select";
-import createFilterOptions from "react-select-fast-filter-options";
-import "react-select/dist/react-select.css";
-import "react-virtualized/styles.css";
-import "react-virtualized-select/styles.css";
-import firebase from "firebase";
-import FileUploader from "react-firebase-file-uploader";
-import M from "materialize-css";
+import React from 'react';
+import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
+import Select from 'react-virtualized-select';
+import createFilterOptions from 'react-select-fast-filter-options';
+import 'react-select/dist/react-select.css';
+import 'react-virtualized/styles.css';
+import 'react-virtualized-select/styles.css';
+import firebase from 'firebase';
+import FileUploader from 'react-firebase-file-uploader';
+import M from 'materialize-css';
 
 export class OggettoForm extends React.Component {
   componentDidMount() {
@@ -17,67 +18,67 @@ export class OggettoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      via: props.oggetto ? props.oggetto.via : "",
-      numeroCivico: props.oggetto ? props.oggetto.numeroCivico : "",
-      cap: props.oggetto ? props.oggetto.cap : "",
-      citta: props.oggetto ? props.oggetto.citta : "",
-      quartiere: props.oggetto ? props.oggetto.quartiere : "",
-      nazione: props.oggetto ? props.oggetto.nazione : "",
-      numeroAppartamento: props.oggetto ? props.oggetto.numeroAppartamento : "",
-      rifId: props.oggetto ? props.oggetto.rifId : "",
-      amtsgericht: props.oggetto ? props.oggetto.amtsgericht : "",
-      grundbuch: props.oggetto ? props.oggetto.grundbuch : "",
-      grundbuchBlatt: props.oggetto ? props.oggetto.grundbuchBlatt : "",
-      m2: props.oggetto ? props.oggetto.m2 : "",
-      piano: props.oggetto ? props.oggetto.piano : "",
-      mobilio: props.oggetto ? props.oggetto.mobilio : "",
-      stato: props.oggetto ? props.oggetto.stato : "",
+      via: props.oggetto ? props.oggetto.via : '',
+      numeroCivico: props.oggetto ? props.oggetto.numeroCivico : '',
+      cap: props.oggetto ? props.oggetto.cap : '',
+      citta: props.oggetto ? props.oggetto.citta : '',
+      quartiere: props.oggetto ? props.oggetto.quartiere : '',
+      nazione: props.oggetto ? props.oggetto.nazione : '',
+      numeroAppartamento: props.oggetto ? props.oggetto.numeroAppartamento : '',
+      rifId: props.oggetto ? props.oggetto.rifId : '',
+      amtsgericht: props.oggetto ? props.oggetto.amtsgericht : '',
+      grundbuch: props.oggetto ? props.oggetto.grundbuch : '',
+      grundbuchBlatt: props.oggetto ? props.oggetto.grundbuchBlatt : '',
+      m2: props.oggetto ? props.oggetto.m2 : '',
+      piano: props.oggetto ? props.oggetto.piano : '',
+      mobilio: props.oggetto ? props.oggetto.mobilio : '',
+      stato: props.oggetto ? props.oggetto.stato : '',
       wohngeld: props.oggetto
-        ? (props.oggetto.wohngeld / 100).toString().replace(/\./, ",")
-        : "0",
+        ? (props.oggetto.wohngeld / 100).toString().replace(/\./, ',')
+        : '0',
       kaufpreis: props.oggetto
-        ? (props.oggetto.kaufpreis / 100).toString().replace(/\./, ",")
-        : "0",
+        ? (props.oggetto.kaufpreis / 100).toString().replace(/\./, ',')
+        : '0',
       affittoNetto: props.oggetto
-        ? (props.oggetto.affittoNetto / 100).toString().replace(/\./, ",")
-        : "0",
-      verwalter: props.oggetto ? props.oggetto.verwalter : "",
-      ruecklage: props.oggetto ? props.oggetto.ruecklage : "",
-      proprietarioId: props.oggetto ? props.oggetto.proprietarioId : "",
-      proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : "",
-      inquilinoId: props.oggetto ? props.oggetto.inquilinoId : "",
+        ? (props.oggetto.affittoNetto / 100).toString().replace(/\./, ',')
+        : '0',
+      verwalter: props.oggetto ? props.oggetto.verwalter : '',
+      ruecklage: props.oggetto ? props.oggetto.ruecklage : '',
+      proprietarioId: props.oggetto ? props.oggetto.proprietarioId : '',
+      proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : '',
+      inquilinoId: props.oggetto ? props.oggetto.inquilinoId : '',
       visible: props.oggetto ? props.oggetto.visible : true,
-      filenames: props.oggetto ? props.oggetto.filenames : "",
-      downloadURLs: props.oggetto ? props.oggetto.downloadURLs : "",
-      filenamesCover: props.oggetto ? props.oggetto.filenamesCover : "",
-      downloadURLsCover: props.oggetto ? props.oggetto.downloadURLsCover : "",
-      filenamesGrundriss: props.oggetto ? props.oggetto.filenamesGrundriss : "",
+      filenames: props.oggetto ? props.oggetto.filenames : '',
+      downloadURLs: props.oggetto ? props.oggetto.downloadURLs : '',
+      filenamesCover: props.oggetto ? props.oggetto.filenamesCover : '',
+      downloadURLsCover: props.oggetto ? props.oggetto.downloadURLsCover : '',
+      filenamesGrundriss: props.oggetto ? props.oggetto.filenamesGrundriss : '',
       downloadURLsGrundriss: props.oggetto
         ? props.oggetto.downloadURLsGrundriss
-        : "",
+        : '',
       isUploading: false,
       uploadProgress: 0,
-      titolo: props.oggetto ? props.oggetto.titolo : "",
-      descrizione: props.oggetto ? props.oggetto.descrizione : "",
-      titoloDe: props.oggetto ? props.oggetto.titoloDe : "",
-      descrizioneDe: props.oggetto ? props.oggetto.descrizioneDe : "",
-      titoloEn: props.oggetto ? props.oggetto.titoloEn : "",
-      descrizioneEn: props.oggetto ? props.oggetto.descrizioneEn : "",
-      vani: props.oggetto ? props.oggetto.vani : "",
-      bagni: props.oggetto ? props.oggetto.bagni : "",
+      titolo: props.oggetto ? props.oggetto.titolo : '',
+      descrizione: props.oggetto ? props.oggetto.descrizione : '',
+      titoloDe: props.oggetto ? props.oggetto.titoloDe : '',
+      descrizioneDe: props.oggetto ? props.oggetto.descrizioneDe : '',
+      titoloEn: props.oggetto ? props.oggetto.titoloEn : '',
+      descrizioneEn: props.oggetto ? props.oggetto.descrizioneEn : '',
+      vani: props.oggetto ? props.oggetto.vani : '',
+      bagni: props.oggetto ? props.oggetto.bagni : '',
       balcone: props.oggetto ? props.oggetto.balcone : false,
       ascensore: props.oggetto ? props.oggetto.ascensore : false,
       giardino: props.oggetto ? props.oggetto.giardino : false,
-      condizioni: props.oggetto ? props.oggetto.condizioni : "",
+      condizioni: props.oggetto ? props.oggetto.condizioni : '',
       cantina: props.oggetto ? props.oggetto.cantina : false,
-      baujahr: props.oggetto ? props.oggetto.baujahr : "",
-      energieAusweisTyp: props.oggetto ? props.oggetto.energieAusweisTyp : "",
-      energieAusweisBis: props.oggetto ? props.oggetto.energieAusweisBis : "",
-      heizungsart: props.oggetto ? props.oggetto.heizungsart : "",
-      energieTraeger: props.oggetto ? props.oggetto.energieTraeger : "",
-      energieBedarf: props.oggetto ? props.oggetto.energieBedarf : "",
-      provvigione: props.oggetto ? props.oggetto.provvigione : "",
-      note: props.oggetto ? props.oggetto.note : "",
+      baujahr: props.oggetto ? props.oggetto.baujahr : '',
+      energieAusweisTyp: props.oggetto ? props.oggetto.energieAusweisTyp : '',
+      energieAusweisBis: props.oggetto ? props.oggetto.energieAusweisBis : '',
+      heizungsart: props.oggetto ? props.oggetto.heizungsart : '',
+      energieTraeger: props.oggetto ? props.oggetto.energieTraeger : '',
+      energieBedarf: props.oggetto ? props.oggetto.energieBedarf : '',
+      provvigione: props.oggetto ? props.oggetto.provvigione : '',
+      note: props.oggetto ? props.oggetto.note : '',
       venduto: props.oggetto ? props.oggetto.venduto : false
     };
   }
@@ -89,25 +90,25 @@ export class OggettoForm extends React.Component {
   onMoneyChange = e => {
     const name = e.target.name;
     let value = e.target.value;
-    value ? value : (value = "0");
+    value ? value : (value = '0');
     if (!value || value.match(/^\d{1,}(,\d{0,2})?$/)) {
       this.setState({ [name]: value });
     }
   };
   onVerwalterChange = e => {
-    const verwalter = e ? e.value : "";
+    const verwalter = e ? e.value : '';
     this.setState(() => ({ verwalter }));
   };
   onProprietarioChange = e => {
-    const proprietarioId = e ? e.value : "";
+    const proprietarioId = e ? e.value : '';
     this.setState(() => ({ proprietarioId }));
   };
   onProprietarioChange2 = e => {
-    const proprietarioId2 = e ? e.value : "";
+    const proprietarioId2 = e ? e.value : '';
     this.setState(() => ({ proprietarioId2 }));
   };
   onInquilinoChange = e => {
-    const inquilinoId = e ? e.value : "";
+    const inquilinoId = e ? e.value : '';
     this.setState(() => ({ inquilinoId }));
   };
   handleUploadStart = () =>
@@ -132,7 +133,7 @@ export class OggettoForm extends React.Component {
   handleUploadSuccess = async filename => {
     const downloadURL = await firebase
       .storage()
-      .ref("images")
+      .ref('images')
       .child(filename)
       .getDownloadURL();
 
@@ -146,7 +147,7 @@ export class OggettoForm extends React.Component {
   handleUploadSuccessCover = async filename => {
     const downloadURL = await firebase
       .storage()
-      .ref("cover")
+      .ref('cover')
       .child(filename)
       .getDownloadURL();
 
@@ -161,7 +162,7 @@ export class OggettoForm extends React.Component {
   handleUploadSuccessGrundriss = async filename => {
     const downloadURL = await firebase
       .storage()
-      .ref("grundriss")
+      .ref('grundriss')
       .child(filename)
       .getDownloadURL();
 
@@ -181,19 +182,19 @@ export class OggettoForm extends React.Component {
     const removedFilename = filenames.splice(picture, 1);
     const [filename] = removedFilename;
     if (downloadURLs === undefined || downloadURLs.length < 1) {
-      downloadURLs = "";
+      downloadURLs = '';
     }
     if (filenames === undefined || filenames.length < 1) {
-      filenames = "";
+      filenames = '';
     }
     this.setState(() => ({ downloadURLs, filenames }));
     firebase
       .storage()
-      .ref("images")
+      .ref('images')
       .child(filename)
       .delete()
       .then(() => {
-        console.log("File deleted");
+        console.log('File deleted');
       })
       .catch(err => {
         console.log(err);
@@ -207,19 +208,19 @@ export class OggettoForm extends React.Component {
     const removedFilename = filenamesCover.splice(picture, 1);
     const [filenameCover] = removedFilename;
     if (downloadURLsCover === undefined || downloadURLsCover.length < 1) {
-      downloadURLsCover = "";
+      downloadURLsCover = '';
     }
     if (filenamesCover === undefined || filenamesCover.length < 1) {
-      filenamesCover = "";
+      filenamesCover = '';
     }
     this.setState(() => ({ downloadURLsCover, filenamesCover }));
     firebase
       .storage()
-      .ref("cover")
+      .ref('cover')
       .child(filenameCover)
       .delete()
       .then(() => {
-        console.log("File deleted");
+        console.log('File deleted');
       })
       .catch(err => {
         console.log(err);
@@ -237,19 +238,19 @@ export class OggettoForm extends React.Component {
       downloadURLsGrundriss === undefined ||
       downloadURLsGrundriss.length < 1
     ) {
-      downloadURLsGrundriss = "";
+      downloadURLsGrundriss = '';
     }
     if (filenamesGrundriss === undefined || filenamesGrundriss.length < 1) {
-      filenamesGrundriss = "";
+      filenamesGrundriss = '';
     }
     this.setState(() => ({ downloadURLsGrundriss, filenamesGrundriss }));
     firebase
       .storage()
-      .ref("grundriss")
+      .ref('grundriss')
       .child(filenameGrundriss)
       .delete()
       .then(() => {
-        console.log("File deleted");
+        console.log('File deleted');
       })
       .catch(err => {
         console.log(err);
@@ -259,18 +260,18 @@ export class OggettoForm extends React.Component {
   onSubmit = e => {
     e.preventDefault();
     const wohngeld =
-      parseFloat(this.state.wohngeld.replace(/,/, "."), 10) * 100;
+      parseFloat(this.state.wohngeld.replace(/,/, '.'), 10) * 100;
     const affittoNetto =
-      parseFloat(this.state.affittoNetto.replace(/,/, "."), 10) * 100;
+      parseFloat(this.state.affittoNetto.replace(/,/, '.'), 10) * 100;
     const kaufpreis =
-      parseFloat(this.state.kaufpreis.replace(/,/, "."), 10) * 100;
+      parseFloat(this.state.kaufpreis.replace(/,/, '.'), 10) * 100;
 
     if (!this.state.via || !this.state.rifId) {
       this.setState(() => ({
-        error: "Bitte Adresse und Ref.Id eingeben"
+        error: this.props.t('Inserisci indirizzo e Rif ID')
       }));
     } else {
-      this.setState(() => ({ error: "" }));
+      this.setState(() => ({ error: '' }));
       this.props.onSubmit({
         via: this.state.via,
         numeroCivico: this.state.numeroCivico,
@@ -328,296 +329,283 @@ export class OggettoForm extends React.Component {
     }
   };
   render() {
+    const { t } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
-        `- Firma ${cliente.ditta}`}`
+        `- ${t('Ditta')} ${cliente.ditta}`}`
     }));
     const filterOptions = createFilterOptions({ options });
 
     return (
-      <form className="form" onSubmit={this.onSubmit}>
-        {this.state.error && <p className="form__error">{this.state.error}</p>}
+      <form className='form' onSubmit={this.onSubmit}>
+        {this.state.error && <p className='form__error'>{this.state.error}</p>}
         <div>
-          <button className="btn-floating blue right btn-floating-margin">
-            <i className="material-icons">save</i>
+          <button className='btn-floating blue right btn-floating-margin'>
+            <i className='material-icons'>save</i>
           </button>
         </div>
-        <div className="row">
-          <div className="col s12">
+        <div className='row'>
+          <div className='col s12'>
             <ul
               ref={Tabs => {
                 this.Tabs = Tabs;
               }}
-              className="tabs"
+              className='tabs'
             >
-              <li className="tab col s4">
-                <a className="active" href="#test1">
-                  Eckdaten
+              <li className='tab col s4'>
+                <a className='active' href='#test1'>
+                  {t('Dati principali')}
                 </a>
               </li>
-              <li className="tab col s4">
-                <a href="#test2">Exposé</a>
+              <li className='tab col s4'>
+                <a href='#test2'>Exposé</a>
               </li>
-              <li className="tab col s4">
-                <a href="#test3">Bilder</a>
+              <li className='tab col s4'>
+                <a href='#test3'>{t('Immagini')}</a>
               </li>
             </ul>
           </div>
-          <div id="test1" className="col s12">
-            <div label="Eckdaten">
-              <div className="input-field">
-                Adresse:
+          <div id='test1' className='col s12'>
+            <div label='Eckdaten'>
+              <div className='input-field'>
+                {t('Indirizzo')}:
                 <input
-                  name="via"
+                  name='via'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Adresse"
+                  type='text'
                   autoFocus
                   value={this.state.via}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
+              <div className='input-field'>
                 Nr.:
                 <input
-                  name="numeroCivico"
+                  name='numeroCivico'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Straßennummer"
+                  type='text'
                   value={this.state.numeroCivico}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                PLZ:
+              <div className='input-field'>
+                {t('CAP')}:
                 <input
-                  name="cap"
+                  name='cap'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Postleitzahl"
+                  type='text'
                   value={this.state.cap}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Bezirk:
+              <div className='input-field'>
+                {t('Quartiere')}:
                 <input
-                  name="quartiere"
+                  name='quartiere'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Bezirk"
+                  type='text'
                   value={this.state.quartiere}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Stadt:
+              <div className='input-field'>
+                {t('Città')}:
                 <input
-                  name="citta"
+                  name='citta'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Stadt"
+                  type='text'
                   value={this.state.citta}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Staat:
+              <div className='input-field'>
+                {t('Nazione')}:
                 <input
-                  name="nazione"
+                  name='nazione'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Staat"
+                  type='text'
                   value={this.state.nazione}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Wohnungsnummer:
+              <div className='input-field'>
+                {t('Numero appartamento')}:
                 <input
-                  name="numeroAppartamento"
+                  name='numeroAppartamento'
                   className={`input-field`}
-                  type="text"
-                  placeholder="WE Nummer"
+                  type='text'
                   value={this.state.numeroAppartamento}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Ref. Id:
+              <div className='input-field'>
+                {t('Rif')}. ID:
                 <input
-                  name="rifId"
+                  name='rifId'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Ref. Id"
+                  type='text'
                   value={this.state.rifId}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Amtsgericht:
+              <div className='input-field'>
+                {t('Pretura (Amtsgericht)')}:
                 <input
-                  name="amtsgericht"
+                  name='amtsgericht'
                   className={`input-field`}
-                  type="text"
-                  placeholder="amtsgericht"
+                  type='text'
                   value={this.state.amtsgericht}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Grundbuch:
+              <div className='input-field'>
+                {t('Libro Fondiario (Grundbuch)')}:
                 <input
-                  name="grundbuch"
+                  name='grundbuch'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Grundbuch von"
+                  type='text'
                   value={this.state.grundbuch}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                GB Blatt Nr.:
+              <div className='input-field'>
+                {t('Foglio')} Nr.:
                 <input
-                  name="grundbuchBlatt"
+                  name='grundbuchBlatt'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Blatt Nr."
+                  type='text'
                   value={this.state.grundbuchBlatt}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
+              <div className='input-field'>
                 M2:
                 <input
-                  name="m2"
+                  name='m2'
                   className={`input-field`}
-                  type="text"
-                  placeholder="m2"
+                  type='text'
                   value={this.state.m2}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Etage:
+              <div className='input-field'>
+                {t('Piano')}:
                 <input
-                  name="piano"
+                  name='piano'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Etage"
+                  type='text'
                   value={this.state.piano}
                   onChange={this.changeHandler}
                 />
               </div>
-              Möbel:
+              {t('Mobili')}:
               <textarea
-                name="mobilio"
+                name='mobilio'
                 className={`textarea`}
-                placeholder="Möbel und Wert"
+                placeholder={t('Mobili e valore')}
                 value={this.state.mobilio}
                 onChange={this.changeHandler}
               />
-              <div className="input-field">
-                Bezug:
+              <div className='input-field'>
+                {t('Stato abitativo')}:
                 <select
-                  name="stato"
+                  name='stato'
                   value={this.state.stato}
                   onChange={this.changeHandler}
                 >
-                  <option value=""></option>
-                  <option value="leerstehend">Leerstehend</option>
-                  <option value="vermietet">Vermietet</option>
+                  <option value=''></option>
+                  <option value='leerstehend'>
+                    {t('Non affittato, libero')}
+                  </option>
+                  <option value='vermietet'>{t('Affittato')}</option>
                 </select>
               </div>
-              <div className="input-field">
-                Wohngeld:
+              <div className='input-field'>
+                {t('Quota condominiale')}:
                 <input
-                  name="wohngeld"
+                  name='wohngeld'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Wohngeld"
+                  type='text'
                   value={this.state.wohngeld}
                   onChange={this.onMoneyChange}
                 />
               </div>
-              <div className="input-field">
-                Instandhaltungs-Rücklage:
+              <div className='input-field'>
+                {t('Fondo di accantonamento per manutenzione')}:
                 <input
-                  name="ruecklage"
+                  name='ruecklage'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Gesamt oder anteilig?"
+                  type='text'
+                  placeholder='Gesamt oder anteilig?'
                   value={this.state.ruecklage}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Kaltmiete:
+              <div className='input-field'>
+                {t('Affitto netto')}:
                 <input
-                  name="affittoNetto"
+                  name='affittoNetto'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Kaltmiete"
+                  type='text'
                   value={this.state.affittoNetto}
                   onChange={this.onMoneyChange}
                 />
               </div>
-              <div className="input-field">
-                Kaufpreis:
+              <div className='input-field'>
+                {t('Prezzo di vendita')}:
                 <input
-                  name="kaufpreis"
+                  name='kaufpreis'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Kaufpreis"
+                  type='text'
                   value={this.state.kaufpreis}
                   onChange={this.onMoneyChange}
                 />
               </div>
-              Hausverwaltung:
-              <div className="section">
+              {t('Amministratore di condominio')}:
+              <div className='section'>
                 <Select
-                  name="verwalter"
+                  name='verwalter'
                   value={this.state.verwalter}
                   options={options}
                   filterOptions={filterOptions}
                   onChange={this.onVerwalterChange}
                 />
               </div>
-              Eigentümer:
-              <div className="section">
+              {t('Proprietario')}:
+              <div className='section'>
                 <Select
-                  name="proprietarioId"
+                  name='proprietarioId'
                   value={this.state.proprietarioId}
                   options={options}
                   filterOptions={filterOptions}
                   onChange={this.onProprietarioChange}
                 />
               </div>
-              2. Eigentümer:
-              <div className="section">
+              2. {t('Proprietario')}:
+              <div className='section'>
                 <Select
-                  name="proprietarioId2"
+                  name='proprietarioId2'
                   value={this.state.proprietarioId2}
                   options={options}
                   filterOptions={filterOptions}
                   onChange={this.onProprietarioChange2}
                 />
               </div>
-              Mieter:
-              <div className="section">
+              {t('Inquilino')}:
+              <div className='section'>
                 <Select
-                  name="inquilinoId"
+                  name='inquilinoId'
                   value={this.state.inquilinoId}
                   options={options}
                   filterOptions={filterOptions}
                   onChange={this.onInquilinoChange}
                 />
                 <label>
-                  <div className="input-field"></div>
+                  <div className='input-field'></div>
                   <input
-                    type="checkbox"
-                    name="venduto"
+                    type='checkbox'
+                    name='venduto'
                     checked={this.state.venduto}
                     onChange={() => {
                       this.setState(() => ({
@@ -625,22 +613,22 @@ export class OggettoForm extends React.Component {
                       }));
                     }}
                   />
-                  <span>Verkauft</span>
+                  <span>{t('Venduto')}</span>
                 </label>
               </div>
               <textarea
-                name="note"
+                name='note'
                 className={`textarea text-input`}
-                placeholder="Note"
+                placeholder='Note'
                 value={this.state.note}
                 onChange={this.changeHandler}
               ></textarea>
-              {this.props.utente.role === "Admin" ? (
+              {this.props.utente.role === 'Admin' ? (
                 <label>
-                  <div className="input-field"></div>
+                  <div className='input-field'></div>
                   <input
-                    type="checkbox"
-                    name="visible"
+                    type='checkbox'
+                    name='visible'
                     checked={this.state.visible}
                     onChange={() => {
                       this.setState(() => ({
@@ -648,188 +636,196 @@ export class OggettoForm extends React.Component {
                       }));
                     }}
                   />
-                  <span>Visible</span>
+                  <span>{t('Visibile')}</span>
                 </label>
               ) : (
-                ""
+                ''
               )}
             </div>
           </div>
-          <div id="test2" className="col s12">
-            <div label="Exposé">
+          <div id='test2' className='col s12'>
+            <div label='Exposé'>
               {/* Exposé */}
-              <div className="input-field">
-                Überschrift italienisch:
+              <div className='input-field'>
+                {t('Titolo principale')} {t('italiano')}:
                 <input
-                  name="titolo"
+                  name='titolo'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Titolo in italiano"
+                  type='text'
+                  placeholder='Titolo in italiano'
                   value={this.state.titolo}
                   onChange={this.changeHandler}
                 />
               </div>
-              Beschreibung italienisch:
+              {t('Descrizione')} {t('italiano')}:
               <textarea
-                name="descrizione"
+                name='descrizione'
                 className={`textarea`}
-                placeholder="Descrizione in italiano"
+                placeholder='Descrizione in italiano'
                 value={this.state.descrizione}
                 onChange={this.changeHandler}
               />
-              <div className="input-field">
-                Überschrift deutsch:
+              <div className='input-field'>
+                {t('Titolo principale')} {t('tedesco')}:
                 <input
-                  name="titoloDe"
+                  name='titoloDe'
                   className={`input-field`}
-                  type="text"
-                  placeholder="Überschrift des Exposés"
+                  type='text'
+                  placeholder='Überschrift des Exposés'
                   value={this.state.titoloDe}
                   onChange={this.changeHandler}
                 />
               </div>
-              Beschreibung deutsch:
+              {t('Descrizione')} {t('tedesco')}:
               <textarea
-                name="descrizioneDe"
+                name='descrizioneDe'
                 className={`textarea`}
-                placeholder="Beschreibung"
+                placeholder='Beschreibung'
                 value={this.state.descrizioneDe}
                 onChange={this.changeHandler}
               />
-              <div className="input-field">
-                Überschrift englisch:
+              <div className='input-field'>
+                {t('Titolo principale')} {t('inglese')}:
                 <input
-                  name="titoloEn"
+                  name='titoloEn'
                   className={`input-field`}
-                  type="text"
-                  placeholder="English title"
+                  type='text'
+                  placeholder='English title'
                   value={this.state.titoloEn}
                   onChange={this.changeHandler}
                 />
               </div>
-              Beschreibung englisch:
+              {t('Descrizione')} {t('inglese')}:
               <textarea
-                name="descrizioneEn"
+                name='descrizioneEn'
                 className={`textarea`}
-                placeholder="English description"
+                placeholder='English description'
                 value={this.state.descrizioneEn}
                 onChange={this.changeHandler}
               />
-              <div className="input-field">
-                Zimmer:
+              <div className='input-field'>
+                {t('Vani')}:
                 <input
-                  name="vani"
+                  name='vani'
                   className={`input-field`}
-                  type="text"
+                  type='text'
                   value={this.state.vani}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Badezimmer:
+              <div className='input-field'>
+                {t('Bagni')}:
                 <input
-                  name="bagni"
+                  name='bagni'
                   className={`input-field`}
-                  type="text"
+                  type='text'
                   value={this.state.bagni}
                   onChange={this.changeHandler}
                 />
               </div>
-              Zustand:
+              {t('Condizioni immobile')}:
               <select
-                name="condizioni"
-                className="select select__form"
+                name='condizioni'
+                className='select select__form'
                 value={this.state.condizioni}
                 onChange={this.changeHandler}
               >
-                <option value=""></option>
-                <option value="neu">Neuwertig</option>
-                <option value="gut">Gut</option>
-                <option value="renovierungsbedürftig">
-                  Renovierungsbedürftig
+                <option value=''></option>
+                <option value='neu'>{t('Come nuovo')}</option>
+                <option value='gut'>{t('Buone condizioni')}</option>
+                <option value='renovierungsbedürftig'>
+                  {t('Da ristrutturare')}
                 </option>
               </select>
-              <div className="input-field">
-                Baujahr:
+              <div className='input-field'>
+                {t('Anno di costruzione')}:
                 <input
-                  name="baujahr"
+                  name='baujahr'
                   className={`input-field`}
-                  type="text"
+                  type='text'
                   value={this.state.baujahr}
                   onChange={this.changeHandler}
                 />
               </div>
-              Energieausweis-Typ:
+              {t('Certificato energetico - tipologia')}:
               <select
-                name="energieAusweisTyp"
-                className="select select__form"
+                name='energieAusweisTyp'
+                className='select select__form'
                 value={this.state.energieAusweisTyp}
                 onChange={this.changeHandler}
               >
-                <option value=""></option>
-                <option value="Verbrauchsausweis">Verbrauchsausweis</option>
-                <option value="Bedarfsausweis">Bedarfsausweis</option>
+                <option value=''></option>
+                <option value='Verbrauchsausweis'>
+                  {t('Basato sul consumo')}
+                </option>
+                <option value='Bedarfsausweis'>
+                  {t('Basato sul fabbisogno')}
+                </option>
               </select>
-              <div className="input-field">
-                Energieausweis gültig bis:
+              <div className='input-field'>
+                {t('Certificato energetico - valido fino al')}:
                 <input
-                  name="energieAusweisBis"
+                  name='energieAusweisBis'
                   className={`input-field`}
-                  type="text"
+                  type='text'
                   value={this.state.energieAusweisBis}
                   onChange={this.changeHandler}
                 />
               </div>
-              Heizungsart:
+              {t('Tipologia riscaldamento')}:
               <select
-                name="heizungsart"
-                className="select select__form"
+                name='heizungsart'
+                className='select select__form'
                 value={this.state.heizungsart}
                 onChange={this.changeHandler}
               >
-                <option value=""></option>
-                <option value="Zentralheizung">Zentralheizung</option>
-                <option value="Etagenheizung">Etagenheizung</option>
+                <option value=''></option>
+                <option value='Zentralheizung'>
+                  {t('Riscaldamento centralizzato')}
+                </option>
+                <option value='Etagenheizung'>
+                  {t('Riscaldamento autonomo')}
+                </option>
               </select>
-              Energieträger:
+              {t('Fonte energetica')}:
               <select
-                name="energieTraeger"
-                className="select select__form"
+                name='energieTraeger'
+                className='select select__form'
                 value={this.state.energieTraeger}
                 onChange={this.changeHandler}
               >
-                <option value=""></option>
-                <option value="Erdgas">Erdgas</option>
-                <option value="Öl">Öl</option>
-                <option value="Fernwärme">Fernwärme</option>
+                <option value=''></option>
+                <option value='Erdgas'>{t('Gas')}</option>
+                <option value='Öl'>{t('Olio combustibile')}</option>
+                <option value='Fernwärme'>{t('Teleriscaldamento')}</option>
               </select>
-              <div className="input-field">
-                Endenergiebedarf in kWh/(m2*a):
+              <div className='input-field'>
+                {t('Consumo energetico in')} kWh/(m2*a):
                 <input
-                  name="energieBedarf"
-                  className="input-field"
-                  type="text"
+                  name='energieBedarf'
+                  className='input-field'
+                  type='text'
                   value={this.state.energieBedarf}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div className="input-field">
-                Käuferprovision:
+              <div className='input-field'>
+                {t('Provvigione')}:
                 <input
-                  name="provvigione"
-                  className="input-field"
-                  type="text"
-                  placeholder="inklusive MWSt."
+                  name='provvigione'
+                  className='input-field'
+                  type='text'
+                  placeholder={t('IVA inclusa')}
                   value={this.state.provvigione}
                   onChange={this.changeHandler}
                 />
               </div>
               <div>
                 <label>
-                  <div className="input-field">
+                  <div className='input-field'>
                     <input
-                      type="checkbox"
-                      name="balcone"
+                      type='checkbox'
+                      name='balcone'
                       checked={this.state.balcone}
                       onChange={() => {
                         this.setState(() => ({
@@ -837,16 +833,16 @@ export class OggettoForm extends React.Component {
                         }));
                       }}
                     />
-                    <span>Balkon</span>
+                    <span>{t('Balcone')}</span>
                   </div>
                 </label>
               </div>
               <div>
                 <label>
-                  <div className="input-field">
+                  <div className='input-field'>
                     <input
-                      type="checkbox"
-                      name="ascensore"
+                      type='checkbox'
+                      name='ascensore'
                       checked={this.state.ascensore}
                       onChange={() => {
                         this.setState(() => ({
@@ -854,16 +850,16 @@ export class OggettoForm extends React.Component {
                         }));
                       }}
                     />
-                    <span>Aufzug</span>
+                    <span>{t('Ascensore')}</span>
                   </div>
                 </label>
               </div>
               <div>
                 <label>
-                  <div className="input-field">
+                  <div className='input-field'>
                     <input
-                      type="checkbox"
-                      name="giardino"
+                      type='checkbox'
+                      name='giardino'
                       checked={this.state.giardino}
                       onChange={() => {
                         this.setState(() => ({
@@ -871,16 +867,16 @@ export class OggettoForm extends React.Component {
                         }));
                       }}
                     />
-                    <span>Garten</span>
+                    <span>{t('Giardino')}</span>
                   </div>
                 </label>
               </div>
               <div>
                 <label>
-                  <div className="input-field">
+                  <div className='input-field'>
                     <input
-                      type="checkbox"
-                      name="cantina"
+                      type='checkbox'
+                      name='cantina'
                       checked={this.state.cantina}
                       onChange={() => {
                         this.setState(() => ({
@@ -888,27 +884,27 @@ export class OggettoForm extends React.Component {
                         }));
                       }}
                     />
-                    <span>Keller</span>
+                    <span>{t('Cantina')}</span>
                   </div>
                 </label>
               </div>
             </div>
           </div>
-          <div id="test3" className="col s12">
-            <ul className="collection">
+          <div id='test3' className='col s12'>
+            <ul className='collection'>
               {/* Cover */}
-              <li className="collection-item">
-                Cover auswählen
-                <label className="secondary-content">
-                  {" "}
-                  <i className="material-icons">add_photo_alternate</i>
+              <li className='collection-item'>
+                {t('Scegli immagine di copertina')}
+                <label className='secondary-content'>
+                  {' '}
+                  <i className='material-icons'>add_photo_alternate</i>
                   <FileUploader
                     hidden
-                    accept="image/*"
-                    name="image-uploader-multiple"
+                    accept='image/*'
+                    name='image-uploader-multiple'
                     // randomizeFilename
                     filename={() => `${this.state.rifId}-Cover}`}
-                    storageRef={firebase.storage().ref("cover")}
+                    storageRef={firebase.storage().ref('cover')}
                     onUploadStart={this.handleUploadStart}
                     onUploadError={this.handleUploadError}
                     onUploadSuccess={this.handleUploadSuccessCover}
@@ -921,10 +917,10 @@ export class OggettoForm extends React.Component {
                     this.state.downloadURLsCover.map((downloadURLCover, i) => {
                       return (
                         <span key={i}>
-                          <img className="foto" src={downloadURLCover} />
+                          <img className='foto' src={downloadURLCover} />
                           <img
-                            src="/images/trash.jpg"
-                            className="cancella"
+                            src='/images/trash.jpg'
+                            className='cancella'
                             onClick={() => this.handleRemovePictureCover(i)}
                           />
                         </span>
@@ -933,22 +929,22 @@ export class OggettoForm extends React.Component {
                 </div>
               </li>
               {/* Bilder */}
-              <li className="collection-item">
-                Bilder auswählen
-                <label className="secondary-content">
-                  <i className="material-icons">add_photo_alternate</i>
+              <li className='collection-item'>
+                {t('Scegli immagini')}
+                <label className='secondary-content'>
+                  <i className='material-icons'>add_photo_alternate</i>
 
                   <FileUploader
                     hidden
-                    accept="image/*"
-                    name="image-uploader-multiple"
+                    accept='image/*'
+                    name='image-uploader-multiple'
                     // randomizeFilename
                     filename={() =>
                       `${this.state.rifId}-${Math.floor(
                         Math.random() * 100000
                       ).toString()}`
                     }
-                    storageRef={firebase.storage().ref("images")}
+                    storageRef={firebase.storage().ref('images')}
                     onUploadStart={this.handleUploadStart}
                     onUploadError={this.handleUploadError}
                     onUploadSuccess={this.handleUploadSuccess}
@@ -961,10 +957,10 @@ export class OggettoForm extends React.Component {
                     this.state.downloadURLs.map((downloadURL, i) => {
                       return (
                         <span key={i}>
-                          <img className="foto" src={downloadURL} />
+                          <img className='foto' src={downloadURL} />
                           <img
-                            src="/images/trash.jpg"
-                            className="cancella"
+                            src='/images/trash.jpg'
+                            className='cancella'
                             onClick={() => this.handleRemovePicture(i)}
                           />
                         </span>
@@ -973,22 +969,22 @@ export class OggettoForm extends React.Component {
                 </div>
               </li>
               {/* Grundriss */}
-              <li className="collection-item">
-                Grundriss auswählen
-                <label className="secondary-content">
-                  <i className="material-icons">add_photo_alternate</i>
+              <li className='collection-item'>
+                {t('Scegli planimetria')}
+                <label className='secondary-content'>
+                  <i className='material-icons'>add_photo_alternate</i>
 
                   <FileUploader
                     hidden
-                    accept="image/*"
-                    name="image-uploader-multiple"
+                    accept='image/*'
+                    name='image-uploader-multiple'
                     // randomizeFilename
                     filename={() =>
                       `${this.state.rifId}-Grundriss-${Math.floor(
                         Math.random() * 100
                       ).toString()}`
                     }
-                    storageRef={firebase.storage().ref("grundriss")}
+                    storageRef={firebase.storage().ref('grundriss')}
                     onUploadStart={this.handleUploadStart}
                     onUploadError={this.handleUploadError}
                     onUploadSuccess={this.handleUploadSuccessGrundriss}
@@ -1002,10 +998,10 @@ export class OggettoForm extends React.Component {
                       (downloadURLGrundriss, i) => {
                         return (
                           <span key={i}>
-                            <img className="foto" src={downloadURLGrundriss} />
+                            <img className='foto' src={downloadURLGrundriss} />
                             <img
-                              src="/images/trash.jpg"
-                              className="cancella"
+                              src='/images/trash.jpg'
+                              className='cancella'
                               onClick={() =>
                                 this.handleRemovePictureGrundriss(i)
                               }
@@ -1021,8 +1017,8 @@ export class OggettoForm extends React.Component {
         </div>
 
         <div>
-          <button className="btn-floating blue right">
-            <i className="material-icons">save</i>
+          <button className='btn-floating blue right'>
+            <i className='material-icons'>save</i>
           </button>
         </div>
       </form>
@@ -1035,4 +1031,4 @@ const mapStateToProps = state => ({
   utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
-export default connect(mapStateToProps)(OggettoForm);
+export default connect(mapStateToProps)(withTranslation()(OggettoForm));

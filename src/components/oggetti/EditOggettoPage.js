@@ -1,7 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
-import OggettoForm from "./OggettoForm";
-import { startEditOggetto, startRemoveOggetto } from "../../actions/oggetti";
+import React from 'react';
+import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
+import OggettoForm from './OggettoForm';
+import { startEditOggetto, startRemoveOggetto } from '../../actions/oggetti';
 
 export class EditOggettoPage extends React.Component {
   onSubmit = oggetto => {
@@ -27,29 +28,43 @@ export class EditOggettoPage extends React.Component {
 
   onRemove = () => {
     if (
-      window.confirm("Bestätigen Sie die Löschung? Das ist unwiderruflich!")
+      window.confirm(
+        this.props.t(
+          'Confermi la cancellazione? Questa operazione è irreversibile!'
+        )
+      )
     ) {
       if (this.onValidate()) {
         this.props.startRemoveOggetto({ id: this.props.oggetto.id });
-        this.props.history.push("/oggetti");
+        this.props.history.push('/oggetti');
       } else {
         alert(
-          "Nicht löschbar: Das Objekt wird in Deals oder Kontakte verwendet."
+          this.props.t(
+            "Impossibile cancellare l'oggetto perché è presente nelle vendite o nei contatti"
+          )
         );
       }
     }
   };
   onDisable = () => {
-    if (window.confirm("Bestätigen Sie die Löschung?")) {
+    if (
+      window.confirm(
+        this.props.t(
+          'Confermi la cancellazione? Questa operazione è irreversibile!'
+        )
+      )
+    ) {
       if (this.onValidate()) {
         this.props.startEditOggetto(this.props.oggetto.id, {
           ...this.props.oggetto,
           visible: false
         });
-        this.props.history.push("/oggetti");
+        this.props.history.push('/oggetti');
       } else {
         alert(
-          "Nicht löschbar: Das Objekt wird in Deals oder Kontakte verwendet."
+          this.props.t(
+            "Impossibile cancellare l'oggetto perché è presente nelle vendite o nei contatti"
+          )
         );
       }
     }
@@ -58,20 +73,20 @@ export class EditOggettoPage extends React.Component {
     return (
       <div>
         <div>
-          <div className="container">
-            <h1>Objekt ändern</h1>
+          <div className='container'>
+            <h1>{this.props.t('Modifica oggetto')}</h1>
           </div>
         </div>
-        <div className="container">
+        <div className='container'>
           <button
-            className="btn-floating red right btn-floating-margin"
+            className='btn-floating red right btn-floating-margin'
             onClick={
-              this.props.utente.role === "Admin"
+              this.props.utente.role === 'Admin'
                 ? this.onRemove
                 : this.onDisable
             }
           >
-            <i className="material-icons">remove</i>
+            <i className='material-icons'>remove</i>
           </button>
           <OggettoForm oggetto={this.props.oggetto} onSubmit={this.onSubmit} />
         </div>
@@ -93,4 +108,7 @@ const mapDispatchToProps = dispatch => ({
   startRemoveOggetto: data => dispatch(startRemoveOggetto(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditOggettoPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(EditOggettoPage));

@@ -1,10 +1,11 @@
 import React from 'react';
+import { withTranslation } from 'react-i18next';
 import Select from 'react-virtualized-select';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 
-export default class UserForm extends React.Component {
+class UserForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +30,7 @@ export default class UserForm extends React.Component {
     e.preventDefault();
 
     if (!this.state.name || !this.state.role) {
-      this.setState(() => ({ error: 'Name und Rolle eingeben.' }));
+      this.setState(() => ({ error: this.props.t('Inserisci Nome e Ruolo') }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
@@ -43,6 +44,7 @@ export default class UserForm extends React.Component {
     }
   };
   render() {
+    const { t } = this.props;
     const roleTypeOptions = ['Admin', 'Mitarbeiter', 'Teamleiter'].map(
       roleType => ({
         value: roleType,
@@ -57,16 +59,15 @@ export default class UserForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        Vor- und Nachname:
+        {t('Nome e cognome')}:
         <input
           className={`text-input`}
           name='name'
           type='text'
-          placeholder='Vor- und Nachname'
           value={this.state.name}
           onChange={this.changeHandler}
         />
-        Rolle:
+        {t('Ruolo')}:
         <Select
           name={'role'}
           value={this.state.role}
@@ -82,7 +83,7 @@ export default class UserForm extends React.Component {
           value={this.state.firebaseAuthId}
           onChange={this.changeHandler}
         />
-        E-Mail:
+        {t('Email')}:
         <input
           className={`text-input`}
           name='email'
@@ -90,7 +91,7 @@ export default class UserForm extends React.Component {
           value={this.state.email}
           onChange={this.changeHandler}
         />
-        Telefon:
+        {t('Telefono')}:
         <input
           className={`text-input`}
           name='telefon'
@@ -98,7 +99,7 @@ export default class UserForm extends React.Component {
           value={this.state.telefon}
           onChange={this.changeHandler}
         />
-        Berufbezeichnung:
+        {t('Qualifica')}:
         <input
           className={`text-input`}
           name='qualifica'
@@ -110,3 +111,5 @@ export default class UserForm extends React.Component {
     );
   }
 }
+
+export default withTranslation()(UserForm);

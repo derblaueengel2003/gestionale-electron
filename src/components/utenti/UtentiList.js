@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import UtentiListItem from './UtentiListItem';
+import { withTranslation } from 'react-i18next';
 import Card from '../Card';
 
 export const UtentiList = props => (
   <div>
     <div className='grey lighten-4'>
       <div className='container'>
-        <h1>Benutzer</h1>
+        <h1>{props.t('Utenti')}</h1>
       </div>
     </div>
     <div className='container'>
@@ -43,4 +43,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(UtentiList);
+export default connect(mapStateToProps)(withTranslation()(UtentiList));

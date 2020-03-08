@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 import UserForm from './UserForm';
 import { startEditUser, startRemoveUser } from '../../actions/utenti';
 
@@ -22,7 +22,7 @@ export class EditUtentePage extends React.Component {
       <div>
         <div>
           <div className='container'>
-            <h1>Benutzer ändern</h1>
+            <h1>{this.props.t('Modifica utente')}</h1>
           </div>
         </div>
         <div className='container'>
@@ -48,4 +48,7 @@ const mapDispatchToProps = dispatch => ({
   startRemoveUser: data => dispatch(startRemoveUser(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditUtentePage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(EditUtentePage));
