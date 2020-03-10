@@ -41,7 +41,7 @@ export const zahlungserinnerung = (
     }
   }
   const corpoFattura = `für die oben aufgeführte Rechnung konnten wir bis heute leider keine Zahlungseingang feststellen. 
-Sicherlich handelt es sitch um ein Versehen. Eine Kopie der Rechnung vom ${moment(
+Sicherlich handelt es sich um ein Versehen. Eine Kopie der Rechnung vom ${moment(
     dataFattura
   ).format('DD.MM.YYYY')} haben wir dem Schreiben beigelegt. \n
 Um Mahnungsgebühren zu vermeiden, überweisen Sie bitte den fälligen Beitrag von ${numeral(

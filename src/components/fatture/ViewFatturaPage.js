@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import numeral from 'numeral';
 import { fattura } from '../moduli/Fattura';
 import { mahnung } from '../moduli/Mahnung';
 import { mahnung2 } from '../moduli/Mahnung2';
@@ -61,6 +62,14 @@ export class ViewFatturePage extends React.Component {
                 {t('Numero fattura')}: {this.props.fattura.numeroFattura}
               </h5>
             )}
+            <h5>
+              {t('Importo netto')}:{' '}
+              {deal
+                ? numeral(deal.amount / 100).format('0,0[.]00 $')
+                : numeral(this.props.fattura.importoNetto / 100).format(
+                    '0,0[.]00 $'
+                  )}
+            </h5>
             {this.props.fattura.note}
             <div className='list-item__title'>
               {oggetto &&
