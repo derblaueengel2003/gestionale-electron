@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-
 import { Link } from 'react-router-dom';
 import { creaPrenotazione } from '../moduli/Provisionsbestaetigung';
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung';

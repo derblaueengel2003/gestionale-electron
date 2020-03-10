@@ -51,101 +51,6 @@ export class ViewFatturePage extends React.Component {
             >
               <i className='material-icons'>edit</i>
             </Link>
-            <button
-              className='btn-floating blue-grey right btn-floating-margin'
-              onClick={() => {
-                fattura(
-                  cliente,
-                  cliente2,
-                  this.props.fattura.numeroFattura,
-                  this.props.fattura.dataFattura,
-                  this.props.fattura.descrizioneProdotto,
-                  this.props.fattura.importoNetto,
-                  this.props.fattura.dataPrestazione,
-                  oggetto,
-                  deal && deal.prezzoDiVendita,
-                  deal && deal.dataRogito,
-                  deal && deal.amount,
-                  deal && deal.createdAt,
-                  deal && deal.dealType,
-                  acquirente,
-                  acquirente2,
-                  this.props.firma,
-                  this.props.utente,
-                  this.props.ceo
-                );
-              }}
-            >
-              <i className='material-icons'>print</i>
-            </button>
-            {this.props.fattura.dataZahlungserinnerung && (
-              <button
-                className='btn-floating yellow right btn-floating-margin'
-                onClick={() => {
-                  zahlungserinnerung(
-                    cliente,
-                    cliente2,
-                    this.props.fattura.numeroFattura,
-                    this.props.fattura.dataFattura,
-                    this.props.fattura.dataZahlungserinnerung,
-                    deal && deal.amount,
-                    this.props.firma,
-                    this.props.utente,
-                    this.props.ceo,
-                    this.props.fattura.importoNetto
-                  );
-                }}
-              >
-                <i className='material-icons'>print</i>
-              </button>
-            )}
-            {this.props.fattura.dataMahnung && (
-              <button
-                className='btn-floating red right btn-floating-margin'
-                onClick={() => {
-                  mahnung(
-                    cliente,
-                    cliente2,
-                    this.props.fattura.numeroFattura,
-                    this.props.fattura.dataFattura,
-                    this.props.fattura.dataZahlungserinnerung,
-                    this.props.fattura.dataMahnung,
-                    deal && deal.amount,
-                    this.props.fattura.mahngebuehren,
-                    this.props.firma,
-                    this.props.utente,
-                    this.props.ceo,
-                    this.props.fattura.importoNetto
-                  );
-                }}
-              >
-                <i className='material-icons'>print</i>
-              </button>
-            )}
-            {this.props.fattura.dataMahnung2 && (
-              <button
-                className='btn-floating black right'
-                onClick={() => {
-                  mahnung2(
-                    cliente,
-                    cliente2,
-                    this.props.fattura.numeroFattura,
-                    this.props.fattura.dataFattura,
-                    this.props.fattura.dataZahlungserinnerung,
-                    this.props.fattura.dataMahnung,
-                    this.props.fattura.dataMahnung2,
-                    deal && deal.amount,
-                    this.props.fattura.mahngebuehren2,
-                    this.props.firma,
-                    this.props.utente,
-                    this.props.ceo,
-                    this.props.fattura.importoNetto
-                  );
-                }}
-              >
-                <i className='material-icons'>print</i>
-              </button>
-            )}
           </div>
 
           <div className='section'>
@@ -212,6 +117,143 @@ export class ViewFatturePage extends React.Component {
             )}
           </div>
         </div>
+
+        <div className='section'>
+          <div className='grey lighten-4'>
+            <div className='container'>
+              <h1>{t('Crea documentazione')}</h1>
+            </div>
+          </div>
+          <div className='container'>
+            <ul className='collection'>
+              <li className='collection-item'>
+                <div>
+                  {' '}
+                  {t('Fattura')}
+                  <a href='#!' className='secondary-content'>
+                    <i
+                      className='material-icons'
+                      onClick={() => {
+                        fattura(
+                          cliente,
+                          cliente2,
+                          this.props.fattura.numeroFattura,
+                          this.props.fattura.dataFattura,
+                          this.props.fattura.descrizioneProdotto,
+                          this.props.fattura.importoNetto,
+                          this.props.fattura.dataPrestazione,
+                          oggetto,
+                          deal && deal.prezzoDiVendita,
+                          deal && deal.dataRogito,
+                          deal && deal.amount,
+                          deal && deal.createdAt,
+                          deal && deal.dealType,
+                          acquirente,
+                          acquirente2,
+                          this.props.firma,
+                          this.props.utente,
+                          this.props.ceo
+                        );
+                      }}
+                    >
+                      picture_as_pdf
+                    </i>
+                  </a>
+                </div>
+              </li>
+              {this.props.fattura.dataZahlungserinnerung && (
+                <li className='collection-item'>
+                  <div>
+                    {t('Sollecito')}
+                    <a href='#!' className='secondary-content'>
+                      <i
+                        className='material-icons'
+                        onClick={() => {
+                          zahlungserinnerung(
+                            cliente,
+                            cliente2,
+                            this.props.fattura.numeroFattura,
+                            this.props.fattura.dataFattura,
+                            this.props.fattura.dataZahlungserinnerung,
+                            deal && deal.amount,
+                            this.props.firma,
+                            this.props.utente,
+                            this.props.ceo,
+                            this.props.fattura.importoNetto
+                          );
+                        }}
+                      >
+                        picture_as_pdf
+                      </i>
+                    </a>
+                  </div>
+                </li>
+              )}
+              {this.props.fattura.dataMahnung && (
+                <li className='collection-item'>
+                  <div>
+                    {t('Sollecito con penale')}
+                    <a href='#!' className='secondary-content'>
+                      <i
+                        className='material-icons'
+                        onClick={() => {
+                          mahnung(
+                            cliente,
+                            cliente2,
+                            this.props.fattura.numeroFattura,
+                            this.props.fattura.dataFattura,
+                            this.props.fattura.dataZahlungserinnerung,
+                            this.props.fattura.dataMahnung,
+                            deal && deal.amount,
+                            this.props.fattura.mahngebuehren,
+                            this.props.firma,
+                            this.props.utente,
+                            this.props.ceo,
+                            this.props.fattura.importoNetto
+                          );
+                        }}
+                      >
+                        picture_as_pdf
+                      </i>
+                    </a>
+                  </div>
+                </li>
+              )}
+              {this.props.fattura.dataMahnung2 && (
+                <li className='collection-item'>
+                  <div>
+                    2. {t('Sollecito con penale')}
+                    <a href='#!' className='secondary-content'>
+                      <i
+                        className='material-icons'
+                        onClick={() => {
+                          mahnung2(
+                            cliente,
+                            cliente2,
+                            this.props.fattura.numeroFattura,
+                            this.props.fattura.dataFattura,
+                            this.props.fattura.dataZahlungserinnerung,
+                            this.props.fattura.dataMahnung,
+                            this.props.fattura.dataMahnung2,
+                            deal && deal.amount,
+                            this.props.fattura.mahngebuehren2,
+                            this.props.firma,
+                            this.props.utente,
+                            this.props.ceo,
+                            this.props.fattura.importoNetto
+                          );
+                        }}
+                      >
+                        picture_as_pdf
+                      </i>
+                    </a>
+                  </div>
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
+
         {/* passo deal come array perché è quello che si aspetta il componente */}
         {deal && <DealList clienteDeals={[deal]} />}
         {oggetto && <OggettiList oggetto={[oggetto]} />}
