@@ -19,15 +19,13 @@ export default (
         .includes(cliente.toLowerCase());
       const createdAtMoment = ilcliente.dataRegistrazione
         ? moment(ilcliente.dataRegistrazione)
-        : null;
-      const startDateMatch =
-        startDateClienti && createdAtMoment
-          ? startDateClienti.isSameOrBefore(createdAtMoment, 'day')
-          : true;
-      const endDateMatch =
-        endDateClienti && createdAtMoment
-          ? endDateClienti.isSameOrAfter(createdAtMoment, 'day')
-          : true;
+        : false;
+      const startDateMatch = startDateClienti
+        ? startDateClienti.isSameOrBefore(createdAtMoment, 'day')
+        : true;
+      const endDateMatch = endDateClienti
+        ? endDateClienti.isSameOrAfter(createdAtMoment, 'day')
+        : true;
       return (
         (nameMatch || cognomeMatch || dittaMatch) &&
         startDateMatch &&
