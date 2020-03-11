@@ -31,7 +31,10 @@ export const startAddCustomer = (customerData = {}) => {
       dataDiNascita = null,
       lingua = '',
       visible = true,
-      note = ''
+      note = '',
+      dataRegistrazione = null,
+      consensoDSGVO = false,
+      dataConsensoDSGVO = null
     } = customerData;
     const customer = {
       nome,
@@ -56,7 +59,10 @@ export const startAddCustomer = (customerData = {}) => {
       dataDiNascita,
       lingua,
       visible,
-      note
+      note,
+      dataRegistrazione,
+      consensoDSGVO,
+      dataConsensoDSGVO
     };
 
     return database

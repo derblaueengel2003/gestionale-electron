@@ -30,6 +30,15 @@ export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
                     linea1={cliente.email}
                     linea2={cliente.telefono1}
                     linea3={cliente.cellulare}
+                    linea4={
+                      cliente.consensoDSGVO
+                        ? `                      
+                          ${t(
+                            'Consenso al trattamento dei dati personali'
+                          )}:${' '}
+                          ${t('sì')}`
+                        : ''
+                    }
                     titoloDestra={
                       <div>
                         {cliente.email && (

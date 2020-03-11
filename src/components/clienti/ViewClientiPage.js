@@ -26,7 +26,8 @@ export class ViewClientiPage extends React.Component {
       note,
       telefono1,
       titolo,
-      www
+      www,
+      consensoDSGVO
     } = this.props.cliente;
     const { utente, t } = this.props;
 
@@ -122,6 +123,12 @@ export class ViewClientiPage extends React.Component {
             {note && (
               <p>
                 {t('Note')}: {note}
+              </p>
+            )}
+
+            {consensoDSGVO && (
+              <p>
+                {t('Consenso al trattamento dei dati personali')}: {t('sì')}
               </p>
             )}
           </div>

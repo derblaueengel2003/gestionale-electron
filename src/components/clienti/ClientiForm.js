@@ -41,7 +41,24 @@ export class CustomerForm extends React.Component {
       note: props.customer ? props.customer.note : '',
       visible: props.customer ? props.customer.visible : true,
       error: '',
-      www: props.customer ? props.customer.www || '' : ''
+      www: props.customer ? props.customer.www || '' : '',
+      dataRegistrazione: props.customer
+        ? props.customer.dataRegistrazione
+          ? moment(props.customer.dataRegistrazione)
+          : null
+        : null,
+      calendarDataRegistrazioneFocused: false,
+      consensoDSGVO: props.customer
+        ? props.customer.consensoDSGVO
+          ? props.customer.consensoDSGVO
+          : false
+        : false,
+      dataConsensoDSGVO: props.customer
+        ? props.customer.dataConsensoDSGVO
+          ? moment(props.customer.dataConsensoDSGVO)
+          : null
+        : null,
+      calendarDataConsensoDSGVOFocused: false
     };
   }
   changeHandler = e => {
@@ -86,6 +103,28 @@ export class CustomerForm extends React.Component {
     const consulenteVenditaId = e ? e.value : '';
     this.setState(() => ({ consulenteVenditaId }));
   };
+
+  onDataRegistrazioneChange = dataRegistrazione => {
+    if (dataRegistrazione) {
+      this.setState(() => ({ dataRegistrazione }));
+    } else {
+      this.setState(() => ({ dataRegistrazione: null }));
+    }
+  };
+  onFocusDataRegistrazioneChange = ({ focused }) => {
+    this.setState(() => ({ calendarDataRegistrazioneFocused: focused }));
+  };
+  onDataConsensoDSGVOChange = dataConsensoDSGVO => {
+    if (dataConsensoDSGVO) {
+      this.setState(() => ({ dataConsensoDSGVO }));
+    } else {
+      this.setState(() => ({ dataConsensoDSGVO: null }));
+    }
+  };
+  onFocusDataConsensoDSGVOChange = ({ focused }) => {
+    this.setState(() => ({ calendarDataConsensoDSGVOFocused: focused }));
+  };
+
   onSubmit = e => {
     e.preventDefault();
 
@@ -121,7 +160,14 @@ export class CustomerForm extends React.Component {
         bic: this.state.bic,
         visible: this.state.visible,
         www: this.state.www,
-        note: this.state.note
+        note: this.state.note,
+        dataRegistrazione: this.state.dataRegistrazione
+          ? this.state.dataRegistrazione.valueOf()
+          : null,
+        dataConsensoDSGVO: this.state.dataConsensoDSGVO
+          ? this.state.dataConsensoDSGVO.valueOf()
+          : null,
+        consensoDSGVO: this.state.consensoDSGVO
       });
     }
   };
@@ -147,6 +193,16 @@ export class CustomerForm extends React.Component {
             </Link>
           </div>
         )}
+        {t('Data registrazione dati del cliente')}:
+        <SingleDatePicker
+          date={this.state.dataRegistrazione}
+          onDateChange={this.onDataRegistrazioneChange}
+          focused={this.state.calendarDataRegistrazioneFocused}
+          onFocusChange={this.onFocusDataRegistrazioneChange}
+          numberOfMonths={1}
+          isOutsideRange={() => false}
+          showClearDate={true}
+        />
         {t('Consulente vendita')}:
         <Select
           name='consulentevendita'
@@ -367,6 +423,29 @@ export class CustomerForm extends React.Component {
           ''
         )}
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
+        <label>
+          <input
+            type='checkbox'
+            name='consensoDSGVO'
+            checked={this.state.consensoDSGVO}
+            onChange={() => {
+              this.setState(() => ({
+                consensoDSGVO: !this.state.consensoDSGVO
+              }));
+            }}
+          />
+          <span>{t('Consenso al trattamento dei dati personali')}</span>
+        </label>
+        {t('Data consenso')}:
+        <SingleDatePicker
+          date={this.state.dataConsensoDSGVO}
+          onDateChange={this.onDataConsensoDSGVOChange}
+          focused={this.state.calendarDataConsensoDSGVOFocused}
+          onFocusChange={this.onFocusDataConsensoDSGVOChange}
+          numberOfMonths={1}
+          isOutsideRange={() => false}
+          showClearDate={true}
+        />
         <div>
           <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>
