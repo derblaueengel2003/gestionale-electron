@@ -26,8 +26,7 @@ export const UtentiList = props => (
                 titoloDestra={`${utente.role}`}
                 visible={true}
                 link={`/useredit/${utente.id}`}
-                linea1={`${utente.email}`}
-                linea2={`${utente.telefon}`}
+                corpo={[utente.email, utente.telefon]}
               />
             );
           })}

@@ -40,6 +40,9 @@ export const FattureList = props => {
                   ? `- ${cliente2.nome} ${cliente2.cognome} ${cliente2.ditta}`
                   : ''
               }`;
+              const dataFattura = moment(fattura.dataFattura).format(
+                'DD MMMM, YYYY'
+              );
               return (
                 <Card
                   key={fattura.id}
@@ -57,8 +60,7 @@ export const FattureList = props => {
                         'list-item--paid'}`}
                     >{`${fattura.numeroFattura}`}</span>
                   }
-                  linea1={iClienti}
-                  linea2={moment(fattura.dataFattura).format('DD MMMM, YYYY')}
+                  corpo={[iClienti, dataFattura]}
                 />
               );
             })}

@@ -25,6 +25,9 @@ export const OggettiList = props => {
                 ) : (
                   ''
                 );
+                const prezzoDiVendita = `${props.t(
+                  'Prezzo di vendita'
+                )}: ${numeral(oggetto.kaufpreis / 100).format('0,0[.]00 $')}`;
                 return (
                   <Card
                     key={oggetto.id}
@@ -33,9 +36,7 @@ export const OggettiList = props => {
                     titoloDestra={`${props.t('Rif')}. ID ${oggetto.rifId}`}
                     visible={oggetto.visible}
                     link={`/oggettoview/${oggetto.id}`}
-                    linea1={`${props.t('Prezzo di vendita')}: ${numeral(
-                      oggetto.kaufpreis / 100
-                    ).format('0,0[.]00 $')}`}
+                    corpo={[prezzoDiVendita]}
                     verkauft={verkauft}
                   />
                 );

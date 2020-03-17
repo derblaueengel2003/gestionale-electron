@@ -21,24 +21,24 @@ export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
                 return a.visible < b.visible ? -1 : 1;
               })
               .map(cliente => {
+                const dsgvo = cliente.consensoDSGVO
+                  ? `${t(
+                      'Consenso al trattamento dei dati personali'
+                    )}:${' '}${t('sì')}`
+                  : '';
+
                 return (
                   <Card
                     key={cliente.id}
                     link={`/customerview/${cliente.id}`}
                     titolo={`${cliente.nome} ${cliente.cognome}`}
                     sottotitolo={cliente.ditta}
-                    linea1={cliente.email}
-                    linea2={cliente.telefono1}
-                    linea3={cliente.cellulare}
-                    linea4={
-                      cliente.consensoDSGVO
-                        ? `                      
-                          ${t(
-                            'Consenso al trattamento dei dati personali'
-                          )}:${' '}
-                          ${t('sì')}`
-                        : ''
-                    }
+                    corpo={[
+                      cliente.email,
+                      cliente.telefono1,
+                      cliente.cellulare,
+                      dsgvo
+                    ]}
                     titoloDestra={
                       <div>
                         {cliente.email && (

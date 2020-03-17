@@ -76,6 +76,12 @@ export const LeadsList = props => {
                   )}
                 </div>
               );
+              const consulente = consulenteVendita
+                ? consulenteVendita.name
+                : null;
+              const creatoIl = moment(lead.leadCreatedAt).format(
+                'DD MMMM, YYYY'
+              );
 
               return (
                 <Card
@@ -86,11 +92,7 @@ export const LeadsList = props => {
                   sottotitolo={`Budget: ${numeral(lead.leadBudget / 100).format(
                     '0,0[.]00 $'
                   )}`}
-                  linea1={
-                    consulenteVendita ? `(${consulenteVendita.name})` : null
-                  }
-                  linea2={moment(lead.leadCreatedAt).format('DD MMMM, YYYY')}
-                  linea3={immobile}
+                  corpo={[consulente, creatoIl, immobile]}
                   lineaNote={`${lead.leadNote && `Note: ${lead.leadNote}`}`}
                   titoloDestra={pulsanti}
                 />

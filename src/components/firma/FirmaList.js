@@ -25,6 +25,17 @@ export const FirmaList = ({ t, firma }) => (
       <div>
         {firma &&
           firma.map(firma => {
+            const telefono = `${t('Telefono fisso')}: ${firma.telefon} - Fax: ${
+              firma.fax
+            }`;
+            const partitaIVA = `${t('Codice fiscale tedesco')} ${
+              firma.steuerNr
+            } - Ust.-IdNr. ${firma.ustIdNr}`;
+            const orariApertura = `${t('Orari di apertura')} ${firma.open}`;
+            const datiBancari = `${t('Dati conto corrente')}: ${t(
+              'Intestatario'
+            )} ${firma.kontoInhaber} - ${t('Banca')} ${firma.bank}`;
+            const ibanBic = `IBAN ${firma.iban} - BIC ${firma.bic}`;
             return (
               <Card
                 key={firma.id}
@@ -33,19 +44,15 @@ export const FirmaList = ({ t, firma }) => (
                 titoloDestra={`${firma.email}`}
                 visible={true}
                 link={`/firmaedit/${firma.id}`}
-                linea1={`${t('Telefono fisso')}: ${firma.telefon} - Fax: ${
-                  firma.fax
-                }`}
-                linea2={`${firma.website}`}
-                linea3={`${t('Codice fiscale tedesco')} ${
-                  firma.steuerNr
-                } - Ust.-IdNr. ${firma.ustIdNr}`}
-                linea3={`${firma.motto}`}
-                linea4={`${t('Orari di apertura')} ${firma.open}`}
-                linea5={`${t('Dati conto corrente')}: ${t('Intestatario')} ${
-                  firma.kontoInhaber
-                } - ${t('Banca')} ${firma.bank}`}
-                linea6={`IBAN ${firma.iban} - BIC ${firma.bic}`}
+                corpo={[
+                  telefono,
+                  firma.website,
+                  partitaIVA,
+                  firma.motto,
+                  orariApertura,
+                  datiBancari,
+                  ibanBic
+                ]}
               />
             );
           })}
