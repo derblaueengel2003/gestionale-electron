@@ -96,7 +96,13 @@ export const vollmachtNotarauftrag = (
     }
   }
 
-  doc.text(`Rif. ID: ${oggetto.rifId} - Eigentumswohnung`, 30, 111);
+  doc.text(
+    `Rif. ID: ${oggetto.rifId} - ${
+      oggetto.tipologia ? oggetto.tipologia : 'Eigentumswohnung'
+    }`,
+    30,
+    111
+  );
   doc.text(
     `Kaufpreis: ${numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}`,
     30,

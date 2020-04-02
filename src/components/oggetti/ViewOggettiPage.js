@@ -87,6 +87,9 @@ export class ViewOggettiPage extends React.Component {
             {this.props.oggetto.via.length > 0 && (
               <h5>{`${this.props.oggetto.via} ${this.props.oggetto.numeroCivico}, WE ${this.props.oggetto.numeroAppartamento}, ${this.props.oggetto.cap} ${this.props.oggetto.citta} ${this.props.oggetto.quartiere}`}</h5>
             )}
+            {this.props.oggetto.tipologia && (
+              <p>Tipo di immobile: {t(this.props.oggetto.tipologia)}</p>
+            )}
             {this.props.oggetto.rifId.length > 0 && (
               <p>Ref. id: {this.props.oggetto.rifId}</p>
             )}

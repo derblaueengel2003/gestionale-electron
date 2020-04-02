@@ -36,7 +36,7 @@ export const OggettiList = props => {
                     titoloDestra={`${props.t('Rif')}. ID ${oggetto.rifId}`}
                     visible={oggetto.visible}
                     link={`/oggettoview/${oggetto.id}`}
-                    corpo={[prezzoDiVendita]}
+                    corpo={[props.t(oggetto.tipologia), prezzoDiVendita]}
                     verkauft={verkauft}
                   />
                 );

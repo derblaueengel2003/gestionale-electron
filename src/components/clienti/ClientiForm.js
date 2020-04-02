@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
+import moment from 'moment';
 
 export class CustomerForm extends React.Component {
   constructor(props) {
@@ -195,7 +195,11 @@ export class CustomerForm extends React.Component {
         )}
         {t('Data registrazione dati del cliente')}:
         <SingleDatePicker
-          date={this.state.dataRegistrazione}
+          date={
+            this.state.dataRegistrazione
+              ? this.state.dataRegistrazione
+              : moment()
+          }
           onDateChange={this.onDataRegistrazioneChange}
           focused={this.state.calendarDataRegistrazioneFocused}
           onFocusChange={this.onFocusDataRegistrazioneChange}

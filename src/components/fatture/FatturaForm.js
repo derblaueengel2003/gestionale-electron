@@ -1,4 +1,5 @@
 import React from 'react';
+import Form from '../common/form';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import moment from 'moment';
@@ -10,7 +11,7 @@ import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import M from 'materialize-css';
 
-export class FatturaForm extends React.Component {
+export class FatturaForm extends Form {
   componentDidMount() {
     M.AutoInit();
   }

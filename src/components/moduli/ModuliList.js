@@ -36,6 +36,11 @@ const ModuliPage = ({ t }) => (
             {t('Delega per richiesta documenti')}
           </Link>
         </li>
+        <li className='collection-item'>
+          <Link to='/notardatenblatt'>
+            {t('Foglio informativo per il notaio')}
+          </Link>
+        </li>
       </ul>
     </div>
 

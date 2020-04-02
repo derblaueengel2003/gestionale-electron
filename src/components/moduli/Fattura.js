@@ -49,16 +49,16 @@ export const fattura = (
   }
   const provvPercentuale = numeral(amount / prezzoDiVendita).format('0.00%');
   let corpoFattura;
-  if (dealType === 'Kauf Eigentumswohnung') {
+  if (dealType === 'Kauf Eigentumswohnung' || dealType === 'Kauf Gewerbe') {
     corpoFattura = `entsprechend dem rechtskräftigen Kaufvertrag vom ${moment(
       dataRogito
     ).format(
       'DD.MM.YYYY'
     )} sowie unserer Vereinbarung berechnen wir Ihnen für unsere Nachweis- bzw. Vermittlungstätigkeit zum Verkauf des Objekts ${
       oggetto.via
-    } ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${
-      oggetto.cap
-    } ${oggetto.citta}:`;
+    } ${oggetto.numeroCivico}, ${
+      dealType === 'Kauf Eigentumswohnung' ? 'WE' : 'TE'
+    } ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}:`;
   } else if (dealType === 'APH') {
     corpoFattura = `Objekt: ${oggetto.via} ${oggetto.numeroCivico}, ${
       oggetto.cap

@@ -70,7 +70,15 @@ export const protocollo = (
   doc.text('Übergabeprotokoll', 15, dati);
   doc.setFontSize(10);
   doc.text(
-    `Objekt: ${oggetto.via} ${oggetto.numeroCivico}, ${oggetto.cap} ${oggetto.citta}, WE ${oggetto.numeroAppartamento}`,
+    `Objekt: ${oggetto.via} ${oggetto.numeroCivico}, ${oggetto.cap} ${
+      oggetto.citta
+    }, ${
+      oggetto.tipologia
+        ? oggetto.tipologia === 'Eigentumswohnung'
+          ? 'WE'
+          : 'TE'
+        : 'WE'
+    } ${oggetto.numeroAppartamento}`,
     15,
     dati + 10
   );

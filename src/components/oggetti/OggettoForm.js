@@ -79,7 +79,12 @@ export class OggettoForm extends React.Component {
       energieBedarf: props.oggetto ? props.oggetto.energieBedarf : '',
       provvigione: props.oggetto ? props.oggetto.provvigione : '',
       note: props.oggetto ? props.oggetto.note : '',
-      venduto: props.oggetto ? props.oggetto.venduto : false
+      venduto: props.oggetto ? props.oggetto.venduto : false,
+      tipologia: props.oggetto
+        ? props.oggetto.tipologia
+          ? props.oggetto.tipologia
+          : ''
+        : ''
     };
   }
   changeHandler = e => {
@@ -110,6 +115,10 @@ export class OggettoForm extends React.Component {
   onInquilinoChange = e => {
     const inquilinoId = e ? e.value : '';
     this.setState(() => ({ inquilinoId }));
+  };
+  onTipologiaChange = e => {
+    const tipologia = e ? e.value : '';
+    this.setState(() => ({ tipologia }));
   };
   handleUploadStart = () =>
     this.setState({
@@ -324,7 +333,8 @@ export class OggettoForm extends React.Component {
         energieBedarf: this.state.energieBedarf,
         provvigione: this.state.provvigione,
         note: this.state.note,
-        venduto: this.state.venduto
+        venduto: this.state.venduto,
+        tipologia: this.state.tipologia
       });
     }
   };
@@ -337,6 +347,15 @@ export class OggettoForm extends React.Component {
     }));
     const filterOptions = createFilterOptions({ options });
 
+    const optionsTipologia = [
+      'Eigentumswohnung',
+      'Gewerbe',
+      'Pflegeheim',
+      'Sonstiges'
+    ].map(dealType => ({
+      value: dealType,
+      label: t(dealType)
+    }));
     return (
       <form className='form' onSubmit={this.onSubmit}>
         {this.state.error && <p className='form__error'>{this.state.error}</p>}
@@ -368,6 +387,13 @@ export class OggettoForm extends React.Component {
           </div>
           <div id='test1' className='col s12'>
             <div label='Eckdaten'>
+              {t('Tipo di immobile')}:
+              <Select
+                name={'tipologia'}
+                value={this.state.tipologia}
+                options={optionsTipologia}
+                onChange={this.onTipologiaChange}
+              />
               <div className='input-field'>
                 {t('Indirizzo')}:
                 <input

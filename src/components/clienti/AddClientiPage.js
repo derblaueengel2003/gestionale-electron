@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import CustomerForm from './ClientiForm';
 import { startAddCustomer } from '../../actions/clienti';
+import CustomerForm from './ClientiForm';
 
 export class AddCustomerPage extends React.Component {
   onSubmit = customer => {
@@ -11,11 +11,6 @@ export class AddCustomerPage extends React.Component {
   };
 
   render() {
-    // non so cos'è e ho cancellato customer={cliente} dai props sotto di CustomerForm
-    // let cliente = {};
-    // if (this.props.location.state) {
-    //   cliente = this.props.location.state;
-    // }
     return (
       <div>
         <div>
