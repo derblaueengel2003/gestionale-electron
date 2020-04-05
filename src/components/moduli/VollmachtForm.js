@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
+import withForm from '../common/withForm';
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
@@ -9,40 +10,19 @@ import 'react-virtualized-select/styles.css';
 import { delegaDocumenti } from './DelegaDocumenti';
 
 export class VollmachtForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      venditoreId: '',
-      venditoreId2: '',
-      oggettoId: ''
-    };
-  }
-  onVenditoreIdChange = e => {
-    const venditoreId = e ? e.value : '';
-    this.setState(() => ({ venditoreId }));
-  };
-  onVenditoreIdChange2 = e => {
-    const venditoreId2 = e ? e.value : '';
-    this.setState(() => ({ venditoreId2 }));
-  };
-  onOggettoChange = e => {
-    const oggetto = e ? e.value : '';
-    this.setState(() => ({ oggettoId: oggetto }));
-  };
-
   onSubmit = e => {
     e.preventDefault();
     const cliente = this.props.clienti.find(
-      cliente => cliente.id === this.state.venditoreId
+      cliente => cliente.id === this.props.data.venditoreId
     );
     const cliente2 = this.props.clienti.find(
-      cliente => cliente.id === this.state.venditoreId2
+      cliente => cliente.id === this.props.data.venditoreId2
     );
     const oggetto = this.props.oggetti.find(
-      oggetto => oggetto.id === this.state.oggettoId
+      oggetto => oggetto.id === this.props.data.oggettoId
     );
 
-    if (!this.state.oggettoId || !this.state.venditoreId) {
+    if (!this.props.data.oggettoId || !this.props.data.venditoreId) {
       this.setState(() => ({
         error: this.props.t('Inserisci acquirente e oggetto')
       }));
@@ -74,31 +54,37 @@ export class VollmachtForm extends React.Component {
           </div>
         </div>
         <form className='form container' onSubmit={this.onSubmit}>
-          {this.state.error && (
-            <p className='form__error'>{this.state.error}</p>
+          {this.props.data.error && (
+            <p className='form__error'>{this.props.data.error}</p>
           )}
           {t('Cliente')}:
           <Select
             name='venditore'
-            value={this.state.venditoreId}
+            value={this.props.data.venditoreId}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onVenditoreIdChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('venditoreId', e && e.value)
+            }
           />
           2. {t('Cliente')}:
           <Select
             name='venditore2'
-            value={this.state.venditoreId2}
+            value={this.props.data.venditoreId2}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onVenditoreIdChange2}
+            onChange={e =>
+              this.props.changeHandlerSelect('venditoreId2', e && e.value)
+            }
           />
           {t('Oggetto')}:
           <Select
             name='oggettoId'
-            value={this.state.oggettoId}
+            value={this.props.data.oggettoId}
             options={oggettiOptions}
-            onChange={this.onOggettoChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('oggettoId', e && e.value)
+            }
           />
           <div>
             <button className='btn-floating right'>
@@ -117,4 +103,6 @@ const mapStateToProps = state => ({
   firma: state.firma[0]
 });
 
-export default connect(mapStateToProps)(withTranslation()(VollmachtForm));
+export default connect(mapStateToProps)(
+  withTranslation()(withForm(VollmachtForm))
+);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
+import withForm from '../common/withForm';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
@@ -11,54 +12,20 @@ import 'react-virtualized-select/styles.css';
 import { widerrufsBelehrung } from './WiderrufsBelehrung';
 
 export class VWBForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      venditoreId: '',
-      venditoreId2: '',
-      oggettoId: '',
-      createdAt: null,
-      calendarFocused: false
-    };
-  }
-  onVenditoreIdChange = e => {
-    const venditoreId = e ? e.value : '';
-    this.setState(() => ({ venditoreId }));
-  };
-  onVenditoreIdChange2 = e => {
-    const venditoreId2 = e ? e.value : '';
-    this.setState(() => ({ venditoreId2 }));
-  };
-  onOggettoChange = e => {
-    const oggetto = e ? e.value : '';
-    this.setState(() => ({ oggettoId: oggetto }));
-  };
-
-  onDateChange = createdAt => {
-    if (createdAt) {
-      this.setState(() => ({ createdAt }));
-    } else {
-      this.setState(() => ({ createdAt: null }));
-    }
-  };
-  onFocusChange = ({ focused }) => {
-    this.setState(() => ({ calendarFocused: focused }));
-  };
-
   onSubmit = e => {
     e.preventDefault();
     const venditore = this.props.clienti.find(
-      cliente => cliente.id === this.state.venditoreId
+      cliente => cliente.id === this.props.data.venditoreId
     );
     const venditore2 = this.props.clienti.find(
-      cliente => cliente.id === this.state.venditoreId2
+      cliente => cliente.id === this.props.data.venditoreId2
     );
     const oggetto = this.props.oggetti.find(
-      oggetto => oggetto.id === this.state.oggettoId
+      oggetto => oggetto.id === this.props.data.oggettoId
     );
-    const createdAt = moment(this.state.createdAt).format('DD.MM.YYYY');
+    const createdAt = moment(this.props.data.createdAt).format('DD.MM.YYYY');
 
-    if (!this.state.oggettoId || !this.state.venditoreId) {
+    if (!this.props.data.oggettoId || !this.props.data.venditoreId) {
       const error = this.props.t('Inserisci venditore e oggetto');
       this.setState(() => ({
         error
@@ -97,39 +64,47 @@ export class VWBForm extends React.Component {
           </div>
         </div>
         <form className='form container' onSubmit={this.onSubmit}>
-          {this.state.error && (
-            <p className='form__error'>{this.state.error}</p>
+          {this.props.data.error && (
+            <p className='form__error'>{this.props.data.error}</p>
           )}
           {t('Cliente')}:
           <Select
             name='venditore'
-            value={this.state.venditoreId}
+            value={this.props.data.venditoreId}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onVenditoreIdChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('venditoreId', e && e.value)
+            }
           />
           2. {t('Cliente')}:
           <Select
             name='venditore2'
-            value={this.state.venditoreId2}
+            value={this.props.data.venditoreId2}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onVenditoreIdChange2}
+            onChange={e =>
+              this.props.changeHandlerSelect('venditoreId2', e && e.value)
+            }
           />
           {t('Oggetto')}:
           <Select
             name='oggettoId'
-            value={this.state.oggettoId}
+            value={this.props.data.oggettoId}
             options={oggettiOptions}
-            onChange={this.onOggettoChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('oggettoId', e && e.value)
+            }
           />
           {t('Data del contratto')}:
           <div className='input-group__item'>
             <SingleDatePicker
-              date={this.state.createdAt}
-              onDateChange={this.onDateChange}
-              focused={this.state.calendarFocused}
-              onFocusChange={this.onFocusChange}
+              date={this.props.data.createdAt}
+              onDateChange={e => this.props.onDataChange('createdAt', e)}
+              focused={this.props.data.calendarFocused}
+              onFocusChange={e =>
+                this.props.onFocusChange('calendarFocused', e)
+              }
               numberOfMonths={1}
               isOutsideRange={() => false}
               showClearDate={true}
@@ -152,4 +127,4 @@ const mapStateToProps = state => ({
   firma: state.firma[0]
 });
 
-export default connect(mapStateToProps)(withTranslation()(VWBForm));
+export default connect(mapStateToProps)(withTranslation()(withForm(VWBForm)));

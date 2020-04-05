@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import withForm from '../common/withForm';
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
@@ -9,83 +10,24 @@ import { withTranslation } from 'react-i18next';
 import { notarDatenblatt } from '../moduli/NotarDatenblatt';
 
 class NotarDatenblattForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      acquirenteId: '',
-      acquirenteId2: '',
-      venditoreId: '',
-      venditoreId2: '',
-      oggettoId: '',
-      notaioId: '',
-      belastungsVollmacht: false,
-      prezzoDiVendita: '0',
-      linguaRogito: ''
-    };
-  }
-  onAcquirenteIdChange = e => {
-    const acquirenteId = e ? e.value : '';
-    this.setState(() => ({ acquirenteId }));
-  };
-  onAcquirenteIdChange2 = e => {
-    const acquirenteId2 = e ? e.value : '';
-    this.setState(() => ({ acquirenteId2 }));
-  };
-  onVenditoreIdChange = e => {
-    const venditoreId = e ? e.value : '';
-    this.setState(() => ({ venditoreId }));
-  };
-  onVenditoreIdChange2 = e => {
-    const venditoreId2 = e ? e.value : '';
-    this.setState(() => ({ venditoreId2 }));
-  };
-  onNotaioIdChange = e => {
-    const notaioId = e ? e.value : '';
-    this.setState(() => ({ notaioId }));
-  };
-  onOggettoChange = e => {
-    const oggetto = e ? e.value : '';
-    this.setState(() => ({ oggettoId: oggetto }));
-  };
-  onPrezzoDiVenditaChange = e => {
-    const prezzoDiVendita = e.target.value;
-
-    if (!prezzoDiVendita || prezzoDiVendita.match(/^\d{1,}(,\d{0,2})?$/)) {
-      this.setState(() => ({ prezzoDiVendita }));
-    }
-  };
-  onLinguaRogitoChange = e => {
-    const linguaRogito = e ? e.value : '';
-    this.setState(() => ({ linguaRogito }));
-  };
-  changeHandlerValuta = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    if (!value || value.match(/^\d{1,}(,\d{0,2})?$/)) {
-      this.setState(() => ({
-        [name]: value,
-        modificato: { ...this.state.modificato, [name]: 'modificato' }
-      }));
-    }
-  };
   findContact = contactId => {
     return this.props.clienti.filter(cliente => cliente.id === contactId);
   };
   onSubmit = e => {
     e.preventDefault();
-    const acquirente = this.findContact(this.state.acquirenteId);
-    const acquirente2 = this.findContact(this.state.acquirenteId2);
-    const venditore = this.findContact(this.state.venditoreId);
-    const venditore2 = this.findContact(this.state.venditoreId2);
-    const notaio = this.findContact(this.state.notaioId);
+    const acquirente = this.findContact(this.props.data.acquirenteId);
+    const acquirente2 = this.findContact(this.props.data.acquirenteId2);
+    const venditore = this.findContact(this.props.data.venditoreId);
+    const venditore2 = this.findContact(this.props.data.venditoreId2);
+    const notaio = this.findContact(this.props.data.notaioId);
 
     const oggetto = this.props.oggetti.find(
-      oggetto => oggetto.id === this.state.oggettoId
+      oggetto => oggetto.id === this.props.data.oggettoId
     );
-    const prezzoDiVendita = this.state.prezzoDiVendita * 100;
+    const prezzoDiVendita = this.props.data.prezzoDiVendita * 100;
     const verwalter = this.findContact(oggetto.verwalter);
 
-    if (!this.state.oggettoId) {
+    if (!this.props.data.oggettoId) {
       this.setState(() => ({ error: this.props.t('Inserisci oggetto') }));
     } else {
       this.setState(() => ({ error: '' }));
@@ -97,12 +39,12 @@ class NotarDatenblattForm extends Component {
         oggetto,
         notaio[0],
         verwalter[0],
-        this.state.belastungsVollmacht,
+        this.props.data.belastungsVollmacht,
         this.props.utente,
         this.props.firma,
         this.props.ceo,
         prezzoDiVendita,
-        this.state.linguaRogito
+        this.props.data.linguaRogito
       );
     }
   };
@@ -142,55 +84,67 @@ class NotarDatenblattForm extends Component {
           </div>
         </div>
         <form className='form container' onSubmit={this.onSubmit}>
-          {this.state.error && (
-            <p className='form__error'>{this.state.error}</p>
+          {this.props.data.error && (
+            <p className='form__error'>{this.props.data.error}</p>
           )}
           {t('Venditore')}:
           <Select
             name='venditore'
-            value={this.state.venditoreId}
+            value={this.props.data.venditoreId}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onVenditoreIdChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('venditoreId', e && e.value)
+            }
           />
           2. {t('Venditore')}:
           <Select
             name='venditore2'
-            value={this.state.venditoreId2}
+            value={this.props.data.venditoreId2}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onVenditoreIdChange2}
+            onChange={e =>
+              this.props.changeHandlerSelect('venditoreId2', e && e.value)
+            }
           />
           {t('Acquirente')}:
           <Select
             name='acquirente'
-            value={this.state.acquirenteId}
+            value={this.props.data.acquirenteId}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onAcquirenteIdChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('acquirenteId', e && e.value)
+            }
           />
           2. {t('Acquirente')}:
           <Select
             name='acquirente2'
-            value={this.state.acquirenteId2}
+            value={this.props.data.acquirenteId2}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onAcquirenteIdChange2}
+            onChange={e =>
+              this.props.changeHandlerSelect('acquirenteId2', e && e.value)
+            }
           />
           {t('Notaio')}:
           <Select
             name='notaio'
-            value={this.state.notaioId}
+            value={this.props.data.notaioId}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onNotaioIdChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('notaioId', e && e.value)
+            }
           />
           {t('Oggetto')}:
           <Select
             name='oggettoId'
-            value={this.state.oggettoId}
+            value={this.props.data.oggettoId}
             options={oggettiOptions}
-            onChange={this.onOggettoChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('oggettoId', e && e.value)
+            }
           />
           {t('Prezzo di vendita')}:
           <input
@@ -198,26 +152,24 @@ class NotarDatenblattForm extends Component {
             className={`text-input`}
             type='text'
             placeholder='Prezzo di vendita'
-            value={this.state.prezzoDiVendita}
-            onChange={this.changeHandlerValuta}
+            value={this.props.data.prezzoDiVendita}
+            onChange={this.props.changeHandlerValuta}
           />
           {t('Lingua del rogito')}:
           <Select
             name={'linguaRogito'}
-            value={this.state.linguaRogito}
+            value={this.props.data.linguaRogito}
             options={linguaRogitoOptions}
-            onChange={this.onLinguaRogitoChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('linguaRogito', e && e.value)
+            }
           />
           <label>
             <input
               type='checkbox'
               name='belastungsVollmacht'
-              checked={this.state.belastungsVollmacht}
-              onChange={() => {
-                this.setState(() => ({
-                  belastungsVollmacht: !this.state.belastungsVollmacht
-                }));
-              }}
+              checked={this.props.data.belastungsVollmacht}
+              onChange={this.props.changeCheckbox}
             />
             <span>{t('Delega per gravami')}</span>
           </label>
@@ -241,4 +193,6 @@ const mapStateToProps = state => ({
   firma: state.firma[0]
 });
 
-export default connect(mapStateToProps)(withTranslation()(NotarDatenblattForm));
+export default connect(mapStateToProps)(
+  withTranslation()(withForm(NotarDatenblattForm))
+);

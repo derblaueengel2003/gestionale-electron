@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
+import withForm from '../common/withForm';
 import { DateRangePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
@@ -10,79 +11,25 @@ import 'react-virtualized-select/styles.css';
 import { maklerAlleinauftrag } from './MaklerAlleinauftrag';
 
 export class MAAForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      venditoreId: '',
-      venditoreId2: '',
-      oggettoId: '',
-      prezzoDiVendita: '',
-      prezzoDiVendita2: '',
-      startDate: null,
-      endDate: null,
-      calendarFocused: null,
-      maklerProvision: '',
-      error: '',
-      sonstige: ''
-    };
-  }
-  onVenditoreIdChange = e => {
-    const venditoreId = e ? e.value : '';
-    this.setState(() => ({ venditoreId }));
-  };
-  onVenditoreIdChange2 = e => {
-    const venditoreId2 = e ? e.value : '';
-    this.setState(() => ({ venditoreId2 }));
-  };
-  onOggettoChange = e => {
-    const oggetto = e ? e.value : '';
-    this.setState(() => ({ oggettoId: oggetto }));
-  };
-  onPrezzoDiVenditaChange = e => {
-    const prezzoDiVendita = e.target.value;
-
-    if (!prezzoDiVendita || prezzoDiVendita.match(/^\d{1,}(,\d{0,2})?$/)) {
-      this.setState(() => ({ prezzoDiVendita }));
-    }
-  };
-  onPrezzoDiVenditaChange2 = e => {
-    const prezzoDiVendita2 = e.target.value;
-
-    if (!prezzoDiVendita2 || prezzoDiVendita2.match(/^\d{1,}(,\d{0,2})?$/)) {
-      this.setState(() => ({ prezzoDiVendita2 }));
-    }
-  };
-  onDatesChange = ({ startDate, endDate }) => {
-    this.setState(() => ({ startDate }));
-    this.setState(() => ({ endDate }));
-  };
-  onFocusChange = calendarFocused => {
-    this.setState(() => ({ calendarFocused }));
-  };
-  changeHandler = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({ [name]: value });
-  };
   onSubmit = e => {
     e.preventDefault();
     const venditore = this.props.clienti.find(
-      cliente => cliente.id === this.state.venditoreId
+      cliente => cliente.id === this.props.data.venditoreId
     );
     const venditore2 = this.props.clienti.find(
-      cliente => cliente.id === this.state.venditoreId2
+      cliente => cliente.id === this.props.data.venditoreId2
     );
     const oggetto = this.props.oggetti.find(
-      oggetto => oggetto.id === this.state.oggettoId
+      oggetto => oggetto.id === this.props.data.oggettoId
     );
-    const startDate = this.state.startDate;
-    const endDate = this.state.endDate;
-    const prezzoDiVendita = this.state.prezzoDiVendita;
-    const prezzoDiVendita2 = this.state.prezzoDiVendita2;
-    const maklerProvision = this.state.maklerProvision;
-    const sonstige = this.state.sonstige;
+    const startDate = this.props.data.startDate;
+    const endDate = this.props.data.endDate;
+    const prezzoDiVendita = this.props.data.prezzoDiVendita;
+    const prezzoDiVendita2 = this.props.data.prezzoDiVendita2;
+    const maklerProvision = this.props.data.maklerProvision;
+    const sonstige = this.props.data.sonstige;
 
-    if (!this.state.oggettoId || !this.state.venditoreId) {
+    if (!this.props.data.oggettoId || !this.props.data.venditoreId) {
       this.setState(() => ({
         error: [this.props.t('Inserisci venditore e oggetto')]
       }));
@@ -125,40 +72,46 @@ export class MAAForm extends React.Component {
           </div>
         </div>
         <form className='form container' onSubmit={this.onSubmit}>
-          {this.state.error && (
-            <p className='form__error'>{this.state.error}</p>
+          {this.props.data.error && (
+            <p className='form__error'>{this.props.data.error}</p>
           )}
           {t('Venditore')}:
           <Select
             name='venditore'
-            value={this.state.venditoreId}
+            value={this.props.data.venditoreId}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onVenditoreIdChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('venditoreId', e && e.value)
+            }
           />
           2. {t('Venditore')}:
           <Select
             name='venditore2'
-            value={this.state.venditoreId2}
+            value={this.props.data.venditoreId2}
             options={options}
             filterOptions={filterOptions}
-            onChange={this.onVenditoreIdChange2}
+            onChange={e =>
+              this.props.changeHandlerSelect('venditoreId2', e && e.value)
+            }
           />
           {t('Oggetto')}:
           <Select
             name='oggettoId'
-            value={this.state.oggettoId}
+            value={this.props.data.oggettoId}
             options={oggettiOptions}
-            onChange={this.onOggettoChange}
+            onChange={e =>
+              this.props.changeHandlerSelect('oggettoId', e && e.value)
+            }
           />
           {t('Periodo di esclusiva')}:
           <div className='input-group__item'>
             <DateRangePicker
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-              onDatesChange={this.onDatesChange}
-              focusedInput={this.state.calendarFocused}
-              onFocusChange={this.onFocusChange}
+              startDate={this.props.data.startDate}
+              endDate={this.props.data.endDate}
+              onDatesChange={this.props.onDatesChange}
+              focusedInput={this.props.data.calendarFocusedMAA}
+              onFocusChange={this.props.onFocusChange2}
               showClearDates={true}
               numberOfMonths={1}
               isOutsideRange={() => false}
@@ -167,17 +120,19 @@ export class MAAForm extends React.Component {
           </div>
           {t('Prezzo di vendita')} min.:
           <input
+            name='prezzoDiVendita'
             className={`text-input`}
             type='text'
-            value={this.state.prezzoDiVendita}
-            onChange={this.onPrezzoDiVenditaChange}
+            value={this.props.data.prezzoDiVendita}
+            onChange={this.props.changeHandlerValuta}
           />
           {t('Prezzo di vendita')} max.:
           <input
+            name='prezzoDiVendita2'
             className={`text-input`}
             type='text'
-            value={this.state.prezzoDiVendita2}
-            onChange={this.onPrezzoDiVenditaChange2}
+            value={this.props.data.prezzoDiVendita2}
+            onChange={this.props.changeHandlerValuta}
           />
           {t('Provvigione')} %:
           <input
@@ -185,16 +140,16 @@ export class MAAForm extends React.Component {
             className={`text-input`}
             type='text'
             placeholder={t('Solo numeri')}
-            value={this.state.maklerProvision}
-            onChange={this.changeHandler}
+            value={this.props.data.maklerProvision}
+            onChange={this.props.changeHandler}
           />
           {t('Altri accordi')}:
           <input
             name='sonstige'
             className={`text-input`}
             type='text'
-            value={this.state.sonstige}
-            onChange={this.changeHandler}
+            value={this.props.data.sonstige}
+            onChange={this.props.changeHandler}
           />
           <div>
             <button className='btn-floating right'>
@@ -213,4 +168,4 @@ const mapStateToProps = state => ({
   firma: state.firma[0]
 });
 
-export default connect(mapStateToProps)(withTranslation()(MAAForm));
+export default connect(mapStateToProps)(withTranslation()(withForm(MAAForm)));

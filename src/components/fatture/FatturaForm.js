@@ -1,8 +1,7 @@
 import React from 'react';
-import Form from '../common/form';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import moment from 'moment';
+import withForm from '../common/withForm';
 import { SingleDatePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
@@ -11,215 +10,58 @@ import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import M from 'materialize-css';
 
-export class FatturaForm extends Form {
+export class FatturaForm extends React.Component {
   componentDidMount() {
     M.AutoInit();
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-      dealId: props.fattura ? props.fattura.dealId : '',
-      clienteId: props.fattura ? props.fattura.clienteId : '',
-      clienteId2: props.fattura ? props.fattura.clienteId2 : '',
-      numeroFattura: props.fattura ? props.fattura.numeroFattura : '',
-      dataFattura: props.fattura
-        ? props.fattura.dataFattura && moment(props.fattura.dataFattura)
-        : null,
-      calendarDataFatturaFocused: false,
-      dataZahlungserinnerung: props.fattura
-        ? props.fattura.dataZahlungserinnerung &&
-          moment(props.fattura.dataZahlungserinnerung)
-        : null,
-      calendarDataZahlungserinnerungFocused: false,
-      dataMahnung: props.fattura
-        ? props.fattura.dataMahnung && moment(props.fattura.dataMahnung)
-        : null,
-      calendarDataMahnungFocused: false,
-      dataMahnung2: props.fattura
-        ? props.fattura.dataMahnung2 && moment(props.fattura.dataMahnung2)
-        : null,
-      calendarDataMahnung2Focused: false,
-      mahngebuehren:
-        props.fattura && props.fattura.mahngebuehren
-          ? (props.fattura.mahngebuehren / 100).toString().replace(/\./, ',')
-          : '0',
-      mahngebuehren2:
-        props.fattura && props.fattura.mahngebuehren2
-          ? (props.fattura.mahngebuehren2 / 100).toString().replace(/\./, ',')
-          : '0',
-      payed: props.fattura ? props.fattura.payed : false,
-      payedAt: props.fattura
-        ? props.fattura.payedAt && moment(props.fattura.payedAt)
-        : null,
-      error: '',
-      modificato: '',
-      descrizioneProdotto: props.fattura
-        ? props.fattura.descrizioneProdotto
-          ? props.fattura.descrizioneProdotto
-          : ''
-        : '',
-      importoNetto: props.fattura
-        ? props.fattura.importoNetto
-          ? (props.fattura.importoNetto / 100).toString().replace(/\./, ',')
-          : '0'
-        : '0',
-      dataPrestazione: props.fattura
-        ? props.fattura.dataPrestazione
-          ? props.fattura.dataPrestazione &&
-            moment(props.fattura.dataPrestazione)
-          : null
-        : null,
-      calendarDataPrestazioneFocus: false
-    };
-  }
-  onNumeroFatturaChange = e => {
-    const numeroFattura = e.target.value;
-    this.setState(() => ({
-      numeroFattura,
-      modificato: {
-        ...this.state.modificato,
-        numeroFattura: 'modificato'
-      }
-    }));
-  };
-  onDataFatturaChange = dataFattura => {
-    if (dataFattura) {
-      this.setState(() => ({ dataFattura }));
-    } else {
-      this.setState(() => ({ dataFattura: null }));
-    }
-  };
-  onFocusDataFatturaChange = ({ focused }) => {
-    this.setState(() => ({ calendarDataFatturaFocused: focused }));
-  };
-  onDataZahlungserinnerungChange = dataZahlungserinnerung => {
-    if (dataZahlungserinnerung) {
-      this.setState(() => ({ dataZahlungserinnerung }));
-    } else {
-      this.setState(() => ({ dataZahlungserinnerung: null }));
-    }
-  };
-  onFocusDataZahlungserinnerungChange = ({ focused }) => {
-    this.setState(() => ({
-      calendarDataZahlungserinnerungFocused: focused
-    }));
-  };
-  onDataMahnungChange = dataMahnung => {
-    if (dataMahnung) {
-      this.setState(() => ({ dataMahnung }));
-    } else {
-      this.setState(() => ({ dataMahnung: null }));
-    }
-  };
-  onFocusDataMahnungChange = ({ focused }) => {
-    this.setState(() => ({ calendarDataMahnungFocused: focused }));
-  };
-  onDataMahnung2Change = dataMahnung2 => {
-    if (dataMahnung2) {
-      this.setState(() => ({ dataMahnung2 }));
-    } else {
-      this.setState(() => ({ dataMahnung2: null }));
-    }
-  };
-  onFocusDataMahnung2Change = ({ focused }) => {
-    this.setState(() => ({ calendarDataMahnung2Focused: focused }));
-  };
-  onPayedChange = () => {
-    this.setState(() => ({ payed: !this.state.payed }));
-    if (this.state.payed === false) {
-      this.setState(() => ({ payedAt: null }));
-    }
-  };
-  onPayedAtDateChange = payedAt => {
-    if (payedAt) {
-      this.setState(() => ({ payedAt }));
-    } else {
-      this.setState(() => ({ payedAt: null }));
-    }
-  };
-  onFocusPayedAtChange = ({ focused }) => {
-    this.setState(() => ({ calendarPayedAtFocused: focused }));
-  };
-  onDealIdChange = e => {
-    const dealId = e.value;
-    this.setState(() => ({ dealId }));
-  };
-  onClienteIdChange = e => {
-    const clienteId = e ? e.value : '';
-    this.setState(() => ({ clienteId }));
-  };
-  onClienteIdChange2 = e => {
-    const clienteId2 = e ? e.value : '';
-    this.setState(() => ({ clienteId2 }));
-  };
-  onDataPrestazioneChange = dataPrestazione => {
-    if (dataPrestazione) {
-      this.setState(() => ({ dataPrestazione }));
-    } else {
-      this.setState(() => ({ dataPrestazione: null }));
-    }
-  };
-  onFocusDataPrestazioneChange = ({ focused }) => {
-    this.setState(() => ({ calendarDataPrestazioneFocused: focused }));
-  };
-  changeHandler = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({ [name]: value });
-  };
-  changeHandlerValuta = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    if (!value || value.match(/^\d{1,}(,\d{0,2})?$/)) {
-      this.setState(() => ({
-        [name]: value
-      }));
-    }
-  };
+
   onSubmit = e => {
     e.preventDefault();
     const importoNetto =
-      parseFloat(this.state.importoNetto.replace(/,/, '.'), 10) * 100;
+      parseFloat(this.props.data.importoNetto.replace(/,/, '.'), 10) * 100;
     const mahngebuehren =
-      parseFloat(this.state.mahngebuehren.replace(/,/, '.'), 10) * 100;
+      parseFloat(this.props.data.mahngebuehren.replace(/,/, '.'), 10) * 100;
     const mahngebuehren2 =
-      parseFloat(this.state.mahngebuehren2.replace(/,/, '.'), 10) * 100;
+      parseFloat(this.props.data.mahngebuehren2.replace(/,/, '.'), 10) * 100;
 
-    if (!this.state.numeroFattura || !this.state.dataFattura) {
+    if (!this.props.data.numeroFattura || !this.props.data.dataFattura) {
       this.setState(() => ({
         error: 'Datum und Rechnungsnummer bitte eingeben'
       }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
-        dealId: this.state.dealId,
-        clienteId: this.state.clienteId,
-        clienteId2: this.state.clienteId2,
-        numeroFattura: this.state.numeroFattura,
-        dataFattura: this.state.dataFattura
-          ? this.state.dataFattura.valueOf()
+        dealId: this.props.data.dealId,
+        clienteId: this.props.data.clienteId,
+        clienteId2: this.props.data.clienteId2,
+        numeroFattura: this.props.data.numeroFattura,
+        dataFattura: this.props.data.dataFattura
+          ? this.props.data.dataFattura.valueOf()
           : null,
-        dataZahlungserinnerung: this.state.dataZahlungserinnerung
-          ? this.state.dataZahlungserinnerung.valueOf()
+        dataZahlungserinnerung: this.props.data.dataZahlungserinnerung
+          ? this.props.data.dataZahlungserinnerung.valueOf()
           : null,
-        dataMahnung: this.state.dataMahnung
-          ? this.state.dataMahnung.valueOf()
+        dataMahnung: this.props.data.dataMahnung
+          ? this.props.data.dataMahnung.valueOf()
           : null,
-        dataMahnung2: this.state.dataMahnung2
-          ? this.state.dataMahnung2.valueOf()
+        dataMahnung2: this.props.data.dataMahnung2
+          ? this.props.data.dataMahnung2.valueOf()
           : null,
         mahngebuehren,
         mahngebuehren2,
-        payed: this.state.payed,
-        payedAt: this.state.payedAt ? this.state.payedAt.valueOf() : null,
-        descrizioneProdotto: this.state.descrizioneProdotto,
+        payed: this.props.data.payed,
+        payedAt: this.props.data.payedAt
+          ? this.props.data.payedAt.valueOf()
+          : null,
+        descrizioneProdotto: this.props.data.descrizioneProdotto,
         importoNetto,
-        dataPrestazione: this.state.dataPrestazione
-          ? this.state.dataPrestazione.valueOf()
+        dataPrestazione: this.props.data.dataPrestazione
+          ? this.props.data.dataPrestazione.valueOf()
           : null
       });
     }
   };
+
   render() {
     const { t } = this.props;
     const options = this.props.clienti.map(cliente => ({
@@ -227,6 +69,7 @@ export class FatturaForm extends Form {
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
         `- Firma ${cliente.ditta}`}`
     }));
+
     const filterOptions = createFilterOptions({ options });
 
     const dealIdOptions = this.props.deals.map(deal => ({
@@ -253,7 +96,9 @@ export class FatturaForm extends Form {
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.state.error && <p className='form__error'>{this.state.error}</p>}
+        {this.props.data.error && (
+          <p className='form__error'>{this.props.data.error}</p>
+        )}
         <div>
           <button className='btn-floating blue right btn-floating-margin'>
             <i className='material-icons'>save</i>
@@ -262,60 +107,73 @@ export class FatturaForm extends Form {
         {t('Vendita')}:
         <Select
           name='dealId'
-          value={this.state.dealId}
+          value={this.props.data.dealId}
           options={dealIdOptions}
-          onChange={this.onDealIdChange}
+          onChange={e => this.props.changeHandlerSelect('dealId', e && e.value)}
         />
         {t('Cliente')}:
         <Select
           name='clienteId'
-          value={this.state.clienteId}
+          value={this.props.data.clienteId}
           options={options}
           filterOptions={filterOptions}
-          onChange={this.onClienteIdChange}
+          onChange={e =>
+            this.props.changeHandlerSelect('clienteId', e && e.value)
+          }
         />
         2. {t('Cliente')}:
         <Select
           name='clienteId2'
-          value={this.state.clienteId2}
+          value={this.props.data.clienteId2}
           options={options}
           filterOptions={filterOptions}
-          onChange={this.onClienteIdChange2}
+          onChange={e =>
+            this.props.changeHandlerSelect('clienteId2', e && e.value)
+          }
         />
         {t('Numero fattura')}:
         <input
-          className={`text-input text-input--${this.state.modificato.numeroFattura}`}
+          name='numeroFattura'
+          className={`text-input`}
           type='text'
           placeholder='Rechnungsnummer'
-          value={this.state.numeroFattura}
-          onChange={this.onNumeroFatturaChange}
+          value={this.props.data.numeroFattura}
+          onChange={this.props.changeHandler}
         />
         {t('Data fattura')}:
         <SingleDatePicker
-          date={this.state.dataFattura}
-          onDateChange={this.onDataFatturaChange}
-          focused={this.state.calendarDataFatturaFocused}
-          onFocusChange={this.onFocusDataFatturaChange}
+          date={this.props.data.dataFattura}
+          onDateChange={e => this.props.onDataChange('dataFattura', e)}
+          focused={this.props.data.calendarDataFatturaFocused}
+          onFocusChange={e =>
+            this.props.onFocusChange('calendarDataFatturaFocused', e)
+          }
           numberOfMonths={1}
           isOutsideRange={() => false}
           showClearDate={true}
         />
         {t('Data sollecito')}:
         <SingleDatePicker
-          date={this.state.dataZahlungserinnerung}
-          onDateChange={this.onDataZahlungserinnerungChange}
-          focused={this.state.calendarDataZahlungserinnerungFocused}
-          onFocusChange={this.onFocusDataZahlungserinnerungChange}
+          date={this.props.data.dataZahlungserinnerung}
+          onDateChange={e =>
+            this.props.onDataChange('dataZahlungserinnerung', e)
+          }
+          focused={this.props.data.calendarDataZahlungserinnerungFocused}
+          onFocusChange={e =>
+            this.props.onFocusChange('calendarDataZahlungserinnerungFocused', e)
+          }
           numberOfMonths={1}
           isOutsideRange={() => false}
           showClearDate={true}
         />
         1. {t('Sollecito con penale')}:
         <SingleDatePicker
-          date={this.state.dataMahnung}
-          onDateChange={this.onDataMahnungChange}
-          focused={this.state.calendarDataMahnungFocused}
-          onFocusChange={this.onFocusDataMahnungChange}
+          date={this.props.data.dataMahnung}
+          onDateChange={e => this.props.onDataChange('dataMahnung', e)}
+          focused={this.props.data.calendarDataMahnungFocused}
+          onFocusChange={e =>
+            this.props.onFocusChange('calendarDataMahnungFocused', e)
+          }
           numberOfMonths={1}
           isOutsideRange={() => false}
           showClearDate={true}
@@ -326,15 +184,17 @@ export class FatturaForm extends Form {
           className={`text-input `}
           type='text'
           placeholder={`7,50`}
-          value={this.state.mahngebuehren}
-          onChange={this.changeHandlerValuta}
+          value={this.props.data.mahngebuehren}
+          onChange={this.props.changeHandlerValuta}
         />
         2. {t('Sollecito con penale')}:
         <SingleDatePicker
-          date={this.state.dataMahnung2}
-          onDateChange={this.onDataMahnung2Change}
-          focused={this.state.calendarDataMahnung2Focused}
-          onFocusChange={this.onFocusDataMahnung2Change}
+          date={this.props.data.dataMahnung2}
+          onDateChange={e => this.props.onDataChange('dataMahnung2', e)}
+          focused={this.props.data.calendarDataMahnung2Focused}
+          onFocusChange={e =>
+            this.props.onFocusChange('calendarDataMahnung2Focused', e)
+          }
           numberOfMonths={1}
           isOutsideRange={() => false}
           showClearDate={true}
@@ -345,25 +205,27 @@ export class FatturaForm extends Form {
           className={`text-input `}
           type='text'
           placeholder={`15`}
-          value={this.state.mahngebuehren2}
-          onChange={this.changeHandlerValuta}
+          value={this.props.data.mahngebuehren2}
+          onChange={this.props.changeHandlerValuta}
         />
         <label>
           <input
             type='checkbox'
             name='payed'
-            checked={this.state.payed}
-            onChange={this.onPayedChange}
+            checked={this.props.data.payed}
+            onChange={this.props.changeCheckbox}
           />
           <span>{t('Pagato')}</span>
         </label>
-        <div className={`visible-${this.state.payed} form`}>
+        <div className={`visible-${this.props.data.payed} form`}>
           {t('Pagato il')}:
           <SingleDatePicker
-            date={this.state.payedAt}
-            onDateChange={this.onPayedAtDateChange}
-            focused={this.state.calendarPayedAtFocused}
-            onFocusChange={this.onFocusPayedAtChange}
+            date={this.props.data.payedAt}
+            onDateChange={e => this.props.onDataChange('payedAt', e)}
+            focused={this.props.data.calendarPayedAtFocused}
+            onFocusChange={e =>
+              this.props.onFocusChange('calendarPayedAtFocused', e)
+            }
             showClearDate={true}
             numberOfMonths={1}
             isOutsideRange={() => false}
@@ -377,23 +239,25 @@ export class FatturaForm extends Form {
             name='descrizioneProdotto'
             className={`text-input `}
             type='text'
-            value={this.state.descrizioneProdotto}
-            onChange={this.changeHandler}
+            value={this.props.data.descrizioneProdotto}
+            onChange={this.props.changeHandler}
           />
           {t('Importo netto')}:
           <input
             name='importoNetto'
             className={`text-input `}
             type='text'
-            value={this.state.importoNetto}
-            onChange={this.changeHandlerValuta}
+            value={this.props.data.importoNetto}
+            onChange={this.props.changeHandlerValuta}
           />
           {t('Data prestazione')}:
           <SingleDatePicker
-            date={this.state.dataPrestazione}
-            onDateChange={this.onDataPrestazioneChange}
-            focused={this.state.calendarDataPrestazioneFocused}
-            onFocusChange={this.onFocusDataPrestazioneChange}
+            date={this.props.data.dataPrestazione}
+            onDateChange={e => this.props.onDataChange('dataPrestazione', e)}
+            focused={this.props.data.calendarDataPrestazioneFocused}
+            onFocusChange={e =>
+              this.props.onFocusChange('calendarDataPrestazioneFocused', e)
+            }
             numberOfMonths={1}
             isOutsideRange={() => false}
             showClearDate={true}
@@ -415,4 +279,6 @@ const mapStateToProps = state => ({
   oggetti: state.oggetti
 });
 
-export default connect(mapStateToProps)(withTranslation()(FatturaForm));
+export default connect(mapStateToProps)(
+  withTranslation()(withForm(FatturaForm))
+);

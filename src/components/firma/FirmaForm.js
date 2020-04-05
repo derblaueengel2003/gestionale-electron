@@ -1,58 +1,30 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
+import withForm from '../common/withForm';
 
 export class FirmaForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: props.firma ? props.firma.name : '',
-      name2: props.firma ? props.firma.name2 : '',
-      adresse: props.firma ? props.firma.adresse : '',
-      plz: props.firma ? props.firma.plz : '',
-      stadt: props.firma ? props.firma.stadt : '',
-      staat: props.firma ? props.firma.staat : '',
-      telefon: props.firma ? props.firma.telefon : '',
-      fax: props.firma ? props.firma.fax : '',
-      email: props.firma ? props.firma.email : '',
-      website: props.firma ? props.firma.website : '',
-      steuerNr: props.firma ? props.firma.steuerNr : '',
-      ustIdNr: props.firma ? props.firma.ustIdNr : '',
-      motto: props.firma ? props.firma.motto : '',
-      open: props.firma ? props.firma.open : '',
-      kontoInhaber: props.firma ? props.firma.kontoInhaber : '',
-      bank: props.firma ? props.firma.bank : '',
-      iban: props.firma ? props.firma.iban : '',
-      bic: props.firma ? props.firma.bic : ''
-    };
-  }
-  changeHandler = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({ [name]: value });
-  };
-
   onSubmit = e => {
     e.preventDefault();
 
     this.props.onSubmit({
-      name: this.state.name,
-      name2: this.state.name2,
-      adresse: this.state.adresse,
-      plz: this.state.plz,
-      stadt: this.state.stadt,
-      staat: this.state.staat,
-      telefon: this.state.telefon,
-      fax: this.state.fax,
-      email: this.state.email,
-      website: this.state.website,
-      steuerNr: this.state.steuerNr,
-      ustIdNr: this.state.ustIdNr,
-      motto: this.state.motto,
-      open: this.state.open,
-      kontoInhaber: this.state.kontoInhaber,
-      bank: this.state.bank,
-      iban: this.state.iban,
-      bic: this.state.bic
+      name: this.props.data.name,
+      name2: this.props.data.name2,
+      adresse: this.props.data.adresse,
+      plz: this.props.data.plz,
+      stadt: this.props.data.stadt,
+      staat: this.props.data.staat,
+      telefon: this.props.data.telefon,
+      fax: this.props.data.fax,
+      email: this.props.data.emailFirma,
+      website: this.props.data.websiteFirma,
+      steuerNr: this.props.data.steuerNrFirma,
+      ustIdNr: this.props.data.ustIdNrFirma,
+      motto: this.props.data.motto,
+      open: this.props.data.open,
+      kontoInhaber: this.props.data.kontoInhaber,
+      bank: this.props.data.bankFirma,
+      iban: this.props.data.ibanFirma,
+      bic: this.props.data.bicFirma
     });
   };
   render() {
@@ -70,8 +42,8 @@ export class FirmaForm extends React.Component {
           className={`text-input`}
           type='text'
           autoFocus
-          value={this.state.name}
-          onChange={this.changeHandler}
+          value={this.props.data.name}
+          onChange={this.props.changeHandler}
         />
         {t('Ragione sociale')}:
         <input
@@ -79,136 +51,136 @@ export class FirmaForm extends React.Component {
           className={`text-input`}
           type='text'
           autoFocus
-          value={this.state.name2}
-          onChange={this.changeHandler}
+          value={this.props.data.name2}
+          onChange={this.props.changeHandler}
         />
         {t('Indirizzo')}:
         <input
           name='adresse'
           className={`text-input`}
           type='text'
-          value={this.state.adresse}
-          onChange={this.changeHandler}
+          value={this.props.data.adresse}
+          onChange={this.props.changeHandler}
         />
         {t('CAP')}:
         <input
           name='plz'
           className={`text-input`}
           type='text'
-          value={this.state.plz}
-          onChange={this.changeHandler}
+          value={this.props.data.plz}
+          onChange={this.props.changeHandler}
         />
         {t('Città')}:
         <input
           name='stadt'
           className={`text-input`}
           type='text'
-          value={this.state.stadt}
-          onChange={this.changeHandler}
+          value={this.props.data.stadt}
+          onChange={this.props.changeHandler}
         />
         {t('Nazione')}:
         <input
           name='staat'
           className={`text-input`}
           type='text'
-          value={this.state.staat}
-          onChange={this.changeHandler}
+          value={this.props.data.staat}
+          onChange={this.props.changeHandler}
         />
         {t('Telefono fisso')}:
         <input
           name='telefon'
           className={`text-input`}
           type='text'
-          value={this.state.telefon}
-          onChange={this.changeHandler}
+          value={this.props.data.telefon}
+          onChange={this.props.changeHandler}
         />
         Fax:
         <input
           name='fax'
           className={`text-input`}
           type='text'
-          value={this.state.fax}
-          onChange={this.changeHandler}
+          value={this.props.data.fax}
+          onChange={this.props.changeHandler}
         />
         {t('Email')}:
         <input
-          name='email'
+          name='emailFirma'
           className={`text-input`}
           type='text'
-          value={this.state.email}
-          onChange={this.changeHandler}
+          value={this.props.data.emailFirma}
+          onChange={this.props.changeHandler}
         />
         {t('Sito web')}:
         <input
-          name='website'
+          name='websiteFirma'
           className={`text-input`}
           type='text'
-          value={this.state.website}
-          onChange={this.changeHandler}
+          value={this.props.data.websiteFirma}
+          onChange={this.props.changeHandler}
         />
         {t('Codice fiscale tedesco')}:
         <input
-          name='steuerNr'
+          name='steuerNrFirma'
           className={`text-input`}
           type='text'
-          value={this.state.steuerNr}
-          onChange={this.changeHandler}
+          value={this.props.data.steuerNrFirma}
+          onChange={this.props.changeHandler}
         />
         Ust.-IdNr.:
         <input
-          name='ustIdNr'
+          name='ustIdNrFirma'
           className={`text-input`}
           type='text'
-          value={this.state.ustIdNr}
-          onChange={this.changeHandler}
+          value={this.props.data.ustIdNrFirma}
+          onChange={this.props.changeHandler}
         />
         Motto:
         <input
           name='motto'
           className={`text-input`}
           type='text'
-          value={this.state.motto}
-          onChange={this.changeHandler}
+          value={this.props.data.motto}
+          onChange={this.props.changeHandler}
         />
         {t('Orari di apertura')}:
         <input
           name='open'
           className={`text-input`}
           type='text'
-          value={this.state.open}
-          onChange={this.changeHandler}
+          value={this.props.data.open}
+          onChange={this.props.changeHandler}
         />
         {t('Intestatario conto corrente')}:
         <input
           name='kontoInhaber'
           className={`text-input`}
           type='text'
-          value={this.state.kontoInhaber}
-          onChange={this.changeHandler}
+          value={this.props.data.kontoInhaber}
+          onChange={this.props.changeHandler}
         />
         {t('Banca')}:
         <input
-          name='bank'
+          name='bankFirma'
           className={`text-input`}
           type='text'
-          value={this.state.bank}
-          onChange={this.changeHandler}
+          value={this.props.data.bankFirma}
+          onChange={this.props.changeHandler}
         />
         IBAN:
         <input
-          name='iban'
+          name='ibanFirma'
           className={`text-input`}
           type='text'
-          value={this.state.iban}
-          onChange={this.changeHandler}
+          value={this.props.data.ibanFirma}
+          onChange={this.props.changeHandler}
         />
         BIC/SWIFT:
         <input
-          name='bic'
+          name='bicFirma'
           className={`text-input`}
           type='text'
-          value={this.state.bic}
-          onChange={this.changeHandler}
+          value={this.props.data.bicFirma}
+          onChange={this.props.changeHandler}
         />
         <div>
           <button className='btn-floating blue right btn-floating-margin'>
@@ -220,4 +192,4 @@ export class FirmaForm extends React.Component {
   }
 }
 
-export default withTranslation()(FirmaForm);
+export default withTranslation()(withForm(FirmaForm));

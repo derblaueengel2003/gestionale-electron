@@ -84,13 +84,13 @@ export class ViewOggettiPage extends React.Component {
           </div>
 
           <div>
-            {this.props.oggetto.via.length > 0 && (
+            {this.props.oggetto.via && (
               <h5>{`${this.props.oggetto.via} ${this.props.oggetto.numeroCivico}, WE ${this.props.oggetto.numeroAppartamento}, ${this.props.oggetto.cap} ${this.props.oggetto.citta} ${this.props.oggetto.quartiere}`}</h5>
             )}
             {this.props.oggetto.tipologia && (
               <p>Tipo di immobile: {t(this.props.oggetto.tipologia)}</p>
             )}
-            {this.props.oggetto.rifId.length > 0 && (
+            {this.props.oggetto.rifId && (
               <p>Ref. id: {this.props.oggetto.rifId}</p>
             )}
             {this.props.oggetto.kaufpreis > 0 && (
@@ -98,66 +98,64 @@ export class ViewOggettiPage extends React.Component {
                 this.props.oggetto.kaufpreis / 100
               ).format('0,0[.]00 $')}`}</p>
             )}
-            {this.props.oggetto.amtsgericht.length > 0 && (
+            {this.props.oggetto.amtsgericht && (
               <p>
                 {t('Pretura (Amtsgericht)')}: {this.props.oggetto.amtsgericht}
               </p>
             )}
-            {this.props.oggetto.grundbuch.length > 0 && (
+            {this.props.oggetto.grundbuch && (
               <p>
                 {t('Libro Fondiario (Grundbuch)')}{' '}
                 {this.props.oggetto.grundbuch}
               </p>
             )}
-            {this.props.oggetto.grundbuchBlatt.length > 0 && (
+            {this.props.oggetto.grundbuchBlatt && (
               <p>
                 {t('Foglio')} Nr.: {this.props.oggetto.grundbuchBlatt}
               </p>
             )}
-            {this.props.oggetto.ruecklage.length > 0 && (
+            {this.props.oggetto.ruecklage && (
               <p>
                 {t('Fondo di accantonamento per manutenzione')}:{' '}
                 {this.props.oggetto.ruecklage}
               </p>
             )}
-            {this.props.oggetto.baujahr.length > 0 && (
+            {this.props.oggetto.baujahr && (
               <p>{`${t('Anno di costruzione')}: ${
                 this.props.oggetto.baujahr
               }`}</p>
             )}
-            {this.props.oggetto.energieAusweisTyp.length > 0 && (
+            {this.props.oggetto.energieAusweisTyp && (
               <p>{`${t('Certificato energetico - tipologia')}: ${
                 this.props.oggetto.energieAusweisTyp
               }`}</p>
             )}
-            {this.props.oggetto.energieAusweisBis.length > 0 && (
+            {this.props.oggetto.energieAusweisBis && (
               <p>{`${t('Valido fino al')}: ${
                 this.props.oggetto.energieAusweisBis
               }`}</p>
             )}
-            {this.props.oggetto.heizungsart.length > 0 && (
+            {this.props.oggetto.heizungsart && (
               <p>{`${t('Tipologia riscaldamento')}: ${
                 this.props.oggetto.heizungsart
               }`}</p>
             )}
-            {this.props.oggetto.energieTraeger.length > 0 && (
+            {this.props.oggetto.energieTraeger && (
               <p>{`${t('Fonte energetica')}: ${
                 this.props.oggetto.energieTraeger
               }`}</p>
             )}
-            {this.props.oggetto.energieBedarf.length > 0 && (
+            {this.props.oggetto.energieBedarf && (
               <p>{`${t('Consumo energetico')}: ${
                 this.props.oggetto.energieBedarf
               }`}</p>
             )}
 
-            {this.props.oggetto.m2.length > 0 && (
-              <p>{`m2: ${this.props.oggetto.m2}`}</p>
-            )}
-            {this.props.oggetto.piano.length > 0 && (
+            {this.props.oggetto.m2 && <p>{`m2: ${this.props.oggetto.m2}`}</p>}
+            {this.props.oggetto.piano && (
               <p>{`${t('Piano')}: ${this.props.oggetto.piano}`}</p>
             )}
-            {this.props.oggetto.stato.length > 0 && (
+            {this.props.oggetto.stato && (
               <p>{`${t('Stato abitativo')}: ${this.props.oggetto.stato}`}</p>
             )}
             {this.props.oggetto.affittoNetto > 0 && (
@@ -168,10 +166,10 @@ export class ViewOggettiPage extends React.Component {
             {`${t('Quota condominiale')}: ${numeral(
               this.props.oggetto.wohngeld / 100
             ).format('0,0[.]00 $')}`}
-            {this.props.oggetto.vani.length > 0 && (
+            {this.props.oggetto.vani && (
               <p>{`${t('Vani')}: ${this.props.oggetto.vani}`}</p>
             )}
-            {this.props.oggetto.bagni.length > 0 && (
+            {this.props.oggetto.bagni && (
               <p>{`${t('Bagni')}: ${this.props.oggetto.bagni}`}</p>
             )}
             {this.props.oggetto.balcone && (
@@ -186,12 +184,12 @@ export class ViewOggettiPage extends React.Component {
             {this.props.oggetto.cantina && (
               <p>{`${t('Cantina')}: ${t('sì')}`}</p>
             )}
-            {this.props.oggetto.condizioni.length > 0 && (
+            {this.props.oggetto.condizioni && (
               <p>{`${t('Condizioni immobile')}: ${
                 this.props.oggetto.condizioni
               }`}</p>
             )}
-            {this.props.oggetto.note.length > 0 && (
+            {this.props.oggetto.note && (
               <p>{`Note: ${this.props.oggetto.note}`}</p>
             )}
             {this.props.oggetto.venduto === true && (
@@ -203,7 +201,7 @@ export class ViewOggettiPage extends React.Component {
           {/* Se ho cover e titolo, mostro il pulsante exposé */}
           <ul className='collection  s12 m6'>
             {this.props.oggetto.downloadURLsCover &&
-              this.props.oggetto.titoloDe.length > 0 && (
+              this.props.oggetto.titoloDe && (
                 <li className='collection-item'>
                   <div>
                     Exposé {t('tedesco')}
@@ -228,33 +226,32 @@ export class ViewOggettiPage extends React.Component {
                 </li>
               )}
 
+            {this.props.oggetto.downloadURLsCover && this.props.oggetto.titolo && (
+              <li className='collection-item'>
+                <div>
+                  Exposé {t('italiano')}
+                  <a href='#!' className='secondary-content'>
+                    <i
+                      className='material-icons'
+                      onClick={() => {
+                        expose(
+                          this.props.oggetto,
+                          this.props.firma,
+                          this.props.utente,
+                          this.props.ceo,
+                          'it',
+                          this.state.stores[0]
+                        );
+                      }}
+                    >
+                      picture_as_pdf
+                    </i>
+                  </a>
+                </div>
+              </li>
+            )}
             {this.props.oggetto.downloadURLsCover &&
-              this.props.oggetto.titolo.length > 0 && (
-                <li className='collection-item'>
-                  <div>
-                    Exposé {t('italiano')}
-                    <a href='#!' className='secondary-content'>
-                      <i
-                        className='material-icons'
-                        onClick={() => {
-                          expose(
-                            this.props.oggetto,
-                            this.props.firma,
-                            this.props.utente,
-                            this.props.ceo,
-                            'it',
-                            this.state.stores[0]
-                          );
-                        }}
-                      >
-                        picture_as_pdf
-                      </i>
-                    </a>
-                  </div>
-                </li>
-              )}
-            {this.props.oggetto.downloadURLsCover &&
-              this.props.oggetto.titoloEn.length > 0 && (
+              this.props.oggetto.titoloEn && (
                 <li className='collection-item'>
                   <div>
                     Exposé {t('inglese')}
@@ -294,7 +291,7 @@ export class ViewOggettiPage extends React.Component {
           )}
         </div>
 
-        {this.props.oggetto.verwalter.length > 0 && (
+        {this.props.oggetto.verwalter && (
           <div>
             <ClientiList
               cliente={verwalter}
@@ -302,12 +299,12 @@ export class ViewOggettiPage extends React.Component {
             />
           </div>
         )}
-        {this.props.oggetto.proprietarioId.length > 0 && (
+        {this.props.oggetto.proprietarioId && (
           <div>
             <ClientiList cliente={proprietario} ruolo={t('Proprietario')} />
           </div>
         )}
-        {this.props.oggetto.proprietarioId2.length > 0 && (
+        {this.props.oggetto.proprietarioId2 && (
           <div>
             <ClientiList
               cliente={proprietario2}
@@ -315,7 +312,7 @@ export class ViewOggettiPage extends React.Component {
             />
           </div>
         )}
-        {this.props.oggetto.inquilinoId.length > 0 && (
+        {this.props.oggetto.inquilinoId && (
           <div>
             <ClientiList cliente={inquilino} ruolo={t('Inquilino')} />
           </div>
@@ -377,7 +374,7 @@ export class ViewOggettiPage extends React.Component {
             />
           </a>
         </div>
-        {this.props.oggetto.titolo.length > 0 && (
+        {this.props.oggetto.titolo && (
           <div className='container margine-basso'>
             <div className='grey lighten-4'>
               <div>
@@ -388,7 +385,7 @@ export class ViewOggettiPage extends React.Component {
             <div>{`Descrizione: ${this.props.oggetto.descrizione}`}</div>
           </div>
         )}
-        {this.props.oggetto.titoloDe.length > 0 && (
+        {this.props.oggetto.titoloDe && (
           <div className='container margine-basso'>
             <div className='grey lighten-4'>
               <div>
@@ -399,7 +396,7 @@ export class ViewOggettiPage extends React.Component {
             <div>{`Beschreibung: ${this.props.oggetto.descrizioneDe}`}</div>
           </div>
         )}
-        {this.props.oggetto.titolo.length > 0 && (
+        {this.props.oggetto.titoloEn && (
           <div className='container margine-basso'>
             <div className='grey lighten-4'>
               <div>

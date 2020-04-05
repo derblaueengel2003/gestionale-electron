@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import moment from 'moment';
+import withForm from '../common/withForm';
 import { SingleDatePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
@@ -14,56 +14,23 @@ export class LeadForm extends React.Component {
   componentDidMount() {
     M.AutoInit();
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-      leadCreatedAt: props.lead ? moment(props.lead.leadCreatedAt) : moment(),
-      calendarFocused: false,
-      leadId: props.lead ? props.lead.leadId : '',
-      leadBudget: props.lead ? (props.lead.leadBudget / 100).toString() : '',
-      leadOggettoStato: props.lead ? props.lead.leadOggettoStato : '',
-      leadNote: props.lead ? props.lead.leadNote : ''
-    };
-  }
-  changeHandler = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({ [name]: value });
-  };
-  onBudgetChange = e => {
-    const leadBudget = e.target.value;
-    if (!leadBudget || leadBudget.match(/^\d{1,}(,\d{0,2})?$/)) {
-      this.setState(() => ({ leadBudget }));
-    }
-  };
-  onDateChange = leadCreatedAt => {
-    if (leadCreatedAt) {
-      this.setState(() => ({ leadCreatedAt }));
-    }
-  };
-  onFocusChange = ({ focused }) => {
-    this.setState(() => ({ calendarFocused: focused }));
-  };
-  onLeadIdChange = e => {
-    const leadId = e ? e.value : '';
-    this.setState(() => ({ leadId }));
-  };
+
   onSubmit = e => {
     e.preventDefault();
-    const leadBudget = parseFloat(this.state.leadBudget, 10) * 100;
+    const leadBudget = parseFloat(this.props.data.leadBudget, 10) * 100;
 
-    if (!this.state.leadId || this.state.leadBudget < 1) {
+    if (!this.props.data.leadId || this.props.data.leadBudget < 1) {
       this.setState(() => ({ error: 'Budget bitte eingeben' }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
-        leadCreatedAt: this.state.leadCreatedAt
-          ? this.state.leadCreatedAt.valueOf()
+        leadCreatedAt: this.props.data.leadCreatedAt
+          ? this.props.data.leadCreatedAt.valueOf()
           : null,
-        leadId: this.state.leadId,
+        leadId: this.props.data.leadId,
         leadBudget,
-        leadOggettoStato: this.state.leadOggettoStato,
-        leadNote: this.state.leadNote
+        leadOggettoStato: this.props.data.leadOggettoStato,
+        leadNote: this.props.data.leadNote
       });
     }
   };
@@ -78,7 +45,9 @@ export class LeadForm extends React.Component {
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.state.error && <p className='form__error'>{this.state.error}</p>}
+        {this.props.data.error && (
+          <p className='form__error'>{this.props.data.error}</p>
+        )}
         <div>
           <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>
@@ -86,47 +55,35 @@ export class LeadForm extends React.Component {
         </div>
         {t('Data richiesta')}:
         <SingleDatePicker
-          date={this.state.leadCreatedAt}
-          onDateChange={this.onDateChange}
-          focused={this.state.calendarFocused}
-          onFocusChange={this.onFocusChange}
+          date={this.props.data.leadCreatedAt}
+          onDateChange={e => this.props.onDataChange('leadCreatedAt', e)}
+          focused={this.props.data.calendarFocused}
+          onFocusChange={e => this.props.onFocusChange('calendarFocused', e)}
           numberOfMonths={1}
           isOutsideRange={() => false}
         />
         {t('Cliente')}:
         <Select
           name='leadId'
-          value={this.state.leadId}
+          value={this.props.data.leadId}
           options={options}
           filterOptions={filterOptions}
-          onChange={this.onLeadIdChange}
+          onChange={e => this.props.changeHandlerSelect('leadId', e && e.value)}
         />
-        {/*
-          tolgo il pulsante aggiungi nuovo utente 
-        {!this.state.leadId && (
-          <div className='page-header__actions'>
-            <Link
-              className='button button--secondary-clienti'
-              to='/customercreate'
-            >
-              Neuer Kunde hinzufügen
-            </Link>
-          </div>
-        )}
-        */}
         Budget:
         <input
+          name='leadBudget'
           className={`text-input`}
           type='text'
           placeholder='Kudenbudget'
-          value={this.state.leadBudget}
-          onChange={this.onBudgetChange}
+          value={this.props.data.leadBudget}
+          onChange={this.props.changeHandlerValuta}
         />
         {t('Tipologia immobile e stato')}:
         <select
           name='leadOggettoStato'
-          value={this.state.leadOggettoStato}
-          onChange={this.changeHandler}
+          value={this.props.data.leadOggettoStato}
+          onChange={this.props.changeHandler}
         >
           <option value='libero'>{t('Appartamento libero')}</option>
           <option value='affittato'>{t('Appartamento affittato')}</option>
@@ -141,8 +98,8 @@ export class LeadForm extends React.Component {
           name='leadNote'
           className={`textarea`}
           placeholder='Weitere Merkmale'
-          value={this.state.leadNote}
-          onChange={this.changeHandler}
+          value={this.props.data.leadNote}
+          onChange={this.props.changeHandler}
         ></textarea>
         <div>
           <button className='btn-floating blue right'>
@@ -159,4 +116,4 @@ const mapStateToProps = state => ({
   clienti: state.clienti
 });
 
-export default connect(mapStateToProps)(withTranslation()(LeadForm));
+export default connect(mapStateToProps)(withTranslation()(withForm(LeadForm)));

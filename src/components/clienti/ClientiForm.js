@@ -1,173 +1,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
+import withForm from '../common/withForm';
 import { Link } from 'react-router-dom';
 import { SingleDatePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
 import moment from 'moment';
 
 export class CustomerForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nome: props.customer ? props.customer.nome : '',
-      cognome: props.customer ? props.customer.cognome : '',
-      calendarFocused: false,
-      titolo: props.customer ? props.customer.titolo : '',
-      dataDiNascita: props.customer
-        ? props.customer.dataDiNascita && moment(props.customer.dataDiNascita)
-        : null,
-      ditta: props.customer ? props.customer.ditta : '',
-      indirizzo: props.customer ? props.customer.indirizzo : '',
-      indirizzo2: props.customer ? props.customer.indirizzo2 : '',
-      cap: props.customer ? props.customer.cap : '',
-      comune: props.customer ? props.customer.comune : '',
-      nazione: props.customer ? props.customer.nazione : '',
-      lingua: props.customer ? props.customer.lingua : '',
-      email: props.customer ? props.customer.email : '',
-      consulenteVenditaId: props.customer
-        ? props.customer.consulenteVenditaId
-        : '',
-      telefono1: props.customer ? props.customer.telefono1 : '',
-      fax: props.customer ? props.customer.fax : '',
-      cellulare: props.customer ? props.customer.cellulare : '',
-      codiceFiscale: props.customer ? props.customer.codiceFiscale : '',
-      handelsRegisterNummer: props.customer
-        ? props.customer.handelsRegisterNummer
-        : '',
-      bank: props.customer ? props.customer.bank : '',
-      iban: props.customer ? props.customer.iban : '',
-      bic: props.customer ? props.customer.bic : '',
-      note: props.customer ? props.customer.note : '',
-      visible: props.customer ? props.customer.visible : true,
-      error: '',
-      www: props.customer ? props.customer.www || '' : '',
-      dataRegistrazione: props.customer
-        ? props.customer.dataRegistrazione
-          ? moment(props.customer.dataRegistrazione)
-          : null
-        : null,
-      calendarDataRegistrazioneFocused: false,
-      consensoDSGVO: props.customer
-        ? props.customer.consensoDSGVO
-          ? props.customer.consensoDSGVO
-          : false
-        : false,
-      dataConsensoDSGVO: props.customer
-        ? props.customer.dataConsensoDSGVO
-          ? moment(props.customer.dataConsensoDSGVO)
-          : null
-        : null,
-      calendarDataConsensoDSGVOFocused: false
-    };
-  }
-  changeHandler = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  changeHandlerValidate = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({ [name]: value });
-    let match = this.props.clienti.filter(ilcliente => {
-      const emailMatch = ilcliente.email
-        .toLowerCase()
-        .includes(value.toLowerCase());
-      const cognomeMatch = ilcliente.cognome
-        .toLowerCase()
-        .includes(value.toLowerCase());
-      const dittaMatch = ilcliente.ditta
-        .toLowerCase()
-        .includes(value.toLowerCase());
-      return emailMatch || cognomeMatch || dittaMatch;
-    });
-    if (match.length > 0) {
-      this.setState(() => ({
-        error: `Cliente forse già presente nel gestionale`
-      }));
-    } else {
-      this.setState(() => ({ error: '' }));
-    }
-  };
-  onDateChange = dataDiNascita => {
-    if (dataDiNascita) {
-      this.setState(() => ({ dataDiNascita }));
-    } else {
-      this.setState(() => ({ dataDiNascita: null }));
-    }
-  };
-  onFocusChange = ({ focused }) => {
-    this.setState(() => ({ calendarFocused: focused }));
-  };
-  onConsulenteVenditaChange = e => {
-    const consulenteVenditaId = e ? e.value : '';
-    this.setState(() => ({ consulenteVenditaId }));
-  };
-
-  onDataRegistrazioneChange = dataRegistrazione => {
-    if (dataRegistrazione) {
-      this.setState(() => ({ dataRegistrazione }));
-    } else {
-      this.setState(() => ({ dataRegistrazione: null }));
-    }
-  };
-  onFocusDataRegistrazioneChange = ({ focused }) => {
-    this.setState(() => ({ calendarDataRegistrazioneFocused: focused }));
-  };
-  onDataConsensoDSGVOChange = dataConsensoDSGVO => {
-    if (dataConsensoDSGVO) {
-      this.setState(() => ({ dataConsensoDSGVO }));
-    } else {
-      this.setState(() => ({ dataConsensoDSGVO: null }));
-    }
-  };
-  onFocusDataConsensoDSGVOChange = ({ focused }) => {
-    this.setState(() => ({ calendarDataConsensoDSGVOFocused: focused }));
-  };
-
   onSubmit = e => {
     e.preventDefault();
 
-    if (!this.state.cognome) {
+    if (!this.props.data.cognome) {
       this.setState(() => ({
         error: 'Vorname und Name bitte eingeben.'
       }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
-        nome: this.state.nome,
-        cognome: this.state.cognome,
-        titolo: this.state.titolo,
-        dataDiNascita: this.state.dataDiNascita
-          ? this.state.dataDiNascita.valueOf()
+        nome: this.props.data.nome,
+        cognome: this.props.data.cognome,
+        titolo: this.props.data.titolo,
+        dataDiNascita: this.props.data.dataDiNascita
+          ? this.props.data.dataDiNascita.valueOf()
           : null,
-        ditta: this.state.ditta,
-        indirizzo: this.state.indirizzo,
-        indirizzo2: this.state.indirizzo2,
-        cap: this.state.cap,
-        comune: this.state.comune,
-        nazione: this.state.nazione,
-        lingua: this.state.lingua,
-        email: this.state.email,
-        consulenteVenditaId: this.state.consulenteVenditaId,
-        telefono1: this.state.telefono1,
-        fax: this.state.fax,
-        cellulare: this.state.cellulare,
-        codiceFiscale: this.state.codiceFiscale,
-        handelsRegisterNummer: this.state.handelsRegisterNummer,
-        bank: this.state.bank,
-        iban: this.state.iban,
-        bic: this.state.bic,
-        visible: this.state.visible,
-        www: this.state.www,
-        note: this.state.note,
-        dataRegistrazione: this.state.dataRegistrazione
-          ? this.state.dataRegistrazione.valueOf()
+        ditta: this.props.data.ditta,
+        indirizzo: this.props.data.indirizzo,
+        indirizzo2: this.props.data.indirizzo2,
+        cap: this.props.data.cap,
+        comune: this.props.data.comune,
+        nazione: this.props.data.nazione,
+        lingua: this.props.data.lingua,
+        email: this.props.data.email,
+        consulenteVenditaId: this.props.data.consulenteVenditaId,
+        telefono1: this.props.data.telefono1,
+        fax: this.props.data.fax,
+        cellulare: this.props.data.cellulare,
+        codiceFiscale: this.props.data.codiceFiscale,
+        handelsRegisterNummer: this.props.data.handelsRegisterNummer,
+        bank: this.props.data.bank,
+        iban: this.props.data.iban,
+        bic: this.props.data.bic,
+        visible: this.props.data.visible,
+        www: this.props.data.www,
+        note: this.props.data.note,
+        dataRegistrazione: this.props.data.dataRegistrazione
+          ? this.props.data.dataRegistrazione.valueOf()
           : null,
-        dataConsensoDSGVO: this.state.dataConsensoDSGVO
-          ? this.state.dataConsensoDSGVO.valueOf()
+        dataConsensoDSGVO: this.props.data.dataConsensoDSGVO
+          ? this.props.data.dataConsensoDSGVO.valueOf()
           : null,
-        consensoDSGVO: this.state.consensoDSGVO
+        consensoDSGVO: this.props.data.consensoDSGVO
       });
     }
   };
@@ -185,9 +68,9 @@ export class CustomerForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        {this.state.error && (
+        {this.props.data.error && (
           <div>
-            <p className='form__error'>{this.state.error}</p>
+            <p className='form__error'>{this.props.data.error}</p>
             <Link to={`customer/`} target='_blank' className='btn'>
               {t('Verificare')}
             </Link>
@@ -196,13 +79,15 @@ export class CustomerForm extends React.Component {
         {t('Data registrazione dati del cliente')}:
         <SingleDatePicker
           date={
-            this.state.dataRegistrazione
-              ? this.state.dataRegistrazione
+            this.props.data.dataRegistrazione
+              ? this.props.data.dataRegistrazione
               : moment()
           }
-          onDateChange={this.onDataRegistrazioneChange}
-          focused={this.state.calendarDataRegistrazioneFocused}
-          onFocusChange={this.onFocusDataRegistrazioneChange}
+          onDateChange={e => this.props.onDataChange('dataRegistrazione', e)}
+          focused={this.props.data.calendarDataRegistrazioneFocused}
+          onFocusChange={e =>
+            this.props.onFocusChange('calendarDataRegistrazioneFocused', e)
+          }
           numberOfMonths={1}
           isOutsideRange={() => false}
           showClearDate={true}
@@ -210,9 +95,11 @@ export class CustomerForm extends React.Component {
         {t('Consulente vendita')}:
         <Select
           name='consulentevendita'
-          value={this.state.consulenteVenditaId}
+          value={this.props.data.consulenteVenditaId}
           options={consulenteVenditaOptions}
-          onChange={this.onConsulenteVenditaChange}
+          onChange={e =>
+            this.props.changeHandlerSelect('consulenteVenditaId', e && e.value)
+          }
         />
         {t('Titolo')}:
         <input
@@ -221,33 +108,37 @@ export class CustomerForm extends React.Component {
           type='text'
           autoFocus
           placeholder='Herr, Frau'
-          value={this.state.titolo}
-          onChange={this.changeHandler}
+          value={this.props.data.titolo}
+          onChange={this.props.changeHandler}
         />
         {t('Nome')}:
         <input
           name='nome'
           className={`text-input`}
           type='text'
-          value={this.state.nome}
-          onChange={this.changeHandler}
+          value={this.props.data.nome}
+          onChange={this.props.changeHandler}
         />
         {t('Cognome')}:
         <input
           name='cognome'
-          className={`text-input ${this.state.error && 'form__error'}`}
+          className={`text-input ${this.props.data.error && 'form__error'}`}
           type='text'
-          value={this.state.cognome}
-          onChange={this.changeHandlerValidate}
+          value={this.props.data.cognome}
+          onChange={e =>
+            this.props.changeHandlerValidate(this.props.clienti, e)
+          }
         />
         {t('Email')}:
         <input
           name='email'
-          className={`text-input ${this.state.error && 'form__error'}`}
+          className={`text-input ${this.props.data.error && 'form__error'}`}
           type='text'
           placeholder='info@esempio.it'
-          value={this.state.email}
-          onChange={this.changeHandlerValidate}
+          value={this.props.data.email}
+          onChange={e =>
+            this.props.changeHandlerValidate(this.props.clienti, e)
+          }
         />
         {t('Telefono fisso')}:
         <input
@@ -255,8 +146,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='z.B. +49123456789'
-          value={this.state.telefono1}
-          onChange={this.changeHandler}
+          value={this.props.data.telefono1}
+          onChange={this.props.changeHandler}
         />
         Fax:
         <input
@@ -264,8 +155,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='z.B. +49123456789'
-          value={this.state.fax}
-          onChange={this.changeHandler}
+          value={this.props.data.fax}
+          onChange={this.props.changeHandler}
         />
         {t('Cellulare')}:
         <input
@@ -273,23 +164,23 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='z.B. +49123456789'
-          value={this.state.cellulare}
-          onChange={this.changeHandler}
+          value={this.props.data.cellulare}
+          onChange={this.props.changeHandler}
         />
         {t('Sito web')}:
         <input
           name='www'
           className={`text-input`}
           type='text'
-          value={this.state.www}
-          onChange={this.changeHandler}
+          value={this.props.data.www}
+          onChange={this.props.changeHandler}
         />
         {t('Data di nascita')}:
         <SingleDatePicker
-          date={this.state.dataDiNascita}
-          onDateChange={this.onDateChange}
-          focused={this.state.calendarFocused}
-          onFocusChange={this.onFocusChange}
+          date={this.props.data.dataDiNascita}
+          onDateChange={e => this.props.onDataChange('dataDiNascita', e)}
+          focused={this.props.data.calendarFocused}
+          onFocusChange={e => this.props.onFocusChange('calendarFocused', e)}
           numberOfMonths={1}
           isOutsideRange={() => false}
           showClearDate={true}
@@ -300,17 +191,19 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='wenn Wohnsitz in Deutschland'
-          value={this.state.codiceFiscale}
-          onChange={this.changeHandler}
+          value={this.props.data.codiceFiscale}
+          onChange={this.props.changeHandler}
         />
         {t('Ditta')}:
         <input
           name='ditta'
-          className={`text-input ${this.state.error && 'form__error'}`}
+          className={`text-input ${this.props.data.error && 'form__error'}`}
           type='text'
           placeholder='Firma'
-          value={this.state.ditta}
-          onChange={this.changeHandlerValidate}
+          value={this.props.data.ditta}
+          onChange={e =>
+            this.props.changeHandlerValidate(this.props.clienti, e)
+          }
         />
         {t('Numero iscrizione registro delle imprese')}:
         <input
@@ -318,8 +211,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='HRA HRB '
-          value={this.state.handelsRegisterNummer}
-          onChange={this.changeHandler}
+          value={this.props.data.handelsRegisterNummer}
+          onChange={this.props.changeHandler}
         />
         {t('Indirizzo')}:
         <input
@@ -327,8 +220,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='Straße und Nr.'
-          value={this.state.indirizzo}
-          onChange={this.changeHandler}
+          value={this.props.data.indirizzo}
+          onChange={this.props.changeHandler}
         />
         {t('Estensione indirizzo')}:
         <input
@@ -336,8 +229,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='c/o'
-          value={this.state.indirizzo2}
-          onChange={this.changeHandler}
+          value={this.props.data.indirizzo2}
+          onChange={this.props.changeHandler}
         />
         {t('CAP')}:
         <input
@@ -345,8 +238,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='Postleitzahl'
-          value={this.state.cap}
-          onChange={this.changeHandler}
+          value={this.props.data.cap}
+          onChange={this.props.changeHandler}
         />
         {t('Città')}:
         <input
@@ -354,8 +247,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='Stadt'
-          value={this.state.comune}
-          onChange={this.changeHandler}
+          value={this.props.data.comune}
+          onChange={this.props.changeHandler}
         />
         {t('Nazione')}:
         <input
@@ -363,8 +256,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='Staat'
-          value={this.state.nazione}
-          onChange={this.changeHandler}
+          value={this.props.data.nazione}
+          onChange={this.props.changeHandler}
         />
         {t('Lingua')}:
         <input
@@ -372,8 +265,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='Sprache'
-          value={this.state.lingua}
-          onChange={this.changeHandler}
+          value={this.props.data.lingua}
+          onChange={this.props.changeHandler}
         />
         {t('Banca')}:
         <input
@@ -381,8 +274,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='Bankdaten'
-          value={this.state.bank}
-          onChange={this.changeHandler}
+          value={this.props.data.bank}
+          onChange={this.props.changeHandler}
         />
         IBAN:
         <input
@@ -390,8 +283,8 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='IBAN'
-          value={this.state.iban}
-          onChange={this.changeHandler}
+          value={this.props.data.iban}
+          onChange={this.props.changeHandler}
         />
         BIC/SWIFT:
         <input
@@ -399,53 +292,49 @@ export class CustomerForm extends React.Component {
           className={`text-input`}
           type='text'
           placeholder='BIC/SWIFT'
-          value={this.state.bic}
-          onChange={this.changeHandler}
+          value={this.props.data.bic}
+          onChange={this.props.changeHandler}
         />
         <textarea
           name='note'
           className={`textarea text-input`}
           placeholder='Note'
-          value={this.state.note}
-          onChange={this.changeHandler}
+          value={this.props.data.note}
+          onChange={this.props.changeHandler}
         ></textarea>
         {this.props.utente.role === 'Admin' ? (
           <label>
             <input
               type='checkbox'
               name='visible'
-              checked={this.state.visible}
-              onChange={() => {
-                this.setState(() => ({
-                  visible: !this.state.visible
-                }));
-              }}
+              checked={this.props.data.visible}
+              onChange={this.props.changeCheckbox}
             />
             <span>{t('Visibile')}</span>
           </label>
         ) : (
           ''
         )}
-        {this.state.error && <p className='form__error'>{this.state.error}</p>}
+        {this.props.data.error && (
+          <p className='form__error'>{this.props.data.error}</p>
+        )}
         <label>
           <input
             type='checkbox'
             name='consensoDSGVO'
-            checked={this.state.consensoDSGVO}
-            onChange={() => {
-              this.setState(() => ({
-                consensoDSGVO: !this.state.consensoDSGVO
-              }));
-            }}
+            checked={this.props.data.consensoDSGVO}
+            onChange={this.props.changeCheckbox}
           />
           <span>{t('Consenso al trattamento dei dati personali')}</span>
         </label>
         {t('Data consenso')}:
         <SingleDatePicker
-          date={this.state.dataConsensoDSGVO}
-          onDateChange={this.onDataConsensoDSGVOChange}
-          focused={this.state.calendarDataConsensoDSGVOFocused}
-          onFocusChange={this.onFocusDataConsensoDSGVOChange}
+          date={this.props.data.dataConsensoDSGVO}
+          onDateChange={e => this.props.onDataChange('dataConsensoDSGVO', e)}
+          focused={this.props.data.calendarDataConsensoDSGVOFocused}
+          onFocusChange={e =>
+            this.props.onFocusChange('calendarDataConsensoDSGVOFocused', e)
+          }
           numberOfMonths={1}
           isOutsideRange={() => false}
           showClearDate={true}
@@ -466,4 +355,6 @@ const mapStateToProps = state => ({
   utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
 });
 
-export default connect(mapStateToProps)(withTranslation()(CustomerForm));
+export default connect(mapStateToProps)(
+  withTranslation()(withForm(CustomerForm))
+);
