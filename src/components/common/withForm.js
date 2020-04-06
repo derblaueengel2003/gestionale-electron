@@ -1,6 +1,8 @@
 import React from 'react';
 import firebase from 'firebase';
 import moment from 'moment';
+import { SingleDatePicker } from 'react-dates';
+import Select from 'react-virtualized-select';
 
 function withForm(Component) {
   return class WithForm extends React.Component {
@@ -107,7 +109,7 @@ function withForm(Component) {
           ? props.deal.belastungsVollmacht
           : false,
         noteDeal: props.deal ? props.deal.note : '',
-        error: '',
+
         modificato: '',
         provvSum: 0,
 
@@ -172,7 +174,7 @@ function withForm(Component) {
         stadt: props.firma ? props.firma.stadt : '',
         staat: props.firma ? props.firma.staat : '',
         telefon: props.firma ? props.firma.telefon : '',
-        fax: props.firma ? props.firma.fax : '',
+        faxFirma: props.firma ? props.firma.fax : '',
         emailFirma: props.firma ? props.firma.email : '',
         websiteFirma: props.firma ? props.firma.website : '',
         steuerNrFirma: props.firma ? props.firma.steuerNr : '',
@@ -279,9 +281,103 @@ function withForm(Component) {
         emailUser: props.user ? props.user.email : '',
         telefonUser: props.user ? props.user.telefon : '',
         qualifica: props.user ? props.user.qualifica : '',
-        firebaseAuthId: props.user ? props.user.firebaseAuthId : ''
+        firebaseAuthId: props.user ? props.user.firebaseAuthId : '',
+
+        //ERROR
+        error: ''
       };
     }
+
+    //RENDER
+    renderInput = (
+      name,
+      label,
+      type = 'text',
+      handler = this.changeHandler,
+      args,
+      placeholder
+    ) => {
+      return (
+        <div>
+          <label htmlFor={name}>{label}</label>
+          <input
+            type={type}
+            name={name}
+            value={this.state[name]}
+            id={name}
+            className='text-input'
+            placeholder={placeholder}
+            onChange={e => handler(e, args)}
+          />
+          {this.state.error && (
+            <div className='card-panel pink lighten-4'>{this.state.error}</div>
+          )}
+        </div>
+      );
+    };
+
+    renderTextArea = (textAreaName, placeholder = 'Note') => {
+      return (
+        <textarea
+          name={textAreaName}
+          className={`textarea text-input`}
+          placeholder={placeholder}
+          value={this.state[textAreaName]}
+          onChange={this.changeHandler}
+        ></textarea>
+      );
+    };
+
+    renderCheckbox = (checkboxName, label) => {
+      return (
+        <div>
+          <label>
+            <input
+              type='checkbox'
+              name={checkboxName}
+              checked={this.state[checkboxName]}
+              onChange={this.changeCheckbox}
+            />
+            <span>{label}</span>
+          </label>
+        </div>
+      );
+    };
+
+    renderSingleDate = (dataName, focusName, label) => {
+      return (
+        <div>
+          <label>{label}</label>
+          <div>
+            <SingleDatePicker
+              date={this.state[dataName]}
+              onDateChange={e => this.onDataChange(dataName, e)}
+              focused={this.state[focusName]}
+              onFocusChange={e => this.onFocusChange(focusName, e)}
+              numberOfMonths={1}
+              isOutsideRange={() => false}
+              showClearDate={true}
+            />
+          </div>
+        </div>
+      );
+    };
+
+    renderSelect = (selectName, options, label) => {
+      return (
+        <div>
+          <label>{label}</label>
+          <div>
+            <Select
+              name={selectName}
+              value={this.state[selectName]}
+              options={options}
+              onChange={e => this.changeHandlerSelect(selectName, e && e.value)}
+            />
+          </div>
+        </div>
+      );
+    };
 
     // HANDLER
     changeHandler = e => this.setState({ [e.target.name]: e.target.value });
@@ -298,7 +394,7 @@ function withForm(Component) {
       }
     };
 
-    changeHandlerValidate = (clienti, e) => {
+    changeHandlerValidate = (e, clienti) => {
       const name = e.target.name;
       const value = e.target.value;
       this.setState({ [name]: value });
@@ -493,6 +589,11 @@ function withForm(Component) {
     render() {
       return (
         <Component
+          renderInput={this.renderInput}
+          renderSingleDate={this.renderSingleDate}
+          renderTextArea={this.renderTextArea}
+          renderCheckbox={this.renderCheckbox}
+          renderSelect={this.renderSelect}
           changeHandler={this.changeHandler}
           changeHandlerSelect={this.changeHandlerSelect}
           changeHandlerValuta={this.changeHandlerValuta}

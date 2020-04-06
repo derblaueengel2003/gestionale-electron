@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
-import { SingleDatePicker } from 'react-dates';
-import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
@@ -63,14 +61,19 @@ export class FatturaForm extends React.Component {
   };
 
   render() {
-    const { t } = this.props;
+    const {
+      t,
+      renderSelect,
+      renderCheckbox,
+      renderInput,
+      renderSingleDate,
+      changeHandlerValuta
+    } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
         `- Firma ${cliente.ditta}`}`
     }));
-
-    const filterOptions = createFilterOptions({ options });
 
     const dealIdOptions = this.props.deals.map(deal => ({
       value: deal.id,
@@ -104,164 +107,66 @@ export class FatturaForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        {t('Vendita')}:
-        <Select
-          name='dealId'
-          value={this.props.data.dealId}
-          options={dealIdOptions}
-          onChange={e => this.props.changeHandlerSelect('dealId', e && e.value)}
-        />
-        {t('Cliente')}:
-        <Select
-          name='clienteId'
-          value={this.props.data.clienteId}
-          options={options}
-          filterOptions={filterOptions}
-          onChange={e =>
-            this.props.changeHandlerSelect('clienteId', e && e.value)
-          }
-        />
-        2. {t('Cliente')}:
-        <Select
-          name='clienteId2'
-          value={this.props.data.clienteId2}
-          options={options}
-          filterOptions={filterOptions}
-          onChange={e =>
-            this.props.changeHandlerSelect('clienteId2', e && e.value)
-          }
-        />
-        {t('Numero fattura')}:
-        <input
-          name='numeroFattura'
-          className={`text-input`}
-          type='text'
-          placeholder='Rechnungsnummer'
-          value={this.props.data.numeroFattura}
-          onChange={this.props.changeHandler}
-        />
-        {t('Data fattura')}:
-        <SingleDatePicker
-          date={this.props.data.dataFattura}
-          onDateChange={e => this.props.onDataChange('dataFattura', e)}
-          focused={this.props.data.calendarDataFatturaFocused}
-          onFocusChange={e =>
-            this.props.onFocusChange('calendarDataFatturaFocused', e)
-          }
-          numberOfMonths={1}
-          isOutsideRange={() => false}
-          showClearDate={true}
-        />
-        {t('Data sollecito')}:
-        <SingleDatePicker
-          date={this.props.data.dataZahlungserinnerung}
-          onDateChange={e =>
-            this.props.onDataChange('dataZahlungserinnerung', e)
-          }
-          focused={this.props.data.calendarDataZahlungserinnerungFocused}
-          onFocusChange={e =>
-            this.props.onFocusChange('calendarDataZahlungserinnerungFocused', e)
-          }
-          numberOfMonths={1}
-          isOutsideRange={() => false}
-          showClearDate={true}
-        />
-        1. {t('Sollecito con penale')}:
-        <SingleDatePicker
-          date={this.props.data.dataMahnung}
-          onDateChange={e => this.props.onDataChange('dataMahnung', e)}
-          focused={this.props.data.calendarDataMahnungFocused}
-          onFocusChange={e =>
-            this.props.onFocusChange('calendarDataMahnungFocused', e)
-          }
-          numberOfMonths={1}
-          isOutsideRange={() => false}
-          showClearDate={true}
-        />
-        1. {t('Penale')}:
-        <input
-          name='mahngebuehren'
-          className={`text-input `}
-          type='text'
-          placeholder={`7,50`}
-          value={this.props.data.mahngebuehren}
-          onChange={this.props.changeHandlerValuta}
-        />
-        2. {t('Sollecito con penale')}:
-        <SingleDatePicker
-          date={this.props.data.dataMahnung2}
-          onDateChange={e => this.props.onDataChange('dataMahnung2', e)}
-          focused={this.props.data.calendarDataMahnung2Focused}
-          onFocusChange={e =>
-            this.props.onFocusChange('calendarDataMahnung2Focused', e)
-          }
-          numberOfMonths={1}
-          isOutsideRange={() => false}
-          showClearDate={true}
-        />
-        2. {t('Penale')}:
-        <input
-          name='mahngebuehren2'
-          className={`text-input `}
-          type='text'
-          placeholder={`15`}
-          value={this.props.data.mahngebuehren2}
-          onChange={this.props.changeHandlerValuta}
-        />
-        <label>
-          <input
-            type='checkbox'
-            name='payed'
-            checked={this.props.data.payed}
-            onChange={this.props.changeCheckbox}
-          />
-          <span>{t('Pagato')}</span>
-        </label>
+        {renderSelect('dealId', dealIdOptions, t('Vendita'))}
+        {renderSelect('clienteId', options, t('Cliente'))}
+        {renderSelect('clienteId2', options, '2. ' + t('Cliente'))}
+        {renderInput('numeroFattura', t('Numero fattura'))}
+        {renderSingleDate(
+          'dataFattura',
+          'calendarDataFatturaFocused',
+          t('Data fattura')
+        )}
+        {renderSingleDate(
+          'dataZahlungserinnerung',
+          'calendarDataZahlungserinnerungFocused',
+          t('Data sollecito')
+        )}
+        {renderSingleDate(
+          'dataMahnung',
+          'calendarDataMahnungFocused',
+          '1. ' + t('Sollecito con penale')
+        )}
+        {renderInput(
+          'mahngebuehren',
+          '1. ' + t('Penale'),
+          undefined,
+          changeHandlerValuta
+        )}
+
+        {renderSingleDate(
+          'dataMahnung2',
+          'calendarDataMahnung2Focused',
+          '2. ' + t('Sollecito con penale')
+        )}
+        {renderInput(
+          'mahngebuehren2',
+          '2. ' + t('Penale'),
+          undefined,
+          changeHandlerValuta
+        )}
+        {renderCheckbox('payed', t('Pagato'))}
+
         <div className={`visible-${this.props.data.payed} form`}>
-          {t('Pagato il')}:
-          <SingleDatePicker
-            date={this.props.data.payedAt}
-            onDateChange={e => this.props.onDataChange('payedAt', e)}
-            focused={this.props.data.calendarPayedAtFocused}
-            onFocusChange={e =>
-              this.props.onFocusChange('calendarPayedAtFocused', e)
-            }
-            showClearDate={true}
-            numberOfMonths={1}
-            isOutsideRange={() => false}
-            showClearDate={true}
-          />
+          {renderSingleDate(
+            'payedAt',
+            'calendarPayedAtFocused',
+            t('Pagato il')
+          )}
         </div>
         <blockquote>
           {t('Usare questi campi solo se non si è associata una vendita!')}{' '}
-          {t('Descrizione prodotto')}:
-          <input
-            name='descrizioneProdotto'
-            className={`text-input `}
-            type='text'
-            value={this.props.data.descrizioneProdotto}
-            onChange={this.props.changeHandler}
-          />
-          {t('Importo netto')}:
-          <input
-            name='importoNetto'
-            className={`text-input `}
-            type='text'
-            value={this.props.data.importoNetto}
-            onChange={this.props.changeHandlerValuta}
-          />
-          {t('Data prestazione')}:
-          <SingleDatePicker
-            date={this.props.data.dataPrestazione}
-            onDateChange={e => this.props.onDataChange('dataPrestazione', e)}
-            focused={this.props.data.calendarDataPrestazioneFocused}
-            onFocusChange={e =>
-              this.props.onFocusChange('calendarDataPrestazioneFocused', e)
-            }
-            numberOfMonths={1}
-            isOutsideRange={() => false}
-            showClearDate={true}
-          />
+          {renderInput('descrizioneProdotto', t('Descrizione prodotto'))}
+          {renderInput(
+            'importoNetto',
+            t('Importo netto'),
+            undefined,
+            changeHandlerValuta
+          )}
+          {renderSingleDate(
+            'dataPrestazione',
+            'calendarDataPrestazioneFocused',
+            t('Data prestazione')
+          )}
         </blockquote>
         <div>
           <button className='btn-floating blue right'>

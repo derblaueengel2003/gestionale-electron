@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
 import { DateRangePicker } from 'react-dates';
-import Select from 'react-virtualized-select';
-import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
@@ -51,13 +49,12 @@ export class MAAForm extends React.Component {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, renderSelect, renderInput, changeHandlerValuta } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
         `- Firma ${cliente.ditta}`}`
     }));
-    const filterOptions = createFilterOptions({ options });
 
     const oggettiOptions = this.props.oggetti.map(oggetto => ({
       value: oggetto.id,
@@ -75,35 +72,9 @@ export class MAAForm extends React.Component {
           {this.props.data.error && (
             <p className='form__error'>{this.props.data.error}</p>
           )}
-          {t('Venditore')}:
-          <Select
-            name='venditore'
-            value={this.props.data.venditoreId}
-            options={options}
-            filterOptions={filterOptions}
-            onChange={e =>
-              this.props.changeHandlerSelect('venditoreId', e && e.value)
-            }
-          />
-          2. {t('Venditore')}:
-          <Select
-            name='venditore2'
-            value={this.props.data.venditoreId2}
-            options={options}
-            filterOptions={filterOptions}
-            onChange={e =>
-              this.props.changeHandlerSelect('venditoreId2', e && e.value)
-            }
-          />
-          {t('Oggetto')}:
-          <Select
-            name='oggettoId'
-            value={this.props.data.oggettoId}
-            options={oggettiOptions}
-            onChange={e =>
-              this.props.changeHandlerSelect('oggettoId', e && e.value)
-            }
-          />
+          {renderSelect('venditoreId', options, t('Venditore'))}
+          {renderSelect('venditoreId2', options, '2. ' + t('Venditore'))}
+          {renderSelect('oggettoId', oggettiOptions, t('Oggetto'))}
           {t('Periodo di esclusiva')}:
           <div className='input-group__item'>
             <DateRangePicker
@@ -118,39 +89,20 @@ export class MAAForm extends React.Component {
               displayFormat={'DD.MM.YYYY'}
             />
           </div>
-          {t('Prezzo di vendita')} min.:
-          <input
-            name='prezzoDiVendita'
-            className={`text-input`}
-            type='text'
-            value={this.props.data.prezzoDiVendita}
-            onChange={this.props.changeHandlerValuta}
-          />
-          {t('Prezzo di vendita')} max.:
-          <input
-            name='prezzoDiVendita2'
-            className={`text-input`}
-            type='text'
-            value={this.props.data.prezzoDiVendita2}
-            onChange={this.props.changeHandlerValuta}
-          />
-          {t('Provvigione')} %:
-          <input
-            name='maklerProvision'
-            className={`text-input`}
-            type='text'
-            placeholder={t('Solo numeri')}
-            value={this.props.data.maklerProvision}
-            onChange={this.props.changeHandler}
-          />
-          {t('Altri accordi')}:
-          <input
-            name='sonstige'
-            className={`text-input`}
-            type='text'
-            value={this.props.data.sonstige}
-            onChange={this.props.changeHandler}
-          />
+          {renderInput(
+            'prezzoDiVendita',
+            t('Prezzo di vendita') + ' min.',
+            undefined,
+            changeHandlerValuta
+          )}
+          {renderInput(
+            'prezzoDiVendita2',
+            t('Prezzo di vendita') + ' max.',
+            undefined,
+            changeHandlerValuta
+          )}
+          {renderInput('maklerProvision', t('Provvigione'))}
+          {renderInput('sonstige', t('Altri accordi'))}
           <div>
             <button className='btn-floating right'>
               <i className='material-icons'>picture_as_pdf</i>

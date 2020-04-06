@@ -14,7 +14,7 @@ export class FirmaForm extends React.Component {
       stadt: this.props.data.stadt,
       staat: this.props.data.staat,
       telefon: this.props.data.telefon,
-      fax: this.props.data.fax,
+      fax: this.props.data.faxFirma,
       email: this.props.data.emailFirma,
       website: this.props.data.websiteFirma,
       steuerNr: this.props.data.steuerNrFirma,
@@ -28,7 +28,7 @@ export class FirmaForm extends React.Component {
     });
   };
   render() {
-    const { t } = this.props;
+    const { t, renderInput } = this.props;
     return (
       <form className='form' onSubmit={this.onSubmit}>
         <div>
@@ -36,152 +36,24 @@ export class FirmaForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        {t('Nome')}:
-        <input
-          name='name'
-          className={`text-input`}
-          type='text'
-          autoFocus
-          value={this.props.data.name}
-          onChange={this.props.changeHandler}
-        />
-        {t('Ragione sociale')}:
-        <input
-          name='name2'
-          className={`text-input`}
-          type='text'
-          autoFocus
-          value={this.props.data.name2}
-          onChange={this.props.changeHandler}
-        />
-        {t('Indirizzo')}:
-        <input
-          name='adresse'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.adresse}
-          onChange={this.props.changeHandler}
-        />
-        {t('CAP')}:
-        <input
-          name='plz'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.plz}
-          onChange={this.props.changeHandler}
-        />
-        {t('Città')}:
-        <input
-          name='stadt'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.stadt}
-          onChange={this.props.changeHandler}
-        />
-        {t('Nazione')}:
-        <input
-          name='staat'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.staat}
-          onChange={this.props.changeHandler}
-        />
-        {t('Telefono fisso')}:
-        <input
-          name='telefon'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.telefon}
-          onChange={this.props.changeHandler}
-        />
-        Fax:
-        <input
-          name='fax'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.fax}
-          onChange={this.props.changeHandler}
-        />
-        {t('Email')}:
-        <input
-          name='emailFirma'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.emailFirma}
-          onChange={this.props.changeHandler}
-        />
-        {t('Sito web')}:
-        <input
-          name='websiteFirma'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.websiteFirma}
-          onChange={this.props.changeHandler}
-        />
-        {t('Codice fiscale tedesco')}:
-        <input
-          name='steuerNrFirma'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.steuerNrFirma}
-          onChange={this.props.changeHandler}
-        />
-        Ust.-IdNr.:
-        <input
-          name='ustIdNrFirma'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.ustIdNrFirma}
-          onChange={this.props.changeHandler}
-        />
-        Motto:
-        <input
-          name='motto'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.motto}
-          onChange={this.props.changeHandler}
-        />
-        {t('Orari di apertura')}:
-        <input
-          name='open'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.open}
-          onChange={this.props.changeHandler}
-        />
-        {t('Intestatario conto corrente')}:
-        <input
-          name='kontoInhaber'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.kontoInhaber}
-          onChange={this.props.changeHandler}
-        />
-        {t('Banca')}:
-        <input
-          name='bankFirma'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.bankFirma}
-          onChange={this.props.changeHandler}
-        />
-        IBAN:
-        <input
-          name='ibanFirma'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.ibanFirma}
-          onChange={this.props.changeHandler}
-        />
-        BIC/SWIFT:
-        <input
-          name='bicFirma'
-          className={`text-input`}
-          type='text'
-          value={this.props.data.bicFirma}
-          onChange={this.props.changeHandler}
-        />
+        {renderInput('name', t('Nome'))}
+        {renderInput('name2', t('Ragione sociale'))}
+        {renderInput('adresse', t('Indirizzo'))}
+        {renderInput('plz', t('CAP'))}
+        {renderInput('stadt', t('Città'))}
+        {renderInput('staat', t('Nazione'))}
+        {renderInput('telefon', t('Telefono fisso'))}
+        {renderInput('faxFirma', 'Fax')}
+        {renderInput('emailFirma', t('Email'))}
+        {renderInput('websiteFirma', t('Sito web'))}
+        {renderInput('steuerNrFirma', t('Codice fiscale tedesco'))}
+        {renderInput('ustIdNrFirma', 'Ust.-IdNr.')}
+        {renderInput('motto', 'Motto')}
+        {renderInput('open', t('Orari di apertura'))}
+        {renderInput('kontoInhaber', t('Intestatario conto corrente'))}
+        {renderInput('bankFirma', t('Banca'))}
+        {renderInput('ibanFirma', 'IBAN')}
+        {renderInput('bicFirma', 'BIC/SWIFT')}
         <div>
           <button className='btn-floating blue right btn-floating-margin'>
             <i className='material-icons'>save</i>

@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
-import { SingleDatePicker } from 'react-dates';
-import Select from 'react-virtualized-select';
 import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
@@ -35,7 +33,14 @@ export class LeadForm extends React.Component {
     }
   };
   render() {
-    const { t } = this.props;
+    const {
+      t,
+      renderSelect,
+      renderInput,
+      renderSingleDate,
+      renderTextArea,
+      changeHandlerValuta
+    } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
@@ -53,54 +58,30 @@ export class LeadForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        {t('Data richiesta')}:
-        <SingleDatePicker
-          date={this.props.data.leadCreatedAt}
-          onDateChange={e => this.props.onDataChange('leadCreatedAt', e)}
-          focused={this.props.data.calendarFocused}
-          onFocusChange={e => this.props.onFocusChange('calendarFocused', e)}
-          numberOfMonths={1}
-          isOutsideRange={() => false}
-        />
-        {t('Cliente')}:
-        <Select
-          name='leadId'
-          value={this.props.data.leadId}
-          options={options}
-          filterOptions={filterOptions}
-          onChange={e => this.props.changeHandlerSelect('leadId', e && e.value)}
-        />
-        Budget:
-        <input
-          name='leadBudget'
-          className={`text-input`}
-          type='text'
-          placeholder='Kudenbudget'
-          value={this.props.data.leadBudget}
-          onChange={this.props.changeHandlerValuta}
-        />
-        {t('Tipologia immobile e stato')}:
-        <select
-          name='leadOggettoStato'
-          value={this.props.data.leadOggettoStato}
-          onChange={this.props.changeHandler}
-        >
-          <option value='libero'>{t('Appartamento libero')}</option>
-          <option value='affittato'>{t('Appartamento affittato')}</option>
-          <option value='libero o affittato'>
-            {t('Appartamento libero o affittato')}
-          </option>
-          <option value='commerciale'>{t('Locale commerciale')}</option>
-          <option value='aph'>{t('Casa di cura')}</option>
-          <option value=''>{t('Indifferente')}</option>
-        </select>
-        <textarea
-          name='leadNote'
-          className={`textarea`}
-          placeholder='Weitere Merkmale'
-          value={this.props.data.leadNote}
-          onChange={this.props.changeHandler}
-        ></textarea>
+        {renderSingleDate(
+          'leadCreatedAt',
+          'calendarFocused',
+          t('Data richiesta')
+        )}
+        {renderSelect('leadId', options, t('Cliente'))}
+        {renderInput('leadBudget', 'Budget', 'text', changeHandlerValuta)}
+        {renderSelect(
+          'leadOggettoStato',
+          [
+            { value: 'libero', label: t('Appartamento libero') },
+            { value: 'affittato', label: t('Appartamento affittato') },
+            {
+              value: 'libero o affittato',
+              label: t('Appartamento libero o affittato')
+            },
+            { value: 'commerciale', label: t('Locale commerciale') },
+            { value: 'aph', label: t('Casa di cura') },
+            { value: '', label: t('Indifferente') }
+          ],
+          t('Tipologia immobile e stato')
+        )}
+        {renderTextArea('leadNote')}
+
         <div>
           <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>

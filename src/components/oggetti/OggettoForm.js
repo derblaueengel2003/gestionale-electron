@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
-import Select from 'react-virtualized-select';
-import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
@@ -90,13 +88,19 @@ export class OggettoForm extends React.Component {
     }
   };
   render() {
-    const { t } = this.props;
+    const {
+      t,
+      renderTextArea,
+      renderCheckbox,
+      renderSelect,
+      renderInput,
+      changeHandlerValuta
+    } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
         `- ${t('Ditta')} ${cliente.ditta}`}`
     }));
-    const filterOptions = createFilterOptions({ options });
 
     const optionsTipologia = [
       'Eigentumswohnung',
@@ -140,525 +144,200 @@ export class OggettoForm extends React.Component {
           </div>
           <div id='test1' className='col s12'>
             <div label='Eckdaten'>
-              {t('Tipo di immobile')}:
-              <Select
-                name={'tipologia'}
-                value={this.props.data.tipologia}
-                options={optionsTipologia}
-                onChange={e =>
-                  this.props.changeHandlerSelect('tipologia', e && e.value)
-                }
-              />
-              <div className='input-field'>
-                {t('Indirizzo')}:
-                <input
-                  name='via'
-                  className={`input-field`}
-                  type='text'
-                  autoFocus
-                  value={this.props.data.via}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                Nr.:
-                <input
-                  name='numeroCivico'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.numeroCivico}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('CAP')}:
-                <input
-                  name='capOggetto'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.capOggetto}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Quartiere')}:
-                <input
-                  name='quartiere'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.quartiere}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Città')}:
-                <input
-                  name='citta'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.citta}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Nazione')}:
-                <input
-                  name='nazioneOggetto'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.nazioneOggetto}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Numero appartamento')}:
-                <input
-                  name='numeroAppartamento'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.numeroAppartamento}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Rif')}. ID:
-                <input
-                  name='rifId'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.rifId}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Pretura (Amtsgericht)')}:
-                <input
-                  name='amtsgericht'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.amtsgericht}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Libro Fondiario (Grundbuch)')}:
-                <input
-                  name='grundbuch'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.grundbuch}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Foglio')} Nr.:
-                <input
-                  name='grundbuchBlatt'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.grundbuchBlatt}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                M2:
-                <input
-                  name='m2'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.m2}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Piano')}:
-                <input
-                  name='piano'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.piano}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              {t('Mobili')}:
-              <textarea
-                name='mobilio'
-                className={`textarea`}
-                placeholder={t('Mobili e valore')}
-                value={this.props.data.mobilio}
-                onChange={this.props.changeHandler}
-              />
-              <div className='input-field'>
-                {t('Stato abitativo')}:
-                <select
-                  name='stato'
-                  value={this.props.data.stato}
-                  onChange={this.props.changeHandler}
-                >
-                  <option value=''></option>
-                  <option value='leerstehend'>
-                    {t('Non affittato, libero')}
-                  </option>
-                  <option value='vermietet'>{t('Affittato')}</option>
-                </select>
-              </div>
-              <div className='input-field'>
-                {t('Quota condominiale')}:
-                <input
-                  name='wohngeld'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.wohngeld}
-                  onChange={this.props.changeHandlerValuta}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Fondo di accantonamento per manutenzione')}:
-                <input
-                  name='ruecklage'
-                  className={`input-field`}
-                  type='text'
-                  placeholder='Gesamt oder anteilig?'
-                  value={this.props.data.ruecklage}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Affitto netto')}:
-                <input
-                  name='affittoNetto'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.affittoNetto}
-                  onChange={this.props.changeHandlerValuta}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Prezzo di vendita')}:
-                <input
-                  name='kaufpreis'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.kaufpreis}
-                  onChange={this.props.changeHandlerValuta}
-                />
-              </div>
-              {t('Amministratore di condominio')}:
-              <div className='section'>
-                <Select
-                  name='verwalter'
-                  value={this.props.data.verwalter}
-                  options={options}
-                  filterOptions={filterOptions}
-                  onChange={e =>
-                    this.props.changeHandlerSelect('verwalter', e && e.value)
-                  }
-                />
-              </div>
-              {t('Proprietario')}:
-              <div className='section'>
-                <Select
-                  name='proprietarioId'
-                  value={this.props.data.proprietarioId}
-                  options={options}
-                  filterOptions={filterOptions}
-                  onChange={e =>
-                    this.props.changeHandlerSelect(
-                      'proprietarioId',
-                      e && e.value
-                    )
-                  }
-                />
-              </div>
-              2. {t('Proprietario')}:
-              <div className='section'>
-                <Select
-                  name='proprietarioId2'
-                  value={this.props.data.proprietarioId2}
-                  options={options}
-                  filterOptions={filterOptions}
-                  onChange={e =>
-                    this.props.changeHandlerSelect(
-                      'proprietarioId2',
-                      e && e.value
-                    )
-                  }
-                />
-              </div>
-              {t('Inquilino')}:
-              <div className='section'>
-                <Select
-                  name='inquilinoId'
-                  value={this.props.data.inquilinoId}
-                  options={options}
-                  filterOptions={filterOptions}
-                  onChange={e =>
-                    this.props.changeHandlerSelect('inquilinoId', e && e.value)
-                  }
-                />
-                <label>
-                  <div className='input-field'></div>
-                  <input
-                    type='checkbox'
-                    name='venduto'
-                    checked={this.props.data.venduto}
-                    onChange={this.props.changeCheckbox}
-                  />
-                  <span>{t('Venduto')}</span>
-                </label>
-              </div>
-              <textarea
-                name='noteOggetto'
-                className={`textarea text-input`}
-                placeholder='Note'
-                value={this.props.data.noteOggetto}
-                onChange={this.props.changeHandler}
-              ></textarea>
-              {this.props.utente.role === 'Admin' ? (
-                <label>
-                  <div className='input-field'></div>
-                  <input
-                    type='checkbox'
-                    name='visibleOggetto'
-                    checked={this.props.data.visibleOggetto}
-                    onChange={this.props.changeCheckbox}
-                  />
-                  <span>{t('Visibile')}</span>
-                </label>
-              ) : (
-                ''
+              {renderSelect(
+                'tipologia',
+                optionsTipologia,
+                t('Tipo di immobile')
               )}
+              {renderInput('via', t('Indirizzo'))}
+              {renderInput('numeroCivico', 'Nr.')}
+              {renderInput('capOggetto', t('CAP'))}
+              {renderInput('quartiere', t('Quartiere'))}
+              {renderInput('citta', t('Città'))}
+              {renderInput('nazioneOggetto', t('Nazione'))}
+              {renderInput('numeroAppartamento', t('Numero appartamento'))}
+              {renderInput('rifId', t('Rif') + '. ID')}
+              {renderInput('amtsgericht', t('Pretura (Amtsgericht)'))}
+              {renderInput('grundbuch', t('Libro Fondiario (Grundbuch)'))}
+              {renderInput('grundbuchBlatt', t('Foglio'))}
+              {renderInput('m2', 'M2')}
+              {renderInput('piano', t('Piano'))}
+              {renderTextArea('mobilio', t('Mobili e valore'))}
+              {renderSelect(
+                'stato',
+                [
+                  { value: 'leerstehend', label: t('Non affittato, libero') },
+                  { value: 'vermietet', label: t('Affittato') }
+                ],
+                t('Stato abitativo')
+              )}
+              {renderInput(
+                'wohngeld',
+                t('Quota condominiale'),
+                'text',
+                changeHandlerValuta
+              )}
+              {renderInput(
+                'ruecklage',
+                t('Fondo di accantonamento per manutenzione'),
+                undefined,
+                undefined,
+                undefined,
+                'Gesamt oder anteilig?'
+              )}
+              {renderInput(
+                'affittoNetto',
+                t('Affitto netto'),
+                'text',
+                changeHandlerValuta
+              )}
+              {renderInput(
+                'kaufpreis',
+                t('Prezzo di vendita'),
+                'text',
+                changeHandlerValuta
+              )}
+              {renderSelect(
+                'verwalter',
+                options,
+                t('Amministratore di condominio')
+              )}
+              {renderSelect('proprietarioId', options, t('Proprietario'))}
+              {renderSelect(
+                'proprietarioId2',
+                options,
+                '2. ' + t('Proprietario')
+              )}
+              {renderSelect('inquilinoId', options, t('Inquilino'))}
+              {renderTextArea('noteOggetto')}
+              {renderCheckbox('venduto', t('Venduto'))}
+
+              {this.props.utente.role === 'Admin'
+                ? renderCheckbox('visibleOggetto', t('Visibile'))
+                : ''}
             </div>
           </div>
           <div id='test2' className='col s12'>
             <div label='Exposé'>
               {/* Exposé */}
-              <div className='input-field'>
-                {t('Titolo principale')} {t('italiano')}:
-                <input
-                  name='titoloOggetto'
-                  className={`input-field`}
-                  type='text'
-                  placeholder='Titolo in italiano'
-                  value={this.props.data.titoloOggetto}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              {t('Descrizione')} {t('italiano')}:
-              <textarea
-                name='descrizione'
-                className={`textarea`}
-                placeholder='Descrizione in italiano'
-                value={this.props.data.descrizione}
-                onChange={this.props.changeHandler}
-              />
-              <div className='input-field'>
-                {t('Titolo principale')} {t('tedesco')}:
-                <input
-                  name='titoloDe'
-                  className={`input-field`}
-                  type='text'
-                  placeholder='Überschrift des Exposés'
-                  value={this.props.data.titoloDe}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              {t('Descrizione')} {t('tedesco')}:
-              <textarea
-                name='descrizioneDe'
-                className={`textarea`}
-                placeholder='Beschreibung'
-                value={this.props.data.descrizioneDe}
-                onChange={this.props.changeHandler}
-              />
-              <div className='input-field'>
-                {t('Titolo principale')} {t('inglese')}:
-                <input
-                  name='titoloEn'
-                  className={`input-field`}
-                  type='text'
-                  placeholder='English title'
-                  value={this.props.data.titoloEn}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              {t('Descrizione')} {t('inglese')}:
-              <textarea
-                name='descrizioneEn'
-                className={`textarea`}
-                placeholder='English description'
-                value={this.props.data.descrizioneEn}
-                onChange={this.props.changeHandler}
-              />
-              <div className='input-field'>
-                {t('Vani')}:
-                <input
-                  name='vani'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.vani}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Bagni')}:
-                <input
-                  name='bagni'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.bagni}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              {t('Condizioni immobile')}:
-              <select
-                name='condizioni'
-                className='select select__form'
-                value={this.props.data.condizioni}
-                onChange={this.props.changeHandler}
-              >
-                <option value=''></option>
-                <option value='neu'>{t('Come nuovo')}</option>
-                <option value='gut'>{t('Buone condizioni')}</option>
-                <option value='renovierungsbedürftig'>
-                  {t('Da ristrutturare')}
-                </option>
-              </select>
-              <div className='input-field'>
-                {t('Anno di costruzione')}:
-                <input
-                  name='baujahr'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.baujahr}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              {t('Certificato energetico - tipologia')}:
-              <select
-                name='energieAusweisTyp'
-                className='select select__form'
-                value={this.props.data.energieAusweisTyp}
-                onChange={this.props.changeHandler}
-              >
-                <option value=''></option>
-                <option value='Verbrauchsausweis'>
-                  {t('Basato sul consumo')}
-                </option>
-                <option value='Bedarfsausweis'>
-                  {t('Basato sul fabbisogno')}
-                </option>
-              </select>
-              <div className='input-field'>
-                {t('Certificato energetico - valido fino al')}:
-                <input
-                  name='energieAusweisBis'
-                  className={`input-field`}
-                  type='text'
-                  value={this.props.data.energieAusweisBis}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              {t('Tipologia riscaldamento')}:
-              <select
-                name='heizungsart'
-                className='select select__form'
-                value={this.props.data.heizungsart}
-                onChange={this.props.changeHandler}
-              >
-                <option value=''></option>
-                <option value='Zentralheizung'>
-                  {t('Riscaldamento centralizzato')}
-                </option>
-                <option value='Etagenheizung'>
-                  {t('Riscaldamento autonomo')}
-                </option>
-              </select>
-              {t('Fonte energetica')}:
-              <select
-                name='energieTraeger'
-                className='select select__form'
-                value={this.props.data.energieTraeger}
-                onChange={this.props.changeHandler}
-              >
-                <option value=''></option>
-                <option value='Erdgas'>{t('Gas')}</option>
-                <option value='Öl'>{t('Olio combustibile')}</option>
-                <option value='Fernwärme'>{t('Teleriscaldamento')}</option>
-              </select>
-              <div className='input-field'>
-                {t('Consumo energetico in')} kWh/(m2*a):
-                <input
-                  name='energieBedarf'
-                  className='input-field'
-                  type='text'
-                  value={this.props.data.energieBedarf}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div className='input-field'>
-                {t('Provvigione')}:
-                <input
-                  name='provvigione'
-                  className='input-field'
-                  type='text'
-                  placeholder={t('IVA inclusa')}
-                  value={this.props.data.provvigione}
-                  onChange={this.props.changeHandler}
-                />
-              </div>
-              <div>
-                <label>
-                  <div className='input-field'>
-                    <input
-                      type='checkbox'
-                      name='balcone'
-                      checked={this.props.data.balcone}
-                      onChange={this.props.changeCheckbox}
-                    />
-                    <span>{t('Balcone')}</span>
-                  </div>
-                </label>
-              </div>
-              <div>
-                <label>
-                  <div className='input-field'>
-                    <input
-                      type='checkbox'
-                      name='ascensore'
-                      checked={this.props.data.ascensore}
-                      onChange={this.props.changeCheckbox}
-                    />
-                    <span>{t('Ascensore')}</span>
-                  </div>
-                </label>
-              </div>
-              <div>
-                <label>
-                  <div className='input-field'>
-                    <input
-                      type='checkbox'
-                      name='giardino'
-                      checked={this.props.data.giardino}
-                      onChange={this.props.changeCheckbox}
-                    />
-                    <span>{t('Giardino')}</span>
-                  </div>
-                </label>
-              </div>
-              <div>
-                <label>
-                  <div className='input-field'>
-                    <input
-                      type='checkbox'
-                      name='cantina'
-                      checked={this.props.data.cantina}
-                      onChange={this.props.changeCheckbox}
-                    />
-                    <span>{t('Cantina')}</span>
-                  </div>
-                </label>
-              </div>
+              {renderInput(
+                'titoloOggetto',
+                `${t('Titolo principale')} ${t('italiano')}`,
+                undefined,
+                undefined,
+                undefined,
+                'Titolo in italiano'
+              )}
+              {renderTextArea(
+                'descrizione',
+                `${t('Descrizione')} ${t('italiano')}`
+              )}
+              {renderInput(
+                'titoloDe',
+                `${t('Titolo principale')} ${t('tedesco')}`,
+                undefined,
+                undefined,
+                undefined,
+                'Überschrift des Exposés'
+              )}
+              {renderTextArea(
+                'descrizioneDe',
+                `${t('Descrizione')} ${t('tedesco')}`
+              )}
+              {renderInput(
+                'titoloEn',
+                `${t('Titolo principale')} ${t('inglese')}`,
+                undefined,
+                undefined,
+                undefined,
+                'English title'
+              )}
+              {renderTextArea(
+                'descrizioneEn',
+                `${t('Descrizione')} ${t('inglese')}`
+              )}
+              {renderInput('vani', t('Vani'))}
+              {renderInput('bagni', t('Bagni'))}
+              {renderSelect(
+                'condizioni',
+                [
+                  { value: 'neu', label: t('Come nuovo') },
+                  { value: 'gut', label: t('Buone condizioni') },
+                  {
+                    value: 'renovierungsbedürftig',
+                    label: t('Da ristrutturare')
+                  }
+                ],
+                t('Condizioni immobile')
+              )}
+              {renderInput('baujahr', t('Anno di costruzione'))}
+              {renderSelect(
+                'energieAusweisTyp',
+                [
+                  {
+                    value: 'Verbrauchsausweis',
+                    label: t('Basato sul consumo')
+                  },
+                  {
+                    value: 'Bedarfsausweis',
+                    label: t('Basato sul fabbisogno')
+                  }
+                ],
+                t('Certificato energetico - tipologia')
+              )}
+              {renderInput(
+                'energieAusweisBis',
+                t('Certificato energetico - valido fino al')
+              )}
+              {renderSelect(
+                'heizungsart',
+                [
+                  {
+                    value: 'Zentralheizung',
+                    label: t('Riscaldamento centralizzato')
+                  },
+                  {
+                    value: 'Etagenheizung',
+                    label: t('Riscaldamento autonomo')
+                  }
+                ],
+                t('Tipologia riscaldamento')
+              )}
+              {renderSelect(
+                'energieTraeger',
+                [
+                  {
+                    value: 'Erdgas',
+                    label: t('Gas')
+                  },
+                  {
+                    value: 'Öl',
+                    label: t('Olio combustibile')
+                  },
+                  {
+                    value: 'Fernwärme',
+                    label: t('Teleriscaldamento')
+                  }
+                ],
+                t('Fonte energetica')
+              )}
+
+              {renderInput(
+                'energieBedarf',
+                t('Consumo energetico in' + ' KWh/(m2*a)')
+              )}
+              {renderInput(
+                'provvigione',
+                t('Provvigione'),
+                undefined,
+                undefined,
+                undefined,
+                t('IVA inclusa')
+              )}
+              {renderCheckbox('balcone', t('Balcone'))}
+              {renderCheckbox('ascensore', t('Ascensore'))}
+              {renderCheckbox('giardino', t('Giardino'))}
+              {renderCheckbox('cantina', t('Cantina'))}
             </div>
           </div>
           <div id='test3' className='col s12'>

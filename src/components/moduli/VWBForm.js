@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
 import moment from 'moment';
-import { SingleDatePicker } from 'react-dates';
-import Select from 'react-virtualized-select';
-import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
@@ -43,13 +40,12 @@ export class VWBForm extends React.Component {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, renderSelect, renderSingleDate } = this.props;
     const options = this.props.clienti.map(cliente => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
         `- Firma ${cliente.ditta}`}`
     }));
-    const filterOptions = createFilterOptions({ options });
 
     const oggettiOptions = this.props.oggetti.map(oggetto => ({
       value: oggetto.id,
@@ -67,49 +63,14 @@ export class VWBForm extends React.Component {
           {this.props.data.error && (
             <p className='form__error'>{this.props.data.error}</p>
           )}
-          {t('Cliente')}:
-          <Select
-            name='venditore'
-            value={this.props.data.venditoreId}
-            options={options}
-            filterOptions={filterOptions}
-            onChange={e =>
-              this.props.changeHandlerSelect('venditoreId', e && e.value)
-            }
-          />
-          2. {t('Cliente')}:
-          <Select
-            name='venditore2'
-            value={this.props.data.venditoreId2}
-            options={options}
-            filterOptions={filterOptions}
-            onChange={e =>
-              this.props.changeHandlerSelect('venditoreId2', e && e.value)
-            }
-          />
-          {t('Oggetto')}:
-          <Select
-            name='oggettoId'
-            value={this.props.data.oggettoId}
-            options={oggettiOptions}
-            onChange={e =>
-              this.props.changeHandlerSelect('oggettoId', e && e.value)
-            }
-          />
-          {t('Data del contratto')}:
-          <div className='input-group__item'>
-            <SingleDatePicker
-              date={this.props.data.createdAt}
-              onDateChange={e => this.props.onDataChange('createdAt', e)}
-              focused={this.props.data.calendarFocused}
-              onFocusChange={e =>
-                this.props.onFocusChange('calendarFocused', e)
-              }
-              numberOfMonths={1}
-              isOutsideRange={() => false}
-              showClearDate={true}
-            />
-          </div>
+          {renderSelect('venditoreId', options, t('Cliente'))}
+          {renderSelect('venditoreId2', options, '2. ' + t('Cliente'))}
+          {renderSelect('oggettoId', oggettiOptions, t('Oggetto'))}
+          {renderSingleDate(
+            'createdAt',
+            'calendarFocused',
+            t('Data del contratto')
+          )}
           <div>
             <button className='btn-floating right'>
               <i className='material-icons'>picture_as_pdf</i>

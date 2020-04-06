@@ -1,7 +1,6 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
-import Select from 'react-virtualized-select';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
@@ -25,7 +24,7 @@ class UserForm extends React.Component {
     }
   };
   render() {
-    const { t } = this.props;
+    const { t, renderSelect, renderInput } = this.props;
     const roleTypeOptions = ['Admin', 'Mitarbeiter', 'Teamleiter'].map(
       roleType => ({
         value: roleType,
@@ -42,54 +41,12 @@ class UserForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        {t('Nome e cognome')}:
-        <input
-          className={`text-input`}
-          name='nameUser'
-          type='text'
-          value={this.props.data.nameUser}
-          onChange={this.props.changeHandler}
-        />
-        {t('Ruolo')}:
-        <Select
-          name={'role'}
-          value={this.props.data.role}
-          options={roleTypeOptions}
-          onChange={e => this.props.changeHandlerSelect('role', e && e.value)}
-        />
-        Firebase Auth Id:
-        <input
-          className={`text-input`}
-          name='firebaseAuthId'
-          type='text'
-          placeholder='firebase user id'
-          value={this.props.data.firebaseAuthId}
-          onChange={this.props.changeHandler}
-        />
-        {t('Email')}:
-        <input
-          className={`text-input`}
-          name='emailUser'
-          type='text'
-          value={this.props.data.emailUser}
-          onChange={this.props.changeHandler}
-        />
-        {t('Telefono')}:
-        <input
-          className={`text-input`}
-          name='telefonUser'
-          type='text'
-          value={this.props.data.telefonUser}
-          onChange={this.props.changeHandler}
-        />
-        {t('Qualifica')}:
-        <input
-          className={`text-input`}
-          name='qualifica'
-          type='text'
-          value={this.props.data.qualifica}
-          onChange={this.props.changeHandler}
-        />
+        {renderInput('nameUser', t('Nome e cognome'))}
+        {renderSelect('role', roleTypeOptions, t('Ruolo'))}
+        {renderInput('firebaseAuthId', 'Firebase Auth Id')}
+        {renderInput('emailUser', t('Email'))}
+        {renderInput('telefonUser', t('Telefono'))}
+        {renderInput('qualifica', t('Qualifica'))}
       </form>
     );
   }

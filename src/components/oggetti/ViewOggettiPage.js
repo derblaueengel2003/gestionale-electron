@@ -44,7 +44,6 @@ export class ViewOggettiPage extends React.Component {
         console.error(error);
       }
     );
-    console.log(this.state);
   }
 
   findContact = contact => {
