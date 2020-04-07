@@ -5,12 +5,12 @@ import withForm from '../common/withForm';
 import { Link } from 'react-router-dom';
 
 export class CustomerForm extends React.Component {
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     if (!this.props.data.cognome) {
       this.setState(() => ({
-        error: 'Vorname und Name bitte eingeben.'
+        error: 'Vorname und Name bitte eingeben.',
       }));
     } else {
       this.setState(() => ({ error: '' }));
@@ -47,7 +47,7 @@ export class CustomerForm extends React.Component {
         dataConsensoDSGVO: this.props.data.dataConsensoDSGVO
           ? this.props.data.dataConsensoDSGVO.valueOf()
           : null,
-        consensoDSGVO: this.props.data.consensoDSGVO
+        consensoDSGVO: this.props.data.consensoDSGVO,
       });
     }
   };
@@ -60,11 +60,11 @@ export class CustomerForm extends React.Component {
       renderSingleDate,
       renderTextArea,
       changeHandlerValidate,
-      clienti
+      clienti,
     } = this.props;
-    const consulenteVenditaOptions = this.props.utenti.map(consulente => ({
+    const consulenteVenditaOptions = this.props.utenti.map((consulente) => ({
       value: consulente.id,
-      label: consulente.name
+      label: consulente.name,
     }));
 
     return (
@@ -160,10 +160,12 @@ export class CustomerForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   utenti: state.utenti,
   clienti: state.clienti,
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+  utente: state.utenti.find(
+    (utente) => utente.firebaseAuthId === state.auth.uid
+  ),
 });
 
 export default connect(mapStateToProps)(

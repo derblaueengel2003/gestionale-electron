@@ -12,34 +12,78 @@ function withForm(Component) {
         //CLIENTI
         nome: props.customer ? props.customer.nome : '',
         cognome: props.customer ? props.customer.cognome : '',
-        titolo: props.customer ? props.customer.titolo : '',
+        titolo: props.customer
+          ? props.customer.titolo
+          : props.oggetto
+          ? props.oggetto.titolo
+          : '',
         dataDiNascita: props.customer
           ? props.customer.dataDiNascita && moment(props.customer.dataDiNascita)
           : null,
         ditta: props.customer ? props.customer.ditta : '',
         indirizzo: props.customer ? props.customer.indirizzo : '',
         indirizzo2: props.customer ? props.customer.indirizzo2 : '',
-        cap: props.customer ? props.customer.cap : '',
+        cap: props.customer
+          ? props.customer.cap
+          : props.oggetto
+          ? props.oggetto.cap
+          : '',
         comune: props.customer ? props.customer.comune : '',
-        nazione: props.customer ? props.customer.nazione : '',
+        nazione: props.customer
+          ? props.customer.nazione
+          : props.oggetto
+          ? props.oggetto.nazione
+          : '',
         lingua: props.customer ? props.customer.lingua : '',
-        email: props.customer ? props.customer.email : '',
+        email: props.customer
+          ? props.customer.email
+          : props.firma
+          ? props.firma.email
+          : props.user
+          ? props.user.email
+          : '',
         consulenteVenditaId: props.customer
           ? props.customer.consulenteVenditaId
           : '',
         telefono1: props.customer ? props.customer.telefono1 : '',
-        fax: props.customer ? props.customer.fax : '',
+        fax: props.customer
+          ? props.customer.fax
+          : props.firma
+          ? props.firma.fax
+          : '',
         cellulare: props.customer ? props.customer.cellulare : '',
         codiceFiscale: props.customer ? props.customer.codiceFiscale : '',
         handelsRegisterNummer: props.customer
           ? props.customer.handelsRegisterNummer
           : '',
-        bank: props.customer ? props.customer.bank : '',
-        iban: props.customer ? props.customer.iban : '',
-        bic: props.customer ? props.customer.bic : '',
-        note: props.customer ? props.customer.note : '',
-        visible: props.customer ? props.customer.visible : true,
-        error: '',
+        bank: props.customer
+          ? props.customer.bank
+          : props.firma
+          ? props.firma.bank
+          : '',
+        iban: props.customer
+          ? props.customer.iban
+          : props.firma
+          ? props.firma.iban
+          : '',
+        bic: props.customer
+          ? props.customer.bic
+          : props.firma
+          ? props.firma.bic
+          : '',
+        note: props.customer
+          ? props.customer.note
+          : props.deal
+          ? props.deal.note
+          : props.oggetto
+          ? props.oggetto.note
+          : '',
+        visible: props.customer
+          ? props.customer.visible
+          : props.oggetto
+          ? props.oggetto.visible
+          : true,
+
         www: props.customer ? props.customer.www || '' : '',
         dataRegistrazione: props.customer
           ? props.customer.dataRegistrazione
@@ -108,8 +152,6 @@ function withForm(Component) {
         belastungsVollmacht: props.deal
           ? props.deal.belastungsVollmacht
           : false,
-        noteDeal: props.deal ? props.deal.note : '',
-
         modificato: '',
         provvSum: 0,
 
@@ -147,7 +189,6 @@ function withForm(Component) {
         payedAt: props.fattura
           ? props.fattura.payedAt && moment(props.fattura.payedAt)
           : null,
-        modificato: '',
         descrizioneProdotto: props.fattura
           ? props.fattura.descrizioneProdotto
             ? props.fattura.descrizioneProdotto
@@ -167,24 +208,27 @@ function withForm(Component) {
         calendarDataPrestazioneFocus: false,
 
         //FIRMA
-        name: props.firma ? props.firma.name : '',
+        name: props.firma
+          ? props.firma.name
+          : props.user
+          ? props.user.name
+          : '',
         name2: props.firma ? props.firma.name2 : '',
         adresse: props.firma ? props.firma.adresse : '',
         plz: props.firma ? props.firma.plz : '',
         stadt: props.firma ? props.firma.stadt : '',
         staat: props.firma ? props.firma.staat : '',
-        telefon: props.firma ? props.firma.telefon : '',
-        faxFirma: props.firma ? props.firma.fax : '',
-        emailFirma: props.firma ? props.firma.email : '',
-        websiteFirma: props.firma ? props.firma.website : '',
-        steuerNrFirma: props.firma ? props.firma.steuerNr : '',
-        ustIdNrFirma: props.firma ? props.firma.ustIdNr : '',
+        telefon: props.firma
+          ? props.firma.telefon
+          : props.user
+          ? props.user.telefon
+          : '',
+        website: props.firma ? props.firma.website : '',
+        steuerNr: props.firma ? props.firma.steuerNr : '',
+        ustIdNr: props.firma ? props.firma.ustIdNr : '',
         motto: props.firma ? props.firma.motto : '',
         open: props.firma ? props.firma.open : '',
         kontoInhaber: props.firma ? props.firma.kontoInhaber : '',
-        bankFirma: props.firma ? props.firma.bank : '',
-        ibanFirma: props.firma ? props.firma.iban : '',
-        bicFirma: props.firma ? props.firma.bic : '',
 
         //LEADS
         leadCreatedAt: props.lead ? moment(props.lead.leadCreatedAt) : moment(),
@@ -205,11 +249,6 @@ function withForm(Component) {
         //OGGETTO
         via: props.oggetto ? props.oggetto.via : '',
         numeroCivico: props.oggetto ? props.oggetto.numeroCivico : '',
-        titoloOggetto: props.oggetto ? props.oggetto.titolo : '',
-        nazioneOggetto: props.oggetto ? props.oggetto.nazione : '',
-        capOggetto: props.oggetto ? props.oggetto.cap : '',
-        noteOggetto: props.oggetto ? props.oggetto.note : '',
-        visibleOggetto: props.oggetto ? props.oggetto.visible : true,
         citta: props.oggetto ? props.oggetto.citta : '',
         quartiere: props.oggetto ? props.oggetto.quartiere : '',
         numeroAppartamento: props.oggetto
@@ -276,15 +315,12 @@ function withForm(Component) {
           : '',
 
         //USERS
-        nameUser: props.user ? props.user.name : '',
         role: props.user ? props.user.role : '',
-        emailUser: props.user ? props.user.email : '',
-        telefonUser: props.user ? props.user.telefon : '',
         qualifica: props.user ? props.user.qualifica : '',
         firebaseAuthId: props.user ? props.user.firebaseAuthId : '',
 
         //ERROR
-        error: ''
+        error: '',
       };
     }
 
@@ -307,7 +343,7 @@ function withForm(Component) {
             id={name}
             className='text-input'
             placeholder={placeholder}
-            onChange={e => handler(e, args)}
+            onChange={(e) => handler(e, args)}
           />
           {this.state.error && (
             <div className='card-panel pink lighten-4'>{this.state.error}</div>
@@ -351,9 +387,9 @@ function withForm(Component) {
           <div>
             <SingleDatePicker
               date={this.state[dataName]}
-              onDateChange={e => this.onDataChange(dataName, e)}
+              onDateChange={(e) => this.onDataChange(dataName, e)}
               focused={this.state[focusName]}
-              onFocusChange={e => this.onFocusChange(focusName, e)}
+              onFocusChange={(e) => this.onFocusChange(focusName, e)}
               numberOfMonths={1}
               isOutsideRange={() => false}
               showClearDate={true}
@@ -372,7 +408,9 @@ function withForm(Component) {
               name={selectName}
               value={this.state[selectName]}
               options={options}
-              onChange={e => this.changeHandlerSelect(selectName, e && e.value)}
+              onChange={(e) =>
+                this.changeHandlerSelect(selectName, e ? e.value : '')
+              }
             />
           </div>
         </div>
@@ -380,16 +418,16 @@ function withForm(Component) {
     };
 
     // HANDLER
-    changeHandler = e => this.setState({ [e.target.name]: e.target.value });
+    changeHandler = (e) => this.setState({ [e.target.name]: e.target.value });
 
     changeHandlerSelect = (name, value) => this.setState({ [name]: value });
 
-    changeHandlerValuta = e => {
+    changeHandlerValuta = (e) => {
       const name = e.target.name;
       const value = e.target.value;
       if (!value || value.match(/^\d{1,}(,\d{0,2})?$/)) {
         this.setState(() => ({
-          [name]: value
+          [name]: value,
         }));
       }
     };
@@ -398,7 +436,7 @@ function withForm(Component) {
       const name = e.target.name;
       const value = e.target.value;
       this.setState({ [name]: value });
-      let match = clienti.filter(ilcliente => {
+      let match = clienti.filter((ilcliente) => {
         const emailMatch = ilcliente.email
           .toLowerCase()
           .includes(value.toLowerCase());
@@ -412,7 +450,7 @@ function withForm(Component) {
       });
       if (match.length > 0) {
         this.setState(() => ({
-          error: `Cliente forse già presente nel gestionale`
+          error: `Cliente forse già presente nel gestionale`,
         }));
       } else {
         this.setState(() => ({ error: '' }));
@@ -436,74 +474,74 @@ function withForm(Component) {
       this.setState(() => ({ endDate }));
     };
 
-    onFocusChange2 = calendarFocusedMAA => {
+    onFocusChange2 = (calendarFocusedMAA) => {
       this.setState(() => ({ calendarFocusedMAA }));
     };
 
-    changeCheckbox = e =>
+    changeCheckbox = (e) =>
       this.setState({ [e.target.name]: !this.state[e.target.name] });
 
     handleUploadStart = () =>
       this.setState({
         isUploading: true,
-        uploadProgress: 0
+        uploadProgress: 0,
       });
 
-    handleProgress = progress => this.setState({ uploadProgress: progress });
+    handleProgress = (progress) => this.setState({ uploadProgress: progress });
 
-    handleUploadError = error => {
+    handleUploadError = (error) => {
       this.setState({
-        isUploading: false
+        isUploading: false,
         // Todo: handle error
       });
       console.error(error);
     };
 
-    handleUploadSuccess = async filename => {
+    handleUploadSuccess = async (filename) => {
       const downloadURL = await firebase
         .storage()
         .ref('images')
         .child(filename)
         .getDownloadURL();
 
-      this.setState(oldState => ({
+      this.setState((oldState) => ({
         filenames: [...oldState.filenames, filename],
         downloadURLs: [...oldState.downloadURLs, downloadURL],
         uploadProgress: 100,
-        isUploading: false
+        isUploading: false,
       }));
     };
-    handleUploadSuccessCover = async filename => {
+    handleUploadSuccessCover = async (filename) => {
       const downloadURL = await firebase
         .storage()
         .ref('cover')
         .child(filename)
         .getDownloadURL();
 
-      this.setState(oldState => ({
+      this.setState((oldState) => ({
         filenamesCover: [...oldState.filenamesCover, filename],
         downloadURLsCover: [...oldState.downloadURLsCover, downloadURL],
         uploadProgress: 100,
-        isUploading: false
+        isUploading: false,
       }));
     };
 
-    handleUploadSuccessGrundriss = async filename => {
+    handleUploadSuccessGrundriss = async (filename) => {
       const downloadURL = await firebase
         .storage()
         .ref('grundriss')
         .child(filename)
         .getDownloadURL();
 
-      this.setState(oldState => ({
+      this.setState((oldState) => ({
         filenamesGrundriss: [...oldState.filenamesGrundriss, filename],
         downloadURLsGrundriss: [...oldState.downloadURLsGrundriss, downloadURL],
         uploadProgress: 100,
-        isUploading: false
+        isUploading: false,
       }));
     };
 
-    handleRemovePicture = picture => {
+    handleRemovePicture = (picture) => {
       console.log(picture);
       let downloadURLs = this.state.downloadURLs;
       let filenames = this.state.filenames;
@@ -525,11 +563,11 @@ function withForm(Component) {
         .then(() => {
           console.log('File deleted');
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     };
-    handleRemovePictureCover = picture => {
+    handleRemovePictureCover = (picture) => {
       console.log(picture);
       let downloadURLsCover = this.state.downloadURLsCover;
       let filenamesCover = this.state.filenamesCover;
@@ -551,12 +589,12 @@ function withForm(Component) {
         .then(() => {
           console.log('File deleted');
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     };
 
-    handleRemovePictureGrundriss = picture => {
+    handleRemovePictureGrundriss = (picture) => {
       console.log(picture);
       let downloadURLsGrundriss = this.state.downloadURLsGrundriss;
       let filenamesGrundriss = this.state.filenamesGrundriss;
@@ -581,7 +619,7 @@ function withForm(Component) {
         .then(() => {
           console.log('File deleted');
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     };

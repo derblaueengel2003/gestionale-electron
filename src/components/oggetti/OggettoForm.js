@@ -15,7 +15,7 @@ export class OggettoForm extends React.Component {
     M.AutoInit();
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     const wohngeld =
       parseFloat(this.props.data.wohngeld.replace(/,/, '.'), 10) * 100;
@@ -26,17 +26,17 @@ export class OggettoForm extends React.Component {
 
     if (!this.props.data.via || !this.props.data.rifId) {
       this.setState(() => ({
-        error: this.props.t('Inserisci indirizzo e Rif ID')
+        error: this.props.t('Inserisci indirizzo e Rif ID'),
       }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
         via: this.props.data.via,
         numeroCivico: this.props.data.numeroCivico,
-        cap: this.props.data.capOggetto,
+        cap: this.props.data.cap,
         citta: this.props.data.citta,
         quartiere: this.props.data.quartiere,
-        nazione: this.props.data.nazioneOggetto,
+        nazione: this.props.data.nazione,
         numeroAppartamento: this.props.data.numeroAppartamento,
         rifId: this.props.data.rifId,
         amtsgericht: this.props.data.amtsgericht,
@@ -54,14 +54,14 @@ export class OggettoForm extends React.Component {
         proprietarioId: this.props.data.proprietarioId,
         proprietarioId2: this.props.data.proprietarioId2,
         inquilinoId: this.props.data.inquilinoId,
-        visible: this.props.data.visibleOggetto,
+        visible: this.props.data.visible,
         filenames: this.props.data.filenames,
         downloadURLs: this.props.data.downloadURLs,
         filenamesCover: this.props.data.filenamesCover,
         downloadURLsCover: this.props.data.downloadURLsCover,
         filenamesGrundriss: this.props.data.filenamesGrundriss,
         downloadURLsGrundriss: this.props.data.downloadURLsGrundriss,
-        titolo: this.props.data.titoloOggetto,
+        titolo: this.props.data.titolo,
         descrizione: this.props.data.descrizione,
         titoloDe: this.props.data.titoloDe,
         descrizioneDe: this.props.data.descrizioneDe,
@@ -81,9 +81,9 @@ export class OggettoForm extends React.Component {
         energieTraeger: this.props.data.energieTraeger,
         energieBedarf: this.props.data.energieBedarf,
         provvigione: this.props.data.provvigione,
-        note: this.props.data.noteOggetto,
+        note: this.props.data.note,
         venduto: this.props.data.venduto,
-        tipologia: this.props.data.tipologia
+        tipologia: this.props.data.tipologia,
       });
     }
   };
@@ -94,22 +94,23 @@ export class OggettoForm extends React.Component {
       renderCheckbox,
       renderSelect,
       renderInput,
-      changeHandlerValuta
+      changeHandlerValuta,
     } = this.props;
-    const options = this.props.clienti.map(cliente => ({
+    const options = this.props.clienti.map((cliente) => ({
       value: cliente.id,
-      label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
-        `- ${t('Ditta')} ${cliente.ditta}`}`
+      label: `${cliente.nome} ${cliente.cognome} ${
+        cliente.ditta && `- ${t('Ditta')} ${cliente.ditta}`
+      }`,
     }));
 
     const optionsTipologia = [
       'Eigentumswohnung',
       'Gewerbe',
       'Pflegeheim',
-      'Sonstiges'
-    ].map(dealType => ({
+      'Sonstiges',
+    ].map((dealType) => ({
       value: dealType,
-      label: t(dealType)
+      label: t(dealType),
     }));
     return (
       <form className='form' onSubmit={this.onSubmit}>
@@ -124,7 +125,7 @@ export class OggettoForm extends React.Component {
         <div className='row'>
           <div className='col s12'>
             <ul
-              ref={Tabs => {
+              ref={(Tabs) => {
                 this.Tabs = Tabs;
               }}
               className='tabs'
@@ -151,10 +152,10 @@ export class OggettoForm extends React.Component {
               )}
               {renderInput('via', t('Indirizzo'))}
               {renderInput('numeroCivico', 'Nr.')}
-              {renderInput('capOggetto', t('CAP'))}
+              {renderInput('cap', t('CAP'))}
               {renderInput('quartiere', t('Quartiere'))}
               {renderInput('citta', t('Città'))}
-              {renderInput('nazioneOggetto', t('Nazione'))}
+              {renderInput('nazione', t('Nazione'))}
               {renderInput('numeroAppartamento', t('Numero appartamento'))}
               {renderInput('rifId', t('Rif') + '. ID')}
               {renderInput('amtsgericht', t('Pretura (Amtsgericht)'))}
@@ -167,7 +168,7 @@ export class OggettoForm extends React.Component {
                 'stato',
                 [
                   { value: 'leerstehend', label: t('Non affittato, libero') },
-                  { value: 'vermietet', label: t('Affittato') }
+                  { value: 'vermietet', label: t('Affittato') },
                 ],
                 t('Stato abitativo')
               )}
@@ -209,11 +210,11 @@ export class OggettoForm extends React.Component {
                 '2. ' + t('Proprietario')
               )}
               {renderSelect('inquilinoId', options, t('Inquilino'))}
-              {renderTextArea('noteOggetto')}
+              {renderTextArea('note')}
               {renderCheckbox('venduto', t('Venduto'))}
 
               {this.props.utente.role === 'Admin'
-                ? renderCheckbox('visibleOggetto', t('Visibile'))
+                ? renderCheckbox('visible', t('Visibile'))
                 : ''}
             </div>
           </div>
@@ -221,7 +222,7 @@ export class OggettoForm extends React.Component {
             <div label='Exposé'>
               {/* Exposé */}
               {renderInput(
-                'titoloOggetto',
+                'titolo',
                 `${t('Titolo principale')} ${t('italiano')}`,
                 undefined,
                 undefined,
@@ -265,8 +266,8 @@ export class OggettoForm extends React.Component {
                   { value: 'gut', label: t('Buone condizioni') },
                   {
                     value: 'renovierungsbedürftig',
-                    label: t('Da ristrutturare')
-                  }
+                    label: t('Da ristrutturare'),
+                  },
                 ],
                 t('Condizioni immobile')
               )}
@@ -276,12 +277,12 @@ export class OggettoForm extends React.Component {
                 [
                   {
                     value: 'Verbrauchsausweis',
-                    label: t('Basato sul consumo')
+                    label: t('Basato sul consumo'),
                   },
                   {
                     value: 'Bedarfsausweis',
-                    label: t('Basato sul fabbisogno')
-                  }
+                    label: t('Basato sul fabbisogno'),
+                  },
                 ],
                 t('Certificato energetico - tipologia')
               )}
@@ -294,12 +295,12 @@ export class OggettoForm extends React.Component {
                 [
                   {
                     value: 'Zentralheizung',
-                    label: t('Riscaldamento centralizzato')
+                    label: t('Riscaldamento centralizzato'),
                   },
                   {
                     value: 'Etagenheizung',
-                    label: t('Riscaldamento autonomo')
-                  }
+                    label: t('Riscaldamento autonomo'),
+                  },
                 ],
                 t('Tipologia riscaldamento')
               )}
@@ -308,16 +309,16 @@ export class OggettoForm extends React.Component {
                 [
                   {
                     value: 'Erdgas',
-                    label: t('Gas')
+                    label: t('Gas'),
                   },
                   {
                     value: 'Öl',
-                    label: t('Olio combustibile')
+                    label: t('Olio combustibile'),
                   },
                   {
                     value: 'Fernwärme',
-                    label: t('Teleriscaldamento')
-                  }
+                    label: t('Teleriscaldamento'),
+                  },
                 ],
                 t('Fonte energetica')
               )}
@@ -480,9 +481,11 @@ export class OggettoForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   clienti: state.clienti,
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+  utente: state.utenti.find(
+    (utente) => utente.firebaseAuthId === state.auth.uid
+  ),
 });
 
 export default connect(mapStateToProps)(

@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
 
 export class FirmaForm extends React.Component {
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     this.props.onSubmit({
@@ -14,17 +14,17 @@ export class FirmaForm extends React.Component {
       stadt: this.props.data.stadt,
       staat: this.props.data.staat,
       telefon: this.props.data.telefon,
-      fax: this.props.data.faxFirma,
-      email: this.props.data.emailFirma,
-      website: this.props.data.websiteFirma,
-      steuerNr: this.props.data.steuerNrFirma,
-      ustIdNr: this.props.data.ustIdNrFirma,
+      fax: this.props.data.fax,
+      email: this.props.data.email,
+      website: this.props.data.website,
+      steuerNr: this.props.data.steuerNr,
+      ustIdNr: this.props.data.ustIdNr,
       motto: this.props.data.motto,
       open: this.props.data.open,
       kontoInhaber: this.props.data.kontoInhaber,
-      bank: this.props.data.bankFirma,
-      iban: this.props.data.ibanFirma,
-      bic: this.props.data.bicFirma
+      bank: this.props.data.bank,
+      iban: this.props.data.iban,
+      bic: this.props.data.bic,
     });
   };
   render() {
@@ -43,17 +43,17 @@ export class FirmaForm extends React.Component {
         {renderInput('stadt', t('Città'))}
         {renderInput('staat', t('Nazione'))}
         {renderInput('telefon', t('Telefono fisso'))}
-        {renderInput('faxFirma', 'Fax')}
-        {renderInput('emailFirma', t('Email'))}
-        {renderInput('websiteFirma', t('Sito web'))}
-        {renderInput('steuerNrFirma', t('Codice fiscale tedesco'))}
-        {renderInput('ustIdNrFirma', 'Ust.-IdNr.')}
+        {renderInput('fax', 'Fax')}
+        {renderInput('email', t('Email'))}
+        {renderInput('website', t('Sito web'))}
+        {renderInput('steuerNr', t('Codice fiscale tedesco'))}
+        {renderInput('ustIdNr', 'Ust.-IdNr.')}
         {renderInput('motto', 'Motto')}
         {renderInput('open', t('Orari di apertura'))}
         {renderInput('kontoInhaber', t('Intestatario conto corrente'))}
-        {renderInput('bankFirma', t('Banca'))}
-        {renderInput('ibanFirma', 'IBAN')}
-        {renderInput('bicFirma', 'BIC/SWIFT')}
+        {renderInput('bank', t('Banca'))}
+        {renderInput('iban', 'IBAN')}
+        {renderInput('bic', 'BIC/SWIFT')}
         <div>
           <button className='btn-floating blue right btn-floating-margin'>
             <i className='material-icons'>save</i>

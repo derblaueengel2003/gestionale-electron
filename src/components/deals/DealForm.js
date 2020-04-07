@@ -7,7 +7,7 @@ import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 
 export class DealForm extends React.Component {
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     const prezzoDiVendita =
       parseFloat(this.props.data.prezzoDiVendita.replace(/,/, '.'), 10) * 100;
@@ -28,12 +28,12 @@ export class DealForm extends React.Component {
       !this.props.data.acquirenteId
     ) {
       this.setState(() => ({
-        error: 'Objekt, Summe und Käufer bitte ausfüllen.'
+        error: 'Objekt, Summe und Käufer bitte ausfüllen.',
       }));
     } else if (amount !== provvSum) {
       const differenza = (provvSum - amount) / 100;
       this.setState(() => ({
-        error: `Provisionen-Summe entrspricht nicht die Gesamtprovision. ${differenza} € Unterschied.`
+        error: `Provisionen-Summe entrspricht nicht die Gesamtprovision. ${differenza} € Unterschied.`,
       }));
     } else {
       this.setState(() => ({ error: '' }));
@@ -69,7 +69,7 @@ export class DealForm extends React.Component {
         linguaRogito: this.props.data.linguaRogito,
         belastungsVollmacht: this.props.data.belastungsVollmacht,
         calendarDataFatturaFocused: false,
-        note: this.props.data.noteDeal
+        note: this.props.data.note,
       });
     }
   };
@@ -82,17 +82,18 @@ export class DealForm extends React.Component {
       renderInput,
       renderSingleDate,
       renderTextArea,
-      changeHandlerValuta
+      changeHandlerValuta,
     } = this.props;
-    const options = this.props.clienti.map(cliente => ({
+    const options = this.props.clienti.map((cliente) => ({
       value: cliente.id,
-      label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
-        `- Firma ${cliente.ditta}`}`
+      label: `${cliente.nome} ${cliente.cognome} ${
+        cliente.ditta && `- Firma ${cliente.ditta}`
+      }`,
     }));
 
-    const oggettiOptions = this.props.oggetti.map(oggetto => ({
+    const oggettiOptions = this.props.oggetti.map((oggetto) => ({
       value: oggetto.id,
-      label: `Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`
+      label: `Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`,
     }));
     const dealTypeOptions = [
       'Kauf Eigentumswohnung',
@@ -100,14 +101,14 @@ export class DealForm extends React.Component {
       'Kauf Gewerbe',
       'Miete Gewerbe',
       'APH',
-      'Sonstiges'
-    ].map(dealType => ({
+      'Sonstiges',
+    ].map((dealType) => ({
       value: dealType,
-      label: t(dealType)
+      label: t(dealType),
     }));
-    const consulenteVenditaOptions = this.props.utenti.map(consulente => ({
+    const consulenteVenditaOptions = this.props.utenti.map((consulente) => ({
       value: consulente.id,
-      label: consulente.name
+      label: consulente.name,
     }));
     const linguaRogitoOptions = [
       'Englisch',
@@ -116,10 +117,10 @@ export class DealForm extends React.Component {
       'Französisch',
       'Englisch-Italienisch',
       'Englisch-Französisch',
-      'Englisch-Spanisch'
-    ].map(linguaRogito => ({
+      'Englisch-Spanisch',
+    ].map((linguaRogito) => ({
       value: linguaRogito,
-      label: t(linguaRogito)
+      label: t(linguaRogito),
     }));
 
     return (
@@ -151,10 +152,10 @@ export class DealForm extends React.Component {
           undefined,
           changeHandlerValuta,
           undefined,
-          `6%: ${parseFloat(
-            this.props.data.prezzoDiVendita.replace(/,/, '.'),
-            10
-          ) * 0.06}`
+          `6%: ${
+            parseFloat(this.props.data.prezzoDiVendita.replace(/,/, '.'), 10) *
+            0.06
+          }`
         )}
         {renderSelect(
           'consulenteVendita',
@@ -167,11 +168,13 @@ export class DealForm extends React.Component {
           undefined,
           changeHandlerValuta,
           undefined,
-          `80%: ${parseFloat(
-            this.props.data.amount.replace(/,/, '.') -
-              this.props.data.provvAgenziaPartner.replace(/,/, '.'),
-            10
-          ) * 0.8}`
+          `80%: ${
+            parseFloat(
+              this.props.data.amount.replace(/,/, '.') -
+                this.props.data.provvAgenziaPartner.replace(/,/, '.'),
+              10
+            ) * 0.8
+          }`
         )}
         {renderInput(
           'provvStefano',
@@ -179,11 +182,13 @@ export class DealForm extends React.Component {
           undefined,
           changeHandlerValuta,
           undefined,
-          `20%: ${parseFloat(
-            this.props.data.amount.replace(/,/, '.') -
-              this.props.data.provvAgenziaPartner.replace(/,/, '.'),
-            10
-          ) * 0.2}`
+          `20%: ${
+            parseFloat(
+              this.props.data.amount.replace(/,/, '.') -
+                this.props.data.provvAgenziaPartner.replace(/,/, '.'),
+              10
+            ) * 0.2
+          }`
         )}
         {renderCheckbox('payedStefano', t('Pagato'))}
         <div className={`visible-${this.props.data.payedStefano} form`}>
@@ -222,7 +227,7 @@ export class DealForm extends React.Component {
           'calendarDataConsegnaFocused',
           t('Data consegna immobile')
         )}
-        {renderTextArea('noteDeal', t('Note (opzionale)'))}
+        {renderTextArea('note', t('Note (opzionale)'))}
 
         <div>
           <button className='btn-floating blue right'>
@@ -234,10 +239,10 @@ export class DealForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   utenti: state.utenti,
   clienti: state.clienti,
-  oggetti: state.oggetti
+  oggetti: state.oggetti,
 });
 
 export default connect(mapStateToProps)(withTranslation()(withForm(DealForm)));
