@@ -11,20 +11,20 @@ import numeral from 'numeral';
 numeral.register('locale', 'de', {
   delimiters: {
     thousands: '.',
-    decimal: ','
+    decimal: ',',
   },
   abbreviations: {
     thousand: 'k',
     million: 'm',
     billion: 'b',
-    trillion: 't'
+    trillion: 't',
   },
-  ordinal: function(number) {
+  ordinal: function (number) {
     return number === 1 ? 'er' : '°';
   },
   currency: {
-    symbol: '€'
-  }
+    symbol: '€',
+  },
 });
 // switch between locales
 numeral.locale('de');
@@ -37,7 +37,7 @@ export const DealList = ({
   fatture,
   utente,
   deals,
-  t
+  t,
 }) => {
   //controllo se i dati vengono dal clienti page o sono passati via props
 
@@ -49,14 +49,14 @@ export const DealList = ({
         {dealsPayload.length > 0 && (
           <div>
             <h5>{t('Vendite')}</h5>
-            {dealsPayload.map(deal => {
-              const oggetto = oggetti.find(ogg => ogg.id === deal.oggettoId);
+            {dealsPayload.map((deal) => {
+              const oggetto = oggetti.find((ogg) => ogg.id === deal.oggettoId);
 
               const acquirente = clienti.find(
-                cliente => cliente.id === deal.acquirenteId
+                (cliente) => cliente.id === deal.acquirenteId
               );
               const acquirente2 = clienti.find(
-                cliente => cliente.id === deal.acquirenteId2
+                (cliente) => cliente.id === deal.acquirenteId2
               );
               const gliAcquirenti = `${
                 acquirente
@@ -71,10 +71,10 @@ export const DealList = ({
               }`;
 
               const venditore = clienti.find(
-                cliente => cliente.id === deal.venditoreId
+                (cliente) => cliente.id === deal.venditoreId
               );
               const venditore2 = clienti.find(
-                cliente => cliente.id === deal.venditoreId2
+                (cliente) => cliente.id === deal.venditoreId2
               );
               const iVenditori = `${
                 venditore
@@ -95,10 +95,10 @@ export const DealList = ({
 
               // Determino quante fatture sono state pagate per mostrare i colori adatti. Da dealFature mi arriva un array
               const dealFatture = fatture.filter(
-                fattura => fattura.dealId === deal.id
+                (fattura) => fattura.dealId === deal.id
               );
               let payed = 0;
-              dealFatture.map(fattura => fattura.payed && payed++);
+              dealFatture.map((fattura) => fattura.payed && payed++);
               if (payed > 0) {
                 if (payed === dealFatture.length) {
                   payed = 2;
@@ -119,8 +119,9 @@ export const DealList = ({
                   titoloDestra={
                     utente.role === 'Mitarbeiter' ? (
                       <span
-                        className={` card-title list-item__data ${deal.payedStefano &&
-                          'list-item--paid'}`}
+                        className={` card-title list-item__data ${
+                          deal.payedStefano && 'list-item--paid'
+                        }`}
                       >
                         {numeral(deal.provvStefano / 100).format('0,0[.]00 $')}
                       </span>
@@ -145,23 +146,24 @@ export const DealList = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   //lo chiami anche da dealsSummary
   return {
     deals: selectDeals(
+      'deals',
       state.deals,
       state.filters,
+      state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid),
       state.oggetti,
       state.clienti,
-      state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
       state.fatture
     ),
     oggetti: state.oggetti,
     clienti: state.clienti,
     fatture: state.fatture,
     utente: state.utenti.find(
-      utente => utente.firebaseAuthId === state.auth.uid
-    )
+      (utente) => utente.firebaseAuthId === state.auth.uid
+    ),
   };
 };
 

@@ -9,7 +9,7 @@ import { Translation } from 'react-i18next';
 export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed }) => {
   return (
     <Translation>
-      {t => {
+      {(t) => {
         const dealWord = dealCount === 1 ? 'Deal' : 'Deals';
         const formattedDealsTotal = numeral(dealsTotal / 100).format(
           '0,0[.]00 $'
@@ -34,14 +34,15 @@ export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   //lo chiami anche da dealsList
   const visibleDeals = selectDeals(
+    'deals',
     state.deals,
     state.filters,
+    state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid),
     state.oggetti,
     state.clienti,
-    state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
     state.fatture
   );
   // const payedDeals = visibleDeals.filter(deal =>
@@ -51,13 +52,13 @@ const mapStateToProps = state => {
     dealCount: visibleDeals.length,
     dealsTotal: selectDealsTotal(
       visibleDeals,
-      state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+      state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid)
     ),
     dealsPayed: selectDealsPayed(
       visibleDeals,
-      state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+      state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid),
       state.fatture
-    )
+    ),
   };
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Translation } from 'react-i18next';
-
 import numeral from 'numeral';
 import selectDeals from '../selectors/deals';
 import selectDealsTotal from '../selectors/deals-total';
@@ -14,7 +13,7 @@ export const ReportPage = ({
   dealsTotal,
   dealsPayed,
   dealsPayedStefano,
-  dealsTotalStefano
+  dealsTotalStefano,
 }) => {
   const dealWord = dealCount === 1 ? 'Deal' : 'Deals';
   const formattedDealsTotal = numeral(dealsTotal / 100).format('0,0[.]00 $');
@@ -57,13 +56,13 @@ export const ReportPage = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const visibleDeals = selectDeals(
     state.deals,
     state.filters,
     state.oggetti,
     state.clienti,
-    state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+    state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid),
     state.fatture
   );
   // const payedDeals = visibleDeals.filter(deal =>
@@ -73,15 +72,15 @@ const mapStateToProps = state => {
     dealCount: visibleDeals.length,
     dealsTotal: selectDealsTotal(
       visibleDeals,
-      state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+      state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid)
     ),
     dealsPayed: selectDealsPayed(
       visibleDeals,
-      state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+      state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid),
       state.fatture
     ),
     dealsPayedStefano: selectDealsPayedStefano(visibleDeals),
-    dealsTotalStefano: selectDealsTotalStefano(visibleDeals)
+    dealsTotalStefano: selectDealsTotalStefano(visibleDeals),
   };
 };
 

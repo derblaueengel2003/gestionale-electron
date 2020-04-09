@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
@@ -23,7 +24,7 @@ export class ViewOggettiPage extends React.Component {
     super(props);
 
     this.state = {
-      stores: [{ latitude: '', longitude: '' }]
+      stores: [{ latitude: '', longitude: '' }],
     };
   }
 
@@ -31,23 +32,23 @@ export class ViewOggettiPage extends React.Component {
     Geocode.fromAddress(
       `${this.props.oggetto.via} ${this.props.oggetto.numeroCivico}, ${this.props.oggetto.cap} ${this.props.oggetto.citta}`
     ).then(
-      response => {
+      (response) => {
         const { lat, lng } = response.results[0].geometry.location;
         this.setState(
-          prevState => (
+          (prevState) => (
             (prevState.stores[0].latitude = lat),
             (prevState.stores[0].longitude = lng)
           )
         );
       },
-      error => {
+      (error) => {
         console.error(error);
       }
     );
   }
 
-  findContact = contact => {
-    return this.props.clienti.filter(cliente => cliente.id === contact);
+  findContact = (contact) => {
+    return this.props.clienti.filter((cliente) => cliente.id === contact);
   };
 
   render() {
@@ -91,6 +92,22 @@ export class ViewOggettiPage extends React.Component {
             )}
             {this.props.oggetto.rifId && (
               <p>Ref. id: {this.props.oggetto.rifId}</p>
+            )}
+            {this.props.oggetto.dataInserimentoOggetto && (
+              <p>
+                Data inserimento oggetto:{' '}
+                {moment(this.props.oggetto.dataInserimentoOggetto).format(
+                  'DD MMMM, YYYY'
+                )}
+              </p>
+            )}
+            {this.props.oggetto.dataModificaOggetto && (
+              <p>
+                Data modifica oggetto:{' '}
+                {moment(this.props.oggetto.dataModificaOggetto).format(
+                  'DD MMMM, YYYY'
+                )}
+              </p>
             )}
             {this.props.oggetto.kaufpreis > 0 && (
               <p>{`${t('Prezzo di vendita')}: ${numeral(
@@ -412,11 +429,15 @@ export class ViewOggettiPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  oggetto: state.oggetti.find(oggetto => oggetto.id === props.match.params.id),
+  oggetto: state.oggetti.find(
+    (oggetto) => oggetto.id === props.match.params.id
+  ),
   clienti: state.clienti,
   firma: state.firma[0],
-  ceo: state.utenti.filter(utente => utente.qualifica === 'Geschäftsführer'),
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid)
+  ceo: state.utenti.filter((utente) => utente.qualifica === 'Geschäftsführer'),
+  utente: state.utenti.find(
+    (utente) => utente.firebaseAuthId === state.auth.uid
+  ),
 });
 
 export default connect(mapStateToProps)(withTranslation()(ViewOggettiPage));

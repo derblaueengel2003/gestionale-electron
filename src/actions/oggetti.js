@@ -1,13 +1,13 @@
 import database from '../firebase/firebase';
 
 // ADD_OGGETTO
-export const addOggetto = oggetto => ({
+export const addOggetto = (oggetto) => ({
   type: 'ADD_OGGETTO',
-  oggetto
+  oggetto,
 });
 
 export const startAddOggetto = (oggettoData = {}) => {
-  return dispatch => {
+  return (dispatch) => {
     const {
       affittoNetto = 0,
       amtsgericht = '',
@@ -62,7 +62,9 @@ export const startAddOggetto = (oggettoData = {}) => {
       via = '',
       visible = true,
       wohngeld = 0,
-      www = ''
+      www = '',
+      dataInserimentoOggetto = null,
+      dataModificaOggetto = null,
     } = oggettoData;
     const oggetto = {
       affittoNetto,
@@ -118,17 +120,19 @@ export const startAddOggetto = (oggettoData = {}) => {
       via,
       visible,
       wohngeld,
-      www
+      www,
+      dataInserimentoOggetto,
+      dataModificaOggetto,
     };
 
     return database
       .ref(`/oggetti`)
       .push(oggetto)
-      .then(ref => {
+      .then((ref) => {
         dispatch(
           addOggetto({
             id: ref.key,
-            ...oggetto
+            ...oggetto,
           })
         );
       });
@@ -138,11 +142,11 @@ export const startAddOggetto = (oggettoData = {}) => {
 // REMOVE_OGGETTO
 export const removeOggetto = ({ id } = {}) => ({
   type: 'REMOVE_OGGETTO',
-  id
+  id,
 });
 
 export const startRemoveOggetto = ({ id } = {}) => {
-  return dispatch => {
+  return (dispatch) => {
     return database
       .ref(`/oggetti/${id}`)
       .remove()
@@ -156,11 +160,11 @@ export const startRemoveOggetto = ({ id } = {}) => {
 export const editOggetto = (id, updates) => ({
   type: 'EDIT_OGGETTO',
   id,
-  updates
+  updates,
 });
 
 export const startEditOggetto = (id, updates) => {
-  return dispatch => {
+  return (dispatch) => {
     return database
       .ref(`/oggetti/${id}`)
       .update(updates)
@@ -171,24 +175,24 @@ export const startEditOggetto = (id, updates) => {
 };
 
 // SET_OGGETTI
-export const setOggetti = oggetti => ({
+export const setOggetti = (oggetti) => ({
   type: 'SET_OGGETTI',
-  oggetti
+  oggetti,
 });
 
 // export const startSetOggetti
 export const startSetOggetti = () => {
-  return dispatch => {
+  return (dispatch) => {
     return database
       .ref(`oggetti`)
       .once('value')
-      .then(snapshot => {
+      .then((snapshot) => {
         const oggetti = [];
 
-        snapshot.forEach(childSnapshot => {
+        snapshot.forEach((childSnapshot) => {
           oggetti.push({
             id: childSnapshot.key,
-            ...childSnapshot.val()
+            ...childSnapshot.val(),
           });
         });
         dispatch(setOggetti(oggetti));

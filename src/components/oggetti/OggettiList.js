@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import selectOggetti from '../../selectors/oggetti';
+import selectOggetti from '../../selectors/deals';
 import Card from '../Card';
 import numeral from 'numeral';
+import moment from 'moment';
 
-export const OggettiList = props => {
+export const OggettiList = (props) => {
   //controllo se arrivo da view deal o dalla dashboard oggetti
   const oggettiPayload = props.oggetto || props.oggetti;
 
@@ -19,15 +20,20 @@ export const OggettiList = props => {
               .sort((a, b) => {
                 return a.visible < b.visible ? -1 : 1;
               })
-              .map(oggetto => {
+              .map((oggetto) => {
                 const verkauft = oggetto.venduto ? (
                   <h5 className='red-text'>{props.t('Venduto')}!</h5>
                 ) : (
                   ''
                 );
+
                 const prezzoDiVendita = `${props.t(
                   'Prezzo di vendita'
                 )}: ${numeral(oggetto.kaufpreis / 100).format('0,0[.]00 $')}`;
+
+                const dataOggetto = moment(oggetto.dataModificaOggetto).format(
+                  'DD MMMM, YYYY'
+                );
                 return (
                   <Card
                     key={oggetto.id}
@@ -36,7 +42,11 @@ export const OggettiList = props => {
                     titoloDestra={`${props.t('Rif')}. ID ${oggetto.rifId}`}
                     visible={oggetto.visible}
                     link={`/oggettoview/${oggetto.id}`}
-                    corpo={[props.t(oggetto.tipologia), prezzoDiVendita]}
+                    corpo={[
+                      props.t(oggetto.tipologia),
+                      prezzoDiVendita,
+                      dataOggetto,
+                    ]}
                     verkauft={verkauft}
                   />
                 );
@@ -48,13 +58,18 @@ export const OggettiList = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    oggetti: selectOggetti(state.oggetti, state.filters)
+    oggetti: selectOggetti(
+      'oggetti',
+      state.oggetti,
+      state.filters,
+      state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid)
+    ),
   };
 };
-const mapDispatchToProps = dispatch => ({
-  startSetOggetti: () => dispatch(startSetOggetti())
+const mapDispatchToProps = (dispatch) => ({
+  startSetOggetti: () => dispatch(startSetOggetti()),
 });
 
 export default connect(

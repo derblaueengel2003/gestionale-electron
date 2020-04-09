@@ -1,13 +1,13 @@
 import database from '../firebase/firebase';
 
 // ADD_DEAL
-export const addDeal = deal => ({
+export const addDeal = (deal) => ({
   type: 'ADD_DEAL',
-  deal
+  deal,
 });
 
 export const startAddDeal = (dealData = {}) => {
-  return dispatch => {
+  return (dispatch) => {
     const {
       oggettoId = '',
       prezzoDiVendita = 0,
@@ -34,7 +34,7 @@ export const startAddDeal = (dealData = {}) => {
       dataConsegna = null,
       todos = [
         { id: 0, text: 'Prenotazione', erledigt: false },
-        { id: 1, text: 'Diritto di recesso', erledigt: false }
+        { id: 1, text: 'Diritto di recesso', erledigt: false },
       ],
       todo1 = false,
       todo2 = false,
@@ -46,7 +46,7 @@ export const startAddDeal = (dealData = {}) => {
       todo8 = false,
       todo9 = false,
       todo10 = false,
-      todo11 = false
+      todo11 = false,
     } = dealData;
     const deal = {
       oggettoId,
@@ -83,17 +83,17 @@ export const startAddDeal = (dealData = {}) => {
       todo8,
       todo9,
       todo10,
-      todo11
+      todo11,
     };
 
     return database
       .ref(`deals`)
       .push(deal)
-      .then(ref => {
+      .then((ref) => {
         dispatch(
           addDeal({
             id: ref.key,
-            ...deal
+            ...deal,
           })
         );
       });
@@ -103,11 +103,11 @@ export const startAddDeal = (dealData = {}) => {
 // REMOVE_DEAL
 export const removeDeal = ({ id } = {}) => ({
   type: 'REMOVE_DEAL',
-  id
+  id,
 });
 
 export const startRemoveDeal = ({ id } = {}) => {
-  return dispatch => {
+  return (dispatch) => {
     return database
       .ref(`deals/${id}`)
       .remove()
@@ -121,11 +121,11 @@ export const startRemoveDeal = ({ id } = {}) => {
 export const editDeal = (id, updates) => ({
   type: 'EDIT_DEAL',
   id,
-  updates
+  updates,
 });
 
 export const startEditDeal = (id, updates) => {
-  return dispatch => {
+  return (dispatch) => {
     return database
       .ref(`deals/${id}`)
       .update(updates)
@@ -136,24 +136,23 @@ export const startEditDeal = (id, updates) => {
 };
 
 // SET_DEALS
-export const setDeals = deals => ({
+export const setDeals = (deals) => ({
   type: 'SET_DEALS',
-  deals
+  deals,
 });
 
-// export const startSetDeals
 export const startSetDeals = () => {
-  return dispatch => {
+  return (dispatch) => {
     return database
       .ref(`deals`)
       .once('value')
-      .then(snapshot => {
+      .then((snapshot) => {
         const deals = [];
 
-        snapshot.forEach(childSnapshot => {
+        snapshot.forEach((childSnapshot) => {
           deals.push({
             id: childSnapshot.key,
-            ...childSnapshot.val()
+            ...childSnapshot.val(),
           });
         });
         dispatch(setDeals(deals));

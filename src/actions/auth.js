@@ -1,11 +1,11 @@
-import { firebase, googleAuthProvider } from '../firebase/firebase';
+import { firebase } from '../firebase/firebase';
 
-export const login = uid => ({
+export const login = (uid) => ({
   type: 'LOGIN',
-  uid
+  uid,
 });
 
-export const startLogin = (email, password) => {
+export const startLogin = () => {
   return () => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
@@ -13,7 +13,7 @@ export const startLogin = (email, password) => {
     return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .catch(error => {
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // [START_EXCLUDE]
@@ -28,7 +28,7 @@ export const startLogin = (email, password) => {
 };
 
 export const logout = () => ({
-  type: 'LOGOUT'
+  type: 'LOGOUT',
 });
 
 export const startLogout = () => {

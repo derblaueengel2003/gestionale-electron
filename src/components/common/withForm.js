@@ -313,6 +313,13 @@ function withForm(Component) {
             ? props.oggetto.tipologia
             : ''
           : '',
+        //se non c'è una data, inserisco quella attuale
+        dataInserimentoOggetto: props.oggetto
+          ? props.oggetto.dataInserimentoOggetto
+            ? moment(props.oggetto.dataInserimentoOggetto)
+            : moment()
+          : moment(),
+        dataModificaOggetto: props.oggetto ? moment() : null,
 
         //USERS
         role: props.user ? props.user.role : '',

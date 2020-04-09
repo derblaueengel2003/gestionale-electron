@@ -84,6 +84,12 @@ export class OggettoForm extends React.Component {
         note: this.props.data.note,
         venduto: this.props.data.venduto,
         tipologia: this.props.data.tipologia,
+        dataInserimentoOggetto: this.props.data.dataInserimentoOggetto
+          ? this.props.data.dataInserimentoOggetto.valueOf()
+          : null,
+        dataModificaOggetto: this.props.data.dataModificaOggetto
+          ? this.props.data.dataModificaOggetto.valueOf()
+          : null,
       });
     }
   };

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { startSetCustomers } from '../../actions/clienti';
-import selectClienti from '../../selectors/clienti';
+import selectClienti from '../../selectors/deals';
 import Card from '../Card';
 
 export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
@@ -20,7 +20,7 @@ export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
               .sort((a, b) => {
                 return a.visible < b.visible ? -1 : 1;
               })
-              .map(cliente => {
+              .map((cliente) => {
                 const dsgvo = cliente.consensoDSGVO
                   ? `${t(
                       'Consenso al trattamento dei dati personali'
@@ -37,7 +37,7 @@ export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
                       cliente.email,
                       cliente.telefono1,
                       cliente.cellulare,
-                      dsgvo
+                      dsgvo,
                     ]}
                     titoloDestra={
                       <div>
@@ -79,13 +79,18 @@ export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    clienti: selectClienti(state.clienti, state.filters)
+    clienti: selectClienti(
+      'clienti',
+      state.clienti,
+      state.filters,
+      state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid)
+    ),
   };
 };
-const mapDispatchToProps = dispatch => ({
-  startSetCustomers: () => dispatch(startSetCustomers())
+const mapDispatchToProps = (dispatch) => ({
+  startSetCustomers: () => dispatch(startSetCustomers()),
 });
 
 export default connect(

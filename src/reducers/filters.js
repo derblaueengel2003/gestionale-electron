@@ -14,7 +14,7 @@ const filtersReducerDefaultState = {
   sortClientiBy: 'name',
   lead: '',
   leadStato: '',
-  fattura: ''
+  fattura: '',
 };
 
 export default (state = filtersReducerDefaultState, action) => {
@@ -22,83 +22,88 @@ export default (state = filtersReducerDefaultState, action) => {
     case 'SET_TEXT_FILTER':
       return {
         ...state,
-        text: action.text
+        text: action.text,
       };
     case 'SET_CLIENTE_FILTER':
       return {
         ...state,
-        cliente: action.cliente
+        cliente: action.cliente,
       };
     case 'SET_FATTURA_FILTER':
       return {
         ...state,
-        fattura: action.fattura
+        fattura: action.fattura,
       };
     case 'SET_OGGETTO_FILTER':
       return {
         ...state,
-        oggetto: action.oggetto
+        oggetto: action.oggetto,
       };
     case 'SORT_BY_AMOUNT':
       return {
         ...state,
-        sortBy: 'amount'
+        sortBy: 'amount',
       };
     case 'SORT_BY_DATE':
       return {
         ...state,
-        sortBy: 'date'
+        sortBy: 'date',
       };
     case 'SORT_BY_PAID':
       return {
         ...state,
-        sortBy: 'paid'
+        sortBy: 'paid',
+      };
+    case 'SORT_BY_NAME':
+      return {
+        ...state,
+        sortBy: 'name',
       };
 
     case 'SET_START_DATE':
       return {
         ...state,
-        startDate: action.startDate
+        startDate: action.startDate,
       };
     case 'SET_END_DATE':
       return {
         ...state,
-        endDate: action.endDate
+        endDate: action.endDate,
       };
     case 'SET_START_DATE_CLIENTI':
       return {
         ...state,
-        startDateClienti: action.startDateClienti
+        startDateClienti: action.startDateClienti,
       };
     case 'SET_END_DATE_CLIENTI':
       return {
         ...state,
-        endDateClienti: action.endDateClienti
+        endDateClienti: action.endDateClienti,
       };
     case 'SORT_CLIENTI_BY_NAME':
       return {
         ...state,
-        sortClientiBy: 'name'
+        sortClientiBy: 'name',
       };
     case 'SORT_CLIENTI_BY_REGISTRATION':
       return {
         ...state,
-        sortClientiBy: 'registration'
+        sortClientiBy: 'registration',
       };
     case 'SORT_CLIENTI_BY_DSGVO':
       return {
         ...state,
-        sortClientiBy: 'dsgvo'
+        sortClientiBy: 'dsgvo',
       };
     case 'SET_LEAD_FILTER':
       return {
         ...state,
-        lead: action.lead
+        lead: action.lead,
       };
     case 'SET_LEADSTATO_FILTER':
       return {
         ...state,
-        leadStato: action.leadStato
+        leadStato: action.leadStato,
       };
     default:
       return state;

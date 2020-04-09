@@ -1,44 +1,57 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Translation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import DealList from './DealList';
-import DealListFilters from './DealListFilters';
+import ListFilters from '../common/ListFilters';
 import DealsSummary from './DealsSummary';
+import { startSetDeals } from '../../actions/deals';
 
-const DealDashboardPage = ({ utente }) => {
-  return (
-    <Translation>
-      {t => {
-        return (
-          <div>
-            <div className='grey lighten-4'>
-              <div className='container'>
-                <h1>{t('Vendite')}</h1>
-              </div>
-            </div>
-            <DealsSummary />
-            <DealListFilters />
-            {utente.role === 'Admin' && (
-              <div className='container section'>
-                <Link className='btn-floating green right' to='/create'>
-                  <i className='material-icons'>add</i>
-                </Link>
-              </div>
-            )}
-            <DealList />
+class DealDashboardPage extends React.Component {
+  componentDidMount() {
+    this.props.startSetDeals();
+  }
+  render() {
+    const { t, utente } = this.props;
+    const options = [
+      { value: 'date', label: 'Data' },
+      { value: 'amount', label: 'Importo' },
+      { value: 'paid', label: 'Pagato' },
+    ];
+    return (
+      <div>
+        <div className='grey lighten-4'>
+          <div className='container'>
+            <h1>{t('Vendite')}</h1>
           </div>
-        );
-      }}
-    </Translation>
-  );
-};
-const mapStateToProps = state => {
+        </div>
+        <ListFilters options={options} />
+        <DealsSummary />
+        {utente.role === 'Admin' && (
+          <div className='container section'>
+            <Link className='btn-floating green right' to='/create'>
+              <i className='material-icons'>add</i>
+            </Link>
+          </div>
+        )}
+        <DealList />
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
   return {
     utente: state.utenti.find(
-      utente => utente.firebaseAuthId === state.auth.uid
-    )
+      (utente) => utente.firebaseAuthId === state.auth.uid
+    ),
   };
 };
+const mapDispatchToProps = (dispatch) => ({
+  startSetDeals: () => dispatch(startSetDeals()),
+});
 
-export default connect(mapStateToProps)(DealDashboardPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(DealDashboardPage));
