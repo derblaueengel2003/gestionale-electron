@@ -23,6 +23,9 @@ export default (
       if (nomeLista === 'deals') {
         // il match delle date lo faccio sulla data di emissione della fattura anche per avere un'idea concreta degli incassi dell'anno.
         // I deals che non sono ancora fatturati appaiono come primi
+        const dealFatture =
+          fatture && fatture.find((fattura) => fattura.dealId === item.id);
+
         createdAtMoment = dealFatture
           ? moment(dealFatture.dataFattura)
           : createdAtMoment;
@@ -67,9 +70,6 @@ export default (
         createdAtMoment = moment(item.dataRegistrazione);
         searchString = `${item.nome} ${item.cognome} ${item.ditta}`;
       }
-
-      const dealFatture =
-        fatture && fatture.find((fattura) => fattura.dealId === item.id);
 
       const startDateMatch =
         startDate && createdAtMoment
