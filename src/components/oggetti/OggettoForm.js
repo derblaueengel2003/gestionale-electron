@@ -18,77 +18,78 @@ export class OggettoForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const wohngeld =
-      parseFloat(this.props.data.wohngeld.replace(/,/, '.'), 10) * 100;
+      parseFloat(this.props.data.oggetti.wohngeld.replace(/,/, '.'), 10) * 100;
     const affittoNetto =
-      parseFloat(this.props.data.affittoNetto.replace(/,/, '.'), 10) * 100;
+      parseFloat(this.props.data.oggetti.affittoNetto.replace(/,/, '.'), 10) *
+      100;
     const kaufpreis =
-      parseFloat(this.props.data.kaufpreis.replace(/,/, '.'), 10) * 100;
+      parseFloat(this.props.data.oggetti.kaufpreis.replace(/,/, '.'), 10) * 100;
 
-    if (!this.props.data.via || !this.props.data.rifId) {
+    if (!this.props.data.oggetti.via || !this.props.data.oggetti.rifId) {
       this.setState(() => ({
         error: this.props.t('Inserisci indirizzo e Rif ID'),
       }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
-        via: this.props.data.via,
-        numeroCivico: this.props.data.numeroCivico,
-        cap: this.props.data.cap,
-        citta: this.props.data.citta,
-        quartiere: this.props.data.quartiere,
-        nazione: this.props.data.nazione,
-        numeroAppartamento: this.props.data.numeroAppartamento,
-        rifId: this.props.data.rifId,
-        amtsgericht: this.props.data.amtsgericht,
-        grundbuch: this.props.data.grundbuch,
-        grundbuchBlatt: this.props.data.grundbuchBlatt,
-        m2: this.props.data.m2,
-        piano: this.props.data.piano,
-        mobilio: this.props.data.mobilio,
-        stato: this.props.data.stato,
+        via: this.props.data.oggetti.via,
+        numeroCivico: this.props.data.oggetti.numeroCivico,
+        cap: this.props.data.oggetti.cap,
+        citta: this.props.data.oggetti.citta,
+        quartiere: this.props.data.oggetti.quartiere,
+        nazione: this.props.data.oggetti.nazione,
+        numeroAppartamento: this.props.data.oggetti.numeroAppartamento,
+        rifId: this.props.data.oggetti.rifId,
+        amtsgericht: this.props.data.oggetti.amtsgericht,
+        grundbuch: this.props.data.oggetti.grundbuch,
+        grundbuchBlatt: this.props.data.oggetti.grundbuchBlatt,
+        m2: this.props.data.oggetti.m2,
+        piano: this.props.data.oggetti.piano,
+        mobilio: this.props.data.oggetti.mobilio,
+        stato: this.props.data.oggetti.stato,
         wohngeld,
         kaufpreis,
         affittoNetto,
-        verwalter: this.props.data.verwalter,
-        ruecklage: this.props.data.ruecklage,
-        proprietarioId: this.props.data.proprietarioId,
-        proprietarioId2: this.props.data.proprietarioId2,
-        inquilinoId: this.props.data.inquilinoId,
-        visible: this.props.data.visible,
-        filenames: this.props.data.filenames,
-        downloadURLs: this.props.data.downloadURLs,
-        filenamesCover: this.props.data.filenamesCover,
-        downloadURLsCover: this.props.data.downloadURLsCover,
-        filenamesGrundriss: this.props.data.filenamesGrundriss,
-        downloadURLsGrundriss: this.props.data.downloadURLsGrundriss,
-        titolo: this.props.data.titolo,
-        descrizione: this.props.data.descrizione,
-        titoloDe: this.props.data.titoloDe,
-        descrizioneDe: this.props.data.descrizioneDe,
-        titoloEn: this.props.data.titoloEn,
-        descrizioneEn: this.props.data.descrizioneEn,
-        vani: this.props.data.vani,
-        bagni: this.props.data.bagni,
-        balcone: this.props.data.balcone,
-        ascensore: this.props.data.ascensore,
-        giardino: this.props.data.giardino,
-        condizioni: this.props.data.condizioni,
-        cantina: this.props.data.cantina,
-        baujahr: this.props.data.baujahr,
-        energieAusweisTyp: this.props.data.energieAusweisTyp,
-        energieAusweisBis: this.props.data.energieAusweisBis,
-        heizungsart: this.props.data.heizungsart,
-        energieTraeger: this.props.data.energieTraeger,
-        energieBedarf: this.props.data.energieBedarf,
-        provvigione: this.props.data.provvigione,
-        note: this.props.data.note,
-        venduto: this.props.data.venduto,
-        tipologia: this.props.data.tipologia,
-        dataInserimentoOggetto: this.props.data.dataInserimentoOggetto
-          ? this.props.data.dataInserimentoOggetto.valueOf()
+        verwalter: this.props.data.oggetti.verwalter,
+        ruecklage: this.props.data.oggetti.ruecklage,
+        proprietarioId: this.props.data.oggetti.proprietarioId,
+        proprietarioId2: this.props.data.oggetti.proprietarioId2,
+        inquilinoId: this.props.data.oggetti.inquilinoId,
+        visible: this.props.data.oggetti.visible,
+        filenames: this.props.data.oggetti.filenames,
+        downloadURLs: this.props.data.oggetti.downloadURLs,
+        filenamesCover: this.props.data.oggetti.filenamesCover,
+        downloadURLsCover: this.props.data.oggetti.downloadURLsCover,
+        filenamesGrundriss: this.props.data.oggetti.filenamesGrundriss,
+        downloadURLsGrundriss: this.props.data.oggetti.downloadURLsGrundriss,
+        titolo: this.props.data.oggetti.titolo,
+        descrizione: this.props.data.oggetti.descrizione,
+        titoloDe: this.props.data.oggetti.titoloDe,
+        descrizioneDe: this.props.data.oggetti.descrizioneDe,
+        titoloEn: this.props.data.oggetti.titoloEn,
+        descrizioneEn: this.props.data.oggetti.descrizioneEn,
+        vani: this.props.data.oggetti.vani,
+        bagni: this.props.data.oggetti.bagni,
+        balcone: this.props.data.oggetti.balcone,
+        ascensore: this.props.data.oggetti.ascensore,
+        giardino: this.props.data.oggetti.giardino,
+        condizioni: this.props.data.oggetti.condizioni,
+        cantina: this.props.data.oggetti.cantina,
+        baujahr: this.props.data.oggetti.baujahr,
+        energieAusweisTyp: this.props.data.oggetti.energieAusweisTyp,
+        energieAusweisBis: this.props.data.oggetti.energieAusweisBis,
+        heizungsart: this.props.data.oggetti.heizungsart,
+        energieTraeger: this.props.data.oggetti.energieTraeger,
+        energieBedarf: this.props.data.oggetti.energieBedarf,
+        provvigione: this.props.data.oggetti.provvigione,
+        note: this.props.data.oggetti.note,
+        venduto: this.props.data.oggetti.venduto,
+        tipologia: this.props.data.oggetti.tipologia,
+        dataInserimentoOggetto: this.props.data.oggetti.dataInserimentoOggetto
+          ? this.props.data.oggetti.dataInserimentoOggetto.valueOf()
           : null,
-        dataModificaOggetto: this.props.data.dataModificaOggetto
-          ? this.props.data.dataModificaOggetto.valueOf()
+        dataModificaOggetto: this.props.data.oggetti.dataModificaOggetto
+          ? this.props.data.oggetti.dataModificaOggetto.valueOf()
           : null,
       });
     }
@@ -120,8 +121,8 @@ export class OggettoForm extends React.Component {
     }));
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.props.data.error && (
-          <p className='form__error'>{this.props.data.error}</p>
+        {this.props.data.oggetti.error && (
+          <p className='form__error'>{this.props.data.oggetti.error}</p>
         )}
         <div>
           <button className='btn-floating blue right btn-floating-margin'>
@@ -152,25 +153,39 @@ export class OggettoForm extends React.Component {
           <div id='test1' className='col s12'>
             <div label='Eckdaten'>
               {renderSelect(
+                'oggetti',
                 'tipologia',
                 optionsTipologia,
                 t('Tipo di immobile')
               )}
-              {renderInput('via', t('Indirizzo'))}
-              {renderInput('numeroCivico', 'Nr.')}
-              {renderInput('cap', t('CAP'))}
-              {renderInput('quartiere', t('Quartiere'))}
-              {renderInput('citta', t('Città'))}
-              {renderInput('nazione', t('Nazione'))}
-              {renderInput('numeroAppartamento', t('Numero appartamento'))}
-              {renderInput('rifId', t('Rif') + '. ID')}
-              {renderInput('amtsgericht', t('Pretura (Amtsgericht)'))}
-              {renderInput('grundbuch', t('Libro Fondiario (Grundbuch)'))}
-              {renderInput('grundbuchBlatt', t('Foglio'))}
-              {renderInput('m2', 'M2')}
-              {renderInput('piano', t('Piano'))}
-              {renderTextArea('mobilio', t('Mobili e valore'))}
+              {renderInput('oggetti', 'via', t('Indirizzo'))}
+              {renderInput('oggetti', 'numeroCivico', 'Nr.')}
+              {renderInput('oggetti', 'cap', t('CAP'))}
+              {renderInput('oggetti', 'quartiere', t('Quartiere'))}
+              {renderInput('oggetti', 'citta', t('Città'))}
+              {renderInput('oggetti', 'nazione', t('Nazione'))}
+              {renderInput(
+                'oggetti',
+                'numeroAppartamento',
+                t('Numero appartamento')
+              )}
+              {renderInput('oggetti', 'rifId', t('Rif') + '. ID')}
+              {renderInput(
+                'oggetti',
+                'amtsgericht',
+                t('Pretura (Amtsgericht)')
+              )}
+              {renderInput(
+                'oggetti',
+                'grundbuch',
+                t('Libro Fondiario (Grundbuch)')
+              )}
+              {renderInput('oggetti', 'grundbuchBlatt', t('Foglio'))}
+              {renderInput('oggetti', 'm2', 'M2')}
+              {renderInput('oggetti', 'piano', t('Piano'))}
+              {renderTextArea('oggetti', 'mobilio', t('Mobili e valore'))}
               {renderSelect(
+                'oggetti',
                 'stato',
                 [
                   { value: 'leerstehend', label: t('Non affittato, libero') },
@@ -179,12 +194,14 @@ export class OggettoForm extends React.Component {
                 t('Stato abitativo')
               )}
               {renderInput(
+                'oggetti',
                 'wohngeld',
                 t('Quota condominiale'),
                 'text',
                 changeHandlerValuta
               )}
               {renderInput(
+                'oggetti',
                 'ruecklage',
                 t('Fondo di accantonamento per manutenzione'),
                 undefined,
@@ -193,34 +210,43 @@ export class OggettoForm extends React.Component {
                 'Gesamt oder anteilig?'
               )}
               {renderInput(
+                'oggetti',
                 'affittoNetto',
                 t('Affitto netto'),
                 'text',
                 changeHandlerValuta
               )}
               {renderInput(
+                'oggetti',
                 'kaufpreis',
                 t('Prezzo di vendita'),
                 'text',
                 changeHandlerValuta
               )}
               {renderSelect(
+                'oggetti',
                 'verwalter',
                 options,
                 t('Amministratore di condominio')
               )}
-              {renderSelect('proprietarioId', options, t('Proprietario'))}
               {renderSelect(
+                'oggetti',
+                'proprietarioId',
+                options,
+                t('Proprietario')
+              )}
+              {renderSelect(
+                'oggetti',
                 'proprietarioId2',
                 options,
                 '2. ' + t('Proprietario')
               )}
-              {renderSelect('inquilinoId', options, t('Inquilino'))}
-              {renderTextArea('note')}
-              {renderCheckbox('venduto', t('Venduto'))}
+              {renderSelect('oggetti', 'inquilinoId', options, t('Inquilino'))}
+              {renderTextArea('oggetti', 'note')}
+              {renderCheckbox('oggetti', 'venduto', t('Venduto'))}
 
               {this.props.utente.role === 'Admin'
-                ? renderCheckbox('visible', t('Visibile'))
+                ? renderCheckbox('oggetti', 'visible', t('Visibile'))
                 : ''}
             </div>
           </div>
@@ -228,6 +254,7 @@ export class OggettoForm extends React.Component {
             <div label='Exposé'>
               {/* Exposé */}
               {renderInput(
+                'oggetti',
                 'titolo',
                 `${t('Titolo principale')} ${t('italiano')}`,
                 undefined,
@@ -236,10 +263,12 @@ export class OggettoForm extends React.Component {
                 'Titolo in italiano'
               )}
               {renderTextArea(
+                'oggetti',
                 'descrizione',
                 `${t('Descrizione')} ${t('italiano')}`
               )}
               {renderInput(
+                'oggetti',
                 'titoloDe',
                 `${t('Titolo principale')} ${t('tedesco')}`,
                 undefined,
@@ -248,10 +277,12 @@ export class OggettoForm extends React.Component {
                 'Überschrift des Exposés'
               )}
               {renderTextArea(
+                'oggetti',
                 'descrizioneDe',
                 `${t('Descrizione')} ${t('tedesco')}`
               )}
               {renderInput(
+                'oggetti',
                 'titoloEn',
                 `${t('Titolo principale')} ${t('inglese')}`,
                 undefined,
@@ -260,12 +291,14 @@ export class OggettoForm extends React.Component {
                 'English title'
               )}
               {renderTextArea(
+                'oggetti',
                 'descrizioneEn',
                 `${t('Descrizione')} ${t('inglese')}`
               )}
-              {renderInput('vani', t('Vani'))}
-              {renderInput('bagni', t('Bagni'))}
+              {renderInput('oggetti', 'vani', t('Vani'))}
+              {renderInput('oggetti', 'bagni', t('Bagni'))}
               {renderSelect(
+                'oggetti',
                 'condizioni',
                 [
                   { value: 'neu', label: t('Come nuovo') },
@@ -277,8 +310,9 @@ export class OggettoForm extends React.Component {
                 ],
                 t('Condizioni immobile')
               )}
-              {renderInput('baujahr', t('Anno di costruzione'))}
+              {renderInput('oggetti', 'baujahr', t('Anno di costruzione'))}
               {renderSelect(
+                'oggetti',
                 'energieAusweisTyp',
                 [
                   {
@@ -293,10 +327,12 @@ export class OggettoForm extends React.Component {
                 t('Certificato energetico - tipologia')
               )}
               {renderInput(
+                'oggetti',
                 'energieAusweisBis',
                 t('Certificato energetico - valido fino al')
               )}
               {renderSelect(
+                'oggetti',
                 'heizungsart',
                 [
                   {
@@ -311,6 +347,7 @@ export class OggettoForm extends React.Component {
                 t('Tipologia riscaldamento')
               )}
               {renderSelect(
+                'oggetti',
                 'energieTraeger',
                 [
                   {
@@ -330,10 +367,12 @@ export class OggettoForm extends React.Component {
               )}
 
               {renderInput(
+                'oggetti',
                 'energieBedarf',
                 t('Consumo energetico in' + ' KWh/(m2*a)')
               )}
               {renderInput(
+                'oggetti',
                 'provvigione',
                 t('Provvigione'),
                 undefined,
@@ -341,10 +380,10 @@ export class OggettoForm extends React.Component {
                 undefined,
                 t('IVA inclusa')
               )}
-              {renderCheckbox('balcone', t('Balcone'))}
-              {renderCheckbox('ascensore', t('Ascensore'))}
-              {renderCheckbox('giardino', t('Giardino'))}
-              {renderCheckbox('cantina', t('Cantina'))}
+              {renderCheckbox('oggetti', 'balcone', t('Balcone'))}
+              {renderCheckbox('oggetti', 'ascensore', t('Ascensore'))}
+              {renderCheckbox('oggetti', 'giardino', t('Giardino'))}
+              {renderCheckbox('oggetti', 'cantina', t('Cantina'))}
             </div>
           </div>
           <div id='test3' className='col s12'>
@@ -360,7 +399,7 @@ export class OggettoForm extends React.Component {
                     accept='image/*'
                     name='image-uploader-multiple'
                     // randomizeFilename
-                    filename={() => `${this.props.data.rifId}-Cover}`}
+                    filename={() => `${this.props.data.oggetti.rifId}-Cover}`}
                     storageRef={firebase.storage().ref('cover')}
                     onUploadStart={this.props.handleUploadStart}
                     onUploadError={this.props.handleUploadError}
@@ -370,8 +409,8 @@ export class OggettoForm extends React.Component {
                   />
                 </label>
                 <div>
-                  {this.props.data.downloadURLsCover &&
-                    this.props.data.downloadURLsCover.map(
+                  {this.props.data.oggetti.downloadURLsCover &&
+                    this.props.data.oggetti.downloadURLsCover.map(
                       (downloadURLCover, i) => {
                         return (
                           <span key={i}>
@@ -401,7 +440,7 @@ export class OggettoForm extends React.Component {
                     name='image-uploader-multiple'
                     // randomizeFilename
                     filename={() =>
-                      `${this.props.data.rifId}-${Math.floor(
+                      `${this.props.data.oggetti.rifId}-${Math.floor(
                         Math.random() * 100000
                       ).toString()}`
                     }
@@ -414,19 +453,21 @@ export class OggettoForm extends React.Component {
                   />
                 </label>
                 <div>
-                  {this.props.data.downloadURLs &&
-                    this.props.data.downloadURLs.map((downloadURL, i) => {
-                      return (
-                        <span key={i}>
-                          <img className='foto' src={downloadURL} />
-                          <img
-                            src='/images/trash.jpg'
-                            className='cancella'
-                            onClick={() => this.props.handleRemovePicture(i)}
-                          />
-                        </span>
-                      );
-                    })}
+                  {this.props.data.oggetti.downloadURLs &&
+                    this.props.data.oggetti.downloadURLs.map(
+                      (downloadURL, i) => {
+                        return (
+                          <span key={i}>
+                            <img className='foto' src={downloadURL} />
+                            <img
+                              src='/images/trash.jpg'
+                              className='cancella'
+                              onClick={() => this.props.handleRemovePicture(i)}
+                            />
+                          </span>
+                        );
+                      }
+                    )}
                 </div>
               </li>
               {/* Grundriss */}
@@ -441,7 +482,7 @@ export class OggettoForm extends React.Component {
                     name='image-uploader-multiple'
                     // randomizeFilename
                     filename={() =>
-                      `${this.props.data.rifId}-Grundriss-${Math.floor(
+                      `${this.props.data.oggetti.rifId}-Grundriss-${Math.floor(
                         Math.random() * 100
                       ).toString()}`
                     }
@@ -454,8 +495,8 @@ export class OggettoForm extends React.Component {
                   />
                 </label>
                 <div>
-                  {this.props.data.downloadURLsGrundriss &&
-                    this.props.data.downloadURLsGrundriss.map(
+                  {this.props.data.oggetti.downloadURLsGrundriss &&
+                    this.props.data.oggetti.downloadURLsGrundriss.map(
                       (downloadURLGrundriss, i) => {
                         return (
                           <span key={i}>

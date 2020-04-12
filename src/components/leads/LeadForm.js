@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
-import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
@@ -13,22 +12,22 @@ export class LeadForm extends React.Component {
     M.AutoInit();
   }
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
-    const leadBudget = parseFloat(this.props.data.leadBudget, 10) * 100;
+    const leadBudget = parseFloat(this.props.data.leads.leadBudget, 10) * 100;
 
-    if (!this.props.data.leadId || this.props.data.leadBudget < 1) {
+    if (!this.props.data.leads.leadId || this.props.data.leads.leadBudget < 1) {
       this.setState(() => ({ error: 'Budget bitte eingeben' }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
-        leadCreatedAt: this.props.data.leadCreatedAt
-          ? this.props.data.leadCreatedAt.valueOf()
+        leadCreatedAt: this.props.data.leads.leadCreatedAt
+          ? this.props.data.leads.leadCreatedAt.valueOf()
           : null,
-        leadId: this.props.data.leadId,
+        leadId: this.props.data.leads.leadId,
         leadBudget,
-        leadOggettoStato: this.props.data.leadOggettoStato,
-        leadNote: this.props.data.leadNote
+        leadOggettoStato: this.props.data.leads.leadOggettoStato,
+        leadNote: this.props.data.leads.leadNote,
       });
     }
   };
@@ -39,19 +38,19 @@ export class LeadForm extends React.Component {
       renderInput,
       renderSingleDate,
       renderTextArea,
-      changeHandlerValuta
+      changeHandlerValuta,
     } = this.props;
-    const options = this.props.clienti.map(cliente => ({
+    const options = this.props.clienti.map((cliente) => ({
       value: cliente.id,
-      label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
-        `- Firma ${cliente.ditta}`}`
+      label: `${cliente.nome} ${cliente.cognome} ${
+        cliente.ditta && `- Firma ${cliente.ditta}`
+      }`,
     }));
-    const filterOptions = createFilterOptions({ options });
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.props.data.error && (
-          <p className='form__error'>{this.props.data.error}</p>
+        {this.props.data.leads.error && (
+          <p className='form__error'>{this.props.data.leads.error}</p>
         )}
         <div>
           <button className='btn-floating blue right'>
@@ -59,28 +58,36 @@ export class LeadForm extends React.Component {
           </button>
         </div>
         {renderSingleDate(
+          'leads',
           'leadCreatedAt',
           'calendarFocused',
           t('Data richiesta')
         )}
-        {renderSelect('leadId', options, t('Cliente'))}
-        {renderInput('leadBudget', 'Budget', 'text', changeHandlerValuta)}
+        {renderSelect('leads', 'leadId', options, t('Cliente'))}
+        {renderInput(
+          'leads',
+          'leadBudget',
+          'Budget',
+          'text',
+          changeHandlerValuta
+        )}
         {renderSelect(
+          'leads',
           'leadOggettoStato',
           [
             { value: 'libero', label: t('Appartamento libero') },
             { value: 'affittato', label: t('Appartamento affittato') },
             {
               value: 'libero o affittato',
-              label: t('Appartamento libero o affittato')
+              label: t('Appartamento libero o affittato'),
             },
             { value: 'commerciale', label: t('Locale commerciale') },
             { value: 'aph', label: t('Casa di cura') },
-            { value: '', label: t('Indifferente') }
+            { value: '', label: t('Indifferente') },
           ],
           t('Tipologia immobile e stato')
         )}
-        {renderTextArea('leadNote')}
+        {renderTextArea('leads', 'leadNote')}
 
         <div>
           <button className='btn-floating blue right'>
@@ -92,9 +99,9 @@ export class LeadForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   utenti: state.utenti,
-  clienti: state.clienti
+  clienti: state.clienti,
 });
 
 export default connect(mapStateToProps)(withTranslation()(withForm(LeadForm)));

@@ -9,17 +9,17 @@ class UserForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    if (!this.props.data.name || !this.props.data.role) {
+    if (!this.props.data.users.name || !this.props.data.users.role) {
       this.setState(() => ({ error: this.props.t('Inserisci Nome e Ruolo') }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
-        name: this.props.data.name,
-        role: this.props.data.role,
-        email: this.props.data.email,
-        telefon: this.props.data.telefon,
-        qualifica: this.props.data.qualifica,
-        firebaseAuthId: this.props.data.firebaseAuthId,
+        name: this.props.data.users.name,
+        role: this.props.data.users.role,
+        email: this.props.data.users.email,
+        telefon: this.props.data.users.telefon,
+        qualifica: this.props.data.users.qualifica,
+        firebaseAuthId: this.props.data.users.firebaseAuthId,
       });
     }
   };
@@ -33,20 +33,20 @@ class UserForm extends React.Component {
     );
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.props.data.error && (
-          <p className='form__error'>{this.props.data.error}</p>
+        {this.props.data.users.error && (
+          <p className='form__error'>{this.props.data.users.error}</p>
         )}
         <div>
           <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>
           </button>
         </div>
-        {renderInput('name', t('Nome e cognome'))}
-        {renderSelect('role', roleTypeOptions, t('Ruolo'))}
-        {renderInput('firebaseAuthId', 'Firebase Auth Id')}
-        {renderInput('email', t('Email'))}
-        {renderInput('telefon', t('Telefono'))}
-        {renderInput('qualifica', t('Qualifica'))}
+        {renderInput('users', 'name', t('Nome e cognome'))}
+        {renderSelect('users', 'role', roleTypeOptions, t('Ruolo'))}
+        {renderInput('users', 'firebaseAuthId', 'Firebase Auth Id')}
+        {renderInput('users', 'email', t('Email'))}
+        {renderInput('users', 'telefon', t('Telefono'))}
+        {renderInput('users', 'qualifica', t('Qualifica'))}
       </form>
     );
   }

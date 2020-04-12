@@ -4,17 +4,11 @@ import moment from 'moment';
 
 const filtersReducerDefaultState = {
   text: '',
-  cliente: '',
-  oggetto: '',
   sortBy: 'date',
   startDate: moment().startOf('year'),
   endDate: moment().endOf('year'),
-  startDateClienti: null,
-  endDateClienti: null,
-  sortClientiBy: 'name',
   lead: '',
   leadStato: '',
-  fattura: '',
 };
 
 export default (state = filtersReducerDefaultState, action) => {
@@ -23,21 +17,6 @@ export default (state = filtersReducerDefaultState, action) => {
       return {
         ...state,
         text: action.text,
-      };
-    case 'SET_CLIENTE_FILTER':
-      return {
-        ...state,
-        cliente: action.cliente,
-      };
-    case 'SET_FATTURA_FILTER':
-      return {
-        ...state,
-        fattura: action.fattura,
-      };
-    case 'SET_OGGETTO_FILTER':
-      return {
-        ...state,
-        oggetto: action.oggetto,
       };
     case 'SORT_BY_AMOUNT':
       return {
@@ -69,31 +48,6 @@ export default (state = filtersReducerDefaultState, action) => {
       return {
         ...state,
         endDate: action.endDate,
-      };
-    case 'SET_START_DATE_CLIENTI':
-      return {
-        ...state,
-        startDateClienti: action.startDateClienti,
-      };
-    case 'SET_END_DATE_CLIENTI':
-      return {
-        ...state,
-        endDateClienti: action.endDateClienti,
-      };
-    case 'SORT_CLIENTI_BY_NAME':
-      return {
-        ...state,
-        sortClientiBy: 'name',
-      };
-    case 'SORT_CLIENTI_BY_REGISTRATION':
-      return {
-        ...state,
-        sortClientiBy: 'registration',
-      };
-    case 'SORT_CLIENTI_BY_DSGVO':
-      return {
-        ...state,
-        sortClientiBy: 'dsgvo',
       };
     case 'SET_LEAD_FILTER':
       return {

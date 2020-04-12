@@ -7,24 +7,24 @@ export class FirmaForm extends React.Component {
     e.preventDefault();
 
     this.props.onSubmit({
-      name: this.props.data.name,
-      name2: this.props.data.name2,
-      adresse: this.props.data.adresse,
-      plz: this.props.data.plz,
-      stadt: this.props.data.stadt,
-      staat: this.props.data.staat,
-      telefon: this.props.data.telefon,
-      fax: this.props.data.fax,
-      email: this.props.data.email,
-      website: this.props.data.website,
-      steuerNr: this.props.data.steuerNr,
-      ustIdNr: this.props.data.ustIdNr,
-      motto: this.props.data.motto,
-      open: this.props.data.open,
-      kontoInhaber: this.props.data.kontoInhaber,
-      bank: this.props.data.bank,
-      iban: this.props.data.iban,
-      bic: this.props.data.bic,
+      name: this.props.data.firma.name,
+      name2: this.props.data.firma.name2,
+      adresse: this.props.data.firma.adresse,
+      plz: this.props.data.firma.plz,
+      stadt: this.props.data.firma.stadt,
+      staat: this.props.data.firma.staat,
+      telefon: this.props.data.firma.telefon,
+      fax: this.props.data.firma.fax,
+      email: this.props.data.firma.email,
+      website: this.props.data.firma.website,
+      steuerNr: this.props.data.firma.steuerNr,
+      ustIdNr: this.props.data.firma.ustIdNr,
+      motto: this.props.data.firma.motto,
+      open: this.props.data.firma.open,
+      kontoInhaber: this.props.data.firma.kontoInhaber,
+      bank: this.props.data.firma.bank,
+      iban: this.props.data.firma.iban,
+      bic: this.props.data.firma.bic,
     });
   };
   render() {
@@ -36,24 +36,24 @@ export class FirmaForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        {renderInput('name', t('Nome'))}
-        {renderInput('name2', t('Ragione sociale'))}
-        {renderInput('adresse', t('Indirizzo'))}
-        {renderInput('plz', t('CAP'))}
-        {renderInput('stadt', t('Città'))}
-        {renderInput('staat', t('Nazione'))}
-        {renderInput('telefon', t('Telefono fisso'))}
-        {renderInput('fax', 'Fax')}
-        {renderInput('email', t('Email'))}
-        {renderInput('website', t('Sito web'))}
-        {renderInput('steuerNr', t('Codice fiscale tedesco'))}
-        {renderInput('ustIdNr', 'Ust.-IdNr.')}
-        {renderInput('motto', 'Motto')}
-        {renderInput('open', t('Orari di apertura'))}
-        {renderInput('kontoInhaber', t('Intestatario conto corrente'))}
-        {renderInput('bank', t('Banca'))}
-        {renderInput('iban', 'IBAN')}
-        {renderInput('bic', 'BIC/SWIFT')}
+        {renderInput('firma', 'name', t('Nome'))}
+        {renderInput('firma', 'name2', t('Ragione sociale'))}
+        {renderInput('firma', 'adresse', t('Indirizzo'))}
+        {renderInput('firma', 'plz', t('CAP'))}
+        {renderInput('firma', 'stadt', t('Città'))}
+        {renderInput('firma', 'staat', t('Nazione'))}
+        {renderInput('firma', 'telefon', t('Telefono fisso'))}
+        {renderInput('firma', 'fax', 'Fax')}
+        {renderInput('firma', 'email', t('Email'))}
+        {renderInput('firma', 'website', t('Sito web'))}
+        {renderInput('firma', 'steuerNr', t('Codice fiscale tedesco'))}
+        {renderInput('firma', 'ustIdNr', 'Ust.-IdNr.')}
+        {renderInput('firma', 'motto', 'Motto')}
+        {renderInput('firma', 'open', t('Orari di apertura'))}
+        {renderInput('firma', 'kontoInhaber', t('Intestatario conto corrente'))}
+        {renderInput('firma', 'bank', t('Banca'))}
+        {renderInput('firma', 'iban', 'IBAN')}
+        {renderInput('firma', 'bic', 'BIC/SWIFT')}
         <div>
           <button className='btn-floating blue right btn-floating-margin'>
             <i className='material-icons'>save</i>

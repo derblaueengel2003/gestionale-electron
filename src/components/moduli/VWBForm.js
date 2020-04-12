@@ -9,23 +9,28 @@ import 'react-virtualized-select/styles.css';
 import { widerrufsBelehrung } from './WiderrufsBelehrung';
 
 export class VWBForm extends React.Component {
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     const venditore = this.props.clienti.find(
-      cliente => cliente.id === this.props.data.venditoreId
+      (cliente) => cliente.id === this.props.data.moduli.venditoreId
     );
     const venditore2 = this.props.clienti.find(
-      cliente => cliente.id === this.props.data.venditoreId2
+      (cliente) => cliente.id === this.props.data.moduli.venditoreId2
     );
     const oggetto = this.props.oggetti.find(
-      oggetto => oggetto.id === this.props.data.oggettoId
+      (oggetto) => oggetto.id === this.props.data.moduli.oggettoId
     );
-    const createdAt = moment(this.props.data.createdAt).format('DD.MM.YYYY');
+    const createdAt = moment(this.props.data.moduli.createdAt).format(
+      'DD.MM.YYYY'
+    );
 
-    if (!this.props.data.oggettoId || !this.props.data.venditoreId) {
+    if (
+      !this.props.data.moduli.oggettoId ||
+      !this.props.data.moduli.venditoreId
+    ) {
       const error = this.props.t('Inserisci venditore e oggetto');
       this.setState(() => ({
-        error
+        error,
       }));
     } else {
       this.setState(() => ({ error: '' }));
@@ -41,15 +46,16 @@ export class VWBForm extends React.Component {
 
   render() {
     const { t, renderSelect, renderSingleDate } = this.props;
-    const options = this.props.clienti.map(cliente => ({
+    const options = this.props.clienti.map((cliente) => ({
       value: cliente.id,
-      label: `${cliente.nome} ${cliente.cognome} ${cliente.ditta &&
-        `- Firma ${cliente.ditta}`}`
+      label: `${cliente.nome} ${cliente.cognome} ${
+        cliente.ditta && `- Firma ${cliente.ditta}`
+      }`,
     }));
 
-    const oggettiOptions = this.props.oggetti.map(oggetto => ({
+    const oggettiOptions = this.props.oggetti.map((oggetto) => ({
       value: oggetto.id,
-      label: `${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`
+      label: `${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`,
     }));
 
     return (
@@ -60,13 +66,19 @@ export class VWBForm extends React.Component {
           </div>
         </div>
         <form className='form container' onSubmit={this.onSubmit}>
-          {this.props.data.error && (
-            <p className='form__error'>{this.props.data.error}</p>
+          {this.props.data.moduli.error && (
+            <p className='form__error'>{this.props.data.moduli.error}</p>
           )}
-          {renderSelect('venditoreId', options, t('Cliente'))}
-          {renderSelect('venditoreId2', options, '2. ' + t('Cliente'))}
-          {renderSelect('oggettoId', oggettiOptions, t('Oggetto'))}
+          {renderSelect('moduli', 'venditoreId', options, t('Cliente'))}
+          {renderSelect(
+            'moduli',
+            'venditoreId2',
+            options,
+            '2. ' + t('Cliente')
+          )}
+          {renderSelect('moduli', 'oggettoId', oggettiOptions, t('Oggetto'))}
           {renderSingleDate(
+            'moduli',
             'createdAt',
             'calendarFocused',
             t('Data del contratto')
@@ -82,10 +94,10 @@ export class VWBForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   clienti: state.clienti,
   oggetti: state.oggetti,
-  firma: state.firma[0]
+  firma: state.firma[0],
 });
 
 export default connect(mapStateToProps)(withTranslation()(withForm(VWBForm)));

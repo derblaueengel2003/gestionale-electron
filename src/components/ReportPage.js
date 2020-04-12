@@ -58,11 +58,12 @@ export const ReportPage = ({
 
 const mapStateToProps = (state) => {
   const visibleDeals = selectDeals(
+    'deals',
     state.deals,
     state.filters,
+    state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid),
     state.oggetti,
     state.clienti,
-    state.utenti.find((utente) => utente.firebaseAuthId === state.auth.uid),
     state.fatture
   );
   // const payedDeals = visibleDeals.filter(deal =>

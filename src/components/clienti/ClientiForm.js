@@ -8,46 +8,46 @@ export class CustomerForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    if (!this.props.data.cognome) {
+    if (!this.props.data.clienti.cognome) {
       this.setState(() => ({
         error: 'Vorname und Name bitte eingeben.',
       }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
-        nome: this.props.data.nome,
-        cognome: this.props.data.cognome,
-        titolo: this.props.data.titolo,
-        dataDiNascita: this.props.data.dataDiNascita
-          ? this.props.data.dataDiNascita.valueOf()
+        nome: this.props.data.clienti.nome,
+        cognome: this.props.data.clienti.cognome,
+        titolo: this.props.data.clienti.titolo,
+        dataDiNascita: this.props.data.clienti.dataDiNascita
+          ? this.props.data.clienti.dataDiNascita.valueOf()
           : null,
-        ditta: this.props.data.ditta,
-        indirizzo: this.props.data.indirizzo,
-        indirizzo2: this.props.data.indirizzo2,
-        cap: this.props.data.cap,
-        comune: this.props.data.comune,
-        nazione: this.props.data.nazione,
-        lingua: this.props.data.lingua,
-        email: this.props.data.email,
-        consulenteVenditaId: this.props.data.consulenteVenditaId,
-        telefono1: this.props.data.telefono1,
-        fax: this.props.data.fax,
-        cellulare: this.props.data.cellulare,
-        codiceFiscale: this.props.data.codiceFiscale,
-        handelsRegisterNummer: this.props.data.handelsRegisterNummer,
-        bank: this.props.data.bank,
-        iban: this.props.data.iban,
-        bic: this.props.data.bic,
-        visible: this.props.data.visible,
-        www: this.props.data.www,
-        note: this.props.data.note,
-        dataRegistrazione: this.props.data.dataRegistrazione
-          ? this.props.data.dataRegistrazione.valueOf()
+        ditta: this.props.data.clienti.ditta,
+        indirizzo: this.props.data.clienti.indirizzo,
+        indirizzo2: this.props.data.clienti.indirizzo2,
+        cap: this.props.data.clienti.cap,
+        comune: this.props.data.clienti.comune,
+        nazione: this.props.data.clienti.nazione,
+        lingua: this.props.data.clienti.lingua,
+        email: this.props.data.clienti.email,
+        consulenteVenditaId: this.props.data.clienti.consulenteVenditaId,
+        telefono1: this.props.data.clienti.telefono1,
+        fax: this.props.data.clienti.fax,
+        cellulare: this.props.data.clienti.cellulare,
+        codiceFiscale: this.props.data.clienti.codiceFiscale,
+        handelsRegisterNummer: this.props.data.clienti.handelsRegisterNummer,
+        bank: this.props.data.clienti.bank,
+        iban: this.props.data.clienti.iban,
+        bic: this.props.data.clienti.bic,
+        visible: this.props.data.clienti.visible,
+        www: this.props.data.clienti.www,
+        note: this.props.data.clienti.note,
+        dataRegistrazione: this.props.data.clienti.dataRegistrazione
+          ? this.props.data.clienti.dataRegistrazione.valueOf()
           : null,
-        dataConsensoDSGVO: this.props.data.dataConsensoDSGVO
-          ? this.props.data.dataConsensoDSGVO.valueOf()
+        dataConsensoDSGVO: this.props.data.clienti.dataConsensoDSGVO
+          ? this.props.data.clienti.dataConsensoDSGVO.valueOf()
           : null,
-        consensoDSGVO: this.props.data.consensoDSGVO,
+        consensoDSGVO: this.props.data.clienti.consensoDSGVO,
       });
     }
   };
@@ -83,20 +83,23 @@ export class CustomerForm extends React.Component {
           </div>
         )}
         {renderSingleDate(
+          'clienti',
           'dataRegistrazione',
           'calendarDataRegistrazioneFocused',
           t('Data registrazione dati del cliente')
         )}
         {renderSelect(
+          'clienti',
           'consulenteVenditaId',
           consulenteVenditaOptions,
           t('Consulente vendita')
         )}
-        {renderInput('titolo', t('Titolo'))}
-        {renderInput('nome', t('Nome'))}
+        {renderInput('clienti', 'titolo', t('Titolo'))}
+        {renderInput('clienti', 'nome', t('Nome'))}
         {/* Quando uso la validazione per vedere se il cliente è già presente
         devo passare, oltre all'handler per la validazione, anche i clienti come argomento */}
         {renderInput(
+          'clienti',
           'cognome',
           t('Cognome'),
           'text',
@@ -104,48 +107,53 @@ export class CustomerForm extends React.Component {
           clienti
         )}
         {renderInput(
+          'clienti',
           'email',
           t('Email'),
           'text',
           changeHandlerValidate,
           clienti
         )}
-        {renderInput('telefono1', t('Telefono fisso'))}
-        {renderInput('fax', 'Fax')}
-        {renderInput('cellulare', t('Cellulare'))}
-        {renderInput('www', t('Sito web'))}
+        {renderInput('clienti', 'telefono1', t('Telefono fisso'))}
+        {renderInput('clienti', 'fax', 'Fax')}
+        {renderInput('clienti', 'cellulare', t('Cellulare'))}
+        {renderInput('clienti', 'www', t('Sito web'))}
         {renderSingleDate(
+          'clienti',
           'dataDiNascita',
           'calendarFocused',
           t('Data di nascita')
         )}
-        {renderInput('codiceFiscale', t('Codice fiscale tedesco'))}
-        {renderInput('ditta', t('Ditta'))}
+        {renderInput('clienti', 'codiceFiscale', t('Codice fiscale tedesco'))}
+        {renderInput('clienti', 'ditta', t('Ditta'))}
         {renderInput(
+          'clienti',
           'handelsRegisterNummer',
           t('Numero iscrizione registro delle imprese')
         )}
-        {renderInput('indirizzo', t('Indirizzo'))}
-        {renderInput('indirizzo2', t('Estensione indirizzo'))}
-        {renderInput('cap', t('CAP'))}
-        {renderInput('comune', t('Città'))}
-        {renderInput('nazione', t('Nazione'))}
-        {renderInput('lingua', t('Lingua'))}
-        {renderInput('bank', t('Banca'))}
-        {renderInput('iban', 'IBAN')}
-        {renderInput('bic', 'BIC/SWIFT')}
-        {renderTextArea('note', 'Note')}
+        {renderInput('clienti', 'indirizzo', t('Indirizzo'))}
+        {renderInput('clienti', 'indirizzo2', t('Estensione indirizzo'))}
+        {renderInput('clienti', 'cap', t('CAP'))}
+        {renderInput('clienti', 'comune', t('Città'))}
+        {renderInput('clienti', 'nazione', t('Nazione'))}
+        {renderInput('clienti', 'lingua', t('Lingua'))}
+        {renderInput('clienti', 'bank', t('Banca'))}
+        {renderInput('clienti', 'iban', 'IBAN')}
+        {renderInput('clienti', 'bic', 'BIC/SWIFT')}
+        {renderTextArea('clienti', 'note', 'Note')}
         {this.props.utente.role === 'Admin'
-          ? renderCheckbox('visible', t('Visibile'))
+          ? renderCheckbox('clienti', 'visible', t('Visibile'))
           : ''}
         {this.props.data.error && (
           <p className='form__error'>{this.props.data.error}</p>
         )}
         {renderCheckbox(
+          'clienti',
           'consensoDSGVO',
           t('Consenso al trattamento dei dati personali')
         )}
         {renderSingleDate(
+          'clienti',
           'dataConsensoDSGVO',
           'calendarDataConsensoDSGVOFocused',
           t('Data consenso')

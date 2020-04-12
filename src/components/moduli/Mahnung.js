@@ -21,8 +21,9 @@ export const mahnung = (
   const doc = new jsPDF('p', 'mm', 'a4');
   let importo = amount || importoNetto;
   const acqNome = `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
-  const acqInd = `${cliente.indirizzo} ${cliente.indirizzo2 &&
-    cliente.indirizzo2}`;
+  const acqInd = `${cliente.indirizzo} ${
+    cliente.indirizzo2 && cliente.indirizzo2
+  }`;
   const acqNome2 =
     cliente2 && `${cliente2.titolo} ${cliente2.nome} ${cliente2.cognome}`;
   const acqInd2 =
@@ -150,7 +151,7 @@ export const mahnung = (
       125
     );
   const lines = doc.setFontSize(12).splitTextToSize(corpoFattura, 150);
-  doc.text(15, 125 + 12 / 110, lines);
+  doc.text(15, 130 + 12 / 110, lines);
 
   //Cifre
   doc.text('Rechnungsbetrag', 15, 155);
@@ -204,7 +205,7 @@ export const mahnung = (
   doc.text('Geschäftsführer:', 16, 270);
   let position = 274;
 
-  ceo.forEach(eachCeo => {
+  ceo.forEach((eachCeo) => {
     doc.text(`${eachCeo.name}`, 16, position);
     position += 4;
   });

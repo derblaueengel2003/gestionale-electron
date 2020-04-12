@@ -10,22 +10,27 @@ export class DealForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const prezzoDiVendita =
-      parseFloat(this.props.data.prezzoDiVendita.replace(/,/, '.'), 10) * 100;
-    const amount =
-      parseFloat(this.props.data.amount.replace(/,/, '.'), 10) * 100;
-    const provvM2square =
-      parseFloat(this.props.data.provvM2square.replace(/,/, '.'), 10) * 100;
-    const provvStefano =
-      parseFloat(this.props.data.provvStefano.replace(/,/, '.'), 10) * 100;
-    const provvAgenziaPartner =
-      parseFloat(this.props.data.provvAgenziaPartner.replace(/,/, '.'), 10) *
+      parseFloat(this.props.data.deals.prezzoDiVendita.replace(/,/, '.'), 10) *
       100;
+    const amount =
+      parseFloat(this.props.data.deals.amount.replace(/,/, '.'), 10) * 100;
+    const provvM2square =
+      parseFloat(this.props.data.deals.provvM2square.replace(/,/, '.'), 10) *
+      100;
+    const provvStefano =
+      parseFloat(this.props.data.deals.provvStefano.replace(/,/, '.'), 10) *
+      100;
+    const provvAgenziaPartner =
+      parseFloat(
+        this.props.data.deals.provvAgenziaPartner.replace(/,/, '.'),
+        10
+      ) * 100;
     const provvSum = provvM2square + provvStefano + provvAgenziaPartner;
 
     if (
-      !this.props.data.oggettoId ||
-      !this.props.data.amount ||
-      !this.props.data.acquirenteId
+      !this.props.data.deals.oggettoId ||
+      !this.props.data.deals.amount ||
+      !this.props.data.deals.acquirenteId
     ) {
       this.setState(() => ({
         error: 'Objekt, Summe und Käufer bitte ausfüllen.',
@@ -38,38 +43,38 @@ export class DealForm extends React.Component {
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
-        oggettoId: this.props.data.oggettoId,
+        oggettoId: this.props.data.deals.oggettoId,
         prezzoDiVendita,
         amount,
-        consulenteVendita: this.props.data.consulenteVendita,
+        consulenteVendita: this.props.data.deals.consulenteVendita,
         provvM2square,
-        dealType: this.props.data.dealType,
+        dealType: this.props.data.deals.dealType,
         provvStefano,
-        payedStefano: this.props.data.payedStefano,
-        payedAtStefano: this.props.data.payedAtStefano
-          ? this.props.data.payedAtStefano.valueOf()
+        payedStefano: this.props.data.deals.payedStefano,
+        payedAtStefano: this.props.data.deals.payedAtStefano
+          ? this.props.data.deals.payedAtStefano.valueOf()
           : null,
-        agenziaPartnerId: this.props.data.agenziaPartnerId,
+        agenziaPartnerId: this.props.data.deals.agenziaPartnerId,
         provvAgenziaPartner,
-        payedAgenziaPartner: this.props.data.payedAgenziaPartner,
-        createdAt: this.props.data.createdAt
-          ? this.props.data.createdAt.valueOf()
+        payedAgenziaPartner: this.props.data.deals.payedAgenziaPartner,
+        createdAt: this.props.data.deals.createdAt
+          ? this.props.data.deals.createdAt.valueOf()
           : null,
-        venditoreId: this.props.data.venditoreId,
-        venditoreId2: this.props.data.venditoreId2,
-        acquirenteId: this.props.data.acquirenteId,
-        acquirenteId2: this.props.data.acquirenteId2,
-        notaioId: this.props.data.notaioId,
-        dataRogito: this.props.data.dataRogito
-          ? this.props.data.dataRogito.valueOf()
+        venditoreId: this.props.data.deals.venditoreId,
+        venditoreId2: this.props.data.deals.venditoreId2,
+        acquirenteId: this.props.data.deals.acquirenteId,
+        acquirenteId2: this.props.data.deals.acquirenteId2,
+        notaioId: this.props.data.deals.notaioId,
+        dataRogito: this.props.data.deals.dataRogito
+          ? this.props.data.deals.dataRogito.valueOf()
           : null,
-        dataConsegna: this.props.data.dataConsegna
-          ? this.props.data.dataConsegna.valueOf()
+        dataConsegna: this.props.data.deals.dataConsegna
+          ? this.props.data.deals.dataConsegna.valueOf()
           : null,
-        linguaRogito: this.props.data.linguaRogito,
-        belastungsVollmacht: this.props.data.belastungsVollmacht,
+        linguaRogito: this.props.data.deals.linguaRogito,
+        belastungsVollmacht: this.props.data.deals.belastungsVollmacht,
         calendarDataFatturaFocused: false,
-        note: this.props.data.note,
+        note: this.props.data.deals.note,
       });
     }
   };
@@ -125,44 +130,56 @@ export class DealForm extends React.Component {
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.props.data.error && (
-          <p className='form__error'>{this.props.data.error}</p>
+        {this.props.data.deals.error && (
+          <p className='form__error'>{this.props.data.deals.error}</p>
         )}
         <div>
           <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>
           </button>
         </div>
-        {renderSelect('dealType', dealTypeOptions, t('Tipo di vendita'))}
-        {renderSelect('oggettoId', oggettiOptions, t('Oggetto'))}
+        {renderSelect(
+          'deals',
+          'dealType',
+          dealTypeOptions,
+          t('Tipo di vendita')
+        )}
+        {renderSelect('deals', 'oggettoId', oggettiOptions, t('Oggetto'))}
         {renderSingleDate(
+          'deals',
           'createdAt',
           'calendarFocused',
           t('Data prenotazione')
         )}
         {renderInput(
+          'deals',
           'prezzoDiVendita',
           t('Prezzo di vendita'),
           undefined,
           changeHandlerValuta
         )}
         {renderInput(
+          'deals',
           'amount',
           t('Provvigione totale'),
           undefined,
           changeHandlerValuta,
           undefined,
           `6%: ${
-            parseFloat(this.props.data.prezzoDiVendita.replace(/,/, '.'), 10) *
-            0.06
+            parseFloat(
+              this.props.data.deals.prezzoDiVendita.replace(/,/, '.'),
+              10
+            ) * 0.06
           }`
         )}
         {renderSelect(
+          'deals',
           'consulenteVendita',
           consulenteVenditaOptions,
           t('Consulente vendita')
         )}
         {renderInput(
+          'deals',
           'provvM2square',
           t('Provvigione') + ' m2Square',
           undefined,
@@ -170,13 +187,14 @@ export class DealForm extends React.Component {
           undefined,
           `80%: ${
             parseFloat(
-              this.props.data.amount.replace(/,/, '.') -
-                this.props.data.provvAgenziaPartner.replace(/,/, '.'),
+              this.props.data.deals.amount.replace(/,/, '.') -
+                this.props.data.deals.provvAgenziaPartner.replace(/,/, '.'),
               10
             ) * 0.8
           }`
         )}
         {renderInput(
+          'deals',
           'provvStefano',
           `${t('Provvigione')} ${t('Consulente vendita')}`,
           undefined,
@@ -184,50 +202,69 @@ export class DealForm extends React.Component {
           undefined,
           `20%: ${
             parseFloat(
-              this.props.data.amount.replace(/,/, '.') -
-                this.props.data.provvAgenziaPartner.replace(/,/, '.'),
+              this.props.data.deals.amount.replace(/,/, '.') -
+                this.props.data.deals.provvAgenziaPartner.replace(/,/, '.'),
               10
             ) * 0.2
           }`
         )}
-        {renderCheckbox('payedStefano', t('Pagato'))}
-        <div className={`visible-${this.props.data.payedStefano} form`}>
+        {renderCheckbox('deals', 'payedStefano', t('Pagato'))}
+        <div className={`visible-${this.props.data.deals.payedStefano} form`}>
           {renderSingleDate(
+            'deals',
             'payedAtStefano',
             'calendarPayedAtStefanoFocused',
             t('Pagato il')
           )}
         </div>
-        {renderSelect('agenziaPartnerId', options, t('Partner commerciale'))}
+        {renderSelect(
+          'deals',
+          'agenziaPartnerId',
+          options,
+          t('Partner commerciale')
+        )}
         {renderInput(
+          'deals',
           'provvAgenziaPartner',
           `${t('Provvigione')} ${t('Partner commerciale')}`,
           undefined,
           changeHandlerValuta
         )}
-        {renderCheckbox('payedAgenziaPartner', t('Pagato'))}
-        {renderSelect('venditoreId', options, t('Venditore'))}
-        {renderSelect('venditoreId2', options, '2. ' + t('Venditore'))}
-        {renderSelect('acquirenteId', options, t('Acquirente'))}
-        {renderSelect('acquirenteId2', options, '2. ' + t('Acquirente'))}
-        {renderSelect('notaioId', options, t('Notaio'))}
+        {renderCheckbox('deals', 'payedAgenziaPartner', t('Pagato'))}
+        {renderSelect('deals', 'venditoreId', options, t('Venditore'))}
+        {renderSelect('deals', 'venditoreId2', options, '2. ' + t('Venditore'))}
+        {renderSelect('deals', 'acquirenteId', options, t('Acquirente'))}
+        {renderSelect(
+          'deals',
+          'acquirenteId2',
+          options,
+          '2. ' + t('Acquirente')
+        )}
+        {renderSelect('deals', 'notaioId', options, t('Notaio'))}
         {renderSingleDate(
+          'deals',
           'dataRogito',
           'calendarDataRogitoFocused',
           t('Data del rogito')
         )}
         {renderSelect(
+          'deals',
           'linguaRogito',
           linguaRogitoOptions,
           t('Lingua del rogito')
         )}
-        {renderCheckbox('belastungsVollmacht', t('Delega per gravami'))}
+        {renderCheckbox(
+          'deals',
+          'belastungsVollmacht',
+          t('Delega per gravami')
+        )}
         {renderSingleDate(
+          'deals',
           'dataConsegna',
           'calendarDataConsegnaFocused',
           t('Data consegna immobile')
         )}
-        {renderTextArea('note', t('Note (opzionale)'))}
+        {renderTextArea('deals', 'note', t('Note (opzionale)'))}
 
         <div>
           <button className='btn-floating blue right'>

@@ -10,7 +10,8 @@ export default (
   utente,
   oggetti,
   clienti,
-  fatture
+  fatture,
+  deals
 ) => {
   return payload
     .filter((item) => {
@@ -18,6 +19,7 @@ export default (
         clienti.find((cliente) => cliente.id === customerId);
 
       let searchString = '';
+
       let createdAtMoment = moment();
 
       if (nomeLista === 'deals') {
@@ -43,24 +45,22 @@ export default (
         const venditore = findCliente(item.venditoreId);
         const venditore2 = findCliente(item.venditoreId2);
 
-        oggetto
-          ? (searchString += ` ${oggetto.rifId} ${oggetto.via} ${oggetto.numeroCivico} ${oggetto.numeroAppartamento} ${oggetto.cap} ${oggetto.citta}`)
-          : searchString;
-        acquirente
-          ? (searchString += `${acquirente.nome} ${acquirente.cognome} ${acquirente.ditta}`)
-          : searchString;
-        acquirente2
-          ? (searchString += `${acquirente2.nome} ${acquirente2.cognome} ${acquirente2.ditta}`)
-          : searchString;
-        venditore
-          ? (searchString += `${venditore.nome} ${venditore.cognome} ${venditore.ditta}`)
-          : searchString;
-        venditore2
-          ? (searchString += `${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta}`)
-          : searchString;
+        oggetto &&
+          (searchString += ` ${oggetto.rifId} ${oggetto.via} ${oggetto.numeroCivico} ${oggetto.numeroAppartamento} ${oggetto.cap} ${oggetto.citta}`);
+
+        acquirente &&
+          (searchString += `${acquirente.nome} ${acquirente.cognome} ${acquirente.ditta}`);
+
+        acquirente2 &&
+          (searchString += `${acquirente2.nome} ${acquirente2.cognome} ${acquirente2.ditta}`);
+
+        venditore &&
+          (searchString += `${venditore.nome} ${venditore.cognome} ${venditore.ditta}`);
+
+        venditore2 &&
+          (searchString += `${venditore2.nome} ${venditore2.cognome} ${venditore2.ditta}`);
       }
 
-      // se non ho oggetti, vuol dire che il payload è gli oggetti
       if (nomeLista === 'oggetti') {
         createdAtMoment = moment(item.dataModificaOggetto);
         searchString = `${item.citta} ${item.cap} ${item.nazione} ${item.numeroCivico} ${item.numeroAppartamento} ${item.quartiere} ${item.rifId} ${item.via}`;
@@ -68,7 +68,29 @@ export default (
 
       if (nomeLista === 'clienti') {
         createdAtMoment = moment(item.dataRegistrazione);
-        searchString = `${item.nome} ${item.cognome} ${item.ditta}`;
+        searchString = `${item.nome} ${item.cognome} ${item.ditta} ${item.email} ${item.telefono1} ${item.cellulare}`;
+      }
+
+      if (nomeLista === 'fatture') {
+        createdAtMoment = moment(item.dataFattura);
+
+        const deal = deals.find((deal) => deal.id === item.dealId);
+        const oggetto = deal
+          ? oggetti.find((ogg) => ogg.id === deal.oggettoId)
+          : '';
+        const cliente = findCliente(item.clienteId);
+        const cliente2 = findCliente(item.clienteId2);
+
+        cliente &&
+          (searchString += `${cliente.nome} ${cliente.cognome} ${cliente.ditta}`);
+
+        cliente2 &&
+          (searchString += `${cliente2.nome} ${cliente2.cognome} ${cliente2.ditta}`);
+
+        oggetto &&
+          (searchString += `${oggetto.rifId} ${oggetto.via} ${oggetto.numeroCivico} ${oggetto.numeroAppartamento} ${oggetto.cap} ${oggetto.citta}`);
+
+        item.numeroFattura && (searchString += `${item.numeroFattura}`);
       }
 
       const startDateMatch =
@@ -95,7 +117,8 @@ export default (
       if (sortBy === 'date') {
         return a.createdAt < b.createdAt ||
           a.dataModificaOggetto < b.dataModificaOggetto ||
-          a.dataRegistrazione < b.dataRegistrazione
+          a.dataRegistrazione < b.dataRegistrazione ||
+          a.dataFattura < b.dataFattura
           ? 1
           : -1;
       } else if (sortBy === 'amount') {
@@ -103,7 +126,12 @@ export default (
       } else if (sortBy === 'paid') {
         return a.payedStefano > b.payedStefano ? 1 : -1;
       } else if (sortBy === 'name') {
-        return a.via > b.via || a.cognome > b.cognome ? 1 : -1;
+        console.log(a, b);
+        return a.via > b.via ||
+          a.cognome > b.cognome ||
+          a.numeroFattura > b.numeroFattura
+          ? 1
+          : -1;
       }
     });
 };

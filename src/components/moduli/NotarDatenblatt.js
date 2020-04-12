@@ -58,7 +58,7 @@ export const notarDatenblatt = (
     doc.text('Geschäftsführer:', 16, 270);
     let position = 274;
 
-    ceo.forEach(eachCeo => {
+    ceo.forEach((eachCeo) => {
       doc.text(`${eachCeo.name}`, 16, position);
       position += 4;
     });
@@ -99,11 +99,11 @@ export const notarDatenblatt = (
       );
       acapo += 5;
       doc.text(
-        `${verwalter.telefono1 &&
-          `Tel.: ${verwalter.telefono1} - `}${verwalter.fax &&
-          `Fax: ${verwalter.fax} - `}${verwalter.cellulare &&
-          `Handy: ${verwalter.cellulare} - `}${verwalter.email &&
-          `E-Mail: ${verwalter.email}`}`,
+        `${verwalter.telefono1 && `Tel.: ${verwalter.telefono1} - `}${
+          verwalter.fax && `Fax: ${verwalter.fax} - `
+        }${verwalter.cellulare && `Handy: ${verwalter.cellulare} - `}${
+          verwalter.email && `E-Mail: ${verwalter.email}`
+        }`,
         15,
         acapo
       );
@@ -255,9 +255,9 @@ export const notarDatenblatt = (
   doc.setFontSize(12);
   doc.setFontType('normal');
   doc.text(
-    `${venditore.titolo} ${venditore.nome} ${
-      venditore.cognome
-    } ${venditore.ditta && ` - Firma: ${venditore.ditta}`}`,
+    `${venditore.titolo} ${venditore.nome} ${venditore.cognome} ${
+      venditore.ditta && ` - Firma: ${venditore.ditta}`
+    }`,
     15,
     acapo
   );
@@ -277,11 +277,11 @@ export const notarDatenblatt = (
   }
   acapo += 5;
   doc.text(
-    `${venditore.telefono1 &&
-      `Tel.: ${venditore.telefono1} - `}${venditore.fax &&
-      `Fax: ${venditore.fax} - `}${venditore.cellulare &&
-      `Handy: ${venditore.cellulare} - `}${venditore.email &&
-      `E-Mail: ${venditore.email}`}`,
+    `${venditore.telefono1 && `Tel.: ${venditore.telefono1} - `}${
+      venditore.fax && `Fax: ${venditore.fax} - `
+    }${venditore.cellulare && `Handy: ${venditore.cellulare} - `}${
+      venditore.email && `E-Mail: ${venditore.email}`
+    }`,
     15,
     acapo
   );
@@ -289,9 +289,9 @@ export const notarDatenblatt = (
   if (venditore.bank || venditore.iban || venditore.bic) {
     acapo += 5;
     doc.text(
-      `${venditore.bank && `Bank: ${venditore.bank}`} ${venditore.iban &&
-        `- IBAN: ${venditore.iban}`} ${venditore.bic &&
-        `- BIC/SWIFT: ${venditore.bic}`} `,
+      `${venditore.bank && `Bank: ${venditore.bank}`} ${
+        venditore.iban && `- IBAN: ${venditore.iban}`
+      } ${venditore.bic && `- BIC/SWIFT: ${venditore.bic}`} `,
       15,
       acapo
     );
@@ -300,9 +300,9 @@ export const notarDatenblatt = (
   if (venditore2) {
     acapo += 10;
     doc.text(
-      `${venditore2.titolo} ${venditore2.nome} ${
-        venditore2.cognome
-      } ${venditore2.ditta && ` - Firma: ${venditore2.ditta}`}`,
+      `${venditore2.titolo} ${venditore2.nome} ${venditore2.cognome} ${
+        venditore2.ditta && ` - Firma: ${venditore2.ditta}`
+      }`,
       15,
       acapo
     );
@@ -324,20 +324,20 @@ export const notarDatenblatt = (
     }
     acapo += 5;
     doc.text(
-      `${venditore2.telefono1 &&
-        `Tel.: ${venditore2.telefono1} - `}${venditore2.fax &&
-        `Fax: ${venditore2.fax} - `}${venditore2.cellulare &&
-        `Handy: ${venditore2.cellulare} - `}${venditore2.email &&
-        `E-Mail: ${venditore2.email}`}`,
+      `${venditore2.telefono1 && `Tel.: ${venditore2.telefono1} - `}${
+        venditore2.fax && `Fax: ${venditore2.fax} - `
+      }${venditore2.cellulare && `Handy: ${venditore2.cellulare} - `}${
+        venditore2.email && `E-Mail: ${venditore2.email}`
+      }`,
       15,
       acapo
     );
     if (venditore2.bank || venditore2.iban || venditore2.bic) {
       acapo += 5;
       doc.text(
-        `${venditore2.bank && `Bank: ${venditore2.bank}`} ${venditore2.iban &&
-          `- IBAN: ${venditore2.iban}`} ${venditore2.bic &&
-          `- BIC/SWIFT: ${venditore2.bic}`} `,
+        `${venditore2.bank && `Bank: ${venditore2.bank}`} ${
+          venditore2.iban && `- IBAN: ${venditore2.iban}`
+        } ${venditore2.bic && `- BIC/SWIFT: ${venditore2.bic}`} `,
         15,
         acapo
       );
@@ -353,9 +353,9 @@ export const notarDatenblatt = (
   doc.setFontSize(12);
   doc.setFontType('normal');
   doc.text(
-    `${acquirente.titolo} ${acquirente.nome} ${
-      acquirente.cognome
-    } ${acquirente.ditta && ` - Firma: ${acquirente.ditta}`}`,
+    `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome} ${
+      acquirente.ditta && ` - Firma: ${acquirente.ditta}`
+    }`,
     15,
     acapo
   );
@@ -375,20 +375,20 @@ export const notarDatenblatt = (
   }
   acapo += 5;
   doc.text(
-    `${acquirente.telefono1 &&
-      `Tel.: ${acquirente.telefono1} - `}${acquirente.fax &&
-      `Fax: ${acquirente.fax} - `}${acquirente.cellulare &&
-      `Handy: ${acquirente.cellulare} - `}${acquirente.email &&
-      `E-Mail: ${acquirente.email}`}`,
+    `${acquirente.telefono1 && `Tel.: ${acquirente.telefono1} - `}${
+      acquirente.fax && `Fax: ${acquirente.fax} - `
+    }${acquirente.cellulare && `Handy: ${acquirente.cellulare} - `}${
+      acquirente.email && `E-Mail: ${acquirente.email}`
+    }`,
     15,
     acapo
   );
   if (acquirente2) {
     acapo += 10;
     doc.text(
-      `${acquirente2.titolo} ${acquirente2.nome} ${
-        acquirente2.cognome
-      } ${acquirente2.ditta && ` - Firma: ${acquirente2.ditta}`}`,
+      `${acquirente2.titolo} ${acquirente2.nome} ${acquirente2.cognome} ${
+        acquirente2.ditta && ` - Firma: ${acquirente2.ditta}`
+      }`,
       15,
       acapo
     );
@@ -410,17 +410,17 @@ export const notarDatenblatt = (
     }
     acapo += 5;
     doc.text(
-      `${acquirente2.telefono1 &&
-        `Tel.: ${acquirente2.telefono1} - `}${acquirente2.fax &&
-        `Fax: ${acquirente2.fax} - `}${acquirente2.cellulare &&
-        `Handy: ${acquirente2.cellulare} - `}${acquirente2.email &&
-        `E-Mail: ${acquirente2.email}`}`,
+      `${acquirente2.telefono1 && `Tel.: ${acquirente2.telefono1} - `}${
+        acquirente2.fax && `Fax: ${acquirente2.fax} - `
+      }${acquirente2.cellulare && `Handy: ${acquirente2.cellulare} - `}${
+        acquirente2.email && `E-Mail: ${acquirente2.email}`
+      }`,
       15,
       acapo
     );
   }
   console.log(acapo);
-  if (acapo > 250) {
+  if (acapo > 240) {
     doc.addPage();
     cartaIntestata();
     doc.setTextColor(0, 0, 0);
