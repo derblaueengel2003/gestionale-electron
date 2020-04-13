@@ -9,77 +9,67 @@ import 'react-virtualized-select/styles.css';
 export class DealForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
+
+    const { deals } = this.props.data;
+
     const prezzoDiVendita =
-      parseFloat(this.props.data.deals.prezzoDiVendita.replace(/,/, '.'), 10) *
-      100;
-    const amount =
-      parseFloat(this.props.data.deals.amount.replace(/,/, '.'), 10) * 100;
+      parseFloat(deals.prezzoDiVendita.replace(/,/, '.'), 10) * 100;
+    const amount = parseFloat(deals.amount.replace(/,/, '.'), 10) * 100;
     const provvM2square =
-      parseFloat(this.props.data.deals.provvM2square.replace(/,/, '.'), 10) *
-      100;
+      parseFloat(deals.provvM2square.replace(/,/, '.'), 10) * 100;
     const provvStefano =
-      parseFloat(this.props.data.deals.provvStefano.replace(/,/, '.'), 10) *
-      100;
+      parseFloat(deals.provvStefano.replace(/,/, '.'), 10) * 100;
     const provvAgenziaPartner =
-      parseFloat(
-        this.props.data.deals.provvAgenziaPartner.replace(/,/, '.'),
-        10
-      ) * 100;
+      parseFloat(deals.provvAgenziaPartner.replace(/,/, '.'), 10) * 100;
     const provvSum = provvM2square + provvStefano + provvAgenziaPartner;
 
-    if (
-      !this.props.data.deals.oggettoId ||
-      !this.props.data.deals.amount ||
-      !this.props.data.deals.acquirenteId
-    ) {
+    if (!deals.oggettoId || !deals.amount || !deals.acquirenteId) {
       this.setState(() => ({
         error: 'Objekt, Summe und Käufer bitte ausfüllen.',
       }));
     } else if (amount !== provvSum) {
       const differenza = (provvSum - amount) / 100;
+
       this.setState(() => ({
         error: `Provisionen-Summe entrspricht nicht die Gesamtprovision. ${differenza} € Unterschied.`,
       }));
     } else {
       this.setState(() => ({ error: '' }));
+
       this.props.onSubmit({
-        oggettoId: this.props.data.deals.oggettoId,
+        oggettoId: deals.oggettoId,
         prezzoDiVendita,
         amount,
-        consulenteVendita: this.props.data.deals.consulenteVendita,
+        consulenteVendita: deals.consulenteVendita,
         provvM2square,
-        dealType: this.props.data.deals.dealType,
+        dealType: deals.dealType,
         provvStefano,
-        payedStefano: this.props.data.deals.payedStefano,
-        payedAtStefano: this.props.data.deals.payedAtStefano
-          ? this.props.data.deals.payedAtStefano.valueOf()
+        payedStefano: deals.payedStefano,
+        payedAtStefano: deals.payedAtStefano
+          ? deals.payedAtStefano.valueOf()
           : null,
-        agenziaPartnerId: this.props.data.deals.agenziaPartnerId,
+        agenziaPartnerId: deals.agenziaPartnerId,
         provvAgenziaPartner,
-        payedAgenziaPartner: this.props.data.deals.payedAgenziaPartner,
-        createdAt: this.props.data.deals.createdAt
-          ? this.props.data.deals.createdAt.valueOf()
-          : null,
-        venditoreId: this.props.data.deals.venditoreId,
-        venditoreId2: this.props.data.deals.venditoreId2,
-        acquirenteId: this.props.data.deals.acquirenteId,
-        acquirenteId2: this.props.data.deals.acquirenteId2,
-        notaioId: this.props.data.deals.notaioId,
-        dataRogito: this.props.data.deals.dataRogito
-          ? this.props.data.deals.dataRogito.valueOf()
-          : null,
-        dataConsegna: this.props.data.deals.dataConsegna
-          ? this.props.data.deals.dataConsegna.valueOf()
-          : null,
-        linguaRogito: this.props.data.deals.linguaRogito,
-        belastungsVollmacht: this.props.data.deals.belastungsVollmacht,
+        payedAgenziaPartner: deals.payedAgenziaPartner,
+        createdAt: deals.createdAt ? deals.createdAt.valueOf() : null,
+        venditoreId: deals.venditoreId,
+        venditoreId2: deals.venditoreId2,
+        acquirenteId: deals.acquirenteId,
+        acquirenteId2: deals.acquirenteId2,
+        notaioId: deals.notaioId,
+        dataRogito: deals.dataRogito ? deals.dataRogito.valueOf() : null,
+        dataConsegna: deals.dataConsegna ? deals.dataConsegna.valueOf() : null,
+        linguaRogito: deals.linguaRogito,
+        belastungsVollmacht: deals.belastungsVollmacht,
         calendarDataFatturaFocused: false,
-        note: this.props.data.deals.note,
+        note: deals.note,
       });
     }
   };
 
   render() {
+    const { deals } = this.props.data;
+
     const {
       t,
       renderSelect,
@@ -89,6 +79,7 @@ export class DealForm extends React.Component {
       renderTextArea,
       changeHandlerValuta,
     } = this.props;
+
     const options = this.props.clienti.map((cliente) => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${
@@ -100,6 +91,7 @@ export class DealForm extends React.Component {
       value: oggetto.id,
       label: `Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`,
     }));
+
     const dealTypeOptions = [
       'Kauf Eigentumswohnung',
       'Miete Eigentumswohnung',
@@ -111,10 +103,12 @@ export class DealForm extends React.Component {
       value: dealType,
       label: t(dealType),
     }));
+
     const consulenteVenditaOptions = this.props.utenti.map((consulente) => ({
       value: consulente.id,
       label: consulente.name,
     }));
+
     const linguaRogitoOptions = [
       'Englisch',
       'Italienisch',
@@ -130,9 +124,7 @@ export class DealForm extends React.Component {
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.props.data.deals.error && (
-          <p className='form__error'>{this.props.data.deals.error}</p>
-        )}
+        {deals.error && <p className='form__error'>{deals.error}</p>}
         <div>
           <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>
@@ -166,10 +158,7 @@ export class DealForm extends React.Component {
           changeHandlerValuta,
           undefined,
           `6%: ${
-            parseFloat(
-              this.props.data.deals.prezzoDiVendita.replace(/,/, '.'),
-              10
-            ) * 0.06
+            parseFloat(deals.prezzoDiVendita.replace(/,/, '.'), 10) * 0.06
           }`
         )}
         {renderSelect(
@@ -187,8 +176,8 @@ export class DealForm extends React.Component {
           undefined,
           `80%: ${
             parseFloat(
-              this.props.data.deals.amount.replace(/,/, '.') -
-                this.props.data.deals.provvAgenziaPartner.replace(/,/, '.'),
+              deals.amount.replace(/,/, '.') -
+                deals.provvAgenziaPartner.replace(/,/, '.'),
               10
             ) * 0.8
           }`
@@ -202,14 +191,14 @@ export class DealForm extends React.Component {
           undefined,
           `20%: ${
             parseFloat(
-              this.props.data.deals.amount.replace(/,/, '.') -
-                this.props.data.deals.provvAgenziaPartner.replace(/,/, '.'),
+              deals.amount.replace(/,/, '.') -
+                deals.provvAgenziaPartner.replace(/,/, '.'),
               10
             ) * 0.2
           }`
         )}
         {renderCheckbox('deals', 'payedStefano', t('Pagato'))}
-        <div className={`visible-${this.props.data.deals.payedStefano} form`}>
+        <div className={`visible-${deals.payedStefano} form`}>
           {renderSingleDate(
             'deals',
             'payedAtStefano',

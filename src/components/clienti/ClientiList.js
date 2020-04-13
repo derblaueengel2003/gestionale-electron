@@ -66,6 +66,15 @@ export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
                             <i className='material-icons'>phone_iphone</i>
                           </a>
                         )}
+                        {cliente.cloudURL && (
+                          <a
+                            href={cliente.cloudURL}
+                            target='_blank'
+                            className='btn-floating light-blue accent-3 right btn-floating-margin'
+                          >
+                            <i className='material-icons'>cloud</i>
+                          </a>
+                        )}
                       </div>
                     }
                     visible={cliente.visible}

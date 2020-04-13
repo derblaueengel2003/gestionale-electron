@@ -116,24 +116,31 @@ export const DealList = ({
                     oggetto &&
                     `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
                   }
-                  titoloDestra={
+                  sottotitolo={
                     utente.role === 'Mitarbeiter' ? (
                       <span
-                        className={` card-title list-item__data ${
-                          deal.payedStefano && 'list-item--paid'
-                        }`}
+                        className={`${deal.payedStefano && 'list-item--paid'}`}
                       >
                         {numeral(deal.provvStefano / 100).format('0,0[.]00 $')}
                       </span>
                     ) : (
-                      <span
-                        className={` card-title list-item__data  list-item--paid${payed}`}
-                      >
+                      <span className={`list-item--paid${payed}`}>
                         {numeral(deal.provvM2square / 100).format('0,0[.]00 $')}
                       </span>
                     )
                   }
-                  sottotitolo={oggetto && `${oggetto.cap} ${oggetto.citta}`}
+                  titoloDestra={
+                    oggetto.cloudURL && (
+                      <a
+                        href={oggetto.cloudURL}
+                        target='_blank'
+                        className='btn-floating light-blue accent-3 right btn-floating-margin'
+                      >
+                        <i className='material-icons'>cloud</i>
+                      </a>
+                    )
+                  }
+                  // sottotitolo={oggetto && `${oggetto.cap} ${oggetto.citta}`}
                   corpo={[datiPrenotazione, gliAcquirenti, iVenditori]}
                   progressBar={<TodoProgressBar {...deal} />}
                 />

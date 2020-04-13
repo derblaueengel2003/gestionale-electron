@@ -9,6 +9,7 @@ export const addOggetto = (oggetto) => ({
 export const startAddOggetto = (oggettoData = {}) => {
   return (dispatch) => {
     const {
+      cloudURL = '',
       affittoNetto = 0,
       amtsgericht = '',
       ascensore = false,
@@ -67,6 +68,7 @@ export const startAddOggetto = (oggettoData = {}) => {
       dataModificaOggetto = null,
     } = oggettoData;
     const oggetto = {
+      cloudURL,
       affittoNetto,
       amtsgericht,
       ascensore,

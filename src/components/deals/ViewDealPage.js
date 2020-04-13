@@ -15,8 +15,8 @@ import ClientiList from '../clienti/ClientiList';
 import OggettiList from '../oggetti/OggettiList';
 
 export class ViewDealPage extends React.Component {
-  findContact = contact => {
-    return this.props.clienti.filter(cliente => cliente.id === contact);
+  findContact = (contact) => {
+    return this.props.clienti.filter((cliente) => cliente.id === contact);
   };
 
   render() {
@@ -42,10 +42,10 @@ export class ViewDealPage extends React.Component {
       provvStefano,
       provvAgenziaPartner,
       venditoreId,
-      venditoreId2
+      venditoreId2,
     } = this.props.deal;
     const { utente, t } = this.props;
-    const oggetto = this.props.oggetti.find(ogg => ogg.id === oggettoId);
+    const oggetto = this.props.oggetti.find((ogg) => ogg.id === oggettoId);
     const acquirente = this.findContact(acquirenteId);
     const acquirente2 = this.findContact(acquirenteId2);
     const venditore = this.findContact(venditoreId);
@@ -55,7 +55,7 @@ export class ViewDealPage extends React.Component {
     const agenziaPartner = this.findContact(agenziaPartnerId);
 
     const kundenbetreuer = this.props.utenti.find(
-      utente => utente.id === consulenteVendita
+      (utente) => utente.id === consulenteVendita
     );
     const provvPercentuale = numeral((amount / prezzoDiVendita) * 119).format(
       '0,0.00'
@@ -63,7 +63,7 @@ export class ViewDealPage extends React.Component {
     const dataPrenotazione = moment(createdAt).format('DD.MM.YYYY');
     // Determino quante fatture sono state pagate per mostrare i colori adatti. Da dealFature mi arriva un array
     let payed = 0;
-    this.props.fatture.map(fattura => fattura.payed && payed++);
+    this.props.fatture.map((fattura) => fattura.payed && payed++);
     if (payed > 0) {
       if (payed === this.props.fatture.length) {
         payed = 2;
@@ -82,7 +82,10 @@ export class ViewDealPage extends React.Component {
         <div className='container section'>
           <div>
             {utente.role === 'Admin' && (
-              <Link className='btn-floating orange right' to={`/edit/${id}`}>
+              <Link
+                className='btn-floating orange right btn-floating-margin'
+                to={`/edit/${id}`}
+              >
                 <i className='material-icons'>edit</i>
               </Link>
             )}
@@ -240,11 +243,6 @@ export class ViewDealPage extends React.Component {
               <li className='collection-item'>
                 <div>
                   {t('Foglio informativo per il notaio')}
-                  {/*                   
-                    <Link className='secondary-content' to={`/datenblatt/${id}`}>
-                    <i className='material-icons'>print</i>
-                  </Link>
-*/}
                   <a href='#!' className='secondary-content'>
                     <i
                       className='material-icons'
@@ -356,16 +354,18 @@ export class ViewDealPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  deal: state.deals.find(deal => deal.id === props.match.params.id),
+  deal: state.deals.find((deal) => deal.id === props.match.params.id),
   clienti: state.clienti,
   oggetti: state.oggetti,
   fatture: state.fatture.filter(
-    fattura => fattura.dealId === props.match.params.id
+    (fattura) => fattura.dealId === props.match.params.id
   ),
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+  utente: state.utenti.find(
+    (utente) => utente.firebaseAuthId === state.auth.uid
+  ),
   utenti: state.utenti,
-  ceo: state.utenti.filter(utente => utente.qualifica === 'Geschäftsführer'),
-  firma: state.firma[0]
+  ceo: state.utenti.filter((utente) => utente.qualifica === 'Geschäftsführer'),
+  firma: state.firma[0],
 });
 
 export default connect(mapStateToProps)(withTranslation()(ViewDealPage));

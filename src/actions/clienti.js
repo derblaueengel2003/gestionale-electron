@@ -1,14 +1,15 @@
 import database from '../firebase/firebase';
 
 // ADD_CUSTOMER
-export const addCustomer = customer => ({
+export const addCustomer = (customer) => ({
   type: 'ADD_CUSTOMER',
-  customer
+  customer,
 });
 
 export const startAddCustomer = (customerData = {}) => {
-  return dispatch => {
+  return (dispatch) => {
     const {
+      cloudURL = '',
       nome = '',
       cognome = '',
       titolo = '',
@@ -34,9 +35,10 @@ export const startAddCustomer = (customerData = {}) => {
       note = '',
       dataRegistrazione = null,
       consensoDSGVO = false,
-      dataConsensoDSGVO = null
+      dataConsensoDSGVO = null,
     } = customerData;
     const customer = {
+      cloudURL,
       nome,
       cognome,
       titolo,
@@ -62,17 +64,17 @@ export const startAddCustomer = (customerData = {}) => {
       note,
       dataRegistrazione,
       consensoDSGVO,
-      dataConsensoDSGVO
+      dataConsensoDSGVO,
     };
 
     return database
       .ref(`/clienti`)
       .push(customer)
-      .then(ref => {
+      .then((ref) => {
         dispatch(
           addCustomer({
             id: ref.key,
-            ...customer
+            ...customer,
           })
         );
       });
@@ -82,7 +84,7 @@ export const startAddCustomer = (customerData = {}) => {
 // REMOVE_CUSTOMER
 export const removeCustomer = ({ id } = {}) => ({
   type: 'REMOVE_CUSTOMER',
-  id
+  id,
 });
 
 export const startRemoveCustomer = ({ id } = {}) => {
@@ -101,7 +103,7 @@ export const startRemoveCustomer = ({ id } = {}) => {
 export const editCustomer = (id, updates) => ({
   type: 'EDIT_CUSTOMER',
   id,
-  updates
+  updates,
 });
 
 export const startEditCustomer = (id, updates) => {
@@ -117,24 +119,24 @@ export const startEditCustomer = (id, updates) => {
 };
 
 // SET_CUSTOMERS
-export const setCustomers = clienti => ({
+export const setCustomers = (clienti) => ({
   type: 'SET_CUSTOMERS',
-  clienti
+  clienti,
 });
 
 // export const startSetCustomers
 export const startSetCustomers = () => {
-  return dispatch => {
+  return (dispatch) => {
     return database
       .ref(`clienti`)
       .once('value')
-      .then(snapshot => {
+      .then((snapshot) => {
         const clienti = [];
 
-        snapshot.forEach(childSnapshot => {
+        snapshot.forEach((childSnapshot) => {
           clienti.push({
             id: childSnapshot.key,
-            ...childSnapshot.val()
+            ...childSnapshot.val(),
           });
         });
         dispatch(setCustomers(clienti));

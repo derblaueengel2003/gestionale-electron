@@ -38,8 +38,18 @@ export const OggettiList = (props) => {
                   <Card
                     key={oggetto.id}
                     titolo={`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`}
-                    sottotitolo={`${oggetto.cap} ${oggetto.citta}, ${oggetto.nazione}`}
-                    titoloDestra={`${props.t('Rif')}. ID ${oggetto.rifId}`}
+                    titoloDestra={
+                      oggetto.cloudURL && (
+                        <a
+                          href={oggetto.cloudURL}
+                          target='_blank'
+                          className='btn-floating light-blue accent-3 right btn-floating-margin'
+                        >
+                          <i className='material-icons'>cloud</i>
+                        </a>
+                      )
+                    }
+                    sottotitolo={`${props.t('Rif')}. ID ${oggetto.rifId}`}
                     visible={oggetto.visible}
                     link={`/oggettoview/${oggetto.id}`}
                     corpo={[

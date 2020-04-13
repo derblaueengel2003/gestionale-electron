@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 // Get visible deals
-//viene chiamato due volte da DealsSummary e da DealList!
+// per i deals viene chiamato due volte da DealsSummary e da DealList!
 
 export default (
   nomeLista,
@@ -107,12 +107,14 @@ export default (
 
       const sellerMatch = item.provvStefano > 0;
 
-      if (utente.role === 'Mitarbeiter') {
-        return startDateMatch && endDateMatch && textMatch && sellerMatch;
-      } else {
-        return startDateMatch && endDateMatch && textMatch;
-      }
+      // if (utente.role === 'Mitarbeiter') {
+      //   return startDateMatch && endDateMatch && textMatch && sellerMatch;
+      // } else {
+      //   return startDateMatch && endDateMatch && textMatch;
+      // }
+      return startDateMatch && endDateMatch && textMatch;
     })
+
     .sort((a, b) => {
       if (sortBy === 'date') {
         return a.createdAt < b.createdAt ||
@@ -126,7 +128,6 @@ export default (
       } else if (sortBy === 'paid') {
         return a.payedStefano > b.payedStefano ? 1 : -1;
       } else if (sortBy === 'name') {
-        console.log(a, b);
         return a.via > b.via ||
           a.cognome > b.cognome ||
           a.numeroFattura > b.numeroFattura

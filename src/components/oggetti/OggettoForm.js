@@ -17,84 +17,88 @@ export class OggettoForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const wohngeld =
-      parseFloat(this.props.data.oggetti.wohngeld.replace(/,/, '.'), 10) * 100;
-    const affittoNetto =
-      parseFloat(this.props.data.oggetti.affittoNetto.replace(/,/, '.'), 10) *
-      100;
-    const kaufpreis =
-      parseFloat(this.props.data.oggetti.kaufpreis.replace(/,/, '.'), 10) * 100;
 
-    if (!this.props.data.oggetti.via || !this.props.data.oggetti.rifId) {
+    const { oggetti } = this.props.data;
+
+    const wohngeld = parseFloat(oggetti.wohngeld.replace(/,/, '.'), 10) * 100;
+    const affittoNetto =
+      parseFloat(oggetti.affittoNetto.replace(/,/, '.'), 10) * 100;
+    const kaufpreis = parseFloat(oggetti.kaufpreis.replace(/,/, '.'), 10) * 100;
+
+    if (!oggetti.via || !oggetti.rifId) {
       this.setState(() => ({
         error: this.props.t('Inserisci indirizzo e Rif ID'),
       }));
     } else {
       this.setState(() => ({ error: '' }));
+
       this.props.onSubmit({
-        via: this.props.data.oggetti.via,
-        numeroCivico: this.props.data.oggetti.numeroCivico,
-        cap: this.props.data.oggetti.cap,
-        citta: this.props.data.oggetti.citta,
-        quartiere: this.props.data.oggetti.quartiere,
-        nazione: this.props.data.oggetti.nazione,
-        numeroAppartamento: this.props.data.oggetti.numeroAppartamento,
-        rifId: this.props.data.oggetti.rifId,
-        amtsgericht: this.props.data.oggetti.amtsgericht,
-        grundbuch: this.props.data.oggetti.grundbuch,
-        grundbuchBlatt: this.props.data.oggetti.grundbuchBlatt,
-        m2: this.props.data.oggetti.m2,
-        piano: this.props.data.oggetti.piano,
-        mobilio: this.props.data.oggetti.mobilio,
-        stato: this.props.data.oggetti.stato,
+        cloudURL: oggetti.cloudURL,
+        via: oggetti.via,
+        numeroCivico: oggetti.numeroCivico,
+        cap: oggetti.cap,
+        citta: oggetti.citta,
+        quartiere: oggetti.quartiere,
+        nazione: oggetti.nazione,
+        numeroAppartamento: oggetti.numeroAppartamento,
+        rifId: oggetti.rifId,
+        amtsgericht: oggetti.amtsgericht,
+        grundbuch: oggetti.grundbuch,
+        grundbuchBlatt: oggetti.grundbuchBlatt,
+        m2: oggetti.m2,
+        piano: oggetti.piano,
+        mobilio: oggetti.mobilio,
+        stato: oggetti.stato,
         wohngeld,
         kaufpreis,
         affittoNetto,
-        verwalter: this.props.data.oggetti.verwalter,
-        ruecklage: this.props.data.oggetti.ruecklage,
-        proprietarioId: this.props.data.oggetti.proprietarioId,
-        proprietarioId2: this.props.data.oggetti.proprietarioId2,
-        inquilinoId: this.props.data.oggetti.inquilinoId,
-        visible: this.props.data.oggetti.visible,
-        filenames: this.props.data.oggetti.filenames,
-        downloadURLs: this.props.data.oggetti.downloadURLs,
-        filenamesCover: this.props.data.oggetti.filenamesCover,
-        downloadURLsCover: this.props.data.oggetti.downloadURLsCover,
-        filenamesGrundriss: this.props.data.oggetti.filenamesGrundriss,
-        downloadURLsGrundriss: this.props.data.oggetti.downloadURLsGrundriss,
-        titolo: this.props.data.oggetti.titolo,
-        descrizione: this.props.data.oggetti.descrizione,
-        titoloDe: this.props.data.oggetti.titoloDe,
-        descrizioneDe: this.props.data.oggetti.descrizioneDe,
-        titoloEn: this.props.data.oggetti.titoloEn,
-        descrizioneEn: this.props.data.oggetti.descrizioneEn,
-        vani: this.props.data.oggetti.vani,
-        bagni: this.props.data.oggetti.bagni,
-        balcone: this.props.data.oggetti.balcone,
-        ascensore: this.props.data.oggetti.ascensore,
-        giardino: this.props.data.oggetti.giardino,
-        condizioni: this.props.data.oggetti.condizioni,
-        cantina: this.props.data.oggetti.cantina,
-        baujahr: this.props.data.oggetti.baujahr,
-        energieAusweisTyp: this.props.data.oggetti.energieAusweisTyp,
-        energieAusweisBis: this.props.data.oggetti.energieAusweisBis,
-        heizungsart: this.props.data.oggetti.heizungsart,
-        energieTraeger: this.props.data.oggetti.energieTraeger,
-        energieBedarf: this.props.data.oggetti.energieBedarf,
-        provvigione: this.props.data.oggetti.provvigione,
-        note: this.props.data.oggetti.note,
-        venduto: this.props.data.oggetti.venduto,
-        tipologia: this.props.data.oggetti.tipologia,
-        dataInserimentoOggetto: this.props.data.oggetti.dataInserimentoOggetto
-          ? this.props.data.oggetti.dataInserimentoOggetto.valueOf()
+        verwalter: oggetti.verwalter,
+        ruecklage: oggetti.ruecklage,
+        proprietarioId: oggetti.proprietarioId,
+        proprietarioId2: oggetti.proprietarioId2,
+        inquilinoId: oggetti.inquilinoId,
+        visible: oggetti.visible,
+        filenames: oggetti.filenames,
+        downloadURLs: oggetti.downloadURLs,
+        filenamesCover: oggetti.filenamesCover,
+        downloadURLsCover: oggetti.downloadURLsCover,
+        filenamesGrundriss: oggetti.filenamesGrundriss,
+        downloadURLsGrundriss: oggetti.downloadURLsGrundriss,
+        titolo: oggetti.titolo,
+        descrizione: oggetti.descrizione,
+        titoloDe: oggetti.titoloDe,
+        descrizioneDe: oggetti.descrizioneDe,
+        titoloEn: oggetti.titoloEn,
+        descrizioneEn: oggetti.descrizioneEn,
+        vani: oggetti.vani,
+        bagni: oggetti.bagni,
+        balcone: oggetti.balcone,
+        ascensore: oggetti.ascensore,
+        giardino: oggetti.giardino,
+        condizioni: oggetti.condizioni,
+        cantina: oggetti.cantina,
+        baujahr: oggetti.baujahr,
+        energieAusweisTyp: oggetti.energieAusweisTyp,
+        energieAusweisBis: oggetti.energieAusweisBis,
+        heizungsart: oggetti.heizungsart,
+        energieTraeger: oggetti.energieTraeger,
+        energieBedarf: oggetti.energieBedarf,
+        provvigione: oggetti.provvigione,
+        note: oggetti.note,
+        venduto: oggetti.venduto,
+        tipologia: oggetti.tipologia,
+        dataInserimentoOggetto: oggetti.dataInserimentoOggetto
+          ? oggetti.dataInserimentoOggetto.valueOf()
           : null,
-        dataModificaOggetto: this.props.data.oggetti.dataModificaOggetto
-          ? this.props.data.oggetti.dataModificaOggetto.valueOf()
+        dataModificaOggetto: oggetti.dataModificaOggetto
+          ? oggetti.dataModificaOggetto.valueOf()
           : null,
       });
     }
   };
   render() {
+    const { oggetti } = this.props.data;
+
     const {
       t,
       renderTextArea,
@@ -103,6 +107,7 @@ export class OggettoForm extends React.Component {
       renderInput,
       changeHandlerValuta,
     } = this.props;
+
     const options = this.props.clienti.map((cliente) => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${
@@ -121,9 +126,7 @@ export class OggettoForm extends React.Component {
     }));
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.props.data.oggetti.error && (
-          <p className='form__error'>{this.props.data.oggetti.error}</p>
-        )}
+        {oggetti.error && <p className='form__error'>{oggetti.error}</p>}
         <div>
           <button className='btn-floating blue right btn-floating-margin'>
             <i className='material-icons'>save</i>
@@ -242,6 +245,15 @@ export class OggettoForm extends React.Component {
                 '2. ' + t('Proprietario')
               )}
               {renderSelect('oggetti', 'inquilinoId', options, t('Inquilino'))}
+              {renderInput(
+                'oggetti',
+                'cloudURL',
+                'Cloud URL',
+                undefined,
+                undefined,
+                undefined,
+                'http://www...'
+              )}
               {renderTextArea('oggetti', 'note')}
               {renderCheckbox('oggetti', 'venduto', t('Venduto'))}
 
@@ -399,7 +411,7 @@ export class OggettoForm extends React.Component {
                     accept='image/*'
                     name='image-uploader-multiple'
                     // randomizeFilename
-                    filename={() => `${this.props.data.oggetti.rifId}-Cover}`}
+                    filename={() => `${oggetti.rifId}-Cover}`}
                     storageRef={firebase.storage().ref('cover')}
                     onUploadStart={this.props.handleUploadStart}
                     onUploadError={this.props.handleUploadError}
@@ -409,23 +421,21 @@ export class OggettoForm extends React.Component {
                   />
                 </label>
                 <div>
-                  {this.props.data.oggetti.downloadURLsCover &&
-                    this.props.data.oggetti.downloadURLsCover.map(
-                      (downloadURLCover, i) => {
-                        return (
-                          <span key={i}>
-                            <img className='foto' src={downloadURLCover} />
-                            <img
-                              src='/images/trash.jpg'
-                              className='cancella'
-                              onClick={() =>
-                                this.props.handleRemovePictureCover(i)
-                              }
-                            />
-                          </span>
-                        );
-                      }
-                    )}
+                  {oggetti.downloadURLsCover &&
+                    oggetti.downloadURLsCover.map((downloadURLCover, i) => {
+                      return (
+                        <span key={i}>
+                          <img className='foto' src={downloadURLCover} />
+                          <img
+                            src='/images/trash.jpg'
+                            className='cancella'
+                            onClick={() =>
+                              this.props.handleRemovePictureCover(i)
+                            }
+                          />
+                        </span>
+                      );
+                    })}
                 </div>
               </li>
               {/* Bilder */}
@@ -440,7 +450,7 @@ export class OggettoForm extends React.Component {
                     name='image-uploader-multiple'
                     // randomizeFilename
                     filename={() =>
-                      `${this.props.data.oggetti.rifId}-${Math.floor(
+                      `${oggetti.rifId}-${Math.floor(
                         Math.random() * 100000
                       ).toString()}`
                     }
@@ -453,21 +463,19 @@ export class OggettoForm extends React.Component {
                   />
                 </label>
                 <div>
-                  {this.props.data.oggetti.downloadURLs &&
-                    this.props.data.oggetti.downloadURLs.map(
-                      (downloadURL, i) => {
-                        return (
-                          <span key={i}>
-                            <img className='foto' src={downloadURL} />
-                            <img
-                              src='/images/trash.jpg'
-                              className='cancella'
-                              onClick={() => this.props.handleRemovePicture(i)}
-                            />
-                          </span>
-                        );
-                      }
-                    )}
+                  {oggetti.downloadURLs &&
+                    oggetti.downloadURLs.map((downloadURL, i) => {
+                      return (
+                        <span key={i}>
+                          <img className='foto' src={downloadURL} />
+                          <img
+                            src='/images/trash.jpg'
+                            className='cancella'
+                            onClick={() => this.props.handleRemovePicture(i)}
+                          />
+                        </span>
+                      );
+                    })}
                 </div>
               </li>
               {/* Grundriss */}
@@ -482,7 +490,7 @@ export class OggettoForm extends React.Component {
                     name='image-uploader-multiple'
                     // randomizeFilename
                     filename={() =>
-                      `${this.props.data.oggetti.rifId}-Grundriss-${Math.floor(
+                      `${oggetti.rifId}-Grundriss-${Math.floor(
                         Math.random() * 100
                       ).toString()}`
                     }
@@ -495,8 +503,8 @@ export class OggettoForm extends React.Component {
                   />
                 </label>
                 <div>
-                  {this.props.data.oggetti.downloadURLsGrundriss &&
-                    this.props.data.oggetti.downloadURLsGrundriss.map(
+                  {oggetti.downloadURLsGrundriss &&
+                    oggetti.downloadURLsGrundriss.map(
                       (downloadURLGrundriss, i) => {
                         return (
                           <span key={i}>

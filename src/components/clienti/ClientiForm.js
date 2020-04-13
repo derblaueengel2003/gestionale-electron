@@ -8,46 +8,49 @@ export class CustomerForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    if (!this.props.data.clienti.cognome) {
+    const { clienti } = this.props.data;
+
+    if (!clienti.cognome) {
       this.setState(() => ({
         error: 'Vorname und Name bitte eingeben.',
       }));
     } else {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
-        nome: this.props.data.clienti.nome,
-        cognome: this.props.data.clienti.cognome,
-        titolo: this.props.data.clienti.titolo,
-        dataDiNascita: this.props.data.clienti.dataDiNascita
-          ? this.props.data.clienti.dataDiNascita.valueOf()
+        cloudURL: clienti.cloudURL,
+        nome: clienti.nome,
+        cognome: clienti.cognome,
+        titolo: clienti.titolo,
+        dataDiNascita: clienti.dataDiNascita
+          ? clienti.dataDiNascita.valueOf()
           : null,
-        ditta: this.props.data.clienti.ditta,
-        indirizzo: this.props.data.clienti.indirizzo,
-        indirizzo2: this.props.data.clienti.indirizzo2,
-        cap: this.props.data.clienti.cap,
-        comune: this.props.data.clienti.comune,
-        nazione: this.props.data.clienti.nazione,
-        lingua: this.props.data.clienti.lingua,
-        email: this.props.data.clienti.email,
-        consulenteVenditaId: this.props.data.clienti.consulenteVenditaId,
-        telefono1: this.props.data.clienti.telefono1,
-        fax: this.props.data.clienti.fax,
-        cellulare: this.props.data.clienti.cellulare,
-        codiceFiscale: this.props.data.clienti.codiceFiscale,
-        handelsRegisterNummer: this.props.data.clienti.handelsRegisterNummer,
-        bank: this.props.data.clienti.bank,
-        iban: this.props.data.clienti.iban,
-        bic: this.props.data.clienti.bic,
-        visible: this.props.data.clienti.visible,
-        www: this.props.data.clienti.www,
-        note: this.props.data.clienti.note,
-        dataRegistrazione: this.props.data.clienti.dataRegistrazione
-          ? this.props.data.clienti.dataRegistrazione.valueOf()
+        ditta: clienti.ditta,
+        indirizzo: clienti.indirizzo,
+        indirizzo2: clienti.indirizzo2,
+        cap: clienti.cap,
+        comune: clienti.comune,
+        nazione: clienti.nazione,
+        lingua: clienti.lingua,
+        email: clienti.email,
+        consulenteVenditaId: clienti.consulenteVenditaId,
+        telefono1: clienti.telefono1,
+        fax: clienti.fax,
+        cellulare: clienti.cellulare,
+        codiceFiscale: clienti.codiceFiscale,
+        handelsRegisterNummer: clienti.handelsRegisterNummer,
+        bank: clienti.bank,
+        iban: clienti.iban,
+        bic: clienti.bic,
+        visible: clienti.visible,
+        www: clienti.www,
+        note: clienti.note,
+        dataRegistrazione: clienti.dataRegistrazione
+          ? clienti.dataRegistrazione.valueOf()
           : null,
-        dataConsensoDSGVO: this.props.data.clienti.dataConsensoDSGVO
-          ? this.props.data.clienti.dataConsensoDSGVO.valueOf()
+        dataConsensoDSGVO: clienti.dataConsensoDSGVO
+          ? clienti.dataConsensoDSGVO.valueOf()
           : null,
-        consensoDSGVO: this.props.data.clienti.consensoDSGVO,
+        consensoDSGVO: clienti.consensoDSGVO,
       });
     }
   };
@@ -140,6 +143,15 @@ export class CustomerForm extends React.Component {
         {renderInput('clienti', 'bank', t('Banca'))}
         {renderInput('clienti', 'iban', 'IBAN')}
         {renderInput('clienti', 'bic', 'BIC/SWIFT')}
+        {renderInput(
+          'clienti',
+          'cloudURL',
+          'Cloud URL',
+          undefined,
+          undefined,
+          undefined,
+          'https://www...'
+        )}
         {renderTextArea('clienti', 'note', 'Note')}
         {this.props.utente.role === 'Admin'
           ? renderCheckbox('clienti', 'visible', t('Visibile'))

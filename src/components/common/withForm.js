@@ -12,6 +12,11 @@ function withForm(Component) {
       this.state = {
         clienti: {
           //CLIENTI
+          cloudURL: props.customer
+            ? props.customer.cloudURL
+              ? props.customer.cloudURL
+              : ''
+            : '',
           nome: props.customer ? props.customer.nome : '',
           cognome: props.customer ? props.customer.cognome : '',
           titolo: props.customer ? props.customer.titolo : '',
@@ -221,6 +226,11 @@ function withForm(Component) {
         },
         oggetti: {
           //OGGETTO
+          cloudURL: props.oggetto
+            ? props.oggetto.cloudURL
+              ? props.oggetto.cloudURL
+              : ''
+            : '',
           visible: props.oggetto ? props.oggetto.visible : true,
           note: props.oggetto ? props.oggetto.note : '',
           nazione: props.oggetto ? props.oggetto.nazione : '',
