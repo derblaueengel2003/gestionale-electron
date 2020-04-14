@@ -11,7 +11,7 @@ export class CustomerForm extends React.Component {
     const { clienti } = this.props.data;
 
     if (!clienti.cognome) {
-      this.props.renderError(this.props.t('Vorname und Name bitte eingeben.'));
+      this.props.renderError(this.props.t('Inserisci nome e cognome'));
     } else {
       this.props.renderError('');
       this.props.onSubmit({
