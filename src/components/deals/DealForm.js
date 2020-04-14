@@ -125,7 +125,9 @@ export class DealForm extends React.Component {
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {deals.error && <p className='form__error'>{deals.error}</p>}
+        {this.props.data.error && (
+          <p className='form__error'>{this.props.data.error}</p>
+        )}
         <div>
           <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>

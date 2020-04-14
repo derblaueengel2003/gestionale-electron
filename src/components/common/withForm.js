@@ -357,9 +357,6 @@ function withForm(Component) {
             placeholder={placeholder}
             onChange={(e) => handler(e, object, args)}
           />
-          {this.state.error && (
-            <div className='card-panel pink lighten-4'>{this.state.error}</div>
-          )}
         </div>
       );
     };

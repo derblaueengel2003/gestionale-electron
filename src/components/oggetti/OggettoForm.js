@@ -123,7 +123,9 @@ export class OggettoForm extends React.Component {
     }));
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {oggetti.error && <p className='form__error'>{oggetti.error}</p>}
+        {this.props.data.error && (
+          <p className='form__error'>{this.props.data.error}</p>
+        )}{' '}
         <div>
           <button className='btn-floating blue right btn-floating-margin'>
             <i className='material-icons'>save</i>
@@ -522,7 +524,6 @@ export class OggettoForm extends React.Component {
             </ul>
           </div>
         </div>
-
         <div>
           <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>

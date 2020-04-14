@@ -70,6 +70,9 @@ export class CustomerForm extends React.Component {
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
+        {this.props.data.error && (
+          <p className='form__error'>{this.props.data.error}</p>
+        )}
         <div>
           <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>
@@ -78,7 +81,6 @@ export class CustomerForm extends React.Component {
         {this.props.data.error ===
           'Cliente forse già presente nel gestionale' && (
           <div>
-            <p className='form__error'>{this.props.data.error}</p>
             <Link to={`/customer`} target='_blank' className='btn'>
               {t('Verificare')}
             </Link>
@@ -163,9 +165,7 @@ export class CustomerForm extends React.Component {
         {this.props.utente.role === 'Admin'
           ? renderCheckbox('clienti', 'visible', t('Visibile'))
           : ''}
-        {this.props.data.error && (
-          <p className='form__error'>{this.props.data.error}</p>
-        )}
+
         {renderCheckbox(
           'clienti',
           'consensoDSGVO',
@@ -176,6 +176,9 @@ export class CustomerForm extends React.Component {
           'dataConsensoDSGVO',
           'calendarDataConsensoDSGVOFocused',
           t('Data consenso')
+        )}
+        {this.props.data.error && (
+          <p className='form__error'>{this.props.data.error}</p>
         )}
         <div>
           <button className='btn-floating blue right'>

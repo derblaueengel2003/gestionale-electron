@@ -25,7 +25,7 @@ class NotarDatenblattForm extends Component {
     const prezzoDiVendita =
       parseFloat(this.props.data.moduli.prezzoDiVendita.replace(/,/, '.'), 10) *
       100;
-    const verwalter = this.findContact(oggetto.verwalter);
+    const verwalter = oggetto && this.findContact(oggetto.verwalter);
 
     if (!this.props.data.moduli.oggettoId) {
       this.props.renderError(this.props.t('Inserisci oggetto'));
@@ -89,8 +89,8 @@ class NotarDatenblattForm extends Component {
           </div>
         </div>
         <form className='form container' onSubmit={this.onSubmit}>
-          {this.props.data.moduli.error && (
-            <p className='form__error'>{this.props.data.moduli.error}</p>
+          {this.props.data.error && (
+            <p className='form__error'>{this.props.data.error}</p>
           )}
           {renderSelect('moduli', 'venditoreId', options, t('Venditore'))}
           {renderSelect(

@@ -89,7 +89,9 @@ export class FatturaForm extends React.Component {
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {fatture.error && <p className='form__error'>{fatture.error}</p>}
+        {this.props.data.error && (
+          <p className='form__error'>{this.props.data.error}</p>
+        )}{' '}
         <div>
           <button className='btn-floating blue right btn-floating-margin'>
             <i className='material-icons'>save</i>
@@ -124,7 +126,6 @@ export class FatturaForm extends React.Component {
           undefined,
           changeHandlerValuta
         )}
-
         {renderSingleDate(
           'fatture',
           'dataMahnung2',
@@ -139,7 +140,6 @@ export class FatturaForm extends React.Component {
           changeHandlerValuta
         )}
         {renderCheckbox('fatture', 'payed', t('Pagato'))}
-
         <div className={`visible-${fatture.payed} form`}>
           {renderSingleDate(
             'fatture',

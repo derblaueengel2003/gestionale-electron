@@ -77,8 +77,8 @@ export class MAAForm extends React.Component {
           </div>
         </div>
         <form className='form container' onSubmit={this.onSubmit}>
-          {this.props.data.moduli.error && (
-            <p className='form__error'>{this.props.data.moduli.error}</p>
+          {this.props.data.error && (
+            <p className='form__error'>{this.props.data.error}</p>
           )}
           {renderSelect('moduli', 'venditoreId', options, t('Venditore'))}
           {renderSelect(

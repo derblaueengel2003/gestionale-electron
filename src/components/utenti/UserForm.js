@@ -33,8 +33,8 @@ class UserForm extends React.Component {
     );
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.props.data.users.error && (
-          <p className='form__error'>{this.props.data.users.error}</p>
+        {this.props.data.error && (
+          <p className='form__error'>{this.props.data.error}</p>
         )}
         <div>
           <button className='btn-floating blue right'>
