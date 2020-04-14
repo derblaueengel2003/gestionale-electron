@@ -7,7 +7,7 @@ import Card from '../Card';
 import numeral from 'numeral';
 import moment from 'moment';
 
-const findImmobile = lead => {
+const findImmobile = (lead) => {
   let immobile = '';
   if (lead.leadOggettoStato === 'commerciale') {
     immobile = `Locale ${lead.leadOggettoStato}`;
@@ -24,16 +24,16 @@ const findImmobile = lead => {
 };
 
 const findCliente = (lead, clienti) => {
-  return clienti.find(cliente => cliente.id === lead.leadId);
+  return clienti.find((cliente) => cliente.id === lead.leadId);
 };
 
 const findConsulenteVendita = (clienteNomeCognome, utenti) => {
   return utenti.find(
-    utente => utente.id === clienteNomeCognome.consulenteVenditaId
+    (utente) => utente.id === clienteNomeCognome.consulenteVenditaId
   );
 };
 
-export const LeadsList = props => {
+export const LeadsList = (props) => {
   //controllo se la i dati vengono dalla scheda clienti e sono passati via props
   const leadsPayload = props.userLeads || props.leads;
 
@@ -42,8 +42,8 @@ export const LeadsList = props => {
       <div className='list-body'>
         {leadsPayload.length > 0 && (
           <div>
-            <h5>{props.t('Richieste')}</h5>
-            {leadsPayload.map(lead => {
+            <h5>{props.ruolo || ''}</h5>
+            {leadsPayload.map((lead) => {
               const clienteNomeCognome = findCliente(lead, props.clienti);
               const consulenteVendita = findConsulenteVendita(
                 clienteNomeCognome,
@@ -105,11 +105,11 @@ export const LeadsList = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     leads: selectLeads(state.leads, state.filters),
     clienti: state.clienti,
-    utenti: state.utenti
+    utenti: state.utenti,
   };
 };
 

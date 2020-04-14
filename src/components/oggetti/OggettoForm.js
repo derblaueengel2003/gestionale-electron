@@ -11,7 +11,6 @@ import M from 'materialize-css';
 
 export class OggettoForm extends React.Component {
   componentDidMount() {
-    M.Tabs.init(this.Tabs);
     M.AutoInit();
   }
 
@@ -26,11 +25,9 @@ export class OggettoForm extends React.Component {
     const kaufpreis = parseFloat(oggetti.kaufpreis.replace(/,/, '.'), 10) * 100;
 
     if (!oggetti.via || !oggetti.rifId) {
-      this.setState(() => ({
-        error: this.props.t('Inserisci indirizzo e Rif ID'),
-      }));
+      this.props.renderError(this.props.t('Inserisci indirizzo e Rif ID'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
 
       this.props.onSubmit({
         cloudURL: oggetti.cloudURL,

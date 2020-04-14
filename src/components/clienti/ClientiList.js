@@ -14,7 +14,7 @@ export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
       <div className='list-body'>
         {clientiPayload.length > 0 && (
           <div>
-            <h5>{ruolo || `${t('Rubrica')}`}</h5>
+            <h5>{ruolo || ''}</h5>
 
             {clientiPayload
               .sort((a, b) => {

@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
+import moment from 'moment';
 import numeral from 'numeral';
+import Geocode from 'react-geocode';
 import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
-import Geocode from 'react-geocode';
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
 Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
@@ -29,6 +29,8 @@ export class ViewOggettiPage extends React.Component {
   }
 
   componentDidMount() {
+    M.AutoInit();
+
     Geocode.fromAddress(
       `${this.props.oggetto.via} ${this.props.oggetto.numeroCivico}, ${this.props.oggetto.cap} ${this.props.oggetto.citta}`
     ).then(
@@ -61,7 +63,9 @@ export class ViewOggettiPage extends React.Component {
       <div>
         <div className='grey lighten-4'>
           <div className='container'>
-            <h1>{t('Oggetto')}</h1>
+            <h1>
+              {`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta} ${oggetto.quartiere}`}
+            </h1>
           </div>
         </div>
         <div className='container section'>
@@ -93,94 +97,102 @@ export class ViewOggettiPage extends React.Component {
           </div>
 
           <div>
-            {oggetto.via && (
-              <h5>{`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta} ${oggetto.quartiere}`}</h5>
-            )}
             {oggetto.tipologia && (
               <p>Tipo di immobile: {t(oggetto.tipologia)}</p>
             )}
             {oggetto.rifId && <p>Ref. id: {oggetto.rifId}</p>}
-            {oggetto.dataInserimentoOggetto && (
-              <p>
-                Data inserimento oggetto:{' '}
-                {moment(oggetto.dataInserimentoOggetto).format('DD MMMM, YYYY')}
-              </p>
-            )}
-            {oggetto.dataModificaOggetto && (
-              <p>
-                Data modifica oggetto:{' '}
-                {moment(oggetto.dataModificaOggetto).format('DD MMMM, YYYY')}
-              </p>
-            )}
             {oggetto.kaufpreis > 0 && (
               <p>{`${t('Prezzo di vendita')}: ${numeral(
                 oggetto.kaufpreis / 100
               ).format('0,0[.]00 $')}`}</p>
             )}
-            {oggetto.amtsgericht && (
-              <p>
-                {t('Pretura (Amtsgericht)')}: {oggetto.amtsgericht}
-              </p>
-            )}
-            {oggetto.grundbuch && (
-              <p>
-                {t('Libro Fondiario (Grundbuch)')} {oggetto.grundbuch}
-              </p>
-            )}
-            {oggetto.grundbuchBlatt && (
-              <p>
-                {t('Foglio')} Nr.: {oggetto.grundbuchBlatt}
-              </p>
-            )}
-            {oggetto.ruecklage && (
-              <p>
-                {t('Fondo di accantonamento per manutenzione')}:{' '}
-                {oggetto.ruecklage}
-              </p>
-            )}
-            {oggetto.baujahr && (
-              <p>{`${t('Anno di costruzione')}: ${oggetto.baujahr}`}</p>
-            )}
-            {oggetto.energieAusweisTyp && (
-              <p>{`${t('Certificato energetico - tipologia')}: ${
-                oggetto.energieAusweisTyp
-              }`}</p>
-            )}
-            {oggetto.energieAusweisBis && (
-              <p>{`${t('Valido fino al')}: ${oggetto.energieAusweisBis}`}</p>
-            )}
-            {oggetto.heizungsart && (
-              <p>{`${t('Tipologia riscaldamento')}: ${oggetto.heizungsart}`}</p>
-            )}
-            {oggetto.energieTraeger && (
-              <p>{`${t('Fonte energetica')}: ${oggetto.energieTraeger}`}</p>
-            )}
-            {oggetto.energieBedarf && (
-              <p>{`${t('Consumo energetico')}: ${oggetto.energieBedarf}`}</p>
-            )}
+            <ul className='collapsible'>
+              <li>
+                <div className='collapsible-header'>
+                  <i className='material-icons'>list</i>
+                  {t('Dettagli immobile')}
+                </div>
+                <div className='collapsible-body'>
+                  {oggetto.amtsgericht && (
+                    <p>
+                      {t('Pretura (Amtsgericht)')}: {oggetto.amtsgericht}
+                    </p>
+                  )}
+                  {oggetto.grundbuch && (
+                    <p>
+                      {t('Libro Fondiario (Grundbuch)')} {oggetto.grundbuch}
+                    </p>
+                  )}
+                  {oggetto.grundbuchBlatt && (
+                    <p>
+                      {t('Foglio')} Nr.: {oggetto.grundbuchBlatt}
+                    </p>
+                  )}
+                  {oggetto.ruecklage && (
+                    <p>
+                      {t('Fondo di accantonamento per manutenzione')}:{' '}
+                      {oggetto.ruecklage}
+                    </p>
+                  )}
+                  {oggetto.baujahr && (
+                    <p>{`${t('Anno di costruzione')}: ${oggetto.baujahr}`}</p>
+                  )}
+                  {oggetto.energieAusweisTyp && (
+                    <p>{`${t('Certificato energetico - tipologia')}: ${
+                      oggetto.energieAusweisTyp
+                    }`}</p>
+                  )}
+                  {oggetto.energieAusweisBis && (
+                    <p>{`${t('Valido fino al')}: ${
+                      oggetto.energieAusweisBis
+                    }`}</p>
+                  )}
+                  {oggetto.heizungsart && (
+                    <p>{`${t('Tipologia riscaldamento')}: ${
+                      oggetto.heizungsart
+                    }`}</p>
+                  )}
+                  {oggetto.energieTraeger && (
+                    <p>{`${t('Fonte energetica')}: ${
+                      oggetto.energieTraeger
+                    }`}</p>
+                  )}
+                  {oggetto.energieBedarf && (
+                    <p>{`${t('Consumo energetico')}: ${
+                      oggetto.energieBedarf
+                    }`}</p>
+                  )}
 
-            {oggetto.m2 && <p>{`m2: ${oggetto.m2}`}</p>}
-            {oggetto.piano && <p>{`${t('Piano')}: ${oggetto.piano}`}</p>}
-            {oggetto.stato && (
-              <p>{`${t('Stato abitativo')}: ${oggetto.stato}`}</p>
-            )}
-            {oggetto.affittoNetto > 0 && (
-              <p>{`${t('Affitto netto')}: ${numeral(
-                oggetto.affittoNetto / 100
-              ).format('0,0[.]00 $')}`}</p>
-            )}
-            {`${t('Quota condominiale')}: ${numeral(
-              oggetto.wohngeld / 100
-            ).format('0,0[.]00 $')}`}
-            {oggetto.vani && <p>{`${t('Vani')}: ${oggetto.vani}`}</p>}
-            {oggetto.bagni && <p>{`${t('Bagni')}: ${oggetto.bagni}`}</p>}
-            {oggetto.balcone && <p>{`${t('Balcone')}: ${t('sì')}`}</p>}
-            {oggetto.ascensore && <p>{`${t('Ascensore')}: ${t('sì')}`}</p>}
-            {oggetto.giardino && <p>{`${t('Giardino')}: ${t('sì')}`}</p>}
-            {oggetto.cantina && <p>{`${t('Cantina')}: ${t('sì')}`}</p>}
-            {oggetto.condizioni && (
-              <p>{`${t('Condizioni immobile')}: ${oggetto.condizioni}`}</p>
-            )}
+                  {oggetto.m2 && <p>{`m2: ${oggetto.m2}`}</p>}
+                  {oggetto.piano && <p>{`${t('Piano')}: ${oggetto.piano}`}</p>}
+                  {oggetto.stato && (
+                    <p>{`${t('Stato abitativo')}: ${oggetto.stato}`}</p>
+                  )}
+                  {oggetto.affittoNetto > 0 && (
+                    <p>{`${t('Affitto netto')}: ${numeral(
+                      oggetto.affittoNetto / 100
+                    ).format('0,0[.]00 $')}`}</p>
+                  )}
+                  {`${t('Quota condominiale')}: ${numeral(
+                    oggetto.wohngeld / 100
+                  ).format('0,0[.]00 $')}`}
+                  {oggetto.vani && <p>{`${t('Vani')}: ${oggetto.vani}`}</p>}
+                  {oggetto.bagni && <p>{`${t('Bagni')}: ${oggetto.bagni}`}</p>}
+                  {oggetto.balcone && <p>{`${t('Balcone')}: ${t('sì')}`}</p>}
+                  {oggetto.ascensore && (
+                    <p>{`${t('Ascensore')}: ${t('sì')}`}</p>
+                  )}
+                  {oggetto.giardino && <p>{`${t('Giardino')}: ${t('sì')}`}</p>}
+                  {oggetto.cantina && <p>{`${t('Cantina')}: ${t('sì')}`}</p>}
+                  {oggetto.condizioni && (
+                    <p>{`${t('Condizioni immobile')}: ${
+                      oggetto.condizioni
+                    }`}</p>
+                  )}
+                </div>
+              </li>
+            </ul>
+
             {oggetto.note && <p>{`Note: ${oggetto.note}`}</p>}
             {oggetto.venduto === true && (
               <h5 className='red-text'>{t('Venduto')}!</h5>
@@ -393,6 +405,18 @@ export class ViewOggettiPage extends React.Component {
             </div>
             <div>{`Title: ${oggetto.titoloEn}`}</div>
             <div>{`Description: ${oggetto.descrizioneEn}`}</div>
+          </div>
+        )}
+        {oggetto.dataInserimentoOggetto && (
+          <div className='container'>
+            Data inserimento oggetto:{' '}
+            {moment(oggetto.dataInserimentoOggetto).format('DD MMMM, YYYY')}
+          </div>
+        )}
+        {oggetto.dataModificaOggetto && (
+          <div className='container margine-basso'>
+            Data modifica oggetto:{' '}
+            {moment(oggetto.dataModificaOggetto).format('DD MMMM, YYYY')}
           </div>
         )}
       </div>

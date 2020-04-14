@@ -50,7 +50,11 @@ export class ViewClientiPage extends React.Component {
       <div>
         <div className='grey lighten-4'>
           <div className='container'>
-            <h1>{t('Rubrica')}</h1>
+            {cognome && (
+              <h1>
+                {titolo} {nome} {cognome}
+              </h1>
+            )}
           </div>
         </div>
         <div className='container section'>
@@ -98,11 +102,7 @@ export class ViewClientiPage extends React.Component {
 
           <div>
             {ditta && <h5>{ditta}</h5>}
-            {cognome && (
-              <h5>
-                {titolo} {nome} {cognome}
-              </h5>
-            )}
+
             {consulenteVendita && <p>{`(${consulenteVendita.name})`}</p>}
             {indirizzo && (
               <p>{`${indirizzo} ${
@@ -144,10 +144,10 @@ export class ViewClientiPage extends React.Component {
             )}
           </div>
         </div>
-        <LeadsList userLeads={this.props.leads} />
-        <OggettiList oggetto={this.props.oggetti} />
+        <LeadsList userLeads={this.props.leads} ruolo={t('Richieste')} />
+        <OggettiList oggetto={this.props.oggetti} ruolo={t('Oggetti')} />
 
-        <DealList clienteDeals={clienteDeals} />
+        <DealList clienteDeals={clienteDeals} ruolo={t('Vendite')} />
         {utente.role === 'Admin' && <FattureList dealFatture={dealFatture} />}
       </div>
     );

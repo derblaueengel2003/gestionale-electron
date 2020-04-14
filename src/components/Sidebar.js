@@ -10,7 +10,7 @@ export class Sidebar extends Component {
     const options = {
       inDuration: 250,
       outDuration: 200,
-      draggable: true
+      draggable: true,
     };
 
     M.Sidenav.init(this.Sidenav);
@@ -22,7 +22,7 @@ export class Sidebar extends Component {
     return (
       <div>
         <ul
-          ref={Sidenav => {
+          ref={(Sidenav) => {
             this.Sidenav = Sidenav;
           }}
           id='slide-out'
@@ -89,11 +89,11 @@ export class Sidebar extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     utente: state.utenti.find(
-      utente => utente.firebaseAuthId === state.auth.uid
-    )
+      (utente) => utente.firebaseAuthId === state.auth.uid
+    ),
   };
 };
 export default connect(mapStateToProps)(withTranslation()(Sidebar));

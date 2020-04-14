@@ -15,52 +15,41 @@ export class FatturaForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const importoNetto =
-      parseFloat(this.props.data.fatture.importoNetto.replace(/,/, '.'), 10) *
-      100;
-    const mahngebuehren =
-      parseFloat(this.props.data.fatture.mahngebuehren.replace(/,/, '.'), 10) *
-      100;
-    const mahngebuehren2 =
-      parseFloat(this.props.data.fatture.mahngebuehren2.replace(/,/, '.'), 10) *
-      100;
 
-    if (
-      !this.props.data.fatture.numeroFattura ||
-      !this.props.data.fatture.dataFattura
-    ) {
-      this.setState(() => ({
-        error: 'Datum und Rechnungsnummer bitte eingeben',
-      }));
+    const { fatture } = this.props.data;
+
+    const importoNetto =
+      parseFloat(fatture.importoNetto.replace(/,/, '.'), 10) * 100;
+    const mahngebuehren =
+      parseFloat(fatture.mahngebuehren.replace(/,/, '.'), 10) * 100;
+    const mahngebuehren2 =
+      parseFloat(fatture.mahngebuehren2.replace(/,/, '.'), 10) * 100;
+
+    if (!fatture.numeroFattura || !fatture.dataFattura) {
+      this.props.renderError(this.props.t('Inserisci data e numero fattura'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
       this.props.onSubmit({
-        dealId: this.props.data.fatture.dealId,
-        clienteId: this.props.data.fatture.clienteId,
-        clienteId2: this.props.data.fatture.clienteId2,
-        numeroFattura: this.props.data.fatture.numeroFattura,
-        dataFattura: this.props.data.fatture.dataFattura
-          ? this.props.data.fatture.dataFattura.valueOf()
+        dealId: fatture.dealId,
+        clienteId: fatture.clienteId,
+        clienteId2: fatture.clienteId2,
+        numeroFattura: fatture.numeroFattura,
+        dataFattura: fatture.dataFattura ? fatture.dataFattura.valueOf() : null,
+        dataZahlungserinnerung: fatture.dataZahlungserinnerung
+          ? fatture.dataZahlungserinnerung.valueOf()
           : null,
-        dataZahlungserinnerung: this.props.data.fatture.dataZahlungserinnerung
-          ? this.props.data.fatture.dataZahlungserinnerung.valueOf()
-          : null,
-        dataMahnung: this.props.data.fatture.dataMahnung
-          ? this.props.data.fatture.dataMahnung.valueOf()
-          : null,
-        dataMahnung2: this.props.data.fatture.dataMahnung2
-          ? this.props.data.fatture.dataMahnung2.valueOf()
+        dataMahnung: fatture.dataMahnung ? fatture.dataMahnung.valueOf() : null,
+        dataMahnung2: fatture.dataMahnung2
+          ? fatture.dataMahnung2.valueOf()
           : null,
         mahngebuehren,
         mahngebuehren2,
-        payed: this.props.data.fatture.payed,
-        payedAt: this.props.data.fatture.payedAt
-          ? this.props.data.fatture.payedAt.valueOf()
-          : null,
-        descrizioneProdotto: this.props.data.fatture.descrizioneProdotto,
+        payed: fatture.payed,
+        payedAt: fatture.payedAt ? fatture.payedAt.valueOf() : null,
+        descrizioneProdotto: fatture.descrizioneProdotto,
         importoNetto,
-        dataPrestazione: this.props.data.fatture.dataPrestazione
-          ? this.props.data.fatture.dataPrestazione.valueOf()
+        dataPrestazione: fatture.dataPrestazione
+          ? fatture.dataPrestazione.valueOf()
           : null,
       });
     }
@@ -75,6 +64,9 @@ export class FatturaForm extends React.Component {
       renderSingleDate,
       changeHandlerValuta,
     } = this.props;
+
+    const { fatture } = this.props.data;
+
     const options = this.props.clienti.map((cliente) => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${
@@ -82,33 +74,22 @@ export class FatturaForm extends React.Component {
       }`,
     }));
 
-    const dealIdOptions = this.props.deals.map((deal) => ({
-      value: deal.id,
-      label: `${
-        this.props.oggetti.find((ogg) => ogg.id === deal.oggettoId).rifId
-      } - 
-                        ${
-                          this.props.oggetti.find(
-                            (ogg) => ogg.id === deal.oggettoId
-                          ).via
-                        } 
-                        ${
-                          this.props.oggetti.find(
-                            (ogg) => ogg.id === deal.oggettoId
-                          ).numeroCivico
-                        },
-                        WE ${
-                          this.props.oggetti.find(
-                            (ogg) => ogg.id === deal.oggettoId
-                          ).numeroAppartamento
-                        }`,
-    }));
+    const dealIdOptions = this.props.deals.map((deal) => {
+      const oggetto = this.props.oggetti.find(
+        (ogg) => ogg.id === deal.oggettoId
+      );
+      return {
+        value: deal.id,
+        label: `${oggetto.rifId} - 
+                        ${oggetto.via} 
+                        ${oggetto.numeroCivico},
+                        WE ${oggetto.numeroAppartamento}`,
+      };
+    });
 
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        {this.props.data.fatture.error && (
-          <p className='form__error'>{this.props.data.fatture.error}</p>
-        )}
+        {fatture.error && <p className='form__error'>{fatture.error}</p>}
         <div>
           <button className='btn-floating blue right btn-floating-margin'>
             <i className='material-icons'>save</i>
@@ -159,7 +140,7 @@ export class FatturaForm extends React.Component {
         )}
         {renderCheckbox('fatture', 'payed', t('Pagato'))}
 
-        <div className={`visible-${this.props.data.fatture.payed} form`}>
+        <div className={`visible-${fatture.payed} form`}>
           {renderSingleDate(
             'fatture',
             'payedAt',

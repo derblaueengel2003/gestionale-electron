@@ -1,30 +1,33 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Route, Redirect } from 'react-router-dom'
-import Header from '../components/Header'
-import NavBar from '../components/NavBar'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
+import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 
-
-export const PrivateRoute = ({ 
-    isAuthenticated, 
-    component: Component,
-    ...rest
+export const PrivateRoute = ({
+  isAuthenticated,
+  activeClass,
+  component: Component,
+  ...rest
 }) => (
-    <Route {...rest} component={(props) => (
-        isAuthenticated ? (
-                <div>
-                <Header />
-                <NavBar />
-                <Component {...props} />
-                </div>
-        ) : (
-            <Redirect to="/" />
-        )
-    )}/>
-)
+  <Route
+    {...rest}
+    component={(props) =>
+      isAuthenticated ? (
+        <div>
+          <Header />
+          <NavBar activeClass={activeClass} />
+          <Component {...props} />
+        </div>
+      ) : (
+        <Redirect to='/' />
+      )
+    }
+  />
+);
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: !!state.auth.uid
-})
+  isAuthenticated: !!state.auth.uid,
+});
 
-export default connect(mapStateToProps)(PrivateRoute)
+export default connect(mapStateToProps)(PrivateRoute);

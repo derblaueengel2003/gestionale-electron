@@ -24,17 +24,18 @@ export class DealForm extends React.Component {
     const provvSum = provvM2square + provvStefano + provvAgenziaPartner;
 
     if (!deals.oggettoId || !deals.amount || !deals.acquirenteId) {
-      this.setState(() => ({
-        error: 'Objekt, Summe und Käufer bitte ausfüllen.',
-      }));
+      this.props.renderError(
+        this.props.t('Inserisci oggetto, provvigione totale e acquirente')
+      );
     } else if (amount !== provvSum) {
       const differenza = (provvSum - amount) / 100;
-
-      this.setState(() => ({
-        error: `Provisionen-Summe entrspricht nicht die Gesamtprovision. ${differenza} € Unterschied.`,
-      }));
+      this.props.renderError(
+        `${this.props.t(
+          'La somma delle provvigioni non corrisponde alla provvigione totale'
+        )}. ${this.props.t('Differenza di')} ${differenza}`
+      );
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
 
       this.props.onSubmit({
         oggettoId: deals.oggettoId,

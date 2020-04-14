@@ -1,71 +1,54 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Translation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import Sidebar from './Sidebar';
 
-export const NavBar = ({ utente }) => {
-  return (
-    <Translation>
-      {t => {
-        if (utente) {
-          return (
-            <nav className='nav-wraper blue'>
-              <div className='container'>
-                <Sidebar />
-                <ul className='hide-on-med-and-down'>
-                  <li>
-                    {' '}
-                    <Link to='/dashboard'>{t('Vendite')}</Link>
-                  </li>
-                  <li>
-                    {' '}
-                    <Link to='/leads'>{t('Richieste')}</Link>
-                  </li>
-                  <li>
-                    {' '}
-                    <Link to='/moduli'>{t('Moduli')}</Link>
-                  </li>
-                  <li>
-                    {' '}
-                    <Link to='/oggetti'>{t('Oggetti')}</Link>
-                  </li>
-                  <li>
-                    {' '}
-                    <Link to='/customer'>{t('Contatti')}</Link>
-                  </li>
-                  {utente.role === 'Admin' && (
-                    <li>
-                      <Link to='/report'>Report</Link>
-                    </li>
-                  )}
-                  {utente.role === 'Admin' && (
-                    <li>
-                      <Link to='/users'>{t('Utenti')}</Link>
-                    </li>
-                  )}
-                  {utente.role === 'Admin' && (
-                    <li>
-                      <Link to='/fatture'>{t('Fatture')}</Link>
-                    </li>
-                  )}
-                </ul>
-              </div>
-            </nav>
-          );
-        } else {
-          setTimeout(location.reload(), 500);
-        }
-      }}
-    </Translation>
-  );
+export const NavBar = ({ utente, t, activeClass }) => {
+  if (utente) {
+    let menuItems = [
+      { pathLink: 'dashboard', label: t('Vendite') },
+      { pathLink: 'leads', label: t('Richieste') },
+      { pathLink: 'moduli', label: t('Moduli') },
+      { pathLink: 'oggetti', label: t('Oggetti') },
+      { pathLink: 'customer', label: t('Contatti') },
+    ];
+    if (utente.role === 'Admin') {
+      menuItems = [
+        ...menuItems,
+        { pathLink: 'report', label: 'Report' },
+        { pathLink: 'users', label: t('Utenti') },
+        { pathLink: 'fatture', label: t('Fatture') },
+      ];
+    }
+    return (
+      <nav className='nav-wraper blue'>
+        <div className='container'>
+          <Sidebar />
+          <ul className='hide-on-med-and-down'>
+            {menuItems.map((item) => (
+              <li
+                key={item.pathLink}
+                className={activeClass === item.pathLink ? 'active' : ''}
+              >
+                <Link to={`/${item.pathLink}`}>{item.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    );
+  } else {
+    setTimeout(location.reload(), 500);
+    return <div>reloading</div>;
+  }
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     utente: state.utenti.find(
-      utente => utente.firebaseAuthId === state.auth.uid
-    )
+      (utente) => utente.firebaseAuthId === state.auth.uid
+    ),
   };
 };
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps)(withTranslation()(NavBar));

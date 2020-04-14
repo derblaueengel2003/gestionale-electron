@@ -15,7 +15,7 @@ export const OggettiList = (props) => {
       <div className='list-body'>
         {oggettiPayload.length > 0 && (
           <div>
-            <h5>{props.ruolo || props.t('Oggetti')}</h5>
+            <h5>{props.ruolo || ''}</h5>
             {oggettiPayload
               .sort((a, b) => {
                 return a.visible < b.visible ? -1 : 1;

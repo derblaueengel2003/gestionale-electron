@@ -10,9 +10,9 @@ class UserForm extends React.Component {
     e.preventDefault();
 
     if (!this.props.data.users.name || !this.props.data.users.role) {
-      this.setState(() => ({ error: this.props.t('Inserisci Nome e Ruolo') }));
+      this.props.renderError(this.props.t('Inserisci Nome e Ruolo'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
       this.props.onSubmit({
         name: this.props.data.users.name,
         role: this.props.data.users.role,

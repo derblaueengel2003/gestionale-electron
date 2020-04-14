@@ -13,7 +13,7 @@ export const FattureList = (props) => {
     <div className='container'>
       {fatturePayload.length > 0 && (
         <div>
-          <h5>{props.t('Fatture')}</h5>
+          <h5>{props.ruolo || ''}</h5>
           {fatturePayload
             .sort((a, b) => {
               return a.dataFattura > b.dataFattura ? -1 : 1;

@@ -14,7 +14,7 @@ export const Card = ({
   visible,
   link,
   utente,
-  verkauft
+  verkauft,
 }) => {
   if (visible || utente.role === 'Admin') {
     return (
@@ -23,14 +23,14 @@ export const Card = ({
           <div className='card'>
             <div className='card-content'>
               <div className='row'>
-                <div className='col s12 m9'>
+                <div className='col s12 m8'>
                   <div className={visible ? '' : 'disabled'}>
                     <div>
                       <Link to={link}>
                         <span className='card-title'>{titolo}</span>
                       </Link>
                       <h6>{sottotitolo}</h6>
-                      {corpo.map(linea => (
+                      {corpo.map((linea) => (
                         <p key={uuidv4()}>{linea}</p>
                       ))}
                       <p>{lineaNote}</p>
@@ -53,11 +53,11 @@ export const Card = ({
   }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     utente: state.utenti.find(
-      utente => utente.firebaseAuthId === state.auth.uid
-    )
+      (utente) => utente.firebaseAuthId === state.auth.uid
+    ),
   };
 };
 

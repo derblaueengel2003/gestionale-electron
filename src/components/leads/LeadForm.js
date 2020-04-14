@@ -17,9 +17,9 @@ export class LeadForm extends React.Component {
     const leadBudget = parseFloat(this.props.data.leads.leadBudget, 10) * 100;
 
     if (!this.props.data.leads.leadId || this.props.data.leads.leadBudget < 1) {
-      this.setState(() => ({ error: 'Budget bitte eingeben' }));
+      this.props.renderError(this.props.t('Inserisci il budget'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
       this.props.onSubmit({
         leadCreatedAt: this.props.data.leads.leadCreatedAt
           ? this.props.data.leads.leadCreatedAt.valueOf()

@@ -11,11 +11,9 @@ export class CustomerForm extends React.Component {
     const { clienti } = this.props.data;
 
     if (!clienti.cognome) {
-      this.setState(() => ({
-        error: 'Vorname und Name bitte eingeben.',
-      }));
+      this.props.renderError(this.props.t('Vorname und Name bitte eingeben.'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
       this.props.onSubmit({
         cloudURL: clienti.cloudURL,
         nome: clienti.nome,
@@ -77,7 +75,8 @@ export class CustomerForm extends React.Component {
             <i className='material-icons'>save</i>
           </button>
         </div>
-        {this.props.data.error && (
+        {this.props.data.error ===
+          'Cliente forse già presente nel gestionale' && (
           <div>
             <p className='form__error'>{this.props.data.error}</p>
             <Link to={`/customer`} target='_blank' className='btn'>
@@ -97,7 +96,15 @@ export class CustomerForm extends React.Component {
           consulenteVenditaOptions,
           t('Consulente vendita')
         )}
-        {renderInput('clienti', 'titolo', t('Titolo'))}
+        {renderSelect(
+          'clienti',
+          'titolo',
+          [
+            { value: 'Herr', label: 'Herr' },
+            { value: 'Frau', label: 'Frau' },
+          ],
+          t('Titolo')
+        )}
         {renderInput('clienti', 'nome', t('Nome'))}
         {/* Quando uso la validazione per vedere se il cliente è già presente
         devo passare, oltre all'handler per la validazione, anche i clienti come argomento */}

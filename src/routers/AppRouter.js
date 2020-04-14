@@ -52,64 +52,204 @@ const AppRouter = ({ uid }) => {
       <div>
         <Switch>
           <PublicRoute path='/' component={LoginPage} exact={true} />
-          <PrivateRoute path='/dashboard' component={DealDashboardPage} />
-          <PrivateRoute path='/create' component={AddDealPage} />
-          <PrivateRoute path='/edit/:id' component={EditDealPage} />
-          <PrivateRoute path='/view/:id' component={ViewDealPage} />
 
-          <PrivateRoute path='/users' component={UtentiDashboardPage} />
-          <PrivateRoute path='/usercreate' component={AddUserPage} />
-          <PrivateRoute path='/useredit/:id' component={EditUtentePage} />
-          <PrivateRoute path='/userview/:id' component={ViewUtentiPage} />
+          {/* DEALS */}
+          <PrivateRoute
+            path='/dashboard'
+            activeClass='dashboard'
+            component={DealDashboardPage}
+          />
+          <PrivateRoute
+            path='/create'
+            activeClass='dashboard'
+            component={AddDealPage}
+          />
+          <PrivateRoute
+            path='/edit/:id'
+            activeClass='dashboard'
+            component={EditDealPage}
+          />
+          <PrivateRoute
+            path='/view/:id'
+            activeClass='dashboard'
+            component={ViewDealPage}
+          />
 
-          <PrivateRoute path='/customer' component={ClientiDashboardPage} />
-          <PrivateRoute path='/customercreate' component={AddClientiPage} />
-          <PrivateRoute path='/customeredit/:id' component={EditClientiPage} />
-          <PrivateRoute path='/customerview/:id' component={ViewClientiPage} />
+          {/* CLIENTI */}
+          <PrivateRoute
+            path='/customer'
+            activeClass='customer'
+            component={ClientiDashboardPage}
+          />
+          <PrivateRoute
+            path='/customercreate'
+            activeClass='customer'
+            component={AddClientiPage}
+          />
+          <PrivateRoute
+            path='/customeredit/:id'
+            activeClass='customer'
+            component={EditClientiPage}
+          />
+          <PrivateRoute
+            path='/customerview/:id'
+            activeClass='customer'
+            component={ViewClientiPage}
+          />
 
-          <PrivateRoute path='/oggetti' component={OggettiDashboardPage} />
-          <PrivateRoute path='/oggettocreate' component={AddOggettoPage} />
-          <PrivateRoute path='/oggettoview/:id' component={ViewOggettiPage} />
-          <PrivateRoute path='/oggettoedit/:id' component={EditOggettoPage} />
+          {/* OGGETTI */}
+          <PrivateRoute
+            path='/oggetti'
+            activeClass='oggetti'
+            component={OggettiDashboardPage}
+          />
+          <PrivateRoute
+            path='/oggettocreate'
+            activeClass='oggetti'
+            component={AddOggettoPage}
+          />
+          <PrivateRoute
+            path='/oggettoview/:id'
+            activeClass='oggetti'
+            component={ViewOggettiPage}
+          />
+          <PrivateRoute
+            path='/oggettoedit/:id'
+            activeClass='oggetti'
+            component={EditOggettoPage}
+          />
           <PrivateRoute
             path='/oggettomatchview/:id'
             component={ViewOggettoMatchPage}
           />
 
-          <PrivateRoute path='/firmacreate' component={AddFirmaPage} />
-          <PrivateRoute path='/firmaview/:id' component={ViewFirmaPage} />
-          <PrivateRoute path='/firmaedit/:id' component={EditFirmaPage} />
+          {/* UTENTI E DITTA */}
+          <PrivateRoute
+            path='/users'
+            activeClass='users'
+            component={UtentiDashboardPage}
+          />
+          <PrivateRoute
+            path='/usercreate'
+            activeClass='users'
+            component={AddUserPage}
+          />
+          <PrivateRoute
+            path='/useredit/:id'
+            activeClass='users'
+            component={EditUtentePage}
+          />
+          <PrivateRoute
+            path='/userview/:id'
+            activeClass='users'
+            component={ViewUtentiPage}
+          />
+          <PrivateRoute
+            path='/firmacreate'
+            activeClass='users'
+            component={AddFirmaPage}
+          />
+          <PrivateRoute
+            path='/firmaview/:id'
+            activeClass='users'
+            component={ViewFirmaPage}
+          />
+          <PrivateRoute
+            path='/firmaedit/:id'
+            activeClass='users'
+            component={EditFirmaPage}
+          />
 
-          <PrivateRoute path='/fatture' component={FattureDashboardPage} />
-          <PrivateRoute path='/fatturacreate' component={AddFatturaPage} />
-          <PrivateRoute path='/fatturaview/:id' component={ViewFatturaPage} />
-          <PrivateRoute path='/fatturaedit/:id' component={EditFatturaPage} />
+          {/* FATTURE */}
+          <PrivateRoute
+            path='/fatture'
+            activeClass='fatture'
+            component={FattureDashboardPage}
+          />
+          <PrivateRoute
+            path='/fatturacreate'
+            activeClass='fatture'
+            component={AddFatturaPage}
+          />
+          <PrivateRoute
+            path='/fatturaview/:id'
+            activeClass='fatture'
+            component={ViewFatturaPage}
+          />
+          <PrivateRoute
+            path='/fatturaedit/:id'
+            activeClass='fatture'
+            component={EditFatturaPage}
+          />
 
-          <PrivateRoute path='/leads' component={LeadsDashboardPage} />
-          <PrivateRoute path='/leadscreate' component={AddLeadPage} />
-          <PrivateRoute path='/leadedit/:id' component={EditLeadPage} />
+          {/* LEADS */}
+          <PrivateRoute
+            path='/leads'
+            activeClass='leads'
+            component={LeadsDashboardPage}
+          />
+          <PrivateRoute
+            path='/leadscreate'
+            activeClass='leads'
+            component={AddLeadPage}
+          />
+          <PrivateRoute
+            path='/leadedit/:id'
+            activeClass='leads'
+            component={EditLeadPage}
+          />
           <PrivateRoute
             path='/leadmatchview/:id'
+            activeClass='leads'
             component={ViewLeadMatchPage}
           />
-          <PrivateRoute path='/leadview/:id' component={ViewLeadPage} />
+          <PrivateRoute
+            path='/leadview/:id'
+            activeClass='leads'
+            component={ViewLeadPage}
+          />
 
-          <PrivateRoute path='/report' component={ReportPage} />
+          {/* REPORT */}
+          <PrivateRoute
+            path='/report'
+            activeClass='report'
+            component={ReportPage}
+          />
 
-          <PrivateRoute path='/moduli' component={ModuliPage} />
-          <PrivateRoute path='/makleralleinauftrag' component={MAAForm} />
+          {/* MODULI */}
+          <PrivateRoute
+            path='/moduli'
+            activeClass='moduli'
+            component={ModuliPage}
+          />
+          <PrivateRoute
+            path='/makleralleinauftrag'
+            activeClass='moduli'
+            component={MAAForm}
+          />
           <PrivateRoute
             path='/provisionsbestaetigung'
+            activeClass='moduli'
             component={ProvisionForm}
           />
-          <PrivateRoute path='/widerrufsbelehrung' component={VWBForm} />
+          <PrivateRoute
+            path='/widerrufsbelehrung'
+            activeClass='moduli'
+            component={VWBForm}
+          />
           <PrivateRoute
             path='/vollmachtnotarauftrag'
+            activeClass='moduli'
             component={NotarauftragForm}
           />
-          <PrivateRoute path='/vollmachtunterlagen' component={VollmachtForm} />
+          <PrivateRoute
+            path='/vollmachtunterlagen'
+            activeClass='moduli'
+            component={VollmachtForm}
+          />
           <PrivateRoute
             path='/notardatenblatt'
+            activeClass='moduli'
             component={NotarDatenblattForm}
           />
           <Route component={NotFoundPage} />
@@ -119,9 +259,9 @@ const AppRouter = ({ uid }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    uid: state.auth.uid
+    uid: state.auth.uid,
   };
 };
 

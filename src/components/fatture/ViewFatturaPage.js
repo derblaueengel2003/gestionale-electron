@@ -16,32 +16,38 @@ export class ViewFatturePage extends React.Component {
   render() {
     const { t } = this.props;
     let deal = this.props.deals.find(
-      deal => deal.id === this.props.fattura.dealId
+      (deal) => deal.id === this.props.fattura.dealId
     );
 
     const oggetto = deal
-      ? this.props.oggetti.find(ogg => ogg.id === deal.oggettoId)
+      ? this.props.oggetti.find((ogg) => ogg.id === deal.oggettoId)
       : '';
     const acquirente = deal
-      ? this.props.clienti.find(ilcliente => ilcliente.id === deal.acquirenteId)
+      ? this.props.clienti.find(
+          (ilcliente) => ilcliente.id === deal.acquirenteId
+        )
       : '';
     const acquirente2 = deal
       ? this.props.clienti.find(
-          ilcliente => ilcliente.id === deal.acquirenteId2
+          (ilcliente) => ilcliente.id === deal.acquirenteId2
         )
       : '';
     const cliente = this.props.clienti.find(
-      cliente => cliente.id === this.props.fattura.clienteId
+      (cliente) => cliente.id === this.props.fattura.clienteId
     );
     const cliente2 = this.props.clienti.find(
-      cliente => cliente.id === this.props.fattura.clienteId2
+      (cliente) => cliente.id === this.props.fattura.clienteId2
     );
 
     return (
       <div>
         <div className='grey lighten-4'>
           <div className='container'>
-            <h1>{t('Fattura')}</h1>
+            <h1>
+              {oggetto
+                ? `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
+                : this.props.fattura.descrizioneProdotto}
+            </h1>
           </div>
         </div>
         <div className='container section'>
@@ -264,8 +270,10 @@ export class ViewFatturePage extends React.Component {
         </div>
 
         {/* passo deal come array perché è quello che si aspetta il componente */}
-        {deal && <DealList clienteDeals={[deal]} />}
-        {oggetto && <OggettiList oggetto={[oggetto]} />}
+        {deal && <DealList clienteDeals={[deal]} ruolo={`${t('Vendita')}`} />}
+        {oggetto && (
+          <OggettiList oggetto={[oggetto]} ruolo={`${t('Oggetto')}`} />
+        )}
         {cliente && (
           <div>
             <ClientiList
@@ -288,14 +296,18 @@ export class ViewFatturePage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  fattura: state.fatture.find(fattura => fattura.id === props.match.params.id),
+  fattura: state.fatture.find(
+    (fattura) => fattura.id === props.match.params.id
+  ),
   clienti: state.clienti,
   deals: state.deals,
   oggetti: state.oggetti,
   firma: state.firma[0],
-  ceo: state.utenti.filter(utente => utente.qualifica === 'Geschäftsführer'),
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
-  lingua: state.lingua
+  ceo: state.utenti.filter((utente) => utente.qualifica === 'Geschäftsführer'),
+  utente: state.utenti.find(
+    (utente) => utente.firebaseAuthId === state.auth.uid
+  ),
+  lingua: state.lingua,
 });
 
 export default connect(mapStateToProps)(withTranslation()(ViewFatturePage));

@@ -38,6 +38,7 @@ export const DealList = ({
   utente,
   deals,
   t,
+  ruolo,
 }) => {
   //controllo se i dati vengono dal clienti page o sono passati via props
 
@@ -48,7 +49,7 @@ export const DealList = ({
       <div className='list-body'>
         {dealsPayload.length > 0 && (
           <div>
-            <h5>{t('Vendite')}</h5>
+            <h5>{ruolo || ''}</h5>
             {dealsPayload.map((deal) => {
               const oggetto = oggetti.find((ogg) => ogg.id === deal.oggettoId);
 

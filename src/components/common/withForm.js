@@ -332,6 +332,10 @@ function withForm(Component) {
     }
 
     //RENDER
+
+    renderError = (error = '') => {
+      this.setState({ error });
+    };
     renderInput = (
       object,
       property,
@@ -715,6 +719,7 @@ function withForm(Component) {
     render() {
       return (
         <Component
+          renderError={this.renderError}
           renderInput={this.renderInput}
           renderSingleDate={this.renderSingleDate}
           renderDateRange={this.renderDateRange}

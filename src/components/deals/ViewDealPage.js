@@ -75,7 +75,10 @@ export class ViewDealPage extends React.Component {
       <div>
         <div className='grey lighten-4'>
           <div className='container'>
-            <h1>{t('Dettagli vendita')}</h1>
+            <h1>
+              {oggetto &&
+                `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`}
+            </h1>
           </div>
         </div>
 
@@ -304,7 +307,7 @@ export class ViewDealPage extends React.Component {
         </div>
         {/* se invio un oggetto singolo lo devo far diventare un array per poter utilizzare .map nel componete */}
         <div>
-          <OggettiList oggetto={[oggetto]} />
+          <OggettiList oggetto={[oggetto]} ruolo={`${t('Oggetti')}`} />
         </div>
         {venditoreId && (
           <div>
@@ -343,7 +346,10 @@ export class ViewDealPage extends React.Component {
           </div>
         )}
         {utente.role === 'Admin' ? (
-          <FattureList dealFatture={this.props.fatture} />
+          <FattureList
+            dealFatture={this.props.fatture}
+            ruolo={`${t('Fatture')}`}
+          />
         ) : (
           ''
         )}

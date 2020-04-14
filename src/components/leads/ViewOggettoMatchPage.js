@@ -7,20 +7,20 @@ import OggettiList from '../oggetti/OggettiList';
 export class ViewOggettoMatchPage extends React.Component {
   primoMatch = () => {
     const leadsMatch = this.props.leads.filter(
-      lead =>
+      (lead) =>
         lead.leadBudget <= this.props.oggetto.kaufpreis * 1.2 &&
         lead.leadBudget > this.props.oggetto.kaufpreis / 1.2
     );
     if (this.props.oggetto.stato === 'leerstehend') {
       return leadsMatch.filter(
-        lead =>
+        (lead) =>
           lead.leadOggettoStato === 'libero' ||
           lead.leadOggettoStato === '' ||
           lead.leadOggettoStato === 'libero o affittato'
       );
     } else if (this.props.oggetto.stato === 'vermietet') {
       return leadsMatch.filter(
-        lead =>
+        (lead) =>
           lead.leadOggettoStato === 'affittato' ||
           lead.leadOggettoStato === '' ||
           lead.leadOggettoStato === 'libero o affittato'
@@ -47,15 +47,21 @@ export class ViewOggettoMatchPage extends React.Component {
           oggetto={[this.props.oggetto]}
           ruolo={this.props.t('Oggetto')}
         />
-        <LeadsList userLeads={this.primoMatch()} />;
+        <LeadsList
+          userLeads={this.primoMatch()}
+          ruolo={`${this.props.t('Richieste')}`}
+        />
+        ;
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, props) => ({
-  oggetto: state.oggetti.find(oggetto => oggetto.id === props.match.params.id),
-  leads: state.leads
+  oggetto: state.oggetti.find(
+    (oggetto) => oggetto.id === props.match.params.id
+  ),
+  leads: state.leads,
 });
 
 export default connect(mapStateToProps)(
