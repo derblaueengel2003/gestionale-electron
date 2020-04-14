@@ -24,11 +24,9 @@ export class VollmachtForm extends React.Component {
       !this.props.data.moduli.oggettoId ||
       !this.props.data.moduli.venditoreId
     ) {
-      this.setState(() => ({
-        error: this.props.t('Inserisci acquirente e oggetto'),
-      }));
+      this.props.renderError(this.props.t('Inserisci acquirente e oggetto'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
       delegaDocumenti(cliente, cliente2, oggetto, this.props.firma);
     }
   };

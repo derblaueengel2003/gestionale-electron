@@ -28,9 +28,9 @@ class NotarDatenblattForm extends Component {
     const verwalter = this.findContact(oggetto.verwalter);
 
     if (!this.props.data.moduli.oggettoId) {
-      this.setState(() => ({ error: this.props.t('Inserisci oggetto') }));
+      this.props.renderError(this.props.t('Inserisci oggetto'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
       notarDatenblatt(
         acquirente[0],
         acquirente2[0],

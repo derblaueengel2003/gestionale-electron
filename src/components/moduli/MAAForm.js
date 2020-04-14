@@ -30,11 +30,10 @@ export class MAAForm extends React.Component {
       !this.props.data.moduli.oggettoId ||
       !this.props.data.moduli.venditoreId
     ) {
-      this.setState(() => ({
-        error: [this.props.t('Inserisci venditore e oggetto')],
-      }));
+      this.props.renderError(this.props.t('Inserisci venditore e oggetto'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
+
       maklerAlleinauftrag(
         venditore,
         venditore2,

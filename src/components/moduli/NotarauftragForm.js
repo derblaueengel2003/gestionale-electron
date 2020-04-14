@@ -26,9 +26,9 @@ export class NotarauftragForm extends React.Component {
       100;
 
     if (!this.props.data.moduli.oggettoId) {
-      this.setState(() => ({ error: this.props.t('Inserisci oggetto') }));
+      this.props.renderError(this.props.t('Inserisci oggetto'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
       vollmachtNotarauftrag(
         acquirente[0],
         acquirente2[0],

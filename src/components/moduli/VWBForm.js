@@ -28,12 +28,9 @@ export class VWBForm extends React.Component {
       !this.props.data.moduli.oggettoId ||
       !this.props.data.moduli.venditoreId
     ) {
-      const error = this.props.t('Inserisci venditore e oggetto');
-      this.setState(() => ({
-        error,
-      }));
+      this.props.renderError(this.props.t('Inserisci venditore e oggetto'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
       widerrufsBelehrung(
         venditore,
         venditore2,

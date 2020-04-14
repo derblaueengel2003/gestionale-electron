@@ -27,9 +27,9 @@ export class ProvisionForm extends React.Component {
     const provvPercentuale = this.props.data.moduli.provvPercentuale;
 
     if (!this.props.data.moduli.oggettoId) {
-      this.setState(() => ({ error: this.props.t('Inserisci oggetto') }));
+      this.props.renderError(this.props.t('Inserisci oggetto'));
     } else {
-      this.setState(() => ({ error: '' }));
+      this.props.renderError('');
       creaPrenotazione(
         acquirente[0],
         acquirente2[0],
