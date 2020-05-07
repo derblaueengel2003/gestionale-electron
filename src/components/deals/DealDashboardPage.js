@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import DealList from './DealList';
+import { startSetDeals } from '../../actions/deals';
 import ListFilters from '../common/ListFilters';
 import DealsSummary from './DealsSummary';
-import { startSetDeals } from '../../actions/deals';
+import DealList from './DealList';
 
 class DealDashboardPage extends React.Component {
   componentDidMount() {
@@ -13,11 +13,14 @@ class DealDashboardPage extends React.Component {
   }
   render() {
     const { t, utente } = this.props;
+
+    //Opzioni per il filtro
     const options = [
       { value: 'date', label: 'Data' },
       { value: 'amount', label: 'Importo' },
       { value: 'paid', label: 'Pagato' },
     ];
+
     return (
       <div>
         <div className='grey lighten-4'>

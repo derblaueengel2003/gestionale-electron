@@ -22,7 +22,7 @@ const DealListItem = ({
     numeroCivico: 'n/a',
     numeroAppartamento: 'n/a',
     cap: 'n/a',
-    citta: 'n/a'
+    citta: 'n/a',
   },
   provvM2square,
   provvStefano,
@@ -35,7 +35,7 @@ const DealListItem = ({
   acquirente2,
   venditore,
   venditore2,
-  dealFatture = []
+  dealFatture = [],
 }) => {
   // conto i todo fatti
   let todoCount = 0;
@@ -53,7 +53,7 @@ const DealListItem = ({
 
   // Determino quante fatture sono state pagate per mostrare i colori adatti. Da dealFature mi arriva un array
   let payed = 0;
-  dealFatture.map(fattura => fattura.payed && payed++);
+  dealFatture.map((fattura) => fattura.payed && payed++);
   if (payed > 0) {
     if (payed === dealFatture.length) {
       payed = 2;
@@ -103,8 +103,9 @@ const DealListItem = ({
               <div>
                 {utente.role === 'Mitarbeiter' ? (
                   <span
-                    className={` card-title list-item__data ${payedStefano &&
-                      'list-item--paid'}`}
+                    className={` card-title list-item__data ${
+                      payedStefano && 'list-item--paid'
+                    }`}
                   >
                     {numeral(provvStefano / 100).format('0,0[.]00 $')}
                   </span>

@@ -17,7 +17,7 @@ export class TodoForm extends React.Component {
       todo8: props.deal ? props.deal.todo8 : false,
       todo9: props.deal ? props.deal.todo9 : false,
       todo10: props.deal ? props.deal.todo10 : false,
-      todo11: props.deal ? props.deal.todo11 : false
+      todo11: props.deal ? props.deal.todo11 : false,
     };
   }
 
@@ -60,13 +60,13 @@ export class TodoForm extends React.Component {
   onTodo10Change = () => {
     this.setState(() => ({ todo10: !this.state.todo10 }));
     this.props.startEditDeal(this.props.deal.id, {
-      todo10: !this.state.todo10
+      todo10: !this.state.todo10,
     });
   };
   onTodo11Change = () => {
     this.setState(() => ({ todo11: !this.state.todo11 }));
     this.props.startEditDeal(this.props.deal.id, {
-      todo11: !this.state.todo11
+      todo11: !this.state.todo11,
     });
   };
   render() {
@@ -227,11 +227,11 @@ export class TodoForm extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  deal: state.deals.find(deal => deal.id === props.dealId)
+  deal: state.deals.find((deal) => deal.id === props.dealId),
 });
 
-const mapDispatchToProps = dispatch => ({
-  startEditDeal: (id, deal) => dispatch(startEditDeal(id, deal))
+const mapDispatchToProps = (dispatch) => ({
+  startEditDeal: (id, deal) => dispatch(startEditDeal(id, deal)),
 });
 
 export default connect(

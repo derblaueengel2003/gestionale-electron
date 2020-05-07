@@ -13,19 +13,28 @@ export class NotarauftragForm extends React.Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-    const acquirente = this.findContact(this.props.data.moduli.acquirenteId);
-    const acquirente2 = this.findContact(this.props.data.moduli.acquirenteId2);
-    const venditore = this.findContact(this.props.data.moduli.venditoreId);
-    const venditore2 = this.findContact(this.props.data.moduli.venditoreId2);
-    const notaio = this.findContact(this.props.data.moduli.notaioId);
-    const oggetto = this.props.oggetti.find(
-      (oggetto) => oggetto.id === this.props.data.moduli.oggettoId
-    );
-    const prezzoDiVendita =
-      parseFloat(this.props.data.moduli.prezzoDiVendita.replace(/,/, '.'), 10) *
-      100;
 
-    if (!this.props.data.moduli.oggettoId) {
+    const {
+      acquirenteId,
+      acquirenteId2,
+      venditoreId,
+      venditoreId2,
+      notaioId,
+      oggettoId,
+      prezzoDiVendita,
+    } = this.props.data.moduli;
+
+    const acquirente = this.findContact(acquirenteId);
+    const acquirente2 = this.findContact(acquirenteId2);
+    const venditore = this.findContact(venditoreId);
+    const venditore2 = this.findContact(venditoreId2);
+    const notaio = this.findContact(notaioId);
+    const oggetto = this.props.oggetti.find(
+      (oggetto) => oggetto.id === oggettoId
+    );
+    const prezzo = parseFloat(prezzoDiVendita.replace(/,/, '.'), 10) * 100;
+
+    if (!oggettoId) {
       this.props.renderError(this.props.t('Inserisci oggetto'));
     } else {
       this.props.renderError('');
@@ -36,22 +45,31 @@ export class NotarauftragForm extends React.Component {
         venditore2[0],
         oggetto,
         notaio[0],
-        prezzoDiVendita,
+        prezzo,
         this.props.firma
       );
     }
   };
 
   render() {
-    const { t, renderSelect, renderInput, changeHandlerValuta } = this.props;
-    const options = this.props.clienti.map((cliente) => ({
+    const {
+      t,
+      renderSelect,
+      renderInput,
+      changeHandlerValuta,
+      clienti,
+      oggetti,
+      data,
+    } = this.props;
+
+    const options = clienti.map((cliente) => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${
         cliente.ditta && `- Firma ${cliente.ditta}`
       }`,
     }));
 
-    const oggettiOptions = this.props.oggetti.map((oggetto) => ({
+    const oggettiOptions = oggetti.map((oggetto) => ({
       value: oggetto.id,
       label: `${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`,
     }));
@@ -64,9 +82,7 @@ export class NotarauftragForm extends React.Component {
           </div>
         </div>
         <form className='form container' onSubmit={this.onSubmit}>
-          {this.props.data.error && (
-            <p className='form__error'>{this.props.data.error}</p>
-          )}
+          {data.error && <p className='form__error'>{data.error}</p>}
           {renderSelect('moduli', 'acquirenteId', options, t('Acquirente'))}
           {renderSelect(
             'moduli',

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import selectDeals from '../../selectors/deals';
 import Card from '../Card';
-import { TodoProgressBar } from './TodoProgressBar';
+import TodoProgressBar from './TodoProgressBar';
 import moment from 'moment';
 import numeral from 'numeral';
 
@@ -141,7 +141,6 @@ export const DealList = ({
                       </a>
                     )
                   }
-                  // sottotitolo={oggetto && `${oggetto.cap} ${oggetto.citta}`}
                   corpo={[datiPrenotazione, gliAcquirenti, iVenditori]}
                   progressBar={<TodoProgressBar {...deal} />}
                 />

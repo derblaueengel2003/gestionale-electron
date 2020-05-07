@@ -1,22 +1,22 @@
-import React from "react";
-import { Translation } from "react-i18next";
+import React from 'react';
+import { withTranslation } from 'react-i18next';
 
-const ProgressBar = props => {
+const ProgressBar = (props) => {
   return (
-    <div className="progress-bar">
+    <div className='progress-bar'>
       <Filler percentage={props.percentage} />
     </div>
   );
 };
 
-const Filler = props => {
+const Filler = (props) => {
   return (
-    <div className="filler" style={{ width: `${props.percentage}%` }}></div>
+    <div className='filler' style={{ width: `${props.percentage}%` }}></div>
   );
 };
 
-export const TodoProgressBar = ({
-  traduci,
+const TodoProgressBar = ({
+  t,
   todo1,
   todo2,
   todo3,
@@ -27,7 +27,7 @@ export const TodoProgressBar = ({
   todo8,
   todo9,
   todo10,
-  todo11
+  todo11,
 }) => {
   // conto i todo fatti
   let todoCount = 0;
@@ -43,15 +43,10 @@ export const TodoProgressBar = ({
   todo10 && todoCount++;
   todo11 && todoCount++;
   return (
-    <Translation>
-      {t => {
-        return (
-          <blockquote>
-            {`${t("To-do eseguiti")}: ${todoCount} von 11`}
-            <ProgressBar percentage={(todoCount * 100) / 11} />
-          </blockquote>
-        );
-      }}
-    </Translation>
+    <blockquote>
+      {`${t('To-do eseguiti')}: ${todoCount} von 11`}
+      <ProgressBar percentage={(todoCount * 100) / 11} />
+    </blockquote>
   );
 };
+export default withTranslation()(TodoProgressBar);
