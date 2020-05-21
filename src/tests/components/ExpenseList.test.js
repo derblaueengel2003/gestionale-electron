@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { DealList } from '../../components/DealList'
+import { DealList } from '../../components/deals/DealList'
 import deals from '../fixtures/deals'
 
 

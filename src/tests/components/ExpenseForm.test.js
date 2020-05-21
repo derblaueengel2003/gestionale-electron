@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import moment from 'moment'
-import DealForm from '../../components/DealForm'
+import DealForm from '../../components/deals/DealForm'
 import deals from '../fixtures/deals'
 
 test('should render DealForm correctly', () => {

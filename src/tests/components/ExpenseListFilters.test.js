@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { DealListFilters } from '../../components/DealListFilters'
+import { DealListFilters } from '../../components/deals/DealListFilters'
 import { filters, altFilters } from '../fixtures/filters'
 import moment from 'moment'
 

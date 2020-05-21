@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { AddDealPage } from '../../components/AddDealPage'
+import { AddDealPage } from '../../components/deals/AddDealPage'
 import deals from '../fixtures/deals'
 
 let startAddDeal, history, wrapper

@@ -6,10 +6,12 @@ import { startSetDeals } from '../../actions/deals';
 import ListFilters from '../common/ListFilters';
 import DealsSummary from './DealsSummary';
 import DealList from './DealList';
+// import snippet from '../../utils.js/snippet';
 
 class DealDashboardPage extends React.Component {
   componentDidMount() {
     this.props.startSetDeals();
+    // snippet();
   }
   render() {
     const { t, utente } = this.props;
