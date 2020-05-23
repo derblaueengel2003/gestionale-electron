@@ -212,6 +212,18 @@ function withForm(Component) {
           leadOggettoStato: props.lead ? props.lead.leadOggettoStato : '',
           leadNote: props.lead ? props.lead.leadNote : '',
         },
+        offers: {
+          calendarFocused: false,
+          consulenteId: props.offer ? props.offer.consulenteId : '',
+          feedback: props.offer ? props.offer.feedback : '',
+          leadId: props.offer ? props.offer.leadId : props.leadId,
+          offerCreatedAt: props.offer
+            ? props.offer.offerCreatedAt && moment(props.offer.offerCreatedAt)
+            : null,
+          offerNote: props.offer ? props.offer.offerNote : '',
+          offertoTramite: props.offer ? props.offer.offertoTramite : '',
+          oggettoId: props.offer ? props.offer.oggettoId : '',
+        },
         moduli: {
           //MODULI
           prezzoDiVendita: '',

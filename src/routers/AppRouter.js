@@ -32,6 +32,8 @@ import AddLeadPage from '../components/leads/AddLeadPage';
 import EditLeadPage from '../components/leads/EditLeadPage';
 import ViewLeadMatchPage from '../components/leads/ViewLeadMatchPage';
 import ViewLeadPage from '../components/leads/ViewLeadPage';
+import EditOfferedProperties from '../components/leads/EditOfferedProperties';
+import AddOfferedProperties from '../components/leads/AddOfferedProperties';
 import ModuliPage from '../components/moduli/ModuliList';
 import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
@@ -182,7 +184,7 @@ const AppRouter = ({ uid }) => {
             component={EditFatturaPage}
           />
 
-          {/* LEADS */}
+          {/* LEADS E OFFERTE */}
           <PrivateRoute
             path='/leads'
             activeClass='leads'
@@ -207,6 +209,16 @@ const AppRouter = ({ uid }) => {
             path='/leadview/:id'
             activeClass='leads'
             component={ViewLeadPage}
+          />
+          <PrivateRoute
+            path='/editoffer/:id'
+            activeClass='leads'
+            component={EditOfferedProperties}
+          />
+          <PrivateRoute
+            path='/createoffer'
+            activeClass='leads'
+            component={AddOfferedProperties}
           />
 
           {/* REPORT */}

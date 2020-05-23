@@ -130,3 +130,14 @@
   // }
   color: $dark-green;
 }
+
+.feedback-emojis {
+  display: flex;
+  flex-direction: column;
+}
+
+.feedback-emojis-item {
+  display: flex;
+  align-items: center;
+  margin-top: 0.3rem;
+}

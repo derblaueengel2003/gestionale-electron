@@ -9,6 +9,7 @@ import { startSetDeals } from './actions/deals';
 import { startSetUsers } from './actions/utenti';
 import { startSetCustomers } from './actions/clienti';
 import { startSetLeads } from './actions/leads';
+import { startSetOffers } from './actions/offers';
 import { login, logout } from './actions/auth';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
@@ -45,6 +46,7 @@ firebase.auth().onAuthStateChanged((user) => {
     store.dispatch(startSetCustomers());
     store.dispatch(startSetOggetti());
     store.dispatch(startSetLeads());
+    store.dispatch(startSetOffers());
     store.dispatch(startSetAccentro());
     store.dispatch(startSetFatture());
     store.dispatch(startSetFirma());

@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import ClientiList from '../clienti/ClientiList';
+import OffersList from './OffersList';
 import { startRemoveLead } from '../../actions/leads';
+import { startRemoveOffer } from '../../actions/offers';
 import numeral from 'numeral';
 import moment from 'moment';
 
@@ -12,16 +13,26 @@ export class ViewLeadPage extends React.Component {
     if (
       window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
     ) {
+      const offerteDaCancellare = this.props.offers.filter(
+        (offer) => offer.leadId === this.props.lead.id
+      );
+      //cancello tutte le offerte legate a questa richiesta e poi cancello la richiesta
+      offerteDaCancellare.forEach((offer) => {
+        this.props.startRemoveOffer({ id: offer.id });
+      });
       this.props.startRemoveLead({ id: this.props.lead.id });
       this.props.history.push('/leads');
     }
   };
   render() {
     const cliente = this.props.clienti.find(
-      cliente => cliente.id === this.props.lead.leadId
+      (cliente) => cliente.id === this.props.lead.leadId
     );
     const consulenteVendita = this.props.utenti.find(
-      utente => utente.id === cliente.consulenteVenditaId
+      (utente) => utente.id === cliente.consulenteVenditaId
+    );
+    const offers = this.props.offers.filter(
+      (offer) => offer.leadId === this.props.lead.id
     );
 
     let immobile = '';
@@ -83,7 +94,13 @@ export class ViewLeadPage extends React.Component {
 
           <div>
             {cliente && (
-              <h5>{`${cliente.titolo} ${cliente.nome} ${cliente.cognome}`}</h5>
+              <h5>
+                {
+                  <Link to={`/customerview/${cliente.id}`}>
+                    {cliente.titolo} {cliente.nome} {cliente.cognome}
+                  </Link>
+                }
+              </h5>
             )}
             <h6>
               Budget:{' '}
@@ -104,19 +121,32 @@ export class ViewLeadPage extends React.Component {
           </div>
         </div>
 
-        <ClientiList cliente={[cliente]} ruolo={'Cliente'} />
+        <div className='container'>
+          <Link
+            className='btn-floating green right'
+            to={{
+              pathname: '/createoffer',
+              state: { leadId: this.props.lead.id },
+            }}
+          >
+            <i className='material-icons'>add</i>
+          </Link>
+        </div>
+        <OffersList offers={offers} ruolo={'Immobili offerti al cliente'} />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, props) => ({
-  lead: state.leads.find(lead => lead.id === props.match.params.id),
+  lead: state.leads.find((lead) => lead.id === props.match.params.id),
   clienti: state.clienti,
-  utenti: state.utenti
+  offers: state.offers,
+  utenti: state.utenti,
 });
-const mapDispatchToProps = dispatch => ({
-  startRemoveLead: data => dispatch(startRemoveLead(data))
+const mapDispatchToProps = (dispatch) => ({
+  startRemoveLead: (data) => dispatch(startRemoveLead(data)),
+  startRemoveOffer: (data) => dispatch(startRemoveOffer(data)),
 });
 
 export default connect(

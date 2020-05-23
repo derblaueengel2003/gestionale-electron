@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import LeadForm from './LeadForm';
 import { startEditLead, startRemoveLead } from '../../actions/leads';
+import { startRemoveOffer } from '../../actions/offers';
 
 export class EditLeadPage extends React.Component {
-  onSubmit = lead => {
+  onSubmit = (lead) => {
     this.props.startEditLead(this.props.lead.id, lead);
     this.props.history.push(`/leadview/${this.props.lead.id}`);
   };
@@ -13,7 +14,11 @@ export class EditLeadPage extends React.Component {
     if (
       window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
     ) {
+      this.props.offers.forEach((offer) => {
+        this.props.startRemoveOffer({ id: offer.id });
+      });
       this.props.startRemoveLead({ id: this.props.lead.id });
+
       this.props.history.push('/leads');
     }
   };
@@ -40,12 +45,16 @@ export class EditLeadPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  lead: state.leads.find(lead => lead.id === props.match.params.id)
+  lead: state.leads.find((lead) => lead.id === props.match.params.id),
+  offers: state.offers.filter(
+    (offer) => offer.leadId === props.match.params.id
+  ),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   startEditLead: (id, lead) => dispatch(startEditLead(id, lead)),
-  startRemoveLead: data => dispatch(startRemoveLead(data))
+  startRemoveLead: (data) => dispatch(startRemoveLead(data)),
+  startRemoveOffer: (data) => dispatch(startRemoveOffer(data)),
 });
 
 export default connect(

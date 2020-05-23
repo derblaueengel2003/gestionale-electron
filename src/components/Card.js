@@ -31,9 +31,9 @@ export const Card = ({
                       </Link>
                       <h6>{sottotitolo}</h6>
                       {corpo.map((linea) => (
-                        <p key={uuidv4()}>{linea}</p>
+                        <div key={uuidv4()}>{linea}</div>
                       ))}
-                      <p>{lineaNote}</p>
+                      <div>{lineaNote}</div>
                       {progressBar}
                       {verkauft}
                     </div>

@@ -7,6 +7,7 @@ import clientiReducer from '../reducers/clienti';
 import authReducer from '../reducers/auth';
 import oggettiReducer from '../reducers/oggetti';
 import leadsReducer from '../reducers/leads';
+import offersReducer from '../reducers/offers';
 import accentroReducer from '../reducers/accentro';
 import fattureReducer from '../reducers/fatture';
 import firmaReducer from '../reducers/firma';
@@ -24,9 +25,10 @@ export default () => {
       clienti: clientiReducer,
       oggetti: oggettiReducer,
       leads: leadsReducer,
+      offers: offersReducer,
       accentro: accentroReducer,
       fatture: fattureReducer,
-      firma: firmaReducer
+      firma: firmaReducer,
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

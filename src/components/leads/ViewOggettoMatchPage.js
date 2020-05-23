@@ -5,7 +5,7 @@ import LeadsList from '../leads/LeadsList';
 import OggettiList from '../oggetti/OggettiList';
 
 export class ViewOggettoMatchPage extends React.Component {
-  primoMatch = () => {
+  leadMatch = () => {
     const leadsMatch = this.props.leads.filter(
       (lead) =>
         lead.leadBudget <= this.props.oggetto.kaufpreis * 1.2 &&
@@ -31,11 +31,19 @@ export class ViewOggettoMatchPage extends React.Component {
   };
 
   render() {
+    const offersLeadIds = this.props.offers.map((offer) => offer.leadId);
+
+    const leadsAlreadyOffered = this.leadMatch().filter((lead) =>
+      offersLeadIds.includes(lead.id)
+    );
+    const leadsToBeOffered = this.leadMatch().filter(
+      (lead) => !offersLeadIds.includes(lead.id)
+    );
     return (
       <div>
         <div className='container'>
           <h1>
-            {this.props.t('Match con le richieste')}: {this.primoMatch().length}
+            {this.props.t('Match con le richieste')}: {this.leadMatch().length}
           </h1>
           <span>
             {this.props.t(
@@ -48,8 +56,12 @@ export class ViewOggettoMatchPage extends React.Component {
           ruolo={this.props.t('Oggetto')}
         />
         <LeadsList
-          userLeads={this.primoMatch()}
+          userLeads={leadsToBeOffered}
           ruolo={`${this.props.t('Richieste')}`}
+        />
+        <LeadsList
+          userLeads={leadsAlreadyOffered}
+          ruolo={`${this.props.t('Già inviato a')}`}
         />
         ;
       </div>
@@ -62,6 +74,9 @@ const mapStateToProps = (state, props) => ({
     (oggetto) => oggetto.id === props.match.params.id
   ),
   leads: state.leads,
+  offers: state.offers.filter(
+    (offer) => offer.oggettoId === props.match.params.id
+  ),
 });
 
 export default connect(mapStateToProps)(
