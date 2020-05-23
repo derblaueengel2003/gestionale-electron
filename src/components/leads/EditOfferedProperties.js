@@ -10,12 +10,8 @@ export class EditOfferedProperties extends React.Component {
     this.props.history.push(`/leadview/${this.props.offer.leadId}`);
   };
   onRemove = () => {
-    if (
-      window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
-    ) {
-      this.props.startRemoveOffer({ id: this.props.offer.id });
-      this.props.history.push(`/leadview/${this.props.offer.leadId}`);
-    }
+    this.props.startRemoveOffer({ id: this.props.offer.id });
+    this.props.history.push(`/leadview/${this.props.offer.leadId}`);
   };
   render() {
     return (

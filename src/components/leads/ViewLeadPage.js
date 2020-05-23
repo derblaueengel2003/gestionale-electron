@@ -76,7 +76,7 @@ export class ViewLeadPage extends React.Component {
                 className='btn-floating green accent-3 right btn-floating-margin'
                 to={`/leadmatchview/${this.props.lead.id}`}
               >
-                Match
+                <i className='material-icons'>search</i>{' '}
               </Link>
             ) : (
               ''

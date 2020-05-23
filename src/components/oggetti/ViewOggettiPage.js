@@ -82,7 +82,7 @@ export class ViewOggettiPage extends React.Component {
                 className='btn-floating green accent-3 right btn-floating-margin'
                 to={`/oggettomatchview/${oggetto.id}`}
               >
-                Match
+                <i className='material-icons'>search</i>
               </Link>
             )}
             {oggetto.cloudURL && (

@@ -32,7 +32,7 @@ export const OffersList = (props) => {
                   case 'positivo':
                     return (
                       <i className='material-icons medium green-text'>
-                        sentiment_satisfied
+                        sentiment_satisfied_alt
                       </i>
                     );
                   case 'negativo':
@@ -43,7 +43,7 @@ export const OffersList = (props) => {
                     );
                   case 'neutro':
                     return (
-                      <i className='material-icons medium yellow-text'>
+                      <i className='material-icons medium amber-text'>
                         sentiment_dissatisfied
                       </i>
                     );
@@ -53,7 +53,7 @@ export const OffersList = (props) => {
                     );
 
                   default:
-                    return '';
+                    return <i className='material-icons medium'>more_horiz</i>;
                 }
               };
               const mezzo = offer.offertoTramite

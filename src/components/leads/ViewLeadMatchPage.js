@@ -8,7 +8,7 @@ export class ViewLeadMatchPage extends React.Component {
   leadMatch = () => {
     // controllo se l'oggetto è ancora invenduto
     const primoMatch = this.props.oggetti.filter((ogg) => !ogg.venduto);
-
+    console.log('primo match', primoMatch);
     // controllo se la richiesta contiene indicazione sullo stato dell'immobile
     let secondoMatch = [];
     if (this.props.lead.leadOggettoStato === 'libero') {
@@ -18,6 +18,7 @@ export class ViewLeadMatchPage extends React.Component {
     } else {
       secondoMatch = [...primoMatch];
     }
+    console.log('secondo match', secondoMatch);
 
     // filtro gli oggetti che hanno un prezzo di vendita del 20% sopra o sotto il budget
     let terzoMatch = [];
@@ -25,24 +26,22 @@ export class ViewLeadMatchPage extends React.Component {
       terzoMatch = secondoMatch.filter(
         (ogg) =>
           ogg.kaufpreis <= this.props.lead.leadBudget * 1.2 &&
-          ogg.kaufpreis > this.props.lead.leadBudget / 1.2
+          ogg.kaufpreis >= this.props.lead.leadBudget / 1.2
       );
     } else {
       terzoMatch = [...secondoMatch];
     }
+    console.log('terzo match', terzoMatch);
 
     //estrapolo gli id degli oggetti già proposti (filtrato già nello state in basso)
     const oggettiIds = this.props.offers.map((offer) => offer.oggettoId);
+    console.log('id oggetti già proposti', oggettiIds);
 
     //restituisco solo gli oggetti che non sono ancora stati proposti
     return terzoMatch.filter((ogg) => !oggettiIds.includes(ogg.id));
   };
 
   render() {
-    const cliente = this.props.clienti.filter(
-      (cliente) => cliente.id === this.props.lead.leadId
-    );
-
     return (
       <div>
         <div>
@@ -51,7 +50,6 @@ export class ViewLeadMatchPage extends React.Component {
               {this.props.t('Match con i nostri oggetti')}:{' '}
               {this.leadMatch().length}
             </h1>
-            {/*  <h1>Match mit Accentro: {this.secondoMatch().length}</h1>  */}
             <span>
               {this.props.t(
                 'La corrispondenza si basa sul budget (+-20%) e la tipologia di immobile'

@@ -62,7 +62,7 @@ export class OfferedPropertiesForm extends React.Component {
           'offers',
           'consulenteId',
           consulenteVenditaOptions,
-          t('Inviato da')
+          t('Offerto da')
         )}
         {renderSingleDate(
           'offers',
@@ -78,7 +78,7 @@ export class OfferedPropertiesForm extends React.Component {
             { value: 'telefono', label: t('Telefono') },
             { value: 'presenza', label: t('Di presenza') },
           ],
-          t('Offerto tramite')
+          t('Offerto via')
         )}
         {renderSelect(
           'offers',

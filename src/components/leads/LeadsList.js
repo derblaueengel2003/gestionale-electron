@@ -67,10 +67,10 @@ export const LeadsList = (props) => {
                   lead.leadOggettoStato === 'libero o affittato' ||
                   lead.leadOggettoStato === '' ? (
                     <Link
-                      className='btn-floating green accent-3 right btn-floating-margin'
+                      className='btn-floating green right accent-3 btn-floating-margin'
                       to={`/leadmatchview/${lead.id}`}
                     >
-                      Match
+                      <i className='material-icons'>search</i>
                     </Link>
                   ) : (
                     ''
@@ -83,7 +83,7 @@ export const LeadsList = (props) => {
                       state: { leadId: lead.id, oggettoId },
                     }}
                   >
-                    <i className='material-icons'>sentiment_satisfied</i>
+                    <i className='material-icons'>sentiment_satisfied_alt</i>
                   </Link>
                 </div>
               );
@@ -108,7 +108,7 @@ export const LeadsList = (props) => {
                             key={offer.id}
                             className='material-icons small green-text'
                           >
-                            sentiment_satisfied
+                            sentiment_satisfied_alt
                           </i>
                         );
                       case 'negativo':
@@ -124,7 +124,7 @@ export const LeadsList = (props) => {
                         return (
                           <i
                             key={offer.id}
-                            className='material-icons small yellow-text'
+                            className='material-icons small amber-text'
                           >
                             sentiment_dissatisfied
                           </i>
@@ -137,7 +137,9 @@ export const LeadsList = (props) => {
                         );
 
                       default:
-                        return '';
+                        return (
+                          <i className='material-icons small'>more_horiz</i>
+                        );
                     }
                   };
 
