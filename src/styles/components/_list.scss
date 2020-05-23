@@ -1,37 +1,9 @@
 .list-header {
-  // background: $off-white;
-  // border: 1px solid darken($off-white, 7);
-  // color: $grey;
   display: flex;
   justify-content: space-between;
   padding: $s-size $m-size;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-
-  // &-deals {
-  //   background: $light-green;
-  //   border: 1px solid darken($light-green, 7);
-  // }
-
-  // &-leads {
-  //   background: $light-orange;
-  //   border: 1px solid darken($light-orange, 7);
-  // }
-
-  // &-modulistica {
-  //   background: $light-acqua;
-  //   border: 1px solid darken($light-acqua, 7);
-  // }
-
-  // &-oggetti {
-  //   background: $light-purple;
-  //   border: 1px solid darken($light-purple, 7);
-  // }
-
-  // &-clienti {
-  //   background: $light-blue;
-  //   border: 1px solid darken($light-blue, 7);
-  // }
 }
 
 .list-body {
@@ -52,11 +24,6 @@
   transition: background 0.3s ease;
 
   &--todo {
-    // background: linear-gradient(
-    //   to right,
-    //   rgba($light-green, 0.85),
-    //   rgba(white, 1)
-    // );
     color: $dark-green;
   }
 
@@ -100,14 +67,6 @@
 }
 
 .list-item--paid {
-  // background: linear-gradient(
-  //   to bottom,
-  //   rgba($light-green, 0.85),
-  //   rgba($off-white, 0.85)
-  // );
-  // &:hover {
-  //   background: darken($light-green, 7);
-  // }
   color: $dark-green;
 }
 .list-item--paid0 {
@@ -120,14 +79,6 @@
   color: $dark-green;
 }
 .list-item--paid2 {
-  // background: linear-gradient(
-  //   to bottom,
-  //   rgba($light-green, 0.85),
-  //   rgba($off-white, 0.85)
-  // );
-  // &:hover {
-  //   background: darken($light-green, 7);
-  // }
   color: $dark-green;
 }
 

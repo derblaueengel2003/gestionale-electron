@@ -222,7 +222,7 @@ function withForm(Component) {
             : null,
           offerNote: props.offer ? props.offer.offerNote : '',
           offertoTramite: props.offer ? props.offer.offertoTramite : '',
-          oggettoId: props.offer ? props.offer.oggettoId : '',
+          oggettoId: props.offer ? props.offer.oggettoId : props.oggettoId,
         },
         moduli: {
           //MODULI

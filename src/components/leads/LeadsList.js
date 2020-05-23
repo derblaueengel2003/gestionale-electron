@@ -36,6 +36,7 @@ const findConsulenteVendita = (clienteNomeCognome, utenti) => {
 export const LeadsList = (props) => {
   //controllo se la i dati vengono dalla scheda clienti e sono passati via props
   const leadsPayload = props.userLeads || props.leads;
+  const oggettoId = props.oggettoId || '';
 
   return (
     <div className='container'>
@@ -76,10 +77,10 @@ export const LeadsList = (props) => {
                   )}
 
                   <Link
-                    className='btn-floating blue-grey right'
+                    className={`btn-floating ${props.feedbackButton} blue-grey right`}
                     to={{
                       pathname: '/createoffer',
-                      state: { leadId: lead.id },
+                      state: { leadId: lead.id, oggettoId },
                     }}
                   >
                     <i className='material-icons'>sentiment_satisfied</i>

@@ -57,10 +57,12 @@ export class ViewOggettoMatchPage extends React.Component {
         />
         <LeadsList
           userLeads={leadsToBeOffered}
+          oggettoId={this.props.oggetto.id}
           ruolo={`${this.props.t('Richieste')}`}
         />
         <LeadsList
           userLeads={leadsAlreadyOffered}
+          feedbackButton={'disabled'}
           ruolo={`${this.props.t('Già inviato a')}`}
         />
         ;
