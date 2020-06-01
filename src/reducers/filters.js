@@ -6,7 +6,7 @@ const filtersReducerDefaultState = {
   text: '',
   sortBy: 'date',
   startDate: moment().startOf('year'),
-  endDate: moment().endOf('year'),
+  endDate: moment().endOf('month'),
   lead: '',
   leadStato: '',
 };

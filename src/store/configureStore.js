@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { devToolsEnhancer } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import dealsReducer from '../reducers/deals';
 import filtersReducer from '../reducers/filters';
@@ -13,8 +14,13 @@ import fattureReducer from '../reducers/fatture';
 import firmaReducer from '../reducers/firma';
 
 // Store creation
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
+const composeEnhancers =
+  (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      trace: true,
+      traceLimit: 25,
+    })) ||
+  compose;
 export default () => {
   const store = createStore(
     combineReducers({
