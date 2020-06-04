@@ -7,6 +7,11 @@ import numeral from 'numeral';
 import Geocode from 'react-geocode';
 import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
+import {
+  addPropertyMutation,
+  allPropertiesQuery,
+} from '../../queries/properties';
+import { Mutation } from 'react-apollo';
 
 // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
 Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
@@ -199,6 +204,7 @@ export class ViewOggettiPage extends React.Component {
             )}
           </div>
         </div>
+
         <div className='container section'>
           {/* Se ho cover e titolo, mostro il pulsante exposé */}
           <ul className='collection  s12 m6'>

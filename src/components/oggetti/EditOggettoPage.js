@@ -5,19 +5,19 @@ import OggettoForm from './OggettoForm';
 import { startEditOggetto, startRemoveOggetto } from '../../actions/oggetti';
 
 export class EditOggettoPage extends React.Component {
-  onSubmit = oggetto => {
+  onSubmit = (oggetto) => {
     this.props.startEditOggetto(this.props.oggetto.id, oggetto);
     this.props.history.push(`/oggettoview/${this.props.oggetto.id}`);
   };
   onValidate = () => {
     const clienti = this.props.clienti.find(
-      cliente =>
+      (cliente) =>
         cliente.id === this.props.oggetto.proprietarioId ||
         cliente.id === this.props.oggetto.proprietarioId2 ||
         cliente.id === this.props.oggetto.verwalter
     );
     const deals = this.props.deals.find(
-      deal => deal.oggettoId === this.props.oggetto.id
+      (deal) => deal.oggettoId === this.props.oggetto.id
     );
     if (!clienti && !deals) {
       return true;
@@ -57,7 +57,7 @@ export class EditOggettoPage extends React.Component {
       if (this.onValidate()) {
         this.props.startEditOggetto(this.props.oggetto.id, {
           ...this.props.oggetto,
-          visible: false
+          visible: false,
         });
         this.props.history.push('/oggetti');
       } else {
@@ -96,16 +96,20 @@ export class EditOggettoPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  oggetto: state.oggetti.find(oggetto => oggetto.id === props.match.params.id),
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+  oggetto: state.oggetti.find(
+    (oggetto) => oggetto.id === props.match.params.id
+  ),
+  utente: state.utenti.find(
+    (utente) => utente.firebaseAuthId === state.auth.uid
+  ),
   deals: state.deals,
   fatture: state.fatture,
-  clienti: state.clienti
+  clienti: state.clienti,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   startEditOggetto: (id, oggetto) => dispatch(startEditOggetto(id, oggetto)),
-  startRemoveOggetto: data => dispatch(startRemoveOggetto(data))
+  startRemoveOggetto: (data) => dispatch(startRemoveOggetto(data)),
 });
 
 export default connect(

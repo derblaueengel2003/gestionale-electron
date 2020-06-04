@@ -1,97 +1,97 @@
-import jsPDF from "jspdf";
-import { imgLogo } from "./ImageLogo";
-import { ivdLogo } from "./IvdLogo";
-import numeral from "numeral";
+import jsPDF from 'jspdf';
+import { imgLogo } from './ImageLogo';
+import { ivdLogo } from './IvdLogo';
+import numeral from 'numeral';
 
 export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
-  const doc = new jsPDF("p", "mm", "a4");
-  doc.setFont("times");
+  const doc = new jsPDF('p', 'mm', 'a4');
+  doc.setFont('times');
   const fontStart = 10;
   let traduzione = {};
-  if (lingua === "de") {
+  if (lingua === 'de') {
     traduzione = {
-      ansprechpartner: "Ihr Ansprechpartner",
-      oeffnungszeiten: "Öffnungszeiten",
-      saluti: "Mit freundlichen Grüßen",
+      ansprechpartner: 'Ihr Ansprechpartner',
+      oeffnungszeiten: 'Öffnungszeiten',
+      saluti: 'Mit freundlichen Grüßen',
       titolo: oggetto.titoloDe,
-      bagni: "Badezimmer",
-      piano: "Etage",
-      baujahr: "Baujahr",
-      heizungsart: "Heizungsart",
-      energieAusweisTyp: "Energieausweis-Typ",
-      energieAusweisBis: "Energieausweis gültig bis",
-      energieBedarf: "Energieverbrauch KWh/(m²*a)",
-      energieTraeger: "Wesentliche Energieträger",
-      wohngeld: "Hausgeld",
-      affittoNetto: "Kaltmiete",
-      provvigione: "Käuferprovision (inkl. MWSt.)",
-      balcone: "Balkon",
-      ascensore: "Aufzug",
-      giardino: "Garten",
-      cantina: "Keller",
-      condizioni: "Zustand",
-      vani: "Zimmer",
-      m2: "Größe",
-      rifId: "Ref. ID",
-      descrizione: oggetto.descrizioneDe
+      bagni: 'Badezimmer',
+      piano: 'Etage',
+      baujahr: 'Baujahr',
+      heizungsart: 'Heizungsart',
+      energieAusweisTyp: 'Energieausweis-Typ',
+      energieAusweisBis: 'Energieausweis gültig bis',
+      energieBedarf: 'Energieverbrauch KWh/(m²*a)',
+      energieTraeger: 'Wesentliche Energieträger',
+      wohngeld: 'Hausgeld',
+      affittoNetto: 'Kaltmiete',
+      provvigione: 'Käuferprovision (inkl. MWSt.)',
+      balcone: 'Balkon',
+      ascensore: 'Aufzug',
+      giardino: 'Garten',
+      cantina: 'Keller',
+      condizioni: 'Zustand',
+      vani: 'Zimmer',
+      m2: 'Größe',
+      rifId: 'Ref. ID',
+      descrizione: oggetto.descrizioneDe,
     };
-  } else if (lingua === "it") {
+  } else if (lingua === 'it') {
     traduzione = {
-      ansprechpartner: "Il Suo referente",
-      oeffnungszeiten: "Orari di apertura",
-      saluti: "Cordiali saluti",
+      ansprechpartner: 'Il Suo referente',
+      oeffnungszeiten: 'Orari di apertura',
+      saluti: 'Cordiali saluti',
       titolo: oggetto.titolo,
-      bagni: "Bagni",
-      piano: "Piano",
-      baujahr: "Anno di costruzione",
-      heizungsart: "Tipo di riscaldamento",
-      energieAusweisTyp: "Certificato energetico basato sul",
-      energieAusweisBis: "Valido fino al",
-      energieBedarf: "Consumo energetico KWh/(m²*a)",
-      energieTraeger: "Fonte energetica primaria",
-      wohngeld: "Condominio",
-      affittoNetto: "Affitto netto",
+      bagni: 'Bagni',
+      piano: 'Piano',
+      baujahr: 'Anno di costruzione',
+      heizungsart: 'Tipo di riscaldamento',
+      energieAusweisTyp: 'Certificato energetico basato sul',
+      energieAusweisBis: 'Valido fino al',
+      energieBedarf: 'Consumo energetico KWh/(m²*a)',
+      energieTraeger: 'Fonte energetica primaria',
+      wohngeld: 'Condominio',
+      affittoNetto: 'Affitto netto',
       provvigione: "Provvigione per l'acquirente (IVA inclusa)",
-      balcone: "Balcone",
-      ascensore: "Ascensore",
-      giardino: "Giardino",
-      cantina: "Cantina",
-      condizioni: "Condizioni",
-      vani: "Vani",
-      m2: "Ampiezza",
-      rifId: "Rif. ID",
-      descrizione: oggetto.descrizione
+      balcone: 'Balcone',
+      ascensore: 'Ascensore',
+      giardino: 'Giardino',
+      cantina: 'Cantina',
+      condizioni: 'Condizioni',
+      vani: 'Vani',
+      m2: 'Ampiezza',
+      rifId: 'Rif. ID',
+      descrizione: oggetto.descrizione,
     };
-  } else if (lingua === "en") {
+  } else if (lingua === 'en') {
     traduzione = {
-      ansprechpartner: "Your Agent",
-      oeffnungszeiten: "Opening hours",
-      saluti: "Best regards",
+      ansprechpartner: 'Your Agent',
+      oeffnungszeiten: 'Opening hours',
+      saluti: 'Best regards',
       titolo: oggetto.titoloEn,
-      bagni: "Bathrooms",
-      piano: "Floor No.",
-      baujahr: "Year built",
-      heizungsart: "Heating type",
-      energieAusweisTyp: "Energy pass based on",
-      energieAusweisBis: "Valid until",
-      energieBedarf: "Energy consumption KWh/(m²*a)",
-      energieTraeger: "Primary energy carrier",
-      wohngeld: "Monthly costs",
-      affittoNetto: "Net monthly rent",
-      provvigione: "Agency fee for buyer (VAT included)",
-      balcone: "Balcony",
-      ascensore: "Elevator",
-      giardino: "Garden",
-      cantina: "Cellar",
-      condizioni: "Condition",
-      vani: "Rooms",
-      m2: "Size",
-      rifId: "Ref. ID",
-      descrizione: oggetto.descrizioneEn
+      bagni: 'Bathrooms',
+      piano: 'Floor No.',
+      baujahr: 'Year built',
+      heizungsart: 'Heating type',
+      energieAusweisTyp: 'Energy pass based on',
+      energieAusweisBis: 'Valid until',
+      energieBedarf: 'Energy consumption KWh/(m²*a)',
+      energieTraeger: 'Primary energy carrier',
+      wohngeld: 'Monthly costs',
+      affittoNetto: 'Net monthly rent',
+      provvigione: 'Agency fee for buyer (VAT included)',
+      balcone: 'Balcony',
+      ascensore: 'Elevator',
+      giardino: 'Garden',
+      cantina: 'Cellar',
+      condizioni: 'Condition',
+      vani: 'Rooms',
+      m2: 'Size',
+      rifId: 'Ref. ID',
+      descrizione: oggetto.descrizioneEn,
     };
   }
   const cartaIntestata = () => {
-    doc.addImage(imgLogo, "JPEG", 130, 10, 55, 12, undefined, "SLOW");
+    doc.addImage(imgLogo, 'JPEG', 130, 10, 55, 12, undefined, 'SLOW');
     //linea rossa
     doc.setDrawColor(145, 0, 0);
     doc.setLineWidth(7);
@@ -105,7 +105,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     doc.setFontSize(fontStart + 1);
     doc.setTextColor(255, 255, 255);
 
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.text(
       `${firma.name} ${firma.name2 && ` - ${firma.name2}`} - ${
         firma.adresse
@@ -122,10 +122,10 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     // doc.line(160, 267, 160, 282);
     doc.setFontSize(fontStart);
     doc.setTextColor(143, 143, 143);
-    doc.text("Geschäftsführer:", 16, 270);
+    doc.text('Geschäftsführer:', 16, 270);
     let position = 274;
 
-    ceo.forEach(eachCeo => {
+    ceo.forEach((eachCeo) => {
       doc.text(`${eachCeo.name}`, 16, position);
       position += 4;
     });
@@ -137,14 +137,14 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
 
     //Logo IVD
-    doc.addImage(ivdLogo, "JPEG", 161, 270, 30, 12, undefined, "SLOW");
+    doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12, undefined, 'SLOW');
   };
   const frontpage = () => {
     //Frontpage
     cartaIntestata();
     const cover = new Image();
-    cover.src = oggetto.downloadURLsCover;
-    doc.addImage(cover, "JPEG", 15, 35, 131, 70, undefined, "SLOW");
+    cover.src = oggetto.downloadURLsCover[0];
+    doc.addImage(cover, 'JPEG', 15, 35, 131, 70, undefined, 'SLOW');
 
     if (oggetto.downloadURLsGrundriss.length > 0) {
       const grundriss = new Image();
@@ -155,7 +155,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
         xPos = 65;
         yPos = 90;
       }
-      doc.addImage(grundriss, "JPEG", 115, 130, xPos, yPos, undefined, "SLOW");
+      doc.addImage(grundriss, 'JPEG', 115, 130, xPos, yPos, undefined, 'SLOW');
     }
 
     //riquadro contatti
@@ -164,21 +164,21 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     doc.line(146, 70, 199, 70);
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(fontStart);
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     doc.text(traduzione.ansprechpartner, 149, 40);
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.text(`${utente.name}`, 149, 44);
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     doc.text(`${utente.email}`, 149, 48);
     doc.text(`Tel. ${utente.telefon}`, 149, 52);
     doc.text(`${firma.website}`, 149, 56);
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.text(traduzione.oeffnungszeiten, 149, 68);
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     doc.text(`${firma.open}`, 149, 72);
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.text(`${firma.name2 ? firma.name2 : firma.name}`, 149, 84);
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     doc.text(`${firma.motto}`, 149, 88);
     doc.text(`${firma.adresse}`, 149, 92);
     doc.text(`${firma.plz} ${firma.stadt}`, 149, 96);
@@ -186,16 +186,16 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
 
     //Titolo
     doc.setFontSize(fontStart + 10);
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     //per centrare il titolo uso poco più della metà della larghezza di pagina e il tag 'center'
-    doc.text(traduzione.titolo, 107, 120, "center");
+    doc.text(traduzione.titolo, 107, 120, 'center');
 
     //Prezzo e indirizzo
     doc.setFontSize(fontStart + 8);
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     doc.setTextColor(145, 0, 0);
     doc.text(
-      `${numeral(oggetto.kaufpreis / 100).format("0,0[.]00 $")}`,
+      `${numeral(oggetto.kaufpreis / 100).format('0,0[.]00 $')}`,
       15,
       135
     );
@@ -244,17 +244,17 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
 
     if (oggetto.heizungsart.length > 0) {
       let heizungsArt = oggetto.heizungsart;
-      if (lingua === "it") {
-        if (heizungsArt === "Zentralheizung") {
-          heizungsArt = "centralizzato";
-        } else if (heizungsArt === "Etagenheizung") {
-          heizungsArt = "indipendente";
+      if (lingua === 'it') {
+        if (heizungsArt === 'Zentralheizung') {
+          heizungsArt = 'centralizzato';
+        } else if (heizungsArt === 'Etagenheizung') {
+          heizungsArt = 'indipendente';
         }
-      } else if (lingua === "en") {
-        if (heizungsArt === "Zentralheizung") {
-          heizungsArt = "central";
-        } else if (heizungsArt === "Etagenheizung") {
-          heizungsArt = "floor heating";
+      } else if (lingua === 'en') {
+        if (heizungsArt === 'Zentralheizung') {
+          heizungsArt = 'central';
+        } else if (heizungsArt === 'Etagenheizung') {
+          heizungsArt = 'floor heating';
         }
       }
       acapo += 5;
@@ -263,17 +263,17 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
 
     if (oggetto.energieAusweisTyp.length > 0) {
       let energieausweis = oggetto.energieAusweisTyp;
-      if (lingua === "it") {
-        if (energieausweis === "Verbrauchsausweis") {
-          energieausweis = "consumo";
-        } else if (energieausweis === "Bedarfsausweis") {
-          energieausweis = "fabbisogno";
+      if (lingua === 'it') {
+        if (energieausweis === 'Verbrauchsausweis') {
+          energieausweis = 'consumo';
+        } else if (energieausweis === 'Bedarfsausweis') {
+          energieausweis = 'fabbisogno';
         }
-      } else if (lingua === "en") {
-        if (energieausweis === "Verbrauchsausweis") {
-          energieausweis = "consumption";
-        } else if (energieausweis === "Bedarfsausweis") {
-          energieausweis = "requirement";
+      } else if (lingua === 'en') {
+        if (energieausweis === 'Verbrauchsausweis') {
+          energieausweis = 'consumption';
+        } else if (energieausweis === 'Bedarfsausweis') {
+          energieausweis = 'requirement';
         }
       }
       acapo += 5;
@@ -300,21 +300,21 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
 
     if (oggetto.energieTraeger.length > 0) {
       let energietraeger = oggetto.energieTraeger;
-      if (lingua === "it") {
-        if (energietraeger === "Erdgas") {
-          energietraeger = "gas";
-        } else if (energietraeger === "Öl") {
-          energietraeger = "olio combustibile";
-        } else if (energietraeger === "Fernwärme") {
-          energietraeger = "teleriscaldamento";
+      if (lingua === 'it') {
+        if (energietraeger === 'Erdgas') {
+          energietraeger = 'gas';
+        } else if (energietraeger === 'Öl') {
+          energietraeger = 'olio combustibile';
+        } else if (energietraeger === 'Fernwärme') {
+          energietraeger = 'teleriscaldamento';
         }
-      } else if (lingua === "en") {
-        if (energietraeger === "Erdgas") {
-          energietraeger = "gaz";
-        } else if (energietraeger === "Öl") {
-          energietraeger = "fuel oil";
-        } else if (energietraeger === "Fernwärme") {
-          energietraeger = "district heating";
+      } else if (lingua === 'en') {
+        if (energietraeger === 'Erdgas') {
+          energietraeger = 'gaz';
+        } else if (energietraeger === 'Öl') {
+          energietraeger = 'fuel oil';
+        } else if (energietraeger === 'Fernwärme') {
+          energietraeger = 'district heating';
         }
       }
       acapo += 5;
@@ -357,21 +357,21 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
 
     if (oggetto.condizioni.length > 0) {
       let oggettoCondizioni = oggetto.condizioni;
-      if (lingua === "it") {
-        if (oggettoCondizioni === "neu") {
-          oggettoCondizioni = "nuovo";
-        } else if (oggettoCondizioni === "gut") {
-          oggettoCondizioni = "buone";
-        } else if (oggettoCondizioni === "renovierunsgbedürftig") {
-          oggettoCondizioni = "da ristrutturare";
+      if (lingua === 'it') {
+        if (oggettoCondizioni === 'neu') {
+          oggettoCondizioni = 'nuovo';
+        } else if (oggettoCondizioni === 'gut') {
+          oggettoCondizioni = 'buone';
+        } else if (oggettoCondizioni === 'renovierunsgbedürftig') {
+          oggettoCondizioni = 'da ristrutturare';
         }
-      } else if (lingua === "en") {
-        if (oggettoCondizioni === "neu") {
-          oggettoCondizioni = "new";
-        } else if (oggettoCondizioni === "gut") {
-          oggettoCondizioni = "good";
-        } else if (oggettoCondizioni === "renovierunsgbedürftig") {
-          oggettoCondizioni = "needs refurbishment";
+      } else if (lingua === 'en') {
+        if (oggettoCondizioni === 'neu') {
+          oggettoCondizioni = 'new';
+        } else if (oggettoCondizioni === 'gut') {
+          oggettoCondizioni = 'good';
+        } else if (oggettoCondizioni === 'renovierunsgbedürftig') {
+          oggettoCondizioni = 'needs refurbishment';
         }
       }
 
@@ -389,13 +389,13 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     doc.addPage();
     cartaIntestata();
     doc.setFontSize(fontStart + 4);
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     doc.setTextColor(0, 0, 0);
-    let descrizione = "Beschreibung";
-    if (lingua === "it") {
-      descrizione = "Descrizione";
-    } else if (lingua === "en") {
-      descrizione = "Description";
+    let descrizione = 'Beschreibung';
+    if (lingua === 'it') {
+      descrizione = 'Descrizione';
+    } else if (lingua === 'en') {
+      descrizione = 'Description';
     }
     doc.text(descrizione, 15, 36);
     doc.setFontSize(fontStart + 2);
@@ -414,7 +414,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
       let pictureXPosition = 15;
       let alternate = true;
       let count = 0;
-      oggetto.downloadURLs.map(url => {
+      oggetto.downloadURLs.map((url) => {
         if (count === 6) {
           doc.addPage();
           cartaIntestata();
@@ -427,13 +427,13 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
         picture.src = url;
         doc.addImage(
           picture,
-          "JPEG",
+          'JPEG',
           pictureXPosition,
           pictureYPosition,
           90,
           65,
           undefined,
-          "SLOW"
+          'SLOW'
         );
         if (alternate) {
           pictureXPosition += 94;
@@ -455,7 +455,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     mappa.src = `https://maps.googleapis.com/maps/api/staticmap?center=${oggetto.via}+${oggetto.numeroCivico},+${oggetto.cap}+${oggetto.citta}&zoom=15&size=800x800&maptype=roadmap
 &markers=color:blue%7Clabel:A%7C${mapMarker.latitude},${mapMarker.longitude}
 &key=AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE`;
-    doc.addImage(mappa, "PNG", 15, 50, 180, 180, undefined, "SLOW");
+    doc.addImage(mappa, 'PNG', 15, 50, 180, 180, undefined, 'SLOW');
   };
 
   const agb = () => {
@@ -464,93 +464,93 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     cartaIntestata();
     let spazio = 40;
     doc.setFontSize(fontStart + 4);
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setTextColor(0, 0, 0);
-    doc.text("Allgemeine Vertragsbedingungen", 15, spazio);
+    doc.text('Allgemeine Vertragsbedingungen', 15, spazio);
     spazio += 10;
 
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setFontSize(fontStart + 2);
-    doc.text("1. Weitergabeverbot", 15, spazio);
+    doc.text('1. Weitergabeverbot', 15, spazio);
     spazio += 10;
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     const linesAGB1 = doc
       .setFontSize(12)
       .splitTextToSize(
-        "Die Informationen über die Vertragsgelegenheit sind nur für Sie bestimmt. Eine Weitergabe der Informationen ist nicht gestattet. Für den Fall der Weitergabe und Vertragsschluss durch den Dritten sind Sie ebenfalls provisionsverpflichtet.",
+        'Die Informationen über die Vertragsgelegenheit sind nur für Sie bestimmt. Eine Weitergabe der Informationen ist nicht gestattet. Für den Fall der Weitergabe und Vertragsschluss durch den Dritten sind Sie ebenfalls provisionsverpflichtet.',
         180
       );
     doc.text(15, spazio + 12 / 110, linesAGB1);
     spazio += 20;
 
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setFontSize(fontStart + 2);
-    doc.text("2. Gegenstand des Auftrags", 15, spazio);
+    doc.text('2. Gegenstand des Auftrags', 15, spazio);
     spazio += 10;
 
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     const linesAGB2 = doc
       .setFontSize(12)
       .splitTextToSize(
-        "Gegenstand des Auftrags ist der Nachweis und/oder die Vermittlung zu der jeweiligen Vertragsgelegenheit.",
+        'Gegenstand des Auftrags ist der Nachweis und/oder die Vermittlung zu der jeweiligen Vertragsgelegenheit.',
         180
       );
     doc.text(15, spazio + 12 / 110, linesAGB2);
     spazio += 15;
 
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setFontSize(fontStart + 2);
-    doc.text("3. Erlaubte Doppeltätigkeit", 15, spazio);
+    doc.text('3. Erlaubte Doppeltätigkeit', 15, spazio);
     spazio += 10;
 
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     const linesAGB3 = doc
       .setFontSize(12)
       .splitTextToSize(
-        "Der Eigentümer der Immobilie hat uns mit dem Vertrieb beauftragt. Es ist uns daher erlaubt, sowohl für Sie, als auch für den Eigentümer vermittelnd provisionspflichtig tätig zu werden.",
+        'Der Eigentümer der Immobilie hat uns mit dem Vertrieb beauftragt. Es ist uns daher erlaubt, sowohl für Sie, als auch für den Eigentümer vermittelnd provisionspflichtig tätig zu werden.',
         180
       );
     doc.text(15, spazio + 12 / 110, linesAGB3);
     spazio += 15;
 
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setFontSize(fontStart + 2);
-    doc.text("4. Inhalt der Angebote, Haftung", 15, spazio);
+    doc.text('4. Inhalt der Angebote, Haftung', 15, spazio);
     spazio += 10;
 
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     const linesAGB4 = doc
       .setFontSize(12)
       .splitTextToSize(
-        "Die Informationen zu unseren Immobilienangeboten erhalten wir vom Eigentümer oder anderen Auskunftsbefugten. Diese Angaben geben wir ohne Übernahme einer Haftung für deren Richtigkeit an Sie weiter. Sämtliche Angebote sind freibleibend, ein Zwischenverkauf bleibt vorbehalten. Verbindliche Zusagen des Maklers zur Vertragsgelegenheit bedürfen zu ihrer Wirksamkeit der Textform.",
+        'Die Informationen zu unseren Immobilienangeboten erhalten wir vom Eigentümer oder anderen Auskunftsbefugten. Diese Angaben geben wir ohne Übernahme einer Haftung für deren Richtigkeit an Sie weiter. Sämtliche Angebote sind freibleibend, ein Zwischenverkauf bleibt vorbehalten. Verbindliche Zusagen des Maklers zur Vertragsgelegenheit bedürfen zu ihrer Wirksamkeit der Textform.',
         180
       );
     doc.text(15, spazio + 12 / 110, linesAGB4);
     spazio += 25;
 
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setFontSize(fontStart + 2);
-    doc.text("5. Vorkenntnis", 15, spazio);
+    doc.text('5. Vorkenntnis', 15, spazio);
     spazio += 10;
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     const linesAGB5 = doc
       .setFontSize(12)
       .splitTextToSize(
-        "Ist Ihnen ein von uns angebotenes Objekt bereits anderweitig bekannt ist, ist uns diese Vorkenntnis innerhalb einer Woche Tagen mitzuteilen. Anderenfalls sind Sie verpflichtet, uns im Wege des Schadensersatzes die Aufwendungen zu ersetzen, die uns dadurch entstanden sind, dass Sie uns in Unkenntnis über die bestehende Vorkenntnis gelassen haben.",
+        'Ist Ihnen ein von uns angebotenes Objekt bereits anderweitig bekannt ist, ist uns diese Vorkenntnis innerhalb einer Woche Tagen mitzuteilen. Anderenfalls sind Sie verpflichtet, uns im Wege des Schadensersatzes die Aufwendungen zu ersetzen, die uns dadurch entstanden sind, dass Sie uns in Unkenntnis über die bestehende Vorkenntnis gelassen haben.',
         180
       );
     doc.text(15, spazio + 12 / 110, linesAGB5);
     spazio += 25;
 
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setFontSize(fontStart + 2);
-    doc.text("6. Gerichtsstand", 15, spazio);
+    doc.text('6. Gerichtsstand', 15, spazio);
     spazio += 10;
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     const linesAGB6 = doc
       .setFontSize(12)
       .splitTextToSize(
-        "Ist unser Kunde Kaufmann oder unterhält er keinen Wohnsitz in Deutschland, gilt als Gerichtsstand und Erfüllungsort der Geschäftssitz des Maklers.",
+        'Ist unser Kunde Kaufmann oder unterhält er keinen Wohnsitz in Deutschland, gilt als Gerichtsstand und Erfüllungsort der Geschäftssitz des Maklers.',
         180
       );
     doc.text(15, spazio + 12 / 110, linesAGB6);
@@ -570,15 +570,15 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     //corpo
     doc.setTextColor(0, 0, 0);
     let spazioW = 35;
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setFontSize(fontStart);
-    doc.text("Widerrufsrecht für Verbraucher", 15, spazioW);
+    doc.text('Widerrufsrecht für Verbraucher', 15, spazioW);
     spazioW += 5;
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     const linesW1 = doc
       .setFontSize(10)
       .splitTextToSize(
-        "Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses. Um Ihr Widerrufsrecht auszuüben, müssen Sie uns:",
+        'Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses. Um Ihr Widerrufsrecht auszuüben, müssen Sie uns:',
         180
       );
     doc.text(15, spazioW + 10 / 110, linesW1);
@@ -602,21 +602,21 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     const linesW2 = doc
       .setFontSize(10)
       .splitTextToSize(
-        "mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandter Brief, Telefax oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster- Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist. Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.",
+        'mittels einer eindeutigen Erklärung (z.B. ein mit der Post versandter Brief, Telefax oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster- Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist. Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.',
         180
       );
     doc.text(15, spazioW + 10 / 110, linesW2);
     spazioW += 20;
 
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setFontSize(fontStart);
-    doc.text("Folgen des Widerrufs", 15, spazioW);
+    doc.text('Folgen des Widerrufs', 15, spazioW);
     spazioW += 5;
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     const linesW3 = doc
       .setFontSize(10)
       .splitTextToSize(
-        "Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.",
+        'Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.',
         180
       );
     doc.text(15, spazioW + 10 / 110, linesW3);
@@ -624,44 +624,44 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     const linesW4 = doc
       .setFontSize(10)
       .splitTextToSize(
-        "Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginnen soll, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen Dienstleistung entspricht.",
+        'Haben Sie verlangt, dass die Dienstleistungen während der Widerrufsfrist beginnen soll, so haben Sie uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie uns von der Ausübung des Widerrufsrechts hinsichtlich dieses Vertrags unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen Dienstleistung entspricht.',
         180
       );
     doc.text(15, spazioW + 10 / 110, linesW4);
     spazioW += 20;
 
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setFontSize(fontStart);
     doc.text(
-      "Hinweis zum vorzeitigen Erlöschen des Widerrufsrechts",
+      'Hinweis zum vorzeitigen Erlöschen des Widerrufsrechts',
       15,
       spazioW
     );
     spazioW += 5;
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     const linesW5 = doc
       .setFontSize(10)
       .splitTextToSize(
-        "Ihr Widerrufsrecht erlischt bei einem Vertrag zur Erbringung von Dienstleistungen vorzeitig, wenn wir die Dienstleistung vollständig erbracht haben und mit der Ausführung der Dienstleistung erst begonnen haben, nachdem Sie dazu Ihre ausdrückliche Zustimmung gegeben haben und gleichzeitig Ihre Kenntnis davon bestätigt haben, dass Sie Ihr Widerrufsrecht bei vollständiger Vertragserfüllung durch uns verlieren.",
+        'Ihr Widerrufsrecht erlischt bei einem Vertrag zur Erbringung von Dienstleistungen vorzeitig, wenn wir die Dienstleistung vollständig erbracht haben und mit der Ausführung der Dienstleistung erst begonnen haben, nachdem Sie dazu Ihre ausdrückliche Zustimmung gegeben haben und gleichzeitig Ihre Kenntnis davon bestätigt haben, dass Sie Ihr Widerrufsrecht bei vollständiger Vertragserfüllung durch uns verlieren.',
         180
       );
     doc.text(15, spazioW + 10 / 110, linesW5);
     spazioW += 20;
 
-    doc.setFontType("bold");
+    doc.setFontType('bold');
     doc.setFontSize(fontStart);
-    doc.text("Anlage - Muster-Widerrufsformular", 15, spazioW);
+    doc.text('Anlage - Muster-Widerrufsformular', 15, spazioW);
     spazioW += 5;
-    doc.setFontType("normal");
+    doc.setFontType('normal');
     const linesW6 = doc
       .setFontSize(10)
       .splitTextToSize(
-        "(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück)",
+        '(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück)',
         180
       );
     doc.text(15, spazioW + 10 / 110, linesW6);
     spazioW += 5;
-    doc.text("An:", 15, spazioW);
+    doc.text('An:', 15, spazioW);
     spazioW += 5;
     doc.text(
       `${firma.name} ${firma.name2 && ` - ${firma.name2}`}`,
@@ -681,24 +681,24 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     const linesW7 = doc
       .setFontSize(10)
       .splitTextToSize(
-        "Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über die Erbringung von Maklerdienstleistungen vom:                            über:",
+        'Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über die Erbringung von Maklerdienstleistungen vom:                            über:',
         180
       );
     doc.text(15, spazioW + 10 / 110, linesW7);
     spazioW += 10;
-    doc.text("Name des/der Verbraucher(s):", 15, spazioW);
+    doc.text('Name des/der Verbraucher(s):', 15, spazioW);
     spazioW += 5;
-    doc.text("Anschrift des/der Verbraucher(s):", 15, spazioW);
+    doc.text('Anschrift des/der Verbraucher(s):', 15, spazioW);
     spazioW += 5;
     doc.text(
-      "Datum:                                               Unterschrift des/der Verbraucher(s)**: ______________________________________",
+      'Datum:                                               Unterschrift des/der Verbraucher(s)**: ______________________________________',
       15,
       spazioW
     );
     spazioW += 10;
-    doc.text("(*)Unzutreffendes streichen", 15, spazioW);
+    doc.text('(*)Unzutreffendes streichen', 15, spazioW);
     spazioW += 5;
-    doc.text("** nur bei Mitteilung auf Papier", 15, spazioW);
+    doc.text('** nur bei Mitteilung auf Papier', 15, spazioW);
   };
 
   //RENDER

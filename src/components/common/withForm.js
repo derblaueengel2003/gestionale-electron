@@ -7,6 +7,13 @@ import Select from 'react-virtualized-select';
 
 function withForm(Component) {
   return class WithForm extends React.Component {
+    componentDidUpdate(prevProps) {
+      if (prevProps.oggetto !== this.props.oggetto) {
+        this.setState({
+          oggetti: this.props.oggetto,
+        });
+      }
+    }
     constructor(props) {
       super(props);
       this.state = {

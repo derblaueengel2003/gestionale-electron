@@ -19,15 +19,43 @@ import { startSetOggetti } from './actions/oggetti';
 import { startSetAccentro } from './actions/accentro';
 import { startSetFatture } from './actions/fatture';
 import { startSetFirma } from './actions/firma';
+import ApolloClient from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpLink } from 'apollo-link-http';
+import { setContext } from 'apollo-link-context';
+import { ApolloProvider } from 'react-apollo';
+
+const link = new HttpLink({
+  uri: 'http://localhost:8888/graphql',
+});
+
+// const authLink = setContext((_, { headers }) => {
+// get the authentication token from local storage if it exists
+// const token = localStorage.getItem('token');
+// return the headers to the context so httpLink can read them
+//   return {
+//     headers: {
+//       ...headers,
+//       authorization: token
+//         ? `Bearer ${token}`
+//         : `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvd3d3LmJlcmxpbmIyYy5jb20iLCJpYXQiOjE1OTExNzI1MzEsIm5iZiI6MTU5MTE3MjUzMSwiZXhwIjoxNTkxMTcyODMxLCJkYXRhIjp7InVzZXIiOnsiaWQiOiIxIn19fQ.7BklTWXSg5H28gaGH77KPFndRO_r_6JxbGrer0_Z4Dg`,
+//     },
+//   };
+// });
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link, //: authLink.concat(link),
+});
 
 const store = configureStore();
 
 const jsx = (
-  <Suspense fallback={<div>Loading...</div>}>
+  <ApolloProvider client={client}>
     <Provider store={store}>
       <AppRouter />
     </Provider>
-  </Suspense>
+  </ApolloProvider>
 );
 let hasRendered = false;
 const renderApp = () => {
