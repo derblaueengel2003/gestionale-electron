@@ -25,9 +25,10 @@ export class AddOggettoPage extends React.Component {
   handleFetch = async (e) => {
     e.preventDefault();
     const oggetto = await axios
-      .get(`http://localhost:8888/wp-json/wl/v1/properties/${this.state.url}`)
+      .get(`https://www.m2square.eu/wp-json/wl/v1/properties/${this.state.url}`)
       .then((res) => res.data);
     console.log(oggetto);
+    if (!oggetto.affittoNetto) oggetto.affittoNetto = '0';
     oggetto.id && this.setState({ oggetto });
   };
 

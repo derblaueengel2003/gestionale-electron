@@ -5,31 +5,13 @@ import selectOggetti from '../../selectors/deals';
 import Card from '../Card';
 import numeral from 'numeral';
 import moment from 'moment';
-// import { useQuery } from '@apollo/react-hooks';
-// import { allPropertiesQuery } from '../../queries/properties';
 
 export const OggettiList = (props) => {
   //controllo se arrivo da view deal o dalla dashboard oggetti
   const oggettiPayload = props.oggetto || props.oggetti;
 
-  // const { loading, data } = useQuery(allPropertiesQuery);
-
-  // if (loading) return <div>Loading...</div>;
-
   return (
     <div className='container'>
-      {/*  
-      <div>
-        {data.properties.nodes.map((property) => (
-          <div key={property.ref_id}>
-            <div>{property.ref_id}</div>
-            <div>{property.property_address}</div>
-            <div>{property.property_price}</div>
-            <div>{property.title}</div>
-          </div>
-        ))}
-      </div>
-    */}
       <div className='list-body'>
         {oggettiPayload.length > 0 && (
           <div>
