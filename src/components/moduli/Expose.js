@@ -143,6 +143,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
     //Frontpage
     cartaIntestata();
     const cover = new Image();
+
     cover.src = oggetto.downloadURLsCover[0];
     doc.addImage(cover, 'JPEG', 15, 35, 131, 70, undefined, 'SLOW');
 

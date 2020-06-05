@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './i18n';
 import { Provider } from 'react-redux';
@@ -9,7 +9,6 @@ import { startSetDeals } from './actions/deals';
 import { startSetUsers } from './actions/utenti';
 import { startSetCustomers } from './actions/clienti';
 import { startSetLeads } from './actions/leads';
-import { startSetOffers } from './actions/offers';
 import { login, logout } from './actions/auth';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
@@ -23,9 +22,11 @@ import { startSetFirma } from './actions/firma';
 const store = configureStore();
 
 const jsx = (
-  <Provider store={store}>
-    <AppRouter />
-  </Provider>
+  <Suspense fallback={<div>Loading...</div>}>
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
+  </Suspense>
 );
 let hasRendered = false;
 const renderApp = () => {
@@ -44,7 +45,6 @@ firebase.auth().onAuthStateChanged((user) => {
     store.dispatch(startSetCustomers());
     store.dispatch(startSetOggetti());
     store.dispatch(startSetLeads());
-    store.dispatch(startSetOffers());
     store.dispatch(startSetAccentro());
     store.dispatch(startSetFatture());
     store.dispatch(startSetFirma());

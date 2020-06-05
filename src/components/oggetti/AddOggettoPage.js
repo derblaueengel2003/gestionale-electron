@@ -29,6 +29,13 @@ export class AddOggettoPage extends React.Component {
       .then((res) => res.data);
     console.log(oggetto);
     if (!oggetto.affittoNetto) oggetto.affittoNetto = '0';
+    if (!oggetto.wohngeld) oggetto.wohngeld = '0';
+    for (let voce in oggetto) {
+      if (typeof voce === 'string') {
+        oggetto[voce] = this.props.t(oggetto[voce]);
+      }
+    }
+    console.log(oggetto);
     oggetto.id && this.setState({ oggetto });
   };
 
