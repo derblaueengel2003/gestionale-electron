@@ -7,17 +7,12 @@ import numeral from 'numeral';
 import Geocode from 'react-geocode';
 import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
+import ImmoscoutAPI from './ImmoscoutAPI';
 
-// set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
 Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
-// set response language. Defaults to english.
 Geocode.setLanguage('de');
-// set response region. Its optional.
-// A Geocoding request with region=es (Spain) will return the Spanish city.
 Geocode.setRegion('de');
-// Enable or disable logs. Its optional.
 Geocode.enableDebug();
-// Get latidude & longitude from address.
 
 export class ViewOggettiPage extends React.Component {
   constructor(props) {
@@ -199,7 +194,9 @@ export class ViewOggettiPage extends React.Component {
             )}
           </div>
         </div>
-
+        <div className='container section'>
+          <ImmoscoutAPI oggetto={oggetto} />
+        </div>
         <div className='container section'>
           {/* Se ho cover e titolo, mostro il pulsante exposé */}
           <ul className='collection  s12 m6'>
