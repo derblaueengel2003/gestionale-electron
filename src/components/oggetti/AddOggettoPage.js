@@ -30,11 +30,18 @@ export class AddOggettoPage extends React.Component {
     console.log(oggetto);
     if (!oggetto.affittoNetto) oggetto.affittoNetto = '0';
     if (!oggetto.wohngeld) oggetto.wohngeld = '0';
+
     for (let voce in oggetto) {
-      if (typeof voce === 'string') {
+      if (
+        voce === 'nazione' ||
+        voce == 'energieAusweisTyp' ||
+        voce === 'energieTraeger' ||
+        voce === 'heizungsart'
+      ) {
         oggetto[voce] = this.props.t(oggetto[voce]);
       }
     }
+    oggetto.visible = true;
     console.log(oggetto);
     oggetto.id && this.setState({ oggetto });
   };

@@ -195,7 +195,9 @@ export class ViewOggettiPage extends React.Component {
           </div>
         </div>
         <div className='container section'>
-          <ImmoscoutAPI oggetto={oggetto} />
+          {this.props.utente.role === 'Admin' && (
+            <ImmoscoutAPI oggetto={oggetto} />
+          )}
         </div>
         <div className='container section'>
           {/* Se ho cover e titolo, mostro il pulsante exposé */}
@@ -325,7 +327,14 @@ export class ViewOggettiPage extends React.Component {
           )}
           {oggetto.downloadURLsCover &&
             oggetto.downloadURLsCover.map((downloadURL, i) => {
-              return <img className='foto' key={i} src={downloadURL} />;
+              return (
+                <img
+                  id='img-cover'
+                  className='foto'
+                  key={i}
+                  src={downloadURL}
+                />
+              );
             })}
         </div>
         <div className='container'>
