@@ -25,6 +25,7 @@ export class AddOggettoPage extends React.Component {
   handleFetch = async (e) => {
     e.preventDefault();
     const oggetto = await axios
+      // .get(`http://localhost:8888/wp-json/wl/v1/properties/${this.state.url}`)
       .get(`https://www.m2square.eu/wp-json/wl/v1/properties/${this.state.url}`)
       .then((res) => res.data);
     console.log(oggetto);
@@ -42,6 +43,27 @@ export class AddOggettoPage extends React.Component {
       }
     }
     oggetto.visible = true;
+    const indirizzo = oggetto.via.split(' ');
+    oggetto.numeroCivico = indirizzo.splice(-1)[0];
+    oggetto.via = indirizzo.join(' ');
+    oggetto.descrizioneDe = oggetto.descrizioneDe.replace(
+      /<\/?[^>]+(>|$)/g,
+      ''
+    );
+
+    switch (oggetto.tipologia) {
+      case 'Vermietete Wohnungen':
+        oggetto.tipologia = 'Eigentumswohnung';
+      case 'Wohnungen':
+        oggetto.tipologia = 'Eigentumswohnung';
+      case 'Pflegeimmobilien':
+        oggetto.tipologia = 'Pflegeheim';
+      case 'Gewerbe':
+        oggetto.tipologia = 'Gewerbe';
+      default:
+        oggetto.tipologia = 'Sonstiges';
+    }
+
     console.log(oggetto);
     oggetto.id && this.setState({ oggetto });
   };
