@@ -11,6 +11,7 @@ export const fattura = (
   dataFattura,
   descrizioneProdotto,
   importoNetto,
+  iva = 19,
   dataPrestazione,
   oggetto,
   prezzoDiVendita = '0',
@@ -26,8 +27,9 @@ export const fattura = (
 ) => {
   const doc = new jsPDF('p', 'mm', 'a4');
   const acqNome = `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
-  const acqInd = `${cliente.indirizzo} ${cliente.indirizzo2 &&
-    cliente.indirizzo2}`;
+  const acqInd = `${cliente.indirizzo} ${
+    cliente.indirizzo2 && cliente.indirizzo2
+  }`;
   const acqNome2 =
     cliente2 && `${cliente2.titolo} ${cliente2.nome} ${cliente2.cognome}`;
   const acqInd2 =
@@ -47,7 +49,9 @@ export const fattura = (
       formulaSaluto2 = 'Sehr geehrte Frau';
     }
   }
-  const provvPercentuale = numeral(amount / prezzoDiVendita).format('0.00%');
+  const provvPercentuale = importoNetto
+    ? numeral(importoNetto / prezzoDiVendita).format('0.00%')
+    : numeral(amount / prezzoDiVendita).format('0.00%');
   let corpoFattura;
   if (dealType === 'Kauf Eigentumswohnung' || dealType === 'Kauf Gewerbe') {
     corpoFattura = `entsprechend dem rechtskräftigen Kaufvertrag vom ${moment(
@@ -172,15 +176,40 @@ Notartermin: ${moment(dataRogito).format('DD.MM.YYYY')}`;
       15,
       150
     );
-    doc.text(numeral(amount / 100).format('0,0[.]00 $'), 120, 150);
-    doc.text('+19% MWSt.', 15, 155);
-    doc.text(numeral((amount / 10000) * 19).format('0,0[.]00 $'), 120, 155);
+    importoNetto
+      ? doc.text(numeral(importoNetto / 100).format('0,0[.]00 $'), 120, 150)
+      : doc.text(numeral(amount / 100).format('0,0[.]00 $'), 120, 150);
+
+    doc.text(`${iva}% MWSt.`, 15, 155);
+    importoNetto
+      ? doc.text(
+          numeral((importoNetto / 10000) * iva).format('0,0[.]00 $'),
+          120,
+          155
+        )
+      : doc.text(
+          numeral((amount / 10000) * iva).format('0,0[.]00 $'),
+          120,
+          155
+        );
     doc.setDrawColor(0, 0, 0);
     doc.setLineWidth(0.2);
     doc.line(15, 157, 146, 157);
-    doc.text('Rechnungsbetrag inkl. 19% MWSt.', 15, 162);
+    doc.text(`Rechnungsbetrag inkl. ${iva}% MWSt.`, 15, 162);
     doc.setFontType('bold');
-    doc.text(numeral((amount / 100) * 1.19).format('0,0[.]00 $'), 120, 162);
+    importoNetto
+      ? doc.text(
+          numeral((importoNetto / 100) * parseFloat(`1.${iva}`)).format(
+            '0,0[.]00 $'
+          ),
+          120,
+          162
+        )
+      : doc.text(
+          numeral((amount / 100) * parseFloat(`1.${iva}`)).format('0,0[.]00 $'),
+          120,
+          162
+        );
 
     //Zeitraum
     doc.setFontType('normal');
@@ -195,19 +224,21 @@ Notartermin: ${moment(dataRogito).format('DD.MM.YYYY')}`;
     //Cifre
     doc.text(`${descrizioneProdotto}`, 15, 150);
     doc.text(numeral(importoNetto / 100).format('0,0[.]00 $'), 120, 150);
-    doc.text('+19% MWSt.', 15, 155);
+    doc.text(`${iva}% MWSt.`, 15, 155);
     doc.text(
-      numeral((importoNetto / 10000) * 19).format('0,0[.]00 $'),
+      numeral((importoNetto / 10000) * iva).format('0,0[.]00 $'),
       120,
       155
     );
     doc.setDrawColor(0, 0, 0);
     doc.setLineWidth(0.2);
     doc.line(15, 157, 146, 157);
-    doc.text('Rechnungsbetrag inkl. 19% MWSt.', 15, 162);
+    doc.text(`Rechnungsbetrag inkl. ${iva}% MWSt.`, 15, 162);
     doc.setFontType('bold');
     doc.text(
-      numeral((importoNetto / 100) * 1.19).format('0,0[.]00 $'),
+      numeral((importoNetto / 100) * parseFloat(`1.${iva}`)).format(
+        '0,0[.]00 $'
+      ),
       120,
       162
     );
@@ -255,7 +286,7 @@ Notartermin: ${moment(dataRogito).format('DD.MM.YYYY')}`;
   doc.text('Geschäftsführer:', 16, 270);
   let position = 274;
 
-  ceo.forEach(eachCeo => {
+  ceo.forEach((eachCeo) => {
     doc.text(`${eachCeo.name}`, 16, position);
     position += 4;
   });
