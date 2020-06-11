@@ -5,11 +5,17 @@ import { withTranslation } from 'react-i18next';
 import { startEditOggetto } from '../../actions/oggetti';
 
 const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
+  //Per inviare immagini dell'immobile
+  const is24ImgApi = () => {
+    axios.post('http://localhost:5000/property_images', oggetto);
+    // .post('https://is24api.herokuapp.com/property', oggetto)
+  };
+  //////////////////////////////////////////////////////////////////////
   //Per inviare i dati dell'immobile
   const is24api = () => {
     axios
-      // .post('http://localhost:5000/property', oggetto)
-      .post('https://is24api.herokuapp.com/property', oggetto)
+      .post('http://localhost:5000/property', oggetto)
+      // .post('https://is24api.herokuapp.com/property', oggetto)
       .then(function (response) {
         // console.log(response.data['common.messages']);
         startEditOggetto(oggetto.id, {
@@ -21,12 +27,16 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
         console.log(error);
       });
   };
-
-  const btnColor = oggetto.is24id ? 'disabled' : 'green';
+  const btnColor = oggetto.is24id ? 'red' : 'green';
   return (
-    <button className={`btn ${btnColor}`} onClick={is24api}>
-      Export to immobilienscout24
-    </button>
+    <div>
+      <button className={`btn ${btnColor}`} onClick={is24api}>
+        Export to immobilienscout24
+      </button>
+      <button className={`btn`} onClick={is24ImgApi}>
+        Export Pictures to immobilienscout24
+      </button>
+    </div>
   );
 };
 

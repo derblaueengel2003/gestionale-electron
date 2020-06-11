@@ -410,7 +410,7 @@ export class OggettoForm extends React.Component {
                     accept='image/*'
                     name='image-uploader-multiple'
                     // randomizeFilename
-                    filename={() => `${oggetti.rifId}-Cover}`}
+                    filename={() => `${oggetti.rifId}-Cover`}
                     storageRef={firebase.storage().ref('cover')}
                     onUploadStart={this.props.handleUploadStart}
                     onUploadError={this.props.handleUploadError}
