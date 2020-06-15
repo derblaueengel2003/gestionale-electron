@@ -40,15 +40,17 @@ ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    store.dispatch(login(user.uid));
-    store.dispatch(startSetUsers());
-    store.dispatch(startSetCustomers());
-    store.dispatch(startSetOggetti());
-    store.dispatch(startSetLeads());
-    store.dispatch(startSetAccentro());
-    store.dispatch(startSetFatture());
-    store.dispatch(startSetFirma());
-    store.dispatch(startSetDeals()).then(() => {
+    Promise.all([
+      store.dispatch(login(user.uid)),
+      store.dispatch(startSetUsers()),
+      store.dispatch(startSetCustomers()),
+      store.dispatch(startSetOggetti()),
+      store.dispatch(startSetLeads()),
+      store.dispatch(startSetAccentro()),
+      store.dispatch(startSetFatture()),
+      store.dispatch(startSetFirma()),
+      store.dispatch(startSetDeals()),
+    ]).then(() => {
       renderApp();
       if (history.location.pathname === '/') {
         history.push('/dashboard');

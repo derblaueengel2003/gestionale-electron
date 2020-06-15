@@ -6,7 +6,7 @@ import { startLogin } from '../actions/auth';
 export const LoginPage = ({ startLogin, t }) => (
   <div className='box-layout'>
     <div className='box-layout__box'>
-      <img src='/images/logo.png'></img>
+      <img src='https://www.m2square.eu/wp-content/uploads/2017/11/Logo.png'></img>
       <h2 className='box-layout__title'>{t('Gestionale')}</h2>
       <p>{t('Inserisci email e password')}</p>
       <input id='email' type='email' name='email' placeholder='email' />
@@ -23,8 +23,8 @@ export const LoginPage = ({ startLogin, t }) => (
   </div>
 );
 
-const mapDispatchToProps = dispatch => ({
-  startLogin: () => dispatch(startLogin())
+const mapDispatchToProps = (dispatch) => ({
+  startLogin: () => dispatch(startLogin()),
 });
 
 export default connect(

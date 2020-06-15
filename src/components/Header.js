@@ -13,7 +13,10 @@ export const Header = ({ startLogout, i18n }) => {
       <div className='container'>
         <div className='header__content'>
           <Link className='header__title' to='/dashboard'>
-            <img src='/images/logo.png'></img>
+            <img
+              className='logo'
+              src='https://www.m2square.eu/wp-content/uploads/2017/11/Logo.png'
+            ></img>
           </Link>
           <div className='language'>
             <button
