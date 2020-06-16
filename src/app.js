@@ -51,10 +51,10 @@ firebase.auth().onAuthStateChanged((user) => {
       store.dispatch(startSetFirma()),
       store.dispatch(startSetDeals()),
     ]).then(() => {
-      renderApp();
-      if (history.location.pathname === '/') {
-        history.push('/dashboard');
-      }
+      setTimeout(renderApp(), 500);
+      history.push('/dashboard');
+      // if (history.location.pathname === '/') {
+      // }
     });
   } else {
     store.dispatch(logout());

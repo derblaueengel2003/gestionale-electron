@@ -426,7 +426,7 @@ export class OggettoForm extends React.Component {
                         <span key={i}>
                           <img className='foto' src={downloadURLCover} />
                           <img
-                            src='/images/trash.jpg'
+                            src='https://www.m2square.eu/wp-content/uploads/2020/06/trash.jpg'
                             className='cancella'
                             onClick={() =>
                               this.props.handleRemovePictureCover(i)
@@ -468,7 +468,7 @@ export class OggettoForm extends React.Component {
                         <span key={i}>
                           <img className='foto' src={downloadURL} />
                           <img
-                            src='/images/trash.jpg'
+                            src='https://www.m2square.eu/wp-content/uploads/2020/06/trash.jpg'
                             className='cancella'
                             onClick={() => this.props.handleRemovePicture(i)}
                           />
@@ -509,7 +509,7 @@ export class OggettoForm extends React.Component {
                           <span key={i}>
                             <img className='foto' src={downloadURLGrundriss} />
                             <img
-                              src='/images/trash.jpg'
+                              src='https://www.m2square.eu/wp-content/uploads/2020/06/trash.jpg'
                               className='cancella'
                               onClick={() =>
                                 this.props.handleRemovePictureGrundriss(i)

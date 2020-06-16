@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import OggettoForm from './OggettoForm';
 import { startAddOggetto } from '../../actions/oggetti';
-import axios from 'axios';
+// import axios from 'axios';
+import { ipcRenderer } from 'electron';
 
 export class AddOggettoPage extends React.Component {
   constructor(props) {
@@ -24,48 +25,48 @@ export class AddOggettoPage extends React.Component {
 
   handleFetch = async (e) => {
     e.preventDefault();
-    const oggetto = await axios
-      // .get(`http://localhost:8888/wp-json/wl/v1/properties/${this.state.url}`)
-      .get(`https://www.m2square.eu/wp-json/wl/v1/properties/${this.state.url}`)
-      .then((res) => res.data);
-    console.log(oggetto);
-    if (!oggetto.affittoNetto) oggetto.affittoNetto = '0';
-    if (!oggetto.wohngeld) oggetto.wohngeld = '0';
+    // const { data: oggetto } = await axios
+    //   // .get(`http://localhost:8888/wp-json/wl/v1/properties/${this.state.url}`)
+    //   .get(
+    //     `https://www.m2square.eu/wp-json/wl/v1/properties/${this.state.url}`
+    //   );
+    // // .then((res) => res.data);
+    // console.log(oggetto);
 
-    for (let voce in oggetto) {
-      if (
-        voce === 'nazione' ||
-        voce == 'energieAusweisTyp' ||
-        voce === 'energieTraeger' ||
-        voce === 'heizungsart'
-      ) {
-        oggetto[voce] = this.props.t(oggetto[voce]);
+    ipcRenderer.send('oggetto:fetch', this.state.url);
+    ipcRenderer.on('oggetto:response', (event, oggetto) => {
+      if (!oggetto.affittoNetto) oggetto.affittoNetto = '0';
+      if (!oggetto.wohngeld) oggetto.wohngeld = '0';
+
+      for (let voce in oggetto) {
+        if (
+          voce === 'nazione' ||
+          voce == 'energieAusweisTyp' ||
+          voce === 'energieTraeger' ||
+          voce === 'heizungsart'
+        ) {
+          oggetto[voce] = this.props.t(oggetto[voce]);
+        }
       }
-    }
-    oggetto.visible = true;
-    const indirizzo = oggetto.via.split(' ');
-    oggetto.numeroCivico = indirizzo.splice(-1)[0];
-    oggetto.via = indirizzo.join(' ');
-    oggetto.descrizioneDe = oggetto.descrizioneDe.replace(
-      /<\/?[^>]+(>|$)/g,
-      ''
-    );
+      oggetto.visible = true;
+      const indirizzo = oggetto.via.split(' ');
+      oggetto.numeroCivico = indirizzo.splice(-1)[0];
+      oggetto.via = indirizzo.join(' ');
+      oggetto.descrizioneDe = oggetto.descrizioneDe.replace(
+        /<\/?[^>]+(>|$)/g,
+        ''
+      );
 
-    switch (oggetto.tipologia) {
-      case 'Vermietete Wohnungen':
+      if (
+        oggetto.tipologia === 'Wohnungen' ||
+        oggetto.tipologia === 'Vermietete Wohnungen'
+      ) {
         oggetto.tipologia = 'Eigentumswohnung';
-      case 'Wohnungen':
-        oggetto.tipologia = 'Eigentumswohnung';
-      case 'Pflegeimmobilien':
-        oggetto.tipologia = 'Pflegeheim';
-      case 'Gewerbe':
-        oggetto.tipologia = 'Gewerbe';
-      default:
-        oggetto.tipologia = 'Sonstiges';
-    }
+      }
 
-    console.log(oggetto);
-    oggetto.id && this.setState({ oggetto });
+      console.log(oggetto);
+      oggetto.id && this.setState({ oggetto });
+    });
   };
 
   render() {
