@@ -9,9 +9,11 @@
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
-    "start": "node server/server.js",
+    "start": "electron-forge start",
     "heroku-postbuild": "yarn run build:prod",
-    "electron": "electron ."
+    "electron": "electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
@@ -37,7 +39,7 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "css-loader": "0.28.4",
-    "electron": "^9.0.4",
+    "electron-squirrel-startup": "^1.0.0",
     "express": "4.15.4",
     "extract-text-webpack-plugin": "3.0.0",
     "firebase": "^7.4.0",
@@ -87,8 +89,14 @@
     "webpack": "3.1.0"
   },
   "devDependencies": {
+    "@electron-forge/cli": "6.0.0-beta.51",
+    "@electron-forge/maker-deb": "6.0.0-beta.51",
+    "@electron-forge/maker-rpm": "6.0.0-beta.51",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.51",
+    "@electron-forge/maker-zip": "6.0.0-beta.51",
     "cross-env": "5.0.5",
     "dotenv": "4.0.0",
+    "electron": "^9.0.4",
     "enzyme": "3.0.0",
     "enzyme-adapter-react-16": "1.0.0",
     "enzyme-to-json": "3.0.1",
@@ -96,5 +104,32 @@
     "react-test-renderer": "16.0.0",
     "uglify-es": "git://github.com/mishoo/UglifyJS2#harmony",
     "webpack-dev-server": "2.5.1"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "expensify"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
