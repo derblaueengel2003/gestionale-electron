@@ -1,11 +1,10 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { startEditOggetto } from '../../actions/oggetti';
 import uuid from 'uuid';
-import cors from 'cors';
 import crypto from 'crypto';
+import { ipcRenderer } from 'electron';
 
 const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
   const connectToIS24 = (base_url) => {
@@ -109,7 +108,6 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
         serviceCharge: oggetto.wohngeld,
       },
     };
-    // console.log(body);
     const base_url =
       'https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate';
 
@@ -125,37 +123,21 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
       },
     };
 
-    // send the request
-    axios(options)
-      .then(function (response) {
-        // console.log(response.data['common.messages']);
-        startEditOggetto(oggetto.id, {
-          ...oggetto,
-          is24id: response.data['common.messages'][0].message.id,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
+    ipcRenderer.send('is24:send', options);
+
+    ipcRenderer.on('is24:response', (event, data) => {
+      startEditOggetto(oggetto.id, {
+        ...oggetto,
+        is24id: data['common.messages'][0].message.id,
       });
+    });
+
+    ipcRenderer.on('is24:error', (event, error) => {
+      console.log(error);
+    });
   };
-  //////////////////////////////////////////////////////////////////////
-  //Per inviare i dati dell'immobile
-  // const is24api = () => {
-  //   axios
-  //     // .post('http://localhost:5000/property', oggetto)
-  //     .post('https://is24api.herokuapp.com/property', oggetto)
-  //     .then(function (response) {
-  //       // console.log(response.data['common.messages']);
-  //       startEditOggetto(oggetto.id, {
-  //         ...oggetto,
-  //         is24id: response.data['common.messages'][0].message.id,
-  //       });
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // };
-  const btnColor = oggetto.is24id ? 'red' : 'green';
+
+  const btnColor = oggetto.is24id ? 'disabled' : 'green';
   return (
     <div>
       <button className={`btn ${btnColor}`} onClick={exportToIS24}>

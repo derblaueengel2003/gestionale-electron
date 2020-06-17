@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import OggettoForm from './OggettoForm';
 import { startAddOggetto } from '../../actions/oggetti';
-// import axios from 'axios';
 import { ipcRenderer } from 'electron';
 
 export class AddOggettoPage extends React.Component {
@@ -25,15 +24,13 @@ export class AddOggettoPage extends React.Component {
 
   handleFetch = async (e) => {
     e.preventDefault();
-    // const { data: oggetto } = await axios
-    //   // .get(`http://localhost:8888/wp-json/wl/v1/properties/${this.state.url}`)
-    //   .get(
-    //     `https://www.m2square.eu/wp-json/wl/v1/properties/${this.state.url}`
-    //   );
-    // // .then((res) => res.data);
-    // console.log(oggetto);
 
     ipcRenderer.send('oggetto:fetch', this.state.url);
+
+    ipcRenderer.on('oggetto:error', (event, error) => {
+      console.log(error);
+    });
+
     ipcRenderer.on('oggetto:response', (event, oggetto) => {
       if (!oggetto.affittoNetto) oggetto.affittoNetto = '0';
       if (!oggetto.wohngeld) oggetto.wohngeld = '0';
