@@ -6,6 +6,7 @@ const Languages = ['it', 'de', 'en'];
 i18n.use(initReactI18next).init({
   fallbackLng: 'it',
   debug: true,
+  whitelist: Languages,
   resources: {
     de: {
       translation: {
