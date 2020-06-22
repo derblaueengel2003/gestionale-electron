@@ -168,7 +168,7 @@ export class DealForm extends React.Component {
           'deals',
           'consulenteVendita',
           consulenteVenditaOptions,
-          t('Consulente vendita')
+          t('sales_rep_name')
         )}
         {renderInput(
           'deals',
@@ -188,7 +188,7 @@ export class DealForm extends React.Component {
         {renderInput(
           'deals',
           'provvStefano',
-          `${t('Provvigione')} ${t('Consulente vendita')}`,
+          `${t('Provvigione')} ${t('sales_rep_name')}`,
           undefined,
           changeHandlerValuta,
           undefined,

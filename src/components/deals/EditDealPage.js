@@ -3,21 +3,33 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { startEditDeal, startRemoveDeal } from '../../actions/deals';
 import DealForm from './DealForm';
+import OptionModal from '../common/OptionModal';
 
 export class EditDealPage extends React.Component {
-  onSubmit = deal => {
+  state = {
+    isOpen: false,
+    modalContent: 'remove_confirm',
+    btnEnabled: true,
+  };
+
+  handleOpenModal = () => {
+    this.setState(() => ({
+      isOpen: true,
+    }));
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isOpen: false });
+  };
+
+  onSubmit = (deal) => {
     this.props.startEditDeal(this.props.deal.id, deal);
     this.props.history.push(`/view/${this.props.deal.id}`);
   };
+
   onRemove = () => {
-    if (
-      window.confirm(
-        'Achtung! Möchten Sie wirklich das löschen? Die Daten werden unwiderruflich gelöscht!'
-      )
-    ) {
-      this.props.startRemoveDeal({ id: this.props.deal.id });
-      this.props.history.push('/');
-    }
+    this.props.startRemoveDeal({ id: this.props.deal.id });
+    this.props.history.push('/');
   };
   render() {
     return (
@@ -30,10 +42,18 @@ export class EditDealPage extends React.Component {
         <div className='container'>
           <button
             className='btn-floating red right btn-floating-margin'
-            onClick={this.onRemove}
+            onClick={this.handleOpenModal}
           >
             <i className='material-icons'>remove</i>
           </button>
+          <OptionModal
+            isOpen={this.state.isOpen}
+            contentLabel={'remove'}
+            modalContent={this.props.t(this.state.modalContent)}
+            onCancel={this.handleCloseModal}
+            onConfirm={this.onRemove}
+            btnEnabled={this.state.btnEnabled}
+          />
           <DealForm deal={this.props.deal} onSubmit={this.onSubmit} />
         </div>
       </div>
@@ -42,12 +62,12 @@ export class EditDealPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  deal: state.deals.find(deal => deal.id === props.match.params.id)
+  deal: state.deals.find((deal) => deal.id === props.match.params.id),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   startEditDeal: (id, deal) => dispatch(startEditDeal(id, deal)),
-  startRemoveDeal: data => dispatch(startRemoveDeal(data))
+  startRemoveDeal: (data) => dispatch(startRemoveDeal(data)),
 });
 
 export default connect(

@@ -1,13 +1,13 @@
 import database from '../firebase/firebase';
 
 // ADD_FATTURA
-export const addFattura = fattura => ({
+export const addFattura = (fattura) => ({
   type: 'ADD_FATTURA',
-  fattura
+  fattura,
 });
 
 export const startAddFattura = (fatturaData = {}) => {
-  return dispatch => {
+  return (dispatch) => {
     const {
       dealId = '',
       clienteId = '',
@@ -18,7 +18,8 @@ export const startAddFattura = (fatturaData = {}) => {
       payedAt = '',
       descrizioneProdotto = '',
       importoNetto = 0,
-      dataPrestazione = null
+      iva = 19,
+      dataPrestazione = null,
     } = fatturaData;
     const fattura = {
       dealId,
@@ -30,17 +31,18 @@ export const startAddFattura = (fatturaData = {}) => {
       payedAt,
       descrizioneProdotto,
       importoNetto,
-      dataPrestazione
+      iva,
+      dataPrestazione,
     };
 
     return database
       .ref(`fatture`)
       .push(fattura)
-      .then(ref => {
+      .then((ref) => {
         dispatch(
           addFattura({
             id: ref.key,
-            ...fattura
+            ...fattura,
           })
         );
       });
@@ -50,11 +52,11 @@ export const startAddFattura = (fatturaData = {}) => {
 // REMOVE_FATTURA
 export const removeFattura = ({ id } = {}) => ({
   type: 'REMOVE_FATTURA',
-  id
+  id,
 });
 
 export const startRemoveFattura = ({ id } = {}) => {
-  return dispatch => {
+  return (dispatch) => {
     return database
       .ref(`fatture/${id}`)
       .remove()
@@ -68,11 +70,11 @@ export const startRemoveFattura = ({ id } = {}) => {
 export const editFattura = (id, updates) => ({
   type: 'EDIT_FATTURA',
   id,
-  updates
+  updates,
 });
 
 export const startEditFattura = (id, updates) => {
-  return dispatch => {
+  return (dispatch) => {
     return database
       .ref(`fatture/${id}`)
       .update(updates)
@@ -83,24 +85,24 @@ export const startEditFattura = (id, updates) => {
 };
 
 // SET_FATTURE
-export const setFatture = fatture => ({
+export const setFatture = (fatture) => ({
   type: 'SET_FATTURE',
-  fatture
+  fatture,
 });
 
 // export const startSetFatture
 export const startSetFatture = () => {
-  return dispatch => {
+  return (dispatch) => {
     return database
       .ref(`fatture`)
       .once('value')
-      .then(snapshot => {
+      .then((snapshot) => {
         const fatture = [];
 
-        snapshot.forEach(childSnapshot => {
+        snapshot.forEach((childSnapshot) => {
           fatture.push({
             id: childSnapshot.key,
-            ...childSnapshot.val()
+            ...childSnapshot.val(),
           });
         });
         dispatch(setFatture(fatture));

@@ -6,8 +6,15 @@ import DealList from '../deals/DealList';
 import FattureList from '../fatture/FattureList';
 import LeadsList from '../leads/LeadsList';
 import OggettiList from '../oggetti/OggettiList';
+import { ipcRenderer } from 'electron';
 
 export class ViewClientiPage extends React.Component {
+  openFile = () => {
+    ipcRenderer.send('folder:open', {
+      folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Kunden/`,
+      folderNamePartial: this.props.cliente.cognome,
+    });
+  };
   render() {
     const {
       cloudURL,
@@ -89,15 +96,14 @@ export class ViewClientiPage extends React.Component {
                 <i className='material-icons'>phone_iphone</i>
               </a>
             )}
-            {cloudURL && (
-              <a
-                href={cloudURL}
-                target='_blank'
+            {
+              <button
                 className='btn-floating light-blue accent-3 right btn-floating-margin'
+                onClick={this.openFile}
               >
-                <i className='material-icons'>cloud</i>
-              </a>
-            )}
+                <i className='material-icons'>folder</i>
+              </button>
+            }
           </div>
 
           <div>

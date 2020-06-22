@@ -160,12 +160,12 @@ export class OggettoForm extends React.Component {
                 optionsTipologia,
                 t('Tipo di immobile')
               )}
-              {renderInput('oggetti', 'via', t('Indirizzo'))}
+              {renderInput('oggetti', 'via', t('address'))}
               {renderInput('oggetti', 'numeroCivico', 'Nr.')}
-              {renderInput('oggetti', 'cap', t('CAP'))}
+              {renderInput('oggetti', 'cap', t('zipcode'))}
               {renderInput('oggetti', 'quartiere', t('Quartiere'))}
-              {renderInput('oggetti', 'citta', t('Città'))}
-              {renderInput('oggetti', 'nazione', t('Nazione'))}
+              {renderInput('oggetti', 'citta', t('city'))}
+              {renderInput('oggetti', 'nazione', t('nation'))}
               {renderInput(
                 'oggetti',
                 'numeroAppartamento',
@@ -257,7 +257,7 @@ export class OggettoForm extends React.Component {
               {renderCheckbox('oggetti', 'venduto', t('Venduto'))}
 
               {this.props.utente.role === 'Admin'
-                ? renderCheckbox('oggetti', 'visible', t('Visibile'))
+                ? renderCheckbox('oggetti', 'visible', t('visible'))
                 : ''}
             </div>
           </div>
@@ -380,7 +380,7 @@ export class OggettoForm extends React.Component {
               {renderInput(
                 'oggetti',
                 'energieBedarf',
-                t('Consumo energetico in' + ' KWh/(m2*a)')
+                t('energy_consumption_kwh')
               )}
               {renderInput(
                 'oggetti',

@@ -3,8 +3,25 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import OggettoForm from './OggettoForm';
 import { startEditOggetto, startRemoveOggetto } from '../../actions/oggetti';
+import OptionModal from '../common/OptionModal';
 
 export class EditOggettoPage extends React.Component {
+  state = {
+    isOpen: false,
+    modalContent: 'remove_confirm',
+    btnEnabled: true,
+  };
+
+  handleOpenModal = () => {
+    this.setState(() => ({
+      isOpen: true,
+    }));
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isOpen: false });
+  };
+
   onSubmit = (oggetto) => {
     this.props.startEditOggetto(this.props.oggetto.id, oggetto);
     this.props.history.push(`/oggettoview/${this.props.oggetto.id}`);
@@ -27,25 +44,18 @@ export class EditOggettoPage extends React.Component {
   };
 
   onRemove = () => {
-    if (
-      window.confirm(
-        this.props.t(
-          'Confermi la cancellazione? Questa operazione è irreversibile!'
-        )
-      )
-    ) {
-      if (this.onValidate()) {
-        this.props.startRemoveOggetto({ id: this.props.oggetto.id });
-        this.props.history.push('/oggetti');
-      } else {
-        alert(
-          this.props.t(
-            "Impossibile cancellare l'oggetto perché è presente nelle vendite o nei contatti"
-          )
-        );
-      }
+    if (this.onValidate()) {
+      this.props.startRemoveOggetto({ id: this.props.oggetto.id });
+      this.props.history.push('/oggetti');
+    } else {
+      this.setState(() => ({
+        isOpen: true,
+        modalContent: 'cannot_delete',
+        btnEnabled: false,
+      }));
     }
   };
+
   onDisable = () => {
     if (
       window.confirm(
@@ -80,14 +90,22 @@ export class EditOggettoPage extends React.Component {
         <div className='container'>
           <button
             className='btn-floating red right btn-floating-margin'
-            onClick={
+            onClick={this.handleOpenModal}
+          >
+            <i className='material-icons'>remove</i>
+          </button>
+          <OptionModal
+            isOpen={this.state.isOpen}
+            contentLabel={'remove'}
+            modalContent={this.props.t(this.state.modalContent)}
+            onCancel={this.handleCloseModal}
+            onConfirm={
               this.props.utente.role === 'Admin'
                 ? this.onRemove
                 : this.onDisable
             }
-          >
-            <i className='material-icons'>remove</i>
-          </button>
+            btnEnabled={this.state.btnEnabled}
+          />
           <OggettoForm oggetto={this.props.oggetto} onSubmit={this.onSubmit} />
         </div>
       </div>

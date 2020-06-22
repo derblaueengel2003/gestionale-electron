@@ -1,0 +1,32 @@
+.confirmation-modal {
+  background-color: #fff;
+  outline: none;
+  box-shadow: 0 1rem 2rem rgba(#000, 0.2);
+  // max-width: 100rem;
+  min-width: 50rem;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 2rem;
+
+  &__heading {
+    font-weight: 900;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__item-name {
+    font-weight: bold;
+    color: $dark-green;
+  }
+
+  &__btn-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6rem;
+  }
+
+  &__btn-confirm {
+    margin-right: 0 !important;
+  }
+}

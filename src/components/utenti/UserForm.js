@@ -44,8 +44,8 @@ class UserForm extends React.Component {
         {renderInput('users', 'name', t('Nome e cognome'))}
         {renderSelect('users', 'role', roleTypeOptions, t('Ruolo'))}
         {renderInput('users', 'firebaseAuthId', 'Firebase Auth Id')}
-        {renderInput('users', 'email', t('Email'))}
-        {renderInput('users', 'telefon', t('Telefono'))}
+        {renderInput('users', 'email', t('email'))}
+        {renderInput('users', 'telefon', t('landline'))}
         {renderInput('users', 'qualifica', t('Qualifica'))}
       </form>
     );

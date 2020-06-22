@@ -48,6 +48,7 @@ export class FatturaForm extends React.Component {
         payedAt: fatture.payedAt ? fatture.payedAt.valueOf() : null,
         descrizioneProdotto: fatture.descrizioneProdotto,
         importoNetto,
+        iva: fatture.iva,
         dataPrestazione: fatture.dataPrestazione
           ? fatture.dataPrestazione.valueOf()
           : null,
@@ -101,6 +102,28 @@ export class FatturaForm extends React.Component {
         {renderSelect('fatture', 'clienteId', options, t('Cliente'))}
         {renderSelect('fatture', 'clienteId2', options, '2. ' + t('Cliente'))}
         {renderInput('fatture', 'numeroFattura', t('Numero fattura'))}
+        {renderInput(
+          'fatture',
+          'importoNetto',
+          t('Importo netto'),
+          undefined,
+          changeHandlerValuta
+        )}
+        {renderSelect(
+          'fatture',
+          'iva',
+          [
+            {
+              value: 19,
+              label: t('19%'),
+            },
+            {
+              value: 17,
+              label: t('17%'),
+            },
+          ],
+          t('IVA')
+        )}
         {renderSingleDate(
           'fatture',
           'dataFattura',
@@ -154,13 +177,6 @@ export class FatturaForm extends React.Component {
             'fatture',
             'descrizioneProdotto',
             t('Descrizione prodotto')
-          )}
-          {renderInput(
-            'fatture',
-            'importoNetto',
-            t('Importo netto'),
-            undefined,
-            changeHandlerValuta
           )}
           {renderSingleDate(
             'fatture',

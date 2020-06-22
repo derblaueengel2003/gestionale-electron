@@ -8,6 +8,7 @@ import Geocode from 'react-geocode';
 import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
 import ImmoscoutAPI from './ImmoscoutAPI';
+import { ipcRenderer } from 'electron';
 
 Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
 Geocode.setLanguage('de');
@@ -48,6 +49,13 @@ export class ViewOggettiPage extends React.Component {
     return this.props.clienti.filter((cliente) => cliente.id === contact);
   };
 
+  openFile = () => {
+    ipcRenderer.send('folder:open', {
+      folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Exposé/`,
+      folderNamePartial: this.props.oggetto.rifId,
+    });
+  };
+
   render() {
     const { t, oggetto } = this.props;
     const verwalter = this.findContact(oggetto.verwalter);
@@ -80,15 +88,14 @@ export class ViewOggettiPage extends React.Component {
                 <i className='material-icons'>search</i>
               </Link>
             )}
-            {oggetto.cloudURL && (
-              <a
-                href={oggetto.cloudURL}
-                target='_blank'
+            {
+              <button
                 className='btn-floating light-blue accent-3 right btn-floating-margin'
+                onClick={this.openFile}
               >
-                <i className='material-icons'>cloud</i>
-              </a>
-            )}
+                <i className='material-icons'>folder</i>
+              </button>
+            }
           </div>
 
           <div>

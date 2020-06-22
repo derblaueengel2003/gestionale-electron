@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
-import { Link } from 'react-router-dom';
 
 export class CustomerForm extends React.Component {
   onSubmit = (e) => {
@@ -11,7 +10,7 @@ export class CustomerForm extends React.Component {
     const { clienti } = this.props.data;
 
     if (!clienti.cognome) {
-      this.props.renderError(this.props.t('Inserisci nome e cognome'));
+      this.props.renderError(this.props.t('form_alert_missing_name'));
     } else {
       this.props.renderError('');
       this.props.onSubmit({
@@ -62,6 +61,7 @@ export class CustomerForm extends React.Component {
       renderTextArea,
       changeHandlerValidate,
       clienti,
+      renderModal,
     } = this.props;
     const consulenteVenditaOptions = this.props.utenti.map((consulente) => ({
       value: consulente.id,
@@ -69,123 +69,118 @@ export class CustomerForm extends React.Component {
     }));
 
     return (
-      <form className='form' onSubmit={this.onSubmit}>
+      <div>
         {this.props.data.error && (
-          <p className='form__error'>{this.props.data.error}</p>
-        )}
-        <div>
-          <button className='btn-floating blue right'>
-            <i className='material-icons'>save</i>
-          </button>
-        </div>
-        {this.props.data.error ===
-          'Cliente forse già presente nel gestionale' && (
-          <div>
-            <Link to={`/customer`} target='_blank' className='btn'>
-              {t('Verificare')}
-            </Link>
+          <div className='form__error'>
+            {t(this.props.data.error)}
+            {this.props.data.error === 'customer_already_registered' &&
+              renderModal(t('btn_label_verify'))}
           </div>
         )}
-        {renderSingleDate(
-          'clienti',
-          'dataRegistrazione',
-          'calendarDataRegistrazioneFocused',
-          t('Data registrazione dati del cliente')
-        )}
-        {renderSelect(
-          'clienti',
-          'consulenteVenditaId',
-          consulenteVenditaOptions,
-          t('Consulente vendita')
-        )}
-        {renderSelect(
-          'clienti',
-          'titolo',
-          [
-            { value: 'Herr', label: 'Herr' },
-            { value: 'Frau', label: 'Frau' },
-          ],
-          t('Titolo')
-        )}
-        {renderInput('clienti', 'nome', t('Nome'))}
-        {/* Quando uso la validazione per vedere se il cliente è già presente
-        devo passare, oltre all'handler per la validazione, anche i clienti come argomento */}
-        {renderInput(
-          'clienti',
-          'cognome',
-          t('Cognome'),
-          'text',
-          changeHandlerValidate,
-          clienti
-        )}
-        {renderInput(
-          'clienti',
-          'email',
-          t('Email'),
-          'text',
-          changeHandlerValidate,
-          clienti
-        )}
-        {renderInput('clienti', 'telefono1', t('Telefono fisso'))}
-        {renderInput('clienti', 'fax', 'Fax')}
-        {renderInput('clienti', 'cellulare', t('Cellulare'))}
-        {renderInput('clienti', 'www', t('Sito web'))}
-        {renderSingleDate(
-          'clienti',
-          'dataDiNascita',
-          'calendarFocused',
-          t('Data di nascita')
-        )}
-        {renderInput('clienti', 'codiceFiscale', t('Codice fiscale tedesco'))}
-        {renderInput('clienti', 'ditta', t('Ditta'))}
-        {renderInput(
-          'clienti',
-          'handelsRegisterNummer',
-          t('Numero iscrizione registro delle imprese')
-        )}
-        {renderInput('clienti', 'indirizzo', t('Indirizzo'))}
-        {renderInput('clienti', 'indirizzo2', t('Estensione indirizzo'))}
-        {renderInput('clienti', 'cap', t('CAP'))}
-        {renderInput('clienti', 'comune', t('Città'))}
-        {renderInput('clienti', 'nazione', t('Nazione'))}
-        {renderInput('clienti', 'lingua', t('Lingua'))}
-        {renderInput('clienti', 'bank', t('Banca'))}
-        {renderInput('clienti', 'iban', 'IBAN')}
-        {renderInput('clienti', 'bic', 'BIC/SWIFT')}
-        {renderInput(
-          'clienti',
-          'cloudURL',
-          'Cloud URL',
-          undefined,
-          undefined,
-          undefined,
-          'https://www...'
-        )}
-        {renderTextArea('clienti', 'note', 'Note')}
-        {this.props.utente.role === 'Admin'
-          ? renderCheckbox('clienti', 'visible', t('Visibile'))
-          : ''}
+        <form className='form' onSubmit={this.onSubmit}>
+          <div>
+            <button className='btn-floating blue right'>
+              <i className='material-icons'>save</i>
+            </button>
+          </div>
 
-        {renderCheckbox(
-          'clienti',
-          'consensoDSGVO',
-          t('Consenso al trattamento dei dati personali')
-        )}
-        {renderSingleDate(
-          'clienti',
-          'dataConsensoDSGVO',
-          'calendarDataConsensoDSGVOFocused',
-          t('Data consenso')
-        )}
-        {this.props.data.error && (
-          <p className='form__error'>{this.props.data.error}</p>
-        )}
-        <div>
-          <button className='btn-floating blue right'>
-            <i className='material-icons'>save</i>
-          </button>
-        </div>
-      </form>
+          {renderSingleDate(
+            'clienti',
+            'dataRegistrazione',
+            'calendarDataRegistrazioneFocused',
+            t('customer_registration_date')
+          )}
+          {renderSelect(
+            'clienti',
+            'consulenteVenditaId',
+            consulenteVenditaOptions,
+            t('sales_rep_name')
+          )}
+          {renderSelect(
+            'clienti',
+            'titolo',
+            [
+              { value: 'Herr', label: 'Herr' },
+              { value: 'Frau', label: 'Frau' },
+            ],
+            t('customer_title')
+          )}
+          {renderInput('clienti', 'nome', t('firstname'))}
+          {/* Quando uso la validazione per vedere se il cliente è già presente
+              devo passare, oltre all'handler per la validazione, anche i clienti come argomento */}
+          {renderInput(
+            'clienti',
+            'cognome',
+            t('lastname'),
+            'text',
+            changeHandlerValidate,
+            clienti
+          )}
+          {renderInput(
+            'clienti',
+            'email',
+            t('email'),
+            'text',
+            changeHandlerValidate,
+            clienti
+          )}
+          {renderInput('clienti', 'telefono1', t('landline'))}
+          {renderInput('clienti', 'fax', t('fax'))}
+          {renderInput('clienti', 'cellulare', t('mobile'))}
+          {renderInput('clienti', 'www', t('website'))}
+          {renderSingleDate(
+            'clienti',
+            'dataDiNascita',
+            'calendarFocused',
+            t('birthdate')
+          )}
+          {renderInput('clienti', 'codiceFiscale', t('taxpayer_number'))}
+          {renderInput('clienti', 'ditta', t('company'))}
+          {renderInput(
+            'clienti',
+            'handelsRegisterNummer',
+            t('company_register_number')
+          )}
+          {renderInput('clienti', 'indirizzo', t('address'))}
+          {renderInput('clienti', 'indirizzo2', t('address_extention'))}
+          {renderInput('clienti', 'cap', t('zipcode'))}
+          {renderInput('clienti', 'comune', t('city'))}
+          {renderInput('clienti', 'nazione', t('nation'))}
+          {renderInput('clienti', 'lingua', t('language'))}
+          {renderInput('clienti', 'bank', t('bank'))}
+          {renderInput('clienti', 'iban', 'IBAN')}
+          {renderInput('clienti', 'bic', 'BIC/SWIFT')}
+          {renderInput(
+            'clienti',
+            'cloudURL',
+            'Cloud URL',
+            undefined,
+            undefined,
+            undefined,
+            'https://www...'
+          )}
+          {renderTextArea('clienti', 'note', 'Note')}
+          {this.props.utente.role === 'Admin'
+            ? renderCheckbox('clienti', 'visible', t('visible'))
+            : ''}
+
+          {renderCheckbox('clienti', 'consensoDSGVO', t('gdpr_consent'))}
+          {renderSingleDate(
+            'clienti',
+            'dataConsensoDSGVO',
+            'calendarDataConsensoDSGVOFocused',
+            t('gdpr_consent_date')
+          )}
+          {this.props.data.error && (
+            <p className='form__error'>{this.props.data.error}</p>
+          )}
+          <div>
+            <button className='btn-floating blue right'>
+              <i className='material-icons'>save</i>
+            </button>
+          </div>
+        </form>
+      </div>
     );
   }
 }

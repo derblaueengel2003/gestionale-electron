@@ -7,22 +7,34 @@ import { startRemoveLead } from '../../actions/leads';
 import { startRemoveOffer } from '../../actions/offers';
 import numeral from 'numeral';
 import moment from 'moment';
+import OptionModal from '../common/OptionModal';
 
 export class ViewLeadPage extends React.Component {
+  state = {
+    isOpen: false,
+    modalContent: 'remove_confirm',
+    btnEnabled: true,
+  };
+
+  handleOpenModal = () => {
+    this.setState(() => ({
+      isOpen: true,
+    }));
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isOpen: false });
+  };
   onRemove = () => {
-    if (
-      window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
-    ) {
-      const offerteDaCancellare = this.props.offers.filter(
-        (offer) => offer.leadId === this.props.lead.id
-      );
-      //cancello tutte le offerte legate a questa richiesta e poi cancello la richiesta
-      offerteDaCancellare.forEach((offer) => {
-        this.props.startRemoveOffer({ id: offer.id });
-      });
-      this.props.startRemoveLead({ id: this.props.lead.id });
-      this.props.history.push('/leads');
-    }
+    const offerteDaCancellare = this.props.offers.filter(
+      (offer) => offer.leadId === this.props.lead.id
+    );
+    //cancello tutte le offerte legate a questa richiesta e poi cancello la richiesta
+    offerteDaCancellare.forEach((offer) => {
+      this.props.startRemoveOffer({ id: offer.id });
+    });
+    this.props.startRemoveLead({ id: this.props.lead.id });
+    this.props.history.push('/leads');
   };
   render() {
     const cliente = this.props.clienti.find(
@@ -58,10 +70,18 @@ export class ViewLeadPage extends React.Component {
           <div>
             <button
               className='btn-floating red right btn-floating-margin'
-              onClick={this.onRemove}
+              onClick={this.handleOpenModal}
             >
               <i className='material-icons'>remove</i>
             </button>
+            <OptionModal
+              isOpen={this.state.isOpen}
+              contentLabel={'remove'}
+              modalContent={this.props.t(this.state.modalContent)}
+              onCancel={this.handleCloseModal}
+              onConfirm={this.onRemove}
+              btnEnabled={this.state.btnEnabled}
+            />
             <Link
               className='btn-floating orange right btn-floating-margin'
               to={`/leadedit/${this.props.lead.id}`}

@@ -1,6 +1,9 @@
 const electron = require('electron');
-const { app, BrowserWindow, ipcMain } = electron;
+const { app, BrowserWindow, ipcMain, shell } = electron;
 const axios = require('axios');
+const path = require('path');
+const homedir = require('os').homedir();
+const fs = require('fs');
 
 let mainWindow;
 
@@ -36,4 +39,19 @@ ipcMain.on('is24:send', async (event, options) => {
   } catch (error) {
     mainWindow.webContents.send('is24:error', error);
   }
+});
+
+ipcMain.on('folder:open', (event, { folder, folderNamePartial }) => {
+  const folderPath = path.join(homedir, folder);
+  const filePath = () => {
+    const findPath = fs
+      .readdirSync(folderPath)
+      .filter((fn) => fn.startsWith(folderNamePartial));
+
+    return findPath[0] || '';
+  };
+
+  const finalPath = path.join(folderPath, filePath());
+
+  shell.openPath(finalPath);
 });

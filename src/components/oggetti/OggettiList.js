@@ -5,6 +5,7 @@ import selectOggetti from '../../selectors/deals';
 import Card from '../Card';
 import numeral from 'numeral';
 import moment from 'moment';
+import { ipcRenderer } from 'electron';
 
 export const OggettiList = (props) => {
   //controllo se arrivo da view deal o dalla dashboard oggetti
@@ -39,15 +40,17 @@ export const OggettiList = (props) => {
                     key={oggetto.id}
                     titolo={`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`}
                     titoloDestra={
-                      oggetto.cloudURL && (
-                        <a
-                          href={oggetto.cloudURL}
-                          target='_blank'
-                          className='btn-floating light-blue accent-3 right btn-floating-margin'
-                        >
-                          <i className='material-icons'>cloud</i>
-                        </a>
-                      )
+                      <button
+                        className='btn-floating light-blue accent-3 right btn-floating-margin'
+                        onClick={() => {
+                          ipcRenderer.send('folder:open', {
+                            folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Exposé/`,
+                            folderNamePartial: oggetto.rifId,
+                          });
+                        }}
+                      >
+                        <i className='material-icons'>folder</i>
+                      </button>
                     }
                     sottotitolo={`${props.t('Rif')}. ID ${oggetto.rifId}`}
                     visible={oggetto.visible}

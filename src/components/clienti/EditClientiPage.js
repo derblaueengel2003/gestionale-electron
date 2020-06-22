@@ -3,18 +3,37 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import CustomerForm from './ClientiForm';
 import { startEditCustomer, startRemoveCustomer } from '../../actions/clienti';
+import OptionModal from '../common/OptionModal';
 
 export class EditClientePage extends React.Component {
-  onSubmit = cliente => {
+  state = {
+    isOpen: false,
+    modalContent: 'remove_confirm',
+    btnEnabled: true,
+  };
+
+  handleOpenModal = () => {
+    this.setState(() => ({
+      isOpen: true,
+    }));
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isOpen: false });
+  };
+
+  onSubmit = (cliente) => {
     this.props.startEditCustomer(this.props.cliente.id, cliente);
     this.props.history.push(`/customerview/${this.props.cliente.id}`);
   };
+
+  // prima di cancellare verifico se non è usato in altri campi
   onValidate = () => {
     const lead = this.props.leads.find(
-      lead => lead.leadId === this.props.cliente.id
+      (lead) => lead.leadId === this.props.cliente.id
     );
     const deals = this.props.deals.find(
-      deal =>
+      (deal) =>
         deal.agenziaPartnerId === this.props.cliente.id ||
         deal.venditoreId === this.props.cliente.id ||
         deal.venditoreId2 === this.props.cliente.id ||
@@ -23,13 +42,13 @@ export class EditClientePage extends React.Component {
         deal.notaioId === this.props.cliente.id
     );
     const oggetti = this.props.oggetti.find(
-      oggetto =>
+      (oggetto) =>
         oggetto.proprietarioId === this.props.cliente.id ||
         oggetto.proprietarioId2 === this.props.cliente.id ||
         oggetto.verwalter === this.props.cliente.id
     );
     const fatture = this.props.fatture.find(
-      fattura =>
+      (fattura) =>
         fattura.clienteId === this.props.cliente.id ||
         fattura.clienteId2 === this.props.cliente.id
     );
@@ -39,33 +58,33 @@ export class EditClientePage extends React.Component {
       return false;
     }
   };
+
   onRemove = () => {
-    if (
-      window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
-    ) {
-      if (this.onValidate()) {
-        this.props.startRemoveCustomer({ id: this.props.cliente.id });
-        this.props.history.push('/customer');
-      } else {
-        alert(
-          'Nicht löschbar: Der Kontakt wird in Anfragen, Deals, Objekte oder Rechnungen verwendet.'
-        );
-      }
+    if (this.onValidate()) {
+      this.props.startRemoveCustomer({ id: this.props.cliente.id });
+      this.props.history.push('/customer');
+    } else {
+      this.setState(() => ({
+        isOpen: true,
+        modalContent: 'cannot_delete',
+        btnEnabled: false,
+      }));
     }
   };
+
   onDisable = () => {
-    if (window.confirm('Bestätigen Sie die Löschung?')) {
-      if (this.onValidate()) {
-        this.props.startEditCustomer(this.props.cliente.id, {
-          ...this.props.cliente,
-          visible: false
-        });
-        this.props.history.push('/customer');
-      } else {
-        alert(
-          'Nicht löschbar: Der Kontakt wird in Anfragen, Deals, Objekte oder Rechnungen verwendet.'
-        );
-      }
+    if (this.onValidate()) {
+      this.props.startEditCustomer(this.props.cliente.id, {
+        ...this.props.cliente,
+        visible: false,
+      });
+      this.props.history.push('/customer');
+    } else {
+      this.setState(() => ({
+        isOpen: true,
+        modalContent: 'cannot_delete',
+        btnEnabled: false,
+      }));
     }
   };
 
@@ -80,14 +99,22 @@ export class EditClientePage extends React.Component {
         <div className='container'>
           <button
             className='btn-floating red right btn-floating-margin'
-            onClick={
+            onClick={this.handleOpenModal}
+          >
+            <i className='material-icons'>remove</i>
+          </button>
+          <OptionModal
+            isOpen={this.state.isOpen}
+            contentLabel={'remove'}
+            modalContent={this.props.t(this.state.modalContent)}
+            onCancel={this.handleCloseModal}
+            onConfirm={
               this.props.utente.role === 'Admin'
                 ? this.onRemove
                 : this.onDisable
             }
-          >
-            <i className='material-icons'>remove</i>
-          </button>
+            btnEnabled={this.state.btnEnabled}
+          />
           <CustomerForm
             customer={this.props.cliente}
             onSubmit={this.onSubmit}
@@ -99,18 +126,22 @@ export class EditClientePage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  cliente: state.clienti.find(cliente => cliente.id === props.match.params.id),
-  utente: state.utenti.find(utente => utente.firebaseAuthId === state.auth.uid),
+  cliente: state.clienti.find(
+    (cliente) => cliente.id === props.match.params.id
+  ),
+  utente: state.utenti.find(
+    (utente) => utente.firebaseAuthId === state.auth.uid
+  ),
   leads: state.leads,
   deals: state.deals,
   oggetti: state.oggetti,
-  fatture: state.fatture
+  fatture: state.fatture,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   startEditCustomer: (id, cliente, visible) =>
     dispatch(startEditCustomer(id, cliente, visible)),
-  startRemoveCustomer: data => dispatch(startRemoveCustomer(data))
+  startRemoveCustomer: (data) => dispatch(startRemoveCustomer(data)),
 });
 
 export default connect(

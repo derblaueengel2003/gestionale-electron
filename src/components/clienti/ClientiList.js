@@ -4,6 +4,7 @@ import { withTranslation } from 'react-i18next';
 import { startSetCustomers } from '../../actions/clienti';
 import selectClienti from '../../selectors/deals';
 import Card from '../Card';
+import { ipcRenderer } from 'electron';
 
 export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
   //controllo se i dati vengono dal deal page o se sono passati via props.
@@ -66,14 +67,18 @@ export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
                             <i className='material-icons'>phone_iphone</i>
                           </a>
                         )}
-                        {cliente.cloudURL && (
-                          <a
-                            href={cliente.cloudURL}
-                            target='_blank'
+                        {cliente.cognome && (
+                          <button
                             className='btn-floating light-blue accent-3 right btn-floating-margin'
+                            onClick={() => {
+                              ipcRenderer.send('folder:open', {
+                                folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Kunden/`,
+                                folderNamePartial: cliente.cognome,
+                              });
+                            }}
                           >
-                            <i className='material-icons'>cloud</i>
-                          </a>
+                            <i className='material-icons'>folder</i>
+                          </button>
                         )}
                       </div>
                     }

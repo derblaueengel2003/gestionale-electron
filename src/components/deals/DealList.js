@@ -6,6 +6,7 @@ import Card from '../Card';
 import TodoProgressBar from './TodoProgressBar';
 import moment from 'moment';
 import numeral from 'numeral';
+import { ipcRenderer } from 'electron';
 
 // load a locale
 numeral.register('locale', 'de', {
@@ -131,15 +132,17 @@ export const DealList = ({
                     )
                   }
                   titoloDestra={
-                    oggetto.cloudURL && (
-                      <a
-                        href={oggetto.cloudURL}
-                        target='_blank'
-                        className='btn-floating light-blue accent-3 right btn-floating-margin'
-                      >
-                        <i className='material-icons'>cloud</i>
-                      </a>
-                    )
+                    <button
+                      className='btn-floating light-blue accent-3 right btn-floating-margin'
+                      onClick={() => {
+                        ipcRenderer.send('folder:open', {
+                          folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Exposé/`,
+                          folderNamePartial: oggetto.rifId,
+                        });
+                      }}
+                    >
+                      <i className='material-icons'>folder</i>
+                    </button>
                   }
                   corpo={[datiPrenotazione, gliAcquirenti, iVenditori]}
                   progressBar={<TodoProgressBar {...deal} />}

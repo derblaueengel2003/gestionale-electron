@@ -4,6 +4,7 @@ import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import { DateRangePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
+import OptionModal from './OptionModal';
 
 function withForm(Component) {
   return class WithForm extends React.Component {
@@ -345,16 +346,49 @@ function withForm(Component) {
           firebaseAuthId: props.user ? props.user.firebaseAuthId : '',
         },
 
-        //ERROR
+        // ERROR
         error: '',
+
+        // MODAL
+        isOpen: false,
+        contentLabel: '',
+        modalContent: null,
       };
     }
 
     //RENDER
 
+    renderModal = (contentLabel) => {
+      const handleOpenModal = () => {
+        this.setState(() => ({
+          isOpen: true,
+          contentLabel,
+        }));
+      };
+
+      const handleCloseModal = () => {
+        this.setState({ isOpen: false });
+      };
+
+      return (
+        <div>
+          <button className='btn green' onClick={handleOpenModal}>
+            {contentLabel}
+          </button>
+          <OptionModal
+            isOpen={this.state.isOpen}
+            contentLabel={this.state.contentLabel}
+            modalContent={this.state.modalContent}
+            onCancel={handleCloseModal}
+          />
+        </div>
+      );
+    };
+
     renderError = (error = '') => {
       this.setState({ error });
     };
+
     renderInput = (
       object,
       property,
@@ -485,24 +519,27 @@ function withForm(Component) {
       this.setState({
         [object]: { ...this.state[object], [e.target.name]: e.target.value },
       });
-      let match = clienti.filter((ilcliente) => {
-        const emailMatch = ilcliente.email
-          .toLowerCase()
-          .includes(e.target.value.toLowerCase());
-        const cognomeMatch = ilcliente.cognome
-          .toLowerCase()
-          .includes(e.target.value.toLowerCase());
-        const dittaMatch = ilcliente.ditta
-          .toLowerCase()
-          .includes(e.target.value.toLowerCase());
-        return emailMatch || cognomeMatch || dittaMatch;
-      });
-      if (match.length > 0) {
-        this.setState(() => ({
-          error: `Cliente forse già presente nel gestionale`,
-        }));
-      } else {
-        this.setState(() => ({ error: '' }));
+      if (e.target.value.length > 3) {
+        let match = clienti.filter((ilcliente) => {
+          const emailMatch = ilcliente.email
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase());
+          const cognomeMatch = ilcliente.cognome
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase());
+          const dittaMatch = ilcliente.ditta
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase());
+          return emailMatch || cognomeMatch || dittaMatch;
+        });
+        if (match.length > 0) {
+          this.setState(() => ({
+            error: 'customer_already_registered',
+            modalContent: match,
+          }));
+        } else {
+          this.setState(() => ({ error: '' }));
+        }
       }
     };
 
@@ -735,6 +772,7 @@ function withForm(Component) {
     render() {
       return (
         <Component
+          renderModal={this.renderModal}
           renderError={this.renderError}
           renderInput={this.renderInput}
           renderSingleDate={this.renderSingleDate}

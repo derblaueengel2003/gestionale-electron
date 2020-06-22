@@ -3,19 +3,32 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import FatturaForm from './FatturaForm';
 import { startEditFattura, startRemoveFattura } from '../../actions/fatture';
+import OptionModal from '../common/OptionModal';
 
 export class EditFatturaPage extends React.Component {
-  onSubmit = fattura => {
+  state = {
+    isOpen: false,
+    modalContent: 'remove_confirm',
+    btnEnabled: true,
+  };
+
+  handleOpenModal = () => {
+    this.setState(() => ({
+      isOpen: true,
+    }));
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isOpen: false });
+  };
+
+  onSubmit = (fattura) => {
     this.props.startEditFattura(this.props.fattura.id, fattura);
     this.props.history.push(`/fatturaview/${this.props.fattura.id}`);
   };
   onRemove = () => {
-    if (
-      window.confirm('Bestätigen Sie die Löschung? Das ist unwiderruflich!')
-    ) {
-      this.props.startRemoveFattura({ id: this.props.fattura.id });
-      this.props.history.push('/fatture');
-    }
+    this.props.startRemoveFattura({ id: this.props.fattura.id });
+    this.props.history.push('/fatture');
   };
   render() {
     return (
@@ -28,10 +41,18 @@ export class EditFatturaPage extends React.Component {
         <div className='container'>
           <button
             className='btn-floating red right btn-floating-margin'
-            onClick={this.onRemove}
+            onClick={this.handleOpenModal}
           >
             <i className='material-icons'>remove</i>
           </button>
+          <OptionModal
+            isOpen={this.state.isOpen}
+            contentLabel={'remove'}
+            modalContent={this.props.t(this.state.modalContent)}
+            onCancel={this.handleCloseModal}
+            onConfirm={this.onRemove}
+            btnEnabled={this.state.btnEnabled}
+          />
           <FatturaForm fattura={this.props.fattura} onSubmit={this.onSubmit} />
         </div>
       </div>
@@ -40,12 +61,14 @@ export class EditFatturaPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  fattura: state.fatture.find(fattura => fattura.id === props.match.params.id)
+  fattura: state.fatture.find(
+    (fattura) => fattura.id === props.match.params.id
+  ),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   startEditFattura: (id, fattura) => dispatch(startEditFattura(id, fattura)),
-  startRemoveFattura: data => dispatch(startRemoveFattura(data))
+  startRemoveFattura: (data) => dispatch(startRemoveFattura(data)),
 });
 
 export default connect(
