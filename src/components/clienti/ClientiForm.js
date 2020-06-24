@@ -172,7 +172,7 @@ export class CustomerForm extends React.Component {
             t('gdpr_consent_date')
           )}
           {this.props.data.error && (
-            <p className='form__error'>{this.props.data.error}</p>
+            <p className='form__error'>{t(this.props.data.error)}</p>
           )}
           <div>
             <button className='btn-floating blue right'>

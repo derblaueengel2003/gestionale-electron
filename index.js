@@ -1,16 +1,17 @@
 const electron = require('electron');
-const { app, BrowserWindow, ipcMain, shell } = electron;
+const { app, BrowserWindow, ipcMain, shell, Menu } = electron;
 const axios = require('axios');
 const path = require('path');
 const homedir = require('os').homedir();
 const fs = require('fs');
 
 let mainWindow;
+let addWindow;
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
     height: 1000,
-    width: 1200,
+    width: 1024,
     webPreferences: {
       backgroundThrottling: false,
       nodeIntegration: true,
@@ -18,8 +19,64 @@ app.on('ready', () => {
     },
   });
 
+  // carico la pagina
   mainWindow.loadURL(`file://${__dirname}/public/index.html`);
+  // mainWindow.on('closed', () => app.quit());
+
+  // creo il menu
+  // const mainMenu = Menu.buildFromTemplate(menuTemplate);
+  // e lo inserisco
+  // Menu.setApplicationMenu(mainMenu);
 });
+
+// function createAddWindow(event, title) {
+//   addWindow = new BrowserWindow({
+//     height: 800,
+//     width: 600,
+//     title,
+//     webPreferences: {
+//       nodeIntegration: true,
+//     },
+//   });
+//   // addWindow.loadURL(`file://${__dirname}/public/index.html#/customercreate`);
+//   addWindow.on('close', () => (addWindow = null));
+// }
+
+// Menu
+// const menuTemplate = [
+//   { label: 'Gestionale m2Square' },
+//   {
+//     label: 'File',
+//     submenu: [
+//       // {
+//       //   label: 'Nuovo contatto',
+//       //   click() {
+//       //     createAddWindow();
+//       //   },
+//       // },
+//       { role: 'quit' },
+//     ],
+//   },
+//   {
+//     label: 'Edit',
+//     submenu: [
+//       { role: 'undo' },
+//       { role: 'redo' },
+//       { type: 'separator' },
+//       { role: 'cut' },
+//       { role: 'copy' },
+//       { role: 'paste' },
+//     ],
+//   },
+// ];
+
+// controllo l'environment di node che può essere: production, development, staging, test
+// if (process.env.NODE_ENV !== 'production') {
+//   menuTemplate.push({
+//     label: 'Developer',
+//     submenu: [{ role: 'toggledevtools' }],
+//   });
+// }
 
 ipcMain.on('window:reload', (event) => {
   mainWindow.loadURL(`file://${__dirname}/public/index.html`);
