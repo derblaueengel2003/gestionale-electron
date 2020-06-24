@@ -26,11 +26,14 @@ ipcMain.on('window:reload', (event) => {
 });
 
 ipcMain.on('oggetto:fetch', async (event, url) => {
+  mainWindow.webContents.send('oggetto:spinner', true);
+
   try {
     const { data: oggetto } = await axios.get(
       `https://www.m2square.eu/wp-json/wl/v1/properties/${url}`
     );
     mainWindow.webContents.send('oggetto:response', oggetto);
+    mainWindow.webContents.send('oggetto:spinner', false);
   } catch (error) {
     mainWindow.webContents.send('oggetto:error', error);
   }

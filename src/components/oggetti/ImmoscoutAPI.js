@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { startEditOggetto } from '../../actions/oggetti';
 import uuid from 'uuid';
 import crypto from 'crypto';
 import { ipcRenderer } from 'electron';
+import LoadingPage from '../LoadingPage';
 
 const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
+  const [spinner, useSpinner] = useState(false);
+
   const connectToIS24 = (base_url) => {
     const oauth_timestamp = Math.floor(Date.now() / 1000);
     const oauth_nonce = uuid.v1();
@@ -124,12 +127,14 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
     };
 
     ipcRenderer.send('is24:send', options);
+    useSpinner(true);
 
     ipcRenderer.on('is24:response', (event, data) => {
       startEditOggetto(oggetto.id, {
         ...oggetto,
         is24id: data['common.messages'][0].message.id,
       });
+      useSpinner(false);
     });
 
     ipcRenderer.on('is24:error', (event, error) => {
@@ -140,9 +145,13 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
   const btnColor = oggetto.is24id ? 'disabled' : 'green';
   return (
     <div>
-      <button className={`btn ${btnColor}`} onClick={exportToIS24}>
-        Export to immobilienscout24
-      </button>
+      {spinner ? (
+        <LoadingPage />
+      ) : (
+        <button className={`btn ${btnColor}`} onClick={exportToIS24}>
+          Export to immobilienscout24
+        </button>
+      )}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { withTranslation } from 'react-i18next';
 import OggettoForm from './OggettoForm';
 import { startAddOggetto } from '../../actions/oggetti';
 import { ipcRenderer } from 'electron';
+import LoadingPage from '../LoadingPage';
 
 export class AddOggettoPage extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export class AddOggettoPage extends React.Component {
     this.state = {
       url: '',
       oggetto: null,
+      spinner: false,
     };
   }
 
@@ -26,6 +28,12 @@ export class AddOggettoPage extends React.Component {
     e.preventDefault();
 
     ipcRenderer.send('oggetto:fetch', this.state.url);
+
+    ipcRenderer.on('oggetto:spinner', (event, spin) => {
+      spin
+        ? this.setState(() => ({ spinner: true }))
+        : this.setState(() => ({ spinner: false }));
+    });
 
     ipcRenderer.on('oggetto:error', (event, error) => {
       console.log(error);
@@ -84,6 +92,7 @@ export class AddOggettoPage extends React.Component {
             </form>{' '}
           </div>
         </div>
+        {this.state.spinner && <LoadingPage />}
         <div className='container'>
           {this.state.oggetto ? (
             <OggettoForm
