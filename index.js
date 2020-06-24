@@ -21,6 +21,10 @@ app.on('ready', () => {
   mainWindow.loadURL(`file://${__dirname}/public/index.html`);
 });
 
+ipcMain.on('window:reload', (event) => {
+  mainWindow.loadURL(`file://${__dirname}/public/index.html`);
+});
+
 ipcMain.on('oggetto:fetch', async (event, url) => {
   try {
     const { data: oggetto } = await axios.get(
