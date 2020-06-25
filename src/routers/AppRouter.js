@@ -45,6 +45,7 @@ import VollmachtForm from '../components/moduli/VollmachtForm';
 import ProvisionForm from '../components/moduli/ProvisionForm';
 import NotarauftragForm from '../components/moduli/NotarauftragForm';
 import NotarDatenblattForm from '../components/moduli/NotarDatenblattForm';
+import EvaluationDashboard from '../components/evaluation/EvaluationDashboard';
 
 export const history = createHistory();
 
@@ -123,6 +124,13 @@ const AppRouter = ({ uid }) => {
           <PrivateRoute
             path='/oggettomatchview/:id'
             component={ViewOggettoMatchPage}
+          />
+
+          {/* VALUTAZIONI */}
+          <PrivateRoute
+            path='/evaluation'
+            activeClass='evaluation'
+            component={EvaluationDashboard}
           />
 
           {/* UTENTI E DITTA */}

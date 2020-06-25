@@ -1,5 +1,4 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import { devToolsEnhancer } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import dealsReducer from '../reducers/deals';
 import filtersReducer from '../reducers/filters';
@@ -12,6 +11,7 @@ import offersReducer from '../reducers/offers';
 import accentroReducer from '../reducers/accentro';
 import fattureReducer from '../reducers/fatture';
 import firmaReducer from '../reducers/firma';
+import evaluationReducer from '../reducers/evaluation';
 
 // Store creation
 const composeEnhancers =
@@ -24,17 +24,18 @@ const composeEnhancers =
 export default () => {
   const store = createStore(
     combineReducers({
-      deals: dealsReducer,
-      filters: filtersReducer,
+      accentro: accentroReducer,
       auth: authReducer,
-      utenti: utentiReducer,
       clienti: clientiReducer,
-      oggetti: oggettiReducer,
+      deals: dealsReducer,
+      evaluations: evaluationReducer,
+      fatture: fattureReducer,
+      filters: filtersReducer,
+      firma: firmaReducer,
       leads: leadsReducer,
       offers: offersReducer,
-      accentro: accentroReducer,
-      fatture: fattureReducer,
-      firma: firmaReducer,
+      oggetti: oggettiReducer,
+      utenti: utentiReducer,
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

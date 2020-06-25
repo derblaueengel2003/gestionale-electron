@@ -9,6 +9,7 @@ import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
 import ImmoscoutAPI from './ImmoscoutAPI';
 import { ipcRenderer } from 'electron';
+import Intestazione from '../common/Intestazione';
 
 Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
 Geocode.setLanguage('de');
@@ -62,15 +63,19 @@ export class ViewOggettiPage extends React.Component {
     const proprietario = this.findContact(oggetto.proprietarioId);
     const proprietario2 = this.findContact(oggetto.proprietarioId2);
     const inquilino = this.findContact(oggetto.inquilinoId);
+    const rendita = oggetto.affittoNetto
+      ? parseFloat((oggetto.affittoNetto * 1200) / oggetto.kaufpreis)
+          .toFixed(2)
+          .toString()
+          .replace(/\./, ',')
+      : null;
+
     return (
       <div>
-        <div className='grey lighten-4'>
-          <div className='container'>
-            <h1>
-              {`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta} ${oggetto.quartiere}`}
-            </h1>
-          </div>
-        </div>
+        <Intestazione
+          intestazione={`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta} ${oggetto.quartiere}`}
+        />
+
         <div className='container section'>
           <div>
             <Link
@@ -100,13 +105,21 @@ export class ViewOggettiPage extends React.Component {
 
           <div>
             {oggetto.tipologia && (
-              <p>Tipo di immobile: {t(oggetto.tipologia)}</p>
+              <div>
+                {t('property_type')}: {t(oggetto.tipologia)}
+              </div>
             )}
-            {oggetto.rifId && <p>Ref. id: {oggetto.rifId}</p>}
+            {oggetto.rifId && <div>Ref. id: {oggetto.rifId}</div>}
+            {rendita && (
+              <div>
+                {t('property_yield')}: {rendita}%
+              </div>
+            )}
+
             {oggetto.kaufpreis > 0 && (
-              <p>{`${t('Prezzo di vendita')}: ${numeral(
+              <div>{`${t('Prezzo di vendita')}: ${numeral(
                 oggetto.kaufpreis / 100
-              ).format('0,0[.]00 $')}`}</p>
+              ).format('0,0[.]00 $')}`}</div>
             )}
             <ul className='collapsible'>
               <li>
@@ -116,91 +129,104 @@ export class ViewOggettiPage extends React.Component {
                 </div>
                 <div className='collapsible-body'>
                   {oggetto.amtsgericht && (
-                    <p>
+                    <div>
                       {t('Pretura (Amtsgericht)')}: {oggetto.amtsgericht}
-                    </p>
+                    </div>
                   )}
                   {oggetto.grundbuch && (
-                    <p>
+                    <div>
                       {t('Libro Fondiario (Grundbuch)')} {oggetto.grundbuch}
-                    </p>
+                    </div>
                   )}
                   {oggetto.grundbuchBlatt && (
-                    <p>
+                    <div>
                       {t('Foglio')} Nr.: {oggetto.grundbuchBlatt}
-                    </p>
+                    </div>
                   )}
                   {oggetto.ruecklage && (
-                    <p>
+                    <div>
                       {t('Fondo di accantonamento per manutenzione')}:{' '}
                       {oggetto.ruecklage}
-                    </p>
+                    </div>
                   )}
                   {oggetto.baujahr && (
-                    <p>{`${t('Anno di costruzione')}: ${oggetto.baujahr}`}</p>
+                    <div>{`${t('Anno di costruzione')}: ${
+                      oggetto.baujahr
+                    }`}</div>
                   )}
                   {oggetto.energieAusweisTyp && (
-                    <p>{`${t('Certificato energetico - tipologia')}: ${
+                    <div>{`${t('Certificato energetico - tipologia')}: ${
                       oggetto.energieAusweisTyp
-                    }`}</p>
+                    }`}</div>
                   )}
                   {oggetto.energieAusweisBis && (
-                    <p>{`${t('Valido fino al')}: ${
+                    <div>{`${t('Valido fino al')}: ${
                       oggetto.energieAusweisBis
-                    }`}</p>
+                    }`}</div>
                   )}
                   {oggetto.heizungsart && (
-                    <p>{`${t('Tipologia riscaldamento')}: ${
+                    <div>{`${t('Tipologia riscaldamento')}: ${
                       oggetto.heizungsart
-                    }`}</p>
+                    }`}</div>
                   )}
                   {oggetto.energieTraeger && (
-                    <p>{`${t('Fonte energetica')}: ${
+                    <div>{`${t('Fonte energetica')}: ${
                       oggetto.energieTraeger
-                    }`}</p>
+                    }`}</div>
                   )}
                   {oggetto.energieBedarf && (
-                    <p>{`${t('Consumo energetico')}: ${
+                    <div>{`${t('Consumo energetico')}: ${
                       oggetto.energieBedarf
-                    }`}</p>
+                    }`}</div>
                   )}
 
-                  {oggetto.m2 && <p>{`m2: ${oggetto.m2}`}</p>}
-                  {oggetto.piano && <p>{`${t('Piano')}: ${oggetto.piano}`}</p>}
+                  {oggetto.m2 && <div>{`m2: ${oggetto.m2}`}</div>}
+                  {oggetto.piano && (
+                    <div>{`${t('Piano')}: ${oggetto.piano}`}</div>
+                  )}
                   {oggetto.stato && (
-                    <p>{`${t('Stato abitativo')}: ${oggetto.stato}`}</p>
+                    <div>{`${t('Stato abitativo')}: ${oggetto.stato}`}</div>
                   )}
                   {oggetto.affittoNetto > 0 && (
-                    <p>{`${t('Affitto netto')}: ${numeral(
+                    <div>{`${t('Affitto netto')}: ${numeral(
                       oggetto.affittoNetto / 100
-                    ).format('0,0[.]00 $')}`}</p>
+                    ).format('0,0[.]00 $')}`}</div>
                   )}
                   {`${t('Quota condominiale')}: ${numeral(
                     oggetto.wohngeld / 100
                   ).format('0,0[.]00 $')}`}
-                  {oggetto.vani && <p>{`${t('Vani')}: ${oggetto.vani}`}</p>}
-                  {oggetto.bagni && <p>{`${t('Bagni')}: ${oggetto.bagni}`}</p>}
-                  {oggetto.balcone && <p>{`${t('Balcone')}: ${t('sì')}`}</p>}
-                  {oggetto.ascensore && (
-                    <p>{`${t('Ascensore')}: ${t('sì')}`}</p>
+                  {oggetto.vani && <div>{`${t('Vani')}: ${oggetto.vani}`}</div>}
+                  {oggetto.bagni && (
+                    <div>{`${t('Bagni')}: ${oggetto.bagni}`}</div>
                   )}
-                  {oggetto.giardino && <p>{`${t('Giardino')}: ${t('sì')}`}</p>}
-                  {oggetto.cantina && <p>{`${t('Cantina')}: ${t('sì')}`}</p>}
+                  {oggetto.balcone && (
+                    <div>{`${t('Balcone')}: ${t('sì')}`}</div>
+                  )}
+                  {oggetto.ascensore && (
+                    <div>{`${t('Ascensore')}: ${t('sì')}`}</div>
+                  )}
+                  {oggetto.giardino && (
+                    <div>{`${t('Giardino')}: ${t('sì')}`}</div>
+                  )}
+                  {oggetto.cantina && (
+                    <div>{`${t('Cantina')}: ${t('sì')}`}</div>
+                  )}
                   {oggetto.condizioni && (
-                    <p>{`${t('Condizioni immobile')}: ${
+                    <div>{`${t('Condizioni immobile')}: ${
                       oggetto.condizioni
-                    }`}</p>
+                    }`}</div>
                   )}
                 </div>
               </li>
             </ul>
 
-            {oggetto.note && <p>{`Note: ${oggetto.note}`}</p>}
+            {oggetto.note && <div>{`Note: ${oggetto.note}`}</div>}
             {oggetto.venduto === true && (
               <h5 className='red-text'>{t('Venduto')}!</h5>
             )}
           </div>
         </div>
+
         <div className='container section'>
           {this.props.utente.role === 'Admin' && (
             <ImmoscoutAPI oggetto={oggetto} />

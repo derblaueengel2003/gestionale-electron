@@ -2,17 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Intestazione from '../common/Intestazione';
 
 export class ViewUtentiPage extends React.Component {
   render() {
     const { t } = this.props;
     return (
       <div>
-        <div>
-          <div className='container'>
-            <h1>{t('Utente')}</h1>
-          </div>
-        </div>
+        <Intestazione intestazione={t('Utente')} />
         <div className='container'>
           {this.props.utente.name.length > 0 && (
             <div>
@@ -37,7 +34,7 @@ export class ViewUtentiPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  utente: state.utenti.find(utente => utente.id === props.match.params.id)
+  utente: state.utenti.find((utente) => utente.id === props.match.params.id),
 });
 
 export default connect(mapStateToProps)(withTranslation()(ViewUtentiPage));

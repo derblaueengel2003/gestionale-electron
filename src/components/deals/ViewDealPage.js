@@ -13,6 +13,7 @@ import TodoForm from './TodoForm';
 import FattureList from '../fatture/FattureList';
 import ClientiList from '../clienti/ClientiList';
 import OggettiList from '../oggetti/OggettiList';
+import Intestazione from '../common/Intestazione';
 
 export class ViewDealPage extends React.Component {
   findContact = (contact) => {
@@ -73,14 +74,12 @@ export class ViewDealPage extends React.Component {
     }
     return (
       <div>
-        <div className='grey lighten-4'>
-          <div className='container'>
-            <h1>
-              {oggetto &&
-                `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`}
-            </h1>
-          </div>
-        </div>
+        <Intestazione
+          intestazione={
+            oggetto &&
+            `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
+          }
+        />
 
         <div className='container section'>
           <div>

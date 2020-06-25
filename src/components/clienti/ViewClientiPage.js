@@ -7,6 +7,7 @@ import FattureList from '../fatture/FattureList';
 import LeadsList from '../leads/LeadsList';
 import OggettiList from '../oggetti/OggettiList';
 import { ipcRenderer } from 'electron';
+import Intestazione from '../common/Intestazione';
 
 export class ViewClientiPage extends React.Component {
   openFile = () => {
@@ -55,15 +56,16 @@ export class ViewClientiPage extends React.Component {
     );
     return (
       <div>
-        <div className='grey lighten-4'>
-          <div className='container'>
-            {cognome && (
-              <h1>
+        <Intestazione
+          intestazione={
+            cognome && (
+              <span>
                 {titolo} {nome} {cognome}
-              </h1>
-            )}
-          </div>
-        </div>
+              </span>
+            )
+          }
+        />
+
         <div className='container section'>
           <div>
             <Link

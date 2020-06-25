@@ -11,6 +11,7 @@ import { zahlungserinnerung } from '../moduli/Zahlungserinnerung';
 import OggettiList from '../oggetti/OggettiList';
 import DealList from '../deals/DealList';
 import ClientiList from '../clienti/ClientiList';
+import Intestazione from '../common/Intestazione';
 
 export class ViewFatturePage extends React.Component {
   render() {
@@ -41,15 +42,13 @@ export class ViewFatturePage extends React.Component {
 
     return (
       <div>
-        <div className='grey lighten-4'>
-          <div className='container'>
-            <h1>
-              {oggetto
-                ? `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
-                : this.props.fattura.descrizioneProdotto}
-            </h1>
-          </div>
-        </div>
+        <Intestazione
+          intestazione={
+            oggetto
+              ? `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
+              : this.props.fattura.descrizioneProdotto
+          }
+        />
         <div className='container section'>
           <div>
             <Link

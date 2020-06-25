@@ -8,6 +8,7 @@ import { startRemoveOffer } from '../../actions/offers';
 import numeral from 'numeral';
 import moment from 'moment';
 import OptionModal from '../common/OptionModal';
+import Intestazione from '../common/Intestazione';
 
 export class ViewLeadPage extends React.Component {
   state = {
@@ -61,11 +62,7 @@ export class ViewLeadPage extends React.Component {
     }
     return (
       <div>
-        <div className='grey lighten-4'>
-          <div className='container'>
-            <h1>{this.props.t('Richiesta')}</h1>
-          </div>
-        </div>
+        <Intestazione intestazione={this.props.t('Richiesta')} />
         <div className='container section'>
           <div>
             <button

@@ -18,6 +18,7 @@ import { startSetOggetti } from './actions/oggetti';
 import { startSetAccentro } from './actions/accentro';
 import { startSetFatture } from './actions/fatture';
 import { startSetFirma } from './actions/firma';
+import { startSetEvaluations } from './actions/evaluation';
 
 const store = configureStore();
 
@@ -47,6 +48,7 @@ firebase.auth().onAuthStateChanged((user) => {
       store.dispatch(startSetOggetti()),
       store.dispatch(startSetLeads()),
       store.dispatch(startSetAccentro()),
+      store.dispatch(startSetEvaluations()),
       store.dispatch(startSetFatture()),
       store.dispatch(startSetFirma()),
       store.dispatch(startSetDeals()),

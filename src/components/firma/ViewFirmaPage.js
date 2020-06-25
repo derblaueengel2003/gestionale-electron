@@ -2,16 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Intestazione from '../common/Intestazione';
 
 export class ViewFirmaPage extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <div className='container'>
-            <h1>Firma</h1>
-          </div>
-        </div>
+        <Intestazione intestazione={'Firma'} />
         <div className='container'>
           {this.props.utente.name.length > 0 && (
             <div>Name: {this.props.utente.name}</div>
@@ -32,7 +29,7 @@ export class ViewFirmaPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  firma: state.firma.find(firma => firma.id === props.match.params.id)
+  firma: state.firma.find((firma) => firma.id === props.match.params.id),
 });
 
 export default connect(mapStateToProps)(withTranslation()(ViewFirmaPage));

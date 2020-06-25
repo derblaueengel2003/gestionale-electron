@@ -250,6 +250,7 @@ i18n.use(initReactI18next).init({
         Venditore: 'Verkäufer',
         Venduto: 'Verkauft',
 
+        apt: 'Eigentumswohnung',
         bank: 'Bank',
         btn_label_close: 'Schliessen',
         btn_label_confirm: 'Bestätigen',
@@ -267,6 +268,8 @@ i18n.use(initReactI18next).init({
         customer_title: 'Anrede',
         email: 'E-Mail',
         energy_consumption_kwh: 'Endenergiebedarf in KWh/(m2*a)',
+        evaluations: 'Bewertungen',
+        evaluation_header: 'Immobilien-Bewertung',
         fax: 'Faxnummer',
         firstname: 'Vorname',
         gdpr_consent: 'DSGVO Zustimmung erhalten',
@@ -276,6 +279,8 @@ i18n.use(initReactI18next).init({
         lastname: 'Name',
         mobile: 'Handynummer',
         nation: 'Staat',
+        property_yield: 'Rendite',
+        property_type: 'Immobilien-Art',
         remove_confirm: 'Bestätigen Sie die Löschung? Das ist unwiderruflich!',
         taxpayer_number: 'Steuer ID-Nummer',
         website: 'Webseite',
@@ -283,6 +288,8 @@ i18n.use(initReactI18next).init({
         form_alert_missing_name: 'Name bitte eingeben',
         sales_rep_name: 'Kundenbetreuer',
         visible: 'Sichtbar',
+
+        Eigentumswohnung: 'Appartamento',
       },
     },
     it: {
@@ -547,6 +554,7 @@ i18n.use(initReactI18next).init({
         Gewerbe: 'Locale commerciale',
         Pflegeheim: 'Casa di cura',
 
+        apt: 'Appartamento',
         bank: 'Banca',
         btn_label_close: 'Chiudi',
         btn_label_confirm: 'Confermo',
@@ -564,6 +572,8 @@ i18n.use(initReactI18next).init({
         customer_title: 'Titolo',
         email: 'Email',
         energy_consumption_kwh: 'Consumo energetico in KWh/(m2*a)',
+        evaluations: 'Valutazioni',
+        evaluation_header: 'Valutazione immobile',
         fax: 'Fax',
         firstname: 'Nome',
         gdpr_consent: 'Consenso al trattamento dei dati personali',
@@ -573,6 +583,8 @@ i18n.use(initReactI18next).init({
         lastname: 'Cognome',
         mobile: 'Cellulare',
         nation: 'Nazione',
+        property_type: 'Tipologia di immobile',
+        property_yield: 'Rendita',
         remove_confirm:
           "Confermi la cancellazione? L'operazione è irreversibile!",
         taxpayer_number: 'Codice fiscale tedesco',
