@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { startSetCustomers } from '../../actions/clienti';
+import { storeActions } from '../../store/configureStore';
 import selectClienti from '../../selectors/deals';
 import Card from '../Card';
 import { ipcRenderer } from 'electron';
@@ -104,7 +104,10 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = (dispatch) => ({
-  startSetCustomers: () => dispatch(startSetCustomers()),
+  startSetCustomers: () =>
+    dispatch(
+      storeActions.find((action) => action.label === 'clienti').startSetAction()
+    ),
 });
 
 export default connect(

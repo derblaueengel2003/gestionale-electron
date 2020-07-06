@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import CustomerForm from './ClientiForm';
-import { startEditCustomer, startRemoveCustomer } from '../../actions/clienti';
+import { storeActions } from '../../store/configureStore';
 import OptionModal from '../common/OptionModal';
 
 export class EditClientePage extends React.Component {
@@ -24,7 +24,7 @@ export class EditClientePage extends React.Component {
 
   onSubmit = (cliente) => {
     this.props.startEditCustomer(this.props.cliente.id, cliente);
-    this.props.history.push(`/customerview/${this.props.cliente.id}`);
+    this.props.history.push(`/clientiview/${this.props.cliente.id}`);
   };
 
   // prima di cancellare verifico se non è usato in altri campi
@@ -62,7 +62,7 @@ export class EditClientePage extends React.Component {
   onRemove = () => {
     if (this.onValidate()) {
       this.props.startRemoveCustomer({ id: this.props.cliente.id });
-      this.props.history.push('/customer');
+      this.props.history.push('/clienti');
     } else {
       this.setState(() => ({
         isOpen: true,
@@ -78,7 +78,7 @@ export class EditClientePage extends React.Component {
         ...this.props.cliente,
         visible: false,
       });
-      this.props.history.push('/customer');
+      this.props.history.push('/clienti');
     } else {
       this.setState(() => ({
         isOpen: true,
@@ -140,8 +140,17 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   startEditCustomer: (id, cliente, visible) =>
-    dispatch(startEditCustomer(id, cliente, visible)),
-  startRemoveCustomer: (data) => dispatch(startRemoveCustomer(data)),
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'clienti')
+        .startEditAction(id, cliente, visible)
+    ),
+  startRemoveCustomer: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'clienti')
+        .startRemoveAction(data)
+    ),
 });
 
 export default connect(
