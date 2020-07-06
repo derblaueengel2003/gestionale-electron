@@ -44,132 +44,142 @@ export const LeadsList = (props) => {
         {leadsPayload.length > 0 && (
           <div>
             <h5>{props.ruolo || ''}</h5>
-            {leadsPayload.map((lead) => {
-              const clienteNomeCognome = findCliente(lead, props.clienti);
-              const consulenteVendita = findConsulenteVendita(
-                clienteNomeCognome,
-                props.utenti
-              );
-              const immobile = findImmobile(lead);
-              const pulsanti = (
-                <div>
-                  {clienteNomeCognome.email && (
-                    <a
-                      className='btn-floating blue right btn-floating-margin'
-                      href={`mailto:${clienteNomeCognome.email}`}
-                    >
-                      <i className='material-icons'>email</i>
-                    </a>
-                  )}
+            {leadsPayload.length > 0 &&
+              leadsPayload.map((lead) => {
+                const clienteNomeCognome = findCliente(lead, props.clienti);
+                const consulenteVendita = findConsulenteVendita(
+                  clienteNomeCognome,
+                  props.utenti
+                );
+                const immobile = findImmobile(lead);
+                const pulsanti = (
+                  <div>
+                    {clienteNomeCognome.email && (
+                      <a
+                        className='btn-floating blue right btn-floating-margin'
+                        href={`mailto:${clienteNomeCognome.email}`}
+                      >
+                        <i className='material-icons'>email</i>
+                      </a>
+                    )}
 
-                  {lead.leadOggettoStato === 'libero' ||
-                  lead.leadOggettoStato === 'affittato' ||
-                  lead.leadOggettoStato === 'libero o affittato' ||
-                  lead.leadOggettoStato === '' ? (
+                    {lead.leadOggettoStato === 'libero' ||
+                    lead.leadOggettoStato === 'affittato' ||
+                    lead.leadOggettoStato === 'libero o affittato' ||
+                    lead.leadOggettoStato === '' ? (
+                      <Link
+                        className='btn-floating green right accent-3 btn-floating-margin'
+                        to={`/leadmatchview/${lead.id}`}
+                      >
+                        <i className='material-icons'>search</i>
+                      </Link>
+                    ) : (
+                      ''
+                    )}
+
                     <Link
-                      className='btn-floating green right accent-3 btn-floating-margin'
-                      to={`/leadmatchview/${lead.id}`}
+                      className={`btn-floating ${props.feedbackButton} blue-grey right`}
+                      to={{
+                        pathname: '/createoffer',
+                        state: { leadId: lead.id, oggettoId },
+                      }}
                     >
-                      <i className='material-icons'>search</i>
+                      <i className='material-icons'>sentiment_satisfied_alt</i>
                     </Link>
-                  ) : (
-                    ''
-                  )}
+                  </div>
+                );
+                const consulente = consulenteVendita
+                  ? consulenteVendita.name
+                  : null;
+                const creatoIl = moment(lead.leadCreatedAt).format(
+                  'DD MMMM, YYYY'
+                );
 
-                  <Link
-                    className={`btn-floating ${props.feedbackButton} blue-grey right`}
-                    to={{
-                      pathname: '/createoffer',
-                      state: { leadId: lead.id, oggettoId },
-                    }}
-                  >
-                    <i className='material-icons'>sentiment_satisfied_alt</i>
-                  </Link>
-                </div>
-              );
-              const consulente = consulenteVendita
-                ? consulenteVendita.name
-                : null;
-              const creatoIl = moment(lead.leadCreatedAt).format(
-                'DD MMMM, YYYY'
-              );
+                const offerte = props.offers
+                  .filter((offer) => offer.leadId === lead.id)
+                  .map((offer) => {
+                    const oggetto = props.oggetti.find(
+                      (oggetto) => oggetto.id === offer.oggettoId
+                    );
+                    const feedback = () => {
+                      switch (offer.feedback) {
+                        case 'positivo':
+                          return (
+                            <i
+                              key={offer.id}
+                              className='material-icons small green-text'
+                            >
+                              sentiment_satisfied_alt
+                            </i>
+                          );
+                        case 'negativo':
+                          return (
+                            <i
+                              key={offer.id}
+                              className='material-icons small red-text'
+                            >
+                              sentiment_very_dissatisfied
+                            </i>
+                          );
+                        case 'neutro':
+                          return (
+                            <i
+                              key={offer.id}
+                              className='material-icons small amber-text'
+                            >
+                              sentiment_dissatisfied
+                            </i>
+                          );
+                        case 'sconosciuto':
+                          return (
+                            <i key={offer.id} className='material-icons small'>
+                              help_outline
+                            </i>
+                          );
+                        case 'not_relevant':
+                          return (
+                            <i
+                              key={offer.id}
+                              className='material-icons small brown-text'
+                            >
+                              highlight_off
+                            </i>
+                          );
 
-              const offerte = props.offers
-                .filter((offer) => offer.leadId === lead.id)
-                .map((offer) => {
-                  const oggetto = props.oggetti.find(
-                    (oggetto) => oggetto.id === offer.oggettoId
-                  );
-                  const feedback = () => {
-                    switch (offer.feedback) {
-                      case 'positivo':
-                        return (
-                          <i
-                            key={offer.id}
-                            className='material-icons small green-text'
-                          >
-                            sentiment_satisfied_alt
-                          </i>
-                        );
-                      case 'negativo':
-                        return (
-                          <i
-                            key={offer.id}
-                            className='material-icons small red-text'
-                          >
-                            sentiment_very_dissatisfied
-                          </i>
-                        );
-                      case 'neutro':
-                        return (
-                          <i
-                            key={offer.id}
-                            className='material-icons small amber-text'
-                          >
-                            sentiment_dissatisfied
-                          </i>
-                        );
-                      case 'sconosciuto':
-                        return (
-                          <i key={offer.id} className='material-icons small'>
-                            help_outline
-                          </i>
-                        );
+                        default:
+                          return (
+                            <i className='material-icons small'>more_horiz</i>
+                          );
+                      }
+                    };
 
-                      default:
-                        return (
-                          <i className='material-icons small'>more_horiz</i>
-                        );
-                    }
-                  };
+                    return (
+                      <div key={oggetto.id} className='feedback-emojis-item'>
+                        {feedback()} {oggetto.via} {oggetto.numeroCivico}
+                      </div>
+                    );
+                  });
 
-                  return (
-                    <div key={oggetto.id} className='feedback-emojis-item'>
-                      {feedback()} {oggetto.via} {oggetto.numeroCivico}
-                    </div>
-                  );
-                });
-
-              return (
-                <Card
-                  key={lead.id}
-                  visible={true}
-                  link={`/leadview/${lead.id}`}
-                  titolo={`${clienteNomeCognome.nome} ${clienteNomeCognome.cognome}`}
-                  sottotitolo={`Budget: ${numeral(lead.leadBudget / 100).format(
-                    '0,0[.]00 $'
-                  )}`}
-                  corpo={[
-                    consulente,
-                    creatoIl,
-                    immobile,
-                    <div className='feedback-emojis'>{offerte}</div>,
-                  ]}
-                  lineaNote={`${lead.leadNote && `Note: ${lead.leadNote}`}`}
-                  titoloDestra={pulsanti}
-                />
-              );
-            })}
+                return (
+                  <Card
+                    key={lead.id}
+                    visible={true}
+                    link={`/leadview/${lead.id}`}
+                    titolo={`${clienteNomeCognome.nome} ${clienteNomeCognome.cognome}`}
+                    sottotitolo={`Budget: ${numeral(
+                      lead.leadBudget / 100
+                    ).format('0,0[.]00 $')}`}
+                    corpo={[
+                      consulente,
+                      creatoIl,
+                      immobile,
+                      <div className='feedback-emojis-item'>{offerte}</div>,
+                    ]}
+                    lineaNote={`${lead.leadNote && `Note: ${lead.leadNote}`}`}
+                    titoloDestra={pulsanti}
+                  />
+                );
+              })}
           </div>
         )}
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { startEditDeal } from '../../actions/deals';
+import { storeActions } from '../../store/configureStore';
 
 export class TodoForm extends React.Component {
   constructor(props) {
@@ -231,7 +231,12 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startEditDeal: (id, deal) => dispatch(startEditDeal(id, deal)),
+  startEditDeal: (id, deal) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'deals')
+        .startEditAction(id, deal)
+    ),
 });
 
 export default connect(

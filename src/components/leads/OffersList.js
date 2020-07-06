@@ -13,7 +13,7 @@ export const OffersList = (props) => {
   return (
     <div className='container'>
       <div className='list-body'>
-        {offersPayload.length === 0 && <h5>Proponi un immobile</h5>}
+        {offersPayload.length === 0 && <h5>{props.t('offer_add')}</h5>}
         {offersPayload.length > 0 && (
           <div>
             <h5>{props.ruolo || ''}</h5>
@@ -51,7 +51,12 @@ export const OffersList = (props) => {
                     return (
                       <i className='material-icons medium'>help_outline</i>
                     );
-
+                  case 'not_relevant':
+                    return (
+                      <i className='material-icons medium brown-text'>
+                        highlight_off
+                      </i>
+                    );
                   default:
                     return <i className='material-icons medium'>more_horiz</i>;
                 }

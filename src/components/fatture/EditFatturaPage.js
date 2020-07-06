@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import FatturaForm from './FatturaForm';
-import { startEditFattura, startRemoveFattura } from '../../actions/fatture';
+import { storeActions } from '../../store/configureStore';
 import OptionModal from '../common/OptionModal';
 
 export class EditFatturaPage extends React.Component {
@@ -67,8 +67,18 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startEditFattura: (id, fattura) => dispatch(startEditFattura(id, fattura)),
-  startRemoveFattura: (data) => dispatch(startRemoveFattura(data)),
+  startEditFattura: (id, fattura) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'fatture')
+        .startEditAction(id, fattura)
+    ),
+  startRemoveFattura: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'fatture')
+        .startRemoveAction(data)
+    ),
 });
 
 export default connect(

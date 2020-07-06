@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { storeActions } from '../../store/configureStore';
-import axios from 'axios';
-import moment from 'moment';
+import { ipcRenderer } from 'electron';
 import CustomerForm from '../clienti/ClientiForm';
 import DealForm from '../deals/DealForm';
 import OggettoForm from '../oggetti/OggettoForm';
@@ -28,71 +27,52 @@ export class AddPage extends React.Component {
 
   handleFetch = async (e) => {
     e.preventDefault();
-    this.setState(() => ({ spinner: true }));
 
-    const oggetto = await axios
-      .get(`https://www.m2square.eu/wp-json/wl/v1/properties/${this.state.url}`)
-      .then((res) => {
-        return res.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    if (!oggetto.id) {
-      this.setState(() => ({ spinner: false }));
-      throw new Error('Property not found, please check the slug');
-    }
+    ipcRenderer.send('oggetto:fetch', this.state.url);
 
-    if (!oggetto.affittoNetto) oggetto.affittoNetto = '0';
-    if (!oggetto.wohngeld) oggetto.wohngeld = '0';
+    ipcRenderer.on('oggetto:spinner', (event, spin) => {
+      spin
+        ? this.setState(() => ({ spinner: true }))
+        : this.setState(() => ({ spinner: false }));
+    });
 
-    oggetto.nazione = this.props.t(oggetto.nazione);
+    ipcRenderer.on('oggetto:error', (event, error) => {
+      console.log(error);
+    });
 
-    if (oggetto.energieAusweisTyp === 'Consumption') {
-      oggetto.energieAusweisTyp = 'based_on_consumption';
-    } else if (oggetto.energieAusweisTyp === 'Requirement') {
-      oggetto.energieAusweisTyp = 'based_on_requirement';
-    }
+    ipcRenderer.on('oggetto:response', (event, oggetto) => {
+      if (!oggetto.affittoNetto) oggetto.affittoNetto = '0';
+      if (!oggetto.wohngeld) oggetto.wohngeld = '0';
 
-    if (oggetto.heizungsart === 'Central heating system') {
-      oggetto.heizungsart = 'heating_central';
-    } else if (oggetto.heizungsart === 'Floor heating system') {
-      oggetto.heizungsart = 'heating_floor';
-    }
+      for (let voce in oggetto) {
+        if (
+          voce === 'nazione' ||
+          voce == 'energieAusweisTyp' ||
+          voce === 'energieTraeger' ||
+          voce === 'heizungsart'
+        ) {
+          oggetto[voce] = this.props.t(oggetto[voce]);
+        }
+      }
+      oggetto.visible = true;
+      const indirizzo = oggetto.via.split(' ');
+      oggetto.numeroCivico = indirizzo.splice(-1)[0];
+      oggetto.via = indirizzo.join(' ');
+      oggetto.descrizioneDe = oggetto.descrizioneDe.replace(
+        /<\/?[^>]+(>|$)/g,
+        ''
+      );
 
-    if (oggetto.energieTraeger === 'Gas') {
-      oggetto.energieTraeger = 'heating_gas';
-    } else if (oggetto.energieTraeger === 'District heating') {
-      oggetto.energieTraeger = 'heating_district';
-    } else if (oggetto.energieTraeger === 'Fuel oil') {
-      oggetto.energieTraeger = 'heating_oil';
-    }
+      if (
+        oggetto.tipologia === 'Wohnungen' ||
+        oggetto.tipologia === 'Vermietete Wohnungen'
+      ) {
+        oggetto.tipologia = 'Eigentumswohnung';
+      }
 
-    oggetto.visible = true;
-    oggetto.dataInserimentoOggetto = moment();
-    const indirizzo = oggetto.via.split(' ');
-    oggetto.numeroCivico = indirizzo.splice(-1)[0];
-    oggetto.via = indirizzo.join(' ');
-    oggetto.descrizioneDe = oggetto.descrizioneDe.replace(
-      /<\/?[^>]+(>|$)/g,
-      ''
-    );
-
-    if (
-      oggetto.tipologia === 'Vermietete Wohnungen' ||
-      oggetto.tipologia === 'Wohnungen'
-    ) {
-      oggetto.tipologia = 'property_apt';
-    } else if (oggetto.tipologia === 'Pflegeimmobilien') {
-      oggetto.tipologia = 'property_nursing_home';
-    } else if (oggetto.tipologia === 'Gewerbe') {
-      oggetto.tipologia = 'property_commercial';
-    } else {
-      oggetto.tipologia = 'property_other';
-    }
-
-    oggetto.id && this.setState({ oggetto });
-    this.setState(() => ({ spinner: false }));
+      console.log(oggetto);
+      oggetto.id && this.setState({ oggetto });
+    });
   };
 
   onSubmit = (item) => {

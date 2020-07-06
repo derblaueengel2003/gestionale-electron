@@ -179,6 +179,11 @@ function withForm(Component) {
               ? (props.fattura.importoNetto / 100).toString().replace(/\./, ',')
               : '0'
             : '0',
+          iva: props.fattura
+            ? props.fattura.iva
+              ? props.fattura.iva
+              : 19
+            : 19,
           dataPrestazione: props.fattura
             ? props.fattura.dataPrestazione
               ? props.fattura.dataPrestazione &&
@@ -353,6 +358,77 @@ function withForm(Component) {
         isOpen: false,
         contentLabel: '',
         modalContent: null,
+
+        evaluations: {
+          cloudURL: props.evaluation
+            ? props.evaluation.cloudURL
+              ? props.evaluation.cloudURL
+              : ''
+            : '',
+          affittoNetto: props.evaluation
+            ? (props.evaluation.affittoNetto / 100)
+                .toString()
+                .replace(/\./, ',')
+            : '0',
+          m2: props.evaluation
+            ? (props.evaluation.m2 / 100).toString().replace(/\./, ',')
+            : '0',
+          rendite: props.evaluation
+            ? (props.evaluation.rendite / 100).toString().replace(/\./, ',')
+            : '0',
+          wohnlage: props.evaluation ? props.evaluation.wohnlage : '',
+          bodenRichtwert: props.evaluation
+            ? (props.evaluation.bodenRichtwert / 100)
+                .toString()
+                .replace(/\./, ',')
+            : '0',
+          bodenRichtwert2: props.evaluation
+            ? (props.evaluation.bodenRichtwert2 / 100)
+                .toString()
+                .replace(/\./, ',')
+            : '0',
+          bodenRichtwert3: props.evaluation
+            ? (props.evaluation.bodenRichtwert3 / 100)
+                .toString()
+                .replace(/\./, ',')
+            : '0',
+          dataEvaluation: moment(),
+          mietspiegel: props.evaluation
+            ? (props.evaluation.mietspiegel / 100).toString().replace(/\./, ',')
+            : '0',
+          mietendeckel: props.evaluation
+            ? (props.evaluation.mietendeckel / 100)
+                .toString()
+                .replace(/\./, ',')
+            : '0',
+          note: props.evaluation ? props.evaluation.note : '',
+          immobilienpreisMin: props.evaluation
+            ? (props.evaluation.immobilienpreisMin / 100)
+                .toString()
+                .replace(/\./, ',')
+            : '0',
+          immobilienpreisMax: props.evaluation
+            ? (props.evaluation.immobilienpreisMax / 100)
+                .toString()
+                .replace(/\./, ',')
+            : '0',
+          immobilienpreisAverage: props.evaluation
+            ? (props.evaluation.immobilienpreisAverage / 100)
+                .toString()
+                .replace(/\./, ',')
+            : '0',
+          is24Evaluation: props.evaluation
+            ? (props.evaluation.is24Evaluation / 100)
+                .toString()
+                .replace(/\./, ',')
+            : '0',
+          result: props.evaluation
+            ? (props.evaluation.result / 100).toString().replace(/\./, ',')
+            : '0',
+          titolo: props.evaluation ? props.evaluation.titolo : '',
+          oggettoId: props.evaluation ? props.evaluation.oggettoId : '',
+          visible: props.evaluation ? props.evaluation.visible : true,
+        },
       };
     }
 
@@ -396,11 +472,15 @@ function withForm(Component) {
       type = 'text',
       handler = this.changeHandler,
       args,
-      placeholder
+      placeholder,
+      required = ''
     ) => {
       return (
         <div>
-          <label htmlFor={property}>{label}</label>
+          <label htmlFor={property}>
+            {label}
+            {required}
+          </label>
           <input
             type={type}
             name={property}
@@ -414,10 +494,13 @@ function withForm(Component) {
       );
     };
 
-    renderSelect = (object, selectName, options, label) => {
+    renderSelect = (object, selectName, options, label, required = '') => {
       return (
         <div>
-          <label>{label}</label>
+          <label>
+            {label}
+            {required}
+          </label>
           <div>
             <Select
               name={selectName}
@@ -460,10 +543,13 @@ function withForm(Component) {
       );
     };
 
-    renderSingleDate = (object, dataName, focusName, label) => {
+    renderSingleDate = (object, dataName, focusName, label, required = '') => {
       return (
         <div>
-          <label>{label}</label>
+          <label>
+            {label}
+            {required}
+          </label>
           <div>
             <SingleDatePicker
               date={this.state[object][dataName]}
@@ -676,12 +762,11 @@ function withForm(Component) {
     };
 
     handleRemovePicture = (picture) => {
-      console.log(picture);
       let downloadURLs = this.state.oggetti.downloadURLs;
       let filenames = this.state.oggetti.filenames;
       downloadURLs.splice(picture, 1);
-      const removedFilename = filenames.splice(picture, 1);
-      const [filename] = removedFilename;
+      const removedFilename = filenames && filenames.splice(picture, 1);
+      const [filename = ''] = removedFilename;
       if (downloadURLs === undefined || downloadURLs.length < 1) {
         downloadURLs = '';
       }
@@ -691,17 +776,19 @@ function withForm(Component) {
       this.setState((prevState) => ({
         oggetti: { ...prevState.oggetti, downloadURLs, filenames },
       }));
-      firebase
-        .storage()
-        .ref('images')
-        .child(filename)
-        .delete()
-        .then(() => {
-          console.log('File deleted');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (filename !== '') {
+        firebase
+          .storage()
+          .ref('images')
+          .child(filename)
+          .delete()
+          .then(() => {
+            console.log('File deleted');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     };
 
     handleRemovePictureCover = (picture) => {
@@ -709,8 +796,9 @@ function withForm(Component) {
       let downloadURLsCover = this.state.oggetti.downloadURLsCover;
       let filenamesCover = this.state.oggetti.filenamesCover;
       downloadURLsCover.splice(picture, 1);
-      const removedFilename = filenamesCover.splice(picture, 1);
-      const [filenameCover] = removedFilename;
+      const removedFilename =
+        filenamesCover && filenamesCover.splice(picture, 1);
+      const [filenameCover = ''] = removedFilename;
       if (downloadURLsCover === undefined || downloadURLsCover.length < 1) {
         downloadURLsCover = '';
       }
@@ -720,17 +808,19 @@ function withForm(Component) {
       this.setState((prevState) => ({
         oggetti: { ...prevState.oggetti, downloadURLsCover, filenamesCover },
       }));
-      firebase
-        .storage()
-        .ref('cover')
-        .child(filenameCover)
-        .delete()
-        .then(() => {
-          console.log('File deleted');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (filenameCover !== '') {
+        firebase
+          .storage()
+          .ref('cover')
+          .child(filenameCover)
+          .delete()
+          .then(() => {
+            console.log('File deleted');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     };
 
     handleRemovePictureGrundriss = (picture) => {
@@ -738,8 +828,9 @@ function withForm(Component) {
       let downloadURLsGrundriss = this.state.oggetti.downloadURLsGrundriss;
       let filenamesGrundriss = this.state.oggetti.filenamesGrundriss;
       downloadURLsGrundriss.splice(picture, 1);
-      const removedFilename = filenamesGrundriss.splice(picture, 1);
-      const [filenameGrundriss] = removedFilename;
+      const removedFilename =
+        filenameGrundriss && filenamesGrundriss.splice(picture, 1);
+      const [filenameGrundriss = ''] = removedFilename;
       if (
         downloadURLsGrundriss === undefined ||
         downloadURLsGrundriss.length < 1
@@ -756,17 +847,19 @@ function withForm(Component) {
           filenamesGrundriss,
         },
       }));
-      firebase
-        .storage()
-        .ref('grundriss')
-        .child(filenameGrundriss)
-        .delete()
-        .then(() => {
-          console.log('File deleted');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (filenameGrundriss !== '') {
+        firebase
+          .storage()
+          .ref('grundriss')
+          .child(filenameGrundriss)
+          .delete()
+          .then(() => {
+            console.log('File deleted');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     };
 
     render() {
@@ -782,6 +875,7 @@ function withForm(Component) {
           renderSelect={this.renderSelect}
           changeHandler={this.changeHandler}
           changeHandlerSelect={this.changeHandlerSelect}
+          changeHandlerSelectEvaluation={this.changeHandlerSelectEvaluation}
           changeHandlerValuta={this.changeHandlerValuta}
           changeHandlerValidate={this.changeHandlerValidate}
           onDataChange={this.onDataChange}

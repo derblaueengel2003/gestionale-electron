@@ -12,7 +12,7 @@ export const Header = ({ startLogout, i18n }) => {
     <header className='header'>
       <div className='container'>
         <div className='header__content'>
-          <Link className='header__title' to='/dashboard'>
+          <Link className='header__title' to='/deals'>
             <img
               className='logo'
               src='https://www.m2square.eu/wp-content/uploads/2017/11/Logo.png'

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { startEditOggetto } from '../../actions/oggetti';
+import { storeActions } from '../../store/configureStore';
 import uuid from 'uuid';
 import crypto from 'crypto';
 import { ipcRenderer } from 'electron';
@@ -157,7 +157,12 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  startEditOggetto: (id, oggetto) => dispatch(startEditOggetto(id, oggetto)),
+  startEditOggetto: (id, oggetto) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'oggetti')
+        .startEditAction(id, oggetto)
+    ),
 });
 
 export default connect(

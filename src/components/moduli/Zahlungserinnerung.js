@@ -14,13 +14,15 @@ export const zahlungserinnerung = (
   firma,
   utente,
   ceo,
-  importoNetto
+  importoNetto,
+  iva
 ) => {
   const doc = new jsPDF('p', 'mm', 'a4');
-  let importo = amount || importoNetto;
+  let importo = importoNetto || amount;
   const acqNome = `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
-  const acqInd = `${cliente.indirizzo} ${cliente.indirizzo2 &&
-    cliente.indirizzo2}`;
+  const acqInd = `${cliente.indirizzo} ${
+    cliente.indirizzo2 && cliente.indirizzo2
+  }`;
   const acqNome2 =
     cliente2 && `${cliente2.titolo} ${cliente2.nome} ${cliente2.cognome}`;
   const acqInd2 =
@@ -45,7 +47,7 @@ Sicherlich handelt es sich um ein Versehen. Eine Kopie der Rechnung vom ${moment
     dataFattura
   ).format('DD.MM.YYYY')} haben wir dem Schreiben beigelegt. \n
 Um Mahnungsgebühren zu vermeiden, überweisen Sie bitte den fälligen Beitrag von ${numeral(
-    (importo / 100) * 1.19
+    (importo / 100) * parseFloat(`1.${iva}`)
   ).format(
     '0,0[.]00 $'
   )}  innerhalb von 7 Tagen ohne Abzüge auf das untenstehende Bankkonto. \n
@@ -198,7 +200,7 @@ Rechnung Nr. ${numeroFattura}`,
   doc.text('Geschäftsführer:', 16, 270);
   let position = 274;
 
-  ceo.forEach(eachCeo => {
+  ceo.forEach((eachCeo) => {
     doc.text(`${eachCeo.name}`, 16, position);
     position += 4;
   });

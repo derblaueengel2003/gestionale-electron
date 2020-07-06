@@ -23,13 +23,14 @@ export const fattura = (
   acquirente2,
   firma,
   utente,
-  ceo
+  ceo = []
 ) => {
   const doc = new jsPDF('p', 'mm', 'a4');
-  const acqNome = `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
-  const acqInd = `${cliente.indirizzo} ${
-    cliente.indirizzo2 && cliente.indirizzo2
-  }`;
+  const acqNome =
+    cliente && `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
+  const acqInd =
+    cliente &&
+    `${cliente.indirizzo} ${cliente.indirizzo2 && cliente.indirizzo2}`;
   const acqNome2 =
     cliente2 && `${cliente2.titolo} ${cliente2.nome} ${cliente2.cognome}`;
   const acqInd2 =

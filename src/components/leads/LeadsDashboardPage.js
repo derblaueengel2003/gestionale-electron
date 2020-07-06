@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import LeadsList from './LeadsList';
 import LeadsListFilters from './LeadsListFilters';
-import { startSetLeads } from '../../actions/leads';
+import { storeActions } from '../../store/configureStore';
 
 class LeadsDashboardPage extends React.Component {
   componentDidMount() {
@@ -34,7 +34,10 @@ class LeadsDashboardPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  startSetLeads: () => dispatch(startSetLeads()),
+  startSetLeads: () =>
+    dispatch(
+      storeActions.find((action) => action.label === 'leads').startSetAction()
+    ),
 });
 
 export default connect(

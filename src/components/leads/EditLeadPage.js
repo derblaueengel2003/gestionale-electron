@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import LeadForm from './LeadForm';
-import { startEditLead, startRemoveLead } from '../../actions/leads';
-import { startRemoveOffer } from '../../actions/offers';
+import { storeActions } from '../../store/configureStore';
 import OptionModal from '../common/OptionModal';
 
 export class EditLeadPage extends React.Component {
@@ -73,9 +72,24 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startEditLead: (id, lead) => dispatch(startEditLead(id, lead)),
-  startRemoveLead: (data) => dispatch(startRemoveLead(data)),
-  startRemoveOffer: (data) => dispatch(startRemoveOffer(data)),
+  startEditLead: (id, lead) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'leads')
+        .startEditAction(id, lead)
+    ),
+  startRemoveLead: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'leads')
+        .startRemoveAction(data)
+    ),
+  startRemoveOffer: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'offers')
+        .startRemoveAction(data)
+    ),
 });
 
 export default connect(

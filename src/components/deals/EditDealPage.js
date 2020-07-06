@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { startEditDeal, startRemoveDeal } from '../../actions/deals';
+import { storeActions } from '../../store/configureStore';
 import DealForm from './DealForm';
 import OptionModal from '../common/OptionModal';
 
@@ -27,10 +27,29 @@ export class EditDealPage extends React.Component {
     this.props.history.push(`/view/${this.props.deal.id}`);
   };
 
-  onRemove = () => {
-    this.props.startRemoveDeal({ id: this.props.deal.id });
-    this.props.history.push('/');
+  // verifico che non ci siano fatture emesse per questa vendita
+  onValidate = () => {
+    const fatture = this.props.fatture.filter(
+      (fattura) => fattura.dealId === this.props.deal.id
+    );
+    if (fatture.length === 0) return true;
+
+    return false;
   };
+
+  onRemove = () => {
+    if (this.onValidate()) {
+      this.props.startRemoveDeal({ id: this.props.deal.id });
+      this.props.history.push('/deals');
+    } else {
+      this.setState(() => ({
+        isOpen: true,
+        modalContent: 'cannot_delete',
+        btnEnabled: false,
+      }));
+    }
+  };
+
   render() {
     return (
       <div>
@@ -63,11 +82,22 @@ export class EditDealPage extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   deal: state.deals.find((deal) => deal.id === props.match.params.id),
+  fatture: state.fatture,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startEditDeal: (id, deal) => dispatch(startEditDeal(id, deal)),
-  startRemoveDeal: (data) => dispatch(startRemoveDeal(data)),
+  startEditDeal: (id, deal) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'deals')
+        .startEditAction(id, deal)
+    ),
+  startRemoveDeal: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'deals')
+        .startRemoveAction(data)
+    ),
 });
 
 export default connect(

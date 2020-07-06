@@ -29,7 +29,7 @@ export class Sidebar extends Component {
           className='sidenav'
         >
           <li>
-            <Link className='sidenav-close' to='/dashboard'>
+            <Link className='sidenav-close' to='/deals'>
               {t('Vendite')}
             </Link>
           </li>
@@ -49,8 +49,13 @@ export class Sidebar extends Component {
             </Link>
           </li>
           <li>
-            <Link className='sidenav-close' to='/customer'>
+            <Link className='sidenav-close' to='/clienti'>
               {t('Contatti')}
+            </Link>
+          </li>
+          <li>
+            <Link className='sidenav-close' to='/evaluations'>
+              {t('evaluations')}
             </Link>
           </li>
           {this.props.utente.role === 'Admin' && (
@@ -62,7 +67,7 @@ export class Sidebar extends Component {
           )}
           {this.props.utente.role === 'Admin' && (
             <li>
-              <Link className='sidenav-close' to='/users'>
+              <Link className='sidenav-close' to='/utenti'>
                 {t('Utenti')}
               </Link>
             </li>

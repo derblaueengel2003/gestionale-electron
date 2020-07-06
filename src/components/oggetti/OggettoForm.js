@@ -25,7 +25,7 @@ export class OggettoForm extends React.Component {
     const kaufpreis = parseFloat(oggetti.kaufpreis.replace(/,/, '.'), 10) * 100;
 
     if (!oggetti.via || !oggetti.rifId) {
-      this.props.renderError(this.props.t('Inserisci indirizzo e Rif ID'));
+      this.props.renderError(this.props.t('property_form_submit_error'));
     } else {
       this.props.renderError('');
 
@@ -108,15 +108,15 @@ export class OggettoForm extends React.Component {
     const options = this.props.clienti.map((cliente) => ({
       value: cliente.id,
       label: `${cliente.nome} ${cliente.cognome} ${
-        cliente.ditta && `- ${t('Ditta')} ${cliente.ditta}`
+        cliente.ditta && `- ${t('company')} ${cliente.ditta}`
       }`,
     }));
 
     const optionsTipologia = [
-      'Eigentumswohnung',
-      'Gewerbe',
-      'Pflegeheim',
-      'Sonstiges',
+      'property_apt',
+      'property_commercial',
+      'property_nursing_home',
+      'property_other',
     ].map((dealType) => ({
       value: dealType,
       label: t(dealType),
@@ -160,7 +160,16 @@ export class OggettoForm extends React.Component {
                 optionsTipologia,
                 t('Tipo di immobile')
               )}
-              {renderInput('oggetti', 'via', t('address'))}
+              {renderInput(
+                'oggetti',
+                'via',
+                t('address'),
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                '*'
+              )}
               {renderInput('oggetti', 'numeroCivico', 'Nr.')}
               {renderInput('oggetti', 'cap', t('zipcode'))}
               {renderInput('oggetti', 'quartiere', t('Quartiere'))}
@@ -171,7 +180,16 @@ export class OggettoForm extends React.Component {
                 'numeroAppartamento',
                 t('Numero appartamento')
               )}
-              {renderInput('oggetti', 'rifId', t('Rif') + '. ID')}
+              {renderInput(
+                'oggetti',
+                'rifId',
+                t('Rif') + '. ID',
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                '*'
+              )}
               {renderInput(
                 'oggetti',
                 'amtsgericht',
@@ -190,8 +208,8 @@ export class OggettoForm extends React.Component {
                 'oggetti',
                 'stato',
                 [
-                  { value: 'leerstehend', label: t('Non affittato, libero') },
-                  { value: 'vermietet', label: t('Affittato') },
+                  { value: 'vacant', label: t('vacant') },
+                  { value: 'rented', label: t('rented') },
                 ],
                 t('Stato abitativo')
               )}
@@ -256,7 +274,7 @@ export class OggettoForm extends React.Component {
               {renderTextArea('oggetti', 'note')}
               {renderCheckbox('oggetti', 'venduto', t('Venduto'))}
 
-              {this.props.utente.role === 'Admin'
+              {this.props.utente && this.props.utente.role === 'Admin'
                 ? renderCheckbox('oggetti', 'visible', t('visible'))
                 : ''}
             </div>
@@ -312,14 +330,14 @@ export class OggettoForm extends React.Component {
                 'oggetti',
                 'condizioni',
                 [
-                  { value: 'neu', label: t('Come nuovo') },
-                  { value: 'gut', label: t('Buone condizioni') },
+                  { value: 'new', label: t('new') },
+                  { value: 'good', label: t('good') },
                   {
-                    value: 'renovierungsbedürftig',
-                    label: t('Da ristrutturare'),
+                    value: 'to_renovate',
+                    label: t('to_renovate'),
                   },
                 ],
-                t('Condizioni immobile')
+                t('property_condition')
               )}
               {renderInput('oggetti', 'baujahr', t('Anno di costruzione'))}
               {renderSelect(
@@ -327,12 +345,12 @@ export class OggettoForm extends React.Component {
                 'energieAusweisTyp',
                 [
                   {
-                    value: 'Verbrauchsausweis',
-                    label: t('Basato sul consumo'),
+                    value: 'based_on_consumption',
+                    label: t('based_on_consumption'),
                   },
                   {
-                    value: 'Bedarfsausweis',
-                    label: t('Basato sul fabbisogno'),
+                    value: 'based_on_requirement',
+                    label: t('based_on_requirement'),
                   },
                 ],
                 t('Certificato energetico - tipologia')
@@ -347,12 +365,12 @@ export class OggettoForm extends React.Component {
                 'heizungsart',
                 [
                   {
-                    value: 'Zentralheizung',
-                    label: t('Riscaldamento centralizzato'),
+                    value: 'heating_central',
+                    label: t('heating_central'),
                   },
                   {
-                    value: 'Etagenheizung',
-                    label: t('Riscaldamento autonomo'),
+                    value: 'heating_floor',
+                    label: t('heating_floor'),
                   },
                 ],
                 t('Tipologia riscaldamento')
@@ -362,16 +380,16 @@ export class OggettoForm extends React.Component {
                 'energieTraeger',
                 [
                   {
-                    value: 'Erdgas',
-                    label: t('Gas'),
+                    value: 'heating_gas',
+                    label: t('heating_gas'),
                   },
                   {
-                    value: 'Öl',
-                    label: t('Olio combustibile'),
+                    value: 'heating_oil',
+                    label: t('heating_oil'),
                   },
                   {
-                    value: 'Fernwärme',
-                    label: t('Teleriscaldamento'),
+                    value: 'heating_district',
+                    label: t('heating_district'),
                   },
                 ],
                 t('Fonte energetica')
@@ -426,7 +444,7 @@ export class OggettoForm extends React.Component {
                         <span key={i}>
                           <img className='foto' src={downloadURLCover} />
                           <img
-                            src='https://www.m2square.eu/wp-content/uploads/2020/06/trash.jpg'
+                            src='/images/trash.jpg'
                             className='cancella'
                             onClick={() =>
                               this.props.handleRemovePictureCover(i)
@@ -468,7 +486,7 @@ export class OggettoForm extends React.Component {
                         <span key={i}>
                           <img className='foto' src={downloadURL} />
                           <img
-                            src='https://www.m2square.eu/wp-content/uploads/2020/06/trash.jpg'
+                            src='/images/trash.jpg'
                             className='cancella'
                             onClick={() => this.props.handleRemovePicture(i)}
                           />
@@ -509,7 +527,7 @@ export class OggettoForm extends React.Component {
                           <span key={i}>
                             <img className='foto' src={downloadURLGrundriss} />
                             <img
-                              src='https://www.m2square.eu/wp-content/uploads/2020/06/trash.jpg'
+                              src='/images/trash.jpg'
                               className='cancella'
                               onClick={() =>
                                 this.props.handleRemovePictureGrundriss(i)

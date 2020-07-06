@@ -93,6 +93,12 @@ export default (
         item.numeroFattura && (searchString += `${item.numeroFattura}`);
       }
 
+      if (nomeLista === 'evaluations') {
+        createdAtMoment = moment(item.dataEvaluation);
+
+        searchString += `${item.titolo}`;
+      }
+
       const startDateMatch =
         startDate && createdAtMoment
           ? startDate.isSameOrBefore(createdAtMoment, 'day')

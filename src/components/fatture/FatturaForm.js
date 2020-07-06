@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
-import createFilterOptions from 'react-select-fast-filter-options';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
@@ -25,8 +24,13 @@ export class FatturaForm extends React.Component {
     const mahngebuehren2 =
       parseFloat(fatture.mahngebuehren2.replace(/,/, '.'), 10) * 100;
 
-    if (!fatture.numeroFattura || !fatture.dataFattura) {
-      this.props.renderError(this.props.t('Inserisci data e numero fattura'));
+    if (
+      !fatture.numeroFattura ||
+      !fatture.dataFattura ||
+      !fatture.clienteId ||
+      (!fatture.dealId && !fatture.descrizioneProdotto)
+    ) {
+      this.props.renderError(this.props.t('invoice_form_submission_error'));
     } else {
       this.props.renderError('');
       this.props.onSubmit({
@@ -99,9 +103,18 @@ export class FatturaForm extends React.Component {
           </button>
         </div>
         {renderSelect('fatture', 'dealId', dealIdOptions, t('Vendita'))}
-        {renderSelect('fatture', 'clienteId', options, t('Cliente'))}
+        {renderSelect('fatture', 'clienteId', options, t('Cliente'), '*')}
         {renderSelect('fatture', 'clienteId2', options, '2. ' + t('Cliente'))}
-        {renderInput('fatture', 'numeroFattura', t('Numero fattura'))}
+        {renderInput(
+          'fatture',
+          'numeroFattura',
+          t('Numero fattura'),
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          '*'
+        )}
         {renderInput(
           'fatture',
           'importoNetto',
@@ -118,8 +131,8 @@ export class FatturaForm extends React.Component {
               label: t('19%'),
             },
             {
-              value: 17,
-              label: t('17%'),
+              value: 16,
+              label: t('16%'),
             },
           ],
           t('IVA')
@@ -128,7 +141,8 @@ export class FatturaForm extends React.Component {
           'fatture',
           'dataFattura',
           'calendarDataFatturaFocused',
-          t('Data fattura')
+          t('Data fattura'),
+          '*'
         )}
         {renderSingleDate(
           'fatture',

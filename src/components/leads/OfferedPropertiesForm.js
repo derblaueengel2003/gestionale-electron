@@ -88,6 +88,7 @@ export class OfferedPropertiesForm extends React.Component {
             { value: 'negativo', label: t('Negativo') },
             { value: 'neutro', label: t('Neutro') },
             { value: 'sconosciuto', label: t('Non ha risposto') },
+            { value: 'not_relevant', label: t('not_relevant') },
           ],
           t('Feedback del cliente')
         )}

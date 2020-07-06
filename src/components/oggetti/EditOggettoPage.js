@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import OggettoForm from './OggettoForm';
-import { startEditOggetto, startRemoveOggetto } from '../../actions/oggetti';
+import { storeActions } from '../../store/configureStore';
 import OptionModal from '../common/OptionModal';
 
 export class EditOggettoPage extends React.Component {
@@ -57,18 +57,26 @@ export class EditOggettoPage extends React.Component {
   };
 
   onDisable = () => {
-    if (this.onValidate()) {
-      this.props.startEditOggetto(this.props.oggetto.id, {
-        ...this.props.oggetto,
-        visible: false,
-      });
-      this.props.history.push('/oggetti');
-    } else {
-      this.setState(() => ({
-        isOpen: true,
-        modalContent: 'cannot_delete',
-        btnEnabled: false,
-      }));
+    if (
+      window.confirm(
+        this.props.t(
+          'Confermi la cancellazione? Questa operazione è irreversibile!'
+        )
+      )
+    ) {
+      if (this.onValidate()) {
+        this.props.startEditOggetto(this.props.oggetto.id, {
+          ...this.props.oggetto,
+          visible: false,
+        });
+        this.props.history.push('/oggetti');
+      } else {
+        alert(
+          this.props.t(
+            "Impossibile cancellare l'oggetto perché è presente nelle vendite o nei contatti"
+          )
+        );
+      }
     }
   };
   render() {
@@ -92,7 +100,7 @@ export class EditOggettoPage extends React.Component {
             modalContent={this.props.t(this.state.modalContent)}
             onCancel={this.handleCloseModal}
             onConfirm={
-              this.props.utente.role === 'Admin'
+              this.props.utente && this.props.utente.role === 'Admin'
                 ? this.onRemove
                 : this.onDisable
             }
@@ -118,8 +126,18 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startEditOggetto: (id, oggetto) => dispatch(startEditOggetto(id, oggetto)),
-  startRemoveOggetto: (data) => dispatch(startRemoveOggetto(data)),
+  startEditOggetto: (id, oggetto) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'oggetti')
+        .startEditAction(id, oggetto)
+    ),
+  startRemoveOggetto: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'oggetti')
+        .startRemoveAction(data)
+    ),
 });
 
 export default connect(

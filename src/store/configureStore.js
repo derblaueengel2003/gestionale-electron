@@ -1,17 +1,28 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import dealsReducer from '../reducers/deals';
 import filtersReducer from '../reducers/filters';
-import utentiReducer from '../reducers/utenti';
-import clientiReducer from '../reducers/clienti';
 import authReducer from '../reducers/auth';
-import oggettiReducer from '../reducers/oggetti';
-import leadsReducer from '../reducers/leads';
-import offersReducer from '../reducers/offers';
-import accentroReducer from '../reducers/accentro';
-import fattureReducer from '../reducers/fatture';
-import firmaReducer from '../reducers/firma';
-import evaluationReducer from '../reducers/evaluation';
+import storeSection from './storeSection';
+
+// action and reducer creation
+const storeReducers = {};
+export const storeActions = [];
+export const storeSections = [
+  'clienti',
+  'deals',
+  'evaluations',
+  'fatture',
+  'firma',
+  'leads',
+  'offers',
+  'oggetti',
+  'utenti',
+];
+storeSections.forEach((section) => {
+  const newSection = new storeSection(section);
+  storeReducers[newSection.label] = newSection.actionReducer;
+  storeActions.push(newSection.getActions());
+});
 
 // Store creation
 const composeEnhancers =
@@ -21,24 +32,15 @@ const composeEnhancers =
       traceLimit: 25,
     })) ||
   compose;
+
 export default () => {
   const store = createStore(
     combineReducers({
-      accentro: accentroReducer,
       auth: authReducer,
-      clienti: clientiReducer,
-      deals: dealsReducer,
-      evaluations: evaluationReducer,
-      fatture: fattureReducer,
       filters: filtersReducer,
-      firma: firmaReducer,
-      leads: leadsReducer,
-      offers: offersReducer,
-      oggetti: oggettiReducer,
-      utenti: utentiReducer,
+      ...storeReducers,
     }),
     composeEnhancers(applyMiddleware(thunk))
   );
-
   return store;
 };

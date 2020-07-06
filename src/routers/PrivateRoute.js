@@ -17,7 +17,7 @@ export const PrivateRoute = ({
         <div>
           <Header />
           <NavBar activeClass={activeClass} />
-          <Component {...props} />
+          <Component {...props} item={activeClass} />
         </div>
       ) : (
         <Redirect to='/' />

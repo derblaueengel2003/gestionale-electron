@@ -8,8 +8,9 @@ import Geocode from 'react-geocode';
 import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
 import ImmoscoutAPI from './ImmoscoutAPI';
-import { ipcRenderer } from 'electron';
 import Intestazione from '../common/Intestazione';
+import EvaluationList from '../evaluation/EvaluationList';
+import { ipcRenderer } from 'electron';
 
 Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
 Geocode.setLanguage('de');
@@ -348,6 +349,14 @@ export class ViewOggettiPage extends React.Component {
         {oggetto.inquilinoId && (
           <div>
             <ClientiList cliente={inquilino} ruolo={t('Inquilino')} />
+          </div>
+        )}
+        {evaluation && (
+          <div>
+            <EvaluationList
+              oggettoEvaluation={[evaluation]}
+              ruolo={t('evaluation')}
+            />
           </div>
         )}
         <div className='container'>

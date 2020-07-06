@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import UserForm from './UserForm';
-import { startEditUser, startRemoveUser } from '../../actions/utenti';
+import { storeActions } from '../../store/configureStore';
 import OptionModal from '../common/OptionModal';
 
 export class EditUtentePage extends React.Component {
@@ -24,11 +24,11 @@ export class EditUtentePage extends React.Component {
 
   onSubmit = (utente) => {
     this.props.startEditUser(this.props.utente.id, utente);
-    this.props.history.push(`/users`);
+    this.props.history.push(`/utenti`);
   };
   onRemove = () => {
     this.props.startRemoveUser({ id: this.props.utente.id });
-    this.props.history.push('/users');
+    this.props.history.push('/utenti');
   };
   render() {
     return (
@@ -65,8 +65,18 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startEditUser: (id, utente) => dispatch(startEditUser(id, utente)),
-  startRemoveUser: (data) => dispatch(startRemoveUser(data)),
+  startEditUser: (id, utente) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'utenti')
+        .startEditAction(id, utente)
+    ),
+  startRemoveUser: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'utenti')
+        .startRemoveAction(data)
+    ),
 });
 
 export default connect(

@@ -17,10 +17,11 @@ export const mahnung2 = (
   firma,
   utente,
   ceo,
-  importoNetto
+  importoNetto,
+  iva
 ) => {
   const doc = new jsPDF('p', 'mm', 'a4');
-  let importo = amount || importoNetto;
+  let importo = importoNetto || amount;
   const acqNome = `${cliente.titolo} ${cliente.nome} ${cliente.cognome}`;
   const acqInd = `${cliente.indirizzo} ${
     cliente.indirizzo2 && cliente.indirizzo2
@@ -119,7 +120,7 @@ export const mahnung2 = (
     `Letzte Mahnung\nRechnung Nr. ${numeroFattura}\nRechnungsdatum: ${moment(
       dataFattura
     ).format('DD.MM.YYYY')} \nRechnungsbetrag: ${numeral(
-      (importo / 100) * 1.19
+      (importo / 100) * parseFloat(`1.${iva}`)
     ).format('0,0[.]00 $')}`,
     15,
     96
@@ -150,7 +151,11 @@ export const mahnung2 = (
 
   //Cifre
   doc.text('Rechnungsbetrag', 15, 155);
-  doc.text(numeral((importo / 100) * 1.19).format('0,0[.]00 $'), 120, 155);
+  doc.text(
+    numeral((importo / 100) * parseFloat(`1.${iva}`)).format('0,0[.]00 $'),
+    120,
+    155
+  );
 
   doc.text('Mahngebühren', 15, 160);
   doc.text(numeral(mahngebuehren / 100).format('0,0[.]00 $'), 120, 160);
@@ -160,7 +165,9 @@ export const mahnung2 = (
   doc.setFontType('bold');
   doc.text('Zu zahlender Gesamtbetrag', 15, 167);
   doc.text(
-    numeral((importo / 100) * 1.19 + mahngebuehren / 100).format('0,0[.]00 $'),
+    numeral(
+      (importo / 100) * parseFloat(`1.${iva}`) + mahngebuehren / 100
+    ).format('0,0[.]00 $'),
     120,
     167
   );

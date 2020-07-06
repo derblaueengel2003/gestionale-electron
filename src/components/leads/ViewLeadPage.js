@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import OffersList from './OffersList';
-import { startRemoveLead } from '../../actions/leads';
-import { startRemoveOffer } from '../../actions/offers';
+import { storeActions } from '../../store/configureStore';
 import numeral from 'numeral';
 import moment from 'moment';
 import OptionModal from '../common/OptionModal';
@@ -113,7 +112,7 @@ export class ViewLeadPage extends React.Component {
             {cliente && (
               <h5>
                 {
-                  <Link to={`/customerview/${cliente.id}`}>
+                  <Link to={`/clientiview/${cliente.id}`}>
                     {cliente.titolo} {cliente.nome} {cliente.cognome}
                   </Link>
                 }
@@ -162,8 +161,18 @@ const mapStateToProps = (state, props) => ({
   utenti: state.utenti,
 });
 const mapDispatchToProps = (dispatch) => ({
-  startRemoveLead: (data) => dispatch(startRemoveLead(data)),
-  startRemoveOffer: (data) => dispatch(startRemoveOffer(data)),
+  startRemoveLead: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'leads')
+        .startRemoveAction(data)
+    ),
+  startRemoveOffer: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'offers')
+        .startRemoveAction(data)
+    ),
 });
 
 export default connect(

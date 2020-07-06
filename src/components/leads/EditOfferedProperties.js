@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import OfferedPropertiesForm from './OfferedPropertiesForm';
-import { startEditOffer, startRemoveOffer } from '../../actions/offers';
+import { storeActions } from '../../store/configureStore';
 
 export class EditOfferedProperties extends React.Component {
   onSubmit = (offer) => {
@@ -43,8 +43,18 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startEditOffer: (id, offer) => dispatch(startEditOffer(id, offer)),
-  startRemoveOffer: (data) => dispatch(startRemoveOffer(data)),
+  startEditOffer: (id, offer) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'offers')
+        .startEditAction(id, offer)
+    ),
+  startRemoveOffer: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'offers')
+        .startRemoveAction(data)
+    ),
 });
 
 export default connect(

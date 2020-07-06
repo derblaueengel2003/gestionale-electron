@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import OggettiList from './OggettiList';
 import ListFilters from '../common/ListFilters';
-import { startSetOggetti } from '../../actions/oggetti';
+import { storeActions } from '../../store/configureStore';
 
 class OggettiDashboardPage extends React.Component {
   componentDidMount() {
@@ -37,7 +37,10 @@ class OggettiDashboardPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  startSetOggetti: () => dispatch(startSetOggetti()),
+  startSetOggetti: () =>
+    dispatch(
+      storeActions.find((action) => action.label === 'oggetti').startSetAction()
+    ),
 });
 
 export default connect(

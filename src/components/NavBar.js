@@ -8,23 +8,23 @@ import { ipcRenderer } from 'electron';
 export const NavBar = ({ utente, t, activeClass }) => {
   if (utente) {
     let menuItems = [
-      { pathLink: 'dashboard', label: t('Vendite') },
+      { pathLink: 'deals', label: t('Vendite') },
       { pathLink: 'leads', label: t('Richieste') },
       { pathLink: 'moduli', label: t('Moduli') },
       { pathLink: 'oggetti', label: t('Oggetti') },
-      { pathLink: 'customer', label: t('Contatti') },
-      { pathLink: 'evaluation', label: t('evaluations') },
+      { pathLink: 'clienti', label: t('Contatti') },
+      { pathLink: 'evaluations', label: t('evaluations') },
     ];
-    if (utente.role === 'Admin') {
+    if (utente && utente.role === 'Admin') {
       menuItems = [
         ...menuItems,
         // { pathLink: 'report', label: 'Report' },
-        { pathLink: 'users', label: t('Utenti') },
+        { pathLink: 'utenti', label: t('Utenti') },
         { pathLink: 'fatture', label: t('Fatture') },
       ];
     }
     return (
-      <nav className='nav-wraper blue'>
+      <nav className='nav-wrapper blue'>
         <div className='container'>
           <Sidebar />
           <ul className='hide-on-med-and-down'>
@@ -42,8 +42,9 @@ export const NavBar = ({ utente, t, activeClass }) => {
     );
   } else {
     ipcRenderer.send('window:reload');
-    // setTimeout(location.reload(), 500);
-    return <div>reloading</div>;
+
+    // setTimeout(location.reload(), 1000);
+    return <div>Loading...</div>;
   }
 };
 const mapStateToProps = (state) => {

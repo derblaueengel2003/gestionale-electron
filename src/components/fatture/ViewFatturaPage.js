@@ -16,8 +16,11 @@ import Intestazione from '../common/Intestazione';
 export class ViewFatturePage extends React.Component {
   render() {
     const { t } = this.props;
+    const singleFattura = this.props.fatture.find(
+      (fattura) => fattura.id === this.props.match.params.id
+    );
     let deal = this.props.deals.find(
-      (deal) => deal.id === this.props.fattura.dealId
+      (deal) => deal.id === singleFattura.dealId
     );
 
     const oggetto = deal
@@ -34,279 +37,292 @@ export class ViewFatturePage extends React.Component {
         )
       : '';
     const cliente = this.props.clienti.find(
-      (cliente) => cliente.id === this.props.fattura.clienteId
+      (cliente) => cliente.id === singleFattura.clienteId
     );
     const cliente2 = this.props.clienti.find(
-      (cliente) => cliente.id === this.props.fattura.clienteId2
+      (cliente) => cliente.id === singleFattura.clienteId2
+    );
+    const ceo = this.props.utenti.filter(
+      (utente) => utente.qualifica === 'Geschäftsführer'
+    );
+    const utente = this.props.utenti.find(
+      (utente) => utente.firebaseAuthId === this.props.auth.uid
     );
 
-    return (
-      <div>
-        <Intestazione
-          intestazione={
-            oggetto
-              ? `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
-              : this.props.fattura.descrizioneProdotto
-          }
-        />
-        <div className='container section'>
-          <div>
-            <Link
-              className='btn-floating orange right btn-floating-margin'
-              to={`/fatturaedit/${this.props.fattura.id}`}
-            >
-              <i className='material-icons'>edit</i>
-            </Link>
+    if (singleFattura) {
+      return (
+        <div>
+          <Intestazione
+            intestazione={
+              oggetto
+                ? `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
+                : singleFattura.descrizioneProdotto
+            }
+          />
+          <div className='container section'>
+            <div>
+              <Link
+                className='btn-floating orange right btn-floating-margin'
+                to={`/fatturaedit/${singleFattura.id}`}
+              >
+                <i className='material-icons'>edit</i>
+              </Link>
+            </div>
+
+            <div className='section'>
+              {deal && deal.dealType}
+
+              {singleFattura.numeroFattura && (
+                <h5>
+                  {t('Numero fattura')}: {singleFattura.numeroFattura}
+                </h5>
+              )}
+              <h5>
+                {t('Importo netto')}:{' '}
+                {deal
+                  ? numeral(deal.amount / 100).format('0,0[.]00 $')
+                  : numeral(singleFattura.importoNetto / 100).format(
+                      '0,0[.]00 $'
+                    )}
+              </h5>
+              {singleFattura.note}
+              <div className='list-item__title'>
+                {oggetto &&
+                  `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}
+              </div>
+
+              {cliente && (
+                <div>
+                  {t('Cliente')}: {cliente.nome} {cliente.cognome}{' '}
+                  {cliente.ditta && ` - Firma: ${cliente.ditta}`}
+                </div>
+              )}
+              {cliente2 && (
+                <div>
+                  2. {t('Cliente')}: {cliente2.nome} {cliente2.cognome}{' '}
+                  {cliente2.ditta && ` - Firma: ${cliente2.ditta}`}
+                </div>
+              )}
+            </div>
+            <div>
+              {singleFattura.dataFattura && (
+                <div>
+                  {t('Data fattura')}:{' '}
+                  {moment(singleFattura.dataFattura).format('DD MMMM, YYYY')}
+                </div>
+              )}
+              {singleFattura.iva && (
+                <div>
+                  {t('vat_applied')}: {singleFattura.iva}%
+                </div>
+              )}
+              {singleFattura.dataZahlungserinnerung && (
+                <div>
+                  {t('Sollecito')}:{' '}
+                  {moment(singleFattura.dataZahlungserinnerung).format(
+                    'DD MMMM, YYYY'
+                  )}
+                </div>
+              )}
+              {singleFattura.dataMahnung && (
+                <div>
+                  1. {t('Sollecito con penale')}:{' '}
+                  {moment(singleFattura.dataMahnung).format('DD MMMM, YYYY')}
+                </div>
+              )}
+              {singleFattura.dataMahnung2 && (
+                <div>
+                  2. {t('Sollecito con penale')}:{' '}
+                  {moment(singleFattura.dataMahnung2).format('DD MMMM, YYYY')}
+                </div>
+              )}
+              {deal && deal.dataRogito > 0 && (
+                <div>
+                  {t('Data del rogito')}:{' '}
+                  {moment(deal.dataRogito).format('DD MMMM, YYYY')}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className='section'>
-            {deal && deal.dealType}
-
-            {this.props.fattura.numeroFattura && (
-              <h5>
-                {t('Numero fattura')}: {this.props.fattura.numeroFattura}
-              </h5>
-            )}
-            <h5>
-              {t('Importo netto')}:{' '}
-              {deal
-                ? numeral(deal.amount / 100).format('0,0[.]00 $')
-                : numeral(this.props.fattura.importoNetto / 100).format(
-                    '0,0[.]00 $'
-                  )}
-            </h5>
-            {this.props.fattura.note}
-            <div className='list-item__title'>
-              {oggetto &&
-                `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}
+            <div className='grey lighten-4'>
+              <div className='container'>
+                <h1>{t('Crea documentazione')}</h1>
+              </div>
             </div>
-
-            {cliente && (
-              <div>
-                {t('Cliente')}: {cliente.nome} {cliente.cognome}{' '}
-                {cliente.ditta && ` - Firma: ${cliente.ditta}`}
-              </div>
-            )}
-            {cliente2 && (
-              <div>
-                2. {t('Cliente')}: {cliente2.nome} {cliente2.cognome}{' '}
-                {cliente2.ditta && ` - Firma: ${cliente2.ditta}`}
-              </div>
-            )}
-          </div>
-          <div>
-            {this.props.fattura.dataFattura && (
-              <div>
-                {t('Data fattura')}:{' '}
-                {moment(this.props.fattura.dataFattura).format('DD MMMM, YYYY')}
-              </div>
-            )}
-            {this.props.fattura.dataZahlungserinnerung && (
-              <div>
-                {t('Sollecito')}:{' '}
-                {moment(this.props.fattura.dataZahlungserinnerung).format(
-                  'DD MMMM, YYYY'
-                )}
-              </div>
-            )}
-            {this.props.fattura.dataMahnung && (
-              <div>
-                1. {t('Sollecito con penale')}:{' '}
-                {moment(this.props.fattura.dataMahnung).format('DD MMMM, YYYY')}
-              </div>
-            )}
-            {this.props.fattura.dataMahnung2 && (
-              <div>
-                2. {t('Sollecito con penale')}:{' '}
-                {moment(this.props.fattura.dataMahnung2).format(
-                  'DD MMMM, YYYY'
-                )}
-              </div>
-            )}
-            {deal && deal.dataRogito > 0 && (
-              <div>
-                {t('Data del rogito')}:{' '}
-                {moment(deal.dataRogito).format('DD MMMM, YYYY')}
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className='section'>
-          <div className='grey lighten-4'>
             <div className='container'>
-              <h1>{t('Crea documentazione')}</h1>
+              <ul className='collection'>
+                <li className='collection-item'>
+                  <div>
+                    {' '}
+                    {t('Fattura')}
+                    <a href='#!' className='secondary-content'>
+                      <i
+                        className='material-icons'
+                        onClick={() => {
+                          fattura(
+                            cliente,
+                            cliente2,
+                            singleFattura.numeroFattura,
+                            singleFattura.dataFattura,
+                            singleFattura.descrizioneProdotto,
+                            singleFattura.importoNetto,
+                            singleFattura.iva,
+                            singleFattura.dataPrestazione,
+                            oggetto,
+                            deal && deal.prezzoDiVendita,
+                            deal && deal.dataRogito,
+                            deal && deal.amount,
+                            deal && deal.createdAt,
+                            deal && deal.dealType,
+                            acquirente,
+                            acquirente2,
+                            this.props.firma,
+                            utente,
+                            ceo
+                          );
+                        }}
+                      >
+                        picture_as_pdf
+                      </i>
+                    </a>
+                  </div>
+                </li>
+                {singleFattura.dataZahlungserinnerung && (
+                  <li className='collection-item'>
+                    <div>
+                      {t('Sollecito')}
+                      <a href='#!' className='secondary-content'>
+                        <i
+                          className='material-icons'
+                          onClick={() => {
+                            zahlungserinnerung(
+                              cliente,
+                              cliente2,
+                              singleFattura.numeroFattura,
+                              singleFattura.dataFattura,
+                              singleFattura.dataZahlungserinnerung,
+                              deal && deal.amount,
+                              this.props.firma,
+                              utente,
+                              ceo,
+                              singleFattura.importoNetto,
+                              singleFattura.iva
+                            );
+                          }}
+                        >
+                          picture_as_pdf
+                        </i>
+                      </a>
+                    </div>
+                  </li>
+                )}
+                {singleFattura.dataMahnung && (
+                  <li className='collection-item'>
+                    <div>
+                      {t('Sollecito con penale')}
+                      <a href='#!' className='secondary-content'>
+                        <i
+                          className='material-icons'
+                          onClick={() => {
+                            mahnung(
+                              cliente,
+                              cliente2,
+                              singleFattura.numeroFattura,
+                              singleFattura.dataFattura,
+                              singleFattura.dataZahlungserinnerung,
+                              singleFattura.dataMahnung,
+                              deal && deal.amount,
+                              singleFattura.mahngebuehren,
+                              this.props.firma,
+                              utente,
+                              ceo,
+                              singleFattura.importoNetto,
+                              singleFattura.iva
+                            );
+                          }}
+                        >
+                          picture_as_pdf
+                        </i>
+                      </a>
+                    </div>
+                  </li>
+                )}
+                {singleFattura.dataMahnung2 && (
+                  <li className='collection-item'>
+                    <div>
+                      2. {t('Sollecito con penale')}
+                      <a href='#!' className='secondary-content'>
+                        <i
+                          className='material-icons'
+                          onClick={() => {
+                            mahnung2(
+                              cliente,
+                              cliente2,
+                              singleFattura.numeroFattura,
+                              singleFattura.dataFattura,
+                              singleFattura.dataZahlungserinnerung,
+                              singleFattura.dataMahnung,
+                              singleFattura.dataMahnung2,
+                              deal && deal.amount,
+                              singleFattura.mahngebuehren2,
+                              this.props.firma,
+                              utente,
+                              ceo,
+                              singleFattura.importoNetto,
+                              singleFattura.iva
+                            );
+                          }}
+                        >
+                          picture_as_pdf
+                        </i>
+                      </a>
+                    </div>
+                  </li>
+                )}
+              </ul>
             </div>
           </div>
-          <div className='container'>
-            <ul className='collection'>
-              <li className='collection-item'>
-                <div>
-                  {' '}
-                  {t('Fattura')}
-                  <a href='#!' className='secondary-content'>
-                    <i
-                      className='material-icons'
-                      onClick={() => {
-                        fattura(
-                          cliente,
-                          cliente2,
-                          this.props.fattura.numeroFattura,
-                          this.props.fattura.dataFattura,
-                          this.props.fattura.descrizioneProdotto,
-                          this.props.fattura.importoNetto,
-                          this.props.fattura.dataPrestazione,
-                          oggetto,
-                          deal && deal.prezzoDiVendita,
-                          deal && deal.dataRogito,
-                          deal && deal.amount,
-                          deal && deal.createdAt,
-                          deal && deal.dealType,
-                          acquirente,
-                          acquirente2,
-                          this.props.firma,
-                          this.props.utente,
-                          this.props.ceo
-                        );
-                      }}
-                    >
-                      picture_as_pdf
-                    </i>
-                  </a>
-                </div>
-              </li>
-              {this.props.fattura.dataZahlungserinnerung && (
-                <li className='collection-item'>
-                  <div>
-                    {t('Sollecito')}
-                    <a href='#!' className='secondary-content'>
-                      <i
-                        className='material-icons'
-                        onClick={() => {
-                          zahlungserinnerung(
-                            cliente,
-                            cliente2,
-                            this.props.fattura.numeroFattura,
-                            this.props.fattura.dataFattura,
-                            this.props.fattura.dataZahlungserinnerung,
-                            deal && deal.amount,
-                            this.props.firma,
-                            this.props.utente,
-                            this.props.ceo,
-                            this.props.fattura.importoNetto
-                          );
-                        }}
-                      >
-                        picture_as_pdf
-                      </i>
-                    </a>
-                  </div>
-                </li>
-              )}
-              {this.props.fattura.dataMahnung && (
-                <li className='collection-item'>
-                  <div>
-                    {t('Sollecito con penale')}
-                    <a href='#!' className='secondary-content'>
-                      <i
-                        className='material-icons'
-                        onClick={() => {
-                          mahnung(
-                            cliente,
-                            cliente2,
-                            this.props.fattura.numeroFattura,
-                            this.props.fattura.dataFattura,
-                            this.props.fattura.dataZahlungserinnerung,
-                            this.props.fattura.dataMahnung,
-                            deal && deal.amount,
-                            this.props.fattura.mahngebuehren,
-                            this.props.firma,
-                            this.props.utente,
-                            this.props.ceo,
-                            this.props.fattura.importoNetto
-                          );
-                        }}
-                      >
-                        picture_as_pdf
-                      </i>
-                    </a>
-                  </div>
-                </li>
-              )}
-              {this.props.fattura.dataMahnung2 && (
-                <li className='collection-item'>
-                  <div>
-                    2. {t('Sollecito con penale')}
-                    <a href='#!' className='secondary-content'>
-                      <i
-                        className='material-icons'
-                        onClick={() => {
-                          mahnung2(
-                            cliente,
-                            cliente2,
-                            this.props.fattura.numeroFattura,
-                            this.props.fattura.dataFattura,
-                            this.props.fattura.dataZahlungserinnerung,
-                            this.props.fattura.dataMahnung,
-                            this.props.fattura.dataMahnung2,
-                            deal && deal.amount,
-                            this.props.fattura.mahngebuehren2,
-                            this.props.firma,
-                            this.props.utente,
-                            this.props.ceo,
-                            this.props.fattura.importoNetto
-                          );
-                        }}
-                      >
-                        picture_as_pdf
-                      </i>
-                    </a>
-                  </div>
-                </li>
-              )}
-            </ul>
-          </div>
-        </div>
 
-        {/* passo deal come array perché è quello che si aspetta il componente */}
-        {deal && <DealList clienteDeals={[deal]} ruolo={`${t('Vendita')}`} />}
-        {oggetto && (
-          <OggettiList oggetto={[oggetto]} ruolo={`${t('Oggetto')}`} />
-        )}
-        {cliente && (
-          <div>
-            <ClientiList
-              cliente={[cliente]}
-              ruolo={`${t('Intestatario fattura')}`}
-            />
-          </div>
-        )}
-        {cliente2 && (
-          <div>
-            <ClientiList
-              cliente={[cliente2]}
-              ruolo={`2. ${t('Intestatario fattura')}`}
-            />
-          </div>
-        )}
-      </div>
-    );
+          {/* passo deal come array perché è quello che si aspetta il componente */}
+          {deal && <DealList clienteDeals={[deal]} ruolo={`${t('Vendita')}`} />}
+          {oggetto && (
+            <OggettiList oggetto={[oggetto]} ruolo={`${t('Oggetto')}`} />
+          )}
+          {cliente && (
+            <div>
+              <ClientiList
+                cliente={[cliente]}
+                ruolo={`${t('Intestatario fattura')}`}
+              />
+            </div>
+          )}
+          {cliente2 && (
+            <div>
+              <ClientiList
+                cliente={[cliente2]}
+                ruolo={`2. ${t('Intestatario fattura')}`}
+              />
+            </div>
+          )}
+        </div>
+      );
+    } else {
+      return <div>Loading...</div>;
+    }
   }
 }
 
 const mapStateToProps = (state, props) => ({
-  fattura: state.fatture.find(
-    (fattura) => fattura.id === props.match.params.id
-  ),
+  fatture: state.fatture,
   clienti: state.clienti,
   deals: state.deals,
   oggetti: state.oggetti,
   firma: state.firma[0],
-  ceo: state.utenti.filter((utente) => utente.qualifica === 'Geschäftsführer'),
-  utente: state.utenti.find(
-    (utente) => utente.firebaseAuthId === state.auth.uid
-  ),
+  utenti: state.utenti,
   lingua: state.lingua,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(withTranslation()(ViewFatturePage));

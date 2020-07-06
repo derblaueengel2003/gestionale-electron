@@ -11,14 +11,14 @@ export class ViewOggettoMatchPage extends React.Component {
         lead.leadBudget <= this.props.oggetto.kaufpreis * 1.2 &&
         lead.leadBudget > this.props.oggetto.kaufpreis / 1.2
     );
-    if (this.props.oggetto.stato === 'leerstehend') {
+    if (this.props.oggetto.stato === 'vacant') {
       return leadsMatch.filter(
         (lead) =>
           lead.leadOggettoStato === 'libero' ||
           lead.leadOggettoStato === '' ||
           lead.leadOggettoStato === 'libero o affittato'
       );
-    } else if (this.props.oggetto.stato === 'vermietet') {
+    } else if (this.props.oggetto.stato === 'rented') {
       return leadsMatch.filter(
         (lead) =>
           lead.leadOggettoStato === 'affittato' ||
@@ -63,7 +63,7 @@ export class ViewOggettoMatchPage extends React.Component {
         <LeadsList
           userLeads={leadsAlreadyOffered}
           feedbackButton={'disabled'}
-          ruolo={`${this.props.t('Già inviato a')}`}
+          ruolo={`${this.props.t('offer_sent')}`}
         />
         ;
       </div>

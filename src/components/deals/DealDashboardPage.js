@@ -2,27 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import { startSetDeals } from '../../actions/deals';
+import DealList from './DealList';
 import ListFilters from '../common/ListFilters';
 import DealsSummary from './DealsSummary';
-import DealList from './DealList';
-// import snippet from '../../utils.js/snippet';
+import { storeActions } from '../../store/configureStore';
 
 class DealDashboardPage extends React.Component {
   componentDidMount() {
     this.props.startSetDeals();
-    // snippet();
   }
   render() {
     const { t, utente } = this.props;
-
-    //Opzioni per il filtro
     const options = [
       { value: 'date', label: 'Data' },
       { value: 'amount', label: 'Importo' },
       { value: 'paid', label: 'Pagato' },
     ];
-
     return (
       <div>
         <div className='grey lighten-4'>
@@ -32,14 +27,14 @@ class DealDashboardPage extends React.Component {
         </div>
         <ListFilters options={options} />
         <DealsSummary />
-        {utente.role === 'Admin' && (
+        {utente && utente.role === 'Admin' && (
           <div className='container section'>
             <Link className='btn-floating green right' to='/create'>
               <i className='material-icons'>add</i>
             </Link>
           </div>
         )}
-        <DealList />
+        {utente && <DealList />}
       </div>
     );
   }
@@ -53,7 +48,10 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = (dispatch) => ({
-  startSetDeals: () => dispatch(startSetDeals()),
+  startSetDeals: () =>
+    dispatch(
+      storeActions.find((action) => action.label === 'deals').startSetAction()
+    ),
 });
 
 export default connect(

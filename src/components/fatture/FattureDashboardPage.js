@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import FattureList from './FattureList';
 import ListFilters from '../common/ListFilters';
 import { Link } from 'react-router-dom';
-import { startSetFatture } from '../../actions/fatture';
+import { storeActions } from '../../store/configureStore';
 
 class FattureDashboardPage extends React.Component {
   componentDidMount() {
@@ -39,7 +39,10 @@ class FattureDashboardPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  startSetFatture: () => dispatch(startSetFatture()),
+  startSetFatture: () =>
+    dispatch(
+      storeActions.find((action) => action.label === 'fatture').startSetAction()
+    ),
 });
 
 export default connect(

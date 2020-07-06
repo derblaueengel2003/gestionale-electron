@@ -4,36 +4,28 @@ import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import DealDashboardPage from '../components/deals/DealDashboardPage';
 import ReportPage from '../components/ReportPage';
-import AddDealPage from '../components/deals/AddDealPage';
 import EditDealPage from '../components/deals/EditDealPage';
 import ViewDealPage from '../components/deals/ViewDealPage';
-import AddUserPage from '../components/utenti/AddUserPage';
 import EditUtentePage from '../components/utenti/EditUtentePage';
 import ViewUtentiPage from '../components/utenti/ViewUtentiPage';
 import UtentiDashboardPage from '../components/utenti/UtentiDashboardPage';
-import AddFirmaPage from '../components/firma/AddFirmaPage';
 import EditFirmaPage from '../components/firma/EditFirmaPage';
 import ViewFirmaPage from '../components/firma/ViewFirmaPage';
-import AddClientiPage from '../components/clienti/AddClientiPage';
 import EditClientiPage from '../components/clienti/EditClientiPage';
 import ViewClientiPage from '../components/clienti/ViewClientiPage';
 import ClientiDashboardPage from '../components/clienti/ClientiDashboardPage';
-import AddFatturaPage from '../components/fatture/AddFatturaPage';
 import EditFatturaPage from '../components/fatture/EditFatturaPage';
 import ViewFatturaPage from '../components/fatture/ViewFatturaPage';
 import FattureDashboardPage from '../components/fatture/FattureDashboardPage';
 import OggettiDashboardPage from '../components/oggetti/OggettiDashboardPage';
-import AddOggettoPage from '../components/oggetti/AddOggettoPage';
 import ViewOggettiPage from '../components/oggetti/ViewOggettiPage';
 import EditOggettoPage from '../components/oggetti/EditOggettoPage';
 import ViewOggettoMatchPage from '../components/leads/ViewOggettoMatchPage';
 import LeadsDashboardPage from '../components/leads/LeadsDashboardPage';
-import AddLeadPage from '../components/leads/AddLeadPage';
 import EditLeadPage from '../components/leads/EditLeadPage';
 import ViewLeadMatchPage from '../components/leads/ViewLeadMatchPage';
 import ViewLeadPage from '../components/leads/ViewLeadPage';
 import EditOfferedProperties from '../components/leads/EditOfferedProperties';
-import AddOfferedProperties from '../components/leads/AddOfferedProperties';
 import ModuliPage from '../components/moduli/ModuliList';
 import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
@@ -46,10 +38,13 @@ import ProvisionForm from '../components/moduli/ProvisionForm';
 import NotarauftragForm from '../components/moduli/NotarauftragForm';
 import NotarDatenblattForm from '../components/moduli/NotarDatenblattForm';
 import EvaluationDashboard from '../components/evaluation/EvaluationDashboard';
+import EditEvaluation from '../components/evaluation/EditEvaluation';
+import ViewEvaluation from '../components/evaluation/ViewEvaluation';
+import AddPage from '../components/common/AddPage';
 
 export const history = createHistory();
 
-const AppRouter = ({ uid }) => {
+const AppRouter = () => {
   return (
     <Router history={history}>
       <div>
@@ -58,45 +53,45 @@ const AppRouter = ({ uid }) => {
 
           {/* DEALS */}
           <PrivateRoute
-            path='/dashboard'
-            activeClass='dashboard'
+            path='/deals'
+            activeClass='deals'
             component={DealDashboardPage}
           />
           <PrivateRoute
             path='/create'
-            activeClass='dashboard'
-            component={AddDealPage}
+            activeClass='deals'
+            component={AddPage}
           />
           <PrivateRoute
             path='/edit/:id'
-            activeClass='dashboard'
+            activeClass='deals'
             component={EditDealPage}
           />
           <PrivateRoute
             path='/view/:id'
-            activeClass='dashboard'
+            activeClass='deals'
             component={ViewDealPage}
           />
 
           {/* CLIENTI */}
           <PrivateRoute
-            path='/customer'
-            activeClass='customer'
+            path='/clienti'
+            activeClass='clienti'
             component={ClientiDashboardPage}
           />
           <PrivateRoute
-            path='/customercreate'
-            activeClass='customer'
-            component={AddClientiPage}
+            path='/clienticreate'
+            activeClass='clienti'
+            component={AddPage}
           />
           <PrivateRoute
-            path='/customeredit/:id'
-            activeClass='customer'
+            path='/clientiedit/:id'
+            activeClass='clienti'
             component={EditClientiPage}
           />
           <PrivateRoute
-            path='/customerview/:id'
-            activeClass='customer'
+            path='/clientiview/:id'
+            activeClass='clienti'
             component={ViewClientiPage}
           />
 
@@ -109,7 +104,7 @@ const AppRouter = ({ uid }) => {
           <PrivateRoute
             path='/oggettocreate'
             activeClass='oggetti'
-            component={AddOggettoPage}
+            component={AddPage}
           />
           <PrivateRoute
             path='/oggettoview/:id'
@@ -128,45 +123,65 @@ const AppRouter = ({ uid }) => {
 
           {/* VALUTAZIONI */}
           <PrivateRoute
-            path='/evaluation'
-            activeClass='evaluation'
+            path='/evaluations'
+            activeClass='evaluations'
             component={EvaluationDashboard}
+          />
+          <PrivateRoute
+            path='/evaluationcreate'
+            activeClass='evaluations'
+            component={AddPage}
+          />
+          <PrivateRoute
+            path='/evaluationedit/:id'
+            activeClass='evaluations'
+            component={EditEvaluation}
+          />
+          <PrivateRoute
+            path='/evaluationview/:id'
+            activeClass='evaluations'
+            component={ViewEvaluation}
           />
 
           {/* UTENTI E DITTA */}
           <PrivateRoute
-            path='/users'
-            activeClass='users'
+            path='/utenti'
+            activeClass='utenti'
             component={UtentiDashboardPage}
           />
           <PrivateRoute
             path='/usercreate'
-            activeClass='users'
-            component={AddUserPage}
+            activeClass='utenti'
+            component={AddPage}
           />
           <PrivateRoute
             path='/useredit/:id'
-            activeClass='users'
+            activeClass='utenti'
             component={EditUtentePage}
           />
           <PrivateRoute
             path='/userview/:id'
-            activeClass='users'
+            activeClass='utenti'
             component={ViewUtentiPage}
           />
           <PrivateRoute
+            path='/firma'
+            activeClass='firma'
+            component={UtentiDashboardPage}
+          />
+          <PrivateRoute
             path='/firmacreate'
-            activeClass='users'
-            component={AddFirmaPage}
+            activeClass='firma'
+            component={AddPage}
           />
           <PrivateRoute
             path='/firmaview/:id'
-            activeClass='users'
+            activeClass='firma'
             component={ViewFirmaPage}
           />
           <PrivateRoute
             path='/firmaedit/:id'
-            activeClass='users'
+            activeClass='firma'
             component={EditFirmaPage}
           />
 
@@ -179,7 +194,7 @@ const AppRouter = ({ uid }) => {
           <PrivateRoute
             path='/fatturacreate'
             activeClass='fatture'
-            component={AddFatturaPage}
+            component={AddPage}
           />
           <PrivateRoute
             path='/fatturaview/:id'
@@ -201,7 +216,7 @@ const AppRouter = ({ uid }) => {
           <PrivateRoute
             path='/leadscreate'
             activeClass='leads'
-            component={AddLeadPage}
+            component={AddPage}
           />
           <PrivateRoute
             path='/leadedit/:id'
@@ -220,13 +235,13 @@ const AppRouter = ({ uid }) => {
           />
           <PrivateRoute
             path='/editoffer/:id'
-            activeClass='leads'
+            activeClass='offers'
             component={EditOfferedProperties}
           />
           <PrivateRoute
             path='/createoffer'
-            activeClass='leads'
-            component={AddOfferedProperties}
+            activeClass='offers'
+            component={AddPage}
           />
 
           {/* REPORT */}

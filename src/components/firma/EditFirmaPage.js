@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import FirmaForm from './FirmaForm';
-import { startEditFirma, startRemoveFirma } from '../../actions/firma';
+import { storeActions } from '../../store/configureStore';
 import OptionModal from '../common/OptionModal';
 
 export class EditFirmaPage extends React.Component {
@@ -24,11 +24,11 @@ export class EditFirmaPage extends React.Component {
 
   onSubmit = (firma) => {
     this.props.startEditFirma(this.props.firma.id, firma);
-    this.props.history.push(`/users`);
+    this.props.history.push(`/utenti`);
   };
   onRemove = () => {
     this.props.startRemoveFirma({ id: this.props.firma.id });
-    this.props.history.push('/users');
+    this.props.history.push('/utenti');
   };
 
   render() {
@@ -66,8 +66,18 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startEditFirma: (id, firma) => dispatch(startEditFirma(id, firma)),
-  startRemoveFirma: (data) => dispatch(startRemoveFirma(data)),
+  startEditFirma: (id, firma) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'firma')
+        .startEditAction(id, firma)
+    ),
+  startRemoveFirma: (data) =>
+    dispatch(
+      storeActions
+        .find((action) => action.label === 'firma')
+        .startRemoveAction(data)
+    ),
 });
 
 export default connect(

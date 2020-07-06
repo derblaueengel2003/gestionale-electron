@@ -4,21 +4,12 @@ import './i18n';
 import { Provider } from 'react-redux';
 import { firebase } from './firebase/firebase';
 import AppRouter, { history } from './routers/AppRouter';
-import configureStore from './store/configureStore';
-import { startSetDeals } from './actions/deals';
-import { startSetUsers } from './actions/utenti';
-import { startSetCustomers } from './actions/clienti';
-import { startSetLeads } from './actions/leads';
+import configureStore, { storeActions } from './store/configureStore';
 import { login, logout } from './actions/auth';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import LoadingPage from './components/LoadingPage';
-import { startSetOggetti } from './actions/oggetti';
-import { startSetAccentro } from './actions/accentro';
-import { startSetFatture } from './actions/fatture';
-import { startSetFirma } from './actions/firma';
-import { startSetEvaluations } from './actions/evaluation';
 
 const store = configureStore();
 
@@ -41,23 +32,19 @@ ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    Promise.all([
-      store.dispatch(login(user.uid)),
-      store.dispatch(startSetUsers()),
-      store.dispatch(startSetCustomers()),
-      store.dispatch(startSetOggetti()),
-      store.dispatch(startSetLeads()),
-      store.dispatch(startSetAccentro()),
-      store.dispatch(startSetEvaluations()),
-      store.dispatch(startSetFatture()),
-      store.dispatch(startSetFirma()),
-      store.dispatch(startSetDeals()),
-    ]).then(() => {
-      setTimeout(renderApp(), 500);
-      history.push('/dashboard');
-      // if (history.location.pathname === '/') {
-      // }
-    });
+    store.dispatch(login(user.uid));
+    for (let i = 0; i < storeActions.length; i++) {
+      if (i === storeActions.length - 1) {
+        store.dispatch(storeActions[i].startSetAction()).then(() => {
+          renderApp();
+          if (history.location.pathname === '/') {
+            history.push('/deals');
+          }
+        });
+      } else {
+        store.dispatch(storeActions[i].startSetAction());
+      }
+    }
   } else {
     store.dispatch(logout());
     renderApp();
