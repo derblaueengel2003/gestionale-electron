@@ -31,7 +31,7 @@ export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
                 return (
                   <Card
                     key={cliente.id}
-                    link={`/customerview/${cliente.id}`}
+                    link={`/clientiview/${cliente.id}`}
                     titolo={`${cliente.nome} ${cliente.cognome}`}
                     sottotitolo={cliente.ditta}
                     corpo={[

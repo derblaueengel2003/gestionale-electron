@@ -38,7 +38,7 @@ app.on('ready', () => {
 //       nodeIntegration: true,
 //     },
 //   });
-//   // addWindow.loadURL(`file://${__dirname}/public/index.html#/customercreate`);
+//   // addWindow.loadURL(`file://${__dirname}/public/index.html#/clienticreate`);
 //   addWindow.on('close', () => (addWindow = null));
 // }
 

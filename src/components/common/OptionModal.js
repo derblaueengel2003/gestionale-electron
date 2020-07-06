@@ -24,12 +24,12 @@ const OptionModal = ({
       {modalContent instanceof Array ? (
         <ClientiList cliente={modalContent} />
       ) : (
-        <div>{modalContent}</div>
+        <h5>{modalContent}</h5>
       )}
       <div className='confirmation-modal__btn-wrapper'>
         {btnEnabled && (
           <button
-            className='btn green'
+            className='btn green btn-margin'
             onClick={() => {
               onConfirm();
             }}
@@ -38,7 +38,7 @@ const OptionModal = ({
           </button>
         )}
         <button
-          className='btn blue'
+          className='btn blue btn-margin'
           onClick={() => {
             onCancel();
           }}

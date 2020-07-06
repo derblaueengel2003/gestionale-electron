@@ -70,7 +70,7 @@ export class ViewClientiPage extends React.Component {
           <div>
             <Link
               className='btn-floating orange right btn-floating-margin'
-              to={`/customeredit/${id}`}
+              to={`/clientiedit/${id}`}
             >
               <i className='material-icons'>edit</i>
             </Link>
@@ -156,7 +156,9 @@ export class ViewClientiPage extends React.Component {
         <OggettiList oggetto={this.props.oggetti} ruolo={t('Oggetti')} />
 
         <DealList clienteDeals={clienteDeals} ruolo={t('Vendite')} />
-        {utente.role === 'Admin' && <FattureList dealFatture={dealFatture} />}
+        {utente.role === 'Admin' && (
+          <FattureList dealFatture={dealFatture} ruolo={t('invoices')} />
+        )}
       </div>
     );
   }

@@ -37,9 +37,9 @@ firebase.auth().onAuthStateChanged((user) => {
       if (i === storeActions.length - 1) {
         store.dispatch(storeActions[i].startSetAction()).then(() => {
           renderApp();
-          if (history.location.pathname === '/') {
-            history.push('/deals');
-          }
+          history.push('/deals');
+          // if (history.location.pathname === '/') {
+          // }
         });
       } else {
         store.dispatch(storeActions[i].startSetAction());
