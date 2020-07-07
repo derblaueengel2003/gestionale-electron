@@ -6,8 +6,8 @@ import DealList from '../deals/DealList';
 import FattureList from '../fatture/FattureList';
 import LeadsList from '../leads/LeadsList';
 import OggettiList from '../oggetti/OggettiList';
-import { ipcRenderer } from 'electron';
 import Intestazione from '../common/Intestazione';
+import { ipcRenderer } from 'electron';
 
 export class ViewClientiPage extends React.Component {
   openFile = () => {

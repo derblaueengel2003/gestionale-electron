@@ -37,6 +37,7 @@ export class ViewLeadPage extends React.Component {
     this.props.history.push('/leads');
   };
   render() {
+    const { t } = this.props;
     const cliente = this.props.clienti.find(
       (cliente) => cliente.id === this.props.lead.leadId
     );
@@ -113,7 +114,7 @@ export class ViewLeadPage extends React.Component {
               <h5>
                 {
                   <Link to={`/clientiview/${cliente.id}`}>
-                    {cliente.titolo} {cliente.nome} {cliente.cognome}
+                    {t(cliente.titolo)} {cliente.nome} {cliente.cognome}
                   </Link>
                 }
               </h5>
@@ -148,7 +149,7 @@ export class ViewLeadPage extends React.Component {
             <i className='material-icons'>add</i>
           </Link>
         </div>
-        <OffersList offers={offers} ruolo={'Immobili offerti al cliente'} />
+        <OffersList offers={offers} ruolo={t('offer_sent_customer')} />
       </div>
     );
   }

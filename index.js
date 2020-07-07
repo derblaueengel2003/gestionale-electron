@@ -11,7 +11,7 @@ let addWindow;
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
     height: 1000,
-    width: 1024,
+    width: 1100,
     webPreferences: {
       backgroundThrottling: false,
       nodeIntegration: true,

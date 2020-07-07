@@ -5,6 +5,7 @@ import Card from '../Card';
 import selectEvaluations from '../../selectors/deals';
 import moment from 'moment';
 import numeral from 'numeral';
+import { ipcRenderer } from 'electron';
 
 export const EvaluationList = ({
   oggettoEvaluation,
@@ -45,15 +46,17 @@ export const EvaluationList = ({
                       : ''
                   }
                   titoloDestra={
-                    evaluation.cloudURL && (
-                      <a
-                        href={evaluation.cloudURL}
-                        target='_blank'
-                        className='btn-floating light-blue accent-3 right btn-floating-margin'
-                      >
-                        <i className='material-icons'>cloud</i>
-                      </a>
-                    )
+                    <button
+                      className='btn-floating light-blue accent-3 right btn-floating-margin'
+                      onClick={() => {
+                        ipcRenderer.send('folder:open', {
+                          folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Valutazioni/`,
+                          folderNamePartial: evaluation.titolo.split(' ')[0],
+                        });
+                      }}
+                    >
+                      <i className='material-icons'>folder</i>
+                    </button>
                   }
                   corpo={[dataEvaluation]}
                 />

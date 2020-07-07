@@ -145,6 +145,10 @@
   margin: 1rem 1rem 1rem 0;
 }
 
+.btn-margin-nav {
+  margin: 1rem 0 0 0;
+}
+
 .btn-floating-margin {
   margin-left: 0.5rem;
   z-index: 0;
@@ -154,4 +158,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.btn-flat {
+  padding: 0px 4px;
 }

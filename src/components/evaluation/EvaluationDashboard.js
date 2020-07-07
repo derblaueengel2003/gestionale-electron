@@ -7,8 +7,8 @@ import EvaluationList from './EvaluationList';
 
 const EvaluationDashboard = ({ t }) => {
   const options = [
-    { value: 'name', label: t('name') },
-    { value: 'date', label: t('date') },
+    { value: 'name', label: t('evaluation_filter_name') },
+    { value: 'date', label: t('evaluation_filter_date') },
   ];
   return (
     <div>

@@ -3,23 +3,35 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
 import { withTranslation } from 'react-i18next';
+import { withRouter } from 'react-router-dom';
 
-export const Header = ({ startLogout, i18n }) => {
+export const Header = ({ startLogout, i18n, history }) => {
   const setLingua = (lang) => {
     i18n.changeLanguage(lang);
   };
   return (
     <header className='header'>
       <div className='container'>
-        <div className='header__content'>
-          <Link className='header__title' to='/deals'>
-            <img
-              className='logo'
-              src='https://www.m2square.eu/wp-content/uploads/2017/11/Logo.png'
-            ></img>
-          </Link>
-          <div className='language'>
+        <div className='row'>
+          <div className='col m4 hide-on-small-only'>
             <button
+              className='btn-floating blue'
+              onClick={() => history.goBack()}
+            >
+              <i className='material-icons'>navigate_before</i>
+            </button>
+          </div>
+          <div className='col s12 m4 center-align'>
+            <Link className='header__title' to='/deals'>
+              <img
+                className='logo'
+                src='https://www.m2square.eu/wp-content/uploads/2017/11/Logo.png'
+              ></img>{' '}
+            </Link>
+          </div>
+          <div className='col m4 hide-on-small-only right-align'>
+            <button
+              className='btn-flat'
               onClick={() => {
                 setLingua('it');
               }}
@@ -27,6 +39,7 @@ export const Header = ({ startLogout, i18n }) => {
               IT
             </button>
             <button
+              className='btn-flat'
               onClick={() => {
                 setLingua('de');
               }}
@@ -50,4 +63,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   undefined,
   mapDispatchToProps
-)(withTranslation()(Header));
+)(withTranslation()(withRouter(Header)));

@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Intestazione from '../common/Intestazione';
-import { storeActions } from '../../store/configureStore';
 import OptionModal from '../common/OptionModal';
 import numeral from 'numeral';
 import moment from 'moment';
 import OggettiList from '../oggetti/OggettiList';
+import { storeActions } from '../../store/configureStore';
+import { ipcRenderer } from 'electron';
 
 export class ViewEvaluation extends React.Component {
   componentDidMount() {
@@ -41,6 +42,13 @@ export class ViewEvaluation extends React.Component {
       visible: false,
     });
     this.props.history.push('/evaluations');
+  };
+
+  openFile = () => {
+    ipcRenderer.send('folder:open', {
+      folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Valutazioni/`,
+      folderNamePartial: this.props.evaluation.titolo.split(' ')[0],
+    });
   };
 
   render() {
@@ -101,15 +109,14 @@ export class ViewEvaluation extends React.Component {
               }
               btnEnabled={this.state.btnEnabled}
             />
-            {cloudURL && (
-              <a
-                href={cloudURL}
-                target='_blank'
+            {
+              <button
                 className='btn-floating light-blue accent-3 right btn-floating-margin'
+                onClick={this.openFile}
               >
-                <i className='material-icons'>cloud</i>
-              </a>
-            )}
+                <i className='material-icons'>folder</i>
+              </button>
+            }
           </div>
           <h5>
             {t('evaluation_result')}: {numeral(result / 100).format('0,0.00')}{' '}
