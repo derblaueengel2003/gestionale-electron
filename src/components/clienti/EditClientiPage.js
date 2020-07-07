@@ -89,6 +89,13 @@ export class EditClientePage extends React.Component {
   };
 
   render() {
+    if (
+      !this.props.cliente ||
+      (this.props.utente.role === 'Mitarbeiter' && !this.props.cliente.visible)
+    ) {
+      this.props.history.push('/clienti');
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <div>

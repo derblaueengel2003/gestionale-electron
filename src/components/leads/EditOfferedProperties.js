@@ -14,6 +14,10 @@ export class EditOfferedProperties extends React.Component {
     this.props.history.push(`/leadview/${this.props.offer.leadId}`);
   };
   render() {
+    if (!this.props.offer) {
+      this.props.history.push('/leads');
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <div>

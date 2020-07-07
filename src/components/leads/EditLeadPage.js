@@ -35,6 +35,10 @@ export class EditLeadPage extends React.Component {
     this.props.history.push('/leads');
   };
   render() {
+    if (!this.props.lead) {
+      this.props.history.push('/leads');
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <div>

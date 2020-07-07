@@ -37,6 +37,10 @@ export class ViewLeadPage extends React.Component {
     this.props.history.push('/leads');
   };
   render() {
+    if (!this.props.lead) {
+      this.props.history.push('/leads');
+      return <div>Loading...</div>;
+    }
     const { t } = this.props;
     const cliente = this.props.clienti.find(
       (cliente) => cliente.id === this.props.lead.leadId

@@ -31,6 +31,10 @@ export class EditUtentePage extends React.Component {
     this.props.history.push('/utenti');
   };
   render() {
+    if (!this.props.utente) {
+      this.props.history.push('/utenti');
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <div>

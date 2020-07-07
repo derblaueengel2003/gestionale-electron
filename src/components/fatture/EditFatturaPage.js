@@ -31,6 +31,10 @@ export class EditFatturaPage extends React.Component {
     this.props.history.push('/fatture');
   };
   render() {
+    if (!this.props.fattura) {
+      this.props.history.push('/fatture');
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <div>

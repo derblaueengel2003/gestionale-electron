@@ -80,6 +80,13 @@ export class EditOggettoPage extends React.Component {
     }
   };
   render() {
+    if (
+      !this.props.oggetto ||
+      (this.props.utente.role === 'Mitarbeiter' && !this.props.oggetto.visible)
+    ) {
+      this.props.history.push('/oggetti');
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <div>

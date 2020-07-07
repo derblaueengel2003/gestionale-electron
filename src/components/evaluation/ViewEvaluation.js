@@ -52,6 +52,14 @@ export class ViewEvaluation extends React.Component {
   };
 
   render() {
+    if (
+      !this.props.evaluation ||
+      (this.props.utente.role === 'Mitarbeiter' &&
+        !this.props.evaluation.visible)
+    ) {
+      this.props.history.push('/evaluations');
+      return <div>Loading...</div>;
+    }
     const {
       affittoNetto,
       m2,

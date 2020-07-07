@@ -32,6 +32,10 @@ export class EditFirmaPage extends React.Component {
   };
 
   render() {
+    if (!this.props.firma) {
+      this.props.history.push('/utenti');
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <div>

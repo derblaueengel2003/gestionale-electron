@@ -51,6 +51,10 @@ export class EditDealPage extends React.Component {
   };
 
   render() {
+    if (!this.props.deal) {
+      this.props.history.push('/deals');
+      return <div>Loading...</div>;
+    }
     return (
       <div>
         <div>
