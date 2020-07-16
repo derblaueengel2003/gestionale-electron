@@ -38,7 +38,7 @@ export const OggettiList = (props) => {
                 return (
                   <Card
                     key={oggetto.id}
-                    titolo={`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`}
+                    titolo={`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.citta}`}
                     titoloDestra={
                       <button
                         className='btn-floating light-blue accent-3 right btn-floating-margin'

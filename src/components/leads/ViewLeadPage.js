@@ -27,13 +27,13 @@ export class ViewLeadPage extends React.Component {
   };
   onRemove = () => {
     const offerteDaCancellare = this.props.offers.filter(
-      (offer) => offer.leadId === this.props.lead.id
+      (offer) => offer.leadId === lead.id
     );
     //cancello tutte le offerte legate a questa richiesta e poi cancello la richiesta
     offerteDaCancellare.forEach((offer) => {
       this.props.startRemoveOffer({ id: offer.id });
     });
-    this.props.startRemoveLead({ id: this.props.lead.id });
+    this.props.startRemoveLead({ id: lead.id });
     this.props.history.push('/leads');
   };
   render() {
@@ -41,32 +41,32 @@ export class ViewLeadPage extends React.Component {
       this.props.history.push('/leads');
       return <div>Loading...</div>;
     }
-    const { t } = this.props;
+    const { lead, t } = this.props;
     const cliente = this.props.clienti.find(
-      (cliente) => cliente.id === this.props.lead.leadId
+      (cliente) => cliente.id === lead.leadId
     );
     const consulenteVendita = this.props.utenti.find(
       (utente) => utente.id === cliente.consulenteVenditaId
     );
     const offers = this.props.offers.filter(
-      (offer) => offer.leadId === this.props.lead.id
+      (offer) => offer.leadId === lead.id
     );
 
     let immobile = '';
-    if (this.props.lead.leadOggettoStato === 'commerciale') {
-      immobile = `Locale ${this.props.lead.leadOggettoStato}`;
-    } else if (this.props.lead.leadOggettoStato === 'aph') {
+    if (lead.leadOggettoStato === 'commerciale') {
+      immobile = `Locale ${lead.leadOggettoStato}`;
+    } else if (lead.leadOggettoStato === 'aph') {
       immobile = 'Casa di cura';
     } else if (
-      this.props.lead.leadOggettoStato === 'libero' ||
-      this.props.lead.leadOggettoStato === 'affittato' ||
-      this.props.lead.leadOggettoStato === 'libero o affittato'
+      lead.leadOggettoStato === 'libero' ||
+      lead.leadOggettoStato === 'affittato' ||
+      lead.leadOggettoStato === 'libero o affittato'
     ) {
-      immobile = `Appartamento ${this.props.lead.leadOggettoStato}`;
+      immobile = `Appartamento ${lead.leadOggettoStato}`;
     }
     return (
       <div>
-        <Intestazione intestazione={this.props.t('Richiesta')} />
+        <Intestazione intestazione={t('Richiesta')} />
         <div className='container section'>
           <div>
             <button
@@ -85,17 +85,17 @@ export class ViewLeadPage extends React.Component {
             />
             <Link
               className='btn-floating orange right btn-floating-margin'
-              to={`/leadedit/${this.props.lead.id}`}
+              to={`/leadedit/${lead.id}`}
             >
               <i className='material-icons'>edit</i>
             </Link>
-            {this.props.lead.leadOggettoStato === 'libero' ||
-            this.props.lead.leadOggettoStato === 'affittato' ||
-            this.props.lead.leadOggettoStato === 'libero o affittato' ||
-            this.props.lead.leadOggettoStato === '' ? (
+            {lead.leadOggettoStato === 'libero' ||
+            lead.leadOggettoStato === 'affittato' ||
+            lead.leadOggettoStato === 'libero o affittato' ||
+            lead.leadOggettoStato === '' ? (
               <Link
                 className='btn-floating green accent-3 right btn-floating-margin'
-                to={`/leadmatchview/${this.props.lead.id}`}
+                to={`/leadmatchview/${lead.id}`}
               >
                 <i className='material-icons'>search</i>{' '}
               </Link>
@@ -123,22 +123,24 @@ export class ViewLeadPage extends React.Component {
                 }
               </h5>
             )}
+            {lead.leadCity && (
+              <h6>
+                {t('city')}: {lead.leadCity}
+              </h6>
+            )}
             <h6>
-              Budget:{' '}
-              {numeral(this.props.lead.leadBudget / 100).format('0,0[.]00 $')}
+              Budget: {numeral(lead.leadBudget / 100).format('0,0[.]00 $')}
             </h6>
             <p>{consulenteVendita && `(${consulenteVendita.name})`}</p>
             <p>
-              {this.props.lead.leadCreatedAt
-                ? moment(this.props.lead.leadCreatedAt).format('DD MMMM, YYYY')
+              {lead.leadCreatedAt
+                ? moment(lead.leadCreatedAt).format('DD MMMM, YYYY')
                 : null}
             </p>
             <p>{cliente && cliente.email}</p>
             <p>{cliente && cliente.telefono1}</p>
-            <p>{this.props.lead.leadOggettoStato ? immobile : null}</p>
-            <p>
-              {this.props.lead.leadNote && `Note: ${this.props.lead.leadNote}`}
-            </p>
+            <p>{lead.leadOggettoStato ? immobile : null}</p>
+            <p>{lead.leadNote && `Note: ${lead.leadNote}`}</p>
           </div>
         </div>
 
@@ -147,7 +149,7 @@ export class ViewLeadPage extends React.Component {
             className='btn-floating green right'
             to={{
               pathname: '/createoffer',
-              state: { leadId: this.props.lead.id },
+              state: { leadId: lead.id },
             }}
           >
             <i className='material-icons'>add</i>

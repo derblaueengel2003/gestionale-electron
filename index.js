@@ -119,3 +119,7 @@ ipcMain.on('folder:open', (event, { folder, folderNamePartial }) => {
 
   shell.openPath(finalPath);
 });
+
+ipcMain.on('link:open', (event, link) => {
+  shell.openExternal(link);
+});

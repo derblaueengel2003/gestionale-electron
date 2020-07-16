@@ -29,13 +29,19 @@ export const EvaluationList = ({
               const dataEvaluation = moment(evaluation.dataEvaluation).format(
                 'DD MMMM, YYYY'
               );
-
+              const oggetto = oggetti.find(
+                (oggetto) => oggetto.id === evaluation.oggettoId
+              );
               return (
                 <Card
                   key={evaluation.id}
                   visible={evaluation.visible}
                   link={`/evaluationview/${evaluation.id}`}
-                  titolo={evaluation.titolo}
+                  titolo={
+                    evaluation.oggettoId
+                      ? `Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`
+                      : evaluation.titolo
+                  }
                   sottotitolo={
                     evaluation.result
                       ? `${numeral(evaluation.result / 100).format(
@@ -51,7 +57,9 @@ export const EvaluationList = ({
                       onClick={() => {
                         ipcRenderer.send('folder:open', {
                           folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Valutazioni/`,
-                          folderNamePartial: evaluation.titolo.split(' ')[0],
+                          folderNamePartial: oggetto
+                            ? oggetto.via.split(' ')[0]
+                            : evaluation.titolo.split(' ')[0],
                         });
                       }}
                     >
@@ -75,6 +83,7 @@ const mapStateToProps = (state) => {
       state.evaluations,
       state.filters
     ),
+    oggetti: state.oggetti,
   };
 };
 

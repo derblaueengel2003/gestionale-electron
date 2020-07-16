@@ -7,6 +7,7 @@ import OptionModal from '../common/OptionModal';
 import numeral from 'numeral';
 import moment from 'moment';
 import OggettiList from '../oggetti/OggettiList';
+import Map from '../oggetti/Map';
 import { storeActions } from '../../store/configureStore';
 import { ipcRenderer } from 'electron';
 
@@ -45,9 +46,15 @@ export class ViewEvaluation extends React.Component {
   };
 
   openFile = () => {
+    const { evaluation, oggetti } = this.props;
+    const oggetto = oggetti.find(
+      (oggetto) => oggetto.id === evaluation.oggettoId
+    );
     ipcRenderer.send('folder:open', {
       folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Valutazioni/`,
-      folderNamePartial: this.props.evaluation.titolo.split(' ')[0],
+      folderNamePartial: oggetto
+        ? oggetto.via.split(' ')[0]
+        : evaluation.titolo.split(' ')[0],
     });
   };
 
@@ -88,7 +95,13 @@ export class ViewEvaluation extends React.Component {
 
     return (
       <div>
-        <Intestazione intestazione={titolo} />
+        <Intestazione
+          intestazione={
+            oggetto
+              ? `Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`
+              : titolo
+          }
+        />{' '}
         <div className='container section'>
           <div>
             <Link
@@ -196,6 +209,13 @@ export class ViewEvaluation extends React.Component {
             </li>
           </ul>
         </div>
+        <Map
+          indirizzo={
+            oggetto
+              ? `${oggetto.via} ${oggetto.numeroCivico}, ${oggetto.cap} ${oggetto.citta}`
+              : titolo
+          }
+        />
         {oggetto && <OggettiList oggetto={[oggetto]} ruolo={t('property')} />}
       </div>
     );

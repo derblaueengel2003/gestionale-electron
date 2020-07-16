@@ -5,8 +5,6 @@ import withForm from '../common/withForm';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
-import firebase from 'firebase';
-import FileUploader from 'react-firebase-file-uploader';
 import M from 'materialize-css';
 
 export class OggettoForm extends React.Component {
@@ -30,78 +28,86 @@ export class OggettoForm extends React.Component {
       this.props.renderError('');
 
       this.props.onSubmit({
-        cloudURL: oggetti.cloudURL,
-        via: oggetti.via,
-        numeroCivico: oggetti.numeroCivico,
-        cap: oggetti.cap,
-        citta: oggetti.citta,
-        quartiere: oggetti.quartiere,
-        nazione: oggetti.nazione,
-        numeroAppartamento: oggetti.numeroAppartamento,
-        rifId: oggetti.rifId,
-        amtsgericht: oggetti.amtsgericht,
-        grundbuch: oggetti.grundbuch,
-        grundbuchBlatt: oggetti.grundbuchBlatt,
-        m2: oggetti.m2,
-        piano: oggetti.piano,
-        mobilio: oggetti.mobilio,
-        stato: oggetti.stato,
-        wohngeld,
-        kaufpreis,
         affittoNetto,
-        verwalter: oggetti.verwalter,
-        ruecklage: oggetti.ruecklage,
-        proprietarioId: oggetti.proprietarioId,
-        proprietarioId2: oggetti.proprietarioId2,
-        inquilinoId: oggetti.inquilinoId,
-        visible: oggetti.visible,
-        filenames: oggetti.filenames,
-        downloadURLs: oggetti.downloadURLs,
-        filenamesCover: oggetti.filenamesCover,
-        downloadURLsCover: oggetti.downloadURLsCover,
-        filenamesGrundriss: oggetti.filenamesGrundriss,
-        downloadURLsGrundriss: oggetti.downloadURLsGrundriss,
-        titolo: oggetti.titolo,
-        descrizione: oggetti.descrizione,
-        titoloDe: oggetti.titoloDe,
-        descrizioneDe: oggetti.descrizioneDe,
-        titoloEn: oggetti.titoloEn,
-        descrizioneEn: oggetti.descrizioneEn,
-        vani: oggetti.vani,
+        amtsgericht: oggetti.amtsgericht,
+        ascensore: oggetti.ascensore,
         bagni: oggetti.bagni,
         balcone: oggetti.balcone,
-        ascensore: oggetti.ascensore,
-        giardino: oggetti.giardino,
-        condizioni: oggetti.condizioni,
-        cantina: oggetti.cantina,
         baujahr: oggetti.baujahr,
-        energieAusweisTyp: oggetti.energieAusweisTyp,
-        energieAusweisBis: oggetti.energieAusweisBis,
-        heizungsart: oggetti.heizungsart,
-        energieTraeger: oggetti.energieTraeger,
-        energieBedarf: oggetti.energieBedarf,
-        provvigione: oggetti.provvigione,
-        note: oggetti.note,
-        venduto: oggetti.venduto,
-        tipologia: oggetti.tipologia,
+        cap: oggetti.cap,
+        citta: oggetti.citta,
+        cantina: oggetti.cantina,
+        condizioni: oggetti.condizioni,
+        cloudURL: oggetti.cloudURL,
         dataInserimentoOggetto: oggetti.dataInserimentoOggetto
           ? oggetti.dataInserimentoOggetto.valueOf()
           : null,
         dataModificaOggetto: oggetti.dataModificaOggetto
           ? oggetti.dataModificaOggetto.valueOf()
           : null,
+        descrizione: oggetti.descrizione,
+        descrizioneDe: oggetti.descrizioneDe,
+        descrizioneEn: oggetti.descrizioneEn,
+        downloadURLs: oggetti.downloadURLs || [],
+        downloadURLsId: oggetti.downloadURLsId || [],
+        downloadURLsCover: oggetti.downloadURLsCover || [],
+        downloadURLsCoverId: oggetti.downloadURLsCoverId || [],
+        downloadURLsGrundriss: oggetti.downloadURLsGrundriss || [],
+        downloadURLsGrundrissId: oggetti.downloadURLsGrundrissId || [],
+        energieAusweisTyp: oggetti.energieAusweisTyp,
+        energieAusweisBis: oggetti.energieAusweisBis,
+        energieBedarf: oggetti.energieBedarf,
+        energieTraeger: oggetti.energieTraeger,
+        featuredProperty: oggetti.featuredProperty,
+        filenames: oggetti.filenames,
+        filenamesCover: oggetti.filenamesCover,
+        filenamesGrundriss: oggetti.filenamesGrundriss,
+        giardino: oggetti.giardino,
+        grundbuch: oggetti.grundbuch,
+        grundbuchBlatt: oggetti.grundbuchBlatt,
+        heizungsart: oggetti.heizungsart,
+        inquilinoId: oggetti.inquilinoId,
+        kaufpreis,
+        m2: oggetti.m2,
+        mobilio: oggetti.mobilio,
+        nazione: oggetti.nazione,
+        note: oggetti.note,
+        numeroCivico: oggetti.numeroCivico,
+        numeroAppartamento: oggetti.numeroAppartamento,
+        piano: oggetti.piano,
+        postId: oggetti.postId,
+        prenotato: oggetti.prenotato,
+        proprietarioId: oggetti.proprietarioId,
+        proprietarioId2: oggetti.proprietarioId2,
+        provvigione: oggetti.provvigione,
+        quartiere: oggetti.quartiere,
+        rifId: oggetti.rifId,
+        ruecklage: oggetti.ruecklage,
+        stato: oggetti.stato,
+        status: oggetti.status,
+        themeSlider: oggetti.themeSlider,
+        tipologia: oggetti.tipologia,
+        titolo: oggetti.titolo,
+        titoloEn: oggetti.titoloEn,
+        titoloDe: oggetti.titoloDe,
+        vani: oggetti.vani,
+        verwalter: oggetti.verwalter,
+        venduto: oggetti.venduto,
+        via: oggetti.via,
+        videoId: oggetti.videoId,
+        visible: oggetti.visible,
+        wohngeld,
       });
     }
   };
   render() {
-    const { oggetti } = this.props.data;
-
     const {
       t,
       renderTextArea,
       renderCheckbox,
       renderSelect,
       renderInput,
+      renderUploadImage,
       changeHandlerValuta,
     } = this.props;
 
@@ -271,8 +277,17 @@ export class OggettoForm extends React.Component {
                 undefined,
                 'http://www...'
               )}
+              {renderInput('oggetti', 'videoId', 'YouTube Video ID')}
               {renderTextArea('oggetti', 'note')}
               {renderCheckbox('oggetti', 'venduto', t('Venduto'))}
+              {renderCheckbox('oggetti', 'prenotato', t('reserved'))}
+              {renderCheckbox('oggetti', 'themeSlider', t('theme_slider'))}
+              {renderCheckbox(
+                'oggetti',
+                'featuredProperty',
+                t('featured_property')
+              )}
+              {renderCheckbox('oggetti', 'status', t('property_status'))}
 
               {this.props.utente && this.props.utente.role === 'Admin'
                 ? renderCheckbox('oggetti', 'visible', t('visible'))
@@ -418,134 +433,15 @@ export class OggettoForm extends React.Component {
           <div id='test3' className='col s12'>
             <ul className='collection'>
               {/* Cover */}
-              <li className='collection-item'>
-                {t('Scegli immagine di copertina')}
-                <label className='secondary-content'>
-                  {' '}
-                  <i className='material-icons'>add_photo_alternate</i>
-                  <FileUploader
-                    hidden
-                    accept='image/*'
-                    name='image-uploader-multiple'
-                    // randomizeFilename
-                    filename={() => `${oggetti.rifId}-Cover`}
-                    storageRef={firebase.storage().ref('cover')}
-                    onUploadStart={this.props.handleUploadStart}
-                    onUploadError={this.props.handleUploadError}
-                    onUploadSuccess={this.props.handleUploadSuccessCover}
-                    onProgress={this.props.handleProgress}
-                    // multiple
-                  />
-                </label>
-                <div>
-                  {oggetti.downloadURLsCover &&
-                    oggetti.downloadURLsCover.map((downloadURLCover, i) => {
-                      return (
-                        <span key={i}>
-                          <img className='foto' src={downloadURLCover} />
-                          <img
-                            src='/images/trash.jpg'
-                            className='cancella'
-                            onClick={() =>
-                              this.props.handleRemovePictureCover(i)
-                            }
-                          />
-                        </span>
-                      );
-                    })}
-                </div>
-              </li>
+              {renderUploadImage('downloadURLsCover', 'Cover')}
+
               {/* Bilder */}
-              <li className='collection-item'>
-                {t('Scegli immagini')}
-                <label className='secondary-content'>
-                  <i className='material-icons'>add_photo_alternate</i>
+              {renderUploadImage('downloadURLs', t('images'))}
 
-                  <FileUploader
-                    hidden
-                    accept='image/*'
-                    name='image-uploader-multiple'
-                    // randomizeFilename
-                    filename={() =>
-                      `${oggetti.rifId}-${Math.floor(
-                        Math.random() * 100000
-                      ).toString()}`
-                    }
-                    storageRef={firebase.storage().ref('images')}
-                    onUploadStart={this.props.handleUploadStart}
-                    onUploadError={this.props.handleUploadError}
-                    onUploadSuccess={this.props.handleUploadSuccess}
-                    onProgress={this.props.handleProgress}
-                    multiple
-                  />
-                </label>
-                <div>
-                  {oggetti.downloadURLs &&
-                    oggetti.downloadURLs.map((downloadURL, i) => {
-                      return (
-                        <span key={i}>
-                          <img className='foto' src={downloadURL} />
-                          <img
-                            src='/images/trash.jpg'
-                            className='cancella'
-                            onClick={() => this.props.handleRemovePicture(i)}
-                          />
-                        </span>
-                      );
-                    })}
-                </div>
-              </li>
               {/* Grundriss */}
-              <li className='collection-item'>
-                {t('Scegli planimetria')}
-                <label className='secondary-content'>
-                  <i className='material-icons'>add_photo_alternate</i>
-
-                  <FileUploader
-                    hidden
-                    accept='image/*'
-                    name='image-uploader-multiple'
-                    // randomizeFilename
-                    filename={() =>
-                      `${oggetti.rifId}-Grundriss-${Math.floor(
-                        Math.random() * 100
-                      ).toString()}`
-                    }
-                    storageRef={firebase.storage().ref('grundriss')}
-                    onUploadStart={this.props.handleUploadStart}
-                    onUploadError={this.props.handleUploadError}
-                    onUploadSuccess={this.props.handleUploadSuccessGrundriss}
-                    onProgress={this.props.handleProgress}
-                    multiple
-                  />
-                </label>
-                <div>
-                  {oggetti.downloadURLsGrundriss &&
-                    oggetti.downloadURLsGrundriss.map(
-                      (downloadURLGrundriss, i) => {
-                        return (
-                          <span key={i}>
-                            <img className='foto' src={downloadURLGrundriss} />
-                            <img
-                              src='/images/trash.jpg'
-                              className='cancella'
-                              onClick={() =>
-                                this.props.handleRemovePictureGrundriss(i)
-                              }
-                            />
-                          </span>
-                        );
-                      }
-                    )}
-                </div>
-              </li>
+              {renderUploadImage('downloadURLsGrundriss', t('floor_plan'))}
             </ul>
           </div>
-        </div>
-        <div>
-          <button className='btn-floating blue right'>
-            <i className='material-icons'>save</i>
-          </button>
         </div>
       </form>
     );

@@ -14,20 +14,22 @@ export class LeadForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const leadBudget = parseFloat(this.props.data.leads.leadBudget, 10) * 100;
+    const { leads } = this.props.data;
+    const leadBudget = parseFloat(leads.leadBudget, 10) * 100;
 
-    if (!this.props.data.leads.leadId || this.props.data.leads.leadBudget < 1) {
+    if (!leads.leadId || leads.leadBudget < 1) {
       this.props.renderError(this.props.t('Inserisci il budget'));
     } else {
       this.props.renderError('');
       this.props.onSubmit({
-        leadCreatedAt: this.props.data.leads.leadCreatedAt
-          ? this.props.data.leads.leadCreatedAt.valueOf()
+        leadCreatedAt: leads.leadCreatedAt
+          ? leads.leadCreatedAt.valueOf()
           : null,
-        leadId: this.props.data.leads.leadId,
+        leadId: leads.leadId,
         leadBudget,
-        leadOggettoStato: this.props.data.leads.leadOggettoStato,
-        leadNote: this.props.data.leads.leadNote,
+        leadCity: leads.leadCity,
+        leadOggettoStato: leads.leadOggettoStato,
+        leadNote: leads.leadNote,
       });
     }
   };
@@ -63,13 +65,16 @@ export class LeadForm extends React.Component {
           'calendarFocused',
           t('Data richiesta')
         )}
-        {renderSelect('leads', 'leadId', options, t('Cliente'))}
+        {renderSelect('leads', 'leadId', options, t('Cliente'), '*')}
         {renderInput(
           'leads',
           'leadBudget',
           'Budget',
           'text',
-          changeHandlerValuta
+          changeHandlerValuta,
+          undefined,
+          undefined,
+          '*'
         )}
         {renderSelect(
           'leads',
@@ -86,6 +91,15 @@ export class LeadForm extends React.Component {
             { value: '', label: t('Indifferente') },
           ],
           t('Tipologia immobile e stato')
+        )}
+        {renderSelect(
+          'leads',
+          'leadCity',
+          [
+            { value: 'Berlin', label: 'Berlin' },
+            { value: 'Leipzig', label: 'Leipzig' },
+          ],
+          t('city')
         )}
         {renderTextArea('leads', 'leadNote')}
 

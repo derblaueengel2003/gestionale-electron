@@ -169,7 +169,12 @@ export const LeadsList = (props) => {
                     sottotitolo={`Budget: ${numeral(
                       lead.leadBudget / 100
                     ).format('0,0[.]00 $')}`}
-                    corpo={[consulente, creatoIl, immobile]}
+                    corpo={[
+                      consulente,
+                      creatoIl,
+                      immobile,
+                      `${props.t('city')}: ${lead.leadCity}`,
+                    ]}
                     lineaNote={`${lead.leadNote && `Note: ${lead.leadNote}`}`}
                     progressBar={
                       <div className='feedback-emojis'>{offerte}</div>

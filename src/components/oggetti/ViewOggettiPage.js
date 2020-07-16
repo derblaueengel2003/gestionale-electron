@@ -4,48 +4,18 @@ import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import numeral from 'numeral';
-import Geocode from 'react-geocode';
 import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
 import ImmoscoutAPI from './ImmoscoutAPI';
 import Intestazione from '../common/Intestazione';
 import EvaluationList from '../evaluation/EvaluationList';
 import { ipcRenderer } from 'electron';
-
-Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
-Geocode.setLanguage('de');
-Geocode.setRegion('de');
-Geocode.enableDebug();
+import Map from './Map';
+import M2SquareAPI from './M2SquareAPI';
 
 export class ViewOggettiPage extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      stores: [{ latitude: '', longitude: '' }],
-    };
-  }
-
   componentDidMount() {
     M.AutoInit();
-
-    Geocode.fromAddress(
-      this.props.oggetto &&
-        `${this.props.oggetto.via} ${this.props.oggetto.numeroCivico}, ${this.props.oggetto.cap} ${this.props.oggetto.citta}`
-    ).then(
-      (response) => {
-        const { lat, lng } = response.results[0].geometry.location;
-        this.setState(
-          (prevState) => (
-            (prevState.stores[0].latitude = lat),
-            (prevState.stores[0].longitude = lng)
-          )
-        );
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
   }
 
   findContact = (contact) => {
@@ -222,9 +192,7 @@ export class ViewOggettiPage extends React.Component {
                       <p>{`${t('Giardino')}: ${t('sì')}`}</p>
                     )}
                     {oggetto.cantina && <p>{`${t('Cantina')}: ${t('sì')}`}</p>}
-                    {oggetto.mobilio && (
-                      <p>{`${t('furniture')}: ${oggetto.mobilio}`}</p>
-                    )}
+
                     {oggetto.condizioni && (
                       <p>{`${t('Condizioni immobile')}: ${t(
                         oggetto.condizioni
@@ -243,7 +211,10 @@ export class ViewOggettiPage extends React.Component {
           <div className='container section'>
             <div className='btn-row'>
               {this.props.utente.role === 'Admin' && (
-                <ImmoscoutAPI oggetto={oggetto} />
+                <div>
+                  <ImmoscoutAPI oggetto={oggetto} />
+                  <M2SquareAPI oggetto={oggetto} />
+                </div>
               )}
             </div>
           </div>
@@ -395,7 +366,7 @@ export class ViewOggettiPage extends React.Component {
               </div>
             )}
             {oggetto.downloadURLs &&
-              oggetto.downloadURLs.map((downloadURL, i) => {
+              oggetto.downloadURLs[0].map((downloadURL, i) => {
                 return <img className='foto' key={i} src={downloadURL} />;
               })}
           </div>
@@ -413,23 +384,7 @@ export class ViewOggettiPage extends React.Component {
                 return <img className='foto' key={i} src={downloadURL} />;
               })}
           </div>
-          <div className='container'>
-            <div className='grey lighten-4'>
-              <div>
-                <h1>{t('Mappa')}</h1>
-              </div>
-            </div>
-            <a
-              href={`https://www.google.de/maps/place/${oggetto.via}+${oggetto.numeroCivico},+${oggetto.cap}+${oggetto.citta}/`}
-              target='_blank'
-            >
-              <img
-                src={`https://maps.googleapis.com/maps/api/staticmap?center=${oggetto.via}+${oggetto.numeroCivico},+${oggetto.cap}+${oggetto.citta}&zoom=15&size=400x400&maptype=roadmap
-  &markers=color:blue%7Clabel:A%7C${this.state.stores[0].latitude},${this.state.stores[0].longitude}
-  &key=AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE`}
-              />
-            </a>
-          </div>
+          <Map oggetto={oggetto} />
           {oggetto.titolo && (
             <div className='container margine-basso'>
               <div className='grey lighten-4'>

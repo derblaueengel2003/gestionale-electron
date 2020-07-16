@@ -62,6 +62,7 @@ export class AddPage extends React.Component {
         /<\/?[^>]+(>|$)/g,
         ''
       );
+      oggetto.citta = oggetto.citta[0];
 
       if (
         oggetto.tipologia === 'Wohnungen' ||

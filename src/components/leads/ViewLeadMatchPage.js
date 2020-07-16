@@ -6,15 +6,18 @@ import OggettiList from '../oggetti/OggettiList';
 
 export class ViewLeadMatchPage extends React.Component {
   leadMatch = () => {
-    // controllo se l'oggetto è ancora invenduto
-    const primoMatch = this.props.oggetti.filter((ogg) => !ogg.venduto);
+    const { lead } = this.props;
+    // controllo se l'oggetto è ancora invenduto e se corrisponde la città
+    const primoMatch = this.props.oggetti.filter(
+      (ogg) => !ogg.venduto && ogg.citta === lead.leadCity
+    );
     console.log('primo match', primoMatch);
     // controllo se la richiesta contiene indicazione sullo stato dell'immobile
     let secondoMatch = [];
-    if (this.props.lead.leadOggettoStato === 'libero') {
-      secondoMatch = primoMatch.filter((ogg) => ogg.stato === 'leerstehend');
-    } else if (this.props.lead.leadOggettoStato === 'affittato') {
-      secondoMatch = primoMatch.filter((ogg) => ogg.stato === 'vermietet');
+    if (lead.leadOggettoStato === 'libero') {
+      secondoMatch = primoMatch.filter((ogg) => ogg.stato === 'vacant');
+    } else if (lead.leadOggettoStato === 'affittato') {
+      secondoMatch = primoMatch.filter((ogg) => ogg.stato === 'rented');
     } else {
       secondoMatch = [...primoMatch];
     }
@@ -22,11 +25,11 @@ export class ViewLeadMatchPage extends React.Component {
 
     // filtro gli oggetti che hanno un prezzo di vendita del 20% sopra o sotto il budget
     let terzoMatch = [];
-    if (this.props.lead.leadBudget > 500) {
+    if (lead.leadBudget > 500) {
       terzoMatch = secondoMatch.filter(
         (ogg) =>
-          ogg.kaufpreis <= this.props.lead.leadBudget * 1.2 &&
-          ogg.kaufpreis >= this.props.lead.leadBudget / 1.2
+          ogg.kaufpreis <= lead.leadBudget * 1.2 &&
+          ogg.kaufpreis >= lead.leadBudget / 1.2
       );
     } else {
       terzoMatch = [...secondoMatch];

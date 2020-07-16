@@ -8,6 +8,8 @@ if (process.env.NODE_ENV === 'test') {
   require('dotenv').config({ path: '.env.test' });
 } else if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({ path: '.env.development' });
+} else if (process.env.NODE_ENV === 'production') {
+  require('dotenv').config({ path: '.env' });
 }
 
 module.exports = (env) => {
@@ -71,6 +73,15 @@ module.exports = (env) => {
         ),
         'process.env.FIREBASE_APP_ID': JSON.stringify(
           process.env.FIREBASE_APP_ID
+        ),
+        'process.env.REACT_APP_WPAPI': JSON.stringify(
+          process.env.REACT_APP_WPAPI
+        ),
+        'process.env.WPAPI_USERNAME': JSON.stringify(
+          process.env.WPAPI_USERNAME
+        ),
+        'process.env.WPAPI_PASSWORD': JSON.stringify(
+          process.env.WPAPI_PASSWORD
         ),
       }),
     ],

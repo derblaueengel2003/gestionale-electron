@@ -42,7 +42,7 @@ class EvaluationForm extends Component {
       parseFloat(evaluations.is24Evaluation.replace(/,/, '.'), 10) * 100;
     const result = parseFloat(evaluations.result.replace(/,/, '.'), 10) * 100;
 
-    if (!evaluations.titolo) {
+    if (!evaluations.titolo && !evaluations.oggettoId) {
       this.props.renderError(this.props.t('evaluation_form_submission_error'));
     } else {
       this.props.onSubmit({
@@ -92,6 +92,11 @@ class EvaluationForm extends Component {
     const m2Price = numeral((affitto * 1200) / rendite / m2).format('0,0.00');
     const m2Rent = numeral(affitto / m2).format('0,0.00');
 
+    const oggettiOptions = this.props.oggetti.map((oggetto) => ({
+      value: oggetto.id,
+      label: `Rif.Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`,
+    }));
+
     return (
       <div>
         <ExternalLinks />
@@ -140,17 +145,24 @@ class EvaluationForm extends Component {
             </div>
 
             <IntestazioneParagrafo intestazione={t('evaluation_summary')} />
-
-            {renderInput(
+            {renderSelect(
               'evaluations',
-              'titolo',
-              t('evaluation_title'),
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              '*'
+              'oggettoId',
+              oggettiOptions,
+              t('Oggetto')
             )}
+
+            {!evaluations.oggettoId &&
+              renderInput(
+                'evaluations',
+                'titolo',
+                t('evaluation_title'),
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                '*'
+              )}
             {renderSelect(
               'evaluations',
               'wohnlage',

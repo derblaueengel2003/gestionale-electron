@@ -9,7 +9,8 @@ export class ViewOggettoMatchPage extends React.Component {
     const leadsMatch = this.props.leads.filter(
       (lead) =>
         lead.leadBudget <= this.props.oggetto.kaufpreis * 1.2 &&
-        lead.leadBudget > this.props.oggetto.kaufpreis / 1.2
+        lead.leadBudget > this.props.oggetto.kaufpreis / 1.2 &&
+        lead.leadCity === this.props.oggetto.citta
     );
     if (this.props.oggetto.stato === 'vacant') {
       return leadsMatch.filter(

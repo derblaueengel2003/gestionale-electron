@@ -1,10 +1,11 @@
 import React from 'react';
-import firebase from 'firebase';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import { DateRangePicker } from 'react-dates';
 import Select from 'react-virtualized-select';
 import OptionModal from './OptionModal';
+import axios, { post } from 'axios';
+import Dropzone from 'react-dropzone';
 
 function withForm(Component) {
   return class WithForm extends React.Component {
@@ -222,6 +223,11 @@ function withForm(Component) {
           leadBudget: props.lead
             ? (props.lead.leadBudget / 100).toString()
             : '',
+          leadCity: props.lead
+            ? props.lead.leadCity
+              ? props.lead.leadCity
+              : 'Berlin'
+            : 'Berlin',
           leadOggettoStato: props.lead ? props.lead.leadOggettoStato : '',
           leadNote: props.lead ? props.lead.leadNote : '',
         },
@@ -251,88 +257,23 @@ function withForm(Component) {
         },
         oggetti: {
           //OGGETTO
+          affittoNetto: props.oggetto
+            ? (props.oggetto.affittoNetto / 100).toString().replace(/\./, ',')
+            : '0',
+          amtsgericht: props.oggetto ? props.oggetto.amtsgericht : '',
+          ascensore: props.oggetto ? props.oggetto.ascensore : false,
+          baujahr: props.oggetto ? props.oggetto.baujahr : '',
+          bagni: props.oggetto ? props.oggetto.bagni : '',
+          balcone: props.oggetto ? props.oggetto.balcone : false,
+          cantina: props.oggetto ? props.oggetto.cantina : false,
+          cap: props.oggetto ? props.oggetto.cap : '',
+          citta: props.oggetto ? props.oggetto.citta : '',
           cloudURL: props.oggetto
             ? props.oggetto.cloudURL
               ? props.oggetto.cloudURL
               : ''
             : '',
-          visible: props.oggetto ? props.oggetto.visible : true,
-          note: props.oggetto ? props.oggetto.note : '',
-          nazione: props.oggetto ? props.oggetto.nazione : '',
-          titolo: props.oggetto ? props.oggetto.titolo : '',
-          cap: props.oggetto ? props.oggetto.cap : '',
-          via: props.oggetto ? props.oggetto.via : '',
-          numeroCivico: props.oggetto ? props.oggetto.numeroCivico : '',
-          citta: props.oggetto ? props.oggetto.citta : '',
-          quartiere: props.oggetto ? props.oggetto.quartiere : '',
-          numeroAppartamento: props.oggetto
-            ? props.oggetto.numeroAppartamento
-            : '',
-          rifId: props.oggetto ? props.oggetto.rifId : '',
-          amtsgericht: props.oggetto ? props.oggetto.amtsgericht : '',
-          grundbuch: props.oggetto ? props.oggetto.grundbuch : '',
-          grundbuchBlatt: props.oggetto ? props.oggetto.grundbuchBlatt : '',
-          m2: props.oggetto ? props.oggetto.m2 : '',
-          piano: props.oggetto ? props.oggetto.piano : '',
-          mobilio: props.oggetto ? props.oggetto.mobilio : '',
-          stato: props.oggetto ? props.oggetto.stato : '',
-          wohngeld: props.oggetto
-            ? (props.oggetto.wohngeld / 100).toString().replace(/\./, ',')
-            : '0',
-          kaufpreis: props.oggetto
-            ? (props.oggetto.kaufpreis / 100).toString().replace(/\./, ',')
-            : '0',
-          affittoNetto: props.oggetto
-            ? (props.oggetto.affittoNetto / 100).toString().replace(/\./, ',')
-            : '0',
-          verwalter: props.oggetto ? props.oggetto.verwalter : '',
-          ruecklage: props.oggetto ? props.oggetto.ruecklage : '',
-          proprietarioId: props.oggetto ? props.oggetto.proprietarioId : '',
-          proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : '',
-          inquilinoId: props.oggetto ? props.oggetto.inquilinoId : '',
-          filenames: props.oggetto ? props.oggetto.filenames : '',
-          downloadURLs: props.oggetto ? props.oggetto.downloadURLs : '',
-          filenamesCover: props.oggetto ? props.oggetto.filenamesCover : '',
-          downloadURLsCover: props.oggetto
-            ? props.oggetto.downloadURLsCover
-            : '',
-          filenamesGrundriss: props.oggetto
-            ? props.oggetto.filenamesGrundriss
-            : '',
-          downloadURLsGrundriss: props.oggetto
-            ? props.oggetto.downloadURLsGrundriss
-            : '',
-          isUploading: false,
-          uploadProgress: 0,
-          descrizione: props.oggetto ? props.oggetto.descrizione : '',
-          titoloDe: props.oggetto ? props.oggetto.titoloDe : '',
-          descrizioneDe: props.oggetto ? props.oggetto.descrizioneDe : '',
-          titoloEn: props.oggetto ? props.oggetto.titoloEn : '',
-          descrizioneEn: props.oggetto ? props.oggetto.descrizioneEn : '',
-          vani: props.oggetto ? props.oggetto.vani : '',
-          bagni: props.oggetto ? props.oggetto.bagni : '',
-          balcone: props.oggetto ? props.oggetto.balcone : false,
-          ascensore: props.oggetto ? props.oggetto.ascensore : false,
-          giardino: props.oggetto ? props.oggetto.giardino : false,
           condizioni: props.oggetto ? props.oggetto.condizioni : '',
-          cantina: props.oggetto ? props.oggetto.cantina : false,
-          baujahr: props.oggetto ? props.oggetto.baujahr : '',
-          energieAusweisTyp: props.oggetto
-            ? props.oggetto.energieAusweisTyp
-            : '',
-          energieAusweisBis: props.oggetto
-            ? props.oggetto.energieAusweisBis
-            : '',
-          heizungsart: props.oggetto ? props.oggetto.heizungsart : '',
-          energieTraeger: props.oggetto ? props.oggetto.energieTraeger : '',
-          energieBedarf: props.oggetto ? props.oggetto.energieBedarf : '',
-          provvigione: props.oggetto ? props.oggetto.provvigione : '',
-          venduto: props.oggetto ? props.oggetto.venduto : false,
-          tipologia: props.oggetto
-            ? props.oggetto.tipologia
-              ? props.oggetto.tipologia
-              : ''
-            : '',
           //se non c'è una data, inserisco quella attuale
           dataInserimentoOggetto: props.oggetto
             ? props.oggetto.dataInserimentoOggetto
@@ -340,6 +281,131 @@ function withForm(Component) {
               : moment()
             : moment(),
           dataModificaOggetto: props.oggetto ? moment() : null,
+          descrizione: props.oggetto ? props.oggetto.descrizione : '',
+          descrizioneDe: props.oggetto ? props.oggetto.descrizioneDe : '',
+          descrizioneEn: props.oggetto ? props.oggetto.descrizioneEn : '',
+          downloadURLs: props.oggetto
+            ? props.oggetto.downloadURLs
+              ? props.oggetto.downloadURLs
+              : [[], [], []]
+            : [[], [], []],
+          downloadURLsId: props.oggetto
+            ? props.oggetto.downloadURLsId
+              ? props.oggetto.downloadURLsId
+              : [[], [], []]
+            : [[], [], []],
+          downloadURLsCover: props.oggetto
+            ? props.oggetto.downloadURLsCover
+              ? props.oggetto.downloadURLsCover
+              : []
+            : [],
+          downloadURLsCoverId: props.oggetto
+            ? props.oggetto.downloadURLsCoverId
+              ? props.oggetto.downloadURLsCoverId
+              : []
+            : [],
+          downloadURLsGrundriss: props.oggetto
+            ? props.oggetto.downloadURLsGrundriss
+              ? props.oggetto.downloadURLsGrundriss
+              : []
+            : [],
+          downloadURLsGrundrissId: props.oggetto
+            ? props.oggetto.downloadURLsGrundrissId
+              ? props.oggetto.downloadURLsGrundrissId
+              : []
+            : [],
+          energieAusweisTyp: props.oggetto
+            ? props.oggetto.energieAusweisTyp
+            : '',
+          energieAusweisBis: props.oggetto
+            ? props.oggetto.energieAusweisBis
+            : '',
+          energieTraeger: props.oggetto ? props.oggetto.energieTraeger : '',
+          energieBedarf: props.oggetto ? props.oggetto.energieBedarf : '',
+          featuredProperty: props.oggetto
+            ? props.oggetto.featuredProperty
+              ? props.oggetto.featuredProperty
+              : 0
+            : 0,
+          filenames: props.oggetto ? props.oggetto.filenames : '',
+          filenamesCover: props.oggetto ? props.oggetto.filenamesCover : '',
+          filenamesGrundriss: props.oggetto
+            ? props.oggetto.filenamesGrundriss
+            : '',
+          giardino: props.oggetto ? props.oggetto.giardino : false,
+          grundbuch: props.oggetto ? props.oggetto.grundbuch : '',
+          grundbuchBlatt: props.oggetto ? props.oggetto.grundbuchBlatt : '',
+          heizungsart: props.oggetto ? props.oggetto.heizungsart : '',
+          inquilinoId: props.oggetto ? props.oggetto.inquilinoId : '',
+          isUploading: false,
+          kaufpreis: props.oggetto
+            ? (props.oggetto.kaufpreis / 100).toString().replace(/\./, ',')
+            : '0',
+          latitude: props.oggetto
+            ? props.oggetto.latitude
+              ? props.oggetto.latitude
+              : ''
+            : '',
+          longitude: props.oggetto
+            ? props.oggetto.longitude
+              ? props.oggetto.longitude
+              : ''
+            : '',
+          m2: props.oggetto ? props.oggetto.m2 : '',
+          mobilio: props.oggetto ? props.oggetto.mobilio : '',
+          nazione: props.oggetto ? props.oggetto.nazione : '',
+          note: props.oggetto ? props.oggetto.note : '',
+          numeroCivico: props.oggetto ? props.oggetto.numeroCivico : '',
+          numeroAppartamento: props.oggetto
+            ? props.oggetto.numeroAppartamento
+            : '',
+          piano: props.oggetto ? props.oggetto.piano : '',
+          postId: props.oggetto
+            ? props.oggetto.postId
+              ? props.oggetto.postId
+              : ''
+            : '',
+          prenotato: props.oggetto ? props.oggetto.prenotato : false,
+
+          proprietarioId: props.oggetto ? props.oggetto.proprietarioId : '',
+          proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : '',
+          provvigione: props.oggetto ? props.oggetto.provvigione : '',
+          quartiere: props.oggetto ? props.oggetto.quartiere : '',
+          rifId: props.oggetto ? props.oggetto.rifId : '',
+          ruecklage: props.oggetto ? props.oggetto.ruecklage : '',
+          stato: props.oggetto ? props.oggetto.stato : '',
+          status: props.oggetto
+            ? props.oggetto.status
+              ? props.oggetto.status
+              : false
+            : false,
+          themeSlider: props.oggetto
+            ? props.oggetto.themeSlider
+              ? props.oggetto.themeSlider
+              : 0
+            : 0,
+          tipologia: props.oggetto
+            ? props.oggetto.tipologia
+              ? props.oggetto.tipologia
+              : ''
+            : '',
+          titoloDe: props.oggetto ? props.oggetto.titoloDe : '',
+          titoloEn: props.oggetto ? props.oggetto.titoloEn : '',
+          titolo: props.oggetto ? props.oggetto.titolo : '',
+          uploadProgress: 0,
+          vani: props.oggetto ? props.oggetto.vani : '',
+          venduto: props.oggetto ? props.oggetto.venduto : false,
+          verwalter: props.oggetto ? props.oggetto.verwalter : '',
+          via: props.oggetto ? props.oggetto.via : '',
+          videoId: props.oggetto
+            ? props.oggetto.videoId
+              ? props.oggetto.videoId
+              : ''
+            : '',
+          visible: props.oggetto ? props.oggetto.visible : true,
+          wohngeld: props.oggetto
+            ? (props.oggetto.wohngeld / 100).toString().replace(/\./, ',')
+            : '0',
         },
         users: {
           //USERS
@@ -350,15 +416,6 @@ function withForm(Component) {
           qualifica: props.user ? props.user.qualifica : '',
           firebaseAuthId: props.user ? props.user.firebaseAuthId : '',
         },
-
-        // ERROR
-        error: '',
-
-        // MODAL
-        isOpen: false,
-        contentLabel: '',
-        modalContent: null,
-
         evaluations: {
           cloudURL: props.evaluation
             ? props.evaluation.cloudURL
@@ -429,6 +486,17 @@ function withForm(Component) {
           oggettoId: props.evaluation ? props.evaluation.oggettoId : '',
           visible: props.evaluation ? props.evaluation.visible : true,
         },
+
+        // ERROR
+        error: '',
+
+        // MODAL
+        isOpen: false,
+        contentLabel: '',
+        modalContent: null,
+
+        // SPINNER
+        spinner: false,
       };
     }
 
@@ -585,11 +653,316 @@ function withForm(Component) {
         </div>
       );
     };
+
+    renderUploadImage = (property, label) => {
+      return (
+        <li className='collection-item'>
+          <label htmlFor={property}>{label}</label>
+          <Dropzone
+            onDrop={(accepted, rejected) => {
+              this.handleOnDrop(accepted, rejected, property);
+            }}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <section>
+                <div {...getRootProps({ className: 'dropzone' })}>
+                  <input {...getInputProps()} />
+                  <div className='file-upload-box'>
+                    Drag 'n' drop some files here, or click to select files
+                  </div>
+                </div>
+              </section>
+            )}
+          </Dropzone>
+          {this.state.spinner ? (
+            <div className='progress'>
+              <div className='indeterminate'></div>
+            </div>
+          ) : (
+            <div>
+              {property === 'downloadURLs'
+                ? // visualizzo solo uno degli array, gli altri sono duplicati
+                  this.state.oggetti.downloadURLs[0].map((url, i) => {
+                    return (
+                      <span key={i}>
+                        <img className='foto' src={url} />
+                        <img
+                          src='https://www.m2square.eu/trash/'
+                          className='cancella'
+                          onClick={() => this.handleRemovePicture(i, property)}
+                        />
+                      </span>
+                    );
+                  })
+                : this.state.oggetti[property].map((url, i) => {
+                    return (
+                      <span key={i}>
+                        <img className='foto' src={url} />
+                        <img
+                          src='https://www.m2square.eu/trash/'
+                          className='cancella'
+                          onClick={() => this.handleRemovePicture(i, property)}
+                        />
+                      </span>
+                    );
+                  })}
+            </div>
+          )}
+        </li>
+      );
+    };
+
     // HANDLER
     changeHandler = (e, object) =>
       this.setState({
         [object]: { ...this.state[object], [e.target.name]: e.target.value },
       });
+
+    handleOnDrop = (accepted, rejected, property) => {
+      console.log(accepted, rejected, property);
+      accepted.forEach((file) => {
+        // devo triplicare ogni immagine del post per le traduzioni
+        // ma non grundriss o cover
+
+        if (property === 'downloadURLs') {
+          for (let i = 0; i < 3; i++) {
+            this.fileUpload(file, property, i);
+          }
+        } else {
+          this.fileUpload(file, property);
+        }
+      });
+    };
+
+    fileUpload = async (file, property, i) => {
+      this.setState({
+        spinner: true,
+      });
+      // Get Token
+      await axios
+        .post(`${process.env.REACT_APP_WPAPI}/wp-json/jwt-auth/v1/token`, {
+          username: `${process.env.WPAPI_USERNAME}`,
+          password: `${process.env.WPAPI_PASSWORD}`,
+        })
+        .then((res) => localStorage.setItem('token', res.data.token));
+
+      const url = `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/media`;
+      const formData = new FormData();
+      formData.append('file', file);
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      };
+      try {
+        const { data } = await post(url, formData, config);
+        // console.log(data);
+        if (property === 'downloadURLs') {
+          const urlArray = [...this.state.oggetti.downloadURLs];
+          const idArray = [...this.state.oggetti.downloadURLsId];
+
+          urlArray[i].push(data.source_url);
+          idArray[i].push(data.id);
+
+          this.setState({
+            oggetti: {
+              ...this.state.oggetti,
+              downloadURLs: urlArray,
+              downloadURLsId: idArray,
+            },
+            spinner: false,
+          });
+        } else {
+          const urlArray = [...this.state.oggetti[property]];
+          urlArray.push(data.source_url);
+          const idArray = [...this.state.oggetti[`${property}Id`]];
+          idArray.push(data.id);
+          this.setState({
+            oggetti: {
+              ...this.state.oggetti,
+              [property]: urlArray,
+              [`${property}Id`]: idArray,
+            },
+            spinner: false,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        this.setState({
+          spinner: false,
+        });
+      }
+    };
+
+    handleRemovePicture = (picture, property) => {
+      this.setState({ spinner: true });
+      let idDe = false;
+      let idEn = false;
+      let idIt = false;
+      let idGrundriss = false;
+
+      if (property === 'downloadURLs') {
+        const urlArray = [...this.state.oggetti.downloadURLs];
+        // const urlArrayDe = [...urlArray[0]];
+        // const urlArrayEn = [...urlArray[1]];
+        // const urlArrayIt = [...urlArray[2]];
+
+        urlArray[0].splice(picture, 1);
+        urlArray[1].splice(picture, 1);
+        urlArray[2].splice(picture, 1);
+
+        // urlArray[0] = urlArrayDe;
+        // urlArray[1] = urlArrayEn;
+        // urlArray[2] = urlArrayIt;
+
+        const idArray = [...this.state.oggetti.downloadURLsId];
+        // const idArrayDe = [...idArray[0]];
+        // const idArrayEn = [...idArray[1]];
+        // const idArrayIt = [...idArray[2]];
+        idDe = idArray[0].splice(picture, 1);
+        idEn = idArray[1].splice(picture, 1);
+        idIt = idArray[2].splice(picture, 1);
+        // idArray[0] = idArrayDe;
+        // idArray[1] = idArrayEn;
+        // idArray[2] = idArrayIt;
+
+        this.setState((prevState) => ({
+          oggetti: {
+            ...prevState.oggetti,
+            downloadURLs: urlArray,
+            downloadURLsId: idArray,
+          },
+        }));
+      } else {
+        let urlArray = [...this.state.oggetti[property]];
+        urlArray.splice(picture, 1);
+
+        if (urlArray === undefined || urlArray.length < 1) {
+          urlArray = [];
+        }
+
+        let idArray = [...this.state.oggetti[`${property}Id`]];
+        // se cancello grundriss passo l'id del media alla variabile idGrundriss
+        // altrimenti sto cancellando cover e basta togliere l'id feature_media da post
+        if (property === 'downloadURLsGrundriss') {
+          idGrundriss = idArray.splice(picture, 1);
+        }
+
+        if (idArray === undefined || idArray.length < 1) {
+          idArray = [];
+        }
+        this.setState((prevState) => ({
+          oggetti: {
+            ...prevState.oggetti,
+            [property]: urlArray,
+            [`${property}Id`]: idArray,
+          },
+        }));
+      }
+
+      // se cancello l'immagine di copertina devo cancellare il campo featured_media dal post
+      if (property === 'downloadURLsCover') {
+        axios
+          .put(
+            `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/estate_property/${this.state.oggetti.postId}`,
+            { featured_media: 0 },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          )
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.setState({
+              spinner: false,
+            });
+          });
+      } else if (property === 'downloadURLsGrundriss') {
+        // se cancello altre immagini devo cancellare il campo post da ogni singolo media
+        axios
+          .put(
+            `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/media/${idGrundriss}`,
+            { post: 0 },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          )
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.setState({
+              spinner: false,
+            });
+          });
+      } else if (property === 'downloadURLs') {
+        axios
+          .put(
+            `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/media/${idDe}`,
+            { post: 0 },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          )
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.setState({
+              spinner: false,
+            });
+          });
+        axios
+          .put(
+            `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/media/${idEn}`,
+            { post: 0 },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          )
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.setState({
+              spinner: false,
+            });
+          });
+        axios
+          .put(
+            `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/media/${idIt}`,
+            { post: 0 },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          )
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            this.setState({
+              spinner: false,
+            });
+          });
+      }
+    };
 
     changeHandlerValuta = (e, object) => {
       const name = e.target.name;
@@ -676,192 +1049,6 @@ function withForm(Component) {
         },
       });
 
-    handleUploadStart = () =>
-      this.setState((prevState) => {
-        return {
-          oggetti: {
-            ...prevState.oggetti,
-            isUploading: true,
-            uploadProgress: 0,
-          },
-        };
-      });
-
-    handleProgress = (progress) =>
-      this.setState((prevState) => ({
-        oggetti: { ...prevState.oggetti, uploadProgress: progress },
-      }));
-
-    handleUploadError = (error) => {
-      this.setState((prevState) => ({
-        oggetti: { ...prevState.oggetti, isUploading: false },
-      }));
-      console.error(error);
-    };
-
-    handleUploadSuccess = async (filename) => {
-      const downloadURL = await firebase
-        .storage()
-        .ref('images')
-        .child(filename)
-        .getDownloadURL();
-
-      this.setState((oldState) => ({
-        oggetti: {
-          ...oldState.oggetti,
-          filenames: [...oldState.oggetti.filenames, filename],
-          downloadURLs: [...oldState.oggetti.downloadURLs, downloadURL],
-          uploadProgress: 100,
-          isUploading: false,
-        },
-      }));
-    };
-    handleUploadSuccessCover = async (filename) => {
-      const downloadURL = await firebase
-        .storage()
-        .ref('cover')
-        .child(filename)
-        .getDownloadURL();
-
-      this.setState((oldState) => ({
-        oggetti: {
-          ...oldState.oggetti,
-          filenamesCover: [...oldState.oggetti.filenamesCover, filename],
-          downloadURLsCover: [
-            ...oldState.oggetti.downloadURLsCover,
-            downloadURL,
-          ],
-          uploadProgress: 100,
-          isUploading: false,
-        },
-      }));
-    };
-
-    handleUploadSuccessGrundriss = async (filename) => {
-      const downloadURL = await firebase
-        .storage()
-        .ref('grundriss')
-        .child(filename)
-        .getDownloadURL();
-
-      this.setState((oldState) => ({
-        oggetti: {
-          ...oldState.oggetti,
-          filenamesGrundriss: [
-            ...oldState.oggetti.filenamesGrundriss,
-            filename,
-          ],
-          downloadURLsGrundriss: [
-            ...oldState.oggetti.downloadURLsGrundriss,
-            downloadURL,
-          ],
-          uploadProgress: 100,
-          isUploading: false,
-        },
-      }));
-    };
-
-    handleRemovePicture = (picture) => {
-      let downloadURLs = this.state.oggetti.downloadURLs;
-      let filenames = this.state.oggetti.filenames;
-      downloadURLs.splice(picture, 1);
-      const removedFilename = filenames && filenames.splice(picture, 1);
-      const [filename = ''] = removedFilename;
-      if (downloadURLs === undefined || downloadURLs.length < 1) {
-        downloadURLs = '';
-      }
-      if (filenames === undefined || filenames.length < 1) {
-        filenames = '';
-      }
-      this.setState((prevState) => ({
-        oggetti: { ...prevState.oggetti, downloadURLs, filenames },
-      }));
-      if (filename !== '') {
-        firebase
-          .storage()
-          .ref('images')
-          .child(filename)
-          .delete()
-          .then(() => {
-            console.log('File deleted');
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    };
-
-    handleRemovePictureCover = (picture) => {
-      console.log(picture);
-      let downloadURLsCover = this.state.oggetti.downloadURLsCover;
-      let filenamesCover = this.state.oggetti.filenamesCover;
-      downloadURLsCover.splice(picture, 1);
-      const removedFilename =
-        filenamesCover && filenamesCover.splice(picture, 1);
-      const [filenameCover = ''] = removedFilename;
-      if (downloadURLsCover === undefined || downloadURLsCover.length < 1) {
-        downloadURLsCover = '';
-      }
-      if (filenamesCover === undefined || filenamesCover.length < 1) {
-        filenamesCover = '';
-      }
-      this.setState((prevState) => ({
-        oggetti: { ...prevState.oggetti, downloadURLsCover, filenamesCover },
-      }));
-      if (filenameCover !== '') {
-        firebase
-          .storage()
-          .ref('cover')
-          .child(filenameCover)
-          .delete()
-          .then(() => {
-            console.log('File deleted');
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    };
-
-    handleRemovePictureGrundriss = (picture) => {
-      console.log(picture);
-      let downloadURLsGrundriss = this.state.oggetti.downloadURLsGrundriss;
-      let filenamesGrundriss = this.state.oggetti.filenamesGrundriss;
-      downloadURLsGrundriss.splice(picture, 1);
-      const removedFilename =
-        filenameGrundriss && filenamesGrundriss.splice(picture, 1);
-      const [filenameGrundriss = ''] = removedFilename;
-      if (
-        downloadURLsGrundriss === undefined ||
-        downloadURLsGrundriss.length < 1
-      ) {
-        downloadURLsGrundriss = '';
-      }
-      if (filenamesGrundriss === undefined || filenamesGrundriss.length < 1) {
-        filenamesGrundriss = '';
-      }
-      this.setState((prevState) => ({
-        oggetti: {
-          ...prevState.oggetti,
-          downloadURLsGrundriss,
-          filenamesGrundriss,
-        },
-      }));
-      if (filenameGrundriss !== '') {
-        firebase
-          .storage()
-          .ref('grundriss')
-          .child(filenameGrundriss)
-          .delete()
-          .then(() => {
-            console.log('File deleted');
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    };
-
     render() {
       return (
         <Component
@@ -873,6 +1060,7 @@ function withForm(Component) {
           renderTextArea={this.renderTextArea}
           renderCheckbox={this.renderCheckbox}
           renderSelect={this.renderSelect}
+          renderUploadImage={this.renderUploadImage}
           changeHandler={this.changeHandler}
           changeHandlerSelect={this.changeHandlerSelect}
           changeHandlerSelectEvaluation={this.changeHandlerSelectEvaluation}
@@ -883,15 +1071,7 @@ function withForm(Component) {
           onFocusChange2={this.onFocusChange2}
           onDatesChange={this.onDatesChange}
           changeCheckbox={this.changeCheckbox}
-          handleUploadStart={this.handleUploadStart}
-          handleProgress={this.handleProgress}
-          handleUploadError={this.handleUploadError}
-          handleUploadSuccess={this.handleUploadSuccess}
-          handleUploadSuccessCover={this.handleUploadSuccessCover}
-          handleUploadSuccessGrundriss={this.handleUploadSuccessGrundriss}
-          handleRemovePicture={this.handleRemovePicture}
-          handleRemovePictureCover={this.handleRemovePictureCover}
-          handleRemovePictureGrundriss={this.handleRemovePictureGrundriss}
+          fileUpload={this.fileUpload}
           {...this.props}
           data={this.state}
         />
