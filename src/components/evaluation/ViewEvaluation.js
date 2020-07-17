@@ -7,7 +7,7 @@ import OptionModal from '../common/OptionModal';
 import numeral from 'numeral';
 import moment from 'moment';
 import OggettiList from '../oggetti/OggettiList';
-import Map from '../oggetti/Map';
+import Mappa from '../oggetti/Mappa';
 import { storeActions } from '../../store/configureStore';
 import { ipcRenderer } from 'electron';
 
@@ -209,7 +209,7 @@ export class ViewEvaluation extends React.Component {
             </li>
           </ul>
         </div>
-        <Map
+        <Mappa
           indirizzo={
             oggetto
               ? `${oggetto.via} ${oggetto.numeroCivico}, ${oggetto.cap} ${oggetto.citta}`

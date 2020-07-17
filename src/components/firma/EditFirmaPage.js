@@ -22,8 +22,8 @@ export class EditFirmaPage extends React.Component {
     this.setState({ isOpen: false });
   };
 
-  onSubmit = (firma) => {
-    this.props.startEditFirma(this.props.firma.id, firma);
+  onSubmit = async (firma) => {
+    await this.props.startEditFirma(this.props.firma.id, firma);
     this.props.history.push(`/utenti`);
   };
   onRemove = () => {

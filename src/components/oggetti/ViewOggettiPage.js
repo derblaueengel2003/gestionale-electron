@@ -10,7 +10,7 @@ import ImmoscoutAPI from './ImmoscoutAPI';
 import Intestazione from '../common/Intestazione';
 import EvaluationList from '../evaluation/EvaluationList';
 import { ipcRenderer } from 'electron';
-import Map from './Map';
+import Mappa from './Mappa';
 import M2SquareAPI from './M2SquareAPI';
 
 export class ViewOggettiPage extends React.Component {
@@ -43,6 +43,22 @@ export class ViewOggettiPage extends React.Component {
             .replace(/\./, ',')
         : null;
       const titolo = `${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta} ${oggetto.quartiere}`;
+
+      // copia dell'oggetto se voglio fare un duplicato da passare a WP
+      const oggettoCopy = {
+        ...oggetto,
+        downloadURLs: [[], [], []],
+        downloadURLsId: [[], [], []],
+        downloadURLsCover: [],
+        downloadURLsCoverId: [],
+        downloadURLsGrundriss: [],
+        downloadURLsGrundrissId: [],
+        postId: '',
+        postIdDe: '',
+        postIdEn: '',
+        postIdIt: '',
+      };
+
       return (
         <div>
           <Intestazione intestazione={titolo} />
@@ -212,8 +228,28 @@ export class ViewOggettiPage extends React.Component {
             <div className='btn-row'>
               {this.props.utente.role === 'Admin' && (
                 <div>
-                  <ImmoscoutAPI oggetto={oggetto} />
-                  <M2SquareAPI oggetto={oggetto} />
+                  <h5>Admin Console</h5>
+                  <div className='admin-console'>
+                    <div className='admin-console-item'>
+                      <ImmoscoutAPI oggetto={oggetto} />
+                    </div>
+                    <div className='admin-console-item'>
+                      <M2SquareAPI oggetto={oggetto} />
+                    </div>
+                    <div className='admin-console-item'>
+                      <Link
+                        to={{
+                          pathname: '/oggettocreate',
+                          state: {
+                            oggetto: oggettoCopy,
+                          },
+                        }}
+                        className='btn-floating  blue lighten-3 right btn-floating-margin'
+                      >
+                        <i className='material-icons'>content_copy</i>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -234,8 +270,7 @@ export class ViewOggettiPage extends React.Component {
                             this.props.firma,
                             this.props.utente,
                             this.props.ceo,
-                            'de',
-                            this.state.stores[0]
+                            'de'
                           );
                         }}
                       >
@@ -259,8 +294,7 @@ export class ViewOggettiPage extends React.Component {
                             this.props.firma,
                             this.props.utente,
                             this.props.ceo,
-                            'it',
-                            this.state.stores[0]
+                            'it'
                           );
                         }}
                       >
@@ -283,8 +317,7 @@ export class ViewOggettiPage extends React.Component {
                             this.props.firma,
                             this.props.utente,
                             this.props.ceo,
-                            'en',
-                            this.state.stores[0]
+                            'en'
                           );
                         }}
                       >
@@ -365,10 +398,14 @@ export class ViewOggettiPage extends React.Component {
                 </div>{' '}
               </div>
             )}
-            {oggetto.downloadURLs &&
-              oggetto.downloadURLs[0].map((downloadURL, i) => {
-                return <img className='foto' key={i} src={downloadURL} />;
-              })}
+            {oggetto.downloadURLs && Array.isArray(oggetto.downloadURLs[0])
+              ? oggetto.downloadURLs[0].map((downloadURL, i) => {
+                  return <img className='foto' key={i} src={downloadURL} />;
+                })
+              : oggetto.downloadURLs &&
+                oggetto.downloadURLs.map((downloadURL, i) => {
+                  return <img className='foto' key={i} src={downloadURL} />;
+                })}
           </div>
 
           <div className='container'>
@@ -384,7 +421,7 @@ export class ViewOggettiPage extends React.Component {
                 return <img className='foto' key={i} src={downloadURL} />;
               })}
           </div>
-          <Map oggetto={oggetto} />
+          <Mappa oggetto={oggetto} />
           {oggetto.titolo && (
             <div className='container margine-basso'>
               <div className='grey lighten-4'>

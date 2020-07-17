@@ -5,8 +5,8 @@ import EvaluationForm from './EvaluationForm';
 import { storeActions } from '../../store/configureStore';
 
 export class EditEvaluation extends React.Component {
-  onSubmit = (evaluation) => {
-    this.props.startEditEvaluation(this.props.evaluation.id, evaluation);
+  onSubmit = async (evaluation) => {
+    await this.props.startEditEvaluation(this.props.evaluation.id, evaluation);
     this.props.history.push(`/evaluationview/${this.props.evaluation.id}`);
   };
 

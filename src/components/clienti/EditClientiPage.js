@@ -22,8 +22,8 @@ export class EditClientePage extends React.Component {
     this.setState({ isOpen: false });
   };
 
-  onSubmit = (cliente) => {
-    this.props.startEditCustomer(this.props.cliente.id, cliente);
+  onSubmit = async (cliente) => {
+    await this.props.startEditCustomer(this.props.cliente.id, cliente);
     this.props.history.push(`/clientiview/${this.props.cliente.id}`);
   };
 

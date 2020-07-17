@@ -22,8 +22,8 @@ export class EditUtentePage extends React.Component {
     this.setState({ isOpen: false });
   };
 
-  onSubmit = (utente) => {
-    this.props.startEditUser(this.props.utente.id, utente);
+  onSubmit = async (utente) => {
+    await this.props.startEditUser(this.props.utente.id, utente);
     this.props.history.push(`/utenti`);
   };
   onRemove = () => {

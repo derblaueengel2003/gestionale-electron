@@ -22,8 +22,8 @@ export class EditFatturaPage extends React.Component {
     this.setState({ isOpen: false });
   };
 
-  onSubmit = (fattura) => {
-    this.props.startEditFattura(this.props.fattura.id, fattura);
+  onSubmit = async (fattura) => {
+    await this.props.startEditFattura(this.props.fattura.id, fattura);
     this.props.history.push(`/fatturaview/${this.props.fattura.id}`);
   };
   onRemove = () => {

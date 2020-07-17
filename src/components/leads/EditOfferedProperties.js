@@ -5,8 +5,8 @@ import OfferedPropertiesForm from './OfferedPropertiesForm';
 import { storeActions } from '../../store/configureStore';
 
 export class EditOfferedProperties extends React.Component {
-  onSubmit = (offer) => {
-    this.props.startEditOffer(this.props.offer.id, offer);
+  onSubmit = async (offer) => {
+    await this.props.startEditOffer(this.props.offer.id, offer);
     this.props.history.push(`/leadview/${this.props.offer.leadId}`);
   };
   onRemove = () => {

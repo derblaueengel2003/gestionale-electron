@@ -22,8 +22,8 @@ export class EditDealPage extends React.Component {
     this.setState({ isOpen: false });
   };
 
-  onSubmit = (deal) => {
-    this.props.startEditDeal(this.props.deal.id, deal);
+  onSubmit = async (deal) => {
+    await this.props.startEditDeal(this.props.deal.id, deal);
     this.props.history.push(`/view/${this.props.deal.id}`);
   };
 

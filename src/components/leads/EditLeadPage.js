@@ -22,8 +22,8 @@ export class EditLeadPage extends React.Component {
     this.setState({ isOpen: false });
   };
 
-  onSubmit = (lead) => {
-    this.props.startEditLead(this.props.lead.id, lead);
+  onSubmit = async (lead) => {
+    await this.props.startEditLead(this.props.lead.id, lead);
     this.props.history.push(`/leadview/${this.props.lead.id}`);
   };
   onRemove = () => {

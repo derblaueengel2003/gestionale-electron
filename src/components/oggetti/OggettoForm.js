@@ -443,6 +443,11 @@ export class OggettoForm extends React.Component {
             </ul>
           </div>
         </div>
+        <div>
+          <button className='btn-floating blue right btn-floating-margin'>
+            <i className='material-icons'>save</i>
+          </button>
+        </div>
       </form>
     );
   }

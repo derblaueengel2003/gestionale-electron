@@ -3,7 +3,7 @@ import { imgLogo } from './ImageLogo';
 import { ivdLogo } from './IvdLogo';
 import numeral from 'numeral';
 
-export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
+export const expose = (oggetto, firma, utente, ceo, lingua) => {
   const doc = new jsPDF('p', 'mm', 'a4');
   doc.setFont('times');
   const fontStart = 10;
@@ -414,7 +414,11 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
       let pictureXPosition = 15;
       let alternate = true;
       let count = 0;
-      oggetto.downloadURLs.map((url) => {
+      // stabilisco se ho un array di urls o un array di array di urls
+      let payload = Array.isArray(oggetto.downloadURLs[0])
+        ? oggetto.downloadURLs[0]
+        : oggetto.downloadURLs;
+      payload.map((url) => {
         if (count === 6) {
           doc.addPage();
           cartaIntestata();
@@ -453,7 +457,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua, mapMarker) => {
 
     const mappa = new Image();
     mappa.src = `https://maps.googleapis.com/maps/api/staticmap?center=${oggetto.via}+${oggetto.numeroCivico},+${oggetto.cap}+${oggetto.citta}&zoom=15&size=800x800&maptype=roadmap
-&markers=color:blue%7Clabel:A%7C${mapMarker.latitude},${mapMarker.longitude}
+&markers=color:blue%7Clabel:A%7C${oggetto.latitude},${oggetto.longitude}
 &key=AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE`;
     doc.addImage(mappa, 'PNG', 15, 50, 180, 180, undefined, 'SLOW');
   };

@@ -682,18 +682,36 @@ function withForm(Component) {
             <div>
               {property === 'downloadURLs'
                 ? // visualizzo solo uno degli array, gli altri sono duplicati
-                  this.state.oggetti.downloadURLs[0].map((url, i) => {
-                    return (
-                      <span key={i}>
-                        <img className='foto' src={url} />
-                        <img
-                          src='https://www.m2square.eu/trash/'
-                          className='cancella'
-                          onClick={() => this.handleRemovePicture(i, property)}
-                        />
-                      </span>
-                    );
-                  })
+                  Array.isArray(this.state.oggetti.downloadURLs[0])
+                  ? this.state.oggetti.downloadURLs[0].map((url, i) => {
+                      return (
+                        <span key={i}>
+                          <img className='foto' src={url} />
+                          <img
+                            src='https://www.m2square.eu/trash/'
+                            className='cancella'
+                            onClick={() =>
+                              this.handleRemovePicture(i, property)
+                            }
+                          />
+                        </span>
+                      );
+                    })
+                  : this.state.oggetti.downloadURLs &&
+                    this.state.oggetti.downloadURLs.map((url, i) => {
+                      return (
+                        <span key={i}>
+                          <img className='foto' src={url} />
+                          <img
+                            src='https://www.m2square.eu/trash/'
+                            className='cancella'
+                            onClick={() =>
+                              this.handleRemovePicture(i, property)
+                            }
+                          />
+                        </span>
+                      );
+                    })
                 : this.state.oggetti[property].map((url, i) => {
                     return (
                       <span key={i}>

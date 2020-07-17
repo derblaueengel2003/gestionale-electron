@@ -22,8 +22,8 @@ export class EditOggettoPage extends React.Component {
     this.setState({ isOpen: false });
   };
 
-  onSubmit = (oggetto) => {
-    this.props.startEditOggetto(this.props.oggetto.id, oggetto);
+  onSubmit = async (oggetto) => {
+    await this.props.startEditOggetto(this.props.oggetto.id, oggetto);
     this.props.history.push(`/oggettoview/${this.props.oggetto.id}`);
   };
   onValidate = () => {
