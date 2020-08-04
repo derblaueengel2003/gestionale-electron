@@ -75,7 +75,6 @@ export class OggettoForm extends React.Component {
         numeroCivico: oggetti.numeroCivico,
         numeroAppartamento: oggetti.numeroAppartamento,
         piano: oggetti.piano,
-        postId: oggetti.postId,
         prenotato: oggetti.prenotato,
         proprietarioId: oggetti.proprietarioId,
         proprietarioId2: oggetti.proprietarioId2,
@@ -116,6 +115,35 @@ export class OggettoForm extends React.Component {
       label: `${cliente.nome} ${cliente.cognome} ${
         cliente.ditta && `- ${t('company')} ${cliente.ditta}`
       }`,
+    }));
+
+    const optionsQuartiere = [
+      'Charlottenburg',
+      'Friedrichshain',
+      'Hohenschonhausen',
+      'Kreuzberg',
+      'Lichtenberg',
+      'Lichtenrade',
+      'Mitte',
+      'Moabit',
+      'Neukölln',
+      'Pankow',
+      'Prenzlauer Berg',
+      'Reinickendorf',
+      'Schöneberg',
+      'Spandau',
+      'Steglitz',
+      'Tegel',
+      'Tempelhof',
+      'Tiergarten',
+      'Treptow-Köpenick',
+      'Wedding',
+      'Weißensee',
+      'Wilmersdorf',
+      'Zehlendorf',
+    ].map((quartiere) => ({
+      value: quartiere,
+      label: quartiere,
     }));
 
     const optionsTipologia = [
@@ -178,7 +206,12 @@ export class OggettoForm extends React.Component {
               )}
               {renderInput('oggetti', 'numeroCivico', 'Nr.')}
               {renderInput('oggetti', 'cap', t('zipcode'))}
-              {renderInput('oggetti', 'quartiere', t('Quartiere'))}
+              {renderSelect(
+                'oggetti',
+                'quartiere',
+                optionsQuartiere,
+                t('Quartiere')
+              )}
               {renderInput('oggetti', 'citta', t('city'))}
               {renderInput('oggetti', 'nazione', t('nation'))}
               {renderInput(
@@ -433,13 +466,17 @@ export class OggettoForm extends React.Component {
           <div id='test3' className='col s12'>
             <ul className='collection'>
               {/* Cover */}
-              {renderUploadImage('downloadURLsCover', 'Cover')}
+              {renderUploadImage('oggetti', 'downloadURLsCover', 'Cover')}
 
               {/* Bilder */}
-              {renderUploadImage('downloadURLs', t('images'))}
+              {renderUploadImage('oggetti', 'downloadURLs', t('images'))}
 
               {/* Grundriss */}
-              {renderUploadImage('downloadURLsGrundriss', t('floor_plan'))}
+              {renderUploadImage(
+                'oggetti',
+                'downloadURLsGrundriss',
+                t('floor_plan')
+              )}
             </ul>
           </div>
         </div>

@@ -146,7 +146,10 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     cover.src = oggetto.downloadURLsCover;
     doc.addImage(cover, 'JPEG', 15, 35, 131, 70, undefined, 'SLOW');
 
-    if (oggetto.downloadURLsGrundriss.length > 0) {
+    if (
+      oggetto.downloadURLsGrundriss &&
+      oggetto.downloadURLsGrundriss.length > 0
+    ) {
       const grundriss = new Image();
       grundriss.src = oggetto.downloadURLsGrundriss[0];
       let xPos = 90;

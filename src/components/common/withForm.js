@@ -360,12 +360,16 @@ function withForm(Component) {
             ? props.oggetto.numeroAppartamento
             : '',
           piano: props.oggetto ? props.oggetto.piano : '',
-          postId: props.oggetto
-            ? props.oggetto.postId
-              ? props.oggetto.postId
-              : ''
-            : '',
-          prenotato: props.oggetto ? props.oggetto.prenotato : false,
+          // postId: props.oggetto
+          //   ? props.oggetto.postId
+          //     ? props.oggetto.postId
+          //     : ''
+          //   : '',
+          prenotato: props.oggetto
+            ? props.oggetto.prenotato
+              ? props.oggetto.prenotato
+              : false
+            : false,
 
           proprietarioId: props.oggetto ? props.oggetto.proprietarioId : '',
           proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : '',
@@ -417,6 +421,67 @@ function withForm(Component) {
           firebaseAuthId: props.user ? props.user.firebaseAuthId : '',
         },
         evaluations: {
+          // cover: props.evaluation
+          //   ? props.evaluation.cover
+          //     ? props.evaluation.cover
+          //     : []
+          //   : [],
+          // coverId: props.evaluation
+          //   ? props.evaluation.coverId
+          //     ? props.evaluation.coverId
+          //     : []
+          //   : [],
+          wohnlageSnippet: props.evaluation
+            ? props.evaluation.wohnlageSnippet
+              ? props.evaluation.wohnlageSnippet
+              : []
+            : [],
+          wohnlageSnippetId: props.evaluation
+            ? props.evaluation.wohnlageSnippetId
+              ? props.evaluation.wohnlageSnippetId
+              : []
+            : [],
+          bodenrichtwertSnippet: props.evaluation
+            ? props.evaluation.bodenrichtwertSnippet
+              ? props.evaluation.bodenrichtwertSnippet
+              : []
+            : [],
+          bodenrichtwertSnippetId: props.evaluation
+            ? props.evaluation.bodenrichtwertSnippetId
+              ? props.evaluation.bodenrichtwertSnippetId
+              : []
+            : [],
+          immobilienPreisSnippet: props.evaluation
+            ? props.evaluation.immobilienPreisSnippet
+              ? props.evaluation.immobilienPreisSnippet
+              : []
+            : [],
+          immobilienPreisSnippetId: props.evaluation
+            ? props.evaluation.immobilienPreisSnippetId
+              ? props.evaluation.immobilienPreisSnippetId
+              : []
+            : [],
+          is24Snippet: props.evaluation
+            ? props.evaluation.is24Snippet
+              ? props.evaluation.is24Snippet
+              : []
+            : [],
+          is24SnippetId: props.evaluation
+            ? props.evaluation.is24SnippetId
+              ? props.evaluation.is24SnippetId
+              : []
+            : [],
+          mietspiegelSnippet: props.evaluation
+            ? props.evaluation.mietspiegelSnippet
+              ? props.evaluation.mietspiegelSnippet
+              : []
+            : [],
+          mietspiegelSnippetId: props.evaluation
+            ? props.evaluation.mietspiegelSnippetId
+              ? props.evaluation.mietspiegelSnippetId
+              : []
+            : [],
+
           cloudURL: props.evaluation
             ? props.evaluation.cloudURL
               ? props.evaluation.cloudURL
@@ -485,6 +550,36 @@ function withForm(Component) {
           titolo: props.evaluation ? props.evaluation.titolo : '',
           oggettoId: props.evaluation ? props.evaluation.oggettoId : '',
           visible: props.evaluation ? props.evaluation.visible : true,
+          testoIntroduttivoDe: props.evaluation
+            ? props.evaluation.testoIntroduttivoDe
+              ? props.evaluation.testoIntroduttivoDe
+              : ''
+            : '',
+          testoFinaleDe: props.evaluation
+            ? props.evaluation.testoFinaleDe
+              ? props.evaluation.testoFinaleDe
+              : ''
+            : '',
+          testoIntroduttivoEn: props.evaluation
+            ? props.evaluation.testoIntroduttivoEn
+              ? props.evaluation.testoIntroduttivoEn
+              : ''
+            : '',
+          testoFinaleEn: props.evaluation
+            ? props.evaluation.testoFinaleEn
+              ? props.evaluation.testoFinaleEn
+              : ''
+            : '',
+          testoIntroduttivoIt: props.evaluation
+            ? props.evaluation.testoIntroduttivoIt
+              ? props.evaluation.testoIntroduttivoIt
+              : ''
+            : '',
+          testoFinaleIt: props.evaluation
+            ? props.evaluation.testoFinaleIt
+              ? props.evaluation.testoFinaleIt
+              : ''
+            : '',
         },
 
         // ERROR
@@ -654,13 +749,13 @@ function withForm(Component) {
       );
     };
 
-    renderUploadImage = (property, label) => {
+    renderUploadImage = (object, property, label) => {
       return (
         <li className='collection-item'>
           <label htmlFor={property}>{label}</label>
           <Dropzone
             onDrop={(accepted, rejected) => {
-              this.handleOnDrop(accepted, rejected, property);
+              this.handleOnDrop(accepted, rejected, property, object);
             }}
           >
             {({ getRootProps, getInputProps }) => (
@@ -691,7 +786,7 @@ function withForm(Component) {
                             src='https://www.m2square.eu/trash/'
                             className='cancella'
                             onClick={() =>
-                              this.handleRemovePicture(i, property)
+                              this.handleRemovePicture(i, property, object)
                             }
                           />
                         </span>
@@ -706,20 +801,23 @@ function withForm(Component) {
                             src='https://www.m2square.eu/trash/'
                             className='cancella'
                             onClick={() =>
-                              this.handleRemovePicture(i, property)
+                              this.handleRemovePicture(i, property, object)
                             }
                           />
                         </span>
                       );
                     })
-                : this.state.oggetti[property].map((url, i) => {
+                : this.state[object][property] &&
+                  this.state[object][property].map((url, i) => {
                     return (
                       <span key={i}>
                         <img className='foto' src={url} />
                         <img
                           src='https://www.m2square.eu/trash/'
                           className='cancella'
-                          onClick={() => this.handleRemovePicture(i, property)}
+                          onClick={() =>
+                            this.handleRemovePicture(i, property, object)
+                          }
                         />
                       </span>
                     );
@@ -736,23 +834,23 @@ function withForm(Component) {
         [object]: { ...this.state[object], [e.target.name]: e.target.value },
       });
 
-    handleOnDrop = (accepted, rejected, property) => {
-      console.log(accepted, rejected, property);
+    handleOnDrop = (accepted, rejected, property, object) => {
+      console.log(accepted, rejected, property, object);
       accepted.forEach((file) => {
         // devo triplicare ogni immagine del post per le traduzioni
         // ma non grundriss o cover
 
         if (property === 'downloadURLs') {
           for (let i = 0; i < 3; i++) {
-            this.fileUpload(file, property, i);
+            this.fileUpload(file, property, object, i);
           }
         } else {
-          this.fileUpload(file, property);
+          this.fileUpload(file, property, object);
         }
       });
     };
 
-    fileUpload = async (file, property, i) => {
+    fileUpload = async (file, property, object, i) => {
       this.setState({
         spinner: true,
       });
@@ -775,7 +873,6 @@ function withForm(Component) {
       };
       try {
         const { data } = await post(url, formData, config);
-        // console.log(data);
         if (property === 'downloadURLs') {
           const urlArray = [...this.state.oggetti.downloadURLs];
           const idArray = [...this.state.oggetti.downloadURLsId];
@@ -792,13 +889,13 @@ function withForm(Component) {
             spinner: false,
           });
         } else {
-          const urlArray = [...this.state.oggetti[property]];
+          const urlArray = [...this.state[object][property]];
           urlArray.push(data.source_url);
-          const idArray = [...this.state.oggetti[`${property}Id`]];
+          const idArray = [...this.state[object][`${property}Id`]];
           idArray.push(data.id);
           this.setState({
-            oggetti: {
-              ...this.state.oggetti,
+            [object]: {
+              ...this.state[object],
               [property]: urlArray,
               [`${property}Id`]: idArray,
             },
@@ -813,7 +910,7 @@ function withForm(Component) {
       }
     };
 
-    handleRemovePicture = (picture, property) => {
+    handleRemovePicture = (picture, property, object) => {
       this.setState({ spinner: true });
       let idDe = false;
       let idEn = false;
@@ -822,28 +919,16 @@ function withForm(Component) {
 
       if (property === 'downloadURLs') {
         const urlArray = [...this.state.oggetti.downloadURLs];
-        // const urlArrayDe = [...urlArray[0]];
-        // const urlArrayEn = [...urlArray[1]];
-        // const urlArrayIt = [...urlArray[2]];
 
         urlArray[0].splice(picture, 1);
         urlArray[1].splice(picture, 1);
         urlArray[2].splice(picture, 1);
 
-        // urlArray[0] = urlArrayDe;
-        // urlArray[1] = urlArrayEn;
-        // urlArray[2] = urlArrayIt;
-
         const idArray = [...this.state.oggetti.downloadURLsId];
-        // const idArrayDe = [...idArray[0]];
-        // const idArrayEn = [...idArray[1]];
-        // const idArrayIt = [...idArray[2]];
+
         idDe = idArray[0].splice(picture, 1);
         idEn = idArray[1].splice(picture, 1);
         idIt = idArray[2].splice(picture, 1);
-        // idArray[0] = idArrayDe;
-        // idArray[1] = idArrayEn;
-        // idArray[2] = idArrayIt;
 
         this.setState((prevState) => ({
           oggetti: {
@@ -853,26 +938,32 @@ function withForm(Component) {
           },
         }));
       } else {
-        let urlArray = [...this.state.oggetti[property]];
+        let urlArray = [...this.state[object][property]];
+        console.log(urlArray);
         urlArray.splice(picture, 1);
+        console.log(urlArray);
 
         if (urlArray === undefined || urlArray.length < 1) {
           urlArray = [];
         }
 
-        let idArray = [...this.state.oggetti[`${property}Id`]];
+        let idArray = [...this.state[object][`${property}Id`]];
+        console.log(idArray);
         // se cancello grundriss passo l'id del media alla variabile idGrundriss
         // altrimenti sto cancellando cover e basta togliere l'id feature_media da post
         if (property === 'downloadURLsGrundriss') {
           idGrundriss = idArray.splice(picture, 1);
+        } else {
+          idArray.splice(picture, 1);
         }
+        console.log(idArray);
 
         if (idArray === undefined || idArray.length < 1) {
           idArray = [];
         }
         this.setState((prevState) => ({
-          oggetti: {
-            ...prevState.oggetti,
+          [object]: {
+            ...prevState[object],
             [property]: urlArray,
             [`${property}Id`]: idArray,
           },
@@ -979,6 +1070,10 @@ function withForm(Component) {
               spinner: false,
             });
           });
+      } else {
+        this.setState({
+          spinner: false,
+        });
       }
     };
 

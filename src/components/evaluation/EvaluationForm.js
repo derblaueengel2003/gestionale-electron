@@ -46,26 +46,38 @@ class EvaluationForm extends Component {
       this.props.renderError(this.props.t('evaluation_form_submission_error'));
     } else {
       this.props.onSubmit({
-        cloudURL: evaluations.cloudURL,
         affittoNetto,
-        m2,
-        rendite,
-        wohnlage: evaluations.wohnlage,
+        // cover: evaluations.cover,
         bodenRichtwert,
         bodenRichtwert2,
         bodenRichtwert3,
+        bodenrichtwertSnippet: evaluations.bodenrichtwertSnippet,
+        cloudURL: evaluations.cloudURL,
         dataEvaluation: evaluations.dataEvaluation.valueOf(),
         mietspiegel,
         mietendeckel,
+        mietspiegelSnippet: evaluations.mietspiegelSnippet,
+        m2,
         immobilienpreisMin,
         immobilienpreisMax,
         immobilienpreisAverage,
+        immobilienPreisSnippet: evaluations.immobilienPreisSnippet,
         is24Evaluation,
+        is24Snippet: evaluations.is24Snippet,
         note: evaluations.note,
         oggettoId: evaluations.oggettoId,
+        rendite,
         result,
+        testoIntroduttivoDe: evaluations.testoIntroduttivoDe,
+        testoFinaleDe: evaluations.testoFinaleDe,
+        testoIntroduttivoEn: evaluations.testoIntroduttivoEn,
+        testoFinaleEn: evaluations.testoFinaleEn,
+        testoIntroduttivoIt: evaluations.testoIntroduttivoIt,
+        testoFinaleIt: evaluations.testoFinaleIt,
         titolo: evaluations.titolo,
         visible: evaluations.visible,
+        wohnlage: evaluations.wohnlage,
+        wohnlageSnippet: evaluations.wohnlageSnippet,
       });
     }
   };
@@ -78,6 +90,7 @@ class EvaluationForm extends Component {
       renderInput,
       renderTextArea,
       renderCheckbox,
+      renderUploadImage,
       changeHandlerValuta,
     } = this.props;
 
@@ -271,6 +284,72 @@ class EvaluationForm extends Component {
             {this.props.utente.role === 'Admin'
               ? renderCheckbox('evaluations', 'visible', t('visible'))
               : ''}
+          </div>
+          {/* 
+          
+          */}
+          <div>
+            <ul className='collection'>
+              {/*  
+              {renderUploadImage('evaluations', 'cover', 'Cover')}
+            */}
+              {renderUploadImage('evaluations', 'wohnlageSnippet', 'Wohnlage')}
+              {renderUploadImage(
+                'evaluations',
+                'bodenrichtwertSnippet',
+                'Bodenrichtwert'
+              )}
+              {renderUploadImage(
+                'evaluations',
+                'immobilienPreisSnippet',
+                'Immobilien Preis Info'
+              )}
+              {renderUploadImage('evaluations', 'is24Snippet', 'ImmoScout24')}
+              {renderUploadImage(
+                'evaluations',
+                'mietspiegelSnippet',
+                'Mietspiegel'
+              )}
+            </ul>
+          </div>
+          <div>
+            {t('german')}
+            {renderTextArea(
+              'evaluations',
+              'testoIntroduttivoDe',
+              t('evaluation_text_initial')
+            )}
+            {renderTextArea(
+              'evaluations',
+              'testoFinaleDe',
+              t('evaluation_text_final')
+            )}
+          </div>
+          <div>
+            {t('english')}
+            {renderTextArea(
+              'evaluations',
+              'testoIntroduttivoEn',
+              t('evaluation_text_initial')
+            )}
+            {renderTextArea(
+              'evaluations',
+              'testoFinaleEn',
+              t('evaluation_text_final')
+            )}
+          </div>
+          <div>
+            {t('italian')}
+            {renderTextArea(
+              'evaluations',
+              'testoIntroduttivoIt',
+              t('evaluation_text_initial')
+            )}
+            {renderTextArea(
+              'evaluations',
+              'testoFinaleIt',
+              t('evaluation_text_final')
+            )}
           </div>
           <div>
             <button className='btn-floating blue right btn-floating-margin'>

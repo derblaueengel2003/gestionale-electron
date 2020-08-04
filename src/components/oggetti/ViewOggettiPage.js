@@ -9,10 +9,12 @@ import { expose } from '../moduli/Expose';
 import ImmoscoutAPI from './ImmoscoutAPI';
 import Intestazione from '../common/Intestazione';
 import EvaluationList from '../evaluation/EvaluationList';
-import { ipcRenderer } from 'electron';
 import Mappa from './Mappa';
 import M2SquareAPI from './M2SquareAPI';
+import CollectionItem from '../common/collectionItem';
+import { ipcRenderer } from 'electron';
 
+// ELECTRON
 export class ViewOggettiPage extends React.Component {
   componentDidMount() {
     M.AutoInit();
@@ -57,6 +59,9 @@ export class ViewOggettiPage extends React.Component {
         postIdDe: '',
         postIdEn: '',
         postIdIt: '',
+        linkDe: '',
+        linkEn: '',
+        linkIt: '',
       };
 
       return (
@@ -258,74 +263,53 @@ export class ViewOggettiPage extends React.Component {
             {/* Se ho cover e titolo, mostro il pulsante exposé */}
             <ul className='collection  s12 m6'>
               {oggetto.downloadURLsCover && oggetto.titoloDe && (
-                <li className='collection-item'>
-                  <div>
-                    Exposé {t('tedesco')}
-                    <a href='#!' className='secondary-content'>
-                      <i
-                        className='material-icons'
-                        onClick={() => {
-                          expose(
-                            oggetto,
-                            this.props.firma,
-                            this.props.utente,
-                            this.props.ceo,
-                            'de'
-                          );
-                        }}
-                      >
-                        picture_as_pdf
-                      </i>
-                    </a>
-                  </div>
-                </li>
+                <CollectionItem
+                  label={`Exposé ${t('tedesco')}`}
+                  action={() => {
+                    expose(
+                      oggetto,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'de'
+                    );
+                  }}
+                  icon={'picture_as_pdf'}
+                  btnColor={'blue'}
+                />
               )}
 
               {oggetto.downloadURLsCover && oggetto.titolo && (
-                <li className='collection-item'>
-                  <div>
-                    Exposé {t('italiano')}
-                    <a href='#!' className='secondary-content'>
-                      <i
-                        className='material-icons'
-                        onClick={() => {
-                          expose(
-                            oggetto,
-                            this.props.firma,
-                            this.props.utente,
-                            this.props.ceo,
-                            'it'
-                          );
-                        }}
-                      >
-                        picture_as_pdf
-                      </i>
-                    </a>
-                  </div>
-                </li>
+                <CollectionItem
+                  label={`Exposé ${t('italiano')}`}
+                  action={() => {
+                    expose(
+                      oggetto,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'it'
+                    );
+                  }}
+                  icon={'picture_as_pdf'}
+                  btnColor={'blue'}
+                />
               )}
               {oggetto.downloadURLsCover && oggetto.titoloEn && (
-                <li className='collection-item'>
-                  <div>
-                    Exposé {t('inglese')}
-                    <a href='#!' className='secondary-content'>
-                      <i
-                        className='material-icons'
-                        onClick={() => {
-                          expose(
-                            oggetto,
-                            this.props.firma,
-                            this.props.utente,
-                            this.props.ceo,
-                            'en'
-                          );
-                        }}
-                      >
-                        picture_as_pdf
-                      </i>
-                    </a>
-                  </div>
-                </li>
+                <CollectionItem
+                  label={`Exposé ${t('inglese')}`}
+                  action={() => {
+                    expose(
+                      oggetto,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'en'
+                    );
+                  }}
+                  icon={'picture_as_pdf'}
+                  btnColor={'blue'}
+                />
               )}
             </ul>
 
@@ -422,6 +406,7 @@ export class ViewOggettiPage extends React.Component {
               })}
           </div>
           <Mappa oggetto={oggetto} />
+
           {oggetto.titolo && (
             <div className='container margine-basso'>
               <div className='grey lighten-4'>

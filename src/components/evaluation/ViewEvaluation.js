@@ -9,6 +9,9 @@ import moment from 'moment';
 import OggettiList from '../oggetti/OggettiList';
 import Mappa from '../oggetti/Mappa';
 import { storeActions } from '../../store/configureStore';
+import evaluationPdf from './EvaluationPdf';
+import CollectionItem from '../common/collectionItem';
+
 import { ipcRenderer } from 'electron';
 
 export class ViewEvaluation extends React.Component {
@@ -86,6 +89,12 @@ export class ViewEvaluation extends React.Component {
       rendite,
       result,
       titolo,
+      testoIntroduttivoDe,
+      testoIntroduttivoEn,
+      testoIntroduttivoIt,
+      testoFinaleDe,
+      testoFinaleEn,
+      testoFinaleIt,
     } = this.props.evaluation;
 
     const { evaluation, oggetti, t } = this.props;
@@ -209,6 +218,177 @@ export class ViewEvaluation extends React.Component {
             </li>
           </ul>
         </div>
+        <div className='container section'>
+          {/* Se ho cover e titolo, mostro il pulsante exposé */}
+          <ul className='collection  s12 m6'>
+            {oggetto && (
+              <CollectionItem
+                label={`${t('evaluation_german')}`}
+                action={() => {
+                  evaluationPdf(
+                    this.props.evaluation,
+                    this.props.firma,
+                    this.props.utente,
+                    this.props.ceo,
+                    'De',
+                    oggetto
+                  );
+                }}
+                icon={'article'}
+                btnColor={'blue'}
+              />
+            )}
+
+            {oggetto && (
+              <CollectionItem
+                label={`${t('evaluation_english')}`}
+                action={() => {
+                  evaluationPdf(
+                    this.props.evaluation,
+                    this.props.firma,
+                    this.props.utente,
+                    this.props.ceo,
+                    'En',
+                    oggetto
+                  );
+                }}
+                icon={'article'}
+                btnColor={'blue'}
+              />
+            )}
+
+            {oggetto && (
+              <CollectionItem
+                label={`${t('evaluation_italian')}`}
+                action={() => {
+                  evaluationPdf(
+                    this.props.evaluation,
+                    this.props.firma,
+                    this.props.utente,
+                    this.props.ceo,
+                    'It',
+                    oggetto
+                  );
+                }}
+                icon={'article'}
+                btnColor={'blue'}
+              />
+            )}
+          </ul>
+        </div>
+        {/* 
+          <div className='container'>
+          {evaluation.cover && (
+            <div className='grey lighten-4'>
+            <div>
+            <h1>{t('cover')}</h1>
+            </div>{' '}
+            </div>
+            )}
+            {evaluation.cover &&
+              evaluation.cover.map((downloadURL, i) => {
+                return <img className='foto' key={i} src={downloadURL} />;
+              })}
+              </div>
+            */}
+        <div className='container'>
+          {evaluation.wohnlageSnippet && (
+            <div className='grey lighten-4'>
+              <div>
+                <h1>{t('wohnlage')}</h1>
+              </div>{' '}
+            </div>
+          )}
+          {evaluation.wohnlageSnippet &&
+            evaluation.wohnlageSnippet.map((downloadURL, i) => {
+              return <img className='foto' key={i} src={downloadURL} />;
+            })}
+        </div>
+        <div className='container'>
+          {evaluation.bodenrichtwertSnippet && (
+            <div className='grey lighten-4'>
+              <div>
+                <h1>{t('bodenrichtwert')}</h1>
+              </div>{' '}
+            </div>
+          )}
+          {evaluation.bodenrichtwertSnippet &&
+            evaluation.bodenrichtwertSnippet.map((downloadURL, i) => {
+              return <img className='foto' key={i} src={downloadURL} />;
+            })}
+        </div>
+        <div className='container'>
+          {evaluation.immobilienPreisSnippet && (
+            <div className='grey lighten-4'>
+              <div>
+                <h1>{t('immobilienpreis')}</h1>
+              </div>{' '}
+            </div>
+          )}
+          {evaluation.immobilienPreisSnippet &&
+            evaluation.immobilienPreisSnippet.map((downloadURL, i) => {
+              return <img className='foto' key={i} src={downloadURL} />;
+            })}
+        </div>
+        <div className='container'>
+          {evaluation.is24Snippet && (
+            <div className='grey lighten-4'>
+              <div>
+                <h1>{t('is24')}</h1>
+              </div>{' '}
+            </div>
+          )}
+          {evaluation.is24Snippet &&
+            evaluation.is24Snippet.map((downloadURL, i) => {
+              return <img className='foto' key={i} src={downloadURL} />;
+            })}
+        </div>
+        <div className='container'>
+          {evaluation.mietspiegelSnippet && (
+            <div className='grey lighten-4'>
+              <div>
+                <h1>{t('mietspiegel')}</h1>
+              </div>{' '}
+            </div>
+          )}
+          {evaluation.mietspiegelSnippet &&
+            evaluation.mietspiegelSnippet.map((downloadURL, i) => {
+              return <img className='foto' key={i} src={downloadURL} />;
+            })}
+        </div>
+        <div className='container'>
+          {testoIntroduttivoDe && (
+            <div className='grey lighten-4'>
+              <div>
+                <h1>{t('german')}</h1>
+              </div>{' '}
+            </div>
+          )}
+          {testoIntroduttivoDe}
+          {testoFinaleDe && <div>{testoFinaleDe}</div>}
+        </div>
+        <div className='container'>
+          {testoIntroduttivoEn && (
+            <div className='grey lighten-4'>
+              <div>
+                <h1>{t('english')}</h1>
+              </div>{' '}
+            </div>
+          )}
+          {testoIntroduttivoEn}
+          {testoFinaleEn && <div>{testoFinaleEn}</div>}
+        </div>
+        <div className='container'>
+          {testoIntroduttivoIt && (
+            <div className='grey lighten-4'>
+              <div>
+                <h1>{t('italian')}</h1>
+              </div>{' '}
+            </div>
+          )}
+          {testoIntroduttivoIt}
+          {testoFinaleIt && <div>{testoFinaleIt}</div>}
+        </div>
         <Mappa
           indirizzo={
             oggetto
@@ -230,6 +410,8 @@ const mapStateToProps = (state, props) => ({
   utente: state.utenti.find(
     (utente) => utente.firebaseAuthId === state.auth.uid
   ),
+  firma: state.firma[0],
+  ceo: state.utenti.filter((utente) => utente.qualifica === 'Geschäftsführer'),
 });
 
 const mapDispatchToProps = (dispatch) => ({

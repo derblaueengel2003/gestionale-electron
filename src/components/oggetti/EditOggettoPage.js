@@ -50,35 +50,28 @@ export class EditOggettoPage extends React.Component {
     } else {
       this.setState(() => ({
         isOpen: true,
-        modalContent: 'cannot_delete',
+        modalContent: 'cannot_delete_property',
         btnEnabled: false,
       }));
     }
   };
 
   onDisable = () => {
-    if (
-      window.confirm(
-        this.props.t(
-          'Confermi la cancellazione? Questa operazione è irreversibile!'
-        )
-      )
-    ) {
-      if (this.onValidate()) {
-        this.props.startEditOggetto(this.props.oggetto.id, {
-          ...this.props.oggetto,
-          visible: false,
-        });
-        this.props.history.push('/oggetti');
-      } else {
-        alert(
-          this.props.t(
-            "Impossibile cancellare l'oggetto perché è presente nelle vendite o nei contatti"
-          )
-        );
-      }
+    if (this.onValidate()) {
+      this.props.startEditOggetto(this.props.oggetto.id, {
+        ...this.props.oggetto,
+        visible: false,
+      });
+      this.props.history.push('/oggetti');
+    } else {
+      this.setState(() => ({
+        isOpen: true,
+        modalContent: 'cannot_delete_property',
+        btnEnabled: false,
+      }));
     }
   };
+
   render() {
     if (
       !this.props.oggetto ||
