@@ -83,6 +83,7 @@ module.exports = (env) => {
         'process.env.WPAPI_PASSWORD': JSON.stringify(
           process.env.WPAPI_PASSWORD
         ),
+        'process.env.HEROKU_API': JSON.stringify(process.env.HEROKU_API),
       }),
     ],
     devtool: isProduction ? 'source-map' : 'inline-source-map',

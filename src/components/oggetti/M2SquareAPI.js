@@ -22,8 +22,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           },
           { cancelToken: source.token }
         );
-
-        localStorage.setItem('token', data);
+        localStorage.setItem('token', data.token);
       } catch (error) {
         if (axios.isCancel(error)) {
           console.log('cancelled');
@@ -32,7 +31,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
         }
       }
     };
-
+    loadData();
     return () => {
       source.cancel();
     };
@@ -281,7 +280,6 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
 
   const postProperty = async (language, payload) => {
     startEditOggetto(oggetto.id, {
-      ...oggetto,
       spinner: true,
     });
     try {
@@ -299,7 +297,6 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
       localStorage.setItem(`postId${language}`, data.id);
       // passo allo store il post id che mi ritorna
       await startEditOggetto(oggetto.id, {
-        ...oggetto,
         [`postId${language}`]: data.id,
         [`link${language}`]: data.link,
       });
@@ -343,7 +340,6 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
       console.log(error);
     } finally {
       startEditOggetto(oggetto.id, {
-        ...oggetto,
         spinner: false,
       });
     }
@@ -351,7 +347,6 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
 
   const updateProperty = async (postId, payload, language) => {
     startEditOggetto(oggetto.id, {
-      ...oggetto,
       spinner: true,
     });
     try {
@@ -366,7 +361,6 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
         }
       );
       startEditOggetto(oggetto.id, {
-        ...oggetto,
         [`link${language}`]: data.link,
       });
 
@@ -409,7 +403,6 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
       console.log(error);
     } finally {
       startEditOggetto(oggetto.id, {
-        ...oggetto,
         spinner: false,
       });
     }

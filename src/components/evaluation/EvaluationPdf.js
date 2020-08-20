@@ -6,7 +6,7 @@ import moment from 'moment';
 
 // se c'é già l'oggetto uso la foto come copertina altrimenti uso una foto generica
 const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
-  const doc = new jsPDF('p', 'mm', 'a4');
+  const doc = new jsPDF('p', 'mm', 'a4', true);
   doc.setFont('helvetica');
   let fontStart = 14;
   let xPos = 15;
@@ -15,6 +15,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
   if (lingua === 'De') {
     traduzione = {
       apartment: 'Eigentumswohnung',
+
       evaluation: 'Immobilienbewertung',
       testoIntroduttivo:
         'Sehr geehrte Damen und Herren,\nvielen Dank für Ihre Bewertungsanfrage. Ihre Wohnung hat uns sehr positiv beeindruckt.\nWie versprochen, haben wir eine Bewertung der Immobilie durchgeführt, indem wir historische Daten, Marktdaten und Merkmale analysiert haben.\n',
@@ -71,14 +72,14 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
         'Sviluppo del valore del terreno negli ultimi 3 anni:',
       is24Text: 'Risultati valutazione del portale immobiliare ImmoScout24:',
       immobilienpreisText:
-        'Prezzi reali di vendita di appartamenti simili negli ultimi 2 anni:',
+        'Prezzi reali di vendita di immobili simili negli ultimi 2 anni:',
       mietspiegelText: 'Media degli affitti di zona:',
       mietendeckelText:
         'Secondo la nuova normativa sul tetto massimo degli affitti, il netto ammonta a  ',
       datiIntroText:
         'Per la valutazione abbiamo preso in considerazione i seguenti dati:',
       testoFinale:
-        "Naturalmente abbiamo corretto la valutazione tenendo conto delle particolarità dell'appartamento e siamo giunti a una valutazione di",
+        "Naturalmente abbiamo corretto la valutazione tenendo conto delle particolarità dell'immobile e siamo giunti a una valutazione di",
       testoFinale2:
         "Ci auguriamo che la nostra valutazione rispecchi le Sue aspettative. Siamo a Sua disposizione nel caso in cui desiderasse mettere in vendita l'immobile.\n\nCordiali saluti,",
 
@@ -157,7 +158,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
   }
 
   const frontPage = (textArray, fontSize) => {
-    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'SLOW');
+    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
     const pdfWidth = doc.internal.pageSize.getWidth();
 
     if (oggetto.downloadURLsCover) {
@@ -165,7 +166,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
       cover.src = oggetto.downloadURLsCover;
       const imgProps = doc.getImageProperties(cover);
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      doc.addImage(cover, 'JPEG', -100, 30, pdfWidth * 1.7, pdfHeight * 1.7);
+      doc.addImage(cover, 'PNG', -100, 30, pdfWidth * 1.7, pdfHeight * 1.7);
     }
 
     // Titolo
@@ -217,7 +218,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
     doc.addImage(
       wohnlageImg,
-      'JPEG',
+      'PNG',
       xPos,
       yPos + 110,
       pdfWidth * 0.8,
@@ -227,7 +228,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
   const introPage = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'SLOW');
+    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
     doc.setTextColor(0, 0, 0);
 
     const text =
@@ -242,7 +243,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
   const bodenrichtwertPage = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'SLOW');
+    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
     yPos += 15;
     doc.text(traduzione.bodenrichtwertText, xPos, yPos);
     yPos += 15;
@@ -256,7 +257,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
       doc.text(moment().subtract(i, 'years').format('YYYY'), xPos, yPos);
       doc.addImage(
         brwImg,
-        'JPEG',
+        'PNG',
         xPos + 30,
         yPos,
         pdfWidth * 0.5,
@@ -268,7 +269,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
   const is24Page = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'SLOW');
+    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
     yPos = 30;
     doc.text(traduzione.is24Text, xPos, yPos);
     yPos += 15;
@@ -278,12 +279,12 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
     const imgProps = doc.getImageProperties(is24Img);
     const pdfWidth = doc.internal.pageSize.getWidth();
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    doc.addImage(is24Img, 'JPEG', xPos, yPos, pdfWidth * 0.8, pdfHeight * 0.8);
+    doc.addImage(is24Img, 'PNG', xPos, yPos, pdfWidth * 0.8, pdfHeight * 0.8);
   };
 
   const immobilienpreisPage = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'SLOW');
+    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
     yPos = 30;
     doc.text(traduzione.immobilienpreisText, xPos, yPos);
     yPos += 15;
@@ -295,7 +296,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
     doc.addImage(
       immobilienpreisImg,
-      'JPEG',
+      'PNG',
       xPos,
       yPos,
       pdfWidth * 0.8,
@@ -305,7 +306,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
   const mietspiegelPage = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'SLOW');
+    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
     yPos = 30;
     doc.text(traduzione.mietspiegelText, xPos, yPos);
     yPos += 15;
@@ -317,7 +318,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
     doc.addImage(
       mietspiegelImg,
-      'JPEG',
+      'PNG',
       xPos,
       yPos,
       pdfWidth * 0.8,
@@ -337,12 +338,12 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
   const resultPage = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'SLOW');
+    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
     yPos = 30;
     const text =
       evaluation[`testoFinale${lingua}`] ||
       `${traduzione.testoFinale} ${numeral(
-        (evaluation.result * oggetto.m2) / 100
+        (evaluation.result * parseFloat(oggetto.m2.replace(/,/, '.'), 10)) / 100
       ).format('0,0.00')} €.\n\n${traduzione.testoFinale2}\n\n${utente.name}\n${
         utente.email
       }\n${utente.telefon}`;
@@ -355,7 +356,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
   frontPage(
     [
       traduzione.evaluation,
-      traduzione.apartment,
+      // traduzione.property,
       `${oggetto.via} ${oggetto.numeroCivico}`,
       `${oggetto.cap} ${oggetto.citta}`,
     ],
@@ -376,7 +377,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
     if (i < 1) {
       ceoList += `${ceo.name}`;
     } else {
-      ceoList += ` ,${ceo.name}`;
+      ceoList += `, ${ceo.name}`;
     }
   });
   frontPage(

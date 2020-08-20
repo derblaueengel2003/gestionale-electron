@@ -9,7 +9,7 @@ export class CustomerForm extends React.Component {
 
     const { clienti } = this.props.data;
 
-    if (!clienti.cognome) {
+    if (!clienti.cognome && !clienti.ditta) {
       this.props.renderError(this.props.t('form_alert_missing_name'));
     } else {
       this.props.renderError('');

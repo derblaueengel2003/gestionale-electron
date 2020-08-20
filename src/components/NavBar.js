@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import Sidebar from './Sidebar';
-import { ipcRenderer } from 'electron';
 
 export const NavBar = ({ utente, t, activeClass }) => {
   if (utente) {
@@ -19,6 +18,7 @@ export const NavBar = ({ utente, t, activeClass }) => {
       menuItems = [
         ...menuItems,
         // { pathLink: 'report', label: 'Report' },
+        { pathLink: 'newsletters', label: t('Newsletters') },
         { pathLink: 'utenti', label: t('Utenti') },
         { pathLink: 'fatture', label: t('Fatture') },
       ];
@@ -41,8 +41,6 @@ export const NavBar = ({ utente, t, activeClass }) => {
       </nav>
     );
   } else {
-    ipcRenderer.send('window:reload');
-
     // setTimeout(location.reload(), 1000);
     return <div>Loading...</div>;
   }

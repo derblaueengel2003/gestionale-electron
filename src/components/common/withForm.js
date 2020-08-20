@@ -581,6 +581,21 @@ function withForm(Component) {
               : ''
             : '',
         },
+        newsletters: {
+          dataNewsletter: props.newsletter
+            ? props.newsletter.dataNewsletter &&
+              moment(props.newsletter.dataNewsletter)
+            : moment(),
+          oggetto1: props.newsletter ? props.newsletter.oggetto1 : null,
+          oggetto2: props.newsletter ? props.newsletter.oggetto2 : null,
+          oggetto3: props.newsletter ? props.newsletter.oggetto3 : null,
+          oggetto4: props.newsletter ? props.newsletter.oggetto4 : null,
+          oggetto5: props.newsletter ? props.newsletter.oggetto5 : null,
+          oggetto6: props.newsletter ? props.newsletter.oggetto6 : null,
+          newsletterText: props.newsletter ? props.newsletterText : '',
+          mailchimpId: props.newsletter ? props.newsletter.mailchimpId : null,
+          visible: props.newsletter ? props.newsletter.visible : true,
+        },
 
         // ERROR
         error: '',

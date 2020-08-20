@@ -17,6 +17,8 @@ export default (
     .filter((item) => {
       const findCliente = (customerId) =>
         clienti.find((cliente) => cliente.id === customerId);
+      const findOggetto = (oggettoId) =>
+        oggetti.find((ogg) => ogg.id === oggettoId);
 
       let searchString = '';
 
@@ -97,6 +99,18 @@ export default (
         createdAtMoment = moment(item.dataEvaluation);
 
         searchString += `${item.titolo}`;
+      }
+
+      if (nomeLista === 'newsletters') {
+        createdAtMoment = moment(item.dataNewsletter);
+        const oggetto1 = item.oggetto1 ? findOggetto(item.oggetto1).rifId : '';
+        const oggetto2 = item.oggetto2 ? findOggetto(item.oggetto2).rifId : '';
+        const oggetto3 = item.oggetto3 ? findOggetto(item.oggetto3).rifId : '';
+        const oggetto4 = item.oggetto4 ? findOggetto(item.oggetto4).rifId : '';
+        const oggetto5 = item.oggetto5 ? findOggetto(item.oggetto5).rifId : '';
+        const oggetto6 = item.oggetto6 ? findOggetto(item.oggetto6).rifId : '';
+
+        searchString += `${oggetto1}${oggetto2}${oggetto3}${oggetto4}${oggetto5}${oggetto6}`;
       }
 
       const startDateMatch =

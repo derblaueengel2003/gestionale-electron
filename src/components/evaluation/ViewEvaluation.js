@@ -295,7 +295,7 @@ export class ViewEvaluation extends React.Component {
           {evaluation.wohnlageSnippet && (
             <div className='grey lighten-4'>
               <div>
-                <h1>{t('wohnlage')}</h1>
+                <h1>{t('area_classification')}</h1>
               </div>{' '}
             </div>
           )}
@@ -308,7 +308,7 @@ export class ViewEvaluation extends React.Component {
           {evaluation.bodenrichtwertSnippet && (
             <div className='grey lighten-4'>
               <div>
-                <h1>{t('bodenrichtwert')}</h1>
+                <h1>{t('land_price')}</h1>
               </div>{' '}
             </div>
           )}
@@ -321,7 +321,7 @@ export class ViewEvaluation extends React.Component {
           {evaluation.immobilienPreisSnippet && (
             <div className='grey lighten-4'>
               <div>
-                <h1>{t('immobilienpreis')}</h1>
+                <h1>{t('sold_price')}</h1>
               </div>{' '}
             </div>
           )}
@@ -334,7 +334,7 @@ export class ViewEvaluation extends React.Component {
           {evaluation.is24Snippet && (
             <div className='grey lighten-4'>
               <div>
-                <h1>{t('is24')}</h1>
+                <h1>{t('is24_evaluation')}</h1>
               </div>{' '}
             </div>
           )}

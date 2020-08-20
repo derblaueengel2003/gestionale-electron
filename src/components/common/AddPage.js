@@ -6,6 +6,7 @@ import CustomerForm from '../clienti/ClientiForm';
 import DealForm from '../deals/DealForm';
 import OggettoForm from '../oggetti/OggettoForm';
 import EvaluationForm from '../evaluation/EvaluationForm';
+import NewsletterForm from '../newsletter/NewsletterForm';
 import FatturaForm from '../fatture/FatturaForm';
 import FirmaForm from '../firma/FirmaForm';
 import UserForm from '../utenti/UserForm';
@@ -187,6 +188,10 @@ export class AddPage extends React.Component {
           {/* EVALUATIONS */}
           {this.props.item === 'evaluations' && (
             <EvaluationForm onSubmit={this.onSubmit} evaluation={evaluation} />
+          )}
+          {/* NEWSLETTERS */}
+          {this.props.item === 'newsletters' && (
+            <NewsletterForm onSubmit={this.onSubmit} />
           )}
           {/* FATTURE */}
           {this.props.item === 'fatture' && (

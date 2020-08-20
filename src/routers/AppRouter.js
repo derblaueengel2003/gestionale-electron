@@ -40,6 +40,9 @@ import NotarDatenblattForm from '../components/moduli/NotarDatenblattForm';
 import EvaluationDashboard from '../components/evaluation/EvaluationDashboard';
 import EditEvaluation from '../components/evaluation/EditEvaluation';
 import ViewEvaluation from '../components/evaluation/ViewEvaluation';
+import NewsletterDashboard from '../components/newsletter/NewsletterDashboard';
+import EditNewsletter from '../components/newsletter/EditNewsletter';
+import ViewNewsletter from '../components/newsletter/ViewNewsletter';
 import AddPage from '../components/common/AddPage';
 
 export const history = createHistory();
@@ -141,6 +144,28 @@ const AppRouter = () => {
             path='/evaluationview/:id'
             activeClass='evaluations'
             component={ViewEvaluation}
+          />
+
+          {/* NEWSLETTER */}
+          <PrivateRoute
+            path='/newsletters'
+            activeClass='newsletters'
+            component={NewsletterDashboard}
+          />
+          <PrivateRoute
+            path='/newslettercreate'
+            activeClass='newsletters'
+            component={AddPage}
+          />
+          <PrivateRoute
+            path='/newsletteredit/:id'
+            activeClass='newsletters'
+            component={EditNewsletter}
+          />
+          <PrivateRoute
+            path='/newsletterview/:id'
+            activeClass='newsletters'
+            component={ViewNewsletter}
           />
 
           {/* UTENTI E DITTA */}

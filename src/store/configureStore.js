@@ -14,6 +14,7 @@ export const storeSections = [
   'fatture',
   'firma',
   'leads',
+  'newsletters',
   'offers',
   'oggetti',
   'utenti',

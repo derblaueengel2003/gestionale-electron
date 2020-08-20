@@ -58,10 +58,11 @@ export class Sidebar extends Component {
               {t('evaluations')}
             </Link>
           </li>
+
           {this.props.utente.role === 'Admin' && (
             <li>
-              <Link className='sidenav-close' to='/report'>
-                Report
+              <Link className='sidenav-close' to='/newsletters'>
+                {t('newsletters')}
               </Link>
             </li>
           )}

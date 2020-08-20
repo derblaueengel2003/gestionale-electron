@@ -248,16 +248,34 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     if (oggetto.heizungsart.length > 0) {
       let heizungsArt = oggetto.heizungsart;
       if (lingua === 'it') {
-        if (heizungsArt === 'Zentralheizung') {
+        if (
+          heizungsArt === 'Zentralheizung' ||
+          heizungsArt === 'heating_central'
+        ) {
           heizungsArt = 'centralizzato';
-        } else if (heizungsArt === 'Etagenheizung') {
+        } else if (
+          heizungsArt === 'Etagenheizung' ||
+          heizungsArt === 'heating_floor'
+        ) {
           heizungsArt = 'indipendente';
         }
       } else if (lingua === 'en') {
-        if (heizungsArt === 'Zentralheizung') {
+        if (
+          heizungsArt === 'Zentralheizung' ||
+          heizungsArt === 'heating_central'
+        ) {
           heizungsArt = 'central';
-        } else if (heizungsArt === 'Etagenheizung') {
+        } else if (
+          heizungsArt === 'Etagenheizung' ||
+          heizungsArt === 'heating_floor'
+        ) {
           heizungsArt = 'floor heating';
+        }
+      } else if (lingua === 'de') {
+        if (heizungsArt === 'heating_central') {
+          heizungsArt = 'Zentralheizung';
+        } else if (heizungsArt === 'heating_floor') {
+          heizungsArt = 'Etagenheizung';
         }
       }
       acapo += 5;
@@ -267,18 +285,37 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     if (oggetto.energieAusweisTyp.length > 0) {
       let energieausweis = oggetto.energieAusweisTyp;
       if (lingua === 'it') {
-        if (energieausweis === 'Verbrauchsausweis') {
+        if (
+          energieausweis === 'Verbrauchsausweis' ||
+          energieausweis === 'based_on_consumption'
+        ) {
           energieausweis = 'consumo';
-        } else if (energieausweis === 'Bedarfsausweis') {
+        } else if (
+          energieausweis === 'Bedarfsausweis' ||
+          energieausweis === 'based_on_requirement'
+        ) {
           energieausweis = 'fabbisogno';
         }
       } else if (lingua === 'en') {
-        if (energieausweis === 'Verbrauchsausweis') {
+        if (
+          energieausweis === 'Verbrauchsausweis' ||
+          energieausweis === 'based_on_consumption'
+        ) {
           energieausweis = 'consumption';
-        } else if (energieausweis === 'Bedarfsausweis') {
+        } else if (
+          energieausweis === 'Bedarfsausweis' ||
+          energieausweis === 'based_on_requirement'
+        ) {
           energieausweis = 'requirement';
         }
+      } else if (lingua === 'de') {
+        if (energieausweis === 'based_on_consumption') {
+          energieausweis = 'Verbrauchsausweis';
+        } else if (energieausweis === 'based_on_requirement') {
+          energieausweis = 'Bedarfsausweis';
+        }
       }
+
       acapo += 5;
       doc.text(`${traduzione.energieAusweisTyp}: ${energieausweis}`, 15, acapo);
     }
@@ -304,22 +341,43 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     if (oggetto.energieTraeger.length > 0) {
       let energietraeger = oggetto.energieTraeger;
       if (lingua === 'it') {
-        if (energietraeger === 'Erdgas') {
+        if (energietraeger === 'Erdgas' || energietraeger === 'heating_gas') {
           energietraeger = 'gas';
-        } else if (energietraeger === 'Öl') {
+        } else if (
+          energietraeger === 'Öl' ||
+          energietraeger === 'heating_oil'
+        ) {
           energietraeger = 'olio combustibile';
-        } else if (energietraeger === 'Fernwärme') {
+        } else if (
+          energietraeger === 'Fernwärme' ||
+          energietraeger === 'heating_district'
+        ) {
           energietraeger = 'teleriscaldamento';
         }
       } else if (lingua === 'en') {
-        if (energietraeger === 'Erdgas') {
+        if (energietraeger === 'Erdgas' || energietraeger === 'heating_gas') {
           energietraeger = 'gaz';
-        } else if (energietraeger === 'Öl') {
+        } else if (
+          energietraeger === 'Öl' ||
+          energietraeger === 'heating_oil'
+        ) {
           energietraeger = 'fuel oil';
-        } else if (energietraeger === 'Fernwärme') {
+        } else if (
+          energietraeger === 'Fernwärme' ||
+          energietraeger === 'heating_district'
+        ) {
           energietraeger = 'district heating';
         }
+      } else if (lingua === 'de') {
+        if (energietraeger === 'heating_gas') {
+          energietraeger = 'Erdgas';
+        } else if (energietraeger === 'heating_oil') {
+          energietraeger = 'Öl';
+        } else if (energietraeger === 'heating_district') {
+          energietraeger = 'Fernwärme';
+        }
       }
+
       acapo += 5;
       doc.text(`${traduzione.energieTraeger}: ${energietraeger}`, 15, acapo);
     }
@@ -361,19 +419,23 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     if (oggetto.condizioni.length > 0) {
       let oggettoCondizioni = oggetto.condizioni;
       if (lingua === 'it') {
-        if (oggettoCondizioni === 'neu') {
+        if (oggettoCondizioni === 'new') {
           oggettoCondizioni = 'nuovo';
-        } else if (oggettoCondizioni === 'gut') {
+        } else if (oggettoCondizioni === 'good') {
           oggettoCondizioni = 'buone';
-        } else if (oggettoCondizioni === 'renovierunsgbedürftig') {
+        } else if (oggettoCondizioni === 'to_renovate') {
           oggettoCondizioni = 'da ristrutturare';
         }
+      } else if (lingua === 'de') {
+        if (oggettoCondizioni === 'new') {
+          oggettoCondizioni = 'neu';
+        } else if (oggettoCondizioni === 'good') {
+          oggettoCondizioni = 'gut';
+        } else if (oggettoCondizioni === 'to_renovate') {
+          oggettoCondizioni = 'renovierungsbedürftig';
+        }
       } else if (lingua === 'en') {
-        if (oggettoCondizioni === 'neu') {
-          oggettoCondizioni = 'new';
-        } else if (oggettoCondizioni === 'gut') {
-          oggettoCondizioni = 'good';
-        } else if (oggettoCondizioni === 'renovierunsgbedürftig') {
+        if (oggettoCondizioni === 'to_renovate') {
           oggettoCondizioni = 'needs refurbishment';
         }
       }
