@@ -84,30 +84,30 @@ export const notarDatenblatt = (
     verwalter && doc.setFontType('normal');
     verwalter && doc.text(verwalter.ditta, 15, acapo);
 
-    if (verwalter) {
+    if (verwalter.cognome) {
       acapo += 5;
       doc.text(
-        `${verwalter.titolo} ${verwalter.nome}, ${verwalter.cognome}`,
-        15,
-        acapo
-      );
-      acapo += 5;
-      doc.text(
-        `${verwalter.indirizzo}, ${verwalter.cap} ${verwalter.comune}`,
-        15,
-        acapo
-      );
-      acapo += 5;
-      doc.text(
-        `${verwalter.telefono1 && `Tel.: ${verwalter.telefono1} - `}${
-          verwalter.fax && `Fax: ${verwalter.fax} - `
-        }${verwalter.cellulare && `Handy: ${verwalter.cellulare} - `}${
-          verwalter.email && `E-Mail: ${verwalter.email}`
-        }`,
+        `${verwalter.titolo} ${verwalter.nome} ${verwalter.cognome}`,
         15,
         acapo
       );
     }
+    acapo += 5;
+    doc.text(
+      `${verwalter.indirizzo}, ${verwalter.cap} ${verwalter.comune}`,
+      15,
+      acapo
+    );
+    acapo += 5;
+    doc.text(
+      `${verwalter.telefono1 && `Tel.: ${verwalter.telefono1} - `}${
+        verwalter.fax && `Fax: ${verwalter.fax} - `
+      }${verwalter.cellulare && `Handy: ${verwalter.cellulare} - `}${
+        verwalter.email && `E-Mail: ${verwalter.email}`
+      }`,
+      15,
+      acapo
+    );
   };
 
   cartaIntestata();
@@ -168,7 +168,8 @@ export const notarDatenblatt = (
   doc.text(
     `${
       oggetto.tipologia
-        ? oggetto.tipologia === 'Eigentumswohnung'
+        ? oggetto.tipologia === 'Eigentumswohnung' ||
+          oggetto.tipologia === 'property_apt'
           ? 'WE'
           : 'TE'
         : 'WE'
@@ -187,9 +188,17 @@ export const notarDatenblatt = (
   }
   if (oggetto.stato) {
     acapo += 5;
-    doc.text(`Status: ${oggetto.stato}`, 15, acapo);
+    doc.text(
+      `Status: ${
+        oggetto.stato === 'vacant' || oggetto.stato === 'leerstehend'
+          ? 'leerstehend'
+          : 'vermietet'
+      }`,
+      15,
+      acapo
+    );
   }
-  if (oggetto.stato === 'vermietet') {
+  if (oggetto.stato === 'vermietet' || oggetto.stato === 'rented') {
     acapo += 5;
     doc.text(
       `Kaltmiete: ${numeral(oggetto.affittoNetto / 100).format('0,0[.]00 $')}`,

@@ -15,31 +15,27 @@ export const vollmachtNotarauftrag = (
   const doc = new jsPDF();
   const acqDitta = `${acquirente.ditta && `${acquirente.ditta}`}`;
   const acqNome = `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome}`;
-  const acqInd = `${acquirente.indirizzo} ${acquirente.indirizzo2 &&
-    acquirente.indirizzo2}, ${acquirente.cap} ${acquirente.comune}, ${
-    acquirente.nazione
-  }`;
+  const acqInd = `${acquirente.indirizzo} ${
+    acquirente.indirizzo2 && acquirente.indirizzo2
+  }, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`;
   const acqNome2 =
     acquirente2 &&
     `${acquirente2.titolo} ${acquirente2.nome} ${acquirente2.cognome}`;
   const acqInd2 =
     acquirente2 &&
-    `${acquirente2.indirizzo} ${acquirente2.indirizzo2 &&
-      acquirente2.indirizzo2}, ${acquirente2.cap} ${acquirente2.comune}, ${
-      acquirente2.nazione
-    }`;
+    `${acquirente2.indirizzo} ${
+      acquirente2.indirizzo2 && acquirente2.indirizzo2
+    }, ${acquirente2.cap} ${acquirente2.comune}, ${acquirente2.nazione}`;
   const vendDitta = `${venditore.ditta && `${venditore.ditta}`}`;
   const vendNome = `${venditore.titolo} ${venditore.nome} ${venditore.cognome}`;
-  const vendInd = `${venditore.indirizzo} ${venditore.indirizzo2 &&
-    venditore.indirizzo2}, ${venditore.cap} ${venditore.comune}, ${
-    venditore.nazione
-  }`;
+  const vendInd = `${venditore.indirizzo} ${
+    venditore.indirizzo2 && venditore.indirizzo2
+  }, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`;
   const vendInd2 =
     venditore2 &&
-    `${venditore2.indirizzo} ${venditore2.indirizzo2 &&
-      venditore2.indirizzo2}, ${venditore2.cap} ${venditore2.comune}, ${
-      venditore2.nazione
-    }`;
+    `${venditore2.indirizzo} ${
+      venditore2.indirizzo2 && venditore2.indirizzo2
+    }, ${venditore2.cap} ${venditore2.comune}, ${venditore2.nazione}`;
   const vendNome2 =
     venditore2 &&
     `${venditore2.titolo} ${venditore2.nome} ${venditore2.cognome}`;
@@ -98,7 +94,12 @@ export const vollmachtNotarauftrag = (
 
   doc.text(
     `Rif. ID: ${oggetto.rifId} - ${
-      oggetto.tipologia ? oggetto.tipologia : 'Eigentumswohnung'
+      oggetto.tipologia
+        ? oggetto.tipologia === 'Eigentumswohnung' ||
+          oggetto.tipologia === 'property_apt'
+          ? 'Eigentumswohnung'
+          : 'Gewerbe'
+        : ''
     }`,
     30,
     111

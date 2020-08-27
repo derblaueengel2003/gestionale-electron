@@ -586,6 +586,10 @@ function withForm(Component) {
             ? props.newsletter.dataNewsletter &&
               moment(props.newsletter.dataNewsletter)
             : moment(),
+          dataSentNewsletter: props.newsletter
+            ? props.newsletter.dataSentNewsletter &&
+              moment(props.newsletter.dataSentNewsletter)
+            : null,
           oggetto1: props.newsletter ? props.newsletter.oggetto1 : null,
           oggetto2: props.newsletter ? props.newsletter.oggetto2 : null,
           oggetto3: props.newsletter ? props.newsletter.oggetto3 : null,
@@ -595,6 +599,7 @@ function withForm(Component) {
           newsletterText: props.newsletter ? props.newsletterText : '',
           mailchimpId: props.newsletter ? props.newsletter.mailchimpId : null,
           visible: props.newsletter ? props.newsletter.visible : true,
+          sent: props.newsletter ? props.newsletter.sent : false,
         },
 
         // ERROR

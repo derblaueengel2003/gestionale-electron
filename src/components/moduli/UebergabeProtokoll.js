@@ -74,7 +74,8 @@ export const protocollo = (
       oggetto.citta
     }, ${
       oggetto.tipologia
-        ? oggetto.tipologia === 'Eigentumswohnung'
+        ? oggetto.tipologia === 'Eigentumswohnung' ||
+          oggetto.tipologia === 'property_apt'
           ? 'WE'
           : 'TE'
         : 'WE'
@@ -194,7 +195,7 @@ export const protocollo = (
   doc.text('Geschäftsführer:', 16, 270);
   let position = 274;
 
-  ceo.forEach(eachCeo => {
+  ceo.forEach((eachCeo) => {
     doc.text(`${eachCeo.name}`, 16, position);
     position += 4;
   });

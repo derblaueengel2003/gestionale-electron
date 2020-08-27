@@ -102,6 +102,8 @@ export class CustomerForm extends React.Component {
             [
               { value: 'Herr', label: 'Herr' },
               { value: 'Frau', label: 'Frau' },
+              { value: 'Herr Dr.', label: 'Herr Dr.' },
+              { value: 'Frau Dr.', label: 'Frau Dr.' },
             ],
             t('customer_title')
           )}
@@ -114,7 +116,9 @@ export class CustomerForm extends React.Component {
             t('lastname'),
             'text',
             changeHandlerValidate,
-            clienti
+            clienti,
+            undefined,
+            '*'
           )}
           {renderInput(
             'clienti',
@@ -172,7 +176,7 @@ export class CustomerForm extends React.Component {
             t('gdpr_consent_date')
           )}
           {this.props.data.error && (
-            <p className='form__error'>{t(this.props.data.error)}</p>
+            <p className='form__error'>{this.props.data.error}</p>
           )}
           <div>
             <button className='btn-floating blue right'>

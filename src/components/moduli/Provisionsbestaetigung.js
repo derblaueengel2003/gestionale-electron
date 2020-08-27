@@ -23,10 +23,9 @@ export const creaPrenotazione = (
     `${acquirente2.titolo} ${acquirente2.nome} ${acquirente2.cognome}`;
   const acqInd2 =
     acquirente2 &&
-    `${acquirente2.indirizzo} ${acquirente2.indirizzo2 &&
-      acquirente2.indirizzo2}, ${acquirente2.cap} ${acquirente2.comune}, ${
-      acquirente2.nazione
-    }`;
+    `${acquirente2.indirizzo} ${
+      acquirente2.indirizzo2 && acquirente2.indirizzo2
+    }, ${acquirente2.cap} ${acquirente2.comune}, ${acquirente2.nazione}`;
   const vendDitta = `${venditore.ditta && `${venditore.ditta}`}`;
   const vendNome = `${venditore.titolo} ${venditore.nome} ${venditore.cognome}`;
   const vendInd = `${venditore.indirizzo}, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`;
@@ -76,12 +75,29 @@ export const creaPrenotazione = (
   //Oggetto
   doc.setFontSize(10);
   doc.text(oggetto.rifId, 25, 136);
+
   doc.text(
-    `${oggetto.tipologia ? oggetto.tipologia : 'Eigentumswohnung'}`,
+    `${
+      oggetto.tipologia
+        ? oggetto.tipologia === 'property_apt'
+          ? 'Eigentumswohnung'
+          : 'Gewerbe'
+        : 'Eigentumswohnung'
+    }`,
     41,
     136
   );
-  doc.text(`${oggetto.stato}`, 41, 141);
+  doc.text(
+    `${
+      oggetto.stato
+        ? oggetto.stato === 'vacant' || oggetto.stato === 'leerstehend'
+          ? 'leerstehend'
+          : 'vermietet'
+        : ''
+    }`,
+    41,
+    141
+  );
   doc.text(`Etage: ${oggetto.piano}`, 41, 146);
   doc.text(`m2: ${oggetto.m2}`, 41, 151);
   doc.text(
@@ -106,18 +122,27 @@ export const creaPrenotazione = (
     doc.setFontSize(12);
   }
   if (vendDitta.length > 0) {
-    doc.text(vendDitta, 148, 136);
-    doc.text(vendNome, 148, 141);
-    doc.text(venditore.indirizzo, 148, 146);
-    venditore.indirizzo2 && doc.text(venditore.indirizzo2, 148, 151);
-    doc.text(`${venditore.cap} ${venditore.comune}`, 148, 156);
-    doc.text(`${venditore.nazione}`, 148, 161);
+    const venditoreAddress = `${vendDitta} \n${vendNome} \n${
+      venditore.indirizzo
+    } ${venditore.indirizzo2 && venditore.indirizzo2}\n${venditore.cap} ${
+      venditore.comune
+    }\n${venditore.nazione}`;
+    const lines = doc.splitTextToSize(venditoreAddress, 50);
+    doc.text(148, 136, lines);
+
+    // doc.text(vendDitta, 148, 136);
+    // doc.text(vendNome, 148, 141);
+    // doc.text(venditore.indirizzo, 148, 146);
+    // venditore.indirizzo2 && doc.text(venditore.indirizzo2, 148, 151);
+    // doc.text(`${venditore.cap} ${venditore.comune}`, 148, 156);
+    // doc.text(`${venditore.nazione}`, 148, 161);
   } else {
-    doc.text(vendNome, 148, 136);
-    doc.text(venditore.indirizzo, 148, 141);
-    venditore.indirizzo2 && doc.text(venditore.indirizzo2, 148, 146);
-    doc.text(`${venditore.cap} ${venditore.comune}`, 148, 151);
-    doc.text(`${venditore.nazione}`, 148, 156);
+    // doc.text(vendNome, 148, 136);
+    const venditoreAddress = `${vendNome} \n${venditore.indirizzo} ${
+      venditore.indirizzo2 && venditore.indirizzo2
+    }\n${venditore.cap} ${venditore.comune}\n${venditore.nazione}`;
+    const lines = doc.splitTextToSize(venditoreAddress, 50);
+    doc.text(148, 136, lines);
   }
 
   if (venditore2) {
