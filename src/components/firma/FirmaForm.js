@@ -31,8 +31,8 @@ export class FirmaForm extends React.Component {
     const { t, renderInput } = this.props;
     return (
       <form className='form' onSubmit={this.onSubmit}>
-        <div>
-          <button className='btn-floating blue right btn-floating-margin'>
+        <div className='fixed-action-btn'>
+          <button className='btn-floating blue  btn-large'>
             <i className='material-icons'>save</i>
           </button>
         </div>

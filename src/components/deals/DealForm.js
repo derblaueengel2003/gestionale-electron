@@ -128,8 +128,8 @@ export class DealForm extends React.Component {
         {this.props.data.error && (
           <p className='form__error'>{this.props.data.error}</p>
         )}
-        <div>
-          <button className='btn-floating blue right'>
+        <div className='fixed-action-btn'>
+          <button className='btn-floating blue btn-large'>
             <i className='material-icons'>save</i>
           </button>
         </div>
@@ -139,7 +139,7 @@ export class DealForm extends React.Component {
           dealTypeOptions,
           t('Tipo di vendita')
         )}
-        {renderSelect('deals', 'oggettoId', oggettiOptions, t('Oggetto'))}
+        {renderSelect('deals', 'oggettoId', oggettiOptions, t('Oggetto'), '*')}
         {renderSingleDate(
           'deals',
           'createdAt',
@@ -162,7 +162,8 @@ export class DealForm extends React.Component {
           undefined,
           `6%: ${
             parseFloat(deals.prezzoDiVendita.replace(/,/, '.'), 10) * 0.06
-          }`
+          }`,
+          '*'
         )}
         {renderSelect(
           'deals',
@@ -225,7 +226,7 @@ export class DealForm extends React.Component {
         {renderCheckbox('deals', 'payedAgenziaPartner', t('Pagato'))}
         {renderSelect('deals', 'venditoreId', options, t('Venditore'))}
         {renderSelect('deals', 'venditoreId2', options, '2. ' + t('Venditore'))}
-        {renderSelect('deals', 'acquirenteId', options, t('Acquirente'))}
+        {renderSelect('deals', 'acquirenteId', options, t('Acquirente'), '*')}
         {renderSelect(
           'deals',
           'acquirenteId2',
@@ -257,12 +258,6 @@ export class DealForm extends React.Component {
           t('Data consegna immobile')
         )}
         {renderTextArea('deals', 'note', t('Note (opzionale)'))}
-
-        <div>
-          <button className='btn-floating blue right'>
-            <i className='material-icons'>save</i>
-          </button>{' '}
-        </div>
       </form>
     );
   }

@@ -160,8 +160,8 @@ export class OggettoForm extends React.Component {
         {this.props.data.error && (
           <p className='form__error'>{this.props.data.error}</p>
         )}{' '}
-        <div>
-          <button className='btn-floating blue right btn-floating-margin'>
+        <div className='fixed-action-btn'>
+          <button className='btn-floating blue btn-large'>
             <i className='material-icons'>save</i>
           </button>
         </div>
@@ -479,11 +479,6 @@ export class OggettoForm extends React.Component {
               )}
             </ul>
           </div>
-        </div>
-        <div>
-          <button className='btn-floating blue right btn-floating-margin'>
-            <i className='material-icons'>save</i>
-          </button>
         </div>
       </form>
     );

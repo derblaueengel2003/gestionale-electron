@@ -52,8 +52,8 @@ export class OfferedPropertiesForm extends React.Component {
         {this.props.data.error && (
           <p className='form__error'>{this.props.data.error}</p>
         )}
-        <div>
-          <button className='btn-floating blue right'>
+        <div className='fixed-action-btn'>
+          <button className='btn-floating blue btn-large'>
             <i className='material-icons'>save</i>
           </button>
         </div>
@@ -93,12 +93,6 @@ export class OfferedPropertiesForm extends React.Component {
           t('Feedback del cliente')
         )}
         {renderTextArea('offers', 'offerNote')}
-
-        <div>
-          <button className='btn-floating blue right'>
-            <i className='material-icons'>save</i>
-          </button>
-        </div>
       </form>
     );
   }

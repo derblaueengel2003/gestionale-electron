@@ -175,17 +175,17 @@ const AppRouter = () => {
             component={UtentiDashboardPage}
           />
           <PrivateRoute
-            path='/usercreate'
+            path='/utenticreate'
             activeClass='utenti'
             component={AddPage}
           />
           <PrivateRoute
-            path='/useredit/:id'
+            path='/utentiedit/:id'
             activeClass='utenti'
             component={EditUtentePage}
           />
           <PrivateRoute
-            path='/userview/:id'
+            path='/utentiview/:id'
             activeClass='utenti'
             component={ViewUtentiPage}
           />

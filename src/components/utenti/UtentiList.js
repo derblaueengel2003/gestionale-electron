@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import Card from '../Card';
 
-export const UtentiList = props => (
+export const UtentiList = (props) => (
   <div>
     <div className='grey lighten-4'>
       <div className='container'>
@@ -12,12 +12,12 @@ export const UtentiList = props => (
       </div>
     </div>
     <div className='container'>
-      <Link className='btn-floating green right' to='/usercreate'>
+      <Link className='btn-floating green right' to='/utenticreate'>
         <i className='material-icons'>add</i>
       </Link>
       <div>
         {props.utenti.length > 0 &&
-          props.utenti.map(utente => {
+          props.utenti.map((utente) => {
             return (
               <Card
                 key={utente.id}
@@ -25,7 +25,7 @@ export const UtentiList = props => (
                 sottotitolo={`${utente.qualifica}`}
                 titoloDestra={`${utente.role}`}
                 visible={true}
-                link={`/useredit/${utente.id}`}
+                link={`/utentiedit/${utente.id}`}
                 corpo={[utente.email, utente.telefon]}
               />
             );
@@ -35,10 +35,10 @@ export const UtentiList = props => (
   </div>
 );
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     utenti: state.utenti,
-    firma: state.firma
+    firma: state.firma,
   };
 };
 

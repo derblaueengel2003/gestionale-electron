@@ -351,8 +351,8 @@ class EvaluationForm extends Component {
               t('evaluation_text_final')
             )}
           </div>
-          <div>
-            <button className='btn-floating blue right btn-floating-margin'>
+          <div className='fixed-action-btn'>
+            <button className='btn-floating blue btn-large'>
               <i className='material-icons'>save</i>
             </button>
           </div>

@@ -97,8 +97,8 @@ export class FatturaForm extends React.Component {
         {this.props.data.error && (
           <p className='form__error'>{this.props.data.error}</p>
         )}{' '}
-        <div>
-          <button className='btn-floating blue right btn-floating-margin'>
+        <div className='fixed-action-btn'>
+          <button className='btn-floating blue btn-large'>
             <i className='material-icons'>save</i>
           </button>
         </div>
@@ -199,11 +199,6 @@ export class FatturaForm extends React.Component {
             t('Data prestazione')
           )}
         </blockquote>
-        <div>
-          <button className='btn-floating blue right'>
-            <i className='material-icons'>save</i>
-          </button>
-        </div>
       </form>
     );
   }

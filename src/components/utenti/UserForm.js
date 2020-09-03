@@ -36,13 +36,22 @@ class UserForm extends React.Component {
         {this.props.data.error && (
           <p className='form__error'>{this.props.data.error}</p>
         )}
-        <div>
-          <button className='btn-floating blue right'>
+        <div className='fixed-action-btn'>
+          <button className='btn-floating blue btn-large'>
             <i className='material-icons'>save</i>
           </button>
         </div>
-        {renderInput('users', 'name', t('Nome e cognome'))}
-        {renderSelect('users', 'role', roleTypeOptions, t('Ruolo'))}
+        {renderInput(
+          'users',
+          'name',
+          t('Nome e cognome'),
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          '*'
+        )}
+        {renderSelect('users', 'role', roleTypeOptions, t('Ruolo'), '*')}
         {renderInput('users', 'firebaseAuthId', 'Firebase Auth Id')}
         {renderInput('users', 'email', t('email'))}
         {renderInput('users', 'telefon', t('landline'))}
