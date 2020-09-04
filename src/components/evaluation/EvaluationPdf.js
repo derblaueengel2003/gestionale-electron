@@ -18,7 +18,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
       evaluation: 'Immobilienbewertung',
       testoIntroduttivo:
-        'Sehr geehrte Damen und Herren,\nvielen Dank für Ihre Bewertungsanfrage. Ihre Wohnung hat uns sehr positiv beeindruckt.\nWie versprochen, haben wir eine Bewertung der Immobilie durchgeführt, indem wir historische Daten, Marktdaten und Merkmale analysiert haben.\n',
+        'Sehr geehrte Damen und Herren,\nvielen Dank für Ihre Bewertungsanfrage.\nWie versprochen, haben wir eine Bewertung der Immobilie durchgeführt, indem wir historische Daten, Marktdaten und Merkmale analysiert haben.\n',
       wohnlageText:
         'Wohnlagenkarte nach Adressen zum Berliner Mietspiegel 2019:',
       bodenrichtwertText:
@@ -65,7 +65,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
       apartment: 'Appartamento',
       evaluation: 'Valutazione immobiliare',
       testoIntroduttivo:
-        "Gentile Cliente,\nLa ringraziamo per la richiesta di valutazione del Suo immobile. L'appartamento ci ha fatto un'ottima impressione.\nCome promesso, abbiamo effettuato una valutazione dell'immobile analizzando i dati storici, i dati di mercato e le caratteristiche particolari dell'appartamento.\n",
+        "Gentile Cliente,\nLa ringraziamo per la richiesta di valutazione del Suo immobile.\nCome promesso, abbiamo effettuato una valutazione dell'immobile analizzando i dati storici, i dati di mercato e le caratteristiche particolari dell'appartamento.\n",
       wohnlageText:
         'Classificazione della zona secondo il Berliner Mietspiegel 2019:',
       bodenrichtwertText:
@@ -113,7 +113,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
       apartment: 'Apartment',
       evaluation: 'Property Evaluation',
       testoIntroduttivo:
-        'Dear Customer,\nthank you very much for your review request. Your apartment has made a very positive impression on us.\nAs promised, we have carried out a valuation of the property by analysing historical data, market data and features.\n',
+        'Dear Customer,\nthank you very much for your review request.\nAs promised, we have carried out a valuation of the property by analysing historical data, market data and features.\n',
       wohnlageText:
         'Area classification according to the Berliner Mietspiegel 2019:',
       bodenrichtwertText: 'Value of the land in the last 3 years:',
@@ -158,7 +158,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
   }
 
   const frontPage = (textArray, fontSize) => {
-    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
+    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'FAST');
     const pdfWidth = doc.internal.pageSize.getWidth();
 
     if (oggetto.downloadURLsCover) {
@@ -166,7 +166,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
       cover.src = oggetto.downloadURLsCover;
       const imgProps = doc.getImageProperties(cover);
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      doc.addImage(cover, 'PNG', -100, 30, pdfWidth * 1.7, pdfHeight * 1.7);
+      doc.addImage(cover, 'JPEG', -100, 30, pdfWidth * 1.7, pdfHeight * 1.7);
     }
 
     // Titolo
@@ -218,7 +218,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
     doc.addImage(
       wohnlageImg,
-      'PNG',
+      'JPEG',
       xPos,
       yPos + 110,
       pdfWidth * 0.8,
@@ -228,7 +228,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
   const introPage = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
+    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'FAST');
     doc.setTextColor(0, 0, 0);
 
     const text =
@@ -243,7 +243,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
   const bodenrichtwertPage = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
+    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'FAST');
     yPos += 15;
     doc.text(traduzione.bodenrichtwertText, xPos, yPos);
     yPos += 15;
@@ -257,7 +257,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
       doc.text(moment().subtract(i, 'years').format('YYYY'), xPos, yPos);
       doc.addImage(
         brwImg,
-        'PNG',
+        'JPEG',
         xPos + 30,
         yPos,
         pdfWidth * 0.5,
@@ -269,7 +269,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
   const is24Page = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
+    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'FAST');
     yPos = 30;
     doc.text(traduzione.is24Text, xPos, yPos);
     yPos += 15;
@@ -279,12 +279,12 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
     const imgProps = doc.getImageProperties(is24Img);
     const pdfWidth = doc.internal.pageSize.getWidth();
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    doc.addImage(is24Img, 'PNG', xPos, yPos, pdfWidth * 0.8, pdfHeight * 0.8);
+    doc.addImage(is24Img, 'JPEG', xPos, yPos, pdfWidth * 0.8, pdfHeight * 0.8);
   };
 
   const immobilienpreisPage = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
+    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'FAST');
     yPos = 30;
     doc.text(traduzione.immobilienpreisText, xPos, yPos);
     yPos += 15;
@@ -296,7 +296,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
     doc.addImage(
       immobilienpreisImg,
-      'PNG',
+      'JPEG',
       xPos,
       yPos,
       pdfWidth * 0.8,
@@ -306,7 +306,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
   const mietspiegelPage = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
+    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'FAST');
     yPos = 30;
     doc.text(traduzione.mietspiegelText, xPos, yPos);
     yPos += 15;
@@ -318,7 +318,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
     doc.addImage(
       mietspiegelImg,
-      'PNG',
+      'JPEG',
       xPos,
       yPos,
       pdfWidth * 0.8,
@@ -338,7 +338,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
 
   const resultPage = () => {
     doc.addPage();
-    doc.addImage(imgLogo, 'PNG', 140, 10, 55, 12, undefined, 'FAST');
+    doc.addImage(imgLogo, 'JPEG', 140, 10, 55, 12, undefined, 'FAST');
     yPos = 30;
     const text =
       evaluation[`testoFinale${lingua}`] ||
