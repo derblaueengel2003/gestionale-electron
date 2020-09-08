@@ -295,10 +295,22 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
       );
       console.log(data);
       localStorage.setItem(`postId${language}`, data.id);
+
+      //i link che ricevo non contengono la sigla per la lingua. La devo inserire io
+      let newLink = data.link;
+      if (language !== 'De') {
+        const searchTerm = '/immobili';
+        const indexOfFirst = data.link.indexOf(searchTerm);
+        const firstPart = newLink.slice(0, indexOfFirst);
+        const languagePart = language.toLowerCase();
+        const secondPart = newLink.slice(indexOfFirst);
+        newLink = `${firstPart}/${languagePart}${secondPart}`;
+      }
+
       // passo allo store il post id che mi ritorna
       await startEditOggetto(oggetto.id, {
         [`postId${language}`]: data.id,
-        [`link${language}`]: data.link,
+        [`link${language}`]: newLink,
       });
 
       // posto i custom field di estate_property tramite il plugin che ho scritto

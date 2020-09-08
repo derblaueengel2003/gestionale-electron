@@ -1137,7 +1137,9 @@ Tel. +49 30 54482958 - WhatsApp: <a href="https://wa.me/message/XBJ5OH4JPQC4F1" 
                             <td align="center" valign="middle" class="mcnButtonContent" style="font-family: Arial; font-size: 16px; padding: 15px;">
                                 <a class="mcnButton " title="Scopri di più" href="${
                                   oggetto[`link${lingua}`]
-                                }" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">Scopri di più</a>
+                                }" target="_blank" style="font-weight: bold;letter-spacing: normal;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;">${
+        settings.btn_text
+      }</a>
                             </td>
                         </tr>
                     </tbody>
