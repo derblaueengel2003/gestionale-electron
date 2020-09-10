@@ -24,10 +24,11 @@ export const NavBar = ({ utente, t, activeClass }) => {
       ];
     }
     return (
-      <nav className='nav-wrapper blue'>
-        <div className='container'>
+      <nav className='new-wrapper blue'>
+        <div>
+          <span className='brand-logo'>{t('nav_title')}</span>
           <Sidebar />
-          <ul className='hide-on-med-and-down'>
+          <ul className='right hide-on-med-and-down'>
             {menuItems.map((item) => (
               <li
                 key={item.pathLink}
