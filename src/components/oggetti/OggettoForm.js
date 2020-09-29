@@ -314,7 +314,6 @@ export class OggettoForm extends React.Component {
               {renderTextArea('oggetti', 'note')}
               {renderCheckbox('oggetti', 'venduto', t('Venduto'))}
               {renderCheckbox('oggetti', 'prenotato', t('reserved'))}
-              {renderCheckbox('oggetti', 'themeSlider', t('theme_slider'))}
               {renderCheckbox(
                 'oggetti',
                 'featuredProperty',

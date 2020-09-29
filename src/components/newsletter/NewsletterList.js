@@ -13,8 +13,10 @@ export const NewsletterList = ({
   t,
 }) => {
   const newslettersPayload = oggettoNewsletter || newsletters;
-  const findOggetto = (oggettoId) =>
-    oggetti.find((ogg) => ogg.id === oggettoId);
+  const findOggetto = (oggettoId) => {
+    const oggetto = oggetti.find((ogg) => ogg.id === oggettoId);
+    return `${oggetto.rifId} - ${oggetto.via}`;
+  };
 
   return (
     <div className='container'>
@@ -29,19 +31,19 @@ export const NewsletterList = ({
               const dataNewsletter = moment(newsletter.dataNewsletter).format(
                 'DD MMMM, YYYY'
               );
-              const oggettiId = [];
+              const oggettiInviati = [];
               newsletter.oggetto1 &&
-                oggettiId.push(findOggetto(newsletter.oggetto1).rifId);
+                oggettiInviati.push(findOggetto(newsletter.oggetto1));
               newsletter.oggetto2 &&
-                oggettiId.push(findOggetto(newsletter.oggetto2).rifId);
+                oggettiInviati.push(findOggetto(newsletter.oggetto2));
               newsletter.oggetto3 &&
-                oggettiId.push(findOggetto(newsletter.oggetto3).rifId);
+                oggettiInviati.push(findOggetto(newsletter.oggetto3));
               newsletter.oggetto4 &&
-                oggettiId.push(findOggetto(newsletter.oggetto4).rifId);
+                oggettiInviati.push(findOggetto(newsletter.oggetto4));
               newsletter.oggetto5 &&
-                oggettiId.push(findOggetto(newsletter.oggetto5).rifId);
+                oggettiInviati.push(findOggetto(newsletter.oggetto5));
               newsletter.oggetto6 &&
-                oggettiId.push(findOggetto(newsletter.oggetto6).rifId);
+                oggettiInviati.push(findOggetto(newsletter.oggetto6));
 
               return (
                 <Card
@@ -49,7 +51,7 @@ export const NewsletterList = ({
                   visible={newsletter.visible}
                   link={`/newsletterview/${newsletter.id}`}
                   titolo={dataNewsletter}
-                  sottotitolo={oggettiId.join(' - ')}
+                  sottotitolo={''}
                   titoloDestra={
                     <span className='card-title list-item--paid'>
                       {newsletter.mailchimpIdDe
@@ -69,7 +71,7 @@ export const NewsletterList = ({
                         : ''}{' '}
                     </span>
                   }
-                  corpo={[]}
+                  corpo={[...oggettiInviati]}
                 />
               );
             })}
