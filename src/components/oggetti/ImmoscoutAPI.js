@@ -6,6 +6,7 @@ import uuid from 'uuid';
 import crypto from 'crypto';
 import { ipcRenderer } from 'electron';
 import LoadingPage from '../LoadingPage';
+import axios from 'axios';
 
 const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
   const [spinner, useSpinner] = useState(false);
@@ -108,7 +109,7 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
           courtage: '7,14%',
         },
         courtageNote: provisionsHinweis,
-        serviceCharge: oggetto.wohngeld,
+        serviceCharge: parseFloat(oggetto.wohngeld),
       },
     };
     const base_url =
@@ -142,15 +143,77 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
     });
   };
 
+  const imageUpload = (url, imagePath) => {
+    ipcRenderer.send('is24img:upload', {
+      url,
+      imagePath,
+      is24id: oggetto.is24id,
+    });
+
+    ipcRenderer.on('is24img:error', (event, error) => {
+      console.log(error);
+    });
+  };
+
+  // const imageUpload = (img) => {
+  //   const imageFile = new FormData();
+  //   imageFile.append('file', img);
+  //   const json = {
+  //     'common.attachment': {
+  //       '@xmlns': {
+  //         common: 'http://rest.immobilienscout24.de/schema/common/1.0',
+  //       },
+  //       '@xsi.type': 'common:Picture',
+  //       title: 'test',
+  //       externalId: 'test',
+  //       externalCheckSum: 'test',
+  //       floorplan: 'false',
+  //       titlePicture: 'false',
+  //     },
+  //   };
+  //   const body = { imageFile, json };
+
+  //   const base_url = `https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate/${oggetto.is24id}/attachment`;
+  //   const oAuth = connectToIS24(base_url);
+  //   const options = {
+  //     method: 'post',
+  //     url: base_url,
+  //     data: body,
+  //     headers: {
+  //       'content-type': 'multipart/form-data',
+  //       Authorization: oAuth,
+  //     },
+  //   };
+
+  //   // send the request
+  //   axios(options)
+  //     .then((response) => {
+  //       return res.status(200).send(response.data);
+  //     })
+  //     .catch(function (error) {
+  //       return res.status(400).send(error);
+  //     });
+  // };
+
   const btnColor = oggetto.is24id ? 'disabled' : 'green';
   return (
     <div>
       {spinner ? (
         <LoadingPage />
       ) : (
-        <button className={`btn ${btnColor}`} onClick={exportToIS24}>
-          Export to immobilienscout24
-        </button>
+        <div>
+          <button className={`btn ${btnColor}`} onClick={exportToIS24}>
+            Export to immobilienscout24
+          </button>
+          <button
+            className={`btn blue`}
+            onClick={() => {
+              imageUpload(oggetto.downloadURLsCover[0], 'test-image.jpg');
+            }}
+          >
+            Images to IS24
+          </button>
+        </div>
       )}
     </div>
   );
