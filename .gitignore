@@ -5,3 +5,4 @@ public/dist/
 .env.development
 .firebase/*
 out/
+.DS_Store
