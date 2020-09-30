@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
@@ -145,8 +145,23 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     }
   };
 
-  const property_city = [284, 232, 285];
-  const property_county_state = [265, 230, 266];
+  const property_city = () => {
+    switch (oggettoCopy.citta) {
+      case 'Berlin':
+        return [284, 232, 285];
+      case 'Leipzig':
+        return [655, 654, 656];
+    }
+  };
+  const property_county_state = () => {
+    switch (oggettoCopy.citta) {
+      case 'Berlin':
+        return [265, 230, 266];
+      case 'Leipzig':
+        return [267, 231, 268];
+    }
+  };
+
   const property_action_category = [249, 239, 250];
 
   // Creo l'oggettoCopy da passare ad axios
@@ -187,8 +202,8 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           ? property_area()[0]
           : null
         : null,
-      property_city: property_city[0],
-      property_county_state: property_county_state[0],
+      property_city: property_city()[0],
+      property_county_state: property_county_state()[0],
       property_category: [oggettoCopy.tipologia[0]],
       property_action_category: property_action_category[0],
     },
@@ -434,9 +449,13 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
       title: oggettoCopy.titolo,
       content: oggettoCopy.descrizione,
       terms: {
-        property_area: property_area()[2],
-        property_city: property_city[2],
-        property_county_state: property_county_state[2],
+        property_area: oggettoCopy.quartiere
+          ? property_area()
+            ? property_area()[2]
+            : null
+          : null,
+        property_city: property_city()[2],
+        property_county_state: property_county_state()[2],
         property_category: [oggettoCopy.tipologia[2]],
         property_action_category: property_action_category[2],
       },
@@ -454,9 +473,13 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
       title: oggettoCopy.titoloEn,
       content: oggettoCopy.descrizioneEn,
       terms: {
-        property_area: property_area()[1],
-        property_city: property_city[1],
-        property_county_state: property_county_state[1],
+        property_area: oggettoCopy.quartiere
+          ? property_area()
+            ? property_area()[1]
+            : null
+          : null,
+        property_city: property_city()[1],
+        property_county_state: property_county_state()[1],
         property_category: [oggettoCopy.tipologia[1]],
         property_action_category: property_action_category[1],
       },
