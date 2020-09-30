@@ -202,8 +202,16 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           ? property_area()[0]
           : null
         : null,
-      property_city: property_city()[0],
-      property_county_state: property_county_state()[0],
+      property_city: oggettoCopy.citta
+        ? property_city()
+          ? property_city()[0]
+          : null
+        : null,
+      property_county_state: oggettoCopy.citta
+        ? property_county_state()
+          ? property_county_state()[0]
+          : null
+        : null,
       property_category: [oggettoCopy.tipologia[0]],
       property_action_category: property_action_category[0],
     },
@@ -454,8 +462,16 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
             ? property_area()[2]
             : null
           : null,
-        property_city: property_city()[2],
-        property_county_state: property_county_state()[2],
+        property_city: oggettoCopy.citta
+          ? property_city()
+            ? property_city()[2]
+            : null
+          : null,
+        property_county_state: oggettoCopy.citta
+          ? property_county_state()
+            ? property_county_state()[2]
+            : null
+          : null,
         property_category: [oggettoCopy.tipologia[2]],
         property_action_category: property_action_category[2],
       },
@@ -478,8 +494,16 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
             ? property_area()[1]
             : null
           : null,
-        property_city: property_city()[1],
-        property_county_state: property_county_state()[1],
+        property_city: oggettoCopy.citta
+          ? property_city()
+            ? property_city()[1]
+            : null
+          : null,
+        property_county_state: oggettoCopy.citta
+          ? property_county_state()
+            ? property_county_state()[1]
+            : null
+          : null,
         property_category: [oggettoCopy.tipologia[1]],
         property_action_category: property_action_category[1],
       },
