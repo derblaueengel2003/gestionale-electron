@@ -69,55 +69,49 @@ ipcMain.on('is24:send', async (event, options) => {
   }
 });
 
-ipcMain.on('is24img:upload', (event, options) => {
+ipcMain.on('is24img:upload', async (event, imgSettings) => {
   // scarico l'immagine da wordpress e la salvo su disco
+  const { imagePath, url, is24id, oAuth } = imgSettings;
   try {
-    axios({
-      url: options.url,
+    const { data } = await axios({
+      url,
       responseType: 'stream',
-    }).then((response) => {
-      response.data.pipe(
-        fs.createWriteStream(`${__dirname}/public/${options.imagePath}`)
-      );
-
-      const imageFile = new FormData();
-      imageFile.append('file', `${__dirname}/public/${options.imagePath}`);
-      const json = {
-        'common.attachment': {
-          '@xmlns': {
-            common: 'http://rest.immobilienscout24.de/schema/common/1.0',
-          },
-          '@xsi.type': 'common:Picture',
-          title: 'test',
-          externalId: 'test',
-          externalCheckSum: 'test',
-          floorplan: 'false',
-          titlePicture: 'false',
-        },
-      };
-      const body = { imageFile, json };
-
-      const base_url = `https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate/${options.is24id}/attachment`;
-      const oAuth = connectToIS24(base_url);
-      const options = {
-        method: 'post',
-        url: base_url,
-        data: body,
-        headers: {
-          'content-type': 'multipart/form-data',
-          Authorization: oAuth,
-        },
-      };
-
-      // send the picture to is24
-      axios(options)
-        .then((response) => {
-          return res.status(200).send(response.data);
-        })
-        .catch(function (error) {
-          return res.status(400).send(error);
-        });
     });
+
+    data.pipe(fs.createWriteStream(`${__dirname}/public/${imagePath}`));
+
+    const imageFile = new FormData();
+    imageFile.append('file', `${__dirname}/public/${imagePath}`);
+    const json = {
+      'common.attachment': {
+        '@xmlns': {
+          common: 'http://rest.immobilienscout24.de/schema/common/1.0',
+        },
+        '@xsi.type': 'common:Picture',
+        title: 'test',
+        externalId: 'test',
+        externalCheckSum: 'test',
+        floorplan: 'false',
+        titlePicture: 'false',
+      },
+    };
+    const body = { imageFile, json };
+
+    const base_url = `https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate/${is24id}/attachment`;
+    const options = {
+      method: 'post',
+      url: base_url,
+      data: body,
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: oAuth,
+      },
+    };
+
+    // send the picture to is24
+    const { data: responseData } = await axios(options);
+
+    mainWindow.webContents.send('is24img:success', responseData);
   } catch (error) {
     mainWindow.webContents.send('is24img:error', error);
   }

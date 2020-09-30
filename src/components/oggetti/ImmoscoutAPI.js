@@ -11,6 +11,9 @@ import axios from 'axios';
 const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
   const [spinner, useSpinner] = useState(false);
 
+  const base_url =
+    'https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate';
+
   const connectToIS24 = (base_url) => {
     const oauth_timestamp = Math.floor(Date.now() / 1000);
     const oauth_nonce = uuid.v1();
@@ -112,8 +115,6 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
         serviceCharge: parseFloat(oggetto.wohngeld),
       },
     };
-    const base_url =
-      'https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate';
 
     //Stabilisco la connessione passando l'endpoint
     const oAuth = connectToIS24(base_url);
@@ -148,10 +149,15 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
       url,
       imagePath,
       is24id: oggetto.is24id,
+      oAuth: connectToIS24(base_url),
     });
 
     ipcRenderer.on('is24img:error', (event, error) => {
       console.log(error);
+    });
+
+    ipcRenderer.on('is24img:success', (event, data) => {
+      console.log(data);
     });
   };
 
