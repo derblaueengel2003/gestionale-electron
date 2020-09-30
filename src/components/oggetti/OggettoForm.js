@@ -212,7 +212,15 @@ export class OggettoForm extends React.Component {
                 optionsQuartiere,
                 t('Quartiere')
               )}
-              {renderInput('oggetti', 'citta', t('city'))}
+              {renderSelect(
+                'oggetti',
+                'citta',
+                [
+                  { value: 'Berlin', label: 'Berlin' },
+                  { value: 'Leipzig', label: 'Leipzig' },
+                ],
+                t('city')
+              )}
               {renderInput('oggetti', 'nazione', t('nation'))}
               {renderInput(
                 'oggetti',
@@ -314,6 +322,7 @@ export class OggettoForm extends React.Component {
               {renderTextArea('oggetti', 'note')}
               {renderCheckbox('oggetti', 'venduto', t('Venduto'))}
               {renderCheckbox('oggetti', 'prenotato', t('reserved'))}
+              {renderCheckbox('oggetti', 'themeSlider', t('theme_slider'))}
               {renderCheckbox(
                 'oggetti',
                 'featuredProperty',
