@@ -18,10 +18,9 @@ export const maklerAlleinauftrag = (
   const doc = new jsPDF();
   const vendDitta = `${venditore.ditta && `${venditore.ditta}`}`;
   const vendNome = `${venditore.titolo} ${venditore.nome} ${venditore.cognome}`;
-  const vendInd = `${venditore.indirizzo} ${venditore.indirizzo2 &&
-    venditore.indirizzo2}, ${venditore.cap} ${venditore.comune}, ${
-    venditore.nazione
-  }`;
+  const vendInd = `${venditore.indirizzo} ${
+    venditore.indirizzo2 && venditore.indirizzo2
+  }, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`;
   const vendInd2 =
     venditore2 &&
     `${venditore2.indirizzo} ${venditore.indirizzo2}, ${venditore2.cap} ${venditore2.comune}, ${venditore2.nazione}`;
@@ -59,7 +58,7 @@ export const maklerAlleinauftrag = (
   doc.text(
     `${oggetto.via} ${oggetto.numeroCivico}, ${
       oggetto.tipologia
-        ? oggetto.tipologia === 'Eigentumswohnung'
+        ? oggetto.tipologia === 'property_apt'
           ? 'WE'
           : 'TE'
         : 'WE'

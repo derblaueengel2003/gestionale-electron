@@ -63,7 +63,7 @@ ipcMain.on('folder:open', (event, { folder, folderNamePartial }) => {
 
   const finalPath = path.join(folderPath, filePath());
 
-  shell.openPath(finalPath);
+  shell.openItem(finalPath);
 });
 
 ipcMain.on('link:open', (event, link) => {

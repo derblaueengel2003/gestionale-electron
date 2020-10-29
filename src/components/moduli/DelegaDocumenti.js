@@ -19,8 +19,7 @@ export const delegaDocumenti = (cliente, cliente2, oggetto, firma) => {
 
 die Firma ${m2Square}, geschäftsansässig in ${firma.plz} ${firma.stadt}, ${firma.adresse},
 
-für uns alle Unterlagen zu unser Immobilieneinheit in ${indirizzo} 
-von der Hausverwaltung anzufordern und zu empfangen.
+für uns alle Unterlagen zu unser Immobilieneinheit in ${indirizzo} von der Hausverwaltung anzufordern und zu empfangen.
 
 Die Firma ${m2Square} ist auch berechtigt, allgemeine Informationen über das Haus und die Eigentümergemeinschaft nachzufragen, insbesondere Informationen über Instandhaltungsrücklage und eventuelle Sonderumlagen.
 
@@ -31,8 +30,7 @@ Die Kosten der Bereitstellung und Versand der Unterlagen werden wir tragen. Gül
 
 die Firma ${m2Square}, geschäftsansässig in ${firma.plz} ${firma.stadt}, ${firma.adresse},
 
-für mich alle Unterlagen zu meiner Immobilieneinheit in ${indirizzo} 
-von der Hausverwaltung anzufordern und zu empfangen.
+für mich alle Unterlagen zu meiner Immobilieneinheit in ${indirizzo} von der Hausverwaltung anzufordern und zu empfangen.
 
 Die Firma ${m2Square} ist auch berechtigt, allgemeine Informationen über das Haus und die Eigentümergemeinschaft nachzufragen, insbesondere Informationen über Instandhaltungsrücklage und eventuelle Sonderumlagen.
 
