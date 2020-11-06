@@ -212,7 +212,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           ? property_county_state()[0]
           : null
         : null,
-      property_category: [oggettoCopy.tipologia[0]],
+      property_category: oggettoCopy.tipologia[0],
       property_action_category: property_action_category[0],
     },
     themeSlider: oggettoCopy.themeSlider || null,
@@ -316,7 +316,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           },
         }
       );
-      console.log(data);
+      console.log('Data: ', data);
       localStorage.setItem(`postId${language}`, data.id);
 
       //i link che ricevo non contengono la sigla per la lingua. La devo inserire io
@@ -395,13 +395,16 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           },
         }
       );
+      console.log('Data: ', data);
+      console.log('Payload: ', payload);
       startEditOggetto(oggetto.id, {
         [`link${language}`]: data.link,
       });
 
-      const { data: customFields } = await axios.post(
+      // posto i custom field di estate_property tramite il plugin che ho scritto
+      await axios.post(
         `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/properties/`,
-        payload,
+        { ...payload, postId },
         {
           headers: {
             'Content-Type': 'application/json',
@@ -472,7 +475,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
             ? property_county_state()[2]
             : null
           : null,
-        property_category: [oggettoCopy.tipologia[2]],
+        property_category: oggettoCopy.tipologia[2],
         property_action_category: property_action_category[2],
       },
     };
@@ -504,7 +507,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
             ? property_county_state()[1]
             : null
           : null,
-        property_category: [oggettoCopy.tipologia[1]],
+        property_category: oggettoCopy.tipologia[1],
         property_action_category: property_action_category[1],
       },
     };
@@ -549,7 +552,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
             <CollectionItem
               label={`Sync ${t('tedesco')}`}
               action={sendDeRequest}
-              icon={'send'}
+              icon={oggetto.postIdDe ? 'update' : 'add'}
               btnColor={btnColorDe}
             />
           )}
@@ -558,7 +561,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
             <CollectionItem
               label={`Sync ${t('italiano')}`}
               action={sendItRequest}
-              icon={'send'}
+              icon={oggetto.postIdIt ? 'update' : 'add'}
               btnColor={btnColorIt}
             />
           )}
@@ -566,7 +569,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
             <CollectionItem
               label={`Sync ${t('inglese')}`}
               action={sendEnRequest}
-              icon={'send'}
+              icon={oggetto.postIdEn ? 'update' : 'add'}
               btnColor={btnColorEn}
             />
           )}
@@ -577,7 +580,11 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
               <CollectionItem
                 label={`Sync All`}
                 action={sendAllRequests}
-                icon={'send'}
+                icon={
+                  oggetto.postIdDe && oggetto.postIdIt && oggetto.postIdEn
+                    ? 'update'
+                    : 'add'
+                }
                 btnColor={btnColorAll}
               />
             )}

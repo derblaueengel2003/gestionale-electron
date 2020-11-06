@@ -242,17 +242,21 @@ export class ViewOggettiPage extends React.Component {
                       <M2SquareAPI oggetto={oggetto} />
                     </div>
                     <div className='admin-console-item'>
-                      <Link
-                        to={{
-                          pathname: '/oggettocreate',
-                          state: {
-                            oggetto: oggettoCopy,
-                          },
-                        }}
-                        className='btn-floating  blue lighten-3 right btn-floating-margin'
-                      >
-                        <i className='material-icons'>content_copy</i>
-                      </Link>
+                      <div>
+                        <span>{t('property_duplicate')}</span>
+
+                        <Link
+                          to={{
+                            pathname: '/oggettocreate',
+                            state: {
+                              oggetto: oggettoCopy,
+                            },
+                          }}
+                          className='btn-floating  blue lighten-3 btn-floating-margin'
+                        >
+                          <i className='material-icons'>content_copy</i>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
