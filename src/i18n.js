@@ -364,7 +364,7 @@ i18n.use(initReactI18next).init({
         property_nursing_home: 'Pflegeheim',
         property_other: 'Sonstiges',
         property_slug: 'Slug der Immobilie',
-        property_status: 'Veröffentlicht',
+        property_status: 'Veröffentlicht auf der Webseite',
         property_type: 'Immobilien-Art',
         property_yield: 'Rendite',
         remove_confirm: 'Bestätigen Sie die Löschung? Das ist unwiderruflich!',
@@ -779,7 +779,7 @@ i18n.use(initReactI18next).init({
         property_nursing_home: 'Casa di cura',
         property_other: 'Altro',
         property_slug: 'Slug oggetto',
-        property_status: 'pubblicato',
+        property_status: 'Pubblicato sul sito',
         property_type: 'Tipologia di immobile',
         property_yield: 'Rendita',
         remove_confirm:

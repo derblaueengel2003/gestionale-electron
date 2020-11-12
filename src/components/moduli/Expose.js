@@ -446,7 +446,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
 
     if (oggetto.provvigione.length > 0) {
       acapo += 5;
-      doc.text(`${traduzione.provvigione}: ${oggetto.provvigione}`, 15, acapo);
+      doc.text(`${traduzione.provvigione}: ${oggetto.provvigione}%`, 15, acapo);
     }
   };
   const paginaDescrizione = () => {

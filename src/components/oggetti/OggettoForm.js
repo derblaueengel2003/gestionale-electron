@@ -320,15 +320,16 @@ export class OggettoForm extends React.Component {
               )}
               {renderInput('oggetti', 'videoId', 'YouTube Video ID')}
               {renderTextArea('oggetti', 'note')}
+
+              {renderCheckbox('oggetti', 'status', t('property_status'))}
               {renderCheckbox('oggetti', 'venduto', t('Venduto'))}
               {renderCheckbox('oggetti', 'prenotato', t('reserved'))}
-              {renderCheckbox('oggetti', 'themeSlider', t('theme_slider'))}
+
               {renderCheckbox(
                 'oggetti',
                 'featuredProperty',
                 t('featured_property')
               )}
-              {renderCheckbox('oggetti', 'status', t('property_status'))}
 
               {this.props.utente && this.props.utente.role === 'Admin'
                 ? renderCheckbox('oggetti', 'visible', t('visible'))
@@ -463,7 +464,7 @@ export class OggettoForm extends React.Component {
                 undefined,
                 undefined,
                 undefined,
-                t('IVA inclusa')
+                t("IVA inclusa, senza '%'")
               )}
               {renderCheckbox('oggetti', 'balcone', t('Balcone'))}
               {renderCheckbox('oggetti', 'ascensore', t('Ascensore'))}
