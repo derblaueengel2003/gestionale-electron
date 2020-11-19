@@ -13,6 +13,14 @@ class MailchimpAPI extends React.Component {
     this.state = { spinner: false };
   }
 
+  bodyText = (text, textToCut) => {
+    const textToCutIndex = text.indexOf(textToCut);
+
+    if (textToCutIndex === -1) return text;
+
+    return text.substring(0, textToCutIndex);
+  };
+
   sendNewsletter = (lingua) => {
     this.setState({
       spinner: true,
@@ -947,23 +955,35 @@ Tel. +49 30 54482958 - WhatsApp: <a href="https://wa.me/message/XBJ5OH4JPQC4F1" 
                        ${
                          lingua !== 'It'
                            ? lingua !== 'En'
-                             ? oggetto.descrizioneDe.substring(
-                                 0,
-                                 oggetto.descrizioneDe.indexOf(
-                                   'Provisionshinweis:'
-                                 )
+                             ? //  ? oggetto.descrizioneDe.substring(
+                               //      0,
+                               //      oggetto.descrizioneDe.indexOf(
+                               //        'Provisionshinweis:'
+                               //      )
+                               //    )
+                               this.bodyText(
+                                 oggetto.descrizioneDe,
+                                 'Provisionshinweis:'
                                )
-                             : oggetto.descrizioneEn.substring(
-                                 0,
-                                 oggetto.descrizioneEn.indexOf(
-                                   'Commission note:'
-                                 )
+                             : //  : oggetto.descrizioneEn.substring(
+                               //      0,
+                               //      oggetto.descrizioneEn.indexOf(
+                               //        'Commission note:'
+                               //      )
+                               //    )
+                               this.bodyText(
+                                 oggetto.descrizioneEn,
+                                 'Commission note:'
                                )
-                           : oggetto.descrizione.substring(
-                               0,
-                               oggetto.descrizione.indexOf(
-                                 'Nota sulla commissione:'
-                               )
+                           : //  : oggetto.descrizione.substring(
+                             //      0,
+                             //      oggetto.descrizione.indexOf(
+                             //        'Nota sulla commissione:'
+                             //      )
+                             //    )
+                             this.bodyText(
+                               oggetto.descrizione,
+                               'Nota sulla commissione:'
                              )
                        }
                         </td>
