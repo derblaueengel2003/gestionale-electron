@@ -231,7 +231,7 @@ export class ViewOggettiPage extends React.Component {
           </div>
           <div className='container section'>
             <div className='btn-row'>
-              {this.props.utente.role === 'Admin' && (
+              {this.props.utente && (
                 <div>
                   <h5>Admin Console</h5>
                   <div className='admin-console'>

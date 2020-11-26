@@ -12,13 +12,13 @@ export const NavBar = ({ utente, t, activeClass }) => {
       { pathLink: 'moduli', label: t('Moduli') },
       { pathLink: 'oggetti', label: t('Oggetti') },
       { pathLink: 'clienti', label: t('Contatti') },
+      { pathLink: 'newsletters', label: t('Newsletters') },
       { pathLink: 'evaluations', label: t('evaluations') },
     ];
     if (utente && utente.role === 'Admin') {
       menuItems = [
         ...menuItems,
         // { pathLink: 'report', label: 'Report' },
-        { pathLink: 'newsletters', label: t('Newsletters') },
         { pathLink: 'utenti', label: t('Utenti') },
         { pathLink: 'fatture', label: t('Fatture') },
       ];

@@ -59,13 +59,12 @@ export class Sidebar extends Component {
             </Link>
           </li>
 
-          {this.props.utente.role === 'Admin' && (
-            <li>
-              <Link className='sidenav-close' to='/newsletters'>
-                {t('newsletters')}
-              </Link>
-            </li>
-          )}
+          <li>
+            <Link className='sidenav-close' to='/newsletters'>
+              {t('newsletters')}
+            </Link>
+          </li>
+
           {this.props.utente.role === 'Admin' && (
             <li>
               <Link className='sidenav-close' to='/utenti'>
