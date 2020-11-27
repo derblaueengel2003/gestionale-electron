@@ -30,6 +30,7 @@ export class ViewDealPage extends React.Component {
       consulenteVendita,
       createdAt,
       dataRogito,
+      feePayed,
       id,
       linguaRogito,
       notaioId,
@@ -64,12 +65,16 @@ export class ViewDealPage extends React.Component {
     const dataPrenotazione = moment(createdAt).format('DD.MM.YYYY');
     // Determino quante fatture sono state pagate per mostrare i colori adatti. Da dealFature mi arriva un array
     let payed = 0;
-    this.props.fatture.map((fattura) => fattura.payed && payed++);
-    if (payed > 0) {
-      if (payed === this.props.fatture.length) {
-        payed = 2;
-      } else {
-        payed = 1;
+    if (feePayed) {
+      payed = 2;
+    } else {
+      this.props.fatture.map((fattura) => fattura.payed && payed++);
+      if (payed > 0) {
+        if (payed === this.props.fatture.length) {
+          payed = 2;
+        } else {
+          payed = 1;
+        }
       }
     }
     return (

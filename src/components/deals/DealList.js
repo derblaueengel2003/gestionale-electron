@@ -100,12 +100,16 @@ export const DealList = ({
                 (fattura) => fattura.dealId === deal.id
               );
               let payed = 0;
-              dealFatture.map((fattura) => fattura.payed && payed++);
-              if (payed > 0) {
-                if (payed === dealFatture.length) {
-                  payed = 2;
-                } else {
-                  payed = 1;
+              if (deal.feePayed) {
+                payed = 2;
+              } else {
+                dealFatture.map((fattura) => fattura.payed && payed++);
+                if (payed > 0) {
+                  if (payed === dealFatture.length) {
+                    payed = 2;
+                  } else {
+                    payed = 1;
+                  }
                 }
               }
               return (

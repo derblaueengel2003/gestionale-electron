@@ -77,6 +77,11 @@ function withForm(Component) {
         },
         deals: {
           //DEAL
+          feePayed: props.deal
+            ? props.deal.feePayed
+              ? props.deal.feePayed
+              : false
+            : false,
           note: props.deal ? props.deal.note : '',
           oggettoId: props.deal ? props.deal.oggettoId : '',
           prezzoDiVendita: props.deal

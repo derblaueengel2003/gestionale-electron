@@ -38,6 +38,7 @@ export class DealForm extends React.Component {
       this.props.renderError('');
 
       this.props.onSubmit({
+        feePayed: deals.feePayed,
         oggettoId: deals.oggettoId,
         prezzoDiVendita,
         amount,
@@ -165,6 +166,8 @@ export class DealForm extends React.Component {
           }`,
           '*'
         )}
+        {renderCheckbox('deals', 'feePayed', t('Pagato (Gutschrift)'))}
+
         {renderSelect(
           'deals',
           'consulenteVendita',
