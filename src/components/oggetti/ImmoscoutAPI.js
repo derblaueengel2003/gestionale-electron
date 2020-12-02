@@ -65,7 +65,7 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
       
       Die Angaben zu folgende Vertragsgelegenheit haben wir vom Eigentümer erhalten, welche wir gerne an Sie weiterleiten. Eine Haftung für die Richtigkeit dieser Angaben können wir nicht übernehmen. Die Wohnungsgröße wurde von uns ausdrücklich nicht ausgemessen. Der Grundriss stammt vom Verkäufer.
       Wir sind auch für den Verkäufer tätig.`;
-    const provisionsHinweis = `Die Provision beträgt 7,14% (inkl. MwSt.) vom Kaufpreis und ist vom Käufer bei wirksamem Abschluss des Kaufvertrags zu zahlen. Der Interessent verpflichtet sich, die vereinbarte Provision zu bezahlen, wenn mit ihm oder einem mit ihm verbundenen Haus ein notariell beurkundeter Vertrag zustande kommt.`;
+    const provisionsHinweis = `Die Provision beträgt 3,57% (inkl. MwSt.) vom Kaufpreis und ist vom Käufer bei wirksamem Abschluss des Kaufvertrags zu zahlen. Der Interessent verpflichtet sich, die vereinbarte Provision zu bezahlen, wenn mit ihm oder einem mit ihm verbundenen Haus ein notariell beurkundeter Vertrag zustande kommt.`;
     const body = {
       'realestates.apartmentBuy': {
         externalId: oggetto.rifId,
@@ -92,7 +92,7 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
         energyConsumptionContainsWarmWater: 'NOT_APPLICABLE',
         numberOfBathRooms: parseInt(oggetto.bagni, 10),
         guestToilet: 'NOT_APPLICABLE',
-        rentalIncome: parseFloat(oggetto.affittoNetto),
+        rentalIncome: oggetto.affittoNetto > 0 && oggetto.affittoNetto / 100,
         price: {
           value: oggetto.kaufpreis / 100,
           currency: 'EUR',
@@ -105,10 +105,10 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
         garden: oggetto.giardino,
         courtage: {
           hasCourtage: 'YES',
-          courtage: '7,14%',
+          courtage: '3,57%',
         },
         courtageNote: provisionsHinweis,
-        serviceCharge: oggetto.wohngeld,
+        serviceCharge: oggetto.wohngeld / 100,
       },
     };
     const base_url =
