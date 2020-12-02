@@ -6,6 +6,7 @@ import Select from 'react-virtualized-select';
 import OptionModal from './OptionModal';
 import axios, { post } from 'axios';
 import Dropzone from 'react-dropzone';
+import { formattaPrezzo } from './utils';
 
 function withForm(Component) {
   return class WithForm extends React.Component {
@@ -263,7 +264,7 @@ function withForm(Component) {
         oggetti: {
           //OGGETTO
           affittoNetto: props.oggetto
-            ? (props.oggetto.affittoNetto / 100).toString().replace(/\./, ',')
+            ? formattaPrezzo(props.oggetto.affittoNetto)
             : '0',
           amtsgericht: props.oggetto ? props.oggetto.amtsgericht : '',
           ascensore: props.oggetto ? props.oggetto.ascensore : false,
@@ -344,7 +345,7 @@ function withForm(Component) {
           inquilinoId: props.oggetto ? props.oggetto.inquilinoId : '',
           isUploading: false,
           kaufpreis: props.oggetto
-            ? (props.oggetto.kaufpreis / 100).toString().replace(/\./, ',')
+            ? formattaPrezzo(props.oggetto.kaufpreis)
             : '0',
           latitude: props.oggetto
             ? props.oggetto.latitude
@@ -378,7 +379,11 @@ function withForm(Component) {
 
           proprietarioId: props.oggetto ? props.oggetto.proprietarioId : '',
           proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : '',
-          provvigione: props.oggetto ? props.oggetto.provvigione : '',
+          provvigione: props.oggetto
+            ? props.oggetto.provvigione
+              ? formattaPrezzo(props.oggetto.provvigione)
+              : '0'
+            : '0',
           quartiere: props.oggetto ? props.oggetto.quartiere : '',
           rifId: props.oggetto ? props.oggetto.rifId : '',
           ruecklage: props.oggetto ? props.oggetto.ruecklage : '',

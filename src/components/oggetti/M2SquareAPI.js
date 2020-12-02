@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { storeActions } from '../../store/configureStore';
 import CollectionItem from '../common/collectionItem';
+import { formattaPrezzo } from '../common/utils';
 
 const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
   useEffect(() => {
@@ -40,20 +41,6 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
   const oggettoCopy = { ...oggetto };
   // Modifico l'oggetto per farlo aderire ai campi su WP
   const via = `${oggettoCopy.via} ${oggettoCopy.numeroCivico}`;
-  const affittoNetto =
-    oggettoCopy.affittoNetto > 0
-      ? `${(oggettoCopy.affittoNetto / 100).toString().replace(/\./, ',')} €`
-      : null;
-
-  const kaufpreis =
-    oggettoCopy.kaufpreis > 0
-      ? (oggettoCopy.kaufpreis / 100).toString().replace(/\./, ',')
-      : null;
-
-  const wohngeld =
-    oggettoCopy.wohngeld > 0
-      ? `${(oggettoCopy.wohngeld / 100).toString().replace(/\./, ',')} €`
-      : null;
 
   if (oggettoCopy.energieAusweisTyp === 'based_on_consumption') {
     oggettoCopy.energieAusweisTyp = 'Consumption';
@@ -169,7 +156,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     title: oggettoCopy.titoloDe,
     content: oggettoCopy.descrizioneDe,
     // postId: oggettoCopy.postIdDe || null,
-    affittoNetto,
+    affittoNetto: formattaPrezzo(oggettoCopy.affittoNetto, true),
     ascensore: oggettoCopy.ascensore || null,
     bagni: oggettoCopy.bagni || null,
     balcone: oggettoCopy.balcone || null,
@@ -184,7 +171,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     featuredProperty: oggettoCopy.featuredProperty || null,
     giardino: oggettoCopy.giardino || null,
     heizungsart: oggettoCopy.heizungsart || null,
-    kaufpreis,
+    kaufpreis: formattaPrezzo(oggettoCopy.kaufpreis, false),
     m2: oggettoCopy.m2 || null,
     piano: oggettoCopy.piano || null,
     postIdDe: oggettoCopy.postIdDe || null,
@@ -194,7 +181,9 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     property_longitude: oggettoCopy.longitude || null,
     property_status: 'normal',
     provvigione:
-      (oggettoCopy.provvigione && `${oggettoCopy.provvigione}%`) || null,
+      (oggettoCopy.provvigione &&
+        `${formattaPrezzo(oggettoCopy.provvigione, false)}%`) ||
+      null,
     rifId: oggettoCopy.rifId || null,
     terms: {
       property_area: oggettoCopy.quartiere
@@ -219,7 +208,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     vani: oggettoCopy.vani || null,
     via,
     videoId: oggettoCopy.videoId || null,
-    wohngeld,
+    wohngeld: formattaPrezzo(oggettoCopy.wohngeld, true),
   };
 
   // Cover

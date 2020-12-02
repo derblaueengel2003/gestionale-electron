@@ -6,6 +6,7 @@ import uuid from 'uuid';
 import crypto from 'crypto';
 import { ipcRenderer } from 'electron';
 import LoadingPage from '../LoadingPage';
+import { formattaPrezzo } from '../common/utils';
 
 const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
   const [spinner, useSpinner] = useState(false);
@@ -65,7 +66,10 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
       
       Die Angaben zu folgende Vertragsgelegenheit haben wir vom Eigentümer erhalten, welche wir gerne an Sie weiterleiten. Eine Haftung für die Richtigkeit dieser Angaben können wir nicht übernehmen. Die Wohnungsgröße wurde von uns ausdrücklich nicht ausgemessen. Der Grundriss stammt vom Verkäufer.
       Wir sind auch für den Verkäufer tätig.`;
-    const provisionsHinweis = `Die Provision beträgt 3,57% (inkl. MwSt.) vom Kaufpreis und ist vom Käufer bei wirksamem Abschluss des Kaufvertrags zu zahlen. Der Interessent verpflichtet sich, die vereinbarte Provision zu bezahlen, wenn mit ihm oder einem mit ihm verbundenen Haus ein notariell beurkundeter Vertrag zustande kommt.`;
+    const provisionsHinweis = `Die Provision beträgt ${formattaPrezzo(
+      oggetto.provvigione,
+      false
+    )}% (inkl. MwSt.) vom Kaufpreis und ist vom Käufer bei wirksamem Abschluss des Kaufvertrags zu zahlen. Der Interessent verpflichtet sich, die vereinbarte Provision zu bezahlen, wenn mit ihm oder einem mit ihm verbundenen Haus ein notariell beurkundeter Vertrag zustande kommt.`;
     const body = {
       'realestates.apartmentBuy': {
         externalId: oggetto.rifId,
@@ -105,7 +109,7 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
         garden: oggetto.giardino,
         courtage: {
           hasCourtage: 'YES',
-          courtage: '3,57%',
+          courtage: `${formattaPrezzo(oggetto.provvigione, false)}%`,
         },
         courtageNote: provisionsHinweis,
         serviceCharge: oggetto.wohngeld / 100,
@@ -148,9 +152,14 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
       {spinner ? (
         <LoadingPage />
       ) : (
-        <button className={`btn ${btnColor}`} onClick={exportToIS24}>
-          Export to immobilienscout24
-        </button>
+        <div>
+          <button className={`btn ${btnColor}`} onClick={exportToIS24}>
+            Export to immobilienscout24
+          </button>
+          <p>
+            Campi obbligatori: Rif. ID, vani, prezzo di vendita, m2, indirizzo
+          </p>
+        </div>
       )}
     </div>
   );

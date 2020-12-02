@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './ImageLogo';
 import { ivdLogo } from './IvdLogo';
-import numeral from 'numeral';
+import { formattaPrezzo } from '../common/utils';
 
 export const expose = (oggetto, firma, utente, ceo, lingua) => {
   const doc = new jsPDF('p', 'mm', 'a4');
@@ -191,17 +191,16 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     doc.setFontSize(fontStart + 10);
     doc.setFontType('bold');
     //per centrare il titolo uso poco più della metà della larghezza di pagina e il tag 'center'
-    doc.text(traduzione.titolo, 107, 120, 'center');
+    // doc.text(traduzione.titolo, 107, 120, 'center');
+
+    const linesTitolo = doc.splitTextToSize(traduzione.titolo, 180);
+    doc.text(15, 120 + 12 / 110, linesTitolo);
 
     //Prezzo e indirizzo
     doc.setFontSize(fontStart + 8);
     doc.setFontType('normal');
     doc.setTextColor(145, 0, 0);
-    doc.text(
-      `${numeral(oggetto.kaufpreis / 100).format('0,0[.]00 $')}`,
-      15,
-      135
-    );
+    doc.text(`${formattaPrezzo(oggetto.kaufpreis, true)}`, 15, 135);
     doc.setFontSize(fontStart + 5);
     doc.setTextColor(0, 0, 0);
     doc.text(`${oggetto.via} ${oggetto.numeroCivico}`, 15, 145);
@@ -382,15 +381,22 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
       doc.text(`${traduzione.energieTraeger}: ${energietraeger}`, 15, acapo);
     }
 
-    if (oggetto.wohngeld.length > 0) {
-      acapo += 5;
-      doc.text(`${traduzione.wohngeld}: ${oggetto.wohngeld}`, 15, acapo);
-    }
-
-    if (oggetto.affittoNetto.length > 0) {
+    if (oggetto.wohngeld > 0) {
       acapo += 5;
       doc.text(
-        `${traduzione.affittoNetto}: ${oggetto.affittoNetto}`,
+        `${traduzione.wohngeld}: ${formattaPrezzo(oggetto.wohngeld, true)}`,
+        15,
+        acapo
+      );
+    }
+
+    if (oggetto.affittoNetto > 0) {
+      acapo += 5;
+      doc.text(
+        `${traduzione.affittoNetto}: ${formattaPrezzo(
+          oggetto.affittoNetto,
+          true
+        )}`,
         15,
         acapo
       );
@@ -444,9 +450,16 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
       doc.text(`${traduzione.condizioni}: ${oggettoCondizioni}`, 15, acapo);
     }
 
-    if (oggetto.provvigione.length > 0) {
+    if (oggetto.provvigione > 0) {
       acapo += 5;
-      doc.text(`${traduzione.provvigione}: ${oggetto.provvigione}%`, 15, acapo);
+      doc.text(
+        `${traduzione.provvigione}: ${formattaPrezzo(
+          oggetto.provvigione,
+          false
+        )}%`,
+        15,
+        acapo
+      );
     }
   };
   const paginaDescrizione = () => {

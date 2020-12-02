@@ -6,6 +6,7 @@ import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import M from 'materialize-css';
+import { trasformaInNumero } from '../common/utils';
 
 export class OggettoForm extends React.Component {
   componentDidMount() {
@@ -17,10 +18,10 @@ export class OggettoForm extends React.Component {
 
     const { oggetti } = this.props.data;
 
-    const wohngeld = parseFloat(oggetti.wohngeld.replace(/,/, '.'), 10) * 100;
-    const affittoNetto =
-      parseFloat(oggetti.affittoNetto.replace(/,/, '.'), 10) * 100;
-    const kaufpreis = parseFloat(oggetti.kaufpreis.replace(/,/, '.'), 10) * 100;
+    const wohngeld = trasformaInNumero(oggetti.wohngeld);
+    const affittoNetto = trasformaInNumero(oggetti.affittoNetto);
+    const kaufpreis = trasformaInNumero(oggetti.kaufpreis);
+    const provvigione = trasformaInNumero(oggetti.provvigione);
 
     if (!oggetti.via || !oggetti.rifId) {
       this.props.renderError(this.props.t('property_form_submit_error'));
@@ -78,7 +79,7 @@ export class OggettoForm extends React.Component {
         prenotato: oggetti.prenotato,
         proprietarioId: oggetti.proprietarioId,
         proprietarioId2: oggetti.proprietarioId2,
-        provvigione: oggetti.provvigione,
+        provvigione,
         quartiere: oggetti.quartiere,
         rifId: oggetti.rifId,
         ruecklage: oggetti.ruecklage,
@@ -461,10 +462,10 @@ export class OggettoForm extends React.Component {
                 'oggetti',
                 'provvigione',
                 t('Provvigione'),
+                'text',
+                changeHandlerValuta,
                 undefined,
-                undefined,
-                undefined,
-                t("IVA inclusa, senza '%'")
+                t('IVA inclusa')
               )}
               {renderCheckbox('oggetti', 'balcone', t('Balcone'))}
               {renderCheckbox('oggetti', 'ascensore', t('Ascensore'))}
