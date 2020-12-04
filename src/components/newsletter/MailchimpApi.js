@@ -68,7 +68,7 @@ Sie können&nbsp;<a href="*|UPDATE_PROFILE|*">die Einstellungen ändern</a>&nbsp
       settings.title = `Neswletter of ${moment().format('DD MMMM, YYYY')}`;
       settings.from_name = 'm2Square - Berlin Real Estate';
       settings.btn_text = 'Details';
-      settings.homepage = 'https://www.m2square.eu/en';
+      settings.homepage = 'https://www.m2square.eu/en/';
       settings.ivdText = `The IVD logo is a seal of quality for competence and professionalism.<br /><br />m2Square is a member of the IVD, the most important German real estate association, and is committed to its guidelines.`;
       settings.footerText = `<em>Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, all rights reserved.</em><br>
 *|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*<br>
@@ -102,7 +102,7 @@ You can&nbsp;<a href="*|UPDATE_PROFILE|*">edit your settings</a>&nbsp;or&nbsp;<a
       settings.title = `Neswletter del ${moment().format('DD MMMM, YYYY')}`;
       settings.from_name = 'm2Square - Occasioni immobiliari';
       settings.btn_text = 'Dettagli';
-      settings.homepage = 'https://www.m2square.eu/it';
+      settings.homepage = 'https://www.m2square.eu/it/';
       settings.ivdText = `Il logo IVD è un marchio di qualità per competenza e professionalità.<br><br>m2Square è membro della IVD, la più importante associazione immobiliare tedesca, e si impegna nel rispetto delle sue linee guida.`;
       settings.footerText = `<em>Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, Tutti i diritti riservati.</em><br>
 *|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*<br>
