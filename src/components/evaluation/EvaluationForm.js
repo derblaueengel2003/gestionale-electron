@@ -7,6 +7,7 @@ import IntestazioneParagrafo from '../common/IntestazioneParagrafo';
 import moment from 'moment';
 import numeral from 'numeral';
 import M from 'materialize-css';
+import { trasformaInNumero } from '../common/utils';
 
 class EvaluationForm extends Component {
   componentDidMount() {
@@ -17,30 +18,25 @@ class EvaluationForm extends Component {
 
     const { evaluations } = this.props.data;
 
-    const m2 = parseFloat(evaluations.m2.replace(/,/, '.'), 10) * 100;
-    const affittoNetto =
-      parseFloat(evaluations.affittoNetto.replace(/,/, '.'), 10) * 100;
-    const rendite = parseFloat(evaluations.rendite.replace(/,/, '.'), 10) * 100;
-    const bodenRichtwert =
-      parseFloat(evaluations.bodenRichtwert.replace(/,/, '.'), 10) * 100;
-    const bodenRichtwert2 =
-      parseFloat(evaluations.bodenRichtwert2.replace(/,/, '.'), 10) * 100;
-    const bodenRichtwert3 =
-      parseFloat(evaluations.bodenRichtwert3.replace(/,/, '.'), 10) * 100;
-    const mietspiegel =
-      parseFloat(evaluations.mietspiegel.replace(/,/, '.'), 10) * 100;
-    const mietendeckel =
-      parseFloat(evaluations.mietendeckel.replace(/,/, '.'), 10) * 100;
-    const immobilienpreisMin =
-      parseFloat(evaluations.immobilienpreisMin.replace(/,/, '.'), 10) * 100;
-    const immobilienpreisMax =
-      parseFloat(evaluations.immobilienpreisMax.replace(/,/, '.'), 10) * 100;
-    const immobilienpreisAverage =
-      parseFloat(evaluations.immobilienpreisAverage.replace(/,/, '.'), 10) *
-      100;
-    const is24Evaluation =
-      parseFloat(evaluations.is24Evaluation.replace(/,/, '.'), 10) * 100;
-    const result = parseFloat(evaluations.result.replace(/,/, '.'), 10) * 100;
+    const m2 = trasformaInNumero(evaluations.m2);
+    const affittoNetto = trasformaInNumero(evaluations.affittoNetto);
+    const rendite = trasformaInNumero(evaluations.rendite);
+    const bodenRichtwert = trasformaInNumero(evaluations.bodenRichtwert);
+    const bodenRichtwert2 = trasformaInNumero(evaluations.bodenRichtwert2);
+    const bodenRichtwert3 = trasformaInNumero(evaluations.bodenRichtwert3);
+    const mietspiegel = trasformaInNumero(evaluations.mietspiegel);
+    const mietendeckel = trasformaInNumero(evaluations.mietendeckel);
+    const immobilienpreisMin = trasformaInNumero(
+      evaluations.immobilienpreisMin
+    );
+    const immobilienpreisMax = trasformaInNumero(
+      evaluations.immobilienpreisMax
+    );
+    const immobilienpreisAverage = trasformaInNumero(
+      evaluations.immobilienpreisAverage
+    );
+    const is24Evaluation = trasformaInNumero(evaluations.is24Evaluation);
+    const result = trasformaInNumero(evaluations.result);
 
     if (!evaluations.titolo && !evaluations.oggettoId) {
       this.props.renderError(this.props.t('evaluation_form_submission_error'));

@@ -12,6 +12,7 @@ import OggettiList from '../oggetti/OggettiList';
 import DealList from '../deals/DealList';
 import ClientiList from '../clienti/ClientiList';
 import Intestazione from '../common/Intestazione';
+import { formattaPrezzo } from '../common/utils';
 
 export class ViewFatturePage extends React.Component {
   render() {
@@ -79,11 +80,7 @@ export class ViewFatturePage extends React.Component {
               )}
               <h5>
                 {t('Importo netto')}:{' '}
-                {deal
-                  ? numeral(deal.amount / 100).format('0,0[.]00 $')
-                  : numeral(singleFattura.importoNetto / 100).format(
-                      '0,0[.]00 $'
-                    )}
+                {formattaPrezzo(singleFattura.importoNetto, true)}
               </h5>
               {singleFattura.note}
               <div className='list-item__title'>

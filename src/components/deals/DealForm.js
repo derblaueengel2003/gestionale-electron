@@ -5,6 +5,7 @@ import withForm from '../common/withForm';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
+import { trasformaInNumero } from '../common/utils';
 
 export class DealForm extends React.Component {
   onSubmit = (e) => {
@@ -12,20 +13,23 @@ export class DealForm extends React.Component {
 
     const { deals } = this.props.data;
 
-    const prezzoDiVendita =
-      parseFloat(deals.prezzoDiVendita.replace(/,/, '.'), 10) * 100;
-    const amount = parseFloat(deals.amount.replace(/,/, '.'), 10) * 100;
-    const provvM2square =
-      parseFloat(deals.provvM2square.replace(/,/, '.'), 10) * 100;
-    const provvStefano =
-      parseFloat(deals.provvStefano.replace(/,/, '.'), 10) * 100;
-    const provvAgenziaPartner =
-      parseFloat(deals.provvAgenziaPartner.replace(/,/, '.'), 10) * 100;
+    const prezzoDiVendita = trasformaInNumero(deals.prezzoDiVendita);
+    const amount = trasformaInNumero(deals.amount);
+    const provvM2square = trasformaInNumero(deals.provvM2square);
+    const provvStefano = trasformaInNumero(deals.provvStefano);
+    const provvAgenziaPartner = trasformaInNumero(deals.provvAgenziaPartner);
     const provvSum = provvM2square + provvStefano + provvAgenziaPartner;
 
-    if (!deals.oggettoId || !deals.amount || !deals.acquirenteId) {
+    if (
+      !deals.oggettoId ||
+      !deals.amount ||
+      !deals.acquirenteId ||
+      !deals.venditoreId
+    ) {
       this.props.renderError(
-        this.props.t('Inserisci oggetto, provvigione totale e acquirente')
+        this.props.t(
+          'Inserisci oggetto, provvigione totale, venditore e acquirente'
+        )
       );
     } else if (amount !== provvSum) {
       const differenza = (provvSum - amount) / 100;
@@ -161,9 +165,7 @@ export class DealForm extends React.Component {
           undefined,
           changeHandlerValuta,
           undefined,
-          `6%: ${
-            parseFloat(deals.prezzoDiVendita.replace(/,/, '.'), 10) * 0.06
-          }`,
+          `6%: ${trasformaInNumero(deals.prezzoDiVendita, true) * 0.06}`,
           '*'
         )}
         {renderCheckbox('deals', 'feePayed', t('Pagato (Gutschrift)'))}
@@ -227,7 +229,7 @@ export class DealForm extends React.Component {
           changeHandlerValuta
         )}
         {renderCheckbox('deals', 'payedAgenziaPartner', t('Pagato'))}
-        {renderSelect('deals', 'venditoreId', options, t('Venditore'))}
+        {renderSelect('deals', 'venditoreId', options, t('Venditore'), '*')}
         {renderSelect('deals', 'venditoreId2', options, '2. ' + t('Venditore'))}
         {renderSelect('deals', 'acquirenteId', options, t('Acquirente'), '*')}
         {renderSelect(

@@ -75,39 +75,41 @@ export const notarDatenblatt = (
 
   const datiVerwalter = () => {
     //Verwalter
-    acapo += 10;
-    verwalter && doc.setFontSize(14);
-    verwalter && doc.setFontType('bold');
-    verwalter && doc.text(`Verwalter`, 15, acapo);
-    acapo += 5;
-    verwalter && doc.setFontSize(12);
-    verwalter && doc.setFontType('normal');
-    verwalter && doc.text(verwalter.ditta, 15, acapo);
+    if (verwalter) {
+      acapo += 10;
+      verwalter && doc.setFontSize(14);
+      verwalter && doc.setFontType('bold');
+      verwalter && doc.text(`Verwalter`, 15, acapo);
+      acapo += 5;
+      verwalter && doc.setFontSize(12);
+      verwalter && doc.setFontType('normal');
+      verwalter && doc.text(verwalter.ditta, 15, acapo);
 
-    if (verwalter.cognome) {
+      if (verwalter.cognome) {
+        acapo += 5;
+        doc.text(
+          `${verwalter.titolo} ${verwalter.nome} ${verwalter.cognome}`,
+          15,
+          acapo
+        );
+      }
       acapo += 5;
       doc.text(
-        `${verwalter.titolo} ${verwalter.nome} ${verwalter.cognome}`,
+        `${verwalter.indirizzo}, ${verwalter.cap} ${verwalter.comune}`,
+        15,
+        acapo
+      );
+      acapo += 5;
+      doc.text(
+        `${verwalter.telefono1 && `Tel.: ${verwalter.telefono1} - `}${
+          verwalter.fax && `Fax: ${verwalter.fax} - `
+        }${verwalter.cellulare && `Handy: ${verwalter.cellulare} - `}${
+          verwalter.email && `E-Mail: ${verwalter.email}`
+        }`,
         15,
         acapo
       );
     }
-    acapo += 5;
-    doc.text(
-      `${verwalter.indirizzo}, ${verwalter.cap} ${verwalter.comune}`,
-      15,
-      acapo
-    );
-    acapo += 5;
-    doc.text(
-      `${verwalter.telefono1 && `Tel.: ${verwalter.telefono1} - `}${
-        verwalter.fax && `Fax: ${verwalter.fax} - `
-      }${verwalter.cellulare && `Handy: ${verwalter.cellulare} - `}${
-        verwalter.email && `E-Mail: ${verwalter.email}`
-      }`,
-      15,
-      acapo
-    );
   };
 
   cartaIntestata();

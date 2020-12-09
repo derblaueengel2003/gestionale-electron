@@ -6,6 +6,7 @@ import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import M from 'materialize-css';
+import { trasformaInNumero } from '../common/utils';
 
 export class FatturaForm extends React.Component {
   componentDidMount() {
@@ -17,12 +18,11 @@ export class FatturaForm extends React.Component {
 
     const { fatture } = this.props.data;
 
-    const importoNetto =
-      parseFloat(fatture.importoNetto.replace(/,/, '.'), 10) * 100;
-    const mahngebuehren =
-      parseFloat(fatture.mahngebuehren.replace(/,/, '.'), 10) * 100;
-    const mahngebuehren2 =
-      parseFloat(fatture.mahngebuehren2.replace(/,/, '.'), 10) * 100;
+    const deal = this.props.deals.find((deal) => deal.id === fatture.dealId);
+    console.log(deal);
+    const importoNetto = trasformaInNumero(fatture.importoNetto) || deal.amount;
+    const mahngebuehren = trasformaInNumero(fatture.mahngebuehren);
+    const mahngebuehren2 = trasformaInNumero(fatture.mahngebuehren2);
 
     if (
       !fatture.numeroFattura ||

@@ -107,7 +107,13 @@ class NotarDatenblattForm extends Component {
             '2. ' + t('Acquirente')
           )}
           {renderSelect('moduli', 'notaioId', options, t('Notaio'))}
-          {renderSelect('moduli', 'oggettoId', oggettiOptions, t('Oggetto'))}
+          {renderSelect(
+            'moduli',
+            'oggettoId',
+            oggettiOptions,
+            t('Oggetto'),
+            '*'
+          )}
           {renderInput(
             'moduli',
             'prezzoDiVendita',

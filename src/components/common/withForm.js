@@ -6,7 +6,7 @@ import Select from 'react-virtualized-select';
 import OptionModal from './OptionModal';
 import axios, { post } from 'axios';
 import Dropzone from 'react-dropzone';
-import { formattaPrezzo } from './utils';
+import { visualizzaDecimaleConVirgola } from './utils';
 
 function withForm(Component) {
   return class WithForm extends React.Component {
@@ -86,18 +86,18 @@ function withForm(Component) {
           note: props.deal ? props.deal.note : '',
           oggettoId: props.deal ? props.deal.oggettoId : '',
           prezzoDiVendita: props.deal
-            ? (props.deal.prezzoDiVendita / 100).toString().replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.deal.prezzoDiVendita)
             : '0',
           amount: props.deal
-            ? (props.deal.amount / 100).toString().replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.deal.amount)
             : '',
           consulenteVendita: props.deal ? props.deal.consulenteVendita : '',
           provvM2square: props.deal
-            ? (props.deal.provvM2square / 100).toString().replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.deal.provvM2square)
             : '',
           dealType: props.deal ? props.deal.dealType : '',
           provvStefano: props.deal
-            ? (props.deal.provvStefano / 100).toString().replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.deal.provvStefano)
             : '',
           payedStefano: props.deal ? props.deal.payedStefano : false,
           payedAtStefano: props.deal
@@ -106,9 +106,7 @@ function withForm(Component) {
           calendarPayedAtStefanoFocused: false,
           agenziaPartnerId: props.deal ? props.deal.agenziaPartnerId : '',
           provvAgenziaPartner: props.deal
-            ? (props.deal.provvAgenziaPartner / 100)
-                .toString()
-                .replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.deal.provvAgenziaPartner)
             : '0',
           payedAgenziaPartner: props.deal
             ? props.deal.payedAgenziaPartner
@@ -162,15 +160,11 @@ function withForm(Component) {
           calendarDataMahnung2Focused: false,
           mahngebuehren:
             props.fattura && props.fattura.mahngebuehren
-              ? (props.fattura.mahngebuehren / 100)
-                  .toString()
-                  .replace(/\./, ',')
+              ? visualizzaDecimaleConVirgola(props.fattura.mahngebuehren)
               : '0',
           mahngebuehren2:
             props.fattura && props.fattura.mahngebuehren2
-              ? (props.fattura.mahngebuehren2 / 100)
-                  .toString()
-                  .replace(/\./, ',')
+              ? visualizzaDecimaleConVirgola(props.fattura.mahngebuehren2)
               : '0',
           payed: props.fattura ? props.fattura.payed : false,
           payedAt: props.fattura
@@ -183,7 +177,7 @@ function withForm(Component) {
             : '',
           importoNetto: props.fattura
             ? props.fattura.importoNetto
-              ? (props.fattura.importoNetto / 100).toString().replace(/\./, ',')
+              ? visualizzaDecimaleConVirgola(props.fattura.importoNetto)
               : '0'
             : '0',
           iva: props.fattura
@@ -264,7 +258,7 @@ function withForm(Component) {
         oggetti: {
           //OGGETTO
           affittoNetto: props.oggetto
-            ? formattaPrezzo(props.oggetto.affittoNetto)
+            ? visualizzaDecimaleConVirgola(props.oggetto.affittoNetto)
             : '0',
           amtsgericht: props.oggetto ? props.oggetto.amtsgericht : '',
           ascensore: props.oggetto ? props.oggetto.ascensore : false,
@@ -345,7 +339,7 @@ function withForm(Component) {
           inquilinoId: props.oggetto ? props.oggetto.inquilinoId : '',
           isUploading: false,
           kaufpreis: props.oggetto
-            ? formattaPrezzo(props.oggetto.kaufpreis)
+            ? visualizzaDecimaleConVirgola(props.oggetto.kaufpreis)
             : '0',
           latitude: props.oggetto
             ? props.oggetto.latitude
@@ -381,7 +375,7 @@ function withForm(Component) {
           proprietarioId2: props.oggetto ? props.oggetto.proprietarioId2 : '',
           provvigione: props.oggetto
             ? props.oggetto.provvigione
-              ? formattaPrezzo(props.oggetto.provvigione)
+              ? visualizzaDecimaleConVirgola(props.oggetto.provvigione)
               : '0'
             : '0',
           quartiere: props.oggetto ? props.oggetto.quartiere : '',
@@ -418,7 +412,7 @@ function withForm(Component) {
             : '',
           visible: props.oggetto ? props.oggetto.visible : true,
           wohngeld: props.oggetto
-            ? (props.oggetto.wohngeld / 100).toString().replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.oggetto.wohngeld)
             : '0',
         },
         users: {
@@ -498,64 +492,48 @@ function withForm(Component) {
               : ''
             : '',
           affittoNetto: props.evaluation
-            ? (props.evaluation.affittoNetto / 100)
-                .toString()
-                .replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.affittoNetto)
             : '0',
           m2: props.evaluation
-            ? (props.evaluation.m2 / 100).toString().replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.m2)
             : '0',
           rendite: props.evaluation
-            ? (props.evaluation.rendite / 100).toString().replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.rendite)
             : '0',
           wohnlage: props.evaluation ? props.evaluation.wohnlage : '',
           bodenRichtwert: props.evaluation
-            ? (props.evaluation.bodenRichtwert / 100)
-                .toString()
-                .replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.bodenRichtwert)
             : '0',
           bodenRichtwert2: props.evaluation
-            ? (props.evaluation.bodenRichtwert2 / 100)
-                .toString()
-                .replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.bodenRichtwert2)
             : '0',
           bodenRichtwert3: props.evaluation
-            ? (props.evaluation.bodenRichtwert3 / 100)
-                .toString()
-                .replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.bodenRichtwert3)
             : '0',
           dataEvaluation: moment(),
           mietspiegel: props.evaluation
-            ? (props.evaluation.mietspiegel / 100).toString().replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.mietspiegel)
             : '0',
           mietendeckel: props.evaluation
-            ? (props.evaluation.mietendeckel / 100)
-                .toString()
-                .replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.mietendeckel)
             : '0',
           note: props.evaluation ? props.evaluation.note : '',
           immobilienpreisMin: props.evaluation
-            ? (props.evaluation.immobilienpreisMin / 100)
-                .toString()
-                .replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.immobilienpreisMin)
             : '0',
           immobilienpreisMax: props.evaluation
-            ? (props.evaluation.immobilienpreisMax / 100)
-                .toString()
-                .replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.immobilienpreisMax)
             : '0',
           immobilienpreisAverage: props.evaluation
-            ? (props.evaluation.immobilienpreisAverage / 100)
-                .toString()
-                .replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(
+                props.evaluation.immobilienpreisAverage
+              )
             : '0',
           is24Evaluation: props.evaluation
-            ? (props.evaluation.is24Evaluation / 100)
-                .toString()
-                .replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.is24Evaluation)
             : '0',
           result: props.evaluation
-            ? (props.evaluation.result / 100).toString().replace(/\./, ',')
+            ? visualizzaDecimaleConVirgola(props.evaluation.result)
             : '0',
           titolo: props.evaluation ? props.evaluation.titolo : '',
           oggettoId: props.evaluation ? props.evaluation.oggettoId : '',
