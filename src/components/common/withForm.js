@@ -6,7 +6,11 @@ import Select from 'react-virtualized-select';
 import OptionModal from './OptionModal';
 import axios, { post } from 'axios';
 import Dropzone from 'react-dropzone';
-import { visualizzaDecimaleConVirgola } from './utils';
+import {
+  visualizzaDecimaleConVirgola,
+  riordinaImmagini,
+  generaToken,
+} from './utils';
 
 function withForm(Component) {
   return class WithForm extends React.Component {
@@ -790,6 +794,21 @@ function withForm(Component) {
                       return (
                         <span key={i}>
                           <img className='foto' src={url} />
+                          {i > 0 && (
+                            <img
+                              src='https://www.m2square.eu/sinistra/'
+                              className='sposta-avanti'
+                              onClick={() => this.sposta(i, true)}
+                            />
+                          )}
+                          {i <
+                            this.state.oggetti.downloadURLs[0].length - 1 && (
+                            <img
+                              src='https://www.m2square.eu/destra/'
+                              className='sposta-avanti'
+                              onClick={() => this.sposta(i, false)}
+                            />
+                          )}
                           <img
                             src='https://www.m2square.eu/trash/'
                             className='cancella'
@@ -863,12 +882,7 @@ function withForm(Component) {
         spinner: true,
       });
       // Get Token
-      await axios
-        .post(`${process.env.REACT_APP_WPAPI}/wp-json/jwt-auth/v1/token`, {
-          username: `${process.env.WPAPI_USERNAME}`,
-          password: `${process.env.WPAPI_PASSWORD}`,
-        })
-        .then((res) => localStorage.setItem('token', res.data.token));
+      await generaToken();
 
       const url = `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/media`;
       const formData = new FormData();
@@ -916,6 +930,30 @@ function withForm(Component) {
           spinner: false,
         });
       }
+    };
+
+    sposta = (i, avanti) => {
+      const urlArray = [...this.state.oggetti.downloadURLs];
+      const idArray = [...this.state.oggetti.downloadURLsId];
+
+      let direzione = i;
+      avanti ? direzione-- : direzione++;
+
+      riordinaImmagini(urlArray[0], i, direzione);
+      riordinaImmagini(urlArray[1], i, direzione);
+      riordinaImmagini(urlArray[2], i, direzione);
+
+      riordinaImmagini(idArray[0], i, direzione);
+      riordinaImmagini(idArray[1], i, direzione);
+      riordinaImmagini(idArray[2], i, direzione);
+
+      this.setState((prevState) => ({
+        oggetti: {
+          ...prevState.oggetti,
+          downloadURLs: urlArray,
+          downloadURLsId: idArray,
+        },
+      }));
     };
 
     handleRemovePicture = (picture, property, object) => {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { storeActions } from '../../store/configureStore';
 import CollectionItem from '../common/collectionItem';
-import { formattaPrezzo } from '../common/utils';
+import { formattaPrezzo, visualizzaDecimaleConVirgola } from '../common/utils';
 
 const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
   useEffect(() => {
@@ -41,6 +41,20 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
   const oggettoCopy = { ...oggetto };
   // Modifico l'oggetto per farlo aderire ai campi su WP
   const via = `${oggettoCopy.via} ${oggettoCopy.numeroCivico}`;
+  const affittoNetto =
+    oggettoCopy.affittoNetto > 0
+      ? `${formattaPrezzo(oggettoCopy.affittoNetto, true)}`
+      : null;
+
+  const kaufpreis =
+    oggettoCopy.kaufpreis > 0
+      ? visualizzaDecimaleConVirgola(oggettoCopy.kaufpreis)
+      : null;
+
+  const wohngeld =
+    oggettoCopy.wohngeld > 0
+      ? `${formattaPrezzo(oggettoCopy.wohngeld, true)}`
+      : null;
 
   if (oggettoCopy.energieAusweisTyp === 'based_on_consumption') {
     oggettoCopy.energieAusweisTyp = 'Consumption';
@@ -156,7 +170,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     title: oggettoCopy.titoloDe,
     content: oggettoCopy.descrizioneDe,
     // postId: oggettoCopy.postIdDe || null,
-    affittoNetto: formattaPrezzo(oggettoCopy.affittoNetto, true),
+    affittoNetto,
     ascensore: oggettoCopy.ascensore || null,
     bagni: oggettoCopy.bagni || null,
     balcone: oggettoCopy.balcone || null,
@@ -171,7 +185,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     featuredProperty: oggettoCopy.featuredProperty || null,
     giardino: oggettoCopy.giardino || null,
     heizungsart: oggettoCopy.heizungsart || null,
-    kaufpreis: formattaPrezzo(oggettoCopy.kaufpreis, false),
+    kaufpreis,
     m2: oggettoCopy.m2 || null,
     piano: oggettoCopy.piano || null,
     postIdDe: oggettoCopy.postIdDe || null,
@@ -181,9 +195,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     property_longitude: oggettoCopy.longitude || null,
     property_status: 'normal',
     provvigione:
-      (oggettoCopy.provvigione &&
-        `${formattaPrezzo(oggettoCopy.provvigione, false)}%`) ||
-      null,
+      (oggettoCopy.provvigione && `${oggettoCopy.provvigione}%`) || null,
     rifId: oggettoCopy.rifId || null,
     terms: {
       property_area: oggettoCopy.quartiere
@@ -208,7 +220,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     vani: oggettoCopy.vani || null,
     via,
     videoId: oggettoCopy.videoId || null,
-    wohngeld: formattaPrezzo(oggettoCopy.wohngeld, true),
+    wohngeld,
   };
 
   // Cover
@@ -250,10 +262,26 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     }
 
     if (payload && payload[i].length > 0) {
-      payload[i].forEach((id) => {
+      console.log(payload[i]);
+      payload[i].forEach((id, indice) => {
         axios.put(
           `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/media/${id}`,
           { post: postId },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        );
+
+        console.log('postId: ' + id, 'menuOrder: ' + indice);
+        axios.put(
+          `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/sortimage/`,
+          {
+            postId: id,
+            menuOrder: indice,
+          },
           {
             headers: {
               'Content-Type': 'application/json',
@@ -336,9 +364,10 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           },
         }
       );
-
+      console.log('POST');
+      console.log('Payload: ', payload);
       // se ci sono immagini, le posto. gli id sono un array di arrays
-      await postImages(data.id, payload.downloadURLsId, language);
+      postImages(data.id, payload.downloadURLsId, language);
 
       if (language !== 'De') {
         axios.post(
@@ -384,8 +413,8 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           },
         }
       );
-      console.log('Data: ', data);
-      console.log('Payload: ', payload);
+      console.log('PUT Data: ', data);
+      console.log('PUT Payload: ', payload);
       startEditOggetto(oggetto.id, {
         [`link${language}`]: data.link,
       });
@@ -407,7 +436,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
 
       // traduzioni
       if (language !== 'De') {
-        const { data: traduzione } = await axios.post(
+        axios.post(
           `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/translation/`,
           {
             original: payload.postIdDe,
