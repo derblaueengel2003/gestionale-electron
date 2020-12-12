@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import selectOggetti from '../../selectors/deals';
 import Card from '../Card';
-import numeral from 'numeral';
-import moment from 'moment';
+import { formattaData, formattaPrezzo } from '../common/utils';
 import { ipcRenderer } from 'electron';
 
 export const OggettiList = (props) => {
@@ -30,27 +29,42 @@ export const OggettiList = (props) => {
 
                 const prezzoDiVendita = `${props.t(
                   'Prezzo di vendita'
-                )}: ${numeral(oggetto.kaufpreis / 100).format('0,0[.]00 $')}`;
+                )}: ${formattaPrezzo(oggetto.kaufpreis, true)}`;
 
-                const dataOggetto = moment(oggetto.dataModificaOggetto).format(
-                  'DD MMMM, YYYY'
-                );
+                const dataOggetto = oggetto.dataModificaOggetto
+                  ? formattaData(oggetto.dataModificaOggetto)
+                  : oggetto.dataInserimentoOggetto
+                  ? formattaData(oggetto.dataModificaOggetto)
+                  : 'n/a';
+
                 return (
                   <Card
                     key={oggetto.id}
                     titolo={`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.citta}`}
                     titoloDestra={
-                      <button
-                        className='btn-floating light-blue accent-3 right btn-floating-margin'
-                        onClick={() => {
-                          ipcRenderer.send('folder:open', {
-                            folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Exposé/`,
-                            folderNamePartial: oggetto.rifId,
-                          });
-                        }}
-                      >
-                        <i className='material-icons'>folder</i>
-                      </button>
+                      <div className='foto-container'>
+                        {oggetto.downloadURLsCover && (
+                          <img
+                            className='foto'
+                            src={oggetto.downloadURLsCover[0] || ''}
+                          />
+                        )}
+                        <button
+                          className={`btn-floating light-blue accent-3 ${
+                            oggetto.downloadURLsCover
+                              ? 'icon-in-picture'
+                              : 'btn-floating-margin right'
+                          }`}
+                          onClick={() => {
+                            ipcRenderer.send('folder:open', {
+                              folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Exposé/`,
+                              folderNamePartial: oggetto.rifId,
+                            });
+                          }}
+                        >
+                          <i className='material-icons'>folder</i>
+                        </button>
+                      </div>
                     }
                     sottotitolo={`${props.t('Rif')}. ID ${oggetto.rifId}`}
                     visible={oggetto.visible}

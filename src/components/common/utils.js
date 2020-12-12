@@ -1,4 +1,5 @@
 import numeral from 'numeral';
+import moment from 'moment';
 import axios from 'axios';
 
 export const trasformaInNumero = (valore, nonMoltiplicarePerCento) => {
@@ -28,3 +29,5 @@ export const generaToken = () => {
     })
     .then((res) => localStorage.setItem('token', res.data.token));
 };
+
+export const formattaData = (data) => moment(data).format('DD MMMM, YYYY');

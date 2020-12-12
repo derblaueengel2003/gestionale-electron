@@ -136,17 +136,29 @@ export const DealList = ({
                     )
                   }
                   titoloDestra={
-                    <button
-                      className='btn-floating light-blue accent-3 right btn-floating-margin'
-                      onClick={() => {
-                        ipcRenderer.send('folder:open', {
-                          folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Exposé/`,
-                          folderNamePartial: oggetto.rifId,
-                        });
-                      }}
-                    >
-                      <i className='material-icons'>folder</i>
-                    </button>
+                    <div className='foto-container'>
+                      {oggetto.downloadURLsCover && (
+                        <img
+                          className='foto'
+                          src={oggetto.downloadURLsCover[0] || ''}
+                        />
+                      )}
+                      <button
+                        className={`btn-floating light-blue accent-3 ${
+                          oggetto.downloadURLsCover
+                            ? 'icon-in-picture'
+                            : 'btn-floating-margin right'
+                        }`}
+                        onClick={() => {
+                          ipcRenderer.send('folder:open', {
+                            folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Exposé/`,
+                            folderNamePartial: oggetto.rifId,
+                          });
+                        }}
+                      >
+                        <i className='material-icons'>folder</i>
+                      </button>
+                    </div>
                   }
                   corpo={[datiPrenotazione, gliAcquirenti, iVenditori]}
                   progressBar={<TodoProgressBar {...deal} />}

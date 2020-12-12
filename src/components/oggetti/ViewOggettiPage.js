@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import moment from 'moment';
-import numeral from 'numeral';
+import { formattaData, formattaPrezzo } from '../common/utils';
 import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
 import ImmoscoutAPI from './ImmoscoutAPI';
@@ -125,9 +124,10 @@ export class ViewOggettiPage extends React.Component {
                 </div>
               )}
               {oggetto.kaufpreis > 0 && (
-                <p>{`${t('Prezzo di vendita')}: ${numeral(
-                  oggetto.kaufpreis / 100
-                ).format('0,0[.]00 $')}`}</p>
+                <p>{`${t('Prezzo di vendita')}: ${formattaPrezzo(
+                  oggetto.kaufpreis,
+                  true
+                )}`}</p>
               )}
               <ul className='collapsible'>
                 <li>
@@ -194,13 +194,15 @@ export class ViewOggettiPage extends React.Component {
                       <p>{`${t('Stato abitativo')}: ${t(oggetto.stato)}`}</p>
                     )}
                     {oggetto.affittoNetto > 0 && (
-                      <p>{`${t('Affitto netto')}: ${numeral(
-                        oggetto.affittoNetto / 100
-                      ).format('0,0[.]00 $')}`}</p>
+                      <p>{`${t('Affitto netto')}: ${formattaPrezzo(
+                        oggetto.affittoNetto,
+                        true
+                      )}`}</p>
                     )}
-                    {`${t('Quota condominiale')}: ${numeral(
-                      oggetto.wohngeld / 100
-                    ).format('0,0[.]00 $')}`}
+                    {`${t('Quota condominiale')}: ${formattaPrezzo(
+                      oggetto.wohngeld,
+                      true
+                    )}`}
                     {oggetto.vani && <p>{`${t('Vani')}: ${oggetto.vani}`}</p>}
                     {oggetto.bagni && (
                       <p>{`${t('Bagni')}: ${oggetto.bagni}`}</p>
@@ -447,13 +449,12 @@ export class ViewOggettiPage extends React.Component {
           {oggetto.dataInserimentoOggetto && (
             <div className='container'>
               Data inserimento oggetto:{' '}
-              {moment(oggetto.dataInserimentoOggetto).format('DD MMMM, YYYY')}
+              {formattaData(oggetto.dataInserimentoOggetto)}
             </div>
           )}
           {oggetto.dataModificaOggetto && (
             <div className='container margine-basso'>
-              Data modifica oggetto:{' '}
-              {moment(oggetto.dataModificaOggetto).format('DD MMMM, YYYY')}
+              Data modifica oggetto: {formattaData(oggetto.dataModificaOggetto)}
             </div>
           )}
         </div>

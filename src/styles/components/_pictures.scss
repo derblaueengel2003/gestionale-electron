@@ -4,21 +4,32 @@
 }
 
 .cancella {
-  position: relative;
-  width: 25px;
-  right: 40px;
-  bottom: 20px;
+  position: absolute;
+  left: 95px;
+  top: 70%;
   cursor: pointer;
 }
 
-.logo {
-  width: 200px;
+.sposta-sinistra {
+  position: absolute;
+  left: 18px;
+  top: 70%;
+  cursor: pointer;
 }
 
-.sposta-avanti {
-  position: relative;
-  width: 25px;
-  right: 60px;
-  bottom: 20px;
+.sposta-destra {
+  position: absolute;
+  left: 170px;
+  top: 70%;
   cursor: pointer;
+}
+
+.icon-in-picture {
+  position: absolute;
+  left: 170px;
+  top: 65%;
+  cursor: pointer;
+}
+.foto-container {
+  position: relative;
 }

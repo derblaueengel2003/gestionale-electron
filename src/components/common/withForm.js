@@ -792,61 +792,67 @@ function withForm(Component) {
                   Array.isArray(this.state.oggetti.downloadURLs[0])
                   ? this.state.oggetti.downloadURLs[0].map((url, i) => {
                       return (
-                        <span key={i}>
+                        <div key={i} className='foto-container'>
                           <img className='foto' src={url} />
                           {i > 0 && (
-                            <img
-                              src='https://www.m2square.eu/sinistra/'
-                              className='sposta-avanti'
-                              onClick={() => this.sposta(i, true)}
-                            />
+                            <button
+                              className='sposta-sinistra'
+                              onClick={(e) => this.sposta(e, i, true)}
+                            >
+                              <i className='material-icons'>navigate_before</i>
+                            </button>
                           )}
+
                           {i <
                             this.state.oggetti.downloadURLs[0].length - 1 && (
-                            <img
-                              src='https://www.m2square.eu/destra/'
-                              className='sposta-avanti'
-                              onClick={() => this.sposta(i, false)}
-                            />
+                            <button
+                              className='sposta-destra'
+                              onClick={(e) => this.sposta(e, i, false)}
+                            >
+                              <i className='material-icons'>navigate_next</i>
+                            </button>
                           )}
-                          <img
-                            src='https://www.m2square.eu/trash/'
+                          <button
                             className='cancella'
-                            onClick={() =>
-                              this.handleRemovePicture(i, property, object)
+                            onClick={(e) =>
+                              this.handleRemovePicture(e, i, property, object)
                             }
-                          />
-                        </span>
+                          >
+                            <i className='material-icons'>delete</i>
+                          </button>
+                        </div>
                       );
                     })
                   : this.state.oggetti.downloadURLs &&
                     this.state.oggetti.downloadURLs.map((url, i) => {
                       return (
-                        <span key={i}>
+                        <div key={i} className='foto-container'>
                           <img className='foto' src={url} />
-                          <img
-                            src='https://www.m2square.eu/trash/'
+                          <button
                             className='cancella'
-                            onClick={() =>
-                              this.handleRemovePicture(i, property, object)
+                            onClick={(e) =>
+                              this.handleRemovePicture(e, i, property, object)
                             }
-                          />
-                        </span>
+                          >
+                            <i className='material-icons'>delete</i>
+                          </button>
+                        </div>
                       );
                     })
                 : this.state[object][property] &&
                   this.state[object][property].map((url, i) => {
                     return (
-                      <span key={i}>
+                      <div key={i} className='foto-container'>
                         <img className='foto' src={url} />
-                        <img
-                          src='https://www.m2square.eu/trash/'
+                        <button
                           className='cancella'
-                          onClick={() =>
-                            this.handleRemovePicture(i, property, object)
+                          onClick={(e) =>
+                            this.handleRemovePicture(e, i, property, object)
                           }
-                        />
-                      </span>
+                        >
+                          <i className='material-icons'>delete</i>
+                        </button>
+                      </div>
                     );
                   })}
             </div>
@@ -932,7 +938,8 @@ function withForm(Component) {
       }
     };
 
-    sposta = (i, avanti) => {
+    sposta = (e, i, avanti) => {
+      e.preventDefault();
       const urlArray = [...this.state.oggetti.downloadURLs];
       const idArray = [...this.state.oggetti.downloadURLsId];
 
@@ -956,7 +963,8 @@ function withForm(Component) {
       }));
     };
 
-    handleRemovePicture = (picture, property, object) => {
+    handleRemovePicture = (e, picture, property, object) => {
+      e.preventDefault();
       this.setState({ spinner: true });
       let idDe = false;
       let idEn = false;
