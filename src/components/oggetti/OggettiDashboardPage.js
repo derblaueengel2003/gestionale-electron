@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import OggettiList from './OggettiList';
 import ListFilters from '../common/ListFilters';
 import { storeActions } from '../../store/configureStore';
+import { addButton } from '../common/elements';
 
 class OggettiDashboardPage extends React.Component {
   componentDidMount() {
@@ -25,11 +25,7 @@ class OggettiDashboardPage extends React.Component {
           </div>
         </div>
         <ListFilters options={options} />
-        <div className='container'>
-          <Link className='btn-floating green right' to='/oggettocreate'>
-            <i className='material-icons'>add</i>
-          </Link>
-        </div>
+        {addButton('/oggettocreate')}
         <OggettiList />
       </div>
     );

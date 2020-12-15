@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
-import numeral from 'numeral';
 import { fattura } from '../moduli/Fattura';
 import { mahnung } from '../moduli/Mahnung';
 import { mahnung2 } from '../moduli/Mahnung2';
@@ -12,7 +10,7 @@ import OggettiList from '../oggetti/OggettiList';
 import DealList from '../deals/DealList';
 import ClientiList from '../clienti/ClientiList';
 import Intestazione from '../common/Intestazione';
-import { formattaPrezzo } from '../common/utils';
+import { formattaData, formattaPrezzo } from '../common/utils';
 
 export class ViewFatturePage extends React.Component {
   render() {
@@ -104,39 +102,35 @@ export class ViewFatturePage extends React.Component {
             <div>
               {singleFattura.dataFattura && (
                 <div>
-                  {t('Data fattura')}:{' '}
-                  {moment(singleFattura.dataFattura).format('DD MMMM, YYYY')}
+                  {t('Data fattura')}: {formattaData(singleFattura.dataFattura)}
                 </div>
               )}
-              {singleFattura.iva && (
+              {singleFattura && (
                 <div>
-                  {t('vat_applied')}: {singleFattura.iva}%
+                  {t('vat_applied')}: {this.props.firma.ivaApplicata}%
                 </div>
               )}
               {singleFattura.dataZahlungserinnerung && (
                 <div>
                   {t('Sollecito')}:{' '}
-                  {moment(singleFattura.dataZahlungserinnerung).format(
-                    'DD MMMM, YYYY'
-                  )}
+                  {formattaData(singleFattura.dataZahlungserinnerung)}
                 </div>
               )}
               {singleFattura.dataMahnung && (
                 <div>
                   1. {t('Sollecito con penale')}:{' '}
-                  {moment(singleFattura.dataMahnung).format('DD MMMM, YYYY')}
+                  {formattaData(singleFattura.dataMahnung)}
                 </div>
               )}
               {singleFattura.dataMahnung2 && (
                 <div>
                   2. {t('Sollecito con penale')}:{' '}
-                  {moment(singleFattura.dataMahnung2).format('DD MMMM, YYYY')}
+                  {formattaData(singleFattura.dataMahnung2)}
                 </div>
               )}
               {deal && deal.dataRogito > 0 && (
                 <div>
-                  {t('Data del rogito')}:{' '}
-                  {moment(deal.dataRogito).format('DD MMMM, YYYY')}
+                  {t('Data del rogito')}: {formattaData(deal.dataRogito)}
                 </div>
               )}
             </div>
@@ -165,7 +159,7 @@ export class ViewFatturePage extends React.Component {
                             singleFattura.dataFattura,
                             singleFattura.descrizioneProdotto,
                             singleFattura.importoNetto,
-                            singleFattura.iva,
+                            this.props.firma.ivaApplicata,
                             singleFattura.dataPrestazione,
                             oggetto,
                             deal && deal.prezzoDiVendita,
@@ -205,7 +199,7 @@ export class ViewFatturePage extends React.Component {
                               utente,
                               ceo,
                               singleFattura.importoNetto,
-                              singleFattura.iva
+                              this.props.firma.ivaApplicata
                             );
                           }}
                         >
@@ -236,7 +230,7 @@ export class ViewFatturePage extends React.Component {
                               utente,
                               ceo,
                               singleFattura.importoNetto,
-                              singleFattura.iva
+                              this.props.firma.ivaApplicata
                             );
                           }}
                         >
@@ -268,7 +262,7 @@ export class ViewFatturePage extends React.Component {
                               utente,
                               ceo,
                               singleFattura.importoNetto,
-                              singleFattura.iva
+                              this.props.firma.ivaApplicata
                             );
                           }}
                         >

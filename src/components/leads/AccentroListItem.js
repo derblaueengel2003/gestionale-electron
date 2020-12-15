@@ -1,7 +1,7 @@
 import React from 'react';
-import numeral from 'numeral';
+import { formattaPrezzo } from '../common/utils';
 
-export const AccentroListItem = props => {
+export const AccentroListItem = (props) => {
   return (
     <div className='row' key={props.id}>
       <div className='col-4-of-6'>
@@ -9,7 +9,7 @@ export const AccentroListItem = props => {
         <div className='list-item__sub-title'>WEG: {props.WEG}</div>
         <div className='list-item__sub-title'>ETW: {props.ETW}</div>
         <div className='list-item__sub-title'>
-          Preis: {numeral(props.Kaufpreis / 100).format('0,0[.]00 $')}
+          Preis: {formattaPrezzo(props.Kaufpreis, true)}
         </div>
         <div className='list-item__sub-title'>m2: {props.m2}</div>
         <div className='list-item__sub-title'>Zimmer: {props.Vani}</div>
@@ -18,10 +18,10 @@ export const AccentroListItem = props => {
       <div className='col-2-of-6'>
         <div className='list-item__sub-title'>Etage: {props.Etage}</div>
         <div className='list-item__sub-title'>
-          Kaltmiete: {numeral(props.Miete / 100).format('0,0[.]00 $')}
+          Kaltmiete: {formattaPrezzo(props.Miete, true)}
         </div>
         <div className='list-item__sub-title'>
-          Wohngeld: {numeral(props.Wohngeld / 100).format('0,0[.]00 $')}
+          Wohngeld: {formattaPrezzo(props.Wohngeld, true)}
         </div>
         <div className='list-item__sub-title'>Balkon: {props.Balcone}</div>
         <div className='list-item__sub-title'>Aufzug: {props.Aufzug}</div>

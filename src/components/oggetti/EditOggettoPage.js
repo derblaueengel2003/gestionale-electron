@@ -36,7 +36,23 @@ export class EditOggettoPage extends React.Component {
     const deals = this.props.deals.find(
       (deal) => deal.oggettoId === this.props.oggetto.id
     );
-    if (!clienti && !deals) {
+    const evaluation = this.props.evaluations.find(
+      (evaluation) => evaluation.oggettoId === this.props.oggetto.id
+    );
+    const newsletters = this.props.newsletters.find(
+      (newsletter) =>
+        newsletter.oggetto1 === this.props.oggetto.id ||
+        newsletter.oggetto2 === this.props.oggetto.id ||
+        newsletter.oggetto3 === this.props.oggetto.id ||
+        newsletter.oggetto4 === this.props.oggetto.id ||
+        newsletter.oggetto5 === this.props.oggetto.id ||
+        newsletter.oggetto6 === this.props.oggetto.id
+    );
+    const offers = this.props.offers.find(
+      (offer) => offer.oggettoId === this.props.oggetto.id
+    );
+
+    if (!clienti && !deals && !evaluation && !newsletters && !offers) {
       return true;
     } else {
       return false;
@@ -88,12 +104,6 @@ export class EditOggettoPage extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <button
-            className='btn-floating red right btn-floating-margin'
-            onClick={this.handleOpenModal}
-          >
-            <i className='material-icons'>remove</i>
-          </button>
           <OptionModal
             isOpen={this.state.isOpen}
             contentLabel={'remove'}
@@ -107,6 +117,12 @@ export class EditOggettoPage extends React.Component {
             btnEnabled={this.state.btnEnabled}
           />
           <OggettoForm oggetto={this.props.oggetto} onSubmit={this.onSubmit} />
+          <button
+            className='btn-floating red margine-basso'
+            onClick={this.handleOpenModal}
+          >
+            <i className='material-icons'>delete</i>
+          </button>
         </div>
       </div>
     );
@@ -123,6 +139,9 @@ const mapStateToProps = (state, props) => ({
   deals: state.deals,
   fatture: state.fatture,
   clienti: state.clienti,
+  evaluations: state.evaluations,
+  newsletters: state.newsletters,
+  offers: state.offers,
 });
 
 const mapDispatchToProps = (dispatch) => ({

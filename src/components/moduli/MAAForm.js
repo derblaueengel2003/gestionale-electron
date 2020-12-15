@@ -56,6 +56,7 @@ export class MAAForm extends React.Component {
       renderSelect,
       renderInput,
       renderDateRange,
+      renderTextArea,
       changeHandlerValuta,
     } = this.props;
     const options = this.props.clienti.map((cliente) => ({
@@ -81,14 +82,20 @@ export class MAAForm extends React.Component {
           {this.props.data.error && (
             <p className='form__error'>{this.props.data.error}</p>
           )}
-          {renderSelect('moduli', 'venditoreId', options, t('Venditore'))}
+          {renderSelect('moduli', 'venditoreId', options, t('Venditore'), '*')}
           {renderSelect(
             'moduli',
             'venditoreId2',
             options,
             '2. ' + t('Venditore')
           )}
-          {renderSelect('moduli', 'oggettoId', oggettiOptions, t('Oggetto'))}
+          {renderSelect(
+            'moduli',
+            'oggettoId',
+            oggettiOptions,
+            t('Oggetto'),
+            '*'
+          )}
           {renderDateRange(
             'moduli',
             'calendarFocusedMAA',
@@ -109,8 +116,16 @@ export class MAAForm extends React.Component {
             undefined,
             changeHandlerValuta
           )}
-          {renderInput('moduli', 'maklerProvision', t('Provvigione'))}
-          {renderInput('moduli', 'sonstige', t('Altri accordi'))}
+          {renderInput(
+            'moduli',
+            'maklerProvision',
+            t('Provvigione'),
+            undefined,
+            changeHandlerValuta,
+            undefined,
+            `${t('senza')} % ${t('es.')} 7,14`
+          )}
+          {renderTextArea('moduli', 'sonstige', t('Altri accordi'))}
           <div>
             <button className='btn-floating right'>
               <i className='material-icons'>picture_as_pdf</i>

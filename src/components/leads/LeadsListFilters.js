@@ -5,7 +5,7 @@ import {
   setLeadsFilter,
   sortByDate,
   sortByAmount,
-  setLeadsStatoFilter
+  setLeadsStatoFilter,
 } from '../../actions/filters';
 import M from 'materialize-css';
 import numeral from 'numeral';
@@ -14,15 +14,15 @@ export class LeadsListFilters extends React.Component {
   componentDidMount() {
     M.AutoInit();
   }
-  onLeadChange = e => {
+  onLeadChange = (e) => {
     //il valore convertito in euro lo riconverto in semplici numeri prima di passarli al filtro. Se cancello il valore, mi restituisce una stringa vuota per evitare errori
     const value = numeral(e.target.value).value() || '';
     this.props.setLeadsFilter(value);
   };
-  onLeadsStatoChange = e => {
+  onLeadsStatoChange = (e) => {
     this.props.setLeadsStatoFilter(e.target.value);
   };
-  onSortChange = e => {
+  onSortChange = (e) => {
     if (e.target.value === 'date') {
       this.props.sortByDate();
     } else if (e.target.value === 'amount') {
@@ -83,15 +83,15 @@ export class LeadsListFilters extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  filters: state.filters
+const mapStateToProps = (state) => ({
+  filters: state.filters,
 });
 
-const mapDispatchToProps = dispatch => ({
-  setLeadsFilter: lead => dispatch(setLeadsFilter(lead)),
-  setLeadsStatoFilter: leadStato => dispatch(setLeadsStatoFilter(leadStato)),
+const mapDispatchToProps = (dispatch) => ({
+  setLeadsFilter: (lead) => dispatch(setLeadsFilter(lead)),
+  setLeadsStatoFilter: (leadStato) => dispatch(setLeadsStatoFilter(leadStato)),
   sortByDate: () => dispatch(sortByDate()),
-  sortByAmount: () => dispatch(sortByAmount())
+  sortByAmount: () => dispatch(sortByAmount()),
 });
 
 export default connect(

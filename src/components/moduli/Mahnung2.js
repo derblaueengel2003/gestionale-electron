@@ -1,8 +1,7 @@
 import jsPDF from 'jspdf';
-import { imgLogo } from './ImageLogo';
-import { ivdLogo } from './IvdLogo';
-import moment from 'moment';
-import numeral from 'numeral';
+import { imgLogo } from './img/ImageLogo';
+import { ivdLogo } from './img/IvdLogo';
+import { formattaData, formattaPrezzo } from '../common/utils';
 
 export const mahnung2 = (
   cliente,
@@ -45,10 +44,10 @@ export const mahnung2 = (
       formulaSaluto2 = 'Sehr geehrte Frau';
     }
   }
-  const corpoFattura = `trotz unserer Erinnerungen vom ${moment(
+  const corpoFattura = `trotz unserer Erinnerungen vom ${formattaData(
     dataZahlungserinnerung
-  ).format('DD.MM.YYYY')} und vom ${moment(dataMahnung).format(
-    'DD.MM.YYYY'
+  )} und vom ${formattaData(
+    dataMahnung
   )} konnten wir bis zum heutigen Tag keinen Zahlungseingang feststellen.\n\nZur Zahlung offen sind folgende Beträge:`;
 
   doc.addImage(imgLogo, 'JPEG', 130, 10, 55, 12);
@@ -117,16 +116,17 @@ export const mahnung2 = (
   //Dati fattura
   doc.setFontType('bold');
   doc.text(
-    `Letzte Mahnung\nRechnung Nr. ${numeroFattura}\nRechnungsdatum: ${moment(
+    `Letzte Mahnung\nRechnung Nr. ${numeroFattura}\nRechnungsdatum: ${formattaData(
       dataFattura
-    ).format('DD.MM.YYYY')} \nRechnungsbetrag: ${numeral(
-      (importo / 100) * parseFloat(`1.${iva}`)
-    ).format('0,0[.]00 $')}`,
+    )} \nRechnungsbetrag: ${formattaPrezzo(
+      importo * parseFloat(`1.${iva}`),
+      true
+    )}`,
     15,
     96
   );
   doc.setFontType('normal');
-  doc.text(`Berlin, ${moment(dataMahnung2).format('DD.MM.YYYY')}`, 100, 96);
+  doc.text(`Berlin, ${formattaData(dataMahnung2)}`, 100, 96);
 
   // Linea per piegare
   doc.setDrawColor(0, 0, 0);
@@ -151,23 +151,17 @@ export const mahnung2 = (
 
   //Cifre
   doc.text('Rechnungsbetrag', 15, 155);
-  doc.text(
-    numeral((importo / 100) * parseFloat(`1.${iva}`)).format('0,0[.]00 $'),
-    120,
-    155
-  );
+  doc.text(formattaPrezzo(importo * parseFloat(`1.${iva}`), true), 120, 155);
 
   doc.text('Mahngebühren', 15, 160);
-  doc.text(numeral(mahngebuehren / 100).format('0,0[.]00 $'), 120, 160);
+  doc.text(formattaPrezzo(mahngebuehren, true), 120, 160);
   doc.setDrawColor(0, 0, 0);
   doc.setLineWidth(0.2);
   doc.line(15, 162, 146, 162);
   doc.setFontType('bold');
   doc.text('Zu zahlender Gesamtbetrag', 15, 167);
   doc.text(
-    numeral(
-      (importo / 100) * parseFloat(`1.${iva}`) + mahngebuehren / 100
-    ).format('0,0[.]00 $'),
+    formattaPrezzo(importo * parseFloat(`1.${iva}`) + mahngebuehren, true),
     120,
     167
   );

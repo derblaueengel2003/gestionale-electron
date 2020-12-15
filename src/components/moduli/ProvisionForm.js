@@ -86,14 +86,16 @@ export class ProvisionForm extends React.Component {
           {renderInput(
             'moduli',
             'prezzoDiVendita',
-            t('Prezzo di vendita', undefined, changeHandlerValuta)
+            t('Prezzo di vendita'),
+            undefined,
+            changeHandlerValuta
           )}
           {renderInput(
             'moduli',
             'provvPercentuale',
             t('Provvigione'),
             undefined,
-            undefined,
+            changeHandlerValuta,
             undefined,
             `${t('senza')} % ${t('es.')} 7,14`
           )}

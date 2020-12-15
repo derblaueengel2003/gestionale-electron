@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import LeadsList from './LeadsList';
 import LeadsListFilters from './LeadsListFilters';
 import { storeActions } from '../../store/configureStore';
+import { addButton } from '../common/elements';
 
 class LeadsDashboardPage extends React.Component {
   componentDidMount() {
@@ -22,11 +22,7 @@ class LeadsDashboardPage extends React.Component {
           </div>
         </div>
         <LeadsListFilters />
-        <div className='container'>
-          <Link className='btn-floating green right' to='/leadscreate'>
-            <i className='material-icons'>add</i>
-          </Link>
-        </div>
+        {addButton('/leadscreate')}
         <LeadsList />
       </div>
     );

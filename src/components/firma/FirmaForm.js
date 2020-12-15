@@ -25,14 +25,15 @@ export class FirmaForm extends React.Component {
       bank: this.props.data.firma.bank,
       iban: this.props.data.firma.iban,
       bic: this.props.data.firma.bic,
+      ivaApplicata: this.props.data.firma.ivaApplicata,
     });
   };
   render() {
-    const { t, renderInput } = this.props;
+    const { t, renderInput, changeHandlerValuta } = this.props;
     return (
       <form className='form' onSubmit={this.onSubmit}>
         <div className='fixed-action-btn'>
-          <button className='btn-floating blue  btn-large'>
+          <button className='btn-floating blue btn-large'>
             <i className='material-icons'>save</i>
           </button>
         </div>
@@ -54,11 +55,16 @@ export class FirmaForm extends React.Component {
         {renderInput('firma', 'bank', t('Banca'))}
         {renderInput('firma', 'iban', 'IBAN')}
         {renderInput('firma', 'bic', 'BIC/SWIFT')}
-        <div>
-          <button className='btn-floating blue right btn-floating-margin'>
-            <i className='material-icons'>save</i>
-          </button>
-        </div>
+        {renderInput(
+          'firma',
+          'ivaApplicata',
+          t('vat_applied'),
+          undefined,
+          changeHandlerValuta,
+          undefined,
+          undefined,
+          '%'
+        )}
       </form>
     );
   }

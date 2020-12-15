@@ -2,17 +2,51 @@ import numeral from 'numeral';
 import moment from 'moment';
 import axios from 'axios';
 
+moment.locale('de');
+
+// load a locale
+numeral.register('locale', 'de', {
+  delimiters: {
+    thousands: '.',
+    decimal: ',',
+  },
+  abbreviations: {
+    thousand: 'k',
+    million: 'm',
+    billion: 'b',
+    trillion: 't',
+  },
+  ordinal: function (number) {
+    return number === 1 ? 'er' : '°';
+  },
+  currency: {
+    symbol: '€',
+  },
+});
+// switch between locales
+numeral.locale('de');
+
 export const trasformaInNumero = (valore, nonMoltiplicarePerCento) => {
   const perCento = nonMoltiplicarePerCento ? 1 : 100;
   return valore ? parseFloat(valore.replace(/,/, '.'), 10) * perCento : 0;
 };
 
-export const formattaPrezzo = (valore, isEuro) => {
+export const formattaPrezzo = (
+  valore,
+  isEuro,
+  nonDividerePerCento,
+  isPercent
+) => {
+  let risultato = '';
+  valore = nonDividerePerCento ? valore : valore / 100;
   if (isEuro) {
-    return numeral(valore / 100).format('0,0[.]00 $');
+    risultato = numeral(valore).format('0,0[.]00 $');
+  } else if (isPercent) {
+    risultato = numeral(valore).format('0.00%');
   } else {
-    return numeral(valore / 100).format('0,0[.]00');
+    risultato = numeral(valore).format('0,0[.]00');
   }
+  return risultato;
 };
 
 export const visualizzaDecimaleConVirgola = (valore) =>
@@ -30,4 +64,4 @@ export const generaToken = () => {
     .then((res) => localStorage.setItem('token', res.data.token));
 };
 
-export const formattaData = (data) => moment(data).format('DD MMMM, YYYY');
+export const formattaData = (data) => moment(data).format('DD.MM.YYYY');

@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import Card from '../Card';
 import selectEvaluations from '../../selectors/deals';
-import moment from 'moment';
-import numeral from 'numeral';
+import { formattaData, formattaPrezzo } from '../common/utils';
 import { ipcRenderer } from 'electron';
 
 export const EvaluationList = ({
@@ -26,12 +25,11 @@ export const EvaluationList = ({
               return a.dataEvaluation > b.dataEvaluation ? -1 : 1;
             })
             .map((evaluation) => {
-              const dataEvaluation = moment(evaluation.dataEvaluation).format(
-                'DD MMMM, YYYY'
-              );
+              const dataEvaluation = formattaData(evaluation.dataEvaluation);
               const oggetto = oggetti.find(
                 (oggetto) => oggetto.id === evaluation.oggettoId
               );
+
               return (
                 <Card
                   key={evaluation.id}
@@ -44,11 +42,13 @@ export const EvaluationList = ({
                   }
                   sottotitolo={
                     evaluation.result
-                      ? `${numeral(evaluation.result / 100).format(
-                          '0,0.00'
-                        )}  €/m2 (Tot.: ${numeral(
-                          (evaluation.result * evaluation.m2) / 10000
-                        ).format('0,0.00')} €)`
+                      ? `${formattaPrezzo(
+                          evaluation.result,
+                          true
+                        )}/m2 (Tot.: ${formattaPrezzo(
+                          (evaluation.result * evaluation.m2) / 100,
+                          true
+                        )})`
                       : ''
                   }
                   titoloDestra={
@@ -93,7 +93,9 @@ const mapStateToProps = (state) => {
     evaluations: selectEvaluations(
       'evaluations',
       state.evaluations,
-      state.filters
+      state.filters,
+      undefined,
+      state.oggetti
     ),
     oggetti: state.oggetti,
   };

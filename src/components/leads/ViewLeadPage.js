@@ -4,10 +4,9 @@ import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import OffersList from './OffersList';
 import { storeActions } from '../../store/configureStore';
-import numeral from 'numeral';
-import moment from 'moment';
 import OptionModal from '../common/OptionModal';
 import Intestazione from '../common/Intestazione';
+import { formattaData, formattaPrezzo } from '../common/utils';
 
 export class ViewLeadPage extends React.Component {
   state = {
@@ -27,13 +26,13 @@ export class ViewLeadPage extends React.Component {
   };
   onRemove = () => {
     const offerteDaCancellare = this.props.offers.filter(
-      (offer) => offer.leadId === lead.id
+      (offer) => offer.leadId === this.props.lead.id
     );
     //cancello tutte le offerte legate a questa richiesta e poi cancello la richiesta
     offerteDaCancellare.forEach((offer) => {
       this.props.startRemoveOffer({ id: offer.id });
     });
-    this.props.startRemoveLead({ id: lead.id });
+    this.props.startRemoveLead({ id: this.props.lead.id });
     this.props.history.push('/leads');
   };
   render() {
@@ -73,7 +72,7 @@ export class ViewLeadPage extends React.Component {
               className='btn-floating red right btn-floating-margin'
               onClick={this.handleOpenModal}
             >
-              <i className='material-icons'>remove</i>
+              <i className='material-icons'>delete</i>
             </button>
             <OptionModal
               isOpen={this.state.isOpen}
@@ -128,14 +127,10 @@ export class ViewLeadPage extends React.Component {
                 {t('city')}: {lead.leadCity}
               </h6>
             )}
-            <h6>
-              Budget: {numeral(lead.leadBudget / 100).format('0,0[.]00 $')}
-            </h6>
+            <h6>Budget: {formattaPrezzo(lead.leadBudget, true)}</h6>
             <p>{consulenteVendita && `(${consulenteVendita.name})`}</p>
             <p>
-              {lead.leadCreatedAt
-                ? moment(lead.leadCreatedAt).format('DD MMMM, YYYY')
-                : null}
+              {lead.leadCreatedAt ? formattaData(lead.leadCreatedAt) : null}
             </p>
             <p>{cliente && cliente.email}</p>
             <p>{cliente && cliente.telefono1}</p>

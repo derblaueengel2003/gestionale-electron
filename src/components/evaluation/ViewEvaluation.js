@@ -4,14 +4,12 @@ import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Intestazione from '../common/Intestazione';
 import OptionModal from '../common/OptionModal';
-import numeral from 'numeral';
-import moment from 'moment';
 import OggettiList from '../oggetti/OggettiList';
 import Mappa from '../oggetti/Mappa';
 import { storeActions } from '../../store/configureStore';
 import evaluationPdf from './EvaluationPdf';
 import CollectionItem from '../common/collectionItem';
-
+import { formattaData, formattaPrezzo } from '../common/utils';
 import { ipcRenderer } from 'electron';
 
 export class ViewEvaluation extends React.Component {
@@ -95,12 +93,32 @@ export class ViewEvaluation extends React.Component {
       testoFinaleDe,
       testoFinaleEn,
       testoFinaleIt,
+      wohnlageSnippet,
+      bodenrichtwertSnippet,
+      immobilienPreisSnippet,
+      is24Snippet,
+      mietspiegelSnippet,
     } = this.props.evaluation;
 
     const { evaluation, oggetti, t } = this.props;
     const oggetto = oggetti.find(
       (oggetto) => oggetto.id === evaluation.oggettoId
     );
+    let showEvaluationDownloadButton = false;
+    if (
+      wohnlageSnippet &&
+      wohnlageSnippet.length > 0 &&
+      bodenrichtwertSnippet &&
+      bodenrichtwertSnippet.length === 3 &&
+      immobilienPreisSnippet &&
+      immobilienPreisSnippet.length > 0 &&
+      is24Snippet &&
+      is24Snippet.length > 0 &&
+      mietspiegelSnippet &&
+      mietspiegelSnippet.length > 0
+    ) {
+      showEvaluationDownloadButton = true;
+    }
 
     return (
       <div>
@@ -124,7 +142,7 @@ export class ViewEvaluation extends React.Component {
                 className='btn-floating red right btn-floating-margin'
                 onClick={this.handleOpenModal}
               >
-                <i className='material-icons'>remove</i>
+                <i className='material-icons'>delete</i>
               </button>
             </div>
             <OptionModal
@@ -149,13 +167,11 @@ export class ViewEvaluation extends React.Component {
             }
           </div>
           <h5>
-            {t('evaluation_result')}: {numeral(result / 100).format('0,0.00')}{' '}
-            €/m2
+            {t('evaluation_result')}: {formattaPrezzo(result, true)}/m2
           </h5>
-          <h5>{numeral((result * m2) / 10000).format('0,0.00')} €</h5>
+          <h5>{formattaPrezzo((result * m2) / 100, true)}</h5>
           <h6>
-            {t('evaluation_date')}:{' '}
-            {moment(dataEvaluation).format('DD MMMM, YYYY')}
+            {t('evaluation_date')}: {formattaData(dataEvaluation)}
           </h6>
           <p>
             {t('notes')}: {note}
@@ -172,47 +188,37 @@ export class ViewEvaluation extends React.Component {
                 </p>
                 <p>
                   {t('land_price')} {t('last_three_years')}:{' '}
-                  {numeral(bodenRichtwert / 100).format('0,0.00')} € -{' '}
-                  {numeral(bodenRichtwert2 / 100).format('0,0.00')} € -{' '}
-                  {numeral(bodenRichtwert3 / 100).format('0,0.00')} €
+                  {formattaPrezzo(bodenRichtwert, true)} -{' '}
+                  {formattaPrezzo(bodenRichtwert2, true)} -{' '}
+                  {formattaPrezzo(bodenRichtwert3, true)}{' '}
                 </p>
                 <p>
-                  {t('mietspiegel')}:{' '}
-                  {numeral(mietspiegel / 100).format('0,0.00')} €/m2 (Tot.:{' '}
-                  {numeral((mietspiegel * m2) / 10000).format('0,0.00')} €)
+                  {t('mietspiegel')}: {formattaPrezzo(mietspiegel, true)}
+                  /m2 (Tot.: {formattaPrezzo((mietspiegel * m2) / 100, true)})
                 </p>
                 <p>
-                  {t('mietendeckel')}:{' '}
-                  {numeral(mietendeckel / 100).format('0,0.00')} €/m2 (Tot.:{' '}
-                  {numeral((mietendeckel * m2) / 10000).format('0,0.00')} €)
+                  {t('mietendeckel')}: {formattaPrezzo(mietendeckel, true)}/m2
+                  (Tot.: {formattaPrezzo((mietendeckel * m2) / 100, true)})
                 </p>
                 <p>
                   {t('sold_price_min')}:{' '}
-                  {numeral(immobilienpreisMin / 100).format('0,0.00')} €/m2
-                  (Tot.:{' '}
-                  {numeral((immobilienpreisMin * m2) / 10000).format('0,0.00')}{' '}
-                  €)
+                  {formattaPrezzo(immobilienpreisMin, true)}/m2 (Tot.:{' '}
+                  {formattaPrezzo((immobilienpreisMin * m2) / 100, true)})
                 </p>
                 <p>
                   {t('sold_price_max')}:{' '}
-                  {numeral(immobilienpreisMax / 100).format('0,0.00')} €/m2
-                  (Tot.:{' '}
-                  {numeral((immobilienpreisMax * m2) / 10000).format('0,0.00')}{' '}
-                  €)
+                  {formattaPrezzo(immobilienpreisMax, true)}/m2 (Tot.:{' '}
+                  {formattaPrezzo((immobilienpreisMax * m2) / 100, true)})
                 </p>
                 <p>
                   {t('sold_price_average')}:{' '}
-                  {numeral(immobilienpreisAverage / 100).format('0,0.00')} €/m2
-                  (Tot.:{' '}
-                  {numeral((immobilienpreisAverage * m2) / 10000).format(
-                    '0,0.00'
-                  )}{' '}
-                  €)
+                  {formattaPrezzo(immobilienpreisAverage, true)}/m2 (Tot.:{' '}
+                  {formattaPrezzo((immobilienpreisAverage * m2) / 100, true)})
                 </p>
                 <p>
-                  {t('is24_evaluation')}:{' '}
-                  {numeral(is24Evaluation / 100).format('0,0.00')} €/m2 (Tot.:{' '}
-                  {numeral((is24Evaluation * m2) / 10000).format('0,0.00')} €)
+                  {t('is24_evaluation')}: {formattaPrezzo(is24Evaluation, true)}
+                  /m2 (Tot.: {formattaPrezzo((is24Evaluation * m2) / 100, true)}
+                  )
                 </p>
               </div>
             </li>
@@ -221,76 +227,57 @@ export class ViewEvaluation extends React.Component {
         <div className='container section'>
           {/* Se ho cover e titolo, mostro il pulsante exposé */}
           <ul className='collection  s12 m6'>
-            {oggetto && (
-              <CollectionItem
-                label={`${t('evaluation_german')}`}
-                action={() => {
-                  evaluationPdf(
-                    this.props.evaluation,
-                    this.props.firma,
-                    this.props.utente,
-                    this.props.ceo,
-                    'De',
-                    oggetto
-                  );
-                }}
-                icon={'article'}
-                btnColor={'blue'}
-              />
-            )}
-
-            {oggetto && (
-              <CollectionItem
-                label={`${t('evaluation_english')}`}
-                action={() => {
-                  evaluationPdf(
-                    this.props.evaluation,
-                    this.props.firma,
-                    this.props.utente,
-                    this.props.ceo,
-                    'En',
-                    oggetto
-                  );
-                }}
-                icon={'article'}
-                btnColor={'blue'}
-              />
-            )}
-
-            {oggetto && (
-              <CollectionItem
-                label={`${t('evaluation_italian')}`}
-                action={() => {
-                  evaluationPdf(
-                    this.props.evaluation,
-                    this.props.firma,
-                    this.props.utente,
-                    this.props.ceo,
-                    'It',
-                    oggetto
-                  );
-                }}
-                icon={'article'}
-                btnColor={'blue'}
-              />
+            {oggetto && showEvaluationDownloadButton && (
+              <div>
+                <CollectionItem
+                  label={`${t('evaluation_german')}`}
+                  action={() => {
+                    evaluationPdf(
+                      this.props.evaluation,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'De',
+                      oggetto
+                    );
+                  }}
+                  icon={'article'}
+                  btnColor={'blue'}
+                />
+                <CollectionItem
+                  label={`${t('evaluation_english')}`}
+                  action={() => {
+                    evaluationPdf(
+                      this.props.evaluation,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'En',
+                      oggetto
+                    );
+                  }}
+                  icon={'article'}
+                  btnColor={'blue'}
+                />
+                <CollectionItem
+                  label={`${t('evaluation_italian')}`}
+                  action={() => {
+                    evaluationPdf(
+                      this.props.evaluation,
+                      this.props.firma,
+                      this.props.utente,
+                      this.props.ceo,
+                      'It',
+                      oggetto
+                    );
+                  }}
+                  icon={'article'}
+                  btnColor={'blue'}
+                />
+              </div>
             )}
           </ul>
         </div>
-        {/* 
-          <div className='container'>
-          {evaluation.cover && (
-            <div className='grey lighten-4'>
-            <div>
-            <h1>{t('cover')}</h1>
-            </div>{' '}
-            </div>
-            )}
-            {evaluation.cover &&
-              evaluation.cover.map((downloadURL, i) => {
-                return <img className='foto' key={i} src={downloadURL} />;
-              })}
-              </div>
-            */}
         <div className='container'>
           {evaluation.wohnlageSnippet && (
             <div className='grey lighten-4'>

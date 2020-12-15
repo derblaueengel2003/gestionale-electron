@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import OggettiList from '../oggetti/OggettiList';
 import Intestazione from '../common/Intestazione';
 import MailchimpAPI from './MailchimpApi';
+import { formattaData } from '../common/utils';
 
 export class ViewNewsletter extends React.Component {
   constructor(props) {
@@ -50,9 +50,7 @@ export class ViewNewsletter extends React.Component {
       <div>
         <Intestazione
           intestazione={
-            dataNewsletter && (
-              <span>{moment(dataNewsletter).format('DD MMMM, YYYY')}</span>
-            )
+            dataNewsletter && <span>{formattaData(dataNewsletter)}</span>
           }
         />
         <div className='container section'>

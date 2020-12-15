@@ -7,13 +7,12 @@ import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung';
 import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag';
 import { protocollo } from '../moduli/UebergabeProtokoll';
 import { notarDatenblatt } from '../moduli/NotarDatenblatt';
-import moment from 'moment';
-import numeral from 'numeral';
 import TodoForm from './TodoForm';
 import FattureList from '../fatture/FattureList';
 import ClientiList from '../clienti/ClientiList';
 import OggettiList from '../oggetti/OggettiList';
 import Intestazione from '../common/Intestazione';
+import { formattaData, formattaPrezzo } from '../common/utils';
 
 export class ViewDealPage extends React.Component {
   findContact = (contact) => {
@@ -59,10 +58,12 @@ export class ViewDealPage extends React.Component {
     const kundenbetreuer = this.props.utenti.find(
       (utente) => utente.id === consulenteVendita
     );
-    const provvPercentuale = numeral((amount / prezzoDiVendita) * 119).format(
-      '0,0.00'
+    const provvPercentuale = formattaPrezzo(
+      (amount / prezzoDiVendita) * 119,
+      false,
+      true
     );
-    const dataPrenotazione = moment(createdAt).format('DD.MM.YYYY');
+    const dataPrenotazione = formattaData(createdAt);
     // Determino quante fatture sono state pagate per mostrare i colori adatti. Da dealFature mi arriva un array
     let payed = 0;
     if (feePayed) {
@@ -101,19 +102,17 @@ export class ViewDealPage extends React.Component {
             {prezzoDiVendita > 0 && (
               <h5>
                 {t('Prezzo di vendita')}:{' '}
-                {numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}
+                {formattaPrezzo(prezzoDiVendita, true)}
               </h5>
             )}
             {createdAt > 0 && (
               <p>
-                {t('Data prenotazione')}:{' '}
-                {moment(createdAt).format('DD MMMM, YYYY')}
+                {t('Data prenotazione')}: {formattaData(createdAt)}
               </p>
             )}
             {dataRogito > 0 && (
               <p>
-                {t('Data del rogito')}:{' '}
-                {moment(dataRogito).format('DD MMMM, YYYY')}
+                {t('Data del rogito')}: {formattaData(dataRogito)}
               </p>
             )}
             {note && (
@@ -128,9 +127,7 @@ export class ViewDealPage extends React.Component {
             {amount > 0 && (
               <h5>
                 {t('Provvigione')}:{' '}
-                {utente.role === 'Admin'
-                  ? numeral(amount / 100).format('0,0[.]00 $')
-                  : ''}
+                {utente.role === 'Admin' ? formattaPrezzo(amount, true) : ''}
               </h5>
             )}
             {kundenbetreuer && (
@@ -141,27 +138,25 @@ export class ViewDealPage extends React.Component {
             {utente.role === 'Admin'
               ? provvM2square > 0 && (
                   <p className={`list-item--paid${payed}`}>
-                    m2Square:{' '}
-                    {numeral(provvM2square / 100).format('0,0[.]00 $')}
+                    m2Square: {formattaPrezzo(provvM2square, true)}
                   </p>
                 )
               : ''}
             {provvStefano > 0 && (
               <p className={`${payedStefano && 'list-item--paid'}`}>
-                Stefano: {numeral(provvStefano / 100).format('0,0[.]00 $')}
+                Stefano: {formattaPrezzo(provvStefano, true)}
               </p>
             )}
             {payedAtStefano > 0 && (
               <p>
-                {t('Pagato')} Stefano:{' '}
-                {moment(payedAtStefano).format('DD MMMM, YYYY')}
+                {t('Pagato')} Stefano: {formattaData(payedAtStefano)}
               </p>
             )}
             {utente.role === 'Admin'
               ? provvAgenziaPartner > 0 && (
                   <p className={`${payedAgenziaPartner && 'list-item--paid'}`}>
                     {t('Provvigione')} {t('Partner commerciale')}:{' '}
-                    {numeral(provvAgenziaPartner / 100).format('0,0[.]00 $')}
+                    {formattaPrezzo(provvAgenziaPartner, true)}
                   </p>
                 )
               : ''}

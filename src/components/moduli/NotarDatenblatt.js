@@ -1,8 +1,7 @@
 import jsPDF from 'jspdf';
-import { imgLogo } from './ImageLogo';
-import { ivdLogo } from './IvdLogo';
-import numeral from 'numeral';
-import moment from 'moment';
+import { imgLogo } from './img/ImageLogo';
+import { ivdLogo } from './img/IvdLogo';
+import { formattaPrezzo, formattaData } from '../common/utils';
 
 export const notarDatenblatt = (
   acquirente,
@@ -203,29 +202,21 @@ export const notarDatenblatt = (
   if (oggetto.stato === 'vermietet' || oggetto.stato === 'rented') {
     acapo += 5;
     doc.text(
-      `Kaltmiete: ${numeral(oggetto.affittoNetto / 100).format('0,0[.]00 $')}`,
+      `Kaltmiete: ${formattaPrezzo(oggetto.affittoNetto, true)}`,
       15,
       acapo
     );
   }
   if (oggetto.wohngeld) {
     acapo += 5;
-    doc.text(
-      `Wohngeld: ${numeral(oggetto.wohngeld / 100).format('0,0[.]00 $')}`,
-      15,
-      acapo
-    );
+    doc.text(`Wohngeld: ${formattaPrezzo(oggetto.wohngeld, true)}`, 15, acapo);
   }
   if (oggetto.ruecklage) {
     acapo += 5;
     doc.text(`Rücklage: ${oggetto.ruecklage}`, 15, acapo);
   }
   acapo += 5;
-  doc.text(
-    `Kaufpreis: ${numeral(prezzoDiVendita / 100).format('0,0[.]00 $')}`,
-    15,
-    acapo
-  );
+  doc.text(`Kaufpreis: ${formattaPrezzo(prezzoDiVendita, true)}`, 15, acapo);
 
   acapo += 5;
   doc.text(
@@ -281,7 +272,7 @@ export const notarDatenblatt = (
   if (venditore.dataDiNascita) {
     acapo += 5;
     doc.text(
-      `Geburtsdatum: ${moment(venditore.dataDiNascita).format('DD.MM.YYYY')}`,
+      `Geburtsdatum: ${formattaData(venditore.dataDiNascita)}`,
       15,
       acapo
     );
@@ -326,9 +317,7 @@ export const notarDatenblatt = (
     if (venditore2.dataDiNascita) {
       acapo += 5;
       doc.text(
-        `Geburtsdatum: ${moment(venditore2.dataDiNascita).format(
-          'DD.MM.YYYY'
-        )}`,
+        `Geburtsdatum: ${formattaData(venditore2.dataDiNascita)}`,
         15,
         acapo
       );
@@ -379,7 +368,7 @@ export const notarDatenblatt = (
   if (acquirente.dataDiNascita) {
     acapo += 5;
     doc.text(
-      `Geburtsdatum: ${moment(acquirente.dataDiNascita).format('DD.MM.YYYY')}`,
+      `Geburtsdatum: ${formattaData(acquirente.dataDiNascita)}`,
       15,
       acapo
     );
@@ -412,9 +401,7 @@ export const notarDatenblatt = (
     if (acquirente2.dataDiNascita) {
       acapo += 5;
       doc.text(
-        `Geburtsdatum: ${moment(acquirente2.dataDiNascita).format(
-          'DD.MM.YYYY'
-        )}`,
+        `Geburtsdatum: ${formattaData(acquirente2.dataDiNascita)}`,
         15,
         acapo
       );

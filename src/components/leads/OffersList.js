@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import Card from '../Card';
-import moment from 'moment';
+import { formattaData } from '../common/utils';
 
 export const OffersList = (props) => {
   //controllo se la i dati vengono dalla scheda clienti e sono passati via props
@@ -25,7 +25,7 @@ export const OffersList = (props) => {
                 (utente) => utente.id === offer.consulenteId
               );
               const creatoIl = offer.offerCreatedAt
-                ? moment(offer.offerCreatedAt).format('DD MMMM, YYYY')
+                ? formattaData(offer.offerCreatedAt)
                 : '';
               const feedback = () => {
                 switch (offer.feedback) {

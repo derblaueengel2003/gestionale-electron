@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import Card from '../Card';
 import selectNewsletters from '../../selectors/deals';
-import moment from 'moment';
+import { formattaData } from '../common/utils';
 
 export const NewsletterList = ({
   oggettoNewsletter,
@@ -28,9 +28,7 @@ export const NewsletterList = ({
               return a.dataNewsletter > b.dataNewsletter ? -1 : 1;
             })
             .map((newsletter) => {
-              const dataNewsletter = moment(newsletter.dataNewsletter).format(
-                'DD MMMM, YYYY'
-              );
+              const dataNewsletter = formattaData(newsletter.dataNewsletter);
               const oggettiInviati = [];
               newsletter.oggetto1 &&
                 oggettiInviati.push(findOggetto(newsletter.oggetto1));

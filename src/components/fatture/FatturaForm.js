@@ -20,7 +20,8 @@ export class FatturaForm extends React.Component {
 
     const deal = this.props.deals.find((deal) => deal.id === fatture.dealId);
     console.log(deal);
-    const importoNetto = trasformaInNumero(fatture.importoNetto) || deal.amount;
+    const importoNetto =
+      trasformaInNumero(fatture.importoNetto) || (deal && deal.amount) || '0';
     const mahngebuehren = trasformaInNumero(fatture.mahngebuehren);
     const mahngebuehren2 = trasformaInNumero(fatture.mahngebuehren2);
 
@@ -52,7 +53,6 @@ export class FatturaForm extends React.Component {
         payedAt: fatture.payedAt ? fatture.payedAt.valueOf() : null,
         descrizioneProdotto: fatture.descrizioneProdotto,
         importoNetto,
-        iva: fatture.iva,
         dataPrestazione: fatture.dataPrestazione
           ? fatture.dataPrestazione.valueOf()
           : null,
@@ -121,21 +121,6 @@ export class FatturaForm extends React.Component {
           t('Importo netto'),
           undefined,
           changeHandlerValuta
-        )}
-        {renderSelect(
-          'fatture',
-          'iva',
-          [
-            {
-              value: 19,
-              label: t('19%'),
-            },
-            {
-              value: 16,
-              label: t('16%'),
-            },
-          ],
-          t('IVA')
         )}
         {renderSingleDate(
           'fatture',

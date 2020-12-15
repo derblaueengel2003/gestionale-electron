@@ -1,8 +1,7 @@
 import jsPDF from 'jspdf';
-import { imgLogo } from './ImageLogo';
-import { ivdLogo } from './IvdLogo';
-import moment from 'moment';
-import numeral from 'numeral';
+import { imgLogo } from './img/ImageLogo';
+import { ivdLogo } from './img/IvdLogo';
+import { formattaPrezzo, formattaData } from '../common/utils';
 
 export const zahlungserinnerung = (
   cliente,
@@ -43,13 +42,12 @@ export const zahlungserinnerung = (
     }
   }
   const corpoFattura = `für die oben aufgeführte Rechnung konnten wir bis heute leider keine Zahlungseingang feststellen. 
-Sicherlich handelt es sich um ein Versehen. Eine Kopie der Rechnung vom ${moment(
+Sicherlich handelt es sich um ein Versehen. Eine Kopie der Rechnung vom ${formattaData(
     dataFattura
-  ).format('DD.MM.YYYY')} haben wir dem Schreiben beigelegt. \n
-Um Mahnungsgebühren zu vermeiden, überweisen Sie bitte den fälligen Beitrag von ${numeral(
-    (importo / 100) * parseFloat(`1.${iva}`)
-  ).format(
-    '0,0[.]00 $'
+  )} haben wir dem Schreiben beigelegt. \n
+Um Mahnungsgebühren zu vermeiden, überweisen Sie bitte den fälligen Beitrag von ${formattaPrezzo(
+    importo,
+    true
   )}  innerhalb von 7 Tagen ohne Abzüge auf das untenstehende Bankkonto. \n
 Sofern Sie die Zahlung zwischenzeitlich veranlasst haben, bitten wir Sie, dieses Schreiben als gegenstandlos zu betrachten.`;
 
@@ -140,11 +138,7 @@ Rechnung Nr. ${numeroFattura}`,
     acapo
   );
   doc.setFontType('normal');
-  doc.text(
-    `Berlin, ${moment(dataZahlungserinnerung).format('DD.MM.YYYY')}`,
-    100,
-    acapo
-  );
+  doc.text(`Berlin, ${formattaData(dataZahlungserinnerung)}`, 100, acapo);
   acapo += 14;
   //Corpo
   doc.text(

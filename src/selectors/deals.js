@@ -98,7 +98,11 @@ export default (
       if (nomeLista === 'evaluations') {
         createdAtMoment = moment(item.dataEvaluation);
 
+        const oggettoDellaValutazione = item.oggettoId
+          ? oggetti.find((ogg) => ogg.id === item.oggettoId)
+          : '';
         searchString += `${item.titolo}`;
+        searchString += `${`${oggettoDellaValutazione.rifId} ${oggettoDellaValutazione.via} ${oggettoDellaValutazione.numeroAppartamento}, ${oggettoDellaValutazione.cap} ${oggettoDellaValutazione.citta}`}`;
       }
 
       if (nomeLista === 'newsletters') {

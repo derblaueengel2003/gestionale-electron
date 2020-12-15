@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
-import { imgLogo } from '../moduli/ImageLogo';
-import { ivdLogo } from '../moduli/IvdLogo';
+import { imgLogo } from '../moduli/img/ImageLogo';
+import { ivdLogo } from '../moduli/img/IvdLogo';
 import numeral from 'numeral';
 import moment from 'moment';
 

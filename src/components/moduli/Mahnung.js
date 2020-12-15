@@ -1,8 +1,7 @@
 import jsPDF from 'jspdf';
-import { imgLogo } from './ImageLogo';
-import { ivdLogo } from './IvdLogo';
-import moment from 'moment';
-import numeral from 'numeral';
+import { imgLogo } from './img/ImageLogo';
+import { ivdLogo } from './img/IvdLogo';
+import { formattaData, formattaPrezzo } from '../common/utils';
 
 export const mahnung = (
   cliente,
@@ -44,16 +43,13 @@ export const mahnung = (
       formulaSaluto2 = 'Sehr geehrte Frau';
     }
   }
-  const corpoFattura = `mit unserem Schreiben vom ${moment(dataFattura).format(
-    'DD.MM.YYYY'
-  )} haben wir Ihnen den fälligen Betrag in Höhe von ${numeral(
-    (importo / 100) * parseFloat(`1.${iva}`)
-  ).format(
-    '0,0[.]00 $'
-  )}  für obengenannte Rechnungsnummer in Rechnung gestellt.\nAuf unsere Zahlungserinnerung vom ${moment(
+  const corpoFattura = `mit unserem Schreiben vom ${formattaData(
+    dataFattura
+  )} haben wir Ihnen den fälligen Betrag in Höhe von ${formattaPrezzo(
+    importo * parseFloat(`1.${iva}`),
+    true
+  )}  für obengenannte Rechnungsnummer in Rechnung gestellt.\nAuf unsere Zahlungserinnerung vom ${formattaData(
     dataZahlungserinnerung
-  ).format(
-    'DD.MM.YYYY'
   )} haben Sie leider nicht reagiert. Aus gegebenen Anlass sehen wir uns gezwungen, Mahngebühren wie folgt zu verrechnen:`;
 
   doc.addImage(imgLogo, 'JPEG', 130, 10, 55, 12);
@@ -122,16 +118,14 @@ export const mahnung = (
   //Dati fattura
   doc.setFontType('bold');
   doc.text(
-    `1. Mahnung\nRechnung Nr. ${numeroFattura}\nRechnungsdatum: ${moment(
+    `1. Mahnung\nRechnung Nr. ${numeroFattura}\nRechnungsdatum: ${formattaData(
       dataFattura
-    ).format('DD.MM.YYYY')} \nRechnungsbetrag: ${numeral(
-      (importo / 100) * parseFloat(`1.${iva}`)
-    ).format('0,0[.]00 $')}`,
+    )} \nRechnungsbetrag: ${formattaPrezzo(importo * parseFloat(`1.${iva}`))}`,
     15,
     96
   );
   doc.setFontType('normal');
-  doc.text(`Berlin, ${moment(dataMahnung).format('DD.MM.YYYY')}`, 100, 96);
+  doc.text(`Berlin, ${formattaData(dataMahnung)}`, 100, 96);
 
   // Linea per piegare
   doc.setDrawColor(0, 0, 0);
@@ -156,23 +150,17 @@ export const mahnung = (
 
   //Cifre
   doc.text('Rechnungsbetrag', 15, 155);
-  doc.text(
-    numeral((importo / 100) * parseFloat(`1.${iva}`)).format('0,0[.]00 $'),
-    120,
-    155
-  );
+  doc.text(formattaPrezzo(importo * parseFloat(`1.${iva}`), true), 120, 155);
 
   doc.text('Mahngebühren', 15, 160);
-  doc.text(numeral(mahngebuehren / 100).format('0,0[.]00 $'), 120, 160);
+  doc.text(formattaPrezzo(mahngebuehren, true), 120, 160);
   doc.setDrawColor(0, 0, 0);
   doc.setLineWidth(0.2);
   doc.line(15, 162, 146, 162);
   doc.setFontType('bold');
   doc.text('Zu zahlender Gesamtbetrag', 15, 167);
   doc.text(
-    numeral(
-      (importo / 100) * parseFloat(`1.${iva}`) + mahngebuehren / 100
-    ).format('0,0[.]00 $'),
+    formattaPrezzo(importo * parseFloat(`1.${iva}`) + mahngebuehren, true),
     120,
     167
   );

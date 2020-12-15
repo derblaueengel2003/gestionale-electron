@@ -4,8 +4,7 @@ import { withTranslation } from 'react-i18next';
 import selectLeads from '../../selectors/leads';
 import { Link } from 'react-router-dom';
 import Card from '../Card';
-import numeral from 'numeral';
-import moment from 'moment';
+import { formattaData, formattaPrezzo } from '../common/utils';
 
 const findImmobile = (lead) => {
   let immobile = '';
@@ -91,9 +90,7 @@ export const LeadsList = (props) => {
                 const consulente = consulenteVendita
                   ? consulenteVendita.name
                   : null;
-                const creatoIl = moment(lead.leadCreatedAt).format(
-                  'DD MMMM, YYYY'
-                );
+                const creatoIl = formattaData(lead.leadCreatedAt);
 
                 const offerte = props.offers
                   .filter((offer) => offer.leadId === lead.id)
@@ -166,9 +163,10 @@ export const LeadsList = (props) => {
                     visible={true}
                     link={`/leadview/${lead.id}`}
                     titolo={`${clienteNomeCognome.nome} ${clienteNomeCognome.cognome}`}
-                    sottotitolo={`Budget: ${numeral(
-                      lead.leadBudget / 100
-                    ).format('0,0[.]00 $')}`}
+                    sottotitolo={`Budget: ${formattaPrezzo(
+                      lead.leadBudget,
+                      true
+                    )}`}
                     corpo={[
                       consulente,
                       creatoIl,

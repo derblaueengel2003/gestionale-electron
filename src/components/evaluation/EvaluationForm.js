@@ -5,9 +5,8 @@ import withForm from '../common/withForm';
 import ExternalLinks from './ExternalLinks';
 import IntestazioneParagrafo from '../common/IntestazioneParagrafo';
 import moment from 'moment';
-import numeral from 'numeral';
 import M from 'materialize-css';
-import { trasformaInNumero } from '../common/utils';
+import { formattaPrezzo, trasformaInNumero } from '../common/utils';
 
 class EvaluationForm extends Component {
   componentDidMount() {
@@ -90,16 +89,12 @@ class EvaluationForm extends Component {
       changeHandlerValuta,
     } = this.props;
 
-    const rendite = parseFloat(
-      evaluations.rendite.toString().replace(/,/g, '.')
-    );
-    const affitto = parseFloat(evaluations.affittoNetto)
-      .toString()
-      .replace(/,/g, '.');
-    const price = numeral((affitto * 1200) / rendite).format('0,0.00');
-    const m2 = parseFloat(evaluations.m2).toString().replace(/,/g, '.');
-    const m2Price = numeral((affitto * 1200) / rendite / m2).format('0,0.00');
-    const m2Rent = numeral(affitto / m2).format('0,0.00');
+    const rendite = trasformaInNumero(evaluations.rendite);
+    const affitto = trasformaInNumero(evaluations.affittoNetto);
+    const price = formattaPrezzo((affitto * 120000) / rendite);
+    const m2 = trasformaInNumero(evaluations.m2);
+    const m2Price = formattaPrezzo((affitto * 120000) / rendite / m2);
+    const m2Rent = formattaPrezzo((affitto * 100) / m2);
 
     const oggettiOptions = this.props.oggetti.map((oggetto) => ({
       value: oggetto.id,

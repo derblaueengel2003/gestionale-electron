@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
-import { imgLogo } from './ImageLogo';
-import { ivdLogo } from './IvdLogo';
+import { imgLogo } from './img/ImageLogo';
+import { ivdLogo } from './img/IvdLogo';
 import { formattaPrezzo } from '../common/utils';
 
 export const expose = (oggetto, firma, utente, ceo, lingua) => {
@@ -144,7 +144,7 @@ export const expose = (oggetto, firma, utente, ceo, lingua) => {
     cartaIntestata();
     const cover = new Image();
     cover.src = oggetto.downloadURLsCover;
-    doc.addImage(cover, 'JPEG', 15, 35, 131, 70, undefined, 'SLOW');
+    doc.addImage(cover, 'JPEG', 30, 35, 0, 70, undefined, 'SLOW');
 
     if (
       oggetto.downloadURLsGrundriss &&

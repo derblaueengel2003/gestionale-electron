@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import DealList from './DealList';
 import ListFilters from '../common/ListFilters';
 import DealsSummary from './DealsSummary';
 import { storeActions } from '../../store/configureStore';
+import { addButton } from '../common/elements';
 
 class DealDashboardPage extends React.Component {
   componentDidMount() {
@@ -27,13 +27,7 @@ class DealDashboardPage extends React.Component {
         </div>
         <ListFilters options={options} />
         <DealsSummary />
-        {utente && utente.role === 'Admin' && (
-          <div className='container section'>
-            <Link className='btn-floating green right' to='/create'>
-              <i className='material-icons'>add</i>
-            </Link>
-          </div>
-        )}
+        {utente && utente.role === 'Admin' && addButton('/create')}
         {utente && <DealList />}
       </div>
     );

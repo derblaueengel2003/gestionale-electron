@@ -4,32 +4,8 @@ import { withTranslation } from 'react-i18next';
 import selectDeals from '../../selectors/deals';
 import Card from '../Card';
 import TodoProgressBar from './TodoProgressBar';
-import moment from 'moment';
-import numeral from 'numeral';
+import { formattaData, formattaPrezzo } from '../common/utils';
 import { ipcRenderer } from 'electron';
-
-// load a locale
-numeral.register('locale', 'de', {
-  delimiters: {
-    thousands: '.',
-    decimal: ',',
-  },
-  abbreviations: {
-    thousand: 'k',
-    million: 'm',
-    billion: 'b',
-    trillion: 't',
-  },
-  ordinal: function (number) {
-    return number === 1 ? 'er' : '°';
-  },
-  currency: {
-    symbol: '€',
-  },
-});
-// switch between locales
-numeral.locale('de');
-moment.locale('de');
 
 export const DealList = ({
   clienteDeals,
@@ -90,8 +66,13 @@ export const DealList = ({
                   : ''
               }`;
               const datiPrenotazione = deal.createdAt
-                ? `${t('Prenotazione del')} ${moment(deal.createdAt).format(
-                    'DD MMMM, YYYY'
+                ? `${t('Prenotazione del')} ${formattaData(deal.createdAt)}`
+                : null;
+
+              const prezzoDiVendita = deal.prezzoDiVendita
+                ? `${t('Prezzo di vendita')} ${formattaPrezzo(
+                    deal.prezzoDiVendita,
+                    true
                   )}`
                 : null;
 
@@ -127,11 +108,11 @@ export const DealList = ({
                       <span
                         className={`${deal.payedStefano && 'list-item--paid'}`}
                       >
-                        {numeral(deal.provvStefano / 100).format('0,0[.]00 $')}
+                        {formattaPrezzo(deal.provvStefano, true)}
                       </span>
                     ) : (
                       <span className={`list-item--paid${payed}`}>
-                        {numeral(deal.provvM2square / 100).format('0,0[.]00 $')}
+                        {formattaPrezzo(deal.provvM2square, true)}
                       </span>
                     )
                   }
@@ -160,7 +141,12 @@ export const DealList = ({
                       </button>
                     </div>
                   }
-                  corpo={[datiPrenotazione, gliAcquirenti, iVenditori]}
+                  corpo={[
+                    prezzoDiVendita,
+                    datiPrenotazione,
+                    gliAcquirenti,
+                    iVenditori,
+                  ]}
                   progressBar={<TodoProgressBar {...deal} />}
                 />
               );

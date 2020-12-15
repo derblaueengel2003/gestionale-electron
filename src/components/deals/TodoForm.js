@@ -7,17 +7,25 @@ export class TodoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todo1: props.deal ? props.deal.todo1 : false,
-      todo2: props.deal ? props.deal.todo2 : false,
-      todo3: props.deal ? props.deal.todo3 : false,
-      todo4: props.deal ? props.deal.todo4 : false,
-      todo5: props.deal ? props.deal.todo5 : false,
-      todo6: props.deal ? props.deal.todo6 : false,
-      todo7: props.deal ? props.deal.todo7 : false,
-      todo8: props.deal ? props.deal.todo8 : false,
-      todo9: props.deal ? props.deal.todo9 : false,
-      todo10: props.deal ? props.deal.todo10 : false,
-      todo11: props.deal ? props.deal.todo11 : false,
+      todo1: props.deal ? (props.deal.todo1 ? props.deal.todo1 : false) : false,
+      todo2: props.deal ? (props.deal.todo2 ? props.deal.todo2 : false) : false,
+      todo3: props.deal ? (props.deal.todo3 ? props.deal.todo3 : false) : false,
+      todo4: props.deal ? (props.deal.todo4 ? props.deal.todo4 : false) : false,
+      todo5: props.deal ? (props.deal.todo5 ? props.deal.todo5 : false) : false,
+      todo6: props.deal ? (props.deal.todo6 ? props.deal.todo6 : false) : false,
+      todo7: props.deal ? (props.deal.todo7 ? props.deal.todo7 : false) : false,
+      todo8: props.deal ? (props.deal.todo8 ? props.deal.todo8 : false) : false,
+      todo9: props.deal ? (props.deal.todo9 ? props.deal.todo9 : false) : false,
+      todo10: props.deal
+        ? props.deal.todo10
+          ? props.deal.todo10
+          : false
+        : false,
+      todo11: props.deal
+        ? props.deal.todo11
+          ? props.deal.todo11
+          : false
+        : false,
     };
   }
 

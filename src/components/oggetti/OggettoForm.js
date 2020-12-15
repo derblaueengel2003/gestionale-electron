@@ -189,6 +189,16 @@ export class OggettoForm extends React.Component {
           </div>
           <div id='test1' className='col s12'>
             <div label='Eckdaten'>
+              {renderInput(
+                'oggetti',
+                'rifId',
+                t('Rif') + '. ID',
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                '*'
+              )}
               {renderSelect(
                 'oggetti',
                 'tipologia',
@@ -227,16 +237,6 @@ export class OggettoForm extends React.Component {
                 'oggetti',
                 'numeroAppartamento',
                 t('Numero appartamento')
-              )}
-              {renderInput(
-                'oggetti',
-                'rifId',
-                t('Rif') + '. ID',
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                '*'
               )}
               {renderInput(
                 'oggetti',

@@ -44,7 +44,7 @@ export class EditDealPage extends React.Component {
     } else {
       this.setState(() => ({
         isOpen: true,
-        modalContent: 'cannot_delete',
+        modalContent: 'cannot_delete_deal',
         btnEnabled: false,
       }));
     }
@@ -63,12 +63,6 @@ export class EditDealPage extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <button
-            className='btn-floating red right btn-floating-margin'
-            onClick={this.handleOpenModal}
-          >
-            <i className='material-icons'>remove</i>
-          </button>
           <OptionModal
             isOpen={this.state.isOpen}
             contentLabel={'remove'}
@@ -78,6 +72,12 @@ export class EditDealPage extends React.Component {
             btnEnabled={this.state.btnEnabled}
           />
           <DealForm deal={this.props.deal} onSubmit={this.onSubmit} />
+          <button
+            className='btn-floating red margine-basso'
+            onClick={this.handleOpenModal}
+          >
+            <i className='material-icons'>delete</i>
+          </button>
         </div>
       </div>
     );

@@ -279,8 +279,10 @@ i18n.use(initReactI18next).init({
         calculated_price: 'berechneter Verkaufspreis',
         cannot_delete:
           'Nicht löschbar: Der Kontakt wird in Anfragen, Deals, Objekte oder Rechnungen verwendet.',
+        cannot_delete_deal:
+          'Nicht löschbar: Der Verkauf wird in Rechnungen verwendet.',
         cannot_delete_property:
-          'Nicht löschbar: Die Immobilie wird in Deals, Objekte oder Rechnungen verwendet oder enthält ein Eigentümer.',
+          'Nicht löschbar: Die Immobilie wird in Deals, Objekte, Bewertungen, Newsletter, Anfragen oder Rechnungen verwendet oder enthält ein Eigentümer.',
 
         city: 'Stadt',
         company: 'Firma',
@@ -693,8 +695,10 @@ i18n.use(initReactI18next).init({
         calculated_price: 'Prezzo di vendita calcolato',
         cannot_delete:
           "Impossibile cancellare l'utente: viene utilizzato nelle richieste, vendite o fatture",
+        cannot_delete_deal:
+          'Impossibile cancellare la vendita: viene utilizzata nelle fatture',
         cannot_delete_property:
-          "Impossibile cancellare l'immobile: viene utilizzato nelle vendite o fatture o è associato a un proprietario.",
+          "Impossibile cancellare l'immobile: viene utilizzato nelle vendite, valutazioni, newsletter, fatture, richieste o è associato a un proprietario.",
 
         city: 'Città',
         company: 'Ditta',

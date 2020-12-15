@@ -1,8 +1,7 @@
 import jsPDF from 'jspdf';
-import { imgLogo } from './ImageLogo';
-import { ivdLogo } from './IvdLogo';
-import moment from 'moment';
-import numeral from 'numeral';
+import { imgLogo } from './img/ImageLogo';
+import { ivdLogo } from './img/IvdLogo';
+import { formattaData, formattaPrezzo } from '../common/utils';
 
 export const fattura = (
   cliente,
@@ -51,14 +50,12 @@ export const fattura = (
     }
   }
   const provvPercentuale = importoNetto
-    ? numeral(importoNetto / prezzoDiVendita).format('0.00%')
-    : numeral(amount / prezzoDiVendita).format('0.00%');
+    ? formattaPrezzo(importoNetto / prezzoDiVendita, false, true, true)
+    : formattaPrezzo(amount / prezzoDiVendita, false, true, true);
   let corpoFattura;
   if (dealType === 'Kauf Eigentumswohnung' || dealType === 'Kauf Gewerbe') {
-    corpoFattura = `entsprechend dem rechtskräftigen Kaufvertrag vom ${moment(
+    corpoFattura = `entsprechend dem rechtskräftigen Kaufvertrag vom ${formattaData(
       dataRogito
-    ).format(
-      'DD.MM.YYYY'
     )} sowie unserer Vereinbarung berechnen wir Ihnen für unsere Nachweis- bzw. Vermittlungstätigkeit zum Verkauf des Objekts ${
       oggetto.via
     } ${oggetto.numeroCivico}, ${
@@ -71,7 +68,7 @@ export const fattura = (
 Wohneinheit: ${oggetto.numeroAppartamento}
 Makler: Angelo Arboscello
 Kunde: ${acquirente.nome} ${acquirente.cognome}
-Notartermin: ${moment(dataRogito).format('DD.MM.YYYY')}`;
+Notartermin: ${formattaData(dataRogito)}`;
   } else {
     corpoFattura = `hier ist die Rechnung für Ihre gewählten Leistungen.`;
   }
@@ -143,7 +140,7 @@ Notartermin: ${moment(dataRogito).format('DD.MM.YYYY')}`;
   doc.setFontType('bold');
   doc.text(`Rechnung Nr. ${numeroFattura}`, 15, 96);
   doc.setFontType('normal');
-  doc.text(`Berlin, ${moment(dataFattura).format('DD.MM.YYYY')}`, 100, 96);
+  doc.text(`Berlin, ${formattaData(dataFattura)}`, 100, 96);
 
   // Linea per piegare
   doc.setDrawColor(0, 0, 0);
@@ -171,28 +168,21 @@ Notartermin: ${moment(dataRogito).format('DD.MM.YYYY')}`;
   if (dealType !== '') {
     //Cifre
     doc.text(
-      `${provvPercentuale} Provision aus Kaufpreis ${numeral(
-        prezzoDiVendita / 100
-      ).format('0,0[.]00 $')}`,
+      `${provvPercentuale} Provision aus Kaufpreis ${formattaPrezzo(
+        prezzoDiVendita,
+        true
+      )}`,
       15,
       150
     );
     importoNetto
-      ? doc.text(numeral(importoNetto / 100).format('0,0[.]00 $'), 120, 150)
-      : doc.text(numeral(amount / 100).format('0,0[.]00 $'), 120, 150);
+      ? doc.text(formattaPrezzo(importoNetto, true), 120, 150)
+      : doc.text(formattaPrezzo(amount, true), 120, 150);
 
     doc.text(`${iva}% MWSt.`, 15, 155);
     importoNetto
-      ? doc.text(
-          numeral((importoNetto / 10000) * iva).format('0,0[.]00 $'),
-          120,
-          155
-        )
-      : doc.text(
-          numeral((amount / 10000) * iva).format('0,0[.]00 $'),
-          120,
-          155
-        );
+      ? doc.text(formattaPrezzo((importoNetto / 100) * iva, true), 120, 155)
+      : doc.text(formattaPrezzo((amount / 100) * iva, true), 120, 155);
     doc.setDrawColor(0, 0, 0);
     doc.setLineWidth(0.2);
     doc.line(15, 157, 146, 157);
@@ -200,14 +190,12 @@ Notartermin: ${moment(dataRogito).format('DD.MM.YYYY')}`;
     doc.setFontType('bold');
     importoNetto
       ? doc.text(
-          numeral((importoNetto / 100) * parseFloat(`1.${iva}`)).format(
-            '0,0[.]00 $'
-          ),
+          formattaPrezzo(importoNetto * parseFloat(`1.${iva}`), true),
           120,
           162
         )
       : doc.text(
-          numeral((amount / 100) * parseFloat(`1.${iva}`)).format('0,0[.]00 $'),
+          formattaPrezzo(amount * parseFloat(`1.${iva}`), true),
           120,
           162
         );
@@ -215,42 +203,32 @@ Notartermin: ${moment(dataRogito).format('DD.MM.YYYY')}`;
     //Zeitraum
     doc.setFontType('normal');
     doc.text(
-      `Leistungszeitraum: vom ${moment(dataPrenotazione).format(
-        'DD.MM.YYYY'
-      )} bis ${moment(dataRogito).format('DD.MM.YYYY')}`,
+      `Leistungszeitraum: vom ${formattaData(
+        dataPrenotazione
+      )} bis ${formattaData(dataRogito)}`,
       15,
       175
     );
   } else {
     //Cifre
     doc.text(`${descrizioneProdotto}`, 15, 150);
-    doc.text(numeral(importoNetto / 100).format('0,0[.]00 $'), 120, 150);
+    doc.text(formattaPrezzo(importoNetto, true), 120, 150);
     doc.text(`${iva}% MWSt.`, 15, 155);
-    doc.text(
-      numeral((importoNetto / 10000) * iva).format('0,0[.]00 $'),
-      120,
-      155
-    );
+    doc.text(formattaPrezzo((importoNetto / 100) * iva, true), 120, 155);
     doc.setDrawColor(0, 0, 0);
     doc.setLineWidth(0.2);
     doc.line(15, 157, 146, 157);
     doc.text(`Rechnungsbetrag inkl. ${iva}% MWSt.`, 15, 162);
     doc.setFontType('bold');
     doc.text(
-      numeral((importoNetto / 100) * parseFloat(`1.${iva}`)).format(
-        '0,0[.]00 $'
-      ),
+      formattaPrezzo(importoNetto * parseFloat(`1.${iva}`), true),
       120,
       162
     );
 
     //Zeitraum
     doc.setFontType('normal');
-    doc.text(
-      `Leistungszeitraum: ${moment(dataPrestazione).format('DD.MM.YYYY')}`,
-      15,
-      175
-    );
+    doc.text(`Leistungszeitraum: ${formattaData(dataPrestazione)}`, 15, 175);
   }
 
   //Coordinate pagamento

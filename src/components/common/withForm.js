@@ -184,11 +184,7 @@ function withForm(Component) {
               ? visualizzaDecimaleConVirgola(props.fattura.importoNetto)
               : '0'
             : '0',
-          iva: props.fattura
-            ? props.fattura.iva
-              ? props.fattura.iva
-              : 19
-            : 19,
+
           dataPrestazione: props.fattura
             ? props.fattura.dataPrestazione
               ? props.fattura.dataPrestazione &&
@@ -217,6 +213,11 @@ function withForm(Component) {
           motto: props.firma ? props.firma.motto : '',
           open: props.firma ? props.firma.open : '',
           kontoInhaber: props.firma ? props.firma.kontoInhaber : '',
+          ivaApplicata: props.firma
+            ? props.firma.ivaApplicata
+              ? props.firma.ivaApplicata
+              : ''
+            : '',
         },
         leads: {
           //LEADS
@@ -429,16 +430,6 @@ function withForm(Component) {
           firebaseAuthId: props.user ? props.user.firebaseAuthId : '',
         },
         evaluations: {
-          // cover: props.evaluation
-          //   ? props.evaluation.cover
-          //     ? props.evaluation.cover
-          //     : []
-          //   : [],
-          // coverId: props.evaluation
-          //   ? props.evaluation.coverId
-          //     ? props.evaluation.coverId
-          //     : []
-          //   : [],
           wohnlageSnippet: props.evaluation
             ? props.evaluation.wohnlageSnippet
               ? props.evaluation.wohnlageSnippet

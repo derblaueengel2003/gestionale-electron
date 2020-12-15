@@ -1,8 +1,7 @@
 import jsPDF from 'jspdf';
-import { imgLogo } from './ImageLogo';
-import moment from 'moment';
-import numeral from 'numeral';
+import { imgLogo } from './img/ImageLogo';
 import { imgData, imgData2 } from './img/maklerAlleinAuftragBG';
+import { formattaData, formattaPrezzo } from '../common/utils';
 
 export const maklerAlleinauftrag = (
   venditore,
@@ -69,13 +68,13 @@ export const maklerAlleinauftrag = (
   );
 
   prezzoDiVendita &&
-    doc.text(numeral(prezzoDiVendita).format('0,0[.]00 $'), 56, 82);
+    doc.text(formattaPrezzo(prezzoDiVendita, true, true), 56, 82);
   prezzoDiVendita2 &&
-    doc.text(`- ${numeral(prezzoDiVendita2).format('0,0[.]00 $')}`, 80, 82);
+    doc.text(`- ${formattaPrezzo(prezzoDiVendita2, true, true)}`, 80, 82);
 
   doc.setFontSize(10);
-  startDate && doc.text(moment(startDate).format('DD.MM.YYYY'), 83, 104);
-  endDate && doc.text(moment(endDate).format('DD.MM.YYYY'), 129, 104);
+  startDate && doc.text(formattaData(startDate), 83, 104);
+  endDate && doc.text(formattaData(endDate), 129, 104);
 
   doc.text('X', 55, 181);
   maklerProvision && doc.text(maklerProvision, 65, 190);

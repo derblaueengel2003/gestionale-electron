@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import selectFatture from '../../selectors/deals';
 import Card from '../Card';
-import moment from 'moment';
+import { formattaData } from '../common/utils';
 
 export const FattureList = (props) => {
   //controllo se i dati vengono dalla view deal page o se sono passati via props
@@ -42,9 +42,7 @@ export const FattureList = (props) => {
                   ? `- ${cliente2.nome} ${cliente2.cognome} ${cliente2.ditta}`
                   : ''
               }`;
-              const dataFattura = moment(fattura.dataFattura).format(
-                'DD MMMM, YYYY'
-              );
+              const dataFattura = formattaData(fattura.dataFattura);
               return (
                 <Card
                   key={fattura.id}

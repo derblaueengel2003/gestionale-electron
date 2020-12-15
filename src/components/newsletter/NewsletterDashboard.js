@@ -1,9 +1,9 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import Intestazione from '../common/Intestazione';
-import { Link } from 'react-router-dom';
 import ListFilters from '../common/ListFilters';
 import NewsletterList from './NewsletterList';
+import { addButton } from '../common/elements';
 
 const NewsletterDashboard = ({ t }) => {
   const options = [
@@ -14,11 +14,7 @@ const NewsletterDashboard = ({ t }) => {
     <div>
       <Intestazione intestazione={t('newsletter_header')} />
       <ListFilters options={options} />
-      <div className='container'>
-        <Link className='btn-floating green right' to='/newslettercreate'>
-          <i className='material-icons'>add</i>
-        </Link>
-      </div>
+      {addButton('/newslettercreate')}
       <NewsletterList />
     </div>
   );

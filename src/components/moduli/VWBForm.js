@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import withForm from '../common/withForm';
-import moment from 'moment';
 import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import { widerrufsBelehrung } from './WiderrufsBelehrung';
+import { formattaData } from '../common/utils';
 
 export class VWBForm extends React.Component {
   onSubmit = (e) => {
@@ -20,9 +20,7 @@ export class VWBForm extends React.Component {
     const oggetto = this.props.oggetti.find(
       (oggetto) => oggetto.id === this.props.data.moduli.oggettoId
     );
-    const createdAt = moment(this.props.data.moduli.createdAt).format(
-      'DD.MM.YYYY'
-    );
+    const createdAt = formattaData(this.props.data.moduli.createdAt);
 
     if (
       !this.props.data.moduli.oggettoId ||
@@ -66,14 +64,20 @@ export class VWBForm extends React.Component {
           {this.props.data.error && (
             <p className='form__error'>{this.props.data.error}</p>
           )}
-          {renderSelect('moduli', 'venditoreId', options, t('Cliente'))}
+          {renderSelect('moduli', 'venditoreId', options, t('Cliente'), '*')}
           {renderSelect(
             'moduli',
             'venditoreId2',
             options,
             '2. ' + t('Cliente')
           )}
-          {renderSelect('moduli', 'oggettoId', oggettiOptions, t('Oggetto'))}
+          {renderSelect(
+            'moduli',
+            'oggettoId',
+            oggettiOptions,
+            t('Oggetto'),
+            '*'
+          )}
           {renderSingleDate(
             'moduli',
             'createdAt',

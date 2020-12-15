@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import ClientiList from './ClientiList';
 import ListFilters from '../common/ListFilters';
 import { storeActions } from '../../store/configureStore';
+import { addButton } from '../common/elements';
 
 class ClientiDashboardPage extends React.Component {
   componentDidMount() {
@@ -26,11 +26,7 @@ class ClientiDashboardPage extends React.Component {
           </div>
         </div>
         <ListFilters options={options} />
-        <div className='container'>
-          <Link className='btn-floating green right' to='/clienticreate'>
-            <i className='material-icons'>add</i>
-          </Link>
-        </div>
+        {addButton('/clienticreate')}
         <ClientiList />
       </div>
     );

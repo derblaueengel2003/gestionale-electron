@@ -43,12 +43,6 @@ export class EditFatturaPage extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <button
-            className='btn-floating red right btn-floating-margin'
-            onClick={this.handleOpenModal}
-          >
-            <i className='material-icons'>remove</i>
-          </button>
           <OptionModal
             isOpen={this.state.isOpen}
             contentLabel={'remove'}
@@ -58,6 +52,12 @@ export class EditFatturaPage extends React.Component {
             btnEnabled={this.state.btnEnabled}
           />
           <FatturaForm fattura={this.props.fattura} onSubmit={this.onSubmit} />
+          <button
+            className='btn-floating red margine-basso'
+            onClick={this.handleOpenModal}
+          >
+            <i className='material-icons'>delete</i>
+          </button>
         </div>
       </div>
     );

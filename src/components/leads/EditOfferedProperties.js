@@ -26,16 +26,13 @@ export class EditOfferedProperties extends React.Component {
           </div>
         </div>
         <div className='container'>
-          <button
-            className='btn-floating red right btn-floating-margin'
-            onClick={this.onRemove}
-          >
-            <i className='material-icons'>remove</i>
-          </button>
           <OfferedPropertiesForm
             offer={this.props.offer}
             onSubmit={this.onSubmit}
           />
+          <button className='btn-floating red' onClick={this.onRemove}>
+            <i className='material-icons'>delete</i>
+          </button>
         </div>
       </div>
     );
