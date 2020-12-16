@@ -151,6 +151,8 @@ export default (
         return a.provvStefano < b.provvStefano ? 1 : -1;
       } else if (sortBy === 'paid') {
         return a.payedStefano > b.payedStefano ? 1 : -1;
+      } else if (sortBy === 'published') {
+        return a.status < b.status ? 1 : -1;
       } else if (sortBy === 'name') {
         return a.via > b.via ||
           a.cognome > b.cognome ||

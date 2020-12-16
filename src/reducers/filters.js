@@ -6,7 +6,7 @@ const filtersReducerDefaultState = {
   text: '',
   sortBy: 'date',
   startDate: moment().startOf('year'),
-  endDate: moment().endOf('month'),
+  endDate: moment().endOf('year'),
   lead: '',
   leadStato: '',
 };
@@ -32,6 +32,11 @@ export default (state = filtersReducerDefaultState, action) => {
       return {
         ...state,
         sortBy: 'paid',
+      };
+    case 'SORT_BY_PUBLISHED':
+      return {
+        ...state,
+        sortBy: 'published',
       };
     case 'SORT_BY_NAME':
       return {

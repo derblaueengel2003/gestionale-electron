@@ -16,6 +16,7 @@ class OggettiDashboardPage extends React.Component {
     const options = [
       { value: 'name', label: 'Indirizzo' },
       { value: 'date', label: 'Data' },
+      { value: 'published', label: 'Pubblicato' },
     ];
     return (
       <div>

@@ -29,6 +29,11 @@ export const sortByPaid = () => ({
   type: 'SORT_BY_PAID',
 });
 
+//SORT_BY_PUBLISHED
+export const sortByPublished = () => ({
+  type: 'SORT_BY_PUBLISHED',
+});
+
 //SORT_BY_NAME
 export const sortByName = () => ({
   type: 'SORT_BY_NAME',

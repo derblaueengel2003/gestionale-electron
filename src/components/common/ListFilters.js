@@ -7,6 +7,7 @@ import {
   sortByDate,
   sortByAmount,
   sortByPaid,
+  sortByPublished,
   sortByName,
   setStartDate,
   setEndDate,
@@ -38,6 +39,8 @@ export class ListFilters extends React.Component {
       this.props.sortByAmount();
     } else if (e.target.value === 'paid') {
       this.props.sortByPaid();
+    } else if (e.target.value === 'published') {
+      this.props.sortByPublished();
     } else {
       this.props.sortByName();
     }
@@ -132,6 +135,7 @@ const mapDispatchToProps = (dispatch) => ({
   sortByDate: () => dispatch(sortByDate()),
   sortByAmount: () => dispatch(sortByAmount()),
   sortByPaid: () => dispatch(sortByPaid()),
+  sortByPublished: () => dispatch(sortByPublished()),
   sortByName: () => dispatch(sortByName()),
   setStartDate: (startDate) => dispatch(setStartDate(startDate)),
   setEndDate: (endDate) => dispatch(setEndDate(endDate)),
