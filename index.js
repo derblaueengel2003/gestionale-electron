@@ -52,7 +52,8 @@ ipcMain.on('oggetto:fetch', async (event, url) => {
 });
 
 ipcMain.on('folder:open', (event, { folder, folderNamePartial }) => {
-  const folderPath = path.join(homedir, folder);
+  mainFolder = `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/`;
+  const folderPath = path.join(homedir, mainFolder, folder);
   const filePath = () => {
     const findPath = fs
       .readdirSync(folderPath)
@@ -80,7 +81,7 @@ ipcMain.on('is24:send', async (event, options) => {
   }
 });
 
-/////////////// IS 24 IMAGES
+/////////////// IS 24 IMAGES // IN PROGRESS
 ipcMain.on('is24img:upload', (event, options) => {
   // scarico l'immagine da wordpress e la salvo su disco nella cartella public dell'applicazione
   try {

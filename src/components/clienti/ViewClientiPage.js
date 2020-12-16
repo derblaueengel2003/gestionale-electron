@@ -12,7 +12,7 @@ import { ipcRenderer } from 'electron';
 export class ViewClientiPage extends React.Component {
   openFile = () => {
     ipcRenderer.send('folder:open', {
-      folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Kunden/`,
+      folder: `Kunden`,
       folderNamePartial: this.props.cliente.cognome,
     });
   };

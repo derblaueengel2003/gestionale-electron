@@ -57,7 +57,7 @@ export const OggettiList = (props) => {
                           }`}
                           onClick={() => {
                             ipcRenderer.send('folder:open', {
-                              folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Exposé/`,
+                              folder: `Exposé`,
                               folderNamePartial: oggetto.rifId,
                             });
                           }}
@@ -73,6 +73,11 @@ export const OggettiList = (props) => {
                       props.t(oggetto.tipologia),
                       prezzoDiVendita,
                       dataOggetto,
+                      oggetto.status && (
+                        <p className='green-text'>
+                          {props.t('property_status')}
+                        </p>
+                      ),
                     ]}
                     verkauft={verkauft}
                   />

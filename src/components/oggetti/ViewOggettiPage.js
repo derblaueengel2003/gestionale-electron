@@ -25,7 +25,7 @@ export class ViewOggettiPage extends React.Component {
 
   openFile = () => {
     ipcRenderer.send('folder:open', {
-      folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Exposé/`,
+      folder: `Exposé`,
       folderNamePartial: this.props.oggetto.rifId,
     });
   };
@@ -128,6 +128,9 @@ export class ViewOggettiPage extends React.Component {
                   oggetto.kaufpreis,
                   true
                 )}`}</p>
+              )}
+              {oggetto.status && (
+                <p className='green-text'>{t('property_status')}</p>
               )}
               <ul className='collapsible'>
                 <li>

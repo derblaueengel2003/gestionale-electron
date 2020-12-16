@@ -74,7 +74,7 @@ export const ClientiList = ({ cliente, clienti, ruolo, t }) => {
                             className='btn-floating light-blue accent-3 right btn-floating-margin'
                             onClick={() => {
                               ipcRenderer.send('folder:open', {
-                                folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Kunden/`,
+                                folder: `Kunden`,
                                 folderNamePartial: cliente.cognome,
                               });
                             }}

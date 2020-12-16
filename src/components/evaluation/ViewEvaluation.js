@@ -52,7 +52,7 @@ export class ViewEvaluation extends React.Component {
       (oggetto) => oggetto.id === evaluation.oggettoId
     );
     ipcRenderer.send('folder:open', {
-      folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Valutazioni/`,
+      folder: `Valutazioni`,
       folderNamePartial: oggetto
         ? oggetto.via.split(' ')[0]
         : evaluation.titolo.split(' ')[0],

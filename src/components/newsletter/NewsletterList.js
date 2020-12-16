@@ -15,7 +15,14 @@ export const NewsletterList = ({
   const newslettersPayload = oggettoNewsletter || newsletters;
   const findOggetto = (oggettoId) => {
     const oggetto = oggetti.find((ogg) => ogg.id === oggettoId);
-    return `${oggetto.rifId} - ${oggetto.via}`;
+    return (
+      <div className='foto-container foto-container-newsletter'>
+        {oggetto.downloadURLsCover && (
+          <img className='foto' src={oggetto.downloadURLsCover[0] || ''} />
+        )}{' '}
+        {oggetto.rifId} - {oggetto.via}
+      </div>
+    );
   };
 
   return (

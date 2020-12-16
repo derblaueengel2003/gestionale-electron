@@ -132,7 +132,7 @@ export const DealList = ({
                         }`}
                         onClick={() => {
                           ipcRenderer.send('folder:open', {
-                            folder: `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/Exposé/`,
+                            folder: `Exposé`,
                             folderNamePartial: oggetto.rifId,
                           });
                         }}
