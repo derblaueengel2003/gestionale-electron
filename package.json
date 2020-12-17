@@ -5,8 +5,8 @@
   "author": "Angelo Arboscello",
   "license": "MIT",
   "scripts": {
-    "build:dev": "webpack",
-    "build:prod": "webpack -p --env production",
+    "build:dev": "cross-env NODE_ENV=development webpack",
+    "build:prod": "cross-env NODE_ENV=production webpack -p --env production",
     "dev-server": "webpack-dev-server",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
     "start": "electron-forge start",
