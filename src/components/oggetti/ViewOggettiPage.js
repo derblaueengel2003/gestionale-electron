@@ -23,12 +23,20 @@ export class ViewOggettiPage extends React.Component {
     return this.props.clienti.filter((cliente) => cliente.id === contact);
   };
 
-  openFile = () => {
-    ipcRenderer.send('folder:open', {
-      folder: `Exposé`,
-      folderNamePartial: this.props.oggetto.rifId,
-    });
-  };
+  // openFile = () => {
+  //   ipcRenderer.send('folder:open', {
+  //     folder: `Exposé`,
+  //     folderNamePartial: this.props.oggetto.rifId,
+  //   });
+  // };
+
+  creaCartella = () => {
+    ipcRenderer.send('folder:create', {
+      folder: 'Exposé',
+      folderNamePartial: `${this.props.oggetto.rifId} ${this.props.oggetto.via} ${this.props.oggetto.numeroCivico} WE ${this.props.oggetto.numeroAppartamento}`,
+
+    })
+}
 
   render() {
     if (this.props.oggetto && this.props.utente) {
@@ -104,7 +112,7 @@ export class ViewOggettiPage extends React.Component {
               {
                 <button
                   className='btn-floating light-blue accent-3 right btn-floating-margin'
-                  onClick={this.openFile}
+                  onClick={this.creaCartella}
                 >
                   <i className='material-icons'>folder</i>
                 </button>

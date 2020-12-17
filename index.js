@@ -51,21 +51,36 @@ ipcMain.on('oggetto:fetch', async (event, url) => {
   }
 });
 
-ipcMain.on('folder:open', (event, { folder, folderNamePartial }) => {
-  mainFolder = `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/`;
-  const folderPath = path.join(homedir, mainFolder, folder);
-  const filePath = () => {
+//FOLDER//////
+const mainFolder = `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/`;
+const folderPath = (folder) => {
+return path.join(homedir, mainFolder, folder);
+};
+
+  const filePath = (folder, folderNamePartial) => {
     const findPath = fs
-      .readdirSync(folderPath)
+      .readdirSync(folderPath(folder))
       .filter((fn) => fn.startsWith(folderNamePartial));
 
-    return findPath[0] || '';
+    return findPath[0] || folderNamePartial;
   };
 
-  const finalPath = path.join(folderPath, filePath());
+  const finalPath = (folder, folderNamePartial) => (path.join(folderPath(folder), filePath(folder, folderNamePartial))).trim();
 
-  shell.openItem(finalPath);
+ipcMain.on('folder:open', (event, { folder, folderNamePartial }) => {
+  // const folderPath = path.join(homedir, mainFolder, folder);
+  shell.openItem(finalPath(folder, folderNamePartial));
 });
+
+ipcMain.on('folder:create', (event, { folder, folderNamePartial }) => {
+ if (!fs.existsSync(finalPath(folder, folderNamePartial))){
+    fs.mkdirSync(finalPath(folder, folderNamePartial));
+}
+console.log(finalPath(folder, folderNamePartial))
+ shell.openItem(finalPath(folder, folderNamePartial));
+})
+
+/////////////
 
 ipcMain.on('link:open', (event, link) => {
   shell.openExternal(link);
