@@ -60,11 +60,12 @@ export const EvaluationList = ({
                         />
                       )}
                       {folderButton(
+                        evaluation,
+                        oggetto && oggetto.downloadURLsCover && true,
                         'Valutazioni',
                         oggetto
                           ? oggetto.via.split(' ')[0]
-                          : evaluation.titolo.split(' ')[0],
-                        oggetto && oggetto.downloadURLsCover
+                          : evaluation.titolo.split(' ')[0]
                       )}
                     </div>
                   }

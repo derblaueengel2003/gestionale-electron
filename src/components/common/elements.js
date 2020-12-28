@@ -12,11 +12,16 @@ export const addButton = (destinazione) => {
   );
 };
 
-export const folderButton = (folder, folderNamePartial, downloadURLsCover) => {
+export const folderButton = (
+  item,
+  iconInPicture,
+  folder,
+  folderNamePartial
+) => {
   return (
     <button
       className={`btn-floating light-blue accent-3 ${
-        downloadURLsCover ? 'icon-in-picture' : 'btn-floating-margin right'
+        iconInPicture ? 'icon-in-picture' : 'btn-floating-margin right'
       }`}
       onClick={() => {
         ipcRenderer.send('folder:open', {
@@ -58,7 +63,8 @@ export const contactDetailsButton = (cliente) => {
           <i className='material-icons'>phone_iphone</i>
         </a>
       )}
-      {cliente.cognome && folderButton('Kunden', cliente.cognome)}
+      {cliente.cognome &&
+        folderButton(cliente, false, 'Kunden', cliente.cognome)}
     </div>
   );
 };

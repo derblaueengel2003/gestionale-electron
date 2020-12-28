@@ -50,9 +50,10 @@ export const OggettiList = (props) => {
                           />
                         )}
                         {folderButton(
+                          oggetto,
+                          oggetto.downloadURLsCover && true,
                           'Exposé',
-                          oggetto.rifId,
-                          oggetto.downloadURLsCover
+                          oggetto.rifId
                         )}
                       </div>
                     }

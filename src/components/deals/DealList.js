@@ -125,9 +125,10 @@ export const DealList = ({
                         />
                       )}
                       {folderButton(
+                        oggetto,
+                        oggetto.downloadURLsCover && true,
                         'Exposé',
-                        oggetto.rifId,
-                        oggetto.downloadURLsCover
+                        oggetto.rifId
                       )}
                     </div>
                   }

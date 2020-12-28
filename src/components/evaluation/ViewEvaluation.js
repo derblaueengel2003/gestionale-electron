@@ -139,6 +139,8 @@ export class ViewEvaluation extends React.Component {
               btnEnabled={this.state.btnEnabled}
             />
             {folderButton(
+              evaluation,
+              false,
               'Valutazioni',
               oggetto ? oggetto.via.split(' ')[0] : titolo.split(' ')[0]
             )}

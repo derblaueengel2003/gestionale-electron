@@ -89,7 +89,7 @@ export class ViewOggettiPage extends React.Component {
                   <i className='material-icons'>attach_money</i>
                 </Link>
               )}
-              {folderButton('Exposé', oggetto.rifId)}
+              {folderButton(oggetto, false, 'Exposé', oggetto.rifId)}
             </div>
 
             <div>
