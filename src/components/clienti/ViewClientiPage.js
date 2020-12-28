@@ -1,21 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import DealList from '../deals/DealList';
 import FattureList from '../fatture/FattureList';
 import LeadsList from '../leads/LeadsList';
 import OggettiList from '../oggetti/OggettiList';
 import Intestazione from '../common/Intestazione';
-import { ipcRenderer } from 'electron';
+import { contactDetailsButton, editButton } from '../common/elements';
 
 export class ViewClientiPage extends React.Component {
-  openFile = () => {
-    ipcRenderer.send('folder:open', {
-      folder: `Kunden`,
-      folderNamePartial: this.props.cliente.cognome,
-    });
-  };
   render() {
     const {
       cloudURL,
@@ -68,44 +61,8 @@ export class ViewClientiPage extends React.Component {
 
         <div className='container section'>
           <div>
-            <Link
-              className='btn-floating orange right btn-floating-margin'
-              to={`/clientiedit/${id}`}
-            >
-              <i className='material-icons'>edit</i>
-            </Link>
-            {email && (
-              <a
-                href={`mailto:${email}`}
-                className='btn-floating blue right btn-floating-margin'
-              >
-                <i className='material-icons'>email</i>
-              </a>
-            )}
-            {telefono1 && (
-              <a
-                href={`tel:${telefono1}`}
-                className='btn-floating light-green accent-3 right btn-floating-margin'
-              >
-                <i className='material-icons'>phone</i>
-              </a>
-            )}
-            {cellulare && (
-              <a
-                href={`tel:${cellulare}`}
-                className='btn-floating light-green accent-3 right btn-floating-margin'
-              >
-                <i className='material-icons'>phone_iphone</i>
-              </a>
-            )}
-            {
-              <button
-                className='btn-floating light-blue accent-3 right btn-floating-margin'
-                onClick={this.openFile}
-              >
-                <i className='material-icons'>folder</i>
-              </button>
-            }
+            {editButton(`/clientiedit/${id}`)}
+            {contactDetailsButton(this.props.cliente)}
           </div>
 
           <div>

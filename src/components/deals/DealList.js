@@ -5,7 +5,7 @@ import selectDeals from '../../selectors/deals';
 import Card from '../Card';
 import TodoProgressBar from './TodoProgressBar';
 import { formattaData, formattaPrezzo } from '../common/utils';
-import { ipcRenderer } from 'electron';
+import { folderButton } from '../common/elements';
 
 export const DealList = ({
   clienteDeals,
@@ -124,21 +124,11 @@ export const DealList = ({
                           src={oggetto.downloadURLsCover[0] || ''}
                         />
                       )}
-                      <button
-                        className={`btn-floating light-blue accent-3 ${
-                          oggetto.downloadURLsCover
-                            ? 'icon-in-picture'
-                            : 'btn-floating-margin right'
-                        }`}
-                        onClick={() => {
-                          ipcRenderer.send('folder:open', {
-                            folder: `Exposé`,
-                            folderNamePartial: oggetto.rifId,
-                          });
-                        }}
-                      >
-                        <i className='material-icons'>folder</i>
-                      </button>
+                      {folderButton(
+                        'Exposé',
+                        oggetto.rifId,
+                        oggetto.downloadURLsCover
+                      )}
                     </div>
                   }
                   corpo={[

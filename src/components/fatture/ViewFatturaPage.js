@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { fattura } from '../moduli/Fattura';
 import { mahnung } from '../moduli/Mahnung';
 import { mahnung2 } from '../moduli/Mahnung2';
@@ -11,6 +10,7 @@ import DealList from '../deals/DealList';
 import ClientiList from '../clienti/ClientiList';
 import Intestazione from '../common/Intestazione';
 import { formattaData, formattaPrezzo } from '../common/utils';
+import { editButton } from '../common/elements';
 
 export class ViewFatturePage extends React.Component {
   render() {
@@ -59,14 +59,7 @@ export class ViewFatturePage extends React.Component {
             }
           />
           <div className='container section'>
-            <div>
-              <Link
-                className='btn-floating orange right btn-floating-margin'
-                to={`/fatturaedit/${singleFattura.id}`}
-              >
-                <i className='material-icons'>edit</i>
-              </Link>
-            </div>
+            <div>{editButton(`/fatturaedit/${singleFattura.id}`)}</div>
 
             <div className='section'>
               {deal && deal.dealType}

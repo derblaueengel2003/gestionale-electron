@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import selectOggetti from '../../selectors/deals';
 import Card from '../Card';
 import { formattaData, formattaPrezzo } from '../common/utils';
-import { ipcRenderer } from 'electron';
+import { folderButton } from '../common/elements';
 
 export const OggettiList = (props) => {
   //controllo se arrivo da view deal o dalla dashboard oggetti
@@ -49,21 +49,11 @@ export const OggettiList = (props) => {
                             src={oggetto.downloadURLsCover[0] || ''}
                           />
                         )}
-                        <button
-                          className={`btn-floating light-blue accent-3 ${
-                            oggetto.downloadURLsCover
-                              ? 'icon-in-picture'
-                              : 'btn-floating-margin right'
-                          }`}
-                          onClick={() => {
-                            ipcRenderer.send('folder:open', {
-                              folder: `Exposé`,
-                              folderNamePartial: oggetto.rifId,
-                            });
-                          }}
-                        >
-                          <i className='material-icons'>folder</i>
-                        </button>
+                        {folderButton(
+                          'Exposé',
+                          oggetto.rifId,
+                          oggetto.downloadURLsCover
+                        )}
                       </div>
                     }
                     sottotitolo={`${props.t('Rif')}. ID ${oggetto.rifId}`}

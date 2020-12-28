@@ -11,7 +11,7 @@ import EvaluationList from '../evaluation/EvaluationList';
 import Mappa from './Mappa';
 import M2SquareAPI from './M2SquareAPI';
 import CollectionItem from '../common/collectionItem';
-import { ipcRenderer } from 'electron';
+import { editButton, folderButton } from '../common/elements';
 
 // ELECTRON
 export class ViewOggettiPage extends React.Component {
@@ -22,21 +22,6 @@ export class ViewOggettiPage extends React.Component {
   findContact = (contact) => {
     return this.props.clienti.filter((cliente) => cliente.id === contact);
   };
-
-  // openFile = () => {
-  //   ipcRenderer.send('folder:open', {
-  //     folder: `Exposé`,
-  //     folderNamePartial: this.props.oggetto.rifId,
-  //   });
-  // };
-
-  creaCartella = () => {
-    ipcRenderer.send('folder:create', {
-      folder: 'Exposé',
-      folderNamePartial: `${this.props.oggetto.rifId} ${this.props.oggetto.via} ${this.props.oggetto.numeroCivico} WE ${this.props.oggetto.numeroAppartamento}`,
-
-    })
-}
 
   render() {
     if (this.props.oggetto && this.props.utente) {
@@ -76,12 +61,7 @@ export class ViewOggettiPage extends React.Component {
           <Intestazione intestazione={titolo} />
           <div className='container section'>
             <div>
-              <Link
-                className='btn-floating orange right btn-floating-margin'
-                to={`/oggettoedit/${oggetto.id}`}
-              >
-                <i className='material-icons'>edit</i>
-              </Link>
+              {editButton(`/oggettoedit/${oggetto.id}`)}
               {/* se l'oggetto è venduto nascondo il pulsante match */}
               {!oggetto.venduto && (
                 <Link
@@ -109,14 +89,7 @@ export class ViewOggettiPage extends React.Component {
                   <i className='material-icons'>attach_money</i>
                 </Link>
               )}
-              {
-                <button
-                  className='btn-floating light-blue accent-3 right btn-floating-margin'
-                  onClick={this.creaCartella}
-                >
-                  <i className='material-icons'>folder</i>
-                </button>
-              }
+              {folderButton('Exposé', oggetto.rifId)}
             </div>
 
             <div>

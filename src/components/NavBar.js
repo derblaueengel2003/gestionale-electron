@@ -26,7 +26,9 @@ export const NavBar = ({ utente, t, activeClass }) => {
     return (
       <nav className='new-wrapper blue'>
         <div>
-          <span className='brand-logo'>{t('nav_title')}</span>
+          <span className='brand-logo btn-floating-margin'>
+            {t('nav_title')}
+          </span>
           <Sidebar />
           <ul className='right hide-on-med-and-down'>
             {menuItems.map((item) => (

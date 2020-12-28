@@ -7,6 +7,7 @@ import { storeActions } from '../../store/configureStore';
 import OptionModal from '../common/OptionModal';
 import Intestazione from '../common/Intestazione';
 import { formattaData, formattaPrezzo } from '../common/utils';
+import { editButton } from '../common/elements';
 
 export class ViewLeadPage extends React.Component {
   state = {
@@ -82,12 +83,7 @@ export class ViewLeadPage extends React.Component {
               onConfirm={this.onRemove}
               btnEnabled={this.state.btnEnabled}
             />
-            <Link
-              className='btn-floating orange right btn-floating-margin'
-              to={`/leadedit/${lead.id}`}
-            >
-              <i className='material-icons'>edit</i>
-            </Link>
+            {editButton(`/leadedit/${lead.id}`)}
             {lead.leadOggettoStato === 'libero' ||
             lead.leadOggettoStato === 'affittato' ||
             lead.leadOggettoStato === 'libero o affittato' ||

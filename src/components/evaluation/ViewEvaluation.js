@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import Intestazione from '../common/Intestazione';
 import OptionModal from '../common/OptionModal';
 import OggettiList from '../oggetti/OggettiList';
@@ -10,7 +9,7 @@ import { storeActions } from '../../store/configureStore';
 import evaluationPdf from './EvaluationPdf';
 import CollectionItem from '../common/collectionItem';
 import { formattaData, formattaPrezzo } from '../common/utils';
-import { ipcRenderer } from 'electron';
+import { editButton, folderButton } from '../common/elements';
 
 export class ViewEvaluation extends React.Component {
   componentDidMount() {
@@ -44,19 +43,6 @@ export class ViewEvaluation extends React.Component {
       visible: false,
     });
     this.props.history.push('/evaluations');
-  };
-
-  openFile = () => {
-    const { evaluation, oggetti } = this.props;
-    const oggetto = oggetti.find(
-      (oggetto) => oggetto.id === evaluation.oggettoId
-    );
-    ipcRenderer.send('folder:open', {
-      folder: `Valutazioni`,
-      folderNamePartial: oggetto
-        ? oggetto.via.split(' ')[0]
-        : evaluation.titolo.split(' ')[0],
-    });
   };
 
   render() {
@@ -131,12 +117,7 @@ export class ViewEvaluation extends React.Component {
         />{' '}
         <div className='container section'>
           <div>
-            <Link
-              className='btn-floating orange right btn-floating-margin'
-              to={`/evaluationedit/${evaluation.id}`}
-            >
-              <i className='material-icons'>edit</i>
-            </Link>
+            {editButton(`/evaluationedit/${evaluation.id}`)}
             <div>
               <button
                 className='btn-floating red right btn-floating-margin'
@@ -157,14 +138,10 @@ export class ViewEvaluation extends React.Component {
               }
               btnEnabled={this.state.btnEnabled}
             />
-            {
-              <button
-                className='btn-floating light-blue accent-3 right btn-floating-margin'
-                onClick={this.openFile}
-              >
-                <i className='material-icons'>folder</i>
-              </button>
-            }
+            {folderButton(
+              'Valutazioni',
+              oggetto ? oggetto.via.split(' ')[0] : titolo.split(' ')[0]
+            )}
           </div>
           <h5>
             {t('evaluation_result')}: {formattaPrezzo(result, true)}/m2

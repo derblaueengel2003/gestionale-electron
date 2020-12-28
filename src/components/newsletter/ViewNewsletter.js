@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import OggettiList from '../oggetti/OggettiList';
 import Intestazione from '../common/Intestazione';
 import MailchimpAPI from './MailchimpApi';
 import { formattaData } from '../common/utils';
+import { editButton } from '../common/elements';
 
 export class ViewNewsletter extends React.Component {
   constructor(props) {
@@ -54,14 +54,7 @@ export class ViewNewsletter extends React.Component {
           }
         />
         <div className='container section'>
-          <div>
-            <Link
-              className='btn-floating orange right btn-floating-margin'
-              to={`/newsletteredit/${id}`}
-            >
-              <i className='material-icons'>edit</i>
-            </Link>
-          </div>
+          <div>{editButton(`/newsletteredit/${id}`)}</div>
 
           <div>{newsletterText}</div>
         </div>

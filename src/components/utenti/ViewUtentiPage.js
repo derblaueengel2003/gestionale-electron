@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import Intestazione from '../common/Intestazione';
+import { editButton } from '../common/elements';
 
 export class ViewUtentiPage extends React.Component {
   render() {
@@ -21,12 +21,7 @@ export class ViewUtentiPage extends React.Component {
               {t('Ruolo')}: {this.props.utente.role}
             </div>
           )}
-          <Link
-            className='button button--secondary-clienti'
-            to={`/useredit/${this.props.utente.id}`}
-          >
-            {t('Modifica utente')}
-          </Link>
+          {editButton(`/useredit/${this.props.utente.id}`)}
         </div>
       </div>
     );

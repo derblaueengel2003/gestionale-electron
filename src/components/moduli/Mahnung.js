@@ -215,6 +215,6 @@ export const mahnung = (
   doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);
 
   doc.save(
-    `Rechnung ${numeroFattura.replace('/', '-')} ${cliente.cognome}.pdf`
+    `Mahnung Rechnung ${numeroFattura.replace('/', '-')} ${cliente.cognome}.pdf`
   );
 };

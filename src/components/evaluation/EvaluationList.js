@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import Card from '../Card';
 import selectEvaluations from '../../selectors/deals';
 import { formattaData, formattaPrezzo } from '../common/utils';
-import { ipcRenderer } from 'electron';
+import { folderButton } from '../common/elements';
 
 export const EvaluationList = ({
   oggettoEvaluation,
@@ -59,23 +59,13 @@ export const EvaluationList = ({
                           src={oggetto.downloadURLsCover[0] || ''}
                         />
                       )}
-                      <button
-                        className={`btn-floating light-blue accent-3 ${
-                          oggetto && oggetto.downloadURLsCover
-                            ? 'icon-in-picture'
-                            : 'btn-floating-margin right'
-                        }`}
-                        onClick={() => {
-                          ipcRenderer.send('folder:open', {
-                            folder: `Valutazioni`,
-                            folderNamePartial: oggetto
-                              ? oggetto.via.split(' ')[0]
-                              : evaluation.titolo.split(' ')[0],
-                          });
-                        }}
-                      >
-                        <i className='material-icons'>folder</i>
-                      </button>
+                      {folderButton(
+                        'Valutazioni',
+                        oggetto
+                          ? oggetto.via.split(' ')[0]
+                          : evaluation.titolo.split(' ')[0],
+                        oggetto && oggetto.downloadURLsCover
+                      )}
                     </div>
                   }
                   corpo={[dataEvaluation]}
