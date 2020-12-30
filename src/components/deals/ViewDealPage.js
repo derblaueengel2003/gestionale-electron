@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { creaPrenotazione } from '../moduli/Provisionsbestaetigung';
 import { widerrufsBelehrung } from '../moduli/WiderrufsBelehrung';
 import { vollmachtNotarauftrag } from '../moduli/VollmachtNotarauftrag';
@@ -11,8 +12,11 @@ import FattureList from '../fatture/FattureList';
 import ClientiList from '../clienti/ClientiList';
 import OggettiList from '../oggetti/OggettiList';
 import Intestazione from '../common/Intestazione';
-import { formattaData, formattaPrezzo } from '../common/utils';
-import { editButton } from '../common/elements';
+import {
+  formattaData,
+  formattaPrezzo,
+  trasformaInNumero,
+} from '../common/utils';
 
 export class ViewDealPage extends React.Component {
   findContact = (contact) => {
@@ -59,7 +63,8 @@ export class ViewDealPage extends React.Component {
       (utente) => utente.id === consulenteVendita
     );
     const provvPercentuale = formattaPrezzo(
-      (amount / prezzoDiVendita) * 119,
+      (amount / prezzoDiVendita / 2) *
+        (100 + trasformaInNumero(this.props.firma.ivaApplicata, true)),
       false,
       true
     );
@@ -88,7 +93,16 @@ export class ViewDealPage extends React.Component {
         />
 
         <div className='container section'>
-          <div>{utente.role === 'Admin' && editButton(`/edit/${id}`)}</div>
+          <div>
+            {utente.role === 'Admin' && (
+              <Link
+                className='btn-floating orange right btn-floating-margin'
+                to={`/edit/${id}`}
+              >
+                <i className='material-icons'>edit</i>
+              </Link>
+            )}
+          </div>
           <div>
             {prezzoDiVendita > 0 && (
               <h5>
