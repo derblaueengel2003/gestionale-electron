@@ -34,6 +34,12 @@ export default (
           ? moment(dealFatture.dataFattura)
           : createdAtMoment;
 
+        createdAtMoment = item.feePayed
+          ? item.dataRogito
+            ? moment(item.dataRogito)
+            : moment(item.createdAt)
+          : createdAtMoment;
+
         const oggetto = oggetti.find((ogg) => ogg.id === item.oggettoId) || {
           rifId: 'n/a',
           via: 'n/a',
@@ -116,7 +122,6 @@ export default (
 
         searchString += `${oggetto1}${oggetto2}${oggetto3}${oggetto4}${oggetto5}${oggetto6}`;
       }
-
       const startDateMatch =
         startDate && createdAtMoment
           ? startDate.isSameOrBefore(createdAtMoment, 'day')
