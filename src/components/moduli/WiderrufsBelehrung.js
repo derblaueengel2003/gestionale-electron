@@ -38,7 +38,6 @@ export const widerrufsBelehrung = (
   doc.text(contattiFirma(firma), 61, 38);
 
   // nuovo
-  doc.setFontSize(10);
   if (!acquirente2) {
     doc.text(nomeCompleto(acquirente), 61, 63);
     doc.text(indirizzoCompleto(acquirente), 61, 68);
