@@ -22,6 +22,16 @@ export const creaPrenotazione = (
 ) => {
   const doc = new jsPDF();
 
+  const dittaAcquirente = ditta(acquirente);
+  const nomeCompletoAcquirente = nomeCompleto(acquirente);
+  const indirizzoCompletoAcquirente = indirizzoCompleto(acquirente);
+  const nomeCompletoAcquirente2 = nomeCompleto(acquirente2);
+  const indirizzoCompletoAcquirente2 = indirizzoCompleto(acquirente2);
+  const nomeCompletoVenditore = nomeCompleto(venditore);
+  const indirizzoCompletoVenditore = indirizzoCompleto(venditore);
+
+  const dittaVenditore = ditta(venditore);
+
   doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
   doc.addImage(imgLogo, 'JPEG', 28, 11, 35, 8);
   //Logo IVD
@@ -36,35 +46,35 @@ export const creaPrenotazione = (
   doc.setFontSize(10);
   // nuovo
   if (!acquirente2) {
-    if (ditta(acquirente).length > 0) {
-      doc.text(ditta(acquirente), 61, 30);
-      doc.text(nomeCompleto(acquirente), 61, 35);
-      doc.text(indirizzoCompleto(acquirente), 61, 40);
+    if (dittaAcquirente.length > 0) {
+      doc.text(dittaAcquirente, 61, 30);
+      doc.text(nomeCompletoAcquirente, 61, 35);
+      doc.text(indirizzoCompletoAcquirente, 61, 40);
     } else {
-      doc.text(nomeCompleto(acquirente), 61, 30);
-      doc.text(indirizzoCompleto(acquirente), 61, 35);
+      doc.text(nomeCompletoAcquirente, 61, 30);
+      doc.text(indirizzoCompletoAcquirente, 61, 35);
     }
   } else {
-    if (ditta(acquirente).length > 0) {
-      doc.text(ditta(acquirente), 61, 30);
+    if (dittaAcquirente.length > 0) {
+      doc.text(dittaAcquirente, 61, 30);
       doc.text(
-        `1. ${nomeCompleto(acquirente)}, ${indirizzoCompleto(acquirente)}`,
+        `1. ${nomeCompletoAcquirente}, ${indirizzoCompletoAcquirente}`,
         61,
         35
       );
       doc.text(
-        `2. ${nomeCompleto(acquirente2)}, ${indirizzoCompleto(acquirente2)}`,
+        `2. ${nomeCompletoAcquirente2}, ${indirizzoCompletoAcquirente2}`,
         61,
         40
       );
     } else {
       doc.text(
-        `1. ${nomeCompleto(acquirente)}, ${indirizzoCompleto(acquirente)}`,
+        `1. ${nomeCompletoAcquirente}, ${indirizzoCompletoAcquirente}`,
         61,
         30
       );
       doc.text(
-        `2. ${nomeCompleto(acquirente2)}, ${indirizzoCompleto(acquirente2)}`,
+        `2. ${nomeCompletoAcquirente2}, ${indirizzoCompletoAcquirente2}`,
         61,
         35
       );
@@ -120,30 +130,30 @@ export const creaPrenotazione = (
   doc.text(`${oggetto.cap} ${oggetto.citta}`, 95, 146);
 
   if (
-    ditta(venditore).length > 25 ||
-    indirizzoCompleto(venditore).length > 25 ||
-    nomeCompleto(venditore).length > 25
+    dittaVenditore.length > 25 ||
+    indirizzoCompletoVenditore.length > 25 ||
+    nomeCompletoVenditore.length > 25
   ) {
     doc.setFontSize(10);
   } else if (
-    ditta(venditore).length > 50 ||
-    indirizzoCompleto(venditore).length > 50 ||
-    nomeCompleto(venditore).length > 50
+    dittaVenditore.length > 50 ||
+    indirizzoCompletoVenditore.length > 50 ||
+    nomeCompletoVenditore.length > 50
   )
     doc.setFontSize(8);
   else {
     doc.setFontSize(12);
   }
-  if (ditta(venditore).length > 0) {
-    const venditoreAddress = `${ditta(venditore)} \n${nomeCompleto(
-      venditore
-    )} \n${venditore.indirizzo} ${
-      venditore.indirizzo2 && venditore.indirizzo2
-    }\n${venditore.cap} ${venditore.comune}\n${venditore.nazione}`;
+  if (dittaVenditore.length > 0) {
+    const venditoreAddress = `${dittaVenditore} \n${nomeCompletoVenditore} \n${
+      venditore.indirizzo
+    } ${venditore.indirizzo2 && venditore.indirizzo2}\n${venditore.cap} ${
+      venditore.comune
+    }\n${venditore.nazione}`;
     const lines = doc.splitTextToSize(venditoreAddress, 50);
     doc.text(148, 136, lines);
   } else {
-    const venditoreAddress = `${nomeCompleto(venditore)} \n${
+    const venditoreAddress = `${nomeCompletoVenditore} \n${
       venditore.indirizzo
     } ${venditore.indirizzo2 && venditore.indirizzo2}\n${venditore.cap} ${
       venditore.comune

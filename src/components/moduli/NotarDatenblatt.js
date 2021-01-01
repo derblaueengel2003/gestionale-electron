@@ -299,9 +299,9 @@ export const notarDatenblatt = (
   if (venditore2) {
     acapo += 10;
     doc.text(
-      `${
-        venditore2.ditta && `Firma: ${venditore2.ditta} - `
-      }${indirizzoCompleto(venditore2)}`,
+      `${venditore2.ditta && `Firma: ${venditore2.ditta} - `}${nomeCompleto(
+        venditore2
+      )}`,
       15,
       acapo
     );

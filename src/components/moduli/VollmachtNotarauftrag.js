@@ -22,6 +22,16 @@ export const vollmachtNotarauftrag = (
 ) => {
   const doc = new jsPDF();
 
+  const dittaAcquirente = ditta(acquirente);
+  const nomeCompletoAcquirente = nomeCompleto(acquirente);
+  const indirizzoCompletoAcquirente = indirizzoCompleto(acquirente);
+  const nomeCompletoAcquirente2 = nomeCompleto(acquirente2);
+  const indirizzoCompletoAcquirente2 = indirizzoCompleto(acquirente2);
+  const nomeCompletoVenditore = nomeCompleto(venditore);
+  const indirizzoCompletoVenditore = indirizzoCompleto(venditore);
+  const nomeCompletoVenditore2 = nomeCompleto(venditore2);
+  const indirizzoCompletoVenditore2 = indirizzoCompleto(venditore2);
+
   doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
   doc.addImage(imgLogo, 'JPEG', 165, 10, 35, 8);
   doc.setFontSize(12);
@@ -29,33 +39,33 @@ export const vollmachtNotarauftrag = (
   if (!venditore2) {
     if (ditta(venditore).length > 0) {
       doc.text(ditta(venditore), 30, 36);
-      doc.text(nomeCompleto(venditore), 30, 41);
-      doc.text(indirizzoCompleto(venditore), 30, 46);
+      doc.text(nomeCompletoVenditore, 30, 41);
+      doc.text(indirizzoCompletoVenditore, 30, 46);
     } else {
-      doc.text(nomeCompleto(venditore), 30, 36);
-      doc.text(indirizzoCompleto(venditore), 30, 41);
+      doc.text(nomeCompletoVenditore, 30, 36);
+      doc.text(indirizzoCompletoVenditore, 30, 41);
     }
   } else {
     if (ditta(venditore).length > 0) {
       doc.text(ditta(venditore), 30, 36);
       doc.text(
-        `1. ${nomeCompleto(venditore)}, ${indirizzoCompleto(venditore)}`,
+        `1. ${nomeCompletoVenditore}, ${indirizzoCompletoVenditore}`,
         30,
         41
       );
       doc.text(
-        `2. ${nomeCompleto(venditore2)}, ${indirizzoCompleto(venditore2)}`,
+        `2. ${nomeCompletoVenditore2}, ${indirizzoCompletoVenditore2}`,
         30,
         46
       );
     } else {
       doc.text(
-        `1. ${nomeCompleto(venditore)}, ${indirizzoCompleto(venditore)}`,
+        `1. ${nomeCompletoVenditore}, ${indirizzoCompletoVenditore}`,
         30,
         36
       );
       doc.text(
-        `2. ${nomeCompleto(venditore2)}, ${indirizzoCompleto(venditore2)}`,
+        `2. ${nomeCompletoVenditore2}, ${indirizzoCompletoVenditore2}`,
         30,
         41
       );
@@ -63,35 +73,35 @@ export const vollmachtNotarauftrag = (
   }
 
   if (!acquirente2) {
-    if (ditta(acquirente).length > 0) {
-      doc.text(ditta(acquirente), 30, 63);
-      doc.text(nomeCompleto(acquirente), 30, 68);
-      doc.text(indirizzoCompleto(acquirente), 30, 73);
+    if (dittaAcquirente.length > 0) {
+      doc.text(dittaAcquirente, 30, 63);
+      doc.text(nomeCompletoAcquirente, 30, 68);
+      doc.text(indirizzoCompletoAcquirente, 30, 73);
     } else {
-      doc.text(nomeCompleto(acquirente), 30, 63);
-      doc.text(indirizzoCompleto(acquirente), 30, 68);
+      doc.text(nomeCompletoAcquirente, 30, 63);
+      doc.text(indirizzoCompletoAcquirente, 30, 68);
     }
   } else {
-    if (ditta(acquirente).length > 0) {
-      doc.text(ditta(acquirente), 30, 63);
+    if (dittaAcquirente.length > 0) {
+      doc.text(dittaAcquirente, 30, 63);
       doc.text(
-        `1. ${nomeCompleto(acquirente)}, ${indirizzoCompleto(acquirente)}`,
+        `1. ${nomeCompletoAcquirente}, ${indirizzoCompletoAcquirente}`,
         30,
         68
       );
       doc.text(
-        `2. ${nomeCompleto(acquirente2)}, ${indirizzoCompleto(acquirente2)}`,
+        `2. ${nomeCompletoAcquirente2}, ${indirizzoCompletoAcquirente2}`,
         30,
         73
       );
     } else {
       doc.text(
-        `1. ${nomeCompleto(acquirente)}, ${indirizzoCompleto(acquirente)}`,
+        `1. ${nomeCompletoAcquirente}, ${indirizzoCompletoAcquirente}`,
         30,
         63
       );
       doc.text(
-        `2. ${nomeCompleto(acquirente2)}, ${indirizzoCompleto(acquirente2)}`,
+        `2. ${nomeCompletoAcquirente2}, ${indirizzoCompletoAcquirente2}`,
         30,
         68
       );

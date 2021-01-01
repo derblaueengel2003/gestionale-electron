@@ -17,18 +17,23 @@ export const widerrufsBelehrung = (
 ) => {
   const doc = new jsPDF();
 
+  const nomeCompletoAcquirente = nomeCompleto(acquirente);
+  const indirizzoCompletoAcquirente = indirizzoCompleto(acquirente);
+  const nomeCompletoAcquirente2 = nomeCompleto(acquirente2);
+  const indirizzoCompletoAcquirente2 = indirizzoCompleto(acquirente2);
+
   doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
   doc.addImage(imgLogo, 'JPEG', 20, 10, 35, 8);
 
   if (
-    nomeCompleto(acquirente).length > 100 ||
-    indirizzoCompleto(acquirente).length > 100 ||
+    nomeCompletoAcquirente.length > 100 ||
+    indirizzoCompletoAcquirente.length > 100 ||
     nomeCompleto(acquirente2 || acquirente).length > 100
   ) {
     doc.setFontSize(8);
   } else if (
-    nomeCompleto(acquirente).length > 70 ||
-    indirizzoCompleto(acquirente).length > 70 ||
+    nomeCompletoAcquirente.length > 70 ||
+    indirizzoCompletoAcquirente.length > 70 ||
     nomeCompleto(acquirente2 || acquirente).length > 70
   )
     doc.setFontSize(10);
@@ -39,16 +44,16 @@ export const widerrufsBelehrung = (
 
   // nuovo
   if (!acquirente2) {
-    doc.text(nomeCompleto(acquirente), 61, 63);
-    doc.text(indirizzoCompleto(acquirente), 61, 68);
+    doc.text(nomeCompletoAcquirente, 61, 63);
+    doc.text(indirizzoCompletoAcquirente, 61, 68);
   } else {
     doc.text(
-      `1. ${nomeCompleto(acquirente)}, ${indirizzoCompleto(acquirente)}`,
+      `1. ${nomeCompletoAcquirente}, ${indirizzoCompletoAcquirente}`,
       61,
       63
     );
     doc.text(
-      `2. ${nomeCompleto(acquirente2)}, ${indirizzoCompleto(acquirente2)}`,
+      `2. ${nomeCompletoAcquirente2}, ${indirizzoCompletoAcquirente2}`,
       61,
       68
     );
