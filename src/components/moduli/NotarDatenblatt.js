@@ -2,6 +2,7 @@ import jsPDF from 'jspdf';
 import { imgLogo } from './img/ImageLogo';
 import { ivdLogo } from './img/IvdLogo';
 import { formattaPrezzo, formattaData } from '../common/utils';
+import { nomeCompleto, indirizzoCompleto } from '../common/utils';
 
 export const notarDatenblatt = (
   acquirente,
@@ -257,18 +258,14 @@ export const notarDatenblatt = (
   doc.setFontSize(12);
   doc.setFontType('normal');
   doc.text(
-    `${venditore.titolo} ${venditore.nome} ${venditore.cognome} ${
-      venditore.ditta && ` - Firma: ${venditore.ditta}`
-    }`,
+    `${venditore.ditta && `Firma: ${venditore.ditta} - `}${nomeCompleto(
+      venditore
+    )}`,
     15,
     acapo
   );
   acapo += 5;
-  doc.text(
-    `${venditore.indirizzo}, ${venditore.cap} ${venditore.comune}, ${venditore.nazione}`,
-    15,
-    acapo
-  );
+  doc.text(indirizzoCompleto(venditore), 15, acapo);
   if (venditore.dataDiNascita) {
     acapo += 5;
     doc.text(
@@ -302,18 +299,14 @@ export const notarDatenblatt = (
   if (venditore2) {
     acapo += 10;
     doc.text(
-      `${venditore2.titolo} ${venditore2.nome} ${venditore2.cognome} ${
-        venditore2.ditta && ` - Firma: ${venditore2.ditta}`
-      }`,
+      `${
+        venditore2.ditta && `Firma: ${venditore2.ditta} - `
+      }${indirizzoCompleto(venditore2)}`,
       15,
       acapo
     );
     acapo += 5;
-    doc.text(
-      `${venditore2.indirizzo}, ${venditore2.cap} ${venditore2.comune}, ${venditore2.nazione}`,
-      15,
-      acapo
-    );
+    doc.text(indirizzoCompleto(venditore2), 15, acapo);
     if (venditore2.dataDiNascita) {
       acapo += 5;
       doc.text(
@@ -353,18 +346,14 @@ export const notarDatenblatt = (
   doc.setFontSize(12);
   doc.setFontType('normal');
   doc.text(
-    `${acquirente.titolo} ${acquirente.nome} ${acquirente.cognome} ${
-      acquirente.ditta && ` - Firma: ${acquirente.ditta}`
-    }`,
+    `${acquirente.ditta && `Firma: ${acquirente.ditta} - `}${nomeCompleto(
+      acquirente
+    )}`,
     15,
     acapo
   );
   acapo += 5;
-  doc.text(
-    `${acquirente.indirizzo}, ${acquirente.cap} ${acquirente.comune}, ${acquirente.nazione}`,
-    15,
-    acapo
-  );
+  doc.text(indirizzoCompleto(acquirente), 15, acapo);
   if (acquirente.dataDiNascita) {
     acapo += 5;
     doc.text(
@@ -386,18 +375,14 @@ export const notarDatenblatt = (
   if (acquirente2) {
     acapo += 10;
     doc.text(
-      `${acquirente2.titolo} ${acquirente2.nome} ${acquirente2.cognome} ${
-        acquirente2.ditta && ` - Firma: ${acquirente2.ditta}`
-      }`,
+      `${acquirente2.ditta && `Firma: ${acquirente2.ditta} - `}${nomeCompleto(
+        acquirente2
+      )}`,
       15,
       acapo
     );
     acapo += 5;
-    doc.text(
-      `${acquirente2.indirizzo}, ${acquirente2.cap} ${acquirente2.comune}, ${acquirente2.nazione}`,
-      15,
-      acapo
-    );
+    doc.text(indirizzoCompleto(acquirente2), 15, acapo);
     if (acquirente2.dataDiNascita) {
       acapo += 5;
       doc.text(

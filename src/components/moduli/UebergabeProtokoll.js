@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './img/ImageLogo';
 import { ivdLogo } from './img/IvdLogo';
+import { indirizzoOggetto } from '../common/utils';
 
 export const protocollo = (
   acquirente,
@@ -69,20 +70,7 @@ export const protocollo = (
   doc.setFontType('bold');
   doc.text('Übergabeprotokoll', 15, dati);
   doc.setFontSize(10);
-  doc.text(
-    `Objekt: ${oggetto.via} ${oggetto.numeroCivico}, ${oggetto.cap} ${
-      oggetto.citta
-    }, ${
-      oggetto.tipologia
-        ? oggetto.tipologia === 'Eigentumswohnung' ||
-          oggetto.tipologia === 'property_apt'
-          ? 'WE'
-          : 'TE'
-        : 'WE'
-    } ${oggetto.numeroAppartamento}`,
-    15,
-    dati + 10
-  );
+  doc.text(`Objekt: ${indirizzoOggetto(oggetto)}`, 15, dati + 10);
   doc.setFontType('normal');
   venditore.ditta
     ? doc.text(`Alter Eigentümer: ${venditore.ditta}`, 15, dati + 18)
@@ -209,5 +197,5 @@ export const protocollo = (
   //Logo IVD
   doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);
 
-  doc.save(`Übergabeprotokoll Via.pdf`);
+  doc.save(`Übergabeprotokoll ${indirizzoOggetto(oggetto)}.pdf`);
 };

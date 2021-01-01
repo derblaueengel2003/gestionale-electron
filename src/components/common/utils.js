@@ -65,3 +65,32 @@ export const generaToken = () => {
 };
 
 export const formattaData = (data) => moment(data).format('DD.MM.YYYY');
+
+export const indirizzoCompleto = (contatto) =>
+  contatto &&
+  `${contatto.indirizzo}, ${contatto.cap} ${contatto.comune}${
+    contatto.nazione && `, ${contatto.nazione}`
+  }`;
+export const nomeCompleto = (contatto) =>
+  contatto && `${contatto.titolo} ${contatto.nome} ${contatto.cognome}`;
+
+export const indirizzoOggetto = (oggetto) =>
+  `${oggetto.via} ${oggetto.numeroCivico}${
+    oggetto.numeroAppartamento &&
+    `, ${
+      oggetto.tipologia
+        ? oggetto.tipologia === 'Eigentumswohnung' ||
+          oggetto.tipologia === 'property_apt'
+          ? 'WE'
+          : 'TE'
+        : 'WE'
+    } ${oggetto.numeroAppartamento}`
+  }, ${oggetto.cap} ${oggetto.citta}`;
+
+export const ditta = (contatto) =>
+  contatto && `${contatto.ditta && `${contatto.ditta}`}`;
+
+export const contattiFirma = (firma) =>
+  `${firma.name} ${firma.name2 && ` - ${firma.name2}`}\n${firma.adresse}, ${
+    firma.plz
+  } ${firma.stadt}`;

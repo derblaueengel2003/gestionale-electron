@@ -11,7 +11,6 @@ import { contactDetailsButton, editButton } from '../common/elements';
 export class ViewClientiPage extends React.Component {
   render() {
     const {
-      cloudURL,
       cap,
       cellulare,
       cognome,
@@ -70,9 +69,9 @@ export class ViewClientiPage extends React.Component {
 
             {consulenteVendita && <p>{`(${consulenteVendita.name})`}</p>}
             {indirizzo && (
-              <p>{`${indirizzo} ${
-                indirizzo2 && indirizzo2
-              }, ${cap} ${comune}, ${nazione}`}</p>
+              <p>{`${indirizzo} ${indirizzo2 && indirizzo2}, ${cap} ${comune}${
+                nazione && `, ${nazione}`
+              }`}</p>
             )}
 
             {telefono1 && (
