@@ -195,7 +195,9 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
     property_longitude: oggettoCopy.longitude || null,
     property_status: 'normal',
     provvigione:
-      (oggettoCopy.provvigione && `${oggettoCopy.provvigione}%`) || null,
+      (oggettoCopy.provvigione &&
+        `${visualizzaDecimaleConVirgola(oggettoCopy.provvigione)}%`) ||
+      null,
     rifId: oggettoCopy.rifId || null,
     terms: {
       property_area: oggettoCopy.quartiere
