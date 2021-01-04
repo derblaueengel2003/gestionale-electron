@@ -546,7 +546,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
       sendEnRequest();
     } else {
       console.log('Start PUT');
-      updateProperty(oggettoCopy.postIdDe, payload, 'De');
+      await updateProperty(oggettoCopy.postIdDe, payload, 'De');
       sendItRequest();
       sendEnRequest();
     }
