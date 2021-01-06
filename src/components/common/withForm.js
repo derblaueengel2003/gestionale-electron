@@ -860,26 +860,85 @@ function withForm(Component) {
 
     handleOnDrop = (accepted, rejected, property, object) => {
       console.log(accepted, rejected, property, object);
-      accepted.forEach((file) => {
+
+      let urlArray = [[], [], []];
+      let idArray = [[], [], []];
+
+      if (property === 'downloadURLs') {
+        urlArray[0] = [...accepted, ...this.state.oggetti.downloadURLs[0]];
+        urlArray[1] = [...accepted, ...this.state.oggetti.downloadURLs[1]];
+        urlArray[2] = [...accepted, ...this.state.oggetti.downloadURLs[2]];
+
+        idArray[0] = [...accepted, ...this.state.oggetti.downloadURLsId[0]];
+        idArray[1] = [...accepted, ...this.state.oggetti.downloadURLsId[1]];
+        idArray[2] = [...accepted, ...this.state.oggetti.downloadURLsId[2]];
+      } else {
+        urlArray = [...this.state[object][property]];
+        idArray = [...this.state[object][`${property}Id`]];
+      }
+
+      let promiseArray = [];
+      accepted.forEach((file, index) => {
         // devo triplicare ogni immagine del post per le traduzioni
         // ma non grundriss o cover
-
         if (property === 'downloadURLs') {
           for (let i = 0; i < 3; i++) {
-            this.fileUpload(file, property, object, i);
+            promiseArray.push(
+              new Promise((resolve, reject) => {
+                const carica = async () => {
+                  const { data } = await this.fileUpload(file);
+                  urlArray[i].splice(index, 1, data.source_url);
+                  idArray[i].splice(index, 1, data.id);
+                  resolve(index);
+                };
+                carica();
+              })
+            );
           }
         } else {
-          this.fileUpload(file, property, object);
+          promiseArray.push(
+            new Promise((resolve, reject) => {
+              const carica = async () => {
+                const { data } = await this.fileUpload(file);
+                urlArray.push(data.source_url);
+                idArray.push(data.id);
+                resolve(true);
+              };
+              carica();
+            })
+          );
+        }
+      });
+
+      Promise.all(promiseArray).then(() => {
+        if (property === 'downloadURLs') {
+          this.setState({
+            oggetti: {
+              ...this.state.oggetti,
+              downloadURLs: urlArray,
+              downloadURLsId: idArray,
+            },
+            spinner: false,
+          });
+        } else {
+          this.setState({
+            [object]: {
+              ...this.state[object],
+              [property]: urlArray,
+              [`${property}Id`]: idArray,
+            },
+            spinner: false,
+          });
         }
       });
     };
 
-    fileUpload = async (file, property, object, i) => {
+    fileUpload = async (file) => {
       this.setState({
         spinner: true,
       });
       // Get Token
-      await generaToken();
+      // generaToken();
 
       const url = `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/media`;
       const formData = new FormData();
@@ -891,36 +950,9 @@ function withForm(Component) {
         },
       };
       try {
-        const { data } = await post(url, formData, config);
-        if (property === 'downloadURLs') {
-          const urlArray = [...this.state.oggetti.downloadURLs];
-          const idArray = [...this.state.oggetti.downloadURLsId];
-
-          urlArray[i].push(data.source_url);
-          idArray[i].push(data.id);
-
-          this.setState({
-            oggetti: {
-              ...this.state.oggetti,
-              downloadURLs: urlArray,
-              downloadURLsId: idArray,
-            },
-            spinner: false,
-          });
-        } else {
-          const urlArray = [...this.state[object][property]];
-          urlArray.push(data.source_url);
-          const idArray = [...this.state[object][`${property}Id`]];
-          idArray.push(data.id);
-          this.setState({
-            [object]: {
-              ...this.state[object],
-              [property]: urlArray,
-              [`${property}Id`]: idArray,
-            },
-            spinner: false,
-          });
-        }
+        const response = await post(url, formData, config);
+        console.log(response);
+        return response;
       } catch (error) {
         console.log(error);
         this.setState({

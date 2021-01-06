@@ -265,6 +265,8 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
 
     if (payload && payload[i].length > 0) {
       console.log(payload[i]);
+      let sortPayload = [];
+
       payload[i].forEach((id, indice) => {
         axios.put(
           `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/media/${id}`,
@@ -277,39 +279,15 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           }
         );
 
-        console.log('postId: ' + id, 'menuOrder: ' + indice);
-        axios.put(
-          `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/sortimage/`,
-          {
-            postId: id,
-            menuOrder: indice,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-          }
-        );
+        sortPayload.push({
+          postId: id,
+          menuOrder: indice,
+        });
       });
-    }
-  };
 
-  const translateImages = (downloadURLsId, language) => {
-    let imgArray = [];
-    if (language === 'En') {
-      imgArray = [...downloadURLsId[1]];
-    } else if (language === 'It') {
-      imgArray = [...downloadURLsId[2]];
-    }
-    downloadURLsId[0].forEach((url, i) => {
-      axios.post(
-        `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/mediatranslation/`,
-        {
-          original: url,
-          translation: imgArray[i],
-          language: language.toLowerCase(),
-        },
+      axios.put(
+        `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/sortimage/`,
+        sortPayload,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -317,7 +295,36 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           },
         }
       );
+    }
+  };
+
+  const translateImages = (downloadURLsId, language) => {
+    let imgArray = [];
+    let translationArray = [];
+
+    if (language === 'En') {
+      imgArray = [...downloadURLsId[1]];
+    } else if (language === 'It') {
+      imgArray = [...downloadURLsId[2]];
+    }
+    downloadURLsId[0].forEach((url, i) => {
+      translationArray.push({
+        original: url,
+        translation: imgArray[i],
+        language: language.toLowerCase(),
+      });
     });
+
+    axios.post(
+      `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/mediatranslation/`,
+      translationArray,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      }
+    );
   };
 
   const postProperty = async (language, payload) => {
