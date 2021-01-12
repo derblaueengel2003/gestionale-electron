@@ -341,6 +341,11 @@ function withForm(Component) {
           grundbuch: props.oggetto ? props.oggetto.grundbuch : '',
           grundbuchBlatt: props.oggetto ? props.oggetto.grundbuchBlatt : '',
           heizungsart: props.oggetto ? props.oggetto.heizungsart : '',
+          immaginiInviate: props.oggetto
+            ? props.oggetto.immaginiInviate
+              ? props.oggetto.immaginiInviate
+              : []
+            : [],
           inquilinoId: props.oggetto ? props.oggetto.inquilinoId : '',
           isUploading: false,
           kaufpreis: props.oggetto
@@ -865,13 +870,13 @@ function withForm(Component) {
       let idArray = [[], [], []];
 
       if (property === 'downloadURLs') {
-        urlArray[0] = [...accepted, ...this.state.oggetti.downloadURLs[0]];
-        urlArray[1] = [...accepted, ...this.state.oggetti.downloadURLs[1]];
-        urlArray[2] = [...accepted, ...this.state.oggetti.downloadURLs[2]];
+        urlArray[0] = [...accepted];
+        urlArray[1] = [...accepted];
+        urlArray[2] = [...accepted];
 
-        idArray[0] = [...accepted, ...this.state.oggetti.downloadURLsId[0]];
-        idArray[1] = [...accepted, ...this.state.oggetti.downloadURLsId[1]];
-        idArray[2] = [...accepted, ...this.state.oggetti.downloadURLsId[2]];
+        idArray[0] = [...accepted];
+        idArray[1] = [...accepted];
+        idArray[2] = [...accepted];
       } else {
         urlArray = [...this.state[object][property]];
         idArray = [...this.state[object][`${property}Id`]];
@@ -886,9 +891,10 @@ function withForm(Component) {
             promiseArray.push(
               new Promise((resolve, reject) => {
                 const carica = async () => {
-                  const { data } = await this.fileUpload(file);
-                  urlArray[i].splice(index, 1, data.source_url);
-                  idArray[i].splice(index, 1, data.id);
+                  const response = await this.fileUpload(file);
+                  response &&
+                    urlArray[i].splice(index, 1, response.data.source_url);
+                  response && idArray[i].splice(index, 1, response.data.id);
                   resolve(index);
                 };
                 carica();
@@ -899,9 +905,9 @@ function withForm(Component) {
           promiseArray.push(
             new Promise((resolve, reject) => {
               const carica = async () => {
-                const { data } = await this.fileUpload(file);
-                urlArray.push(data.source_url);
-                idArray.push(data.id);
+                const response = await this.fileUpload(file);
+                response && urlArray.push(response.data.source_url);
+                response && idArray.push(response.data.id);
                 resolve(true);
               };
               carica();
@@ -910,13 +916,28 @@ function withForm(Component) {
         }
       });
 
-      Promise.all(promiseArray).then(() => {
+      Promise.allSettled(promiseArray).then(() => {
         if (property === 'downloadURLs') {
+          //elimino i placeholder (oggetti) di dropzone accepted che non sono stati sostituiti perché l'ivio
+          //dell'immagine è fallito
+          const sanitazeURL = urlArray[0].filter((e) => typeof e !== 'object');
+          const sanitazeURL1 = urlArray[1].filter((e) => typeof e !== 'object');
+          const sanitazeURL2 = urlArray[2].filter((e) => typeof e !== 'object');
+          const sanitazeID = idArray[0].filter((e) => typeof e !== 'object');
+          const sanitazeID1 = idArray[1].filter((e) => typeof e !== 'object');
+          const sanitazeID2 = idArray[2].filter((e) => typeof e !== 'object');
+          sanitazeURL.unshift(...this.state.oggetti.downloadURLs[0]);
+          sanitazeURL1.unshift(...this.state.oggetti.downloadURLs[1]);
+          sanitazeURL2.unshift(...this.state.oggetti.downloadURLs[2]);
+          sanitazeID.unshift(...this.state.oggetti.downloadURLsId[0]);
+          sanitazeID1.unshift(...this.state.oggetti.downloadURLsId[1]);
+          sanitazeID2.unshift(...this.state.oggetti.downloadURLsId[2]);
+
           this.setState({
             oggetti: {
               ...this.state.oggetti,
-              downloadURLs: urlArray,
-              downloadURLsId: idArray,
+              downloadURLs: [sanitazeURL, sanitazeURL1, sanitazeURL2],
+              downloadURLsId: [sanitazeID, sanitazeID1, sanitazeID2],
             },
             spinner: false,
           });

@@ -9,7 +9,8 @@ import ImmoscoutAPI from './ImmoscoutAPI';
 import Intestazione from '../common/Intestazione';
 import EvaluationList from '../evaluation/EvaluationList';
 import Mappa from './Mappa';
-import M2SquareAPI from './M2SquareAPI';
+// import M2SquareAPI from './M2SquareAPI';
+import M2SquareAPI from '../m2SquareAPI/M2SquareAPI';
 import CollectionItem from '../common/collectionItem';
 import { editButton, folderButton } from '../common/elements';
 
