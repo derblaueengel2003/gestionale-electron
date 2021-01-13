@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { storeActions } from '../../store/configureStore';
 import CollectionItem from '../common/collectionItem';
 import { creaPayload } from './creaPayload';
-import { postImages, translateImages } from './images';
+import { postProperty } from './postProperty';
 
 const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
   useEffect(() => {
@@ -38,190 +38,69 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
       source.cancel();
     };
   }, []);
-
+  console.log('m2Square API loaded');
   const { payload, payloadEn, payloadIt } = creaPayload(oggetto);
 
-  const postCustomFields = async (payload, postId) => {
-    await axios.post(
-      `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/properties/`,
-      { ...payload, postId },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      }
-    );
-    console.log('Payload Custom Fields: ', payload);
-  };
-
-  const postTranslation = (postIdDe, postId, language) => {
-    if (language !== 'De') {
-      axios.post(
-        `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/translation/`,
-        {
-          original: parseInt(postIdDe, 10),
-          translation: postId,
-          language: language.toLowerCase(),
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
-    }
-  };
-
-  const postProperty = async (language, payload) => {
-    await startEditOggetto(oggetto.id, {
-      spinner: true,
-    });
-    try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/estate_property`,
-        payload,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
-      console.log(`POST Sent Payload ${language}: `, payload);
-      console.log(`POST Response Data ${language}: `, data);
-
-      localStorage.setItem(`postId${language}`, data.id);
-
-      //i link che ricevo non contengono la sigla per la lingua. La devo inserire io
-      let newLink = data.link;
-      if (language !== 'De') {
-        const searchTerm = '/immobili';
-        const indexOfFirst = data.link.indexOf(searchTerm);
-        const firstPart = newLink.slice(0, indexOfFirst);
-        const languagePart = language.toLowerCase();
-        const secondPart = newLink.slice(indexOfFirst);
-        newLink = `${firstPart}/${languagePart}${secondPart}`;
-      }
-
-      // posto i custom field di estate_property tramite il plugin che ho scritto
-      await postCustomFields(payload, data.id);
-
-      // se ci sono immagini, le posto. gli id sono un array di arrays
-      const immaginiInviate = await postImages(
-        data.id,
-        payload.downloadURLsId,
-        language,
-        payload.immaginiInviate
-      );
-      console.log(`Immagini inviate: `, immaginiInviate);
-
-      // passo allo store il post id che mi ritorna e l'array di immagini inviate
-      await startEditOggetto(oggetto.id, {
-        [`postId${language}`]: data.id,
-        [`link${language}`]: newLink,
-        immaginiInviate: [...immaginiInviate],
-      });
-
-      postTranslation(localStorage.getItem('postIdDe'), data.id, language);
-      // localStorage.removeItem('postIdDe');
-
-      // translate images
-      payload.downloadURLsId &&
-        (await translateImages(payload.downloadURLsId, language));
-
-      return true;
-    } catch (error) {
-      console.log(error);
-    } finally {
-      await startEditOggetto(oggetto.id, {
-        spinner: false,
-      });
-    }
-  };
-
-  const updateProperty = async (postId, payload, language) => {
-    await startEditOggetto(oggetto.id, {
-      spinner: true,
-    });
-    try {
-      const { data } = await axios.put(
-        `${process.env.REACT_APP_WPAPI}/wp-json/wp/v2/estate_property/${postId}`,
-        payload,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
-      console.log(`PUT Sent Payload ${language}: `, payload);
-      console.log(`PUT Response Data ${language}: `, data);
-
-      // posto i custom field di estate_property tramite il plugin che ho scritto
-      await postCustomFields(payload, postId);
-
-      // se ci sono immagini, le posto. gli id sono un array di arrays
-      const immaginiInviate = await postImages(
-        postId,
-        payload.downloadURLsId,
-        language,
-        payload.immaginiInviate
-      );
-      console.log(`Immagini inviate: `, immaginiInviate);
-
-      // passo allo store il link e l'array di immagini inviate
-      await startEditOggetto(oggetto.id, {
-        [`link${language}`]: data.link,
-        immaginiInviate: [...immaginiInviate],
-      });
-
-      // postTranslation(localStorage.getItem('postIdDe'), data.id, language);
-
-      // translate images
-      payload.downloadURLsId &&
-        (await translateImages(payload.downloadURLsId, language));
-
-      return true;
-    } catch (error) {
-      console.log(error);
-    } finally {
-      await startEditOggetto(oggetto.id, {
-        spinner: false,
-      });
-    }
-  };
-
   const sendDeRequest = async () => {
-    if (payload.postIdDe) {
-      await updateProperty(payload.postIdDe, payload, 'De');
-    } else {
-      await postProperty('De', payload);
+    await startEditOggetto(oggetto.id, {
+      spinner: true,
+    });
+    try {
+      const result = await postProperty(
+        'De',
+        payload,
+        payload.postIdDe && payload.postIdDe
+      );
+      // passo allo store il post id che mi ritorna, l'array di immagini inviate e spinner false
+      await startEditOggetto(oggetto.id, result);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      startEditOggetto(oggetto.id, { spinner: false });
     }
   };
 
   const sendItRequest = async () => {
-    if (payload.postIdIt) {
-      await updateProperty(payload.postIdIt, payloadIt, 'It');
-    } else {
-      await postProperty('It', payloadIt);
+    await startEditOggetto(oggetto.id, {
+      spinner: true,
+    });
+    try {
+      const result = await postProperty(
+        'It',
+        payloadIt,
+        payload.postIdIt && payload.postIdIt
+      );
+      console.log('RESULT: ', result);
+      // passo allo store il post id che mi ritorna, l'array di immagini inviate e spinner false
+      await startEditOggetto(oggetto.id, result);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      startEditOggetto(oggetto.id, { spinner: false });
     }
   };
 
   const sendEnRequest = async () => {
-    if (payload.postIdEn) {
-      await updateProperty(payload.postIdEn, payloadEn, 'En');
-    } else {
-      await postProperty('En', payloadEn);
+    await startEditOggetto(oggetto.id, {
+      spinner: true,
+    });
+    try {
+      const result = await postProperty(
+        'En',
+        payloadEn,
+        payload.postIdEn && payload.postIdEn
+      );
+      // passo allo store il post id che mi ritorna, l'array di immagini inviate e spinner false
+      await startEditOggetto(oggetto.id, result);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      startEditOggetto(oggetto.id, { spinner: false });
     }
   };
 
   const sendAllRequests = async () => {
     try {
-      await startEditOggetto(oggetto.id, {
-        spinner: true,
-      });
       await sendDeRequest();
       await sendEnRequest();
       await sendItRequest();

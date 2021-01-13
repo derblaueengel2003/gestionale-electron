@@ -91,10 +91,14 @@ class EvaluationForm extends Component {
 
     const rendite = trasformaInNumero(evaluations.rendite);
     const affitto = trasformaInNumero(evaluations.affittoNetto);
-    const price = formattaPrezzo((affitto * 120000) / rendite);
+    const price = formattaPrezzo((affitto * 120000) / rendite, true);
     const m2 = trasformaInNumero(evaluations.m2);
-    const m2Price = formattaPrezzo((affitto * 120000) / rendite / m2);
-    const m2Rent = formattaPrezzo((affitto * 100) / m2);
+    const m2Price = formattaPrezzo(
+      (affitto * 120000) / rendite / m2,
+      true,
+      true
+    );
+    const m2Rent = formattaPrezzo((affitto * 100) / m2, true);
 
     const oggettiOptions = this.props.oggetti.map((oggetto) => ({
       value: oggetto.id,
@@ -140,10 +144,10 @@ class EvaluationForm extends Component {
               <div className='card'>
                 <div className='card-content blue-text'>
                   <div>
-                    <h6>{`${t('calculated_price')}: ${price} €`}</h6>
+                    <h6>{`${t('calculated_price')}: ${price}`}</h6>
                   </div>
-                  <div>{`${t('m2_price')}: ${m2Price} €`}</div>
-                  <div>{`${t('m2_rent_price')}: ${m2Rent} €`}</div>
+                  <div>{`${t('m2_price')}: ${m2Price}`}</div>
+                  <div>{`${t('m2_rent_price')}: ${m2Rent}`}</div>
                 </div>
               </div>
             </div>
