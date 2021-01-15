@@ -10,6 +10,9 @@ const path = require('path');
 const homedir = require('os').homedir();
 const fs = require('fs');
 const FormData = require('form-data');
+const uuid = require('uuid');
+const crypto = require('crypto');
+const https = require('https');
 
 let mainWindow;
 
@@ -97,56 +100,139 @@ ipcMain.on('is24:send', async (event, options) => {
 });
 
 /////////////// IS 24 IMAGES // IN PROGRESS
-ipcMain.on('is24img:upload', (event, options) => {
+
+const connectToIS24 = (base_url) => {
+  const oauth_timestamp = Math.floor(Date.now() / 1000);
+  const oauth_nonce = uuid.v1();
+  const oauth_token = 'b895110f-2b6d-41ea-b1d4-85a63a17c200';
+  const parameters = {
+    oauth_consumer_key: 'm2SquareImmobilienKey',
+    oauth_nonce,
+    oauth_signature_method: 'HMAC-SHA1',
+    oauth_timestamp,
+    oauth_token,
+    oauth_version: '1.0',
+  };
+  let ordered = {};
+  Object.keys(parameters)
+    .sort()
+    .forEach(function (key) {
+      ordered[key] = parameters[key];
+    });
+  let encodedParameters = '';
+  for (let k in ordered) {
+    const encodedValue = escape(ordered[k]);
+    const encodedKey = encodeURIComponent(k);
+    if (encodedParameters === '') {
+      encodedParameters += encodeURIComponent(`${encodedKey}=${encodedValue}`);
+    } else {
+      encodedParameters += encodeURIComponent(`&${encodedKey}=${encodedValue}`);
+    }
+  }
+  const method = 'POST';
+  const encodedUrl = encodeURIComponent(base_url);
+  const signature_base_string = `${method}&${encodedUrl}&${encodedParameters}`;
+  const encodedClientSecret = encodeURIComponent('c1jaBYcJ2umVdm0G');
+  const encodedTokenSecret = encodeURIComponent(
+    'WnKSZ4FByiUAL2Cg0fGVqhLDNU8UX7BQfA+Xf+gSvz2BC0yaKxtmLGDJH4gUt9bK+RnyGOEJAadpp7XzSWLDzQYZFfX9dDp7ILp+mhM92JQ='
+  );
+  const signing_key = `${encodedClientSecret}&${encodedTokenSecret}`;
+  const oauth_signature = crypto
+    .createHmac('sha1', signing_key)
+    .update(signature_base_string)
+    .digest()
+    .toString('base64');
+  const encoded_oauth_signature = encodeURIComponent(oauth_signature);
+  const oAuth = `OAuth oauth_consumer_key="m2SquareImmobilienKey",oauth_nonce="${oauth_nonce}",oauth_signature="${encoded_oauth_signature}",oauth_signature_method="HMAC-SHA1",oauth_timestamp="${oauth_timestamp}",oauth_token="${oauth_token}",oauth_version="1.0"`;
+  return oAuth;
+};
+
+ipcMain.on('is24img:upload', async (event, options) => {
+  // console.log('Options: ', options);
   // scarico l'immagine da wordpress e la salvo su disco nella cartella public dell'applicazione
   try {
-    axios({
+    const { data } = await axios({
       url: options.url,
       responseType: 'stream',
-    }).then((response) => {
-      response.data.pipe(
-        fs.createWriteStream(`${__dirname}/public/${options.imagePath}`)
-      );
-
-      const imageFile = new FormData();
-      imageFile.append('file', `${__dirname}/public/${options.imagePath}`);
-      const json = {
-        'common.attachment': {
-          '@xmlns': {
-            common: 'http://rest.immobilienscout24.de/schema/common/1.0',
-          },
-          '@xsi.type': 'common:Picture',
-          title: 'test',
-          externalId: 'test',
-          externalCheckSum: 'test',
-          floorplan: 'false',
-          titlePicture: 'false',
-        },
-      };
-      const body = { imageFile, json };
-
-      const base_url = `https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate/${options.is24id}/attachment`;
-      const oAuth = connectToIS24(base_url);
-      const options = {
-        method: 'post',
-        url: base_url,
-        data: body,
-        headers: {
-          'content-type': 'multipart/form-data',
-          Authorization: oAuth,
-        },
-      };
-
-      // send the picture to is24
-      axios(options)
-        .then((response) => {
-          return res.status(200).send(response.data);
-        })
-        .catch(function (error) {
-          return res.status(400).send(error);
-        });
     });
+
+    // console.log('response: ', data);
+    data.pipe(
+      fs.createWriteStream(`${__dirname}/public/${options.imagePath}.jpeg`)
+    );
+
+    const readStream = fs.createReadStream(
+      `${__dirname}/public/${options.imagePath}.jpeg`
+    );
+
+    //Checksum
+    function generateChecksum(str, algorithm, encoding) {
+      return crypto
+        .createHash(algorithm || 'md5')
+        .update(str, 'utf8')
+        .digest(encoding || 'hex');
+    }
+
+    const imageFile = new FormData();
+    const optionsImg = {
+      header: 'Content-Transfer-Encoding: binary',
+    };
+    imageFile.append('attachment', readStream);
+
+    const externalCheckSum = fs.readFile(
+      `${__dirname}/public/${options.imagePath}.jpeg`,
+      function (err, data) {
+        const checksum = generateChecksum(data);
+        return checksum;
+      }
+    );
+    console.log('external checkusm: ', externalCheckSum);
+
+    const json = {
+      'common.attachment': {
+        '@xmlns': {
+          common: 'http://rest.immobilienscout24.de/schema/common/1.0',
+        },
+        '@xsi.type': 'common:Picture',
+        title: 'test',
+        externalId: 'test',
+        externalCheckSum,
+        floorplan: 'false',
+        titlePicture: 'false',
+      },
+    };
+    let jsonStream = fs.createWriteStream('./body.json');
+
+    jsonStream.write(JSON.stringify(json));
+
+    const optionsJson = {
+      header: 'Content-Transfer-Encoding: binary',
+    };
+
+    imageFile.append(
+      'metadata',
+      fs.createReadStream('./body.json', { encoding: 'UTF8' })
+    );
+
+    const base_url = `https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate/${options.is24id}/attachment/`;
+    const oAuth = connectToIS24(base_url);
+    const config = {
+      method: 'post',
+      url: base_url,
+      data: imageFile,
+      headers: {
+        // 'Content-Type': `multipart/form-data; boundary=${imageFile._boundary}`,
+        'Content-Transfer-Encoding': 'binary',
+        Authorization: oAuth,
+      },
+    };
+    console.log('Config: ', config);
+
+    // send the picture to is24
+    const imgResponse = await axios(config);
+    mainWindow.webContents.send('is24img:response', imgResponse);
   } catch (error) {
     mainWindow.webContents.send('is24img:error', error);
+    console.log('Response error: ', error);
   }
 });

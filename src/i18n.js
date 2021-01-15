@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-const Languages = ['it', 'de', 'en'];
+const Languages = ['it', 'de'];
 
 i18n.use(initReactI18next).init({
   fallbackLng: 'it',
@@ -314,6 +314,7 @@ i18n.use(initReactI18next).init({
         fax: 'Faxnummer',
         featured_property: 'Top Objekt',
         firstname: 'Vorname',
+        fully_renovated: 'Vollständig renoviert',
         furniture: 'Möbel',
         gdpr_consent: 'DSGVO Zustimmung erhalten',
         gdpr_consent_date: 'Datum Zustimmung DSGVO',
@@ -339,10 +340,13 @@ i18n.use(initReactI18next).init({
         mietendeckel: 'Mietendeckel',
         mietspiegel: 'Mietspiegel',
         mobile: 'Handynummer',
+        modernized: 'Modernisiert',
         nation: 'Staat',
         nav_title: 'Verwaltung',
         net_rent: 'Kaltmiete',
         new: 'Neuwertig',
+        newsletters: 'Newsletters',
+        Newsletters: 'Newsletters',
         newsletter_already_sent: 'Newsletter schon gesendet am ',
         newsletter_edit: 'Newsletter ändern',
         newsletter_filter_creation_date: 'Herstelldatum',
@@ -369,6 +373,7 @@ i18n.use(initReactI18next).init({
         property_status: 'Veröffentlicht auf der Webseite',
         property_type: 'Immobilien-Art',
         property_yield: 'Rendite',
+        refurbished: 'Saniert',
         remove_confirm: 'Bestätigen Sie die Löschung? Das ist unwiderruflich!',
         rent_mietendeckel: 'Kaltmiete laut Mietendeckel',
         rent_mietspiegel: 'Kaltmiete laut Mietspiegel',
@@ -732,6 +737,7 @@ i18n.use(initReactI18next).init({
         featured_property: 'Imperdibile',
         firstname: 'Nome',
         floor_plan: 'Planimetria',
+        fully_renovated: 'Ristrutturato',
         furniture: 'Mobilio',
         gdpr_consent: 'Consenso al trattamento dei dati personali',
         gdpr_consent_date: 'Data consenso',
@@ -759,10 +765,13 @@ i18n.use(initReactI18next).init({
         mietendeckel: 'Tetto affitti (Mietendeckel)',
         mietspiegel: 'Media affitti di zona (Mietspiegel)',
         mobile: 'Cellulare',
+        modernized: 'Modernisiert',
         nation: 'Nazione',
         nav_title: 'Gestionale',
         net_rent: 'Affitto netto',
         new: 'Come nuovo',
+        newsletters: 'Newsletters',
+        Newsletters: 'Newsletters',
         Newsletter: 'Newsletter',
         newsletter: 'Newsletter',
         newsletter_already_sent: 'Newsletter già inviata il ',
@@ -793,6 +802,7 @@ i18n.use(initReactI18next).init({
         property_type: 'Tipologia di immobile',
         property_yield: 'Rendita',
         Pubblicato: 'Pubblicato',
+        refurbished: 'Saniert',
         remove_confirm:
           "Confermi la cancellazione? L'operazione è irreversibile!",
         rent_mietendeckel: 'Affitto netto secondo Mietendeckel',

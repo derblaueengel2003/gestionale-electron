@@ -339,7 +339,11 @@ export class OggettoForm extends React.Component {
           </div>
           <div id='test2' className='col s12'>
             <div label='Exposé'>
-              {/* Exposé */}
+              {/* 
+              
+              Exposé
+            
+            */}
               {renderInput(
                 'oggetti',
                 'titolo',
@@ -389,6 +393,9 @@ export class OggettoForm extends React.Component {
                 'condizioni',
                 [
                   { value: 'new', label: t('new') },
+                  { value: 'refurbished', label: t('refurbished') },
+                  { value: 'fully_renovated', label: t('fully_renovated') },
+                  { value: 'modernized', label: t('modernized') },
                   { value: 'good', label: t('good') },
                   {
                     value: 'to_renovate',
