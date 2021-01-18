@@ -89,64 +89,18 @@ ipcMain.on('link:open', (event, link) => {
   shell.openExternal(link);
 });
 
-/////////// IS24
+/////////// IS24 lo passo a ipc per via del CORS
 ipcMain.on('is24:send', async (event, options) => {
   try {
     const { data } = await axios(options);
     mainWindow.webContents.send('is24:response', data);
   } catch (error) {
     mainWindow.webContents.send('is24:error', error);
+    console.log('ERROR IS24: ', error);
   }
 });
 
 /////////////// IS 24 IMAGES // IN PROGRESS
-
-const connectToIS24 = (base_url) => {
-  const oauth_timestamp = Math.floor(Date.now() / 1000);
-  const oauth_nonce = uuid.v1();
-  const oauth_token = 'b895110f-2b6d-41ea-b1d4-85a63a17c200';
-  const parameters = {
-    oauth_consumer_key: 'm2SquareImmobilienKey',
-    oauth_nonce,
-    oauth_signature_method: 'HMAC-SHA1',
-    oauth_timestamp,
-    oauth_token,
-    oauth_version: '1.0',
-  };
-  let ordered = {};
-  Object.keys(parameters)
-    .sort()
-    .forEach(function (key) {
-      ordered[key] = parameters[key];
-    });
-  let encodedParameters = '';
-  for (let k in ordered) {
-    const encodedValue = escape(ordered[k]);
-    const encodedKey = encodeURIComponent(k);
-    if (encodedParameters === '') {
-      encodedParameters += encodeURIComponent(`${encodedKey}=${encodedValue}`);
-    } else {
-      encodedParameters += encodeURIComponent(`&${encodedKey}=${encodedValue}`);
-    }
-  }
-  const method = 'POST';
-  const encodedUrl = encodeURIComponent(base_url);
-  const signature_base_string = `${method}&${encodedUrl}&${encodedParameters}`;
-  const encodedClientSecret = encodeURIComponent('c1jaBYcJ2umVdm0G');
-  const encodedTokenSecret = encodeURIComponent(
-    'WnKSZ4FByiUAL2Cg0fGVqhLDNU8UX7BQfA+Xf+gSvz2BC0yaKxtmLGDJH4gUt9bK+RnyGOEJAadpp7XzSWLDzQYZFfX9dDp7ILp+mhM92JQ='
-  );
-  const signing_key = `${encodedClientSecret}&${encodedTokenSecret}`;
-  const oauth_signature = crypto
-    .createHmac('sha1', signing_key)
-    .update(signature_base_string)
-    .digest()
-    .toString('base64');
-  const encoded_oauth_signature = encodeURIComponent(oauth_signature);
-  const oAuth = `OAuth oauth_consumer_key="m2SquareImmobilienKey",oauth_nonce="${oauth_nonce}",oauth_signature="${encoded_oauth_signature}",oauth_signature_method="HMAC-SHA1",oauth_timestamp="${oauth_timestamp}",oauth_token="${oauth_token}",oauth_version="1.0"`;
-  return oAuth;
-};
-
 ipcMain.on('is24img:upload', async (event, options) => {
   // console.log('Options: ', options);
   // scarico l'immagine da wordpress e la salvo su disco nella cartella public dell'applicazione
@@ -174,9 +128,6 @@ ipcMain.on('is24img:upload', async (event, options) => {
     }
 
     const imageFile = new FormData();
-    const optionsImg = {
-      header: 'Content-Transfer-Encoding: binary',
-    };
     imageFile.append('attachment', readStream);
 
     const externalCheckSum = fs.readFile(
@@ -186,7 +137,6 @@ ipcMain.on('is24img:upload', async (event, options) => {
         return checksum;
       }
     );
-    console.log('external checkusm: ', externalCheckSum);
 
     const json = {
       'common.attachment': {
@@ -205,25 +155,19 @@ ipcMain.on('is24img:upload', async (event, options) => {
 
     jsonStream.write(JSON.stringify(json));
 
-    const optionsJson = {
-      header: 'Content-Transfer-Encoding: binary',
-    };
-
     imageFile.append(
       'metadata',
       fs.createReadStream('./body.json', { encoding: 'UTF8' })
     );
 
-    const base_url = `https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate/${options.is24id}/attachment/`;
-    const oAuth = connectToIS24(base_url);
     const config = {
       method: 'post',
-      url: base_url,
+      url: options.base_url,
       data: imageFile,
       headers: {
         // 'Content-Type': `multipart/form-data; boundary=${imageFile._boundary}`,
         'Content-Transfer-Encoding': 'binary',
-        Authorization: oAuth,
+        Authorization: options.oAuth,
       },
     };
     console.log('Config: ', config);

@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { storeActions } from '../../store/configureStore';
 import uuid from 'uuid';
 import crypto from 'crypto';
-import LoadingPage from '../LoadingPage';
 import { formattaPrezzo } from '../common/utils';
+import CollectionItem from '../common/collectionItem';
 // ELECTRON
 import { ipcRenderer } from 'electron';
 
 const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
-  const [spinner, useSpinner] = useState(false);
-
-  const connectToIS24 = (base_url) => {
+  const connectToIS24 = (base_url, method) => {
     const oauth_timestamp = Math.floor(Date.now() / 1000);
     const oauth_nonce = uuid.v1();
     const oauth_token = 'b895110f-2b6d-41ea-b1d4-85a63a17c200';
@@ -44,7 +42,6 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
         );
       }
     }
-    const method = 'POST';
     const encodedUrl = encodeURIComponent(base_url);
     const signature_base_string = `${method}&${encodedUrl}&${encodedParameters}`;
     const encodedClientSecret = encodeURIComponent('c1jaBYcJ2umVdm0G');
@@ -171,6 +168,10 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
         break;
     }
 
+    if (oggetto.is24id) {
+      body['realestates.apartmentBuy']['@id'] = oggetto.is24id;
+    }
+
     //Condition
     switch (oggetto.condizioni) {
       case 'new':
@@ -193,15 +194,16 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
         break;
     }
 
-    console.log('Body: ', body);
-    const base_url =
-      'https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate';
+    // se c'è già un is24id allora parte l'update con put
+    const base_url = oggetto.is24id
+      ? `https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate/${oggetto.is24id}`
+      : 'https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate';
 
     //Stabilisco la connessione passando l'endpoint
-    const oAuth = connectToIS24(base_url);
+    const oAuth = connectToIS24(base_url, oggetto.is24id ? 'PUT' : 'POST');
 
     const options = {
-      method: 'post',
+      method: oggetto.is24id ? 'put' : 'post',
       url: base_url,
       data: body,
       headers: {
@@ -210,54 +212,87 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
     };
 
     ipcRenderer.send('is24:send', options);
-    useSpinner(true);
+    startEditOggetto(oggetto.id, {
+      spinnerIs24: true,
+    });
 
     ipcRenderer.on('is24:response', (event, data) => {
       startEditOggetto(oggetto.id, {
         ...oggetto,
         is24id: data['common.messages'][0].message.id,
+        spinnerIs24: false,
       });
-      useSpinner(false);
     });
 
     ipcRenderer.on('is24:error', (event, error) => {
       console.log(error);
+      startEditOggetto(oggetto.id, {
+        spinnerIs24: false,
+      });
     });
   };
 
   const exportImagesToIS24 = () => {
+    const base_url = `https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate/${oggetto.is24id}/attachment/`;
+
     const options = {
       url: oggetto.downloadURLsCover[0],
       imagePath: oggetto.rifId,
       is24id: oggetto.is24id,
-      connectToIS24,
+      oAuth: connectToIS24(base_url, 'POST'),
+      base_url,
     };
 
     ipcRenderer.send('is24img:upload', options);
+    startEditOggetto(oggetto.id, {
+      spinnerIs24: true,
+    });
     ipcRenderer.on('is24img:error', (event, error) => {
       console.log(error);
+      startEditOggetto(oggetto.id, {
+        spinnerIs24: false,
+      });
     });
     ipcRenderer.on('is24img:response', (event, data) => {
       console.log(data);
+      startEditOggetto(oggetto.id, {
+        spinnerIs24: false,
+      });
     });
   };
 
-  const btnColor = oggetto.is24id ? 'disabled' : 'green';
+  const btnColor = oggetto.is24id ? 'green' : 'blue';
   return (
     <div>
-      {spinner ? (
-        <LoadingPage />
+      <h5>Sync ImmobilienScout24</h5>
+      {oggetto.spinnerIs24 ? (
+        <div className='progress'>
+          <div className='indeterminate'></div>
+        </div>
       ) : (
         <div>
-          <button className={`btn ${btnColor}`} onClick={exportToIS24}>
-            Export to immobilienscout24
-          </button>{' '}
-          <button className={`btn`} onClick={exportImagesToIS24}>
-            Fotos to immobilienscout24
-          </button>
+          <ul className='collection'>
+            <CollectionItem
+              label='Sync to ImmobilienScout24'
+              action={exportToIS24}
+              icon={oggetto.is24id ? 'update' : 'add'}
+              btnColor={btnColor}
+            />
+            {/* Se ho l'id di is24 mostro il pulsante sync per le foto 
+            {oggetto.is24id && (
+              <CollectionItem
+                label='Fotos to ImmobilienScout24'
+                action={exportImagesToIS24}
+                icon={'add'}
+                btnColor={btnColor}
+              />
+            )}
+            */}
+          </ul>
           <p>
             Campi obbligatori: Rif. ID, vani, prezzo di vendita, m2, indirizzo
           </p>
+          <div className='divider'></div>
         </div>
       )}
     </div>

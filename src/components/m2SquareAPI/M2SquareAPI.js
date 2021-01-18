@@ -38,7 +38,6 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
       source.cancel();
     };
   }, []);
-  console.log('m2Square API loaded');
   const { payload, payloadEn, payloadIt } = creaPayload(oggetto);
 
   const sendDeRequest = async () => {
@@ -167,6 +166,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
             )}
         </ul>
       )}
+      <div className='divider'></div>
     </div>
   );
 };
