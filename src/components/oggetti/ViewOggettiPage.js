@@ -9,12 +9,10 @@ import ImmoscoutAPI from './ImmoscoutAPI';
 import Intestazione from '../common/Intestazione';
 import EvaluationList from '../evaluation/EvaluationList';
 import Mappa from './Mappa';
-// import M2SquareAPI from './M2SquareAPI';
 import M2SquareAPI from '../m2SquareAPI/M2SquareAPI';
 import CollectionItem from '../common/collectionItem';
-import { editButton, folderButton } from '../common/elements';
+import { editButton, folderButton, imageView } from '../common/elements';
 
-// ELECTRON
 export class ViewOggettiPage extends React.Component {
   componentDidMount() {
     M.AutoInit();
@@ -352,50 +350,27 @@ export class ViewOggettiPage extends React.Component {
               />
             </div>
           )}
-          <div className='container'>
-            {oggetto.downloadURLsCover && (
-              <div className='grey lighten-4'>
-                <div>
-                  <h1>{t('Immagine di copertina')}</h1>
-                </div>{' '}
-              </div>
-            )}
-            {oggetto.downloadURLsCover &&
-              oggetto.downloadURLsCover.map((downloadURL, i) => {
-                return <img className='foto' key={i} src={downloadURL} />;
-              })}
-          </div>
+          {imageView(oggetto.downloadURLsCover, t('Immagine di copertina'))}
+
           <div className='container'>
             {oggetto.downloadURLs && (
               <div className='grey lighten-4'>
                 <div>
                   <h1>{t('Immagini')}</h1>
                 </div>{' '}
+                {Array.isArray(oggetto.downloadURLs[0])
+                  ? oggetto.downloadURLs[0].map((downloadURL, i) => (
+                      <img className='foto' key={i} src={downloadURL} />
+                    ))
+                  : oggetto.downloadURLs.map((downloadURL, i) => (
+                      <img className='foto' key={i} src={downloadURL} />
+                    ))}
               </div>
             )}
-            {oggetto.downloadURLs && Array.isArray(oggetto.downloadURLs[0])
-              ? oggetto.downloadURLs[0].map((downloadURL, i) => {
-                  return <img className='foto' key={i} src={downloadURL} />;
-                })
-              : oggetto.downloadURLs &&
-                oggetto.downloadURLs.map((downloadURL, i) => {
-                  return <img className='foto' key={i} src={downloadURL} />;
-                })}
           </div>
 
-          <div className='container'>
-            {oggetto.downloadURLsGrundriss && (
-              <div className='grey lighten-4'>
-                <div>
-                  <h1>{t('Planimetria')}</h1>
-                </div>{' '}
-              </div>
-            )}
-            {oggetto.downloadURLsGrundriss &&
-              oggetto.downloadURLsGrundriss.map((downloadURL, i) => {
-                return <img className='foto' key={i} src={downloadURL} />;
-              })}
-          </div>
+          {imageView(oggetto.downloadURLsGrundriss, t('Planimetria'))}
+
           <Mappa oggetto={oggetto} />
 
           {oggetto.titolo && (

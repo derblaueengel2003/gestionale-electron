@@ -14,6 +14,7 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
     const oauth_timestamp = Math.floor(Date.now() / 1000);
     const oauth_nonce = uuid.v1();
     const oauth_token = 'b895110f-2b6d-41ea-b1d4-85a63a17c200';
+    const encoded_oauth_token = encodeURIComponent(oauth_token);
     const parameters = {
       oauth_consumer_key: 'm2SquareImmobilienKey',
       oauth_nonce,
@@ -55,7 +56,7 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
       .digest()
       .toString('base64');
     const encoded_oauth_signature = encodeURIComponent(oauth_signature);
-    const oAuth = `OAuth oauth_consumer_key="m2SquareImmobilienKey",oauth_nonce="${oauth_nonce}",oauth_signature="${encoded_oauth_signature}",oauth_signature_method="HMAC-SHA1",oauth_timestamp="${oauth_timestamp}",oauth_token="${oauth_token}",oauth_version="1.0"`;
+    const oAuth = `OAuth oauth_consumer_key="m2SquareImmobilienKey",oauth_nonce="${oauth_nonce}",oauth_signature="${encoded_oauth_signature}",oauth_signature_method="HMAC-SHA1",oauth_timestamp="${oauth_timestamp}",oauth_token="${encoded_oauth_token}",oauth_version="1.0"`;
     return oAuth;
   };
 
@@ -217,6 +218,7 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
     });
 
     ipcRenderer.on('is24:response', (event, data) => {
+      console.log(data);
       startEditOggetto(oggetto.id, {
         ...oggetto,
         is24id: data['common.messages'][0].message.id,
@@ -237,7 +239,7 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
 
     const options = {
       url: oggetto.downloadURLsCover[0],
-      imagePath: oggetto.rifId,
+      imagePath: oggetto.downloadURLsCoverId[0],
       is24id: oggetto.is24id,
       oAuth: connectToIS24(base_url, 'POST'),
       base_url,
@@ -278,15 +280,15 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
               icon={oggetto.is24id ? 'update' : 'add'}
               btnColor={btnColor}
             />
-            {/* Se ho l'id di is24 mostro il pulsante sync per le foto 
+            {/* Se ho l'id di is24 mostro il pulsante sync per le foto
             {oggetto.is24id && (
               <CollectionItem
-                label='Fotos to ImmobilienScout24'
-                action={exportImagesToIS24}
-                icon={'add'}
-                btnColor={btnColor}
+              label='Fotos to ImmobilienScout24'
+              action={exportImagesToIS24}
+              icon={'add'}
+              btnColor={btnColor}
               />
-            )}
+              )}
             */}
           </ul>
           <p>

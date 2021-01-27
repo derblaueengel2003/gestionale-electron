@@ -9,7 +9,7 @@ import { storeActions } from '../../store/configureStore';
 import evaluationPdf from './EvaluationPdf';
 import CollectionItem from '../common/collectionItem';
 import { formattaData, formattaPrezzo } from '../common/utils';
-import { editButton, folderButton } from '../common/elements';
+import { editButton, folderButton, imageView } from '../common/elements';
 
 export class ViewEvaluation extends React.Component {
   componentDidMount() {
@@ -257,71 +257,11 @@ export class ViewEvaluation extends React.Component {
             )}
           </ul>
         </div>
-        <div className='container'>
-          {evaluation.wohnlageSnippet && (
-            <div className='grey lighten-4'>
-              <div>
-                <h1>{t('area_classification')}</h1>
-              </div>{' '}
-            </div>
-          )}
-          {evaluation.wohnlageSnippet &&
-            evaluation.wohnlageSnippet.map((downloadURL, i) => {
-              return <img className='foto' key={i} src={downloadURL} />;
-            })}
-        </div>
-        <div className='container'>
-          {evaluation.bodenrichtwertSnippet && (
-            <div className='grey lighten-4'>
-              <div>
-                <h1>{t('land_price')}</h1>
-              </div>{' '}
-            </div>
-          )}
-          {evaluation.bodenrichtwertSnippet &&
-            evaluation.bodenrichtwertSnippet.map((downloadURL, i) => {
-              return <img className='foto' key={i} src={downloadURL} />;
-            })}
-        </div>
-        <div className='container'>
-          {evaluation.immobilienPreisSnippet && (
-            <div className='grey lighten-4'>
-              <div>
-                <h1>{t('sold_price')}</h1>
-              </div>{' '}
-            </div>
-          )}
-          {evaluation.immobilienPreisSnippet &&
-            evaluation.immobilienPreisSnippet.map((downloadURL, i) => {
-              return <img className='foto' key={i} src={downloadURL} />;
-            })}
-        </div>
-        <div className='container'>
-          {evaluation.is24Snippet && (
-            <div className='grey lighten-4'>
-              <div>
-                <h1>{t('is24_evaluation')}</h1>
-              </div>{' '}
-            </div>
-          )}
-          {evaluation.is24Snippet &&
-            evaluation.is24Snippet.map((downloadURL, i) => {
-              return <img className='foto' key={i} src={downloadURL} />;
-            })}
-        </div>
-        <div className='container'>
-          {evaluation.mietspiegelSnippet && (
-            <div className='grey lighten-4'>
-              <div>
-                <h1>{t('mietspiegel')}</h1>
-              </div>{' '}
-            </div>
-          )}
-          {evaluation.mietspiegelSnippet &&
-            evaluation.mietspiegelSnippet.map((downloadURL, i) => {
-              return <img className='foto' key={i} src={downloadURL} />;
-            })}
-        </div>
+        {imageView(evaluation.wohnlageSnippet, t('area_classification'))}
+        {imageView(evaluation.bodenrichtwertSnippet, t('land_price'))}
+        {imageView(evaluation.immobilienPreisSnippet, t('sold_price'))}
+        {imageView(evaluation.is24Snippet, t('is24_evaluation'))}
+        {imageView(evaluation.mietspiegelSnippet, t('mietspiegel'))}
         <div className='container'>
           {testoIntroduttivoDe && (
             <div className='grey lighten-4'>

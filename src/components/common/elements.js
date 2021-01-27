@@ -76,3 +76,20 @@ export const editButton = (path) => {
     </Link>
   );
 };
+
+export const imageView = (imgArray, sectionTitle) => {
+  return (
+    <div className='container'>
+      {imgArray && imgArray.length > 0 && (
+        <div className='grey lighten-4'>
+          <div>
+            <h1>{sectionTitle}</h1>
+          </div>{' '}
+          {imgArray.map((imgSource, i) => (
+            <img className='foto' key={i} src={imgSource} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};

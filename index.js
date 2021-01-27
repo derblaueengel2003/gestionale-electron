@@ -10,9 +10,7 @@ const path = require('path');
 const homedir = require('os').homedir();
 const fs = require('fs');
 const FormData = require('form-data');
-const uuid = require('uuid');
 const crypto = require('crypto');
-const https = require('https');
 
 let mainWindow;
 
@@ -102,7 +100,7 @@ ipcMain.on('is24:send', async (event, options) => {
 
 /////////////// IS 24 IMAGES // IN PROGRESS
 ipcMain.on('is24img:upload', async (event, options) => {
-  // console.log('Options: ', options);
+  console.log('Options: ', options);
   // scarico l'immagine da wordpress e la salvo su disco nella cartella public dell'applicazione
   try {
     const { data } = await axios({
@@ -130,13 +128,17 @@ ipcMain.on('is24img:upload', async (event, options) => {
     const imageFile = new FormData();
     imageFile.append('attachment', readStream);
 
-    const externalCheckSum = fs.readFile(
-      `${__dirname}/public/${options.imagePath}.jpeg`,
-      function (err, data) {
-        const checksum = generateChecksum(data);
-        return checksum;
-      }
-    );
+    const externalCheckSum = () => {
+      let checksum = '';
+      fs.readFile(
+        `${__dirname}/public/${options.imagePath}.jpeg`,
+        function (err, data) {
+          checksum = generateChecksum(data);
+        }
+      );
+      return checksum;
+    };
+    console.log('checksum: ', externalCheckSum());
 
     const json = {
       'common.attachment': {
@@ -145,8 +147,8 @@ ipcMain.on('is24img:upload', async (event, options) => {
         },
         '@xsi.type': 'common:Picture',
         title: 'test',
-        externalId: 'test',
-        externalCheckSum,
+        externalId: `${options.imagePath}`,
+        externalCheckSum: 'mychecksum',
         floorplan: 'false',
         titlePicture: 'false',
       },
@@ -165,8 +167,8 @@ ipcMain.on('is24img:upload', async (event, options) => {
       url: options.base_url,
       data: imageFile,
       headers: {
-        // 'Content-Type': `multipart/form-data; boundary=${imageFile._boundary}`,
-        'Content-Transfer-Encoding': 'binary',
+        // 'Content-Type': `multipart/form-data`,
+        // 'Content-Transfer-Encoding': 'binary',
         Authorization: options.oAuth,
       },
     };
