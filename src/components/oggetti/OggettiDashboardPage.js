@@ -5,6 +5,7 @@ import OggettiList from './OggettiList';
 import ListFilters from '../common/ListFilters';
 import { storeActions } from '../../store/configureStore';
 import { addButton } from '../common/elements';
+import Intestazione from '../common/Intestazione';
 
 class OggettiDashboardPage extends React.Component {
   componentDidMount() {
@@ -20,11 +21,7 @@ class OggettiDashboardPage extends React.Component {
     ];
     return (
       <div>
-        <div className='grey lighten-4'>
-          <div className='container'>
-            <h1>{t('Oggetti')}</h1>
-          </div>
-        </div>
+        <Intestazione intestazione={t('Oggetti')} />
         <ListFilters options={options} />
         {addButton('/oggettocreate')}
         <OggettiList />

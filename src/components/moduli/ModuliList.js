@@ -1,14 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
+import Intestazione from '../common/Intestazione';
 
 const ModuliPage = ({ t }) => (
   <div>
-    <div className='grey lighten-4'>
-      <div className='container'>
-        <h1>{t('Moduli')}</h1>
-      </div>
-    </div>
+    <Intestazione intestazione={t('Moduli')} />
 
     <div className='container'>
       <ul className='collection with-header'>
@@ -50,72 +47,51 @@ const ModuliPage = ({ t }) => (
           <h4>{t('Moduli in bianco')}</h4>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Provisionsbestaetigung.pdf'
-            download
-          >
+          <a href='./files/Provisionsbestaetigung.pdf' download>
             {t('Conferma provvigione')}
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/datenblatt.pdf'
-            download
-          >
+          <a href='./files/datenblatt.pdf' download>
             {t('Foglio informativo per il notaio')} Pietzcker
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Allgemeine%20Vertragsbedingungen.pdf'
-            download
-          >
+          <a href='./files/Allgemeine Vertragsbedingungen.pdf' download>
             {t('Condizioni generali di contratto')}
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Widerrufsbelehrung.pdf'
-            download
-          >
+          <a href='./files/Widerrufsbelehrung.pdf' download>
             {t('Informativa sul diritto di recesso')} m2Square
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Verbraucherwiderrufsbelehrung.pdf'
-            download
-          >
+          <a href='./files/Verbraucherwiderrufsbelehrung.pdf' download>
             {t('Informativa sul diritto di recesso')} IVD
           </a>
         </li>
         <li className='collection-item'>
           <a
-            href='https://gestionale.m2square.eu/files/Vollmacht%20zur%20Vorbereitung%20einer%20notariellen%20Kaufvertragsurkunde.pdf'
+            href='./files/Vollmacht zur Vorbereitung einer notariellen Kaufvertragsurkunde.pdf'
             download
           >
             {t('Delega richiesta bozza di contratto')}
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Lettera%20Grundbuchamt.docx'
-            download
-          >
+          <a href='./files/Lettera Grundbuchamt.docx' download>
             {t('Lettera per ufficio Libro Fondiario (Grundbuchamt)')}
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Makleralleinauftrag.pdf'
-            download
-          >
+          <a href='./files/Makleralleinauftrag.pdf' download>
             {t('Mandato alla vendita')}
           </a>
         </li>
         <li className='collection-item'>
           <a
-            href='https://gestionale.m2square.eu/files/Makleralleinauftrag Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
+            href='./files/Makleralleinauftrag Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
             download
           >
             {t('Informativa privacy')} - {t('Mandato alla vendita')}
@@ -123,7 +99,7 @@ const ModuliPage = ({ t }) => (
         </li>
         <li className='collection-item'>
           <a
-            href='https://gestionale.m2square.eu/files/Maklervertrag%20mit%20Provision%20Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
+            href='./files/Maklervertrag mit Provision Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
             download
           >
             {t('Informativa privacy')} - {t('Incarico agenzia')} {t('con')}{' '}
@@ -132,7 +108,7 @@ const ModuliPage = ({ t }) => (
         </li>
         <li className='collection-item'>
           <a
-            href='https://gestionale.m2square.eu/files/Maklervertrag%20ohne%20Provision%20Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
+            href='./files/Maklervertrag ohne Provision Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
             download
           >
             {t('Informativa privacy')} - {t('Incarico agenzia')} {t('senza')}{' '}
@@ -141,7 +117,7 @@ const ModuliPage = ({ t }) => (
         </li>
         <li className='collection-item'>
           <a
-            href='https://gestionale.m2square.eu/files/Mietvertrag%20Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
+            href='./files/Mietvertrag Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
             download
           >
             {t('Informativa privacy')} - {t('Contratto di affitto')}
@@ -149,66 +125,42 @@ const ModuliPage = ({ t }) => (
         </li>
 
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Dokumentationsbogen.docx'
-            download
-          >
+          <a href='./files/Dokumentationsbogen.docx' download>
             {t('Modulo riciclo di denaro')} - {t('Persone fisiche')}
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/DokumentationsbogenJP.docx'
-            download
-          >
+          <a href='./files/DokumentationsbogenJP.docx' download>
             {t('Modulo riciclo di denaro')} - {t('Persone giuridiche')}
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/meldebestaetigung.pdf'
-            download
-          >
+          <a href='./files/meldebestaetigung.pdf' download>
             {t('Conferma affitto per inquilini')} (Bürgeramt)
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Mietschuldenfreiheitsbescheinigung.docx'
-            download
-          >
+          <a href='./files/Mietschuldenfreiheitsbescheinigung.docx' download>
             {t('Dichiarazione di buon pagatore per inquilini')}
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Uebergabeprotokoll.doc'
-            download
-          >
+          <a href='./files/Uebergabeprotokoll.doc' download>
             {t('Protocollo consegna appartamento')} - {t('Vendita')}
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Wohnungsuebergabeprotokoll%20Mietwohnung.pdf'
-            download
-          >
+          <a href='./files/Wohnungsuebergabeprotokoll Mietwohnung.pdf' download>
             {t('Protocollo consegna appartamento')} - {t('Affitto')}
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/wohnungs_mietvertrag_1520411845.pdf'
-            download
-          >
+          <a href='./files/wohnungs_mietvertrag_1520411845.pdf' download>
             {t('Modello')} {t('Contratto di affitto')}
           </a>
         </li>
         <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Aufnahme-ETW-Teileigentum.pdf'
-            download
-          >
+          <a href='./files/Aufnahme-ETW-Teileigentum.pdf' download>
             {t('Modulo per acquisizione')}
           </a>
         </li>

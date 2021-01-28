@@ -3,7 +3,6 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import DealDashboardPage from '../components/deals/DealDashboardPage';
-import ReportPage from '../components/ReportPage';
 import EditDealPage from '../components/deals/EditDealPage';
 import ViewDealPage from '../components/deals/ViewDealPage';
 import EditUtentePage from '../components/utenti/EditUtentePage';
@@ -44,6 +43,7 @@ import NewsletterDashboard from '../components/newsletter/NewsletterDashboard';
 import EditNewsletter from '../components/newsletter/EditNewsletter';
 import ViewNewsletter from '../components/newsletter/ViewNewsletter';
 import AddPage from '../components/common/AddPage';
+import LinksPage from '../components/links/LinksPage';
 
 export const history = createHistory();
 
@@ -269,11 +269,11 @@ const AppRouter = () => {
             component={AddPage}
           />
 
-          {/* REPORT */}
+          {/* LINKS */}
           <PrivateRoute
-            path='/report'
-            activeClass='report'
-            component={ReportPage}
+            path='/links'
+            activeClass='links'
+            component={LinksPage}
           />
 
           {/* MODULI */}

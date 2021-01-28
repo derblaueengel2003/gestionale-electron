@@ -5,6 +5,7 @@ import FattureList from './FattureList';
 import ListFilters from '../common/ListFilters';
 import { storeActions } from '../../store/configureStore';
 import { addButton } from '../common/elements';
+import Intestazione from '../common/Intestazione';
 
 class FattureDashboardPage extends React.Component {
   componentDidMount() {
@@ -18,11 +19,7 @@ class FattureDashboardPage extends React.Component {
 
     return (
       <div>
-        <div className='grey lighten-4'>
-          <div className='container'>
-            <h1>{t('Fatture')}</h1>
-          </div>
-        </div>
+        <Intestazione intestazione={t('Fatture')} />
         <ListFilters options={options} />
         {addButton('/fatturacreate')}
         <FattureList />

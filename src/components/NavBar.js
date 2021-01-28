@@ -14,6 +14,7 @@ export const NavBar = ({ utente, t, activeClass }) => {
       { pathLink: 'clienti', label: t('Contatti') },
       { pathLink: 'newsletters', label: t('Newsletters') },
       { pathLink: 'evaluations', label: t('evaluations') },
+      { pathLink: 'links', label: 'Links' },
     ];
     if (utente && utente.role === 'Admin') {
       menuItems = [

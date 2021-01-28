@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
 
+// THIS FILE CONTAINS ELECTRON SPECIFIC CODE
 export const addButton = (destinazione) => {
   return (
     <div className='fixed-action-btn'>
@@ -76,6 +77,15 @@ export const editButton = (path) => {
     </Link>
   );
 };
+
+export const linkButton = (url, label) => (
+  <button
+    onClick={() => ipcRenderer.send('link:open', url)}
+    className='btn blue btn-margin'
+  >
+    {label}
+  </button>
+);
 
 export const imageView = (imgArray, sectionTitle) => {
   return (

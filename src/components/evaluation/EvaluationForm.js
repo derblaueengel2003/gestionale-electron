@@ -107,6 +107,8 @@ class EvaluationForm extends Component {
 
     return (
       <div>
+        <IntestazioneParagrafo intestazione={t('useful_links')} />
+
         <ExternalLinks />
 
         <form className='form' onSubmit={this.onSubmit}>

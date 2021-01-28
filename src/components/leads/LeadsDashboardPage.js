@@ -5,6 +5,7 @@ import LeadsList from './LeadsList';
 import LeadsListFilters from './LeadsListFilters';
 import { storeActions } from '../../store/configureStore';
 import { addButton } from '../common/elements';
+import Intestazione from '../common/Intestazione';
 
 class LeadsDashboardPage extends React.Component {
   componentDidMount() {
@@ -16,11 +17,7 @@ class LeadsDashboardPage extends React.Component {
 
     return (
       <div>
-        <div className='grey lighten-4'>
-          <div className='container'>
-            <h1>{t('Richieste attive')}</h1>
-          </div>
-        </div>
+        <Intestazione intestazione={t('Richieste attive')} />
         <LeadsListFilters />
         {addButton('/leadscreate')}
         <LeadsList />

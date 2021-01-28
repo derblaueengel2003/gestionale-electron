@@ -6,6 +6,7 @@ import ListFilters from '../common/ListFilters';
 import DealsSummary from './DealsSummary';
 import { storeActions } from '../../store/configureStore';
 import { addButton } from '../common/elements';
+import Intestazione from '../common/Intestazione';
 
 class DealDashboardPage extends React.Component {
   componentDidMount() {
@@ -20,11 +21,7 @@ class DealDashboardPage extends React.Component {
     ];
     return (
       <div>
-        <div className='grey lighten-4'>
-          <div className='container'>
-            <h1>{t('Vendite')}</h1>
-          </div>
-        </div>
+        <Intestazione intestazione={t('Vendite')} />
         <ListFilters options={options} />
         <DealsSummary />
         {utente && utente.role === 'Admin' && addButton('/create')}

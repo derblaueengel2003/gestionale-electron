@@ -53,6 +53,13 @@ export class Sidebar extends Component {
               {t('Contatti')}
             </Link>
           </li>
+
+          <li>
+            <Link className='sidenav-close' to='/newsletters'>
+              {t('newsletters')}
+            </Link>
+          </li>
+
           <li>
             <Link className='sidenav-close' to='/evaluations'>
               {t('evaluations')}
@@ -60,8 +67,8 @@ export class Sidebar extends Component {
           </li>
 
           <li>
-            <Link className='sidenav-close' to='/newsletters'>
-              {t('newsletters')}
+            <Link className='sidenav-close' to='/links'>
+              Links
             </Link>
           </li>
 
