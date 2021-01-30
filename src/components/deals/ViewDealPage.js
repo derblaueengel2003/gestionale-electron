@@ -94,7 +94,7 @@ export class ViewDealPage extends React.Component {
 
         <div className='container section'>
           <div>
-            {utente.role === 'Admin' && (
+            {(utente.role === 'Admin' || utente.role === 'Geschäftsführer') && (
               <Link
                 className='btn-floating orange right btn-floating-margin'
                 to={`/edit/${id}`}
@@ -132,7 +132,9 @@ export class ViewDealPage extends React.Component {
             {amount > 0 && (
               <h5>
                 {t('Provvigione')}:{' '}
-                {utente.role === 'Admin' ? formattaPrezzo(amount, true) : ''}
+                {utente.role === 'Admin' || utente.role === 'Geschäftsführer'
+                  ? formattaPrezzo(amount, true)
+                  : ''}
               </h5>
             )}
             {kundenbetreuer && (
@@ -140,7 +142,7 @@ export class ViewDealPage extends React.Component {
                 {t('Consulente vendita')}: {kundenbetreuer.name}
               </p>
             )}
-            {utente.role === 'Admin'
+            {utente.role === 'Admin' || utente.role === 'Geschäftsführer'
               ? provvM2square > 0 && (
                   <p className={`list-item--paid${payed}`}>
                     m2Square: {formattaPrezzo(provvM2square, true)}
@@ -157,7 +159,7 @@ export class ViewDealPage extends React.Component {
                 {t('Pagato')} Stefano: {formattaData(payedAtStefano)}
               </p>
             )}
-            {utente.role === 'Admin'
+            {utente.role === 'Admin' || utente.role === 'Geschäftsführer'
               ? provvAgenziaPartner > 0 && (
                   <p className={`${payedAgenziaPartner && 'list-item--paid'}`}>
                     {t('Provvigione')} {t('Partner commerciale')}:{' '}
@@ -349,7 +351,7 @@ export class ViewDealPage extends React.Component {
             />
           </div>
         )}
-        {utente.role === 'Admin' ? (
+        {utente.role === 'Admin' || utente.role === 'Geschäftsführer' ? (
           <FattureList
             dealFatture={this.props.fatture}
             ruolo={`${t('Fatture')}`}

@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import Sidebar from './Sidebar';
 
+////////////Disable newsletter for web////////////
+
 export const NavBar = ({ utente, t, activeClass }) => {
   if (utente) {
     let menuItems = [
@@ -19,10 +21,13 @@ export const NavBar = ({ utente, t, activeClass }) => {
     if (utente && utente.role === 'Admin') {
       menuItems = [
         ...menuItems,
-        // { pathLink: 'report', label: 'Report' },
         { pathLink: 'utenti', label: t('Utenti') },
         { pathLink: 'fatture', label: t('Fatture') },
       ];
+    }
+
+    if (utente && utente.role === 'Geschäftsführer') {
+      menuItems = [...menuItems, { pathLink: 'fatture', label: t('Fatture') }];
     }
     return (
       <nav className='new-wrapper blue'>

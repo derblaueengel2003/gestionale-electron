@@ -112,7 +112,7 @@ export class ViewClientiPage extends React.Component {
         <OggettiList oggetto={this.props.oggetti} ruolo={t('Oggetti')} />
 
         <DealList clienteDeals={clienteDeals} ruolo={t('Vendite')} />
-        {utente.role === 'Admin' && (
+        {(utente.role === 'Admin' || utente.role === 'Geschäftsführer') && (
           <FattureList dealFatture={dealFatture} ruolo={t('invoices')} />
         )}
       </div>

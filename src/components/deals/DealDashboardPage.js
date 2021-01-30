@@ -24,7 +24,9 @@ class DealDashboardPage extends React.Component {
         <Intestazione intestazione={t('Vendite')} />
         <ListFilters options={options} />
         <DealsSummary />
-        {utente && utente.role === 'Admin' && addButton('/create')}
+        {utente &&
+          (utente.role === 'Admin' || utente.role === 'Geschäftsführer') &&
+          addButton('/create')}
         {utente && <DealList />}
       </div>
     );

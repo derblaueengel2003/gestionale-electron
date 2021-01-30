@@ -25,7 +25,7 @@ class UserForm extends React.Component {
   };
   render() {
     const { t, renderSelect, renderInput } = this.props;
-    const roleTypeOptions = ['Admin', 'Mitarbeiter', 'Teamleiter'].map(
+    const roleTypeOptions = ['Admin', 'Mitarbeiter', 'Geschäftsführer'].map(
       (roleType) => ({
         value: roleType,
         label: roleType,
@@ -36,8 +36,8 @@ class UserForm extends React.Component {
         {this.props.data.error && (
           <p className='form__error'>{this.props.data.error}</p>
         )}
-        <div className='fixed-action-btn'>
-          <button className='btn-floating blue btn-large'>
+        <div>
+          <button className='btn-floating blue right'>
             <i className='material-icons'>save</i>
           </button>
         </div>

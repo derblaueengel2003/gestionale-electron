@@ -5,6 +5,8 @@ import M from 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import { Link } from 'react-router-dom';
 
+////////////Disable for web////////////
+
 export class Sidebar extends Component {
   componentDidMount() {
     const options = {
@@ -65,13 +67,11 @@ export class Sidebar extends Component {
               {t('evaluations')}
             </Link>
           </li>
-
           <li>
             <Link className='sidenav-close' to='/links'>
               Links
             </Link>
           </li>
-
           {this.props.utente.role === 'Admin' && (
             <li>
               <Link className='sidenav-close' to='/utenti'>
@@ -79,7 +79,8 @@ export class Sidebar extends Component {
               </Link>
             </li>
           )}
-          {this.props.utente.role === 'Admin' && (
+          {(this.props.utente.role === 'Admin' ||
+            this.props.utente.role === 'Geschäftsführer') && (
             <li>
               <Link className='sidenav-close' to='/fatture'>
                 {t('Fatture')}
