@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import selectOggetti from '../../selectors/deals';
 import Card from '../Card';
-import { formattaData, formattaPrezzo } from '../common/utils';
+import {
+  formattaData,
+  formattaPrezzo,
+  indirizzoOggetto,
+} from '../common/utils';
 import { folderButton } from '../common/elements';
 
 export const OggettiList = (props) => {
@@ -40,7 +44,7 @@ export const OggettiList = (props) => {
                 return (
                   <Card
                     key={oggetto.id}
-                    titolo={`${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.citta}`}
+                    titolo={`${indirizzoOggetto(oggetto)}`}
                     titoloDestra={
                       <div className='foto-container'>
                         {oggetto.downloadURLsCover && (

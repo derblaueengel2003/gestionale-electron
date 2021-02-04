@@ -6,7 +6,7 @@ import 'react-select/dist/react-select.css';
 import 'react-virtualized/styles.css';
 import 'react-virtualized-select/styles.css';
 import M from 'materialize-css';
-import { trasformaInNumero } from '../common/utils';
+import { trasformaInNumero, indirizzoOggetto } from '../common/utils';
 
 export class FatturaForm extends React.Component {
   componentDidMount() {
@@ -19,9 +19,10 @@ export class FatturaForm extends React.Component {
     const { fatture } = this.props.data;
 
     const deal = this.props.deals.find((deal) => deal.id === fatture.dealId);
-    console.log(deal);
     const importoNetto =
-      trasformaInNumero(fatture.importoNetto) || (deal && deal.amount) || '0';
+      trasformaInNumero(fatture.importoNetto) ||
+      (deal && deal.amount / 2) ||
+      '0';
     const mahngebuehren = trasformaInNumero(fatture.mahngebuehren);
     const mahngebuehren2 = trasformaInNumero(fatture.mahngebuehren2);
 
@@ -85,10 +86,7 @@ export class FatturaForm extends React.Component {
       );
       return {
         value: deal.id,
-        label: `${oggetto.rifId} - 
-                        ${oggetto.via} 
-                        ${oggetto.numeroCivico},
-                        WE ${oggetto.numeroAppartamento}`,
+        label: `${oggetto.rifId} - ${indirizzoOggetto(oggetto)}`,
       };
     });
 

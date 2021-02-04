@@ -120,7 +120,10 @@ export const mahnung = (
   doc.text(
     `1. Mahnung\nRechnung Nr. ${numeroFattura}\nRechnungsdatum: ${formattaData(
       dataFattura
-    )} \nRechnungsbetrag: ${formattaPrezzo(importo * parseFloat(`1.${iva}`))}`,
+    )} \nRechnungsbetrag: ${formattaPrezzo(
+      importo * parseFloat(`1.${iva}`),
+      true
+    )}`,
     15,
     96
   );

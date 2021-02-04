@@ -2,7 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import { formattaData, formattaPrezzo } from '../common/utils';
+import {
+  formattaData,
+  formattaPrezzo,
+  indirizzoOggetto,
+} from '../common/utils';
 import ClientiList from '../clienti/ClientiList';
 import { expose } from '../moduli/Expose';
 import ImmoscoutAPI from './ImmoscoutAPI';
@@ -35,7 +39,7 @@ export class ViewOggettiPage extends React.Component {
             .toString()
             .replace(/\./, ',')
         : null;
-      const titolo = `${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta} ${oggetto.quartiere}`;
+      const titolo = `${indirizzoOggetto(oggetto)} ${oggetto.quartiere}`;
 
       // copia dell'oggetto se voglio fare un duplicato da passare a WP
       const oggettoCopy = {

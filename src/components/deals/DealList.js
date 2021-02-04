@@ -4,7 +4,11 @@ import { withTranslation } from 'react-i18next';
 import selectDeals from '../../selectors/deals';
 import Card from '../Card';
 import TodoProgressBar from './TodoProgressBar';
-import { formattaData, formattaPrezzo } from '../common/utils';
+import {
+  formattaData,
+  formattaPrezzo,
+  indirizzoOggetto,
+} from '../common/utils';
 import { folderButton } from '../common/elements';
 
 export const DealList = ({
@@ -101,7 +105,7 @@ export const DealList = ({
                   utente={utente}
                   titolo={
                     oggetto &&
-                    `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
+                    `Rif. Id: ${oggetto.rifId} - ${indirizzoOggetto(oggetto)}`
                   }
                   sottotitolo={
                     utente.role === 'Mitarbeiter' ? (

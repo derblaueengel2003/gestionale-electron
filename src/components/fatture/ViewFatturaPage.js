@@ -9,7 +9,11 @@ import OggettiList from '../oggetti/OggettiList';
 import DealList from '../deals/DealList';
 import ClientiList from '../clienti/ClientiList';
 import Intestazione from '../common/Intestazione';
-import { formattaData, formattaPrezzo } from '../common/utils';
+import {
+  formattaData,
+  formattaPrezzo,
+  indirizzoOggetto,
+} from '../common/utils';
 import { editButton } from '../common/elements';
 
 export class ViewFatturePage extends React.Component {
@@ -54,7 +58,7 @@ export class ViewFatturePage extends React.Component {
           <Intestazione
             intestazione={
               oggetto
-                ? `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}`
+                ? `Rif. Id: ${oggetto.rifId} - ${indirizzoOggetto(oggetto)}`
                 : singleFattura.descrizioneProdotto
             }
           />
@@ -76,7 +80,7 @@ export class ViewFatturePage extends React.Component {
               {singleFattura.note}
               <div className='list-item__title'>
                 {oggetto &&
-                  `Rif. Id: ${oggetto.rifId} - ${oggetto.via} ${oggetto.numeroCivico}, WE ${oggetto.numeroAppartamento}, ${oggetto.cap} ${oggetto.citta}`}
+                  `Rif. Id: ${oggetto.rifId} - ${indirizzoOggetto(oggetto)}`}
               </div>
 
               {cliente && (

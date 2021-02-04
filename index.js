@@ -53,7 +53,12 @@ ipcMain.on('oggetto:fetch', async (event, url) => {
 });
 
 //FOLDER//////
-const mainFolder = `/m2Square - Arboscello & Fornari GbR/m2Square Office - Dokumente/`;
+// cerco la cartella OneDrive che può avere nome diverso in caso di os in italiano
+const cloudPath = fs
+  .readdirSync(`${homedir}/m2Square - Arboscello & Fornari GbR/`)
+  .filter((fn) => fn.startsWith('m2Square Office'))[0];
+
+const mainFolder = `/m2Square - Arboscello & Fornari GbR/${cloudPath}/`;
 const folderPath = (folder) => {
   return path.join(homedir, mainFolder, folder);
 };
