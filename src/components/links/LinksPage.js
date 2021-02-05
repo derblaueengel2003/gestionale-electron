@@ -1,8 +1,10 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import Intestazione from '../common/Intestazione';
+import IntestazioneParagrafo from '../common/IntestazioneParagrafo';
 import { linkButton } from '../common/elements';
 import ExternalLinks from '../evaluation/ExternalLinks';
+import Videotutorial from './Videotutorial';
 
 const LinkPage = ({ t }) => {
   return (
@@ -36,7 +38,6 @@ const LinkPage = ({ t }) => {
           'https://www.ebay-kleinanzeigen.de/m-meine-anzeigen.html',
           'eBay Kleinanzeigen'
         )}
-
         <div className='divider'></div>
         <h5>Google (berlinb2c@googlemail.com)</h5>
         {linkButton('https://contacts.google.com', t('address_book'))}
@@ -51,7 +52,6 @@ const LinkPage = ({ t }) => {
         <div className='divider'></div>
         <h5>Tools</h5>
         {linkButton('https://us4.admin.mailchimp.com', 'Newsletter')}
-
         {linkButton(
           'https://fbinter.stadt-berlin.de/fb/index.jsp',
           'Flurkarte online'
@@ -65,9 +65,13 @@ const LinkPage = ({ t }) => {
         {linkButton(
           'https://www.handelsregister.de/rp_web/welcome.do',
           'Handelsregister online'
-        )}
+        )}{' '}
+        <div className='divider'></div>
         <h5>{t('evaluations')}</h5>
         <ExternalLinks />
+        <div className='divider'></div>
+        <IntestazioneParagrafo intestazione='Videotutorial' />
+        <Videotutorial />
       </div>
       <div className='margine-basso'></div>
     </div>
