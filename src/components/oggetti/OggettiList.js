@@ -27,6 +27,8 @@ export const OggettiList = (props) => {
               .map((oggetto) => {
                 const verkauft = oggetto.venduto ? (
                   <h5 className='red-text'>{props.t('Venduto')}!</h5>
+                ) : oggetto.prenotato ? (
+                  <h5 className='orange-text'>{props.t('reserved')}!</h5>
                 ) : (
                   ''
                 );

@@ -85,7 +85,7 @@ export class OggettoForm extends React.Component {
         ruecklage: oggetti.ruecklage,
         stato: oggetti.stato,
         status: oggetti.status,
-        themeSlider: oggetti.themeSlider,
+        // themeSlider: oggetti.themeSlider,
         tipologia: oggetti.tipologia,
         titolo: oggetti.titolo,
         titoloEn: oggetti.titoloEn,

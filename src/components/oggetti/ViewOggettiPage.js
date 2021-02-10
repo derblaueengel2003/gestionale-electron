@@ -213,6 +213,9 @@ export class ViewOggettiPage extends React.Component {
               </ul>
 
               {oggetto.note && <p>{`Note: ${oggetto.note}`}</p>}
+              {oggetto.prenotato === true && (
+                <h5 className='orange-text'>{t('reserved')}!</h5>
+              )}
               {oggetto.venduto === true && (
                 <h5 className='red-text'>{t('Venduto')}!</h5>
               )}
