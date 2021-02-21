@@ -38,71 +38,43 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
       source.cancel();
     };
   }, []);
+
   const { payload, payloadEn, payloadIt } = creaPayload(oggetto);
 
-  const sendDeRequest = async () => {
-    await startEditOggetto(oggetto.id, {
-      spinner: true,
-    });
+  const sendRequest = async ({ language, payload }) => {
     try {
+      await startEditOggetto(oggetto.id, { spinner: true });
+
       const result = await postProperty(
-        'De',
+        language,
         payload,
-        payload.postIdDe && payload.postIdDe
+        payload[`postId${language}`] && payload[`postId${language}`]
       );
       // passo allo store il post id che mi ritorna, l'array di immagini inviate e spinner false
-      await startEditOggetto(oggetto.id, result);
+      startEditOggetto(oggetto.id, { ...result, spinner: false });
     } catch (error) {
       console.log(error);
-    } finally {
-      startEditOggetto(oggetto.id, { spinner: false });
-    }
-  };
-
-  const sendItRequest = async () => {
-    await startEditOggetto(oggetto.id, {
-      spinner: true,
-    });
-    try {
-      const result = await postProperty(
-        'It',
-        payloadIt,
-        payload.postIdIt && payload.postIdIt
-      );
-      console.log('RESULT: ', result);
-      // passo allo store il post id che mi ritorna, l'array di immagini inviate e spinner false
-      await startEditOggetto(oggetto.id, result);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      startEditOggetto(oggetto.id, { spinner: false });
-    }
-  };
-
-  const sendEnRequest = async () => {
-    await startEditOggetto(oggetto.id, {
-      spinner: true,
-    });
-    try {
-      const result = await postProperty(
-        'En',
-        payloadEn,
-        payload.postIdEn && payload.postIdEn
-      );
-      // passo allo store il post id che mi ritorna, l'array di immagini inviate e spinner false
-      await startEditOggetto(oggetto.id, result);
-    } catch (error) {
-      console.log(error);
-    } finally {
       startEditOggetto(oggetto.id, { spinner: false });
     }
   };
 
   const sendAllRequests = async () => {
     try {
-      await sendDeRequest();
-      await sendEnRequest();
-      await sendItRequest();
+      await sendRequest({
+        language: 'De',
+        payload,
+        isSingle: false,
+      });
+      await sendRequest({
+        language: 'En',
+        payload: payloadEn,
+        isSingle: false,
+      });
+      await sendRequest({
+        language: 'It',
+        payload: payloadIt,
+        isSingle: false,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -127,7 +99,9 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           {oggetto.downloadURLsCover && oggetto.titoloDe && (
             <CollectionItem
               label={`Sync ${t('tedesco')}`}
-              action={sendDeRequest}
+              action={() =>
+                sendRequest({ language: 'De', payload, isSingle: true })
+              }
               icon={oggetto.postIdDe ? 'update' : 'add'}
               btnColor={btnColorDe}
             />
@@ -136,7 +110,13 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           {oggetto.downloadURLsCover && oggetto.titolo && (
             <CollectionItem
               label={`Sync ${t('italiano')}`}
-              action={sendItRequest}
+              action={() =>
+                sendRequest({
+                  language: 'It',
+                  payload: payloadIt,
+                  isSingle: true,
+                })
+              }
               icon={oggetto.postIdIt ? 'update' : 'add'}
               btnColor={btnColorIt}
             />
@@ -144,7 +124,13 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
           {oggetto.downloadURLsCover && oggetto.titoloEn && (
             <CollectionItem
               label={`Sync ${t('inglese')}`}
-              action={sendEnRequest}
+              action={() =>
+                sendRequest({
+                  language: 'En',
+                  payload: payloadEn,
+                  isSingle: true,
+                })
+              }
               icon={oggetto.postIdEn ? 'update' : 'add'}
               btnColor={btnColorEn}
             />
