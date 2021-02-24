@@ -22,28 +22,40 @@ class Map extends Component {
     Geocode.setRegion('de');
     Geocode.enableDebug();
 
-    Geocode.fromAddress(this.state.indirizzo).then(
-      (response) => {
-        const { lat, lng } = response.results[0].geometry.location;
-        this.setState(
-          (prevState) => (
-            (prevState.stores[0].latitude = lat),
-            (prevState.stores[0].longitude = lng)
-          )
-        );
-        // se vengo da view oggetti, passo le coordinata allo store per inviarle a WP
-        if (this.props.oggetto) {
+    if (
+      this.props.oggetto &&
+      this.props.oggetto.latitude &&
+      this.props.oggetto.longitude
+    ) {
+      this.setState(
+        (prevState) => (
+          (prevState.stores[0].latitude = this.props.oggetto.latitude),
+          (prevState.stores[0].longitude = this.props.oggetto.longitude)
+        )
+      );
+    } else {
+      Geocode.fromAddress(this.state.indirizzo).then(
+        (response) => {
+          const { lat, lng } = response.results[0].geometry.location;
+          this.setState(
+            (prevState) => (
+              (prevState.stores[0].latitude = lat),
+              (prevState.stores[0].longitude = lng)
+            )
+          );
+          // se vengo da view oggetti, passo le coordinata allo store per inviarle a WP
+
           this.props.startEditOggetto(this.props.oggetto.id, {
             ...this.props.oggetto,
             latitude: lat,
             longitude: lng,
           });
+        },
+        (error) => {
+          console.error(error);
         }
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+      );
+    }
   }
 
   render() {
