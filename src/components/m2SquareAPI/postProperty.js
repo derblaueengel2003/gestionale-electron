@@ -1,10 +1,13 @@
+import React from 'react';
 import axios from 'axios';
 import { postCustomFields, postTranslation } from './functions';
 import { postImages, translateImages } from './images';
+import Spinner from './Spinner';
 
 export const postProperty = async (language, payload, postId) => {
   // la differenza tra un post e un put viene data dalla presenza o meno
   // dell'argomento postId. Se c'è, si tratta di un update
+  <Spinner loading={true} oggettoId={payload.id} />;
   try {
     const { data } = await axios({
       method: postId ? 'put' : 'post',
@@ -64,6 +67,7 @@ export const postProperty = async (language, payload, postId) => {
     // translate images
     payload.downloadURLsId &&
       (await translateImages(payload.downloadURLsId, language));
+    <Spinner loading={false} oggettoId={payload.id} />;
 
     if (!postId) {
       return {
@@ -79,5 +83,6 @@ export const postProperty = async (language, payload, postId) => {
     }
   } catch (error) {
     console.log(error);
+    <Spinner loading={false} oggettoId={payload.id} />;
   }
 };

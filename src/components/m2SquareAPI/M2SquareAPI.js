@@ -43,7 +43,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
 
   const sendRequest = async ({ language, payload }) => {
     try {
-      await startEditOggetto(oggetto.id, { spinner: true });
+      // await startEditOggetto(oggetto.id, { spinner: true });
 
       const result = await postProperty(
         language,
@@ -51,10 +51,10 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
         payload[`postId${language}`] && payload[`postId${language}`]
       );
       // passo allo store il post id che mi ritorna, l'array di immagini inviate e spinner false
-      startEditOggetto(oggetto.id, { ...result, spinner: false });
+      // startEditOggetto(oggetto.id, { ...result, spinner: false });
     } catch (error) {
       console.log(error);
-      startEditOggetto(oggetto.id, { spinner: false });
+      // startEditOggetto(oggetto.id, { spinner: false });
     }
   };
 
