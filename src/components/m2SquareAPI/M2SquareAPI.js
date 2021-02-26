@@ -170,10 +170,22 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, utente, t }) => {
         </ul>
       )}
       {utente.role === 'Admin' && (
-        <button onClick={deletePostIds}>Delete Post Ids</button>
-      )}
-      {utente.role === 'Admin' && (
-        <button onClick={deleteImmaginiInviate}>Delete Immagini inviate</button>
+        <ul className='collapsible'>
+          <li>
+            <div className='collapsible-header'>
+              <i className='material-icons'>list</i>
+              {t('Altri comandi')}
+            </div>
+            <div className='collapsible-body'>
+              {<button onClick={deletePostIds}>Delete Post Ids</button>}
+              {
+                <button onClick={deleteImmaginiInviate}>
+                  Delete Immagini inviate
+                </button>
+              }
+            </div>
+          </li>
+        </ul>
       )}
       <div className='divider'></div>
     </div>
