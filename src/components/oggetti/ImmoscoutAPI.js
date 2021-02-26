@@ -66,7 +66,7 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
       Die Angaben zu folgende Vertragsgelegenheit haben wir vom Eigentümer erhalten, welche wir gerne an Sie weiterleiten. Eine Haftung für die Richtigkeit dieser Angaben können wir nicht übernehmen. Die Wohnungsgröße wurde von uns ausdrücklich nicht ausgemessen. Der Grundriss stammt vom Verkäufer.
       Wir sind auch für den Verkäufer tätig.`;
     const provisionsHinweis = `Die Provision beträgt ${formattaPrezzo(
-      oggetto.provvigione,
+      oggetto.provvigione / 100,
       false,
       false,
       true
@@ -130,8 +130,8 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
         courtage: {
           hasCourtage: 'YES',
           courtage: `${formattaPrezzo(oggetto.provvigione)}%`,
+          courtageNote: provisionsHinweis,
         },
-        courtageNote: provisionsHinweis,
         serviceCharge: oggetto.wohngeld / 100,
       },
     };

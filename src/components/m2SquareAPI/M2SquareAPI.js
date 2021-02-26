@@ -7,7 +7,7 @@ import CollectionItem from '../common/collectionItem';
 import { creaPayload } from './creaPayload';
 import { postProperty } from './postProperty';
 
-const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
+const M2SquareAPI = ({ oggetto, startEditOggetto, utente, t }) => {
   useEffect(() => {
     // dopo ogni chiamata api dovrei cancellare la sottoscrizione
     const CancelToken = axios.CancelToken;
@@ -40,6 +40,17 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
   }, []);
 
   const { payload, payloadEn, payloadIt } = creaPayload(oggetto);
+
+  const deletePostIds = () => {
+    startEditOggetto(oggetto.id, {
+      postIdDe: null,
+      postIdEn: null,
+      postIdIt: null,
+    });
+  };
+
+  const deleteImmaginiInviate = () =>
+    startEditOggetto(oggetto.id, { immaginiInviate: null });
 
   const sendRequest = async ({ language, payload }) => {
     try {
@@ -96,45 +107,51 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
         </div>
       ) : (
         <ul className='collection'>
-          {oggetto.downloadURLsCover && oggetto.titoloDe && (
-            <CollectionItem
-              label={`Sync ${t('tedesco')}`}
-              action={() =>
-                sendRequest({ language: 'De', payload, isSingle: true })
-              }
-              icon={oggetto.postIdDe ? 'update' : 'add'}
-              btnColor={btnColorDe}
-            />
-          )}
+          {utente.role === 'Admin' &&
+            oggetto.downloadURLsCover &&
+            oggetto.titoloDe && (
+              <CollectionItem
+                label={`Sync ${t('tedesco')}`}
+                action={() =>
+                  sendRequest({ language: 'De', payload, isSingle: true })
+                }
+                icon={oggetto.postIdDe ? 'update' : 'add'}
+                btnColor={btnColorDe}
+              />
+            )}
 
-          {oggetto.downloadURLsCover && oggetto.titolo && (
-            <CollectionItem
-              label={`Sync ${t('italiano')}`}
-              action={() =>
-                sendRequest({
-                  language: 'It',
-                  payload: payloadIt,
-                  isSingle: true,
-                })
-              }
-              icon={oggetto.postIdIt ? 'update' : 'add'}
-              btnColor={btnColorIt}
-            />
-          )}
-          {oggetto.downloadURLsCover && oggetto.titoloEn && (
-            <CollectionItem
-              label={`Sync ${t('inglese')}`}
-              action={() =>
-                sendRequest({
-                  language: 'En',
-                  payload: payloadEn,
-                  isSingle: true,
-                })
-              }
-              icon={oggetto.postIdEn ? 'update' : 'add'}
-              btnColor={btnColorEn}
-            />
-          )}
+          {utente.role === 'Admin' &&
+            oggetto.downloadURLsCover &&
+            oggetto.titolo && (
+              <CollectionItem
+                label={`Sync ${t('italiano')}`}
+                action={() =>
+                  sendRequest({
+                    language: 'It',
+                    payload: payloadIt,
+                    isSingle: true,
+                  })
+                }
+                icon={oggetto.postIdIt ? 'update' : 'add'}
+                btnColor={btnColorIt}
+              />
+            )}
+          {utente.role === 'Admin' &&
+            oggetto.downloadURLsCover &&
+            oggetto.titoloEn && (
+              <CollectionItem
+                label={`Sync ${t('inglese')}`}
+                action={() =>
+                  sendRequest({
+                    language: 'En',
+                    payload: payloadEn,
+                    isSingle: true,
+                  })
+                }
+                icon={oggetto.postIdEn ? 'update' : 'add'}
+                btnColor={btnColorEn}
+              />
+            )}
           {oggetto.downloadURLsCover &&
             oggetto.titolo.length > 1 &&
             oggetto.titoloDe.length > 1 &&
@@ -152,6 +169,12 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, t }) => {
             )}
         </ul>
       )}
+      {utente.role === 'Admin' && (
+        <button onClick={deletePostIds}>Delete Post Ids</button>
+      )}
+      {utente.role === 'Admin' && (
+        <button onClick={deleteImmaginiInviate}>Delete Immagini inviate</button>
+      )}
       <div className='divider'></div>
     </div>
   );
@@ -166,7 +189,15 @@ const mapDispatchToProps = (dispatch) => ({
     ),
 });
 
+const mapStateToProps = (state) => {
+  return {
+    utente: state.utenti.find(
+      (utente) => utente.firebaseAuthId === state.auth.uid
+    ),
+  };
+};
+
 export default connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps
 )(withTranslation()(M2SquareAPI));
