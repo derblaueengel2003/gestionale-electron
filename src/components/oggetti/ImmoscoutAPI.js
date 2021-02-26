@@ -63,14 +63,14 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
   const exportToIS24 = () => {
     const haftungText = `Haftungsausschluss:
       
-      Die Angaben zu folgende Vertragsgelegenheit haben wir vom Eigentümer erhalten, welche wir gerne an Sie weiterleiten. Eine Haftung für die Richtigkeit dieser Angaben können wir nicht übernehmen. Die Wohnungsgröße wurde von uns ausdrücklich nicht ausgemessen. Der Grundriss stammt vom Verkäufer.
-      Wir sind auch für den Verkäufer tätig.`;
+    Die Angaben zu folgende Vertragsgelegenheit haben wir vom Eigentümer erhalten, welche wir gerne an Sie weiterleiten. Eine Haftung für die Richtigkeit dieser Angaben können wir nicht übernehmen. Die Wohnungsgröße wurde von uns ausdrücklich nicht ausgemessen. Der Grundriss stammt vom Verkäufer.
+    Wir sind auch für den Verkäufer tätig.`;
     const provisionsHinweis = `Die Provision beträgt ${formattaPrezzo(
       oggetto.provvigione / 100,
       false,
       false,
       true
-    )} (inkl. MwSt.) vom Kaufpreis und ist vom Käufer bei wirksamem Abschluss des Kaufvertrags zu zahlen. Der Interessent verpflichtet sich, die vereinbarte Provision zu bezahlen, wenn mit ihm oder einem mit ihm verbundenen Haus ein notariell beurkundeter Vertrag zustande kommt.`;
+    )} (inkl. MwSt.) vom Kaufpreis und ist vom Käufer bei wirksamem Abschluss des Kaufvertrags zu zahlen. Der Interessent verpflichtet sich, die vereinbarte Provision zu bezahlen, wenn mit ihm oder einem mit ihm verbundenen Haus ein notariell beurkundeter Vertrag zustande kommt. Der Immobilienmakler hat einen provisionspflichtigen Maklervertrag mit dem Verkäufer in gleicher Höhe abgeschlossen.`;
 
     const body = {
       'realestates.apartmentBuy': {
