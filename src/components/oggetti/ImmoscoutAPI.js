@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import { storeActions } from '../../store/configureStore';
 import uuid from 'uuid';
 import crypto from 'crypto';
-import { formattaPrezzo } from '../common/utils';
+import { formattaPrezzo, ripulisciTesto } from '../common/utils';
 import CollectionItem from '../common/collectionItem';
 // ELECTRON
 import { ipcRenderer } from 'electron';
@@ -62,9 +62,8 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
 
   const exportToIS24 = () => {
     const haftungText = `Haftungsausschluss:
-      
-    Die Angaben zu folgende Vertragsgelegenheit haben wir vom Eigentümer erhalten, welche wir gerne an Sie weiterleiten. Eine Haftung für die Richtigkeit dieser Angaben können wir nicht übernehmen. Die Wohnungsgröße wurde von uns ausdrücklich nicht ausgemessen. Der Grundriss stammt vom Verkäufer.
-    Wir sind auch für den Verkäufer tätig.`;
+  Die Angaben zu folgende Vertragsgelegenheit haben wir vom Eigentümer erhalten, welche wir gerne an Sie weiterleiten. Eine Haftung für die Richtigkeit dieser Angaben können wir nicht übernehmen. Die Wohnungsgröße wurde von uns ausdrücklich nicht ausgemessen. Der Grundriss stammt vom Verkäufer.
+  Wir sind auch für den Verkäufer tätig.`;
     const provisionsHinweis = `Die Provision beträgt ${formattaPrezzo(
       oggetto.provvigione / 100,
       false,
@@ -82,7 +81,11 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
           postcode: oggetto.cap,
           city: oggetto.citta,
         },
-        descriptionNote: oggetto.descrizioneDe,
+        //passo il testo togliendo provisionshinweis e haftungsausschluss perchè vengono già inseriti a parte
+        descriptionNote: ripulisciTesto(
+          oggetto.descrizioneDe,
+          'Provisionshinweis:'
+        ),
         otherNote: haftungText,
         showAddress: 'true',
         contact: {},
@@ -101,8 +104,8 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
             : 'NOT_REQUIRED',
           energyCertificateCreationDate: 'FROM_01_MAY_2014',
         },
-        heatingType: oggetto.heizungsart,
-        heatingTypeEnev2014: oggetto.heizungsart,
+        // heatingType: oggetto.heizungsart,
+        // heatingTypeEnev2014: oggetto.heizungsart,
         energySourcesEnev2014: {
           energySourceEnev2014: 'NO_INFORMATION',
         },
@@ -138,16 +141,22 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
 
     // Affitto
     if (oggetto.affittoNetto > 0) {
-      body.rentalIncome = oggetto.affittoNetto / 100;
+      body['realestates.apartmentBuy'].rentalIncome =
+        oggetto.affittoNetto / 100;
     }
 
     // Energieausweis
     switch (oggetto.heizungsart) {
       case 'heating_central':
-        body.HeatingTypeEnev2014 = 'CENTRAL_HEATING';
+        body['realestates.apartmentBuy'].heatingTypeEnev2014 =
+          'CENTRAL_HEATING';
+        body['realestates.apartmentBuy'].heatingType = 'CENTRAL_HEATING';
         break;
       case 'heating_floor':
-        body.HeatingTypeEnev2014 = 'SELF_CONTAINED_CENTRAL_HEATING';
+        body['realestates.apartmentBuy'].heatingTypeEnev2014 =
+          'SELF_CONTAINED_CENTRAL_HEATING';
+        body['realestates.apartmentBuy'].heatingType =
+          'SELF_CONTAINED_CENTRAL_HEATING';
         break;
     }
 
@@ -176,25 +185,26 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
     //Condition
     switch (oggetto.condizioni) {
       case 'new':
-        body.condition = 'MINT_CONDITION';
+        body['realestates.apartmentBuy'].condition = 'MINT_CONDITION';
         break;
       case 'refurbished':
-        body.condition = 'REFURBISHED';
+        body['realestates.apartmentBuy'].condition = 'REFURBISHED';
         break;
       case 'fully_renovated':
-        body.condition = 'FULLY_RENOVATED';
+        body['realestates.apartmentBuy'].condition = 'FULLY_RENOVATED';
         break;
       case 'modernized':
-        body.condition = 'MODERNIZED';
+        body['realestates.apartmentBuy'].condition = 'MODERNIZED';
         break;
       case 'good':
-        body.condition = 'WELL_KEPT';
+        body['realestates.apartmentBuy'].condition = 'WELL_KEPT';
         break;
       case 'to_renovate':
-        body.condition = 'NEED_OF_RENOVATION';
+        body['realestates.apartmentBuy'].condition = 'NEED_OF_RENOVATION';
         break;
     }
 
+    console.log('BODY ', body);
     // se c'è già un is24id allora parte l'update con put
     const base_url = oggetto.is24id
       ? `https://rest.immobilienscout24.de/restapi/api/offer/v1.0/user/me/realestate/${oggetto.is24id}`

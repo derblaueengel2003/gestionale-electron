@@ -94,3 +94,11 @@ export const contattiFirma = (firma) =>
   `${firma.name} ${firma.name2 && ` - ${firma.name2}`}\n${firma.adresse}, ${
     firma.plz
   } ${firma.stadt}`;
+
+export const ripulisciTesto = (text, textToCut) => {
+  const textToCutIndex = text.indexOf(textToCut);
+
+  if (textToCutIndex === -1) return text;
+
+  return text.substring(0, textToCutIndex);
+};
