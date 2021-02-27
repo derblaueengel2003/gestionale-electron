@@ -17,7 +17,8 @@ export const DealsSummary = ({ dealCount, dealsTotal, dealsPayed }) => {
 
         return (
           <div className='container'>
-            <span>{dealCount}</span> {t('Vendite')} - {t('Totale')}:{' '}
+            <span>{dealCount}</span>{' '}
+            {t(dealCount === 1 ? 'Vendita' : 'Vendite')} - {t('Totale')}:{' '}
             <span>{formattedDealsTotal}</span> - {t('Incassate')}:{' '}
             <span>{formattedDealsPayed}</span> - {t('Aperte')}:{' '}
             <span>{dealsPending}</span>
