@@ -23,5 +23,28 @@
     <div id="app"></div>
     <script src="./dist/bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+     <script type = "text/javascript">
+         const {remote} = require('electron')
+         const {Menu, MenuItem} = remote
+
+         const menu = new Menu()
+
+         // Build menu one item at a time, unlike
+         menu.append(new MenuItem({label: 'Annulla', type: 'checkbox', role: 'undo'}))
+         menu.append(new MenuItem({label: 'Ripristina', type: 'checkbox', role: 'redo'}))
+         menu.append(new MenuItem({label: 'Seleziona Tutto', type: 'checkbox', role: 'selectAll'}))
+        
+         menu.append(new MenuItem({ type: 'separator' }))
+
+         menu.append(new MenuItem({label: 'Copia', type: 'checkbox', role: 'copy'}))
+         menu.append(new MenuItem({label: 'Incolla', type: 'checkbox', role: 'paste'}))
+         menu.append(new MenuItem({label: 'Taglia', type: 'checkbox', role: 'cut'}))
+
+         // Prevent default action of right click in chromium. Replace with our menu.
+         window.addEventListener('contextmenu', (e) => {
+            e.preventDefault()
+            menu.popup(remote.getCurrentWindow())
+         }, false)
+      </script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 const electron = require('electron');
-const { app, BrowserWindow, ipcMain, shell } = electron;
+const { app, BrowserWindow, ipcMain, shell, Menu } = electron;
 const {
   default: installExtension,
   REDUX_DEVTOOLS,
@@ -9,10 +9,46 @@ const axios = require('axios');
 const path = require('path');
 const homedir = require('os').homedir();
 const fs = require('fs');
-const FormData = require('form-data');
-const crypto = require('crypto');
+// const FormData = require('form-data');
+// const crypto = require('crypto');
 
 let mainWindow;
+
+// Contextual Menu
+const template = [
+  {
+    label: 'Edit',
+    submenu: [
+      {
+        role: 'undo',
+      },
+      {
+        role: 'redo',
+      },
+      {
+        type: 'separator',
+      },
+      {
+        role: 'cut',
+      },
+      {
+        role: 'copy',
+      },
+      {
+        role: 'paste',
+      },
+      {
+        type: 'separator',
+      },
+      {
+        role: 'toggleDevTools',
+      },
+    ],
+  },
+];
+
+const menu = Menu.buildFromTemplate(template);
+Menu.setApplicationMenu(menu);
 
 app.whenReady().then(() => {
   installExtension(REDUX_DEVTOOLS)
@@ -32,24 +68,6 @@ app.on('ready', () => {
 
   // carico la pagina
   mainWindow.loadURL(`file://${__dirname}/public/index.html`);
-});
-
-ipcMain.on('window:reload', (event) => {
-  mainWindow.loadURL(`file://${__dirname}/public/index.html`);
-});
-
-ipcMain.on('oggetto:fetch', async (event, url) => {
-  mainWindow.webContents.send('oggetto:spinner', true);
-
-  try {
-    const { data: oggetto } = await axios.get(
-      `https://www.m2square.eu/wp-json/wl/v1/properties/${url}`
-    );
-    mainWindow.webContents.send('oggetto:response', oggetto);
-    mainWindow.webContents.send('oggetto:spinner', false);
-  } catch (error) {
-    mainWindow.webContents.send('oggetto:error', error);
-  }
 });
 
 //FOLDER//////
@@ -78,15 +96,7 @@ ipcMain.on('folder:open', (event, { folder, folderNamePartial }) => {
   shell.openItem(finalPath(folder, folderNamePartial));
 });
 
-// ipcMain.on('folder:create', (event, { folder, folderNamePartial }) => {
-//   if (!fs.existsSync(finalPath(folder, folderNamePartial))) {
-//     fs.mkdirSync(finalPath(folder, folderNamePartial));
-//   }
-//   console.log(finalPath(folder, folderNamePartial));
-//   shell.openItem(finalPath(folder, folderNamePartial));
-// });
-
-/////////////
+//////LINK OPENER///////
 
 ipcMain.on('link:open', (event, link) => {
   shell.openExternal(link);
@@ -104,86 +114,113 @@ ipcMain.on('is24:send', async (event, options) => {
 });
 
 /////////////// IS 24 IMAGES // IN PROGRESS
-ipcMain.on('is24img:upload', async (event, options) => {
-  console.log('Options: ', options);
-  // scarico l'immagine da wordpress e la salvo su disco nella cartella public dell'applicazione
-  try {
-    const { data } = await axios({
-      url: options.url,
-      responseType: 'stream',
-    });
+// ipcMain.on('is24img:upload', async (event, options) => {
+//   console.log('Options: ', options);
+//   // scarico l'immagine da wordpress e la salvo su disco nella cartella public dell'applicazione
+//   try {
+//     const { data } = await axios({
+//       url: options.url,
+//       responseType: 'stream',
+//     });
 
-    // console.log('response: ', data);
-    data.pipe(
-      fs.createWriteStream(`${__dirname}/public/${options.imagePath}.jpeg`)
-    );
+//     // console.log('response: ', data);
+//     data.pipe(
+//       fs.createWriteStream(`${__dirname}/public/${options.imagePath}.jpeg`)
+//     );
 
-    const readStream = fs.createReadStream(
-      `${__dirname}/public/${options.imagePath}.jpeg`
-    );
+//     const readStream = fs.createReadStream(
+//       `${__dirname}/public/${options.imagePath}.jpeg`
+//     );
 
-    //Checksum
-    function generateChecksum(str, algorithm, encoding) {
-      return crypto
-        .createHash(algorithm || 'md5')
-        .update(str, 'utf8')
-        .digest(encoding || 'hex');
-    }
+//     //Checksum
+//     function generateChecksum(str, algorithm, encoding) {
+//       return crypto
+//         .createHash(algorithm || 'md5')
+//         .update(str, 'utf8')
+//         .digest(encoding || 'hex');
+//     }
 
-    const imageFile = new FormData();
-    imageFile.append('attachment', readStream);
+//     const imageFile = new FormData();
+//     imageFile.append('attachment', readStream);
 
-    const externalCheckSum = () => {
-      let checksum = '';
-      fs.readFile(
-        `${__dirname}/public/${options.imagePath}.jpeg`,
-        function (err, data) {
-          checksum = generateChecksum(data);
-        }
-      );
-      return checksum;
-    };
-    console.log('checksum: ', externalCheckSum());
+//     const externalCheckSum = () => {
+//       let checksum = '';
+//       fs.readFile(
+//         `${__dirname}/public/${options.imagePath}.jpeg`,
+//         function (err, data) {
+//           checksum = generateChecksum(data);
+//         }
+//       );
+//       return checksum;
+//     };
+//     console.log('checksum: ', externalCheckSum());
 
-    const json = {
-      'common.attachment': {
-        '@xmlns': {
-          common: 'http://rest.immobilienscout24.de/schema/common/1.0',
-        },
-        '@xsi.type': 'common:Picture',
-        title: 'test',
-        externalId: `${options.imagePath}`,
-        externalCheckSum: 'mychecksum',
-        floorplan: 'false',
-        titlePicture: 'false',
-      },
-    };
-    let jsonStream = fs.createWriteStream('./body.json');
+//     const json = {
+//       'common.attachment': {
+//         '@xmlns': {
+//           common: 'http://rest.immobilienscout24.de/schema/common/1.0',
+//         },
+//         '@xsi.type': 'common:Picture',
+//         title: 'test',
+//         externalId: `${options.imagePath}`,
+//         externalCheckSum: 'mychecksum',
+//         floorplan: 'false',
+//         titlePicture: 'false',
+//       },
+//     };
+//     let jsonStream = fs.createWriteStream('./body.json');
 
-    jsonStream.write(JSON.stringify(json));
+//     jsonStream.write(JSON.stringify(json));
 
-    imageFile.append(
-      'metadata',
-      fs.createReadStream('./body.json', { encoding: 'UTF8' })
-    );
+//     imageFile.append(
+//       'metadata',
+//       fs.createReadStream('./body.json', { encoding: 'UTF8' })
+//     );
 
-    const config = {
-      method: 'post',
-      url: options.base_url,
-      data: imageFile,
-      headers: {
-        // 'Content-Type': `multipart/form-data`,
-        // 'Content-Transfer-Encoding': 'binary',
-        Authorization: options.oAuth,
-      },
-    };
-    console.log('Config: ', config);
+//     const config = {
+//       method: 'post',
+//       url: options.base_url,
+//       data: imageFile,
+//       headers: {
+//         // 'Content-Type': `multipart/form-data`,
+//         // 'Content-Transfer-Encoding': 'binary',
+//         Authorization: options.oAuth,
+//       },
+//     };
+//     console.log('Config: ', config);
 
-    // send the picture to is24
-    const imgResponse = await axios(config);
-    mainWindow.webContents.send('is24img:response', imgResponse);
-  } catch (error) {
-    mainWindow.webContents.send('is24img:error', error);
-    console.log('Response error: ', error);
-  }
-});
+//     // send the picture to is24
+//     const imgResponse = await axios(config);
+//     mainWindow.webContents.send('is24img:response', imgResponse);
+//   } catch (error) {
+//     mainWindow.webContents.send('is24img:error', error);
+//     console.log('Response error: ', error);
+//   }
+// });
+
+/// Folder Create
+// ipcMain.on('folder:create', (event, { folder, folderNamePartial }) => {
+//   if (!fs.existsSync(finalPath(folder, folderNamePartial))) {
+//     fs.mkdirSync(finalPath(folder, folderNamePartial));
+//   }
+//   console.log(finalPath(folder, folderNamePartial));
+//   shell.openItem(finalPath(folder, folderNamePartial));
+// });
+
+// ipcMain.on('window:reload', (event) => {
+//   mainWindow.loadURL(`file://${__dirname}/public/index.html`);
+// });
+
+// ipcMain.on('oggetto:fetch', async (event, url) => {
+//   mainWindow.webContents.send('oggetto:spinner', true);
+
+//   try {
+//     const { data: oggetto } = await axios.get(
+//       `https://www.m2square.eu/wp-json/wl/v1/properties/${url}`
+//     );
+//     mainWindow.webContents.send('oggetto:response', oggetto);
+//     mainWindow.webContents.send('oggetto:spinner', false);
+//   } catch (error) {
+//     mainWindow.webContents.send('oggetto:error', error);
+//   }
+// });
