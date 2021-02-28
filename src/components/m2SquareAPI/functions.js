@@ -15,20 +15,18 @@ export const postCustomFields = async (payload, postId) => {
 };
 
 export const postTranslation = async (postIdDe, postId, language) => {
-  if (language !== 'De') {
-    await axios.post(
-      `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/translation/`,
-      {
-        original: parseInt(postIdDe, 10),
-        translation: postId,
-        language: language.toLowerCase(),
+  await axios.post(
+    `${process.env.REACT_APP_WPAPI}/wp-json/wl/v1/translation/`,
+    {
+      original: parseInt(postIdDe, 10),
+      translation: postId,
+      language: language.toLowerCase(),
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      }
-    );
-  }
+    }
+  );
 };

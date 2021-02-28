@@ -28,8 +28,6 @@ export const postProperty = async (language, payload, postId) => {
 
     // sto creando il post
     if (!postId) {
-      localStorage.setItem(`postId${language}`, data.id);
-
       //i link che ricevo non contengono la sigla per la lingua. La devo inserire io
       if (language !== 'De') {
         const searchTerm = '/immobili';
@@ -53,14 +51,10 @@ export const postProperty = async (language, payload, postId) => {
     );
     console.log(`Immagini inviate: `, immaginiInviate);
 
-    !postId &&
-      (await postTranslation(
-        localStorage.getItem('postIdDe'),
-        data.id,
-        language
-      ));
-    // localStorage.removeItem('postIdDe');
-
+    // faccio partire la traduzione solo se c'è già la versione tedesca
+    if (payload.postIdDe && language !== 'De') {
+      await postTranslation(payload.postIdDe, data.id, language);
+    }
     // translate images
     payload.downloadURLsId &&
       (await translateImages(payload.downloadURLsId, language));

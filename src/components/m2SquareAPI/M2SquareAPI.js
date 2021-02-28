@@ -63,6 +63,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, utente, t }) => {
       );
       // passo allo store il post id che mi ritorna, l'array di immagini inviate e spinner false
       startEditOggetto(oggetto.id, { ...result, spinner: false });
+      return result;
     } catch (error) {
       console.log(error);
       startEditOggetto(oggetto.id, { spinner: false });
@@ -71,20 +72,21 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, utente, t }) => {
 
   const sendAllRequests = async () => {
     try {
-      await sendRequest({
+      const { postIdDe } = await sendRequest({
         language: 'De',
         payload,
-        isSingle: false,
       });
+      // passo il postIdDe ai payload di en e it per capire se devo fare translation
+      payloadEn.postIdDe = postIdDe;
       await sendRequest({
         language: 'En',
         payload: payloadEn,
-        isSingle: false,
       });
+
+      payloadIt.postIdDe = postIdDe;
       await sendRequest({
         language: 'It',
         payload: payloadIt,
-        isSingle: false,
       });
     } catch (error) {
       console.log(error);
@@ -112,9 +114,7 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, utente, t }) => {
             oggetto.titoloDe && (
               <CollectionItem
                 label={`Sync ${t('tedesco')}`}
-                action={() =>
-                  sendRequest({ language: 'De', payload, isSingle: true })
-                }
+                action={() => sendRequest({ language: 'De', payload })}
                 icon={oggetto.postIdDe ? 'update' : 'add'}
                 btnColor={btnColorDe}
               />
@@ -129,7 +129,6 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, utente, t }) => {
                   sendRequest({
                     language: 'It',
                     payload: payloadIt,
-                    isSingle: true,
                   })
                 }
                 icon={oggetto.postIdIt ? 'update' : 'add'}
@@ -145,7 +144,6 @@ const M2SquareAPI = ({ oggetto, startEditOggetto, utente, t }) => {
                   sendRequest({
                     language: 'En',
                     payload: payloadEn,
-                    isSingle: true,
                   })
                 }
                 icon={oggetto.postIdEn ? 'update' : 'add'}
