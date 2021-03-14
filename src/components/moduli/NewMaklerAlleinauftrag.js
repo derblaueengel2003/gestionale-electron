@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './img/ImageLogo';
+import { ivdLogo } from './img/IvdLogo';
 import { imgData, imgData2 } from './img/maklerAlleinAuftragBG';
 import { formattaData, formattaPrezzo } from '../common/utils';
 import {
@@ -30,6 +31,9 @@ export const maklerAlleinauftrag = (
   const vendNome2 = nomeCompleto(venditore2);
   doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
   doc.addImage(imgLogo, 'JPEG', 20, 10, 35, 8);
+  //nascondo il logo ivd con un quadrato bianco
+  doc.addImage(ivdLogo, 'JPEG', 175, 5, 30, 12, undefined, 'SLOW');
+
   doc.setFontSize(12);
 
   if (!venditore2) {

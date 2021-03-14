@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './img/ImageLogo';
-import { ivdLogo } from './img/IvdLogo';
+// import { ivdLogo } from './img/IvdLogo';
 import { indirizzoOggetto } from '../common/utils';
 
 export const protocollo = (
@@ -195,7 +195,7 @@ export const protocollo = (
   doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
 
   //Logo IVD
-  doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);
+  // doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);
 
   doc.save(`Übergabeprotokoll ${indirizzoOggetto(oggetto)}.pdf`);
 };

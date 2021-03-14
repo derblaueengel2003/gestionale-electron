@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './img/ImageLogo';
+import { ivdLogo } from './img/IvdLogo';
 import { imgData, imgData2 } from './img/widerrufsBelehrungBG';
 import {
   nomeCompleto,
@@ -24,6 +25,9 @@ export const widerrufsBelehrung = (
 
   doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
   doc.addImage(imgLogo, 'JPEG', 20, 10, 35, 8);
+
+  //nascondo il logo ivd con un quadrato bianco
+  doc.addImage(ivdLogo, 'JPEG', 180, 10, 30, 20, undefined, 'SLOW');
 
   if (
     nomeCompletoAcquirente.length > 100 ||

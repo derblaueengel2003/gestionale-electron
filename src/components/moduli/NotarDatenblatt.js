@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './img/ImageLogo';
-import { ivdLogo } from './img/IvdLogo';
+// import { ivdLogo } from './img/IvdLogo';
 import { formattaPrezzo, formattaData } from '../common/utils';
 import { nomeCompleto, indirizzoCompleto } from '../common/utils';
 
@@ -70,7 +70,7 @@ export const notarDatenblatt = (
     doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
 
     //Logo IVD
-    doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12, undefined, 'SLOW');
+    // doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12, undefined, 'SLOW');
   };
 
   const datiVerwalter = () => {

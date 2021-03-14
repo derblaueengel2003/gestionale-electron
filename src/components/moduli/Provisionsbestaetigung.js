@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './img/ImageLogo';
-import { ivdLogo } from './img/IvdLogo';
+// import { ivdLogo } from './img/IvdLogo';
 import { imgData } from './img/provisionsbestaetigungBG';
 import {
   formattaPrezzo,
@@ -35,7 +35,7 @@ export const creaPrenotazione = (
   doc.addImage(imgData, 'JPEG', 0, 0, 210, 297);
   doc.addImage(imgLogo, 'JPEG', 28, 11, 35, 8);
   //Logo IVD
-  doc.addImage(ivdLogo, 'JPEG', 165, 10, 30, 12, undefined, 'SLOW');
+  // doc.addImage(ivdLogo, 'JPEG', 165, 10, 30, 12, undefined, 'SLOW');
 
   //cancello frase che dice che gli abbiamo mandato exposé oggi. Metto una riga bianca sopra
 

@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import { imgLogo } from './img/ImageLogo';
-import { ivdLogo } from './img/IvdLogo';
+// import { ivdLogo } from './img/IvdLogo';
 import { formattaData, formattaPrezzo } from '../common/utils';
 
 export const fattura = (
@@ -277,7 +277,7 @@ Notartermin: ${formattaData(dataRogito)}`;
   doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
 
   //Logo IVD
-  doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);
+  // doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);
 
   doc.save(
     `Rechnung ${numeroFattura.replace('/', '-')} ${cliente.cognome}.pdf`
