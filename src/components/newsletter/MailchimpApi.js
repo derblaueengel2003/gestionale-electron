@@ -36,7 +36,7 @@ class MailchimpAPI extends React.Component {
       settings.from_name = 'm2Square - Immobilienmakler in Berlin';
       settings.btn_text = 'Details';
       settings.homepage = 'https://www.m2square.eu/';
-      settings.ivdText = `Das IVD-Logo ist ein Gütesiegel für Kompetenz und Professionalität`;
+      settings.ivdText = ''; //`Das IVD-Logo ist ein Gütesiegel für Kompetenz und Professionalität`;
       settings.footerText = `<em>Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, alle Rechte vorbehalten.</em><br>
 *|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*<br>
 <br>
@@ -68,8 +68,8 @@ Sie können&nbsp;<a href="*|UPDATE_PROFILE|*">die Einstellungen ändern</a>&nbsp
       settings.title = `Neswletter of ${moment().format('DD MMMM, YYYY')}`;
       settings.from_name = 'm2Square - Berlin Real Estate';
       settings.btn_text = 'Details';
-      settings.homepage = 'https://www.m2square.eu/en/';
-      settings.ivdText = `The IVD logo is a seal of quality for competence and professionalism.<br /><br />m2Square is a member of the IVD, the most important German real estate association, and is committed to its guidelines.`;
+      settings.homepage = 'https://www.m2square.eu/en';
+      settings.ivdText = ''; //`The IVD logo is a seal of quality for competence and professionalism.<br /><br />m2Square is a member of the IVD, the most important German real estate association, and is committed to its guidelines.`;
       settings.footerText = `<em>Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, all rights reserved.</em><br>
 *|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*<br>
 <br>
@@ -102,8 +102,8 @@ You can&nbsp;<a href="*|UPDATE_PROFILE|*">edit your settings</a>&nbsp;or&nbsp;<a
       settings.title = `Neswletter del ${moment().format('DD MMMM, YYYY')}`;
       settings.from_name = 'm2Square - Occasioni immobiliari';
       settings.btn_text = 'Dettagli';
-      settings.homepage = 'https://www.m2square.eu/it/';
-      settings.ivdText = `Il logo IVD è un marchio di qualità per competenza e professionalità.<br><br>m2Square è membro della IVD, la più importante associazione immobiliare tedesca, e si impegna nel rispetto delle sue linee guida.`;
+      settings.homepage = 'https://www.m2square.eu/it';
+      settings.ivdText = ''; //`Il logo IVD è un marchio di qualità per competenza e professionalità.<br><br>m2Square è membro della IVD, la più importante associazione immobiliare tedesca, e si impegna nel rispetto delle sue linee guida.`;
       settings.footerText = `<em>Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, Tutti i diritti riservati.</em><br>
 *|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*<br>
 <br>
@@ -1424,111 +1424,30 @@ Tel. +49 30 54482958 - WhatsApp: <a href="https://wa.me/message/XBJ5OH4JPQC4F1" 
             <td class="mcnCaptionBlockInner" valign="top" style="padding:9px;">
                 
 
-<table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionBottomContent" width="282">
-    <tbody><tr>
-        <td class="mcnCaptionBottomImageContent" align="center" valign="top" style="padding:0 9px 9px 9px;">
-        
-            
-            <a href="mailto:angelo.arboscello@m2square.eu" title="" class="" target="_blank">
-            
-
-            <img alt="" src="https://gallery.mailchimp.com/ed6049ff183a2d35eb41f16c2/images/b7e248af-0391-457f-82ee-545562e73f52.jpg" width="264" style="max-width:1600px;" class="mcnImage">
-            </a>
-        
-        </td>
-    </tr>
-    <tr>
-        <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;" width="282">
-            <div style="text-align: center;">Angelo Arboscello</div>
-
-        </td>
-    </tr>
-</tbody></table>
-
-<table align="right" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionBottomContent" width="282">
-    <tbody><tr>
-        <td class="mcnCaptionBottomImageContent" align="center" valign="top" style="padding:0 9px 9px 9px;">
-        
-            
-            <a href="mailto:annalisa.fornari@m2square.eu" title="" class="" target="_blank">
-            
-
-            <img alt="" src="https://gallery.mailchimp.com/ed6049ff183a2d35eb41f16c2/images/6a36c2b8-8742-43d1-99da-21c1f3e910cd.jpg" width="264" style="max-width:1600px;" class="mcnImage">
-            </a>
-        
-        </td>
-    </tr>
-    <tr>
-        <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;" width="282">
-            <div style="text-align: center;">Annalisa Fornari</div>
-
-        </td>
-    </tr>
-</tbody></table>
-
-
-
-
-
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock" style="min-width:100%;">
-    <tbody class="mcnTextBlockOuter">
-        <tr>
-            <td valign="top" class="mcnTextBlockInner" style="padding-top:9px;">
-              	<!--[if mso]>
-				<table align="left" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%;">
-				<tr>
-				<![endif]-->
-			    
-				<!--[if mso]>
-				<td valign="top" width="600" style="width:600px;">
-				<![endif]-->
-                <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
-                    <tbody><tr>
-                        
-                        <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
-                        
-                   ${settings.ivdText}
-                        </td>
-                    </tr>
-                </tbody></table>
-				<!--[if mso]>
-				</td>
-				<![endif]-->
-                
-				<!--[if mso]>
-				</tr>
-				</table>
-				<![endif]-->
-            </td>
-        </tr>
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageGroupBlock">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnImageGroupBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
     <tbody class="mcnImageGroupBlockOuter">
         
             <tr>
-                <td valign="top" style="padding:9px" class="mcnImageGroupBlockInner">
+                <td valign="top" style="padding: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" class="mcnImageGroupBlockInner">
                     
-                    <table align="left" width="273" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+                    <table align="left" width="273" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                             <tbody><tr>
-                                <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px; padding-top: 0; padding-bottom: 0;">
+                                <td class="mcnImageGroupContent" valign="top" style="padding-left: 9px;padding-top: 0;padding-bottom: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                 
-                                    
-                                        <img alt="" src="https://gallery.mailchimp.com/ed6049ff183a2d35eb41f16c2/images/44be4f51-4011-4891-881e-bfb0cd1b17d4.jpg" width="264" style="max-width:2821px; padding-bottom: 0;" class="mcnImage">
-                                    
+                                    <a href="mailto:annalisa.fornari@m2square.eu" title="" class="" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                        <img alt="" src="https://mcusercontent.com/ed6049ff183a2d35eb41f16c2/images/a716c862-d02a-4e55-8c81-395f01d3779f.jpg" width="264" style="max-width: 1200px;padding-bottom: 0;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
+                                    </a>
                                 
                                 </td>
                             </tr>
                         </tbody></table>
                     
-                    <table align="right" width="273" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer">
+                    <table align="right" width="273" border="0" cellpadding="0" cellspacing="0" class="mcnImageGroupContentContainer" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                             <tbody><tr>
-                                <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px; padding-top: 0; padding-bottom: 0;">
+                                <td class="mcnImageGroupContent" valign="top" style="padding-right: 9px;padding-top: 0;padding-bottom: 0;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
                                 
                                     
-                                        <img alt="" src="https://gallery.mailchimp.com/ed6049ff183a2d35eb41f16c2/images/a6bfb36e-7b1c-421f-9016-459e0f052a29.jpg" width="264" style="max-width:2821px; padding-bottom: 0;" class="mcnImage">
+                                        <img alt="" src="https://gallery.mailchimp.com/ed6049ff183a2d35eb41f16c2/images/a6bfb36e-7b1c-421f-9016-459e0f052a29.jpg" width="264" style="max-width: 2821px;padding-bottom: 0;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;vertical-align: bottom;" class="mcnImage">
                                     
                                 
                                 </td>
@@ -1538,139 +1457,6 @@ Tel. +49 30 54482958 - WhatsApp: <a href="https://wa.me/message/XBJ5OH4JPQC4F1" 
                 </td>
             </tr>
         
-    </tbody>
-</table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowBlock" style="min-width:100%;">
-    <tbody class="mcnFollowBlockOuter">
-        <tr>
-            <td align="center" valign="top" style="padding:9px" class="mcnFollowBlockInner">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentContainer" style="min-width:100%;">
-    <tbody><tr>
-        <td align="center" style="padding-left:9px;padding-right:9px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width:100%;" class="mcnFollowContent">
-                <tbody><tr>
-                    <td align="center" valign="top" style="padding-top:9px; padding-right:9px; padding-left:9px;">
-                        <table align="center" border="0" cellpadding="0" cellspacing="0">
-                            <tbody><tr>
-                                <td align="center" valign="top">
-                                    <!--[if mso]>
-                                    <table align="center" border="0" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                    <![endif]-->
-                                    
-                                        <!--[if mso]>
-                                        <td align="center" valign="top">
-                                        <![endif]-->
-                                        
-                                        
-                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
-                                                <tbody><tr>
-                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
-                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
-                                                            <tbody><tr>
-                                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
-                                                                        <tbody><tr>
-                                                                            
-                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-                                                                                    <a href="https://twitter.com/m2SquareBerlin" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" alt="Twitter" style="display:block;" height="24" width="24" class=""></a>
-                                                                                </td>
-                                                                            
-                                                                            
-                                                                        </tr>
-                                                                    </tbody></table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                            </tbody></table>
-                                        
-                                        <!--[if mso]>
-                                        </td>
-                                        <![endif]-->
-                                    
-                                        <!--[if mso]>
-                                        <td align="center" valign="top">
-                                        <![endif]-->
-                                        
-                                        
-                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
-                                                <tbody><tr>
-                                                    <td valign="top" style="padding-right:10px; padding-bottom:9px;" class="mcnFollowContentItemContainer">
-                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
-                                                            <tbody><tr>
-                                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
-                                                                        <tbody><tr>
-                                                                            
-                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-                                                                                    <a href="https://www.facebook.com/m2square" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" alt="Facebook" style="display:block;" height="24" width="24" class=""></a>
-                                                                                </td>
-                                                                            
-                                                                            
-                                                                        </tr>
-                                                                    </tbody></table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                            </tbody></table>
-                                        
-                                        <!--[if mso]>
-                                        </td>
-                                        <![endif]-->
-                                    
-                                        <!--[if mso]>
-                                        <td align="center" valign="top">
-                                        <![endif]-->
-                                        
-                                        
-                                            <table align="left" border="0" cellpadding="0" cellspacing="0" style="display:inline;">
-                                                <tbody><tr>
-                                                    <td valign="top" style="padding-right:0; padding-bottom:9px;" class="mcnFollowContentItemContainer">
-                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnFollowContentItem">
-                                                            <tbody><tr>
-                                                                <td align="left" valign="middle" style="padding-top:5px; padding-right:10px; padding-bottom:5px; padding-left:9px;">
-                                                                    <table align="left" border="0" cellpadding="0" cellspacing="0" width="">
-                                                                        <tbody><tr>
-                                                                            
-                                                                                <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-                                                                                    <a href="${
-                                                                                      settings.homepage
-                                                                                    }" target="_blank"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" alt="Sito m2Square" style="display:block;" height="24" width="24" class=""></a>
-                                                                                </td>
-                                                                            
-                                                                            
-                                                                        </tr>
-                                                                    </tbody></table>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody></table>
-                                                    </td>
-                                                </tr>
-                                            </tbody></table>
-                                        
-                                        <!--[if mso]>
-                                        </td>
-                                        <![endif]-->
-                                    
-                                    <!--[if mso]>
-                                    </tr>
-                                    </table>
-                                    <![endif]-->
-                                </td>
-                            </tr>
-                        </tbody></table>
-                    </td>
-                </tr>
-            </tbody></table>
-        </td>
-    </tr>
-</tbody></table>
-
-            </td>
-        </tr>
     </tbody>
 </table><table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnDividerBlock" style="min-width:100%;">
     <tbody class="mcnDividerBlockOuter">
