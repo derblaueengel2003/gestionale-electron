@@ -8,10 +8,10 @@ import { storeActions } from '../../store/configureStore';
 import CollectionItem from '../common/collectionItem';
 
 class MailchimpAPI extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { spinner: false };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { spinner: false };
+  // }
 
   bodyText = (text, textToCut) => {
     const textToCutIndex = text.indexOf(textToCut);
@@ -22,10 +22,11 @@ class MailchimpAPI extends React.Component {
   };
 
   sendNewsletter = (lingua) => {
-    this.setState({
-      spinner: true,
-    });
+    // this.setState({
+    //   spinner: true,
+    // });
     const { oggArray, newsletter } = this.props;
+    this.props.startEditNewsletter(newsletter.id, { spinner: true });
     const settings = {};
     if (lingua === 'De') {
       moment.locale('de');
@@ -1760,21 +1761,42 @@ Tel. +49 30 54482958 - WhatsApp: <a href="https://wa.me/message/XBJ5OH4JPQC4F1" 
 
         this.props.startEditNewsletter(newsletter.id, {
           [`mailchimpId${lingua}`]: { id: response.data.id },
+          spinner: false,
         });
+        // this.setState({ spinner: false });
       })
-      .catch((err) => console.log(err))
-      .finally(this.setState({ spinner: false }));
+      .catch((err) => {
+        console.log(err);
+        this.props.startEditNewsletter(newsletter.id, { spinner: false });
+
+        // this.setState({ spinner: false });
+      });
 
     // console.log(htmlOggetti);
   };
 
   sendTestEmail = (campaignId) => {
+    this.props.startEditNewsletter(this.props.newsletter.id, { spinner: true });
+
     axios
       .post(`https://is24api.herokuapp.com/testemail`, { campaignId })
-      .then((response) => console.log(response));
+      .then((response) => {
+        console.log(response);
+        this.props.startEditNewsletter(this.props.newsletter.id, {
+          spinner: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.props.startEditNewsletter(this.props.newsletter.id, {
+          spinner: false,
+        });
+      });
   };
 
   sendCampaignEmail = (campaign, field) => {
+    this.props.startEditNewsletter(this.props.newsletter.id, { spinner: true });
+
     axios
       .post(`https://is24api.herokuapp.com/sendemail`, {
         campaignId: campaign.id,
@@ -1789,8 +1811,15 @@ Tel. +49 30 54482958 - WhatsApp: <a href="https://wa.me/message/XBJ5OH4JPQC4F1" 
               dataSentNewsletter,
               sent: true,
             },
+            spinner: false,
           });
         }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.props.startEditNewsletter(this.props.newsletter.id, {
+          spinner: false,
+        });
       });
   };
 
@@ -1803,7 +1832,7 @@ Tel. +49 30 54482958 - WhatsApp: <a href="https://wa.me/message/XBJ5OH4JPQC4F1" 
     return (
       <div>
         {' '}
-        {this.state.spinner ? (
+        {newsletter.spinner ? (
           <div className='progress'>
             <div className='indeterminate'></div>
           </div>
