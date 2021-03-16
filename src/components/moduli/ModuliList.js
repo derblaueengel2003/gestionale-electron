@@ -38,6 +38,9 @@ const ModuliPage = ({ t }) => (
             {t('Foglio informativo per il notaio')}
           </Link>
         </li>
+        <li className='collection-item'>
+          <Link to='/dsgvo'>{t('Informativa privacy')}</Link>
+        </li>
       </ul>
     </div>
 
@@ -112,36 +115,10 @@ const ModuliPage = ({ t }) => (
         </li>
         <li className='collection-item'>
           <a
-            href='https://gestionale.m2square.eu/files/Makleralleinauftrag Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
+            href='https://gestionale.m2square.eu/files/Pflichtangaben-nach-Art-13-EU-DSGVO-11020.pdf'
             download
           >
-            {t('Informativa privacy')} - {t('Mandato alla vendita')}
-          </a>
-        </li>
-        <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Maklervertrag%20mit%20Provision%20Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
-            download
-          >
-            {t('Informativa privacy')} - {t('Incarico agenzia')} {t('con')}{' '}
-            {t('Provvigione')}
-          </a>
-        </li>
-        <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Maklervertrag%20ohne%20Provision%20Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
-            download
-          >
-            {t('Informativa privacy')} - {t('Incarico agenzia')} {t('senza')}{' '}
-            {t('Provvigione')}
-          </a>
-        </li>
-        <li className='collection-item'>
-          <a
-            href='https://gestionale.m2square.eu/files/Mietvertrag%20Erhebung-von-Daten-Pflichtigen-selbst-Transparenzpflicht-Artikel-13-DSGVO.pdf'
-            download
-          >
-            {t('Informativa privacy')} - {t('Contratto di affitto')}
+            {t('Informativa privacy')}
           </a>
         </li>
 

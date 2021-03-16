@@ -44,6 +44,7 @@ import EditNewsletter from '../components/newsletter/EditNewsletter';
 import ViewNewsletter from '../components/newsletter/ViewNewsletter';
 import AddPage from '../components/common/AddPage';
 import LinksPage from '../components/links/LinksPage';
+import DsgvoForm from '../components/moduli/DsgvoForm';
 
 export const history = createHistory();
 
@@ -311,6 +312,11 @@ const AppRouter = () => {
             path='/notardatenblatt'
             activeClass='moduli'
             component={NotarDatenblattForm}
+          />
+          <PrivateRoute
+            path='/dsgvo'
+            activeClass='moduli'
+            component={DsgvoForm}
           />
           <Route component={NotFoundPage} />
         </Switch>

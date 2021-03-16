@@ -259,6 +259,7 @@ function withForm(Component) {
           provvPercentuale: '',
           belastungsVollmacht: false,
           sonstige: '',
+          seller: false,
         },
         oggetti: {
           //OGGETTO

@@ -46,8 +46,6 @@ const Videotutorial = ({ utente }) => {
           <YouTube videoId='qCQNjunjnq4' opts={opts} onReady={_onReady} />
           <h6>Fattura Google</h6>
           <YouTube videoId='N6-QSBi3z1k' opts={opts} onReady={_onReady} />
-          <h6>Cambiare percentuale IVA</h6>
-          <YouTube videoId='muISdTzsb2I' opts={opts} onReady={_onReady} />
         </div>
       )}
     </div>
