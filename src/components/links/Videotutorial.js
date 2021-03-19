@@ -24,6 +24,8 @@ const Videotutorial = ({ utente }) => {
       <YouTube videoId='Xk2gO8sewS8' opts={opts} onReady={_onReady} />
       <h6>Flurkarte online</h6>
       <YouTube videoId='JhW__R8H0pU' opts={opts} onReady={_onReady} />
+      <h6>Valutazioni</h6>
+      <YouTube videoId='hKaPSUy7gXU' opts={opts} onReady={_onReady} />
       <h6>Casa di cura Reservierung online</h6>
       <YouTube videoId='O1R1tFJOlGg' opts={opts} onReady={_onReady} />
       <h6>Caricare video su YouTube</h6>
