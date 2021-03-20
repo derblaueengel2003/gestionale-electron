@@ -191,7 +191,7 @@ Rechnung Nr. ${numeroFattura}`,
   // doc.line(160, 267, 160, 282);
   doc.setFontSize(10);
   doc.setTextColor(143, 143, 143);
-  doc.text('Geschäftsführer:', 16, 270);
+  doc.text('Inhaberin:', 16, 270);
   let position = 274;
 
   ceo.forEach((eachCeo) => {
