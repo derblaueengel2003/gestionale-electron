@@ -212,7 +212,7 @@ export const mahnung = (
   doc.text(`E-Mail: ${firma.email}`, 56, 278);
   doc.text(`Web: ${firma.website}`, 56, 282);
   doc.text(`Steuernummer: ${firma.steuerNr}`, 111, 270);
-  doc.text(`Ust.-IdNr.: ${firma.ustIdNr}`, 111, 274);
+  doc.text(`${firma.ustIdNr && `Ust.-IdNr.: ${firma.ustIdNr}`}`, 111, 274);
 
   //Logo IVD
   // doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);

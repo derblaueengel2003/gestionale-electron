@@ -150,7 +150,7 @@ const mapStateToProps = (state) => ({
     (utente) => utente.firebaseAuthId === state.auth.uid
   ),
   utenti: state.utenti,
-  ceo: state.utenti.filter((utente) => utente.qualifica === 'Geschäftsführer'),
+  ceo: state.utenti.filter((utente) => utente.role === 'Geschäftsführer'),
   firma: state.firma[0],
 });
 

@@ -438,7 +438,7 @@ const mapStateToProps = (state, props) => ({
   ),
   clienti: state.clienti,
   firma: state.firma[0],
-  ceo: state.utenti.filter((utente) => utente.qualifica === 'Geschäftsführer'),
+  ceo: state.utenti.filter((utente) => utente.role === 'Geschäftsführer'),
   utente: state.utenti.find(
     (utente) => utente.firebaseAuthId === state.auth.uid
   ),

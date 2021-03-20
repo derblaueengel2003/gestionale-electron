@@ -317,7 +317,7 @@ const mapStateToProps = (state, props) => ({
     (utente) => utente.firebaseAuthId === state.auth.uid
   ),
   firma: state.firma[0],
-  ceo: state.utenti.filter((utente) => utente.qualifica === 'Geschäftsführer'),
+  ceo: state.utenti.filter((utente) => utente.role === 'Geschäftsführer'),
 });
 
 const mapDispatchToProps = (dispatch) => ({

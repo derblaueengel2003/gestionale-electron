@@ -46,7 +46,7 @@ export class ViewFatturePage extends React.Component {
       (cliente) => cliente.id === singleFattura.clienteId2
     );
     const ceo = this.props.utenti.filter(
-      (utente) => utente.qualifica === 'Geschäftsführer'
+      (utente) => utente.role === 'Geschäftsführer'
     );
     const utente = this.props.utenti.find(
       (utente) => utente.firebaseAuthId === this.props.auth.uid
