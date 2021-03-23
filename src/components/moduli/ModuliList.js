@@ -59,6 +59,14 @@ const ModuliPage = ({ t }) => (
         </li>
         <li className='collection-item'>
           <a
+            href='https://gestionale.m2square.eu/files/Carta intestata.docx'
+            download
+          >
+            {t('Carta intestata')}
+          </a>
+        </li>
+        <li className='collection-item'>
+          <a
             href='https://gestionale.m2square.eu/files/datenblatt.pdf'
             download
           >
