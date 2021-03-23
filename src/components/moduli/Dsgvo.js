@@ -100,10 +100,14 @@ export const DSGVO = (cliente, cliente2, dataDsgvo, oggetto, firma, seller) => {
   // solo per acquirente spunto l'invio dati al venditore
   if (!seller) {
     doc.text('X', xpos, pos);
+    pos += 41;
+  } else {
+    pos += 6;
+    doc.text('X    den Käufer/die Käuferin', xpos, pos);
+    pos += 35;
   }
 
-  pos += 41;
   doc.text('X', xpos, pos);
 
-  doc.save(`DSGVO.pdf`);
+  doc.save(`DSGVO - ${nomeCompletoCliente}.pdf`);
 };
