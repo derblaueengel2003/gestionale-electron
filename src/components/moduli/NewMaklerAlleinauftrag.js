@@ -72,7 +72,7 @@ export const maklerAlleinauftrag = (
   doc.text('X', 55, 181);
   maklerProvision && doc.text(maklerProvision, 65, 190);
 
-  //linea
+  //linea per cassare il punto 7 (richiesto da annalisa)
   doc.setDrawColor(0, 0, 0);
   doc.setLineWidth(1);
   doc.line(55, 250, 200, 250);
