@@ -72,6 +72,14 @@ export const maklerAlleinauftrag = (
   doc.text('X', 55, 181);
   maklerProvision && doc.text(maklerProvision, 65, 190);
 
+  //linea
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(1);
+  doc.line(55, 250, 200, 250);
+  doc.line(55, 265, 200, 250);
+  doc.line(55, 265, 200, 265);
+  
+
   // seconda pagina
   doc.addPage();
   doc.addImage(imgData2, 'JPEG', 0, 0, 210, 297);
