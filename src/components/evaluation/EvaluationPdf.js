@@ -384,7 +384,7 @@ const evaluationPdf = (evaluation, firma, utente, ceo, lingua, oggetto) => {
     [
       `${firma.name} ${firma.name2 && ` - ${firma.name2}`}`,
       `${firma.adresse}, ${firma.plz} ${firma.stadt}`,
-      `Telefon: ${firma.telefon} - Telefax: ${firma.fax}`,
+      `Telefon: ${firma.telefon}`,
       `${firma.website} - ${firma.email}`,
       // `Geschäftsführer: ${ceoList}`,
     ],

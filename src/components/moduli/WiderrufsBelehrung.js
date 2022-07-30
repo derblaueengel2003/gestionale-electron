@@ -71,7 +71,7 @@ export const widerrufsBelehrung = (
   doc.text(`${firma.name} ${firma.name2 && ` - ${firma.name2}`}`, 64, 148);
   doc.text(`${firma.adresse}, ${firma.plz} ${firma.stadt}`, 64, 154);
   doc.text(`per E-Mail: ${firma.email}`, 64, 160);
-  doc.text(`per Fax: ${firma.fax}`, 64, 166);
+  // doc.text(`per Fax: ${firma.fax}`, 64, 166);
   doc.text(`Bei Fragen errichen Sie uns unter: ${firma.telefon}`, 64, 172);
 
   doc.addPage();

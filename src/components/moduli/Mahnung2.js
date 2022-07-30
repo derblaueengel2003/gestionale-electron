@@ -86,7 +86,7 @@ export const mahnung2 = (
   doc.text(`${utente.name}`, 149, 44);
   doc.setFontType('normal');
   doc.text(`${utente.email}`, 149, 48);
-  doc.text(`Tel. ${utente.telefon}`, 149, 52);
+  utente.telefon && doc.text(`Tel. ${utente.telefon}`, 149, 52);
   doc.text(`${firma.website}`, 149, 56);
   doc.setFontType('bold');
   doc.text('Öffnungszeiten', 149, 68);
@@ -193,8 +193,8 @@ export const mahnung2 = (
   doc.setDrawColor(0, 0, 0);
   doc.setLineWidth(0.2);
   doc.line(15, 267, 15, 282);
-  doc.line(55, 267, 55, 282);
-  doc.line(110, 267, 110, 282);
+  doc.line(69, 267, 69, 282);
+  // doc.line(110, 267, 110, 282);
   // doc.line(160, 267, 160, 282);
   doc.setFontSize(10);
   doc.setTextColor(143, 143, 143);
@@ -205,12 +205,19 @@ export const mahnung2 = (
     doc.text(`${eachCeo.name}`, 16, position);
     position += 4;
   });
-  doc.text(`Telefon: ${firma.telefon}`, 56, 270);
-  doc.text(`Telefax: ${firma.fax}`, 56, 274);
-  doc.text(`E-Mail: ${firma.email}`, 56, 278);
-  doc.text(`Web: ${firma.website}`, 56, 282);
-  doc.text(`Steuernummer: ${firma.steuerNr}`, 111, 270);
-  doc.text(`${firma.ustIdNr && `Ust.-IdNr.: ${firma.ustIdNr}`}`, 111, 274);
+  firma.telefon && doc.text(`Telefon: ${firma.telefon}`, 16, position);
+  position += 4;
+  // firma.fax && doc.text(`Telefax: ${firma.fax}`, 56, position);
+  firma.email && doc.text(`E-Mail: ${firma.email}`, 16, position);
+  position = 270;
+  firma.website && doc.text(`Web: ${firma.website}`, 70, position);
+  position += 4;
+  doc.text(`Steuernummer: ${firma.steuerNr}`, 70, position);
+  position += 4;
+  //doc.text(`${firma.ustIdNr && `Ust.-IdNr.: ${firma.ustIdNr}`}`, 111, 274);
+  doc.text(`IBAN: ${firma.iban}`, 70, position);
+  position += 4;
+  doc.text(`BIC: ${firma.bic}`, 70, position);
 
   //Logo IVD
   // doc.addImage(ivdLogo, 'JPEG', 161, 270, 30, 12);
