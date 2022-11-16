@@ -46,7 +46,7 @@ Sicherlich handelt es sich um ein Versehen. Eine Kopie der Rechnung vom ${format
     dataFattura
   )} haben wir dem Schreiben beigelegt. \n
 Um Mahnungsgebühren zu vermeiden, überweisen Sie bitte den fälligen Beitrag von ${formattaPrezzo(
-    importo,
+    importo * parseFloat(`1.${iva}`),
     true
   )}  innerhalb von 7 Tagen ohne Abzüge auf das untenstehende Bankkonto. \n
 Sofern Sie die Zahlung zwischenzeitlich veranlasst haben, bitten wir Sie, dieses Schreiben als gegenstandlos zu betrachten.`;
