@@ -1,8 +1,10 @@
 node_modules/
 public/dist/
+public/.DS_Store
 .env
 .env.test
 .env.development
+.env.donottouch
 .firebase/*
 out/
 .DS_Store
