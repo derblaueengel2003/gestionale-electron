@@ -73,10 +73,10 @@ app.on('ready', () => {
 //FOLDER//////
 // cerco la cartella OneDrive che può avere nome diverso in caso di os in italiano
 const cloudPath = fs
-  .readdirSync(`${homedir}/m2Square - Arboscello & Fornari GbR/`)
+  .readdirSync(`${homedir}/OneDrive/`)
   .filter((fn) => fn.startsWith('m2Square Office'))[0];
 
-const mainFolder = `/m2Square - Arboscello & Fornari GbR/${cloudPath}/`;
+const mainFolder = `/OneDrive/${cloudPath}/`;
 const folderPath = (folder) => {
   return path.join(homedir, mainFolder, folder);
 };

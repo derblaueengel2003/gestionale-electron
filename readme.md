@@ -1,62 +1,39 @@
 # Gestionale m2Square
 
-Gestionale m2Square is an Electron desktop application backed by React, Redux, and Firebase. It is designed for real-estate teams that need to manage the entire sales pipeline (leads, deals, properties, contacts, invoices, documents, newsletters, and evaluations) from a single bilingual (IT/DE) workspace that can also synchronize listing data with the public WordPress site.
+Gestionale m2Square is the in-house CRM used by m2Square to orchestrate the full real-estate cycle: capture leads, track deals, manage properties/contacts/invoices, produce legal PDFs, and synchronize listings with the public WordPress site. The UI is a React/Redux SPA, the backend is Firebase, and Electron wraps everything with desktop-only workflows (OneDrive shortcuts, API proxies, WordPress tooling).
 
 ---
 
-## Highlights
-- **All-in-one CRM** – keep deals, contacts, objects, invoices, leads, newsletters, and evaluations in dedicated dashboards (see `src/components/**` and `src/routers/AppRouter.js`).
-- **Firebase-backed data model** – every section is persisted in Firebase Realtime Database through a shared `storeSection` abstraction (`src/store/storeSection.js`), which generates CRUD actions/reducers for each collection.
-- **WordPress integration** – property payloads are pushed up to the public site through JWT-authenticated REST calls (`src/components/m2SquareAPI/**`). Image management and translation flows are built in.
-- **Electron shell features** – the main process (`index.js`) exposes IPC handlers to open synced OneDrive folders, launch external links, and proxy API calls (e.g., Immobilienscout24) so that the renderer can work around CORS.
-- **Document builder & templates** – pre-filled legal modules (MAA, VWB, Vollmacht, DSGVO, etc.) live under `src/components/moduli`, allowing users to generate paperwork from stored data.
-- **Localization** – i18next (`src/i18n.js`) powers instant IT/DE switching, with custom numeral & date utilities for DE formatting.
+## Quick facts
 
----
+| Topic     | Details                                                        |
+| --------- | -------------------------------------------------------------- |
+| Runtime   | Electron 8.5.1 (electron-forge)                                |
+| Renderer  | React 16.8 + Redux/Thunk + Materialize CSS                     |
+| Data      | Firebase Auth + Realtime Database (`src/firebase/firebase.js`) |
+| Build     | Webpack 3 + Babel 6 (see `webpack.config.js`)                  |
+| Tests     | Jest 20 + Enzyme (`yarn test`)                                 |
+| Packaging | `yarn make` (forge makers: zip, squirrel, deb, rpm)            |
 
-## Tech Stack
-- Electron 8 with electron-forge tooling for packaging (`index.js`, `package.json` makers).
-- React 16.8, React Router, Redux + Thunk, and Materialize CSS for the UI.
-- Firebase Authentication and Realtime Database (`src/firebase/firebase.js`).
-- Webpack 3 + Babel 6 pipeline for building renderer code (`webpack.config.js`).
-- Jest + Enzyme for component tests (`src/tests/**`).
-- Express wrapper for serving the production bundle on the web (`server/server.js`).
-
----
-
-## Project Layout
-```
-├── src
-│   ├── actions/ reducers/ selectors/ store/     ← Redux slices built via storeSection
-│   ├── components/
-│   │   ├── deals, clienti, oggetti, leads...   ← Feature dashboards & forms
-│   │   ├── common/                             ← Shared inputs, utilities, modals
-│   │   └── m2SquareAPI/                        ← WordPress synchronization helpers
-│   ├── firebase/                               ← Firebase bootstrap
-│   ├── routers/                                ← Public/Private routing, AppRouter
-│   ├── styles/                                 ← SCSS source bundled into `public/dist`
-│   └── utils/, i18n.js                         ← Formatting helpers and locale setup
-├── public/                                     ← Static shell loaded by Electron / hosting
-├── server/                                     ← Express server for deployment
-├── functions/                                  ← Firebase Functions scaffold
-└── index.js                                    ← Electron main process
-```
+Feature directories live under `src/components`: `deals/`, `clienti/`, `oggetti/`, `leads/`, `fatture/`, `newsletters/`, `evaluation/`, `utenti/`, `firma/`, `offers/`, and `moduli/` for document templates. `src/store/storeSection.js` autogenerates CRUD Redux logic per entity, and `src/components/m2SquareAPI/` handles WordPress synchronization.
 
 ---
 
 ## Prerequisites
-- Node.js 14.x (Electron 8 ships with Node 12, so any modern 14.x LTS works well).
-- Yarn (recommended) or npm.
-- A Firebase project with Email/Password auth enabled.
-- WordPress credentials with access to the m2Square REST endpoints.
-- Access to the shared OneDrive directory if you want the desktop shortcuts (`~/m2Square - Arboscello & Fornari GbR/m2Square Office*`) to work, or adapt the paths in `index.js`.
+
+- Node.js 14.x LTS (newer works, but Node 20 requires `--ignore-optional` installs to avoid native rebuild issues)
+- Yarn 1.x (recommended) or npm
+- Firebase project with Email/Password auth
+- WordPress credentials with REST/JWT access
+- Access to the `OneDrive` OneDrive directory (or update `index.js` to match your path)
 
 ---
 
-## Environment Configuration
-Webpack injects environment variables from `.env.development`, `.env.test`, or `.env` (production). Create the files you need at the repository root and provide the following keys:
+## Environment
 
-```
+Webpack injects variables from `.env.development`, `.env.test`, or `.env`. These keys must exist:
+
+````
 FIREBASE_API_KEY=
 FIREBASE_AUTH_DOMAIN=
 FIREBASE_DATABASE_URL=
@@ -64,94 +41,108 @@ FIREBASE_PROJECT_ID=
 FIREBASE_STORAGE_BUCKET=
 FIREBASE_MESSAGING_SENDER_ID=
 FIREBASE_APP_ID=
-REACT_APP_WPAPI=              # Base URL of the WordPress installation
+REACT_APP_WPAPI=
 WPAPI_USERNAME=
 WPAPI_PASSWORD=
-HEROKU_API=                   # Optional: target used by deployment scripts
-```
+HEROKU_API=                 # optional (Heroku deployment target)
+``
 
-Never commit real credentials; keep the `.env*` files out of version control.
+Never commit `.env*` files.
 
 ---
 
 ## Installation
+
+We purposely skip optional dependencies because `@parcel/watcher` (pulled by Dart Sass) fails to rebuild for Electron 8 under Node 20.
+
 ```bash
-# install dependencies
-yarn install
-# or
-npm install
-```
+yarn install --ignore-optional --ignore-scripts --force
+# then fetch Electron’s binary
+node node_modules/electron/install.js
+````
+
+If you use npm: `npm install --no-optional` + run `node node_modules/electron/install.js`.
 
 ---
 
-## Development Workflow
-There are two main ways to work on the renderer:
+## Development workflow
 
-1. **Web mode** – great for quick UI development:
-   ```bash
-   yarn dev-server
-   ```
-   This starts `webpack-dev-server` with hot reload at http://localhost:8080.
+Renderer-only (fast iteration):
 
-2. **Electron mode** – mirrors the production desktop app:
-   ```bash
-   yarn build:dev --watch   # emits bundle under public/dist
-   yarn electron            # launches Electron pointing to the static bundle
-   ```
-   Alternatively, `yarn start` (Electron Forge) will run the build and desktop shell in one step, but the manual watch flow gives you more control.
+```bash
+yarn dev-server             # webpack-dev-server on http://localhost:8080
+```
 
-Firebase collections are loaded on authentication (`src/app.js`), so make sure you can sign in with a valid user before navigating feature routes.
+Electron (full stack):
+
+```bash
+yarn build:dev --watch      # emits public/dist/bundle.js
+yarn electron               # launches Electron pointing at public/index.html
+# or
+yarn start                  # electron-forge start
+```
+
+Firebase data loads after auth (`src/app.js`), so sign in with a valid user before navigating to feature routes (`/deals`, `/clienti`, etc.).
 
 ---
 
 ## Testing
+
 ```bash
 yarn test
 ```
 
-Jest is configured via `jest.config.json`, and Enzyme adapters live under `src/tests`. Because most business logic sits in Redux actions and form helpers, unit tests focus on reducers/selectors; add regression tests alongside new components when possible.
+Jest is configured via `jest.config.json`. Snapshot tests for React components live under `src/tests/`. Add/update tests for reducers/selectors when changing business logic.
 
 ---
 
-## Building & Packaging
+## Packaging & deployment
+
 ```bash
-yarn build:prod          # production webpack build (writes to public/dist)
-yarn electron            # run the built bundle inside Electron
-yarn package             # create unpacked Electron apps
-yarn make                # create platform installers via electron-forge
+yarn build:prod             # production webpack build (public/dist)
+yarn package                # forge package
+yarn make                   # create installers/archives under out/make
 ```
 
-### Web deployment
-- `yarn build:prod`
-- Serve the `public/` folder via `node server/server.js`, Firebase Hosting (`firebase.json`), or any static host.
+Web deployment options:
 
-### Heroku
-Heroku calls `yarn run heroku-postbuild` automatically, which simply runs the production build so the static bundle exists before the dyno boots the Express server.
+1. Firebase Hosting (uses `public/` as configured in `firebase.json`).
+2. Heroku + Express (`server/server.js`; relies on `heroku-postbuild`).
+3. Any static host serving `public/` after `yarn build:prod`.
+
+Remember to run `node node_modules/electron/install.js` before packaging if you reinstalled modules with scripts disabled.
 
 ---
 
-## Data Flow & Integration Notes
-- **Dynamic store sections** – `src/store/configureStore.js` enumerates all business entities (clienti, deals, oggetti, leads, fatture, newsletters, evaluations, offers, firma, utenti) and gives each collection a namespaced set of CRUD actions that operate directly on Firebase paths of the same name.
-- **Authentication** – A Firebase auth state listener in `src/app.js` dispatches `login`/`logout`, triggers the initial data fetches, and routes users to `/deals` after sign-in. `PublicRoute`/`PrivateRoute` guard access to the feature dashboards.
-- **WordPress sync** – `src/components/m2SquareAPI/*` transforms property records into multilanguage payloads and sends them to the WP REST API. Responses (post IDs, uploaded media IDs, etc.) are persisted back into Firebase so future updates know whether to create or update posts.
-- **Document automation** – Modules under `src/components/moduli` use stored entity data plus `jsPDF` to generate PDF exports such as Makler Alleinauftrag, provision confirmations, or GDPR forms.
-- **Utilities** – `src/components/common/utils.js` centralizes locale-aware currency/date formatting and JWT token generation for the WordPress API.
-- **IPC bridges** – Renderer processes request desktop-only behavior (opening local folders, Immobilienscout24 API requests) through the `ipcMain` handlers declared in `index.js`. This keeps sensitive filesystem and network calls out of the browser sandbox.
+## Architecture notes
+
+- **Redux storeSection**: `src/store/storeSection.js` generates CRUD actions & reducers pointing straight at Firebase paths. `src/store/configureStore.js` registers all sections and wires them into the store.
+- **WordPress sync**: `src/components/m2SquareAPI/` handles JWT token generation (`generaToken`), payload creation (`creaPayload`), media upload, and translation workflows. Successful posts persist `postId*` fields back to Firebase.
+- **Document automation**: `src/components/moduli` builds PDFs/forms (MAA, Provision, Vollmacht, DSGVO, etc.) using stored entity data and `jsPDF`.
+- **Localization**: `src/i18n.js` enables Italian/German translations; numeral/date helpers live in `src/components/common/utils.js`.
+- **IPC bridges**: `index.js` exposes `folder:open`, `link:open`, and `is24:*` channels so the renderer can request desktop-only behavior without violating browser sandbox restrictions.
 
 ---
 
 ## Troubleshooting
-- When Electron shows a blank screen, confirm that `public/dist/bundle.js` exists. Re-run `yarn build:dev` or keep it in `--watch` mode.
-- If WordPress sync buttons stay disabled, make sure the property has a cover image and localized titles (IT/DE/EN) and that you generated a JWT token through `generaToken`.
-- To adapt the OneDrive integration to a different folder name, tweak the path logic near the top of `index.js`.
-- If Firebase calls fail during development, double-check that you are loading the correct `.env.development` file; Webpack picks the file based on `NODE_ENV`.
+
+| Problem                                           | Fix                                                                                     |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `Electron failed to install correctly…`           | Run `node node_modules/electron/install.js` so `path.txt`/`dist/` exist.                |
+| `node-gyp` errors compiling `@parcel/watcher`     | Delete `node_modules/@parcel` and reinstall with `--ignore-optional`.                   |
+| Packaged app crashes with `/Users/.../undefined/` | Provide `ONEDRIVE` env or adapt the OneDrive logic in `index.js`.                       |
+| Blank Electron window                             | Ensure `public/dist/bundle.js` exists (rerun `yarn build:dev`).                         |
+| WordPress sync buttons disabled                   | Ensure the property has a cover image plus IT/DE/EN titles, then refresh the JWT token. |
+| Firebase auth fails                               | Verify `.env.*` for the current NODE_ENV contains a valid Firebase config.              |
 
 ---
 
 ## Contributing
-1. Fork & clone.
-2. Create a feature branch.
-3. Add or update Jest tests when you add logic-heavy features.
-4. Submit a PR describing the change, affected entities, and any deployment considerations (Firebase rules, new env vars, etc.).
 
-Happy hacking!
+1. Fork + clone.
+2. Create a branch.
+3. Keep tests up to date (`yarn test`).
+4. Document new env vars / deployment steps.
+5. Open a PR describing the change and any risks.
+
+Happy hacking! 🏡💻
