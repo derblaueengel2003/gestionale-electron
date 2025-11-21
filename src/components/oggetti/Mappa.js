@@ -17,7 +17,7 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    Geocode.setApiKey('AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE');
+    Geocode.setApiKey(process.env.GEOCODE_API_KEY);
     Geocode.setLanguage('de');
     Geocode.setRegion('de');
     Geocode.enableDebug();
@@ -76,7 +76,7 @@ class Map extends Component {
           <img
             src={`https://maps.googleapis.com/maps/api/staticmap?center=${indirizzo}&zoom=15&size=400x400&maptype=roadmap
   &markers=color:blue%7Clabel:A%7C${stores[0].latitude},${stores[0].longitude}
-  &key=AIzaSyBlElUhBRSKAy_GooSEN7uZaA1dLtjzfzE`}
+  &key=${process.env.GEOCODE_API_KEY}`}
           />
         </a>
       </div>

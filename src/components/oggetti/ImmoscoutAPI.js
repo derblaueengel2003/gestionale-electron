@@ -13,10 +13,10 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
   const connectToIS24 = (base_url, method) => {
     const oauth_timestamp = Math.floor(Date.now() / 1000);
     const oauth_nonce = uuid.v1();
-    const oauth_token = 'b895110f-2b6d-41ea-b1d4-85a63a17c200';
+    const oauth_token = process.env.OAUTH_TOKEN;
     const encoded_oauth_token = encodeURIComponent(oauth_token);
     const parameters = {
-      oauth_consumer_key: 'm2SquareImmobilienKey',
+      oauth_consumer_key: process.env.OATH_CONSUMER_KEY,
       oauth_nonce,
       oauth_signature_method: 'HMAC-SHA1',
       oauth_timestamp,
@@ -45,9 +45,11 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
     }
     const encodedUrl = encodeURIComponent(base_url);
     const signature_base_string = `${method}&${encodedUrl}&${encodedParameters}`;
-    const encodedClientSecret = encodeURIComponent('c1jaBYcJ2umVdm0G');
+    const encodedClientSecret = encodeURIComponent(
+      process.env.ENCODED_CLIENT_SECRET
+    );
     const encodedTokenSecret = encodeURIComponent(
-      'WnKSZ4FByiUAL2Cg0fGVqhLDNU8UX7BQfA+Xf+gSvz2BC0yaKxtmLGDJH4gUt9bK+RnyGOEJAadpp7XzSWLDzQYZFfX9dDp7ILp+mhM92JQ='
+      process.env.ENCODED_TOKEN_SECRET
     );
     const signing_key = `${encodedClientSecret}&${encodedTokenSecret}`;
     const oauth_signature = crypto
@@ -56,7 +58,7 @@ const ImmoscoutAPI = ({ oggetto, startEditOggetto }) => {
       .digest()
       .toString('base64');
     const encoded_oauth_signature = encodeURIComponent(oauth_signature);
-    const oAuth = `OAuth oauth_consumer_key="m2SquareImmobilienKey",oauth_nonce="${oauth_nonce}",oauth_signature="${encoded_oauth_signature}",oauth_signature_method="HMAC-SHA1",oauth_timestamp="${oauth_timestamp}",oauth_token="${encoded_oauth_token}",oauth_version="1.0"`;
+    const oAuth = `OAuth oauth_consumer_key="${process.env.OATH_CONSUMER_KEY}",oauth_nonce="${oauth_nonce}",oauth_signature="${encoded_oauth_signature}",oauth_signature_method="HMAC-SHA1",oauth_timestamp="${oauth_timestamp}",oauth_token="${encoded_oauth_token}",oauth_version="1.0"`;
     return oAuth;
   };
 
