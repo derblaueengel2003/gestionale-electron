@@ -13,33 +13,31 @@ const LinkPage = ({ t }) => {
       <div className='container'>
         <h5>m2Square</h5>
         {linkButton(
-          'https://www.m2square.eu/wp-admin/edit.php?post_type=estate_property&orderby=date&order=desc',
-          'Backend m2Square.eu'
+          'https://www.m2square.eu/',
+          'm2Square.eu'
         )}
         {linkButton(
-          'https://admin.df.eu/kunde/index.php5',
+          'https://df.eu',
           'DomainFactory(Webhosting)'
         )}
         <div className='divider'></div>
-        <h5>Cloud</h5>
-        {linkButton('https://m2square-my.sharepoint.com/', 'OneDrive online')}
-        <div className='divider'></div>
+       
         <h5>{t('real_estate_portals')}</h5>
         {linkButton(
-          'https://www.immobilienscout24.de/scoutmanager/angebotsliste/app/overview.html',
+          'https://www.immobilienscout24.de/',
           'ImmoScout24'
         )}
         {linkButton('https://dashboard.govesta.co', 'Govesta')}
         {linkButton(
-          'https://www.ivd24immobilien.de/profil/makler/uebersicht/',
+          'https://www.ivd24immobilien.de/',
           'IVD24'
         )}
         {linkButton(
-          'https://www.ebay-kleinanzeigen.de/m-meine-anzeigen.html',
+          'https://www.ebay-kleinanzeigen.de/',
           'eBay Kleinanzeigen'
         )}
         <div className='divider'></div>
-        <h5>Google (berlinb2c@googlemail.com)</h5>
+        <h5>Google</h5>
         {linkButton('https://contacts.google.com', t('address_book'))}
         {linkButton('https://calendar.google.com/', t('calendar'))}
         {linkButton('https://analytics.google.com/', t('analytics'))}
@@ -51,7 +49,7 @@ const LinkPage = ({ t }) => {
         {linkButton('https://intern.ivd.net', 'IVD')}
         <div className='divider'></div>
         <h5>Tools</h5>
-        {linkButton('https://us4.admin.mailchimp.com', 'Newsletter')}
+        {linkButton('https://mailchimp.com', 'Newsletter')}
         {linkButton(
           'https://fbinter.stadt-berlin.de/fb/index.jsp',
           'Flurkarte online'
